@@ -1,0 +1,1 @@
+<div id="minishop2-panel-home-div"></div>
