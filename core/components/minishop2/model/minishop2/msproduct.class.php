@@ -1,6 +1,12 @@
 <?php
-class msProduct extends modResource {
 
+require_once MODX_CORE_PATH.'components/minishop2/processors/mgr/product/create.class.php';
+require_once MODX_CORE_PATH.'components/minishop2/processors/mgr/product/update.class.php';
+
+
+class msProduct extends modResource {
+	public $showInContextMenu = false;
+	public $allowChildrenResources = false;
 	/* @var msProductData $data */
 	private $data;
 	private $dataFields = array();
@@ -43,6 +49,38 @@ class msProduct extends modResource {
 
 
 	/**
+	 * {@inheritDoc}
+	 * @return mixed
+	 */
+	public static function getControllerPath(xPDO &$modx) {
+		return $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'controllers/product/';
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return array
+	 */
+	public function getContextMenuText() {
+		$this->xpdo->lexicon->load('minishop2:default');
+		return array(
+			'text_create' => $this->xpdo->lexicon('ms2_product'),
+			'text_create_here' => $this->xpdo->lexicon('ms2_product_create_here'),
+		);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return string
+	 */
+	public function getResourceTypeName() {
+		$this->xpdo->lexicon->load('minishop2:default');
+		return $this->xpdo->lexicon('ms2_product_type');
+	}
+
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function set($k, $v= null, $vType= '') {
@@ -54,6 +92,7 @@ class msProduct extends modResource {
 			return parent::set($k, $v, $vType);
 		}
 	}
+
 
 	/**
 	 * {@inheritdoc}
@@ -67,6 +106,7 @@ class msProduct extends modResource {
 
 		return $res;
 	}
+
 
 	/**
 	 * {@inheritdoc}
@@ -92,8 +132,6 @@ class msProduct extends modResource {
 		else {
 			return parent::get($k, $format, $formatTemplate);
 		}
-
-
 	}
 
 

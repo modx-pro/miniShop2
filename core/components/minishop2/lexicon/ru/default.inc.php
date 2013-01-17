@@ -6,15 +6,21 @@
  * @subpackage lexicon
  */
 $_lang['minishop2'] = 'miniShop2';
-$_lang['minishop2.menu_desc'] = 'Пример расширения для разработки.';
-$_lang['minishop2.items'] = 'Предметы';
-$_lang['minishop2.item_create'] = 'Создать предмет';
-$_lang['minishop2.item_err_ae'] = 'Предмет с таким именем уже существует.';
-$_lang['minishop2.item_err_nf'] = 'Предмет не найден.';
-$_lang['minishop2.item_err_ns'] = 'Предмет не указан.';
-$_lang['minishop2.item_err_remove'] = 'Ошибка при удалении Предмета.';
-$_lang['minishop2.item_err_save'] = 'Ошибка при сохранении Предмета.';
-$_lang['minishop2.item_remove'] = 'Удалить Предмет';
-$_lang['minishop2.item_remove_confirm'] = 'Вы уверены, что хотите удалить этот Предмет?';
-$_lang['minishop2.item_update'] = 'Изменить Предмет';
-$_lang['minishop2.intro_msg'] = 'Управляйте вашими предметами.';
+
+$_lang['ms2_category'] = 'Категория товаров';
+$_lang['ms2_category_type'] = 'Категория товаров';
+$_lang['ms2_category_create'] = 'Добавить категорию';
+$_lang['ms2_category_create_here'] = 'Категорию с товарами';
+$_lang['ms2_category_manage'] = 'Управление товарами';
+$_lang['ms2_category_duplicate'] = 'Копировать категорию';
+$_lang['ms2_category_publish'] = 'Опубликовать категорию';
+$_lang['ms2_category_unpublish'] = 'Убрать с публикации';
+$_lang['ms2_category_delete'] = 'Удалить категорию';
+$_lang['ms2_category_undelete'] = 'Восстановить категорию';
+$_lang['ms2_category_view'] = 'Просмотреть на сайте';
+
+
+$_lang['ms2_product'] = 'Товар магазина';
+$_lang['ms2_product_type'] = 'Товар магазина';
+$_lang['ms2_product_create_here'] = 'Товар категории';
+$_lang['ms2_product_create'] = 'Добавить товар';

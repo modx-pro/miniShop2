@@ -1,2 +1,115 @@
 <?php
-class msCategory extends modResource {}
+
+require_once MODX_CORE_PATH.'components/minishop2/processors/mgr/category/create.class.php';
+require_once MODX_CORE_PATH.'components/minishop2/processors/mgr/category/update.class.php';
+
+
+class msCategory extends modResource {
+	public $showInContextMenu = true;
+	public $allowChildrenResources = false;
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return mixed
+	 */
+	public static function getControllerPath(xPDO &$modx) {
+		return $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'controllers/category/';
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return array
+	 */
+	public function getContextMenuText() {
+		$this->xpdo->lexicon->load('minishop2:default');
+		return array(
+			'text_create' => $this->xpdo->lexicon('ms2_category'),
+			'text_create_here' => $this->xpdo->lexicon('ms2_category_create_here'),
+		);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return string
+	 */
+	public function getResourceTypeName() {
+		$this->xpdo->lexicon->load('minishop2:default');
+		return $this->xpdo->lexicon('ms2_category_type');
+	}
+
+
+	/**
+	 * @param array $node
+	 * @return array
+	 */
+	public function prepareTreeNode(array $node = array()) {
+		$this->xpdo->lexicon->load('minishop2:default');
+		$menu = array();
+
+		$idNote = $this->xpdo->hasPermission('tree_show_resource_ids') ? ' <span dir="ltr">('.$this->id.')</span>' : '';
+		$menu[] = array(
+			'text' => '<b>'.$this->get('pagetitle').'</b>'.$idNote,
+			'handler' => 'Ext.emptyFn',
+		);
+		$menu[] = '-';
+		$menu[] = array(
+			'text' => $this->xpdo->lexicon('ms2_category_manage'),
+			'handler' => 'this.editResource',
+		);
+		$menu[] = array(
+			'text' => $this->xpdo->lexicon('create')
+			,'handler' => 'Ext.emptyFn'
+			,'menu' => array('items' => array(
+				array(
+					'text' => $this->xpdo->lexicon('ms2_product_create_here')
+					,'handler' => 'function(itm,e) { var tree = Ext.getCmp("modx-resource-tree"); itm.classKey = "msProduct"; tree.createResourceHere(itm,e); }'
+				)
+				,array(
+					'text' => $this->xpdo->lexicon('ms2_category_create_here')
+					,'handler' => 'function(itm,e) { var tree = Ext.getCmp("modx-resource-tree"); itm.classKey = "msCategory"; tree.createResourceHere(itm,e); }'
+				)
+			))
+		);
+		$menu[] = '-';
+		$menu[] = array(
+			'text' => $this->xpdo->lexicon('ms2_category_duplicate'),
+			'handler' => 'function(itm,e) {return console.log(itm,e,this); itm.classKey = "msCategory"; this.duplicateResource(itm,e); }',
+		);
+		if ($this->get('published')) {
+			$menu[] = array(
+				'text' => $this->xpdo->lexicon('ms2_category_unpublish'),
+				'handler' => 'this.unpublishDocument',
+			);
+		} else {
+			$menu[] = array(
+				'text' => $this->xpdo->lexicon('ms2_category_publish'),
+				'handler' => 'this.publishDocument',
+			);
+		}
+		if ($this->get('deleted')) {
+			$menu[] = array(
+				'text' => $this->xpdo->lexicon('ms2_category_undelete'),
+				'handler' => 'this.undeleteDocument',
+			);
+		} else {
+			$menu[] = array(
+				'text' => $this->xpdo->lexicon('ms2_category_delete'),
+				'handler' => 'this.deleteDocument',
+			);
+
+		}
+		$menu[] = '-';
+		$menu[] = array(
+			'text' => $this->xpdo->lexicon('ms2_category_view'),
+			'handler' => 'this.preview',
+		);
+
+		$node['menu'] = array('items' => $menu);
+		$node['hasChildren'] = true;
+		return $node;
+	}
+
+}

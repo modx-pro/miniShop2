@@ -9,10 +9,13 @@ $snippets = array();
 
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(
-	'id' => 0,
-	'name' => 'miniShop2',
-	'description' => 'Displays Items.',
-	'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.minishop2.php'),
+	'id' => 0
+	,'name' => 'miniShop2'
+	,'description' => 'Main miniShop2 snippet'
+	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.minishop2.php')
+	,'source' => 1
+	,'static' => 1
+	,'static_file' => 'core/components/minishop2/elements/snippets/snippet.minishop2.php'
 ),'',true,true);
 $properties = include $sources['build'].'properties/properties.minishop2.php';
 $snippets[0]->setProperties($properties);

@@ -1,0 +1,7 @@
+.icon-mscategory .x-tree-node-icon {
+	background-image: url(../../img/mgr/folder_close.png) !important;
+}
+
+.icon-mscategory.active-node .x-tree-node-icon {
+	background-image: url(../../img/mgr/folder_open.png) !important;
+}

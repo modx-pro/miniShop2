@@ -19,7 +19,7 @@ if ($object->xpdo) {
 			$manager->createObjectContainer('msVendor');
 
 			if ($modx instanceof modX) {
-				$modx->addExtensionPackage('tickets', '[[++core_path]]components/minishop2/model/');
+				$modx->addExtensionPackage('minishop2', '[[++core_path]]components/minishop2/model/');
 			}
 
 			break;
