@@ -1,5 +1,4 @@
 <?php
-
 switch($modx->event->name) {
 
 	case 'OnManagerPageInit':

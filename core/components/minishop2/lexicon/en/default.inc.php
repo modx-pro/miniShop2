@@ -5,6 +5,9 @@
  * @package minishop2
  * @subpackage lexicon
  */
+
+include_once('setting.inc.php');
+
 $_lang['minishop2'] = 'miniShop2';
 
 $_lang['ms2_category'] = 'Category of the products';
@@ -18,9 +21,11 @@ $_lang['ms2_category_unpublish'] = 'Unpublish category';
 $_lang['ms2_category_delete'] = 'Delete category';
 $_lang['ms2_category_undelete'] = 'Undelete category';
 $_lang['ms2_category_view'] = 'View on site';
+$_lang['ms2_category_new'] = 'New category';
 
 
 $_lang['ms2_product'] = 'Product of the shop';
 $_lang['ms2_product_type'] = 'Product of the shop';
 $_lang['ms2_product_create_here'] = 'Product of the category';
 $_lang['ms2_product_create'] = 'Add product';
+

@@ -10,9 +10,9 @@ class miniShop2HomeManagerController extends miniShop2MainController {
 	public function getPageTitle() { return $this->modx->lexicon('minishop2'); }
 	
 	public function loadCustomCssJs() {
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/widgets/items.grid.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/widgets/home.panel.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/sections/home.js');
+		//$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.grid.js');
+		//$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.panel.js');
+		//$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/home.js');
 	}
 	
 	public function getTemplateFile() {

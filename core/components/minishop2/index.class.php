@@ -9,12 +9,12 @@ require_once dirname(__FILE__) . '/model/minishop2/minishop2.class.php';
 
 abstract class miniShop2MainController extends modExtraManagerController {
 	/** @var miniShop2 $minishop2 */
-	public $minishop2;
+	public $miniShop2;
 
 	public function initialize() {
 		$this->miniShop2 = new miniShop2($this->modx);
 		
-		$this->modx->regClientCSS($this->miniShop2->config['cssUrl'].'mgr.css');
+		$this->modx->regClientCSS($this->miniShop2->config['cssUrl'].'mgr/main.css');
 		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/minishop2.js');
 		$this->modx->regClientStartupHTMLBlock('<script type="text/javascript">
 		Ext.onReady(function() {
@@ -23,7 +23,7 @@ abstract class miniShop2MainController extends modExtraManagerController {
 		});
 		</script>');
 		
-		return parent::initialize();
+		parent::initialize();
 	}
 
 	public function getLanguageTopics() {

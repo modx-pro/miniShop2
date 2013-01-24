@@ -10,4 +10,11 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor {
 	public $objectType = 'resource';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
+
+	public function beforeSet() {
+		$this->setProperties(array(
+			'isfolder' => 1
+		));
+		return parent::beforeSet();
+	}
 }

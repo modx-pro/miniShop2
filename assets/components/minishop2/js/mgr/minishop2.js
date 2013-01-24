@@ -8,3 +8,5 @@ Ext.extend(miniShop2,Ext.Component,{
 Ext.reg('minishop2',miniShop2);
 
 miniShop2 = new miniShop2();
+
+miniShop2.PanelSpacer = { html: '<br />' ,border: false, cls: 'minishop2-panel-spacer' };
