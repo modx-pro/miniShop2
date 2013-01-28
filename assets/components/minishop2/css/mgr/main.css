@@ -1,7 +1,105 @@
+.gray {color: #AAA;}
+
 .icon-mscategory .x-tree-node-icon {
 	background-image: url(../../img/mgr/folder_close.png) !important;
 }
 
 .icon-mscategory.active-node .x-tree-node-icon {
 	background-image: url(../../img/mgr/folder_open.png) !important;
+}
+
+.main-column a {
+	color:#485319;
+	line-height:1;
+	text-decoration:none;
+}
+.main-column a:hover {
+	color:#7a8f23;
+	text-decoration:none;
+}
+
+.minishop2-panel-spacer .x-panel-body { background: transparent !important; }
+.actions a {
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	-o-border-radius:3px;
+	-ms-border-radius:3px;
+	-khtml-border-radius:3px;
+	border-radius:3px;
+	background:#dcdcdc;
+	background:-moz-linear-gradient(center bottom,#dcdcdc 0%,#fcfcfc 100%) repeat scroll 0 0 transparent;
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fcfcfc),color-stop(100%,#dcdcdc));
+	background:-webkit-linear-gradient(center bottom,#dcdcdc 0%,#fcfcfc 100%);
+	background:-o-linear-gradient(center bottom,#dcdcdc 0%,#fcfcfc 100%);
+	background:-ms-linear-gradient(center bottom,#dcdcdc 0%,#fcfcfc 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#fcfcfc,endColorstr=#dcdcdc,GradientType=0);
+	background:linear-gradient(center bottom,#dcdcdc 0%,#fcfcfc 100%);
+	text-shadow:0 1px 0 #ffffff;
+	border:1px solid #cccccc;
+	color:#888888;
+	display:block;
+	font-size:11px;
+	font-weight:bold;
+	font-family:helvetica, arial, freesans, clean, sans-serif;
+	padding:6px 8px;
+	text-decoration:none;
+	cursor:pointer;
+}
+.actions a:hover {
+	background:#e0e0e0;
+	background:-moz-linear-gradient(center bottom,#e0e0e0 0%,#fcfcfc 100%) repeat scroll 0 0 transparent;
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fcfcfc),color-stop(100%,#e0e0e0));
+	background:-webkit-linear-gradient(center bottom,#e0e0e0 0%,#fcfcfc 100%);
+	background:-o-linear-gradient(center bottom,#e0e0e0 0%,#fcfcfc 100%);
+	background:-ms-linear-gradient(center bottom,#e0e0e0 0%,#fcfcfc 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#fcfcfc,endColorstr=#e0e0e0,GradientType=0);
+	background:linear-gradient(center bottom,#e0e0e0 0%,#fcfcfc 100%);
+	color:#5b7a98;
+}
+.actions a:active {
+	-moz-box-shadow:0 0 3px #aaaaaa inset;
+	-webkit-box-shadow:0 0 3px #aaaaaa inset;
+	-o-box-shadow:0 0 3px #aaaaaa inset;
+	box-shadow:0 0 3px #aaaaaa inset;
+	background-color:#ffffff;
+	background-image:none;
+}
+.actions a.orange {
+	background:#febb4a;
+	background:-moz-linear-gradient(center bottom,#febb4a 0%,#feda71 100%) repeat scroll 0 0 transparent;
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#feda71),color-stop(100%,#febb4a));
+	background:-webkit-linear-gradient(center bottom,#febb4a 0%,#feda71 100%);
+	background:-o-linear-gradient(center bottom,#febb4a 0%,#feda71 100%);
+	background:-ms-linear-gradient(center bottom,#febb4a 0%,#feda71 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#feda71,endColorstr=#febb4a,GradientType=0);
+	background:linear-gradient(center bottom,#febb4a 0%,#feda71 100%);
+	border-color:#f5b74e #e7a93f #dfa138;
+	color:#996633;
+	text-shadow:0 1px 0 #fee1a0;
+}
+.actions a.orange:hover {
+	background:#fec95b;
+	background:-moz-linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%) repeat scroll 0 0 transparent;
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fee1a0),color-stop(100%,#fec95b));
+	background:-webkit-linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%);
+	background:-o-linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%);
+	background:-ms-linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#fee1a0,endColorstr=#fec95b,GradientType=0);
+	background:linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%);
+}
+
+.minishop2-grid .product-id {
+	font-size: 12px;
+	font-weight: normal;
+	display: block;
+	margin-top: 4px;
+	padding-right: 5px;
+	float: left;
+	color: #555555;
+}
+.minishop2-grid .main-column a {
+	float: left;
+}
+.minishop2-grid .product-title-column ul {
+	clear: both;
 }

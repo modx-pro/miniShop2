@@ -30,8 +30,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	 * @return boolean
 	 */
 	public function beforeSave() {
-		$this->object->set('show_in_tree', false);
-		$this->object->set('hidemenu', true);
+		//$this->object->set('show_in_tree', false);
+		//$this->object->set('hidemenu', true);
 
 		return parent::beforeSave();
 	}

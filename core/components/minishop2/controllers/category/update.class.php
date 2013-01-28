@@ -5,7 +5,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 	 * @return array
 	 */
 	public function getLanguageTopics() {
-		return array('resource','minishop2:default','tickets:default');
+		return array('resource','minishop2:default','minishop2:product','tickets:default');
 	}
 
 
@@ -28,10 +28,18 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$minishopAssetsUrl = $this->modx->getOption('minishop2.assets_url',null,$this->modx->getOption('assets_url',null,MODX_ASSETS_URL).'components/minishop2/');
 		$connectorUrl = $minishopAssetsUrl.'connector.php';
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
+		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
+
+		/* @var msProduct $product*/
+		$product = $this->modx->newObject('msProduct');
+		$product_fields = array_merge($product->getFieldsNames(), array('actions','action_edit','className','preview_url'));
 
 		if (!$category_grid_fields = $this->modx->getOption('ms2_category_grid_fields', null, $this->resource->get('setting_category_grid_fields'))) {
 			$category_grid_fields = 'id,pagetitle,article,price,weight,image';
 		}
+
+		$category_grid_fields = array_map('trim', explode(',',$category_grid_fields));
+		$grid_fields = array_values(array_intersect($category_grid_fields, $product_fields));
 
 		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_category_show_comments')? 1 : 0;
 
@@ -42,20 +50,24 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.panel.resource.js');
 		$this->addJavascript($mgrUrl.'assets/modext/sections/resource/update.js');
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.functions.js');
 		$this->addJavascript($minishopJsUrl.'category/category.common.js');
 		$this->addJavascript($minishopJsUrl.'category/category.grid.js');
 
 		if ($showComments) {$this->loadTickets();}
 
 		$this->addLastJavascript($minishopJsUrl.'category/update.js');
+
 		$this->addHtml('
 		<script type="text/javascript">
 		// <![CDATA[
 		miniShop2.config = {
 			assets_url: "'.$minishopAssetsUrl.'"
 			,connector_url: "'.$connectorUrl.'"
-			,category_grid_fields: '.json_encode(explode(',',$category_grid_fields)).'
 			,show_comments: '.$showComments.'
+			,product_fields: '.json_encode($product_fields).'
+			,grid_fields: '.json_encode($grid_fields).'
 		}
 		MODx.config.publish_document = "'.$this->canPublish.'";
 		MODx.onDocFormRender = "'.$this->onDocFormRender.'";
@@ -80,6 +92,8 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		});
 		// ]]>
 		</script>');
+
+		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		/* load RTE */
 		$this->loadRichTextEditor();
 	}

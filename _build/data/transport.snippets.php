@@ -13,9 +13,8 @@ $snippets[0]->fromArray(array(
 	,'name' => 'miniShop2'
 	,'description' => 'Main miniShop2 snippet'
 	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.minishop2.php')
-	,'source' => 1
 	,'static' => 1
-	,'static_file' => 'core/components/minishop2/elements/snippets/snippet.minishop2.php'
+	,'static_file' => 'minishop2/elements/snippets/snippet.minishop2.php'
 ),'',true,true);
 $properties = include $sources['build'].'properties/properties.minishop2.php';
 $snippets[0]->setProperties($properties);

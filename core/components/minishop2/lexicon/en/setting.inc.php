@@ -10,7 +10,9 @@ $_lang['area_ms2_product'] = 'Product';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
-$_lang['setting_ms2_category_show_comments'] = 'Display comments of the category.';
+$_lang['setting_ms2_category_show_comments'] = 'Display comments of the category';
 $_lang['setting_ms2_category_show_comments_desc'] = 'Display comments of all goods from category if component "Tickets" is installed.';
-$_lang['setting_ms2_product_show_comments'] = 'Display comments of the product.';
+$_lang['setting_ms2_product_show_comments'] = 'Display comments of the product';
 $_lang['setting_ms2_product_show_comments_desc'] = 'Display comments of the product if component "Tickets" is installed.';
+$_lang['setting_ms2_template_product_default'] = 'Default template for new product';
+$_lang['setting_ms2_template_product_default_desc'] = 'Select template which will be set by default when you creating new product.';

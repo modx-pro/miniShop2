@@ -10,6 +10,10 @@ include_once('setting.inc.php');
 
 $_lang['minishop2'] = 'miniShop2';
 
+$_lang['ms2_bulk_actions'] = 'Действия';
+$_lang['ms2_search'] = 'Поиск';
+$_lang['ms2_search_clear'] = 'Очистить';
+
 $_lang['ms2_category'] = 'Категория товаров';
 $_lang['ms2_category_type'] = 'Категория товаров';
 $_lang['ms2_category_create'] = 'Добавить категорию';
@@ -22,7 +26,6 @@ $_lang['ms2_category_delete'] = 'Удалить категорию';
 $_lang['ms2_category_undelete'] = 'Восстановить категорию';
 $_lang['ms2_category_view'] = 'Просмотреть на сайте';
 $_lang['ms2_category_new'] = 'Новая категория';
-
 
 $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';
