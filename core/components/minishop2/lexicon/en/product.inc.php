@@ -14,9 +14,9 @@ $_lang['ms2_btn_undelete'] = 'Undelete';
 $_lang['ms2_btn_publish'] = 'Publish';
 $_lang['ms2_btn_unpublish'] = 'Unpublish';
 $_lang['ms2_btn_cancel'] = 'Cancel';
-$_lang['ms2_btn_back'] = 'Back';
-$_lang['ms2_btn_prev'] = 'Previous btn';
-$_lang['ms2_btn_next'] = 'Next btn';
+$_lang['ms2_btn_back'] = 'Back (alt + &uarr;)';
+$_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
+$_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 
 $_lang['ms2_product_id'] = 'ID';

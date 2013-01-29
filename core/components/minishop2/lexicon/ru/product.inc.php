@@ -14,9 +14,9 @@ $_lang['ms2_btn_undelete'] = 'Восстановить';
 $_lang['ms2_btn_publish'] = 'Включить';
 $_lang['ms2_btn_unpublish'] = 'Отключить';
 $_lang['ms2_btn_cancel'] = 'Отмена';
-$_lang['ms2_btn_back'] = 'Назад';
-$_lang['ms2_btn_prev'] = 'Предыдущий товар';
-$_lang['ms2_btn_next'] = 'Следующий товар';
+$_lang['ms2_btn_back'] = 'Назад (alt + &uarr;)';
+$_lang['ms2_btn_prev'] = 'Предыдущий товар (alt + &larr;)';
+$_lang['ms2_btn_next'] = 'Следующий товар (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Помощь';
 
 $_lang['ms2_product_id'] = 'ID';

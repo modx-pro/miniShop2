@@ -10,6 +10,12 @@ miniShop2.page.UpdateMSCategory = function(config) {
 		}
 	});
 	miniShop2.page.UpdateMSCategory.superclass.constructor.call(this,config);
+
+	new Ext.KeyMap(Ext.getBody(), [
+		{key: 37,alt: true,fn: this.prevPage,scope: this}
+		,{key: 38,alt: true,fn: this.upPage,scope: this}
+		,{key: 39,alt: true,fn: this.nextPage,scope: this}
+	]);
 };
 Ext.extend(miniShop2.page.UpdateMSCategory,MODx.page.UpdateResource, {
 
@@ -252,7 +258,7 @@ Ext.extend(miniShop2.page.UpdateMSCategory,MODx.page.UpdateResource, {
 	}
 
 	,prevPage: function(btn,e) {
-		if (this.prev_page) {
+		if (this.prev_page > 0) {
 			var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 			var id = this.prev_page;
 
@@ -263,7 +269,7 @@ Ext.extend(miniShop2.page.UpdateMSCategory,MODx.page.UpdateResource, {
 	}
 
 	,nextPage: function(btn,e) {
-		if (this.next_page) {
+		if (this.next_page > 0) {
 			var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 			var id = this.next_page;
 
