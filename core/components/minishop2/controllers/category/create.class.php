@@ -5,7 +5,7 @@ class msCategoryCreateManagerController extends ResourceCreateManagerController 
 	 * @return array
 	 */
 	public function getLanguageTopics() {
-		return array('resource','minishop2:default');
+		return array('resource','minishop2:default','minishop2:product');
 	}
 
 
@@ -27,7 +27,9 @@ class msCategoryCreateManagerController extends ResourceCreateManagerController 
 		$minishopAssetsUrl = $this->modx->getOption('minishop2.assets_url',null,$this->modx->getOption('assets_url',null,MODX_ASSETS_URL).'components/minishop2/');
 		$connectorUrl = $minishopAssetsUrl.'connector.php';
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
+		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
 
+		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');
@@ -35,6 +37,8 @@ class msCategoryCreateManagerController extends ResourceCreateManagerController 
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.panel.resource.js');
 		$this->addJavascript($mgrUrl.'assets/modext/sections/resource/create.js');
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
 		$this->addJavascript($minishopJsUrl.'category/category.common.js');
 		$this->addLastJavascript($minishopJsUrl.'category/create.js');
 		$this->addHtml('

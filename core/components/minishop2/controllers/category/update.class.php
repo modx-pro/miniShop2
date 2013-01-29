@@ -1,5 +1,8 @@
 <?php
 class msCategoryUpdateManagerController extends ResourceUpdateManagerController {
+	/* @var msCategory $resource */
+	public $resource;
+
 	/**
 	 * Returns language topics
 	 * @return array
@@ -43,6 +46,9 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 
 		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_category_show_comments')? 1 : 0;
 
+		$neighborhood = $this->resource->getNeighborhood();
+
+		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');
@@ -51,7 +57,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$this->addJavascript($mgrUrl.'assets/modext/sections/resource/update.js');
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
-		$this->addJavascript($minishopJsUrl.'misc/ms2.functions.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
 		$this->addJavascript($minishopJsUrl.'category/category.common.js');
 		$this->addJavascript($minishopJsUrl.'category/category.grid.js');
 
@@ -86,14 +92,16 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 				,canCreate: '.($this->canCreate ? 1 : 0).'
 				,canDuplicate: '.($this->canDuplicate ? 1 : 0).'
 				,canDelete: '.($this->canDelete ? 1 : 0).'
+				,canPublish: '.($this->canPublish ? 1 : 0).'
 				,show_tvs: '.(!empty($this->tvCounts) ? 1 : 0).'
+				,next_page: '.(!empty($neighborhood['right'][0]) ? $neighborhood['right'][0] : 0).'
+				,prev_page: '.(!empty($neighborhood['left'][0]) ? $neighborhood['left'][0] : 0).'
+				,up_page: '.$this->resource->parent.'
 				,mode: "update"
 			});
 		});
 		// ]]>
 		</script>');
-
-		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		/* load RTE */
 		$this->loadRichTextEditor();
 	}

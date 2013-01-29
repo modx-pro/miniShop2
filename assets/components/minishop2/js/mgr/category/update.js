@@ -9,11 +9,281 @@ miniShop2.page.UpdateMSCategory = function(config) {
 			,preview: MODx.action ? MODx.action['resource/preview'] : 'resource/preview'
 		}
 	});
-	config.canDuplicate = false;
-	config.canDelete = false;
 	miniShop2.page.UpdateMSCategory.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.page.UpdateMSCategory,MODx.page.UpdateResource);
+Ext.extend(miniShop2.page.UpdateMSCategory,MODx.page.UpdateResource, {
+
+	getButtons: function(cfg) {
+		var btns = [];
+
+		if (cfg.canSave == 1) {
+			btns.push({
+				process: 'update'
+				,text: '<i class="bicon-ok"></i> ' + _('ms2_btn_save')
+				,method: 'remote'
+				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
+				,keys: [{
+					key: MODx.config.keymap_save || 's'
+					,ctrl: true
+				}]
+			});
+			btns.push('-');
+		} else if (cfg.locked) {
+			btns.push({
+				text: cfg.lockedText || _('locked')
+				,handler: Ext.emptyFn
+				,disabled: true
+			});
+			btns.push('-');
+		}
+
+		btns.push({
+			text: '<i class="bicon-off"></i> ' + _('ms2_btn_publish')
+			,id: 'minishop2-panel-btn-publish'
+			,handler: this.publishProduct
+			,hidden: !cfg.canPublish || cfg.record.published
+			,disabled: cfg.locked
+			,scope: this
+			,cls: 'btn-orange'
+		});
+		btns.push({
+			text: '<i class="bicon-off"></i> ' + _('ms2_btn_unpublish')
+			,id: 'minishop2-panel-btn-unpublish'
+			,handler: this.unpublishProduct
+			,hidden: !cfg.canPublish || !cfg.record.published
+			,disabled: cfg.locked
+			,scope: this
+			//,cls: ''
+		});
+		btns.push('-');
+
+		btns.push({
+			text: '<i class="bicon-trash"></i> ' + _('ms2_btn_delete')
+			,id: 'minishop2-panel-btn-delete'
+			,handler: this.deleteProduct
+			,hidden: !cfg.canDelete || cfg.record.deleted
+			,disabled: cfg.locked
+			,scope: this
+			,cls: 'btn-brown'
+		});
+		btns.push({
+			text: '<i class="bicon-trash"></i> ' + _('ms2_btn_undelete')
+			,id: 'minishop2-panel-btn-undelete'
+			,handler: this.undeleteProduct
+			,hidden: !cfg.canDelete || !cfg.record.deleted
+			,disabled: cfg.locked
+			,scope: this
+			,cls: 'btn-green'
+		});
+		btns.push('-');
+
+		btns.push({
+			text: '<i class="bicon-eye-open"></i> ' + _('ms2_btn_view')
+			,handler: this.preview
+			,scope: this
+		});
+		btns.push('-');
+
+		btns.push({
+			text: '<i class="bicon-arrow-left"></i>'
+			,handler: this.prevPage
+			,disabled: !cfg.prev_page ? 1 : 0
+			,scope: this
+			,tooltip: _('ms2_btn_prev')
+		});
+		btns.push({
+			text: '<i class="bicon-arrow-up"></i>'
+			,handler: this.upPage
+			,scope: this
+			,tooltip: _('ms2_btn_back')
+		});
+		btns.push({
+			text: '<i class="bicon-arrow-right"></i>'
+			,handler: this.nextPage
+			,disabled: !cfg.next_page ? 1 : 0
+			,scope: this
+			,tooltip: _('ms2_btn_next')
+
+		});
+		btns.push('-');
+
+		/*
+		 btns.push({
+		 text: '<i class="bicon-question-sign"></i>'
+		 ,handler: this.loadHelpPane
+		 ,tooltip: _('ms2_btn_help')
+		 });
+		 */
+
+		return btns;
+	}
+
+	,publishProduct: function(btn,e) {
+		var key = this.record.context_key+'_'+ this.record.id;
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/publish'
+				,id: this.record.id
+			}
+			,listeners: {
+				'success':{fn:function(r) {
+					var bp = Ext.getCmp('minishop2-panel-btn-publish');
+					if (bp) {bp.hide();}
+					var bu = Ext.getCmp('minishop2-panel-btn-unpublish');
+					if (bu) {bu.show();}
+
+					var p = Ext.getCmp('modx-resource-published');
+					if (p) {p.setValue(1); }
+					var po = Ext.getCmp('modx-resource-publishedon');
+					if (po) {po.setValue(r.object.publishedon);}
+
+					var tree = Ext.getCmp('modx-resource-tree');
+					if (tree) {
+						tree.refreshNode(key, false);
+					}
+				},scope:this}
+			}
+		});
+	}
+
+	,unpublishProduct: function(btn,e) {
+		var key = this.record.context_key+'_'+ this.record.id;
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/unpublish'
+				,id: this.record.id
+			}
+			,listeners: {
+				'success':{fn:function(r) {
+					var bp = Ext.getCmp('minishop2-panel-btn-publish');
+					if (bp) {bp.show();}
+					var bu = Ext.getCmp('minishop2-panel-btn-unpublish');
+					if (bu) {bu.hide();}
+
+					var p = Ext.getCmp('modx-resource-published');
+					if (p) {p.setValue(0); }
+					var po = Ext.getCmp('modx-resource-publishedon');
+					if (po) {po.setValue('');}
+
+					var tree = Ext.getCmp('modx-resource-tree');
+					if (tree) {
+						tree.refreshNode(key, false);
+					}
+				},scope:this}
+			}
+		});
+	}
+
+	,deleteProduct: function(btn,e) {
+		var key = this.record.context_key+'_'+ this.record.id;
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/delete'
+				,id: this.record.id
+			}
+			,listeners: {
+				success: {fn:function(r) {
+					var bd = Ext.getCmp('minishop2-panel-btn-delete');
+					if (bd) {bd.hide();}
+					var bu = Ext.getCmp('minishop2-panel-btn-undelete');
+					if (bu) {bu.show();}
+
+					var d = Ext.getCmp('modx-resource-deleted');
+					if (d) {d.setValue(1);}
+					var dd = Ext.getCmp('modx-resource-deletedon');
+					if (dd) {dd.setValue(r.object.deletedon);}
+
+					var tree = Ext.getCmp('modx-resource-tree');
+					if (tree) {
+						tree.refreshNode(key, false);
+					}
+				},scope:this}
+			}
+		});
+	}
+
+	,undeleteProduct: function(btn,e) {
+		var key = this.record.context_key+'_'+ this.record.id;
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/undelete'
+				,id: this.record.id
+			}
+			,listeners: {
+				success: {fn:function(r) {
+					var bd = Ext.getCmp('minishop2-panel-btn-delete');
+					if (bd) {bd.show();}
+					bu = Ext.getCmp('minishop2-panel-btn-undelete').show();
+					if (bu) {bu.hide();}
+
+					var d = Ext.getCmp('modx-resource-deleted');
+					if (d) {d.setValue(0);}
+					var dd = Ext.getCmp('modx-resource-deletedon');
+					if (dd) {dd.setValue('');}
+
+					var tree = Ext.getCmp('modx-resource-tree');
+					if (tree) {
+						tree.refreshNode(key, false);
+					}
+				},scope:this}
+			}
+		});
+	}
+
+	,loadHelpPane: function(b) {
+		var url = MODx.config.help_url;
+		if (!url) { return false; }
+		MODx.helpWindow = new Ext.Window({
+			title: _('help')
+			,width: 850
+			,height: 500
+			,resizable: true
+			,maximizable: true
+			,modal: false
+			,layout: 'fit'
+			,html: '<iframe src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>'
+		});
+		MODx.helpWindow.show(b);
+		return true;
+	}
+
+	,prevPage: function(btn,e) {
+		if (this.prev_page) {
+			var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+			var id = this.prev_page;
+
+			MODx.releaseLock(MODx.request.id);
+			MODx.sleep(400);
+			MODx.loadPage(action = updatePage, extraParams = 'id=' + id)
+		}
+	}
+
+	,nextPage: function(btn,e) {
+		if (this.next_page) {
+			var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+			var id = this.next_page;
+
+			MODx.releaseLock(MODx.request.id);
+			MODx.sleep(400);
+			MODx.loadPage(action = updatePage, extraParams = 'id=' + id)
+		}
+	}
+
+	,upPage: function(btn,e) {
+		var id = this.up_page;
+		if (id != 0) {var upPage = MODx.action ? MODx.action['resource/update'] : 'resource/update';}
+		else {var upPage = MODx.action['welcome'];}
+
+		MODx.releaseLock(MODx.request.id);
+		MODx.sleep(400);
+		MODx.loadPage(action = upPage, extraParams = 'id=' + id)
+	}
+
+});
 Ext.reg('minishop2-page-category-update',miniShop2.page.UpdateMSCategory);
 
 

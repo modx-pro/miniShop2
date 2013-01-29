@@ -1,14 +1,23 @@
 miniShop2.grid.Category = function(config) {
 	config = config || {};
 
+	var params = Ext.util.Cookies.get('minishop2-category-grid-' + config.resource);
+	params = Ext.util.JSON.decode(params);
+	var baseParams = {
+		action: 'mgr/product/getlist'
+		,parent: config.resource
+	};
+	if (params.query) {baseParams.query = params.query;}
+	if (params.sort) {baseParams.sort = params.sort;}
+	if (params.dir) {baseParams.dir = params.dir;}
+
 	this.sm = new Ext.grid.CheckboxSelectionModel();
 	Ext.applyIf(config,{
 		id: 'minishop2-grid-category'
 		,url: miniShop2.config.connector_url
-		,baseParams: {
-			action: 'mgr/product/getlist'
-			,parent: config.resource
-		}
+		,baseParams: baseParams
+		,pageStart: params.start || ''
+		,pageSize: params.limit || ''
 		,save_action: 'mgr/product/updatefromgrid'
 		,fields: miniShop2.config.product_fields
 		,autosave: true
@@ -20,6 +29,9 @@ miniShop2.grid.Category = function(config) {
 		,sm: this.sm
 		,cls: 'minishop2-grid'
 		,columns: this.getColumns()
+		//,stateful: true
+		//,stateId: 'minishop2-category-grid-' + config.resource
+		//,stateEvents: ['columnresize', 'columnmove', 'show', 'hide']
 		,tbar: [{
 			text: '<i class="bicon-list"></i> ' + _('ms2_bulk_actions')
 			,menu: [{
@@ -51,10 +63,13 @@ miniShop2.grid.Category = function(config) {
 				,width: 200
 				,id: 'minishop2-product-search'
 				,emptyText: _('ms2_search')
-				,listeners: {render: {fn: function(tf) {tf.getEl().addKeyListener(Ext.EventObject.ENTER, function() {this.search(tf);}, this);},scope: this}}
+				,listeners: {render: {fn: function(tf) {
+					tf.getEl().addKeyListener(Ext.EventObject.ENTER, function() {this.search(tf);}, this);
+					tf.setValue(baseParams.query);
+				},scope: this}}
 			},{
 				xtype: 'button'
-				,id: 'modx-filter-minishop2-clear'
+				,id: 'minishop2-product-clear'
 				,text: '<i class="bicon-remove-sign"></i>'/* + _('ms2_search_clear')*/
 				,listeners: {
 					'click': {fn: this.clearFilter, scope: this}
@@ -65,13 +80,18 @@ miniShop2.grid.Category = function(config) {
 	this._makeTemplates();
 	this.on('rowclick',MODx.fireResourceFormChange);
 	this.on('click', this.onClick, this);
+
+	this.getStore().on('load', function(grid, records, options) {
+		var params = Ext.util.JSON.encode(options.params);
+		Ext.util.Cookies.set('minishop2-category-grid-' + config.resource, params);
+	});
 };
 Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 
 	_makeTemplates: function() {
 		this.tplPageTitle = new Ext.XTemplate(''
 			+'<tpl for="."><div class="product-title-column">'
-				+'<h3 class="main-column"><span class="product-id">{id}</span> <a href="{action_edit}">{pagetitle}</a></h3>'
+				+'<h3 class="main-column"><span class="product-id">{id}</span>{pagetitle}</h3>'
 				+'<tpl if="actions">'
 					+'<ul class="actions">'
 						+'<tpl for="actions">'
@@ -128,10 +148,10 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		this.refresh();
 	}
 
-	,clearFilter: function() {
+	,clearFilter: function(btn,e) {
 		var s = this.getStore();
 		s.baseParams.query = '';
-		Ext.getCmp('minishop2-product-search').reset();
+		Ext.getCmp('minishop2-product-search').setValue('');
 		this.getBottomToolbar().changePage(1);
 		this.refresh();
 	}
@@ -147,7 +167,8 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 	}
 
 	,editProduct: function(btn,e) {
-		location.href = 'index.php?a='+MODx.request.a+'&id='+this.menu.record.id;
+		var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+		MODx.loadPage(updatePage, 'id=' + this.menu.record.id);
 	}
 
 	,deleteProduct: function(btn,e) {
@@ -288,11 +309,11 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		var columns =  {
 			//id: {width:25, sortable:true}
 			pagetitle: {width:150, sortable:true, renderer: {fn:this._renderPageTitle,scope:this}, id: 'main'}
-			,longtitle: {width:50, sortable:true}
-			,description: {width:100, sortable:true}
-			,alias: {width:50, sortable:true}
-			,introtext: {width:100, sortable:true}
-			,content: {width:100, sortable:true}
+			,longtitle: {width:50, sortable:true, editor:{xtype:'textfield'}}
+			,description: {width:100, sortable:false, editor:{xtype:'textarea'}}
+			,alias: {width:50, sortable:true, editor:{xtype:'textfield'}}
+			,introtext: {width:100, sortable:false, editor:{xtype:'textarea'}}
+			,content: {width:100, sortable:false, editor:{xtype:'textarea'}}
 			,template: {width:100, sortable:true, editor:{xtype:'modx-combo-template'}}
 			,richtext: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 			,searchable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
@@ -309,9 +330,9 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime'}, renderer: this.formatDate}
 			,publishedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'publishedby'}}
 
-			,menutitle: {width:100, sortable:true}
+			,menutitle: {width:100, sortable:true, editor:{xtype:'textfield'}}
 			,hidemenu: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,uri: {width:50, sortable:true}
+			,uri: {width:50, sortable:true, editor:{xtype:'textfield'}}
 			,uri_override: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 			,show_in_tree: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 
@@ -319,10 +340,10 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
 			,new_price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
 			,weight: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,color: {width:50, sortable:true}
+			,color: {width:50, sortable:false}
 			,remains: {width:25, sortable:true, editor:{xtype:'numberfield'}}
 			,reserved: {width:25, sortable:true, editor:{xtype:'numberfield'}}
-			,image: {width:50, sortable:true}
+			,image: {width:50, sortable:false}
 			,vendor: {width:50, sortable:true}
 			,made_in: {width:50, sortable:true}
 		};

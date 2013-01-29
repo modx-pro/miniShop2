@@ -1,5 +1,10 @@
 .gray {color: #AAA;}
 
+.btn-gray button {color: gray;}
+.btn-green button {color: green;}
+.btn-red button {color: red;}
+.btn-brown button {color: brown;}
+
 .icon-mscategory .x-tree-node-icon {
 	background-image: url(../../img/mgr/folder_close.png) !important;
 }
@@ -19,6 +24,7 @@
 }
 
 .minishop2-panel-spacer .x-panel-body { background: transparent !important; }
+
 .actions a {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -64,7 +70,7 @@
 	background-color:#ffffff;
 	background-image:none;
 }
-.actions a.orange {
+.actions a.orange, btn-orange button {
 	background:#febb4a;
 	background:-moz-linear-gradient(center bottom,#febb4a 0%,#feda71 100%) repeat scroll 0 0 transparent;
 	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#feda71),color-stop(100%,#febb4a));

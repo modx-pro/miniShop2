@@ -1,11 +1,15 @@
 <?php
 class msProductUpdateManagerController extends ResourceUpdateManagerController {
+	/* @var msProduct $resource */
+	public $resource;
+
+
 	/**
 	 * Returns language topics
 	 * @return array
 	 */
 	public function getLanguageTopics() {
-		return array('resource','minishop2:default','tickets:default');
+		return array('resource','minishop2:default','minishop2:product','tickets:default');
 	}
 
 
@@ -28,20 +32,25 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$minishopAssetsUrl = $this->modx->getOption('minishop2.assets_url',null,$this->modx->getOption('assets_url',null,MODX_ASSETS_URL).'components/minishop2/');
 		$connectorUrl = $minishopAssetsUrl.'connector.php';
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
+		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
 
 		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_category_show_comments')? 1 : 0;
 
+		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.panel.resource.tv.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.panel.resource.js');
 		$this->addJavascript($mgrUrl.'assets/modext/sections/resource/update.js');
-		$this->addLastJavascript($minishopJsUrl.'widgets/ms2.combo.js');
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
+		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
 		$this->addLastJavascript($minishopJsUrl.'product/update.js');
 
 		if ($showComments) {$this->loadTickets();}
+
+		$neighborhood = $this->resource->getNeighborhood();
 
 		$this->addLastJavascript($minishopJsUrl.'product/update.js');
 		$this->addHtml('
@@ -69,7 +78,11 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 				,canCreate: '.($this->canCreate ? 1 : 0).'
 				,canDuplicate: '.($this->canDuplicate ? 1 : 0).'
 				,canDelete: '.($this->canDelete ? 1 : 0).'
+				,canPublish: '.($this->canPublish ? 1 : 0).'
 				,show_tvs: '.(!empty($this->tvCounts) ? 1 : 0).'
+				,next_page: '.(!empty($neighborhood['right'][0]) ? $neighborhood['right'][0] : 0).'
+				,prev_page: '.(!empty($neighborhood['left'][0]) ? $neighborhood['left'][0] : 0).'
+				,up_page: '.$this->resource->parent.'
 				,mode: "update"
 			});
 		});
@@ -101,6 +114,22 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		};
 		// ]]>
 		</script>');
+	}
+
+
+	/**
+	 * Setup permissions for this page
+	 * @return void
+	 */
+	public function setPermissions() {
+		if ($this->canSave) {
+			$this->canSave = $this->resource->checkPolicy('save');
+		}
+		$this->canEdit = $this->modx->hasPermission('edit_document');
+		$this->canCreate = $this->modx->hasPermission('new_document');
+		$this->canPublish = $this->modx->hasPermission('publish_document');
+		$this->canDelete = ($this->modx->hasPermission('delete_document') && $this->resource->checkPolicy(array('save' => true, 'delete' => true)));
+		$this->canDuplicate = $this->resource->checkPolicy('save');
 	}
 
 }

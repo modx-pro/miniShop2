@@ -6,6 +6,19 @@
 * @subpackage lexicon
 */
 
+$_lang['ms2_btn_save'] = 'Сохранить';
+$_lang['ms2_btn_edit'] = 'Изменить';
+$_lang['ms2_btn_view'] = 'Просмотр';
+$_lang['ms2_btn_delete'] = 'Удалить';
+$_lang['ms2_btn_undelete'] = 'Восстановить';
+$_lang['ms2_btn_publish'] = 'Включить';
+$_lang['ms2_btn_unpublish'] = 'Отключить';
+$_lang['ms2_btn_cancel'] = 'Отмена';
+$_lang['ms2_btn_back'] = 'Назад';
+$_lang['ms2_btn_prev'] = 'Предыдущий товар';
+$_lang['ms2_btn_next'] = 'Следующий товар';
+$_lang['ms2_btn_help'] = 'Помощь';
+
 $_lang['ms2_product_id'] = 'ID';
 $_lang['ms2_product_pagetitle'] = 'Название';
 $_lang['ms2_product_longtitle'] = 'Полное название';
@@ -46,13 +59,21 @@ $_lang['ms2_product_image'] = 'Изображение';
 $_lang['ms2_product_vendor'] = 'Производитель';
 $_lang['ms2_product_made_in'] = 'Страна';
 
+$_lang['ms2_product_save'] = 'Сохранить';
+$_lang['ms2_product_edit'] = 'Изменить';
 $_lang['ms2_product_view'] = 'Просмотр';
 $_lang['ms2_product_delete'] = 'Удалить';
 $_lang['ms2_product_undelete'] = 'Восстановить';
 $_lang['ms2_product_publish'] = 'Включить';
 $_lang['ms2_product_unpublish'] = 'Отключить';
+$_lang['ms2_product_cancel'] = 'Отмена';
+$_lang['ms2_product_back'] = 'Назад';
+$_lang['ms2_product_prev'] = 'Предыдущий товар';
+$_lang['ms2_product_next'] = 'Следующий товар';
+$_lang['ms2_product_help'] = 'Помощь';
 
 
+$_lang['ms2_product_dirty_confirm'] = 'У вас есть отложенные изменения. Вы действительно хотите отменить?';
 $_lang['ms2_product_delete_desc'] = 'Вы действительно хотите удалить этот товар?';
 $_lang['ms2_product_selected_publish'] = 'Включить выбранные товары';
 $_lang['ms2_product_selected_unpublish'] = 'Отключить выбранные товары';

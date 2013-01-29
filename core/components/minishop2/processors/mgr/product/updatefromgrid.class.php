@@ -46,5 +46,20 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor {
 		$this->setCheckbox('show_in_tree');
 	}
 
+
+	/**
+	 * Cleanup the processor and return the resulting object
+	 *
+	 * @return array
+	 */
+	public function cleanup() {
+		$this->object->removeLock();
+		$this->clearCache();
+
+		$returnArray = $this->object->toArray();
+
+		return $this->success('',$returnArray);
+	}
+
 }
 return 'msProductUpdateFromGridProcessor';

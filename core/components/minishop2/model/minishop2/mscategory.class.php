@@ -131,4 +131,37 @@ class msCategory extends modResource {
 		$cache->delete($key);
 	}
 
+
+	/*
+	 * Returns array with all neighborhood products
+	 *
+	 * @return array $arr Array with neighborhood from left and right
+	 * */
+	public function getNeighborhood() {
+		$arr = array();
+
+		$q = $this->xpdo->newQuery('msCategory', array('parent' => $this->parent, 'class_key' => 'msCategory'));
+		$q->sortby('id','ASC');
+		$q->select('id');
+		if ($q->prepare() && $q->stmt->execute()) {
+			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+			$current = array_search($this->id, $ids);
+
+			$right = $left = array();
+			foreach ($ids as $k => $v) {
+				if ($k > $current) {
+					$right[] = $v;
+				}
+				else if ($k < $current) {
+					$left[] = $v;
+				}
+			}
+
+			$arr = array(
+				'left' => array_reverse($left)
+			,'right' => $right
+			);
+		}
+		return $arr;
+	}
 }

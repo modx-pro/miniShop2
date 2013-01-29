@@ -58,12 +58,12 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		$resourceArray['preview_url'] = $this->modx->makeUrl($resourceArray['id'],$resourceArray['context_key']);
 
 		$resourceArray['actions'] = array();
-		/*
+
 		$resourceArray['actions'][] = array(
 			'className' => 'edit',
-			'text' => $this->modx->lexicon('edit'),
+			'text' => $this->modx->lexicon('ms2_product_edit'),
 		);
-		*/
+
 		$resourceArray['actions'][] = array(
 			'className' => 'view',
 			'text' => $this->modx->lexicon('ms2_product_view'),

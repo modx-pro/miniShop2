@@ -4,18 +4,18 @@ miniShop2.page.UpdateProduct = function(config) {
 	Ext.applyIf(config,{
 		panelXType: 'modx-panel-product'
 	});
-	config.canDuplicate = false;
-	config.canDelete = false;
 	miniShop2.page.UpdateProduct.superclass.constructor.call(this,config);
 };
+
 Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 	getButtons: function(cfg) {
 		var btns = [];
+
 		if (cfg.canSave == 1) {
 			btns.push({
 				process: 'update'
-				,text: _('save')
+				,text: '<i class="bicon-ok"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
 				,keys: [{
@@ -32,128 +32,241 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			});
 			btns.push('-');
 		}
+
 		btns.push({
-			text: _('resource_publish')
-			,id: 'modx-ticket-publish'
-			,hidden: cfg.record.published ? true : false
-			,handler: this.publishTicket
+			text: '<i class="bicon-off"></i> ' + _('ms2_btn_publish')
+			,id: 'minishop2-panel-btn-publish'
+			,handler: this.publishProduct
+			,hidden: !cfg.canPublish || cfg.record.published
+			,disabled: cfg.locked
+			,scope: this
+			,cls: 'btn-orange'
 		});
 		btns.push({
-			text: _('resource_unpublish')
-			,id: 'modx-ticket-unpublish'
-			,hidden: cfg.record.published ? false : true
-			,handler: this.unpublishTicket
+			text: '<i class="bicon-off"></i> ' + _('ms2_btn_unpublish')
+			,id: 'minishop2-panel-btn-unpublish'
+			,handler: this.unpublishProduct
+			,hidden: !cfg.canPublish || !cfg.record.published
+			,disabled: cfg.locked
+			,scope: this
+			//,cls: ''
 		});
 		btns.push('-');
+
 		btns.push({
-			process: 'preview'
-			,text: _('view')
+			text: '<i class="bicon-trash"></i> ' + _('ms2_btn_delete')
+			,id: 'minishop2-panel-btn-delete'
+			,handler: this.deleteProduct
+			,hidden: !cfg.canDelete || cfg.record.deleted
+			,disabled: cfg.locked
+			,scope: this
+			,cls: 'btn-brown'
+		});
+		btns.push({
+			text: '<i class="bicon-trash"></i> ' + _('ms2_btn_undelete')
+			,id: 'minishop2-panel-btn-undelete'
+			,handler: this.undeleteProduct
+			,hidden: !cfg.canDelete || !cfg.record.deleted
+			,disabled: cfg.locked
+			,scope: this
+			,cls: 'btn-green'
+		});
+		btns.push('-');
+
+		btns.push({
+			text: '<i class="bicon-eye-open"></i> ' + _('ms2_btn_view')
 			,handler: this.preview
 			,scope: this
 		});
 		btns.push('-');
+
 		btns.push({
-			process: 'cancel'
-			,text: _('cancel')
-			,handler: this.cancel
+			text: '<i class="bicon-arrow-left"></i>'
+			,handler: this.prevPage
+			,disabled: !cfg.prev_page ? 1 : 0
 			,scope: this
+			,tooltip: _('ms2_btn_prev')
+		});
+		btns.push({
+			text: '<i class="bicon-arrow-up"></i>'
+			,handler: this.upPage
+			,scope: this
+			,tooltip: _('ms2_btn_back')
+		});
+		btns.push({
+			text: '<i class="bicon-arrow-right"></i>'
+			,handler: this.nextPage
+			,disabled: !cfg.next_page ? 1 : 0
+			,scope: this
+			,tooltip: _('ms2_btn_next')
+
 		});
 		btns.push('-');
+
+		/*
 		btns.push({
-			text: _('help_ex')
-			,handler: MODx.loadHelpPane
+			text: '<i class="bicon-question-sign"></i>'
+			,handler: this.loadHelpPane
+			,tooltip: _('ms2_btn_help')
 		});
+		*/
+
 		return btns;
 	}
 
-	,publishTicket: function(btn,e) {
+	,publishProduct: function(btn,e) {
 		MODx.Ajax.request({
-			url: MODx.config.connectors_url+'resource/index.php'
+			url: miniShop2.config.connector_url
 			,params: {
-				action: 'publish'
-				,id: MODx.request.id
+				action: 'mgr/product/publish'
+				,id: this.record.id
 			}
 			,listeners: {
 				'success':{fn:function(r) {
+					var bp = Ext.getCmp('minishop2-panel-btn-publish');
+					if (bp) {bp.hide();}
+					var bu = Ext.getCmp('minishop2-panel-btn-unpublish');
+					if (bu) {bu.show();}
+
 					var p = Ext.getCmp('modx-resource-published');
-					if (p) {
-						p.setValue(1);
-					}
+					if (p) {p.setValue(1); }
 					var po = Ext.getCmp('modx-resource-publishedon');
-					if (po) {
-						po.setValue(r.object.publishedon);
-					}
-					var bp = Ext.getCmp('modx-ticket-publish');
-					if (bp) {
-						bp.hide();
-					}
-					var bu = Ext.getCmp('modx-ticket-unpublish');
-					if (bu) {
-						bu.show();
-					}
+					if (po) {po.setValue(r.object.publishedon);}
 				},scope:this}
 			}
 		});
 	}
 
-	,unpublishTicket: function(btn,e) {
+	,unpublishProduct: function(btn,e) {
 		MODx.Ajax.request({
-			url: MODx.config.connectors_url+'resource/index.php'
+			url: miniShop2.config.connector_url
 			,params: {
-				action: 'unpublish'
-				,id: MODx.request.id
+				action: 'mgr/product/unpublish'
+				,id: this.record.id
 			}
 			,listeners: {
 				'success':{fn:function(r) {
+					var bp = Ext.getCmp('minishop2-panel-btn-publish');
+					if (bp) {bp.show();}
+					var bu = Ext.getCmp('minishop2-panel-btn-unpublish');
+					if (bu) {bu.hide();}
+
 					var p = Ext.getCmp('modx-resource-published');
-					if (p) {
-						p.setValue(0);
-					}
+					if (p) {p.setValue(0); }
 					var po = Ext.getCmp('modx-resource-publishedon');
-					if (po) {
-						po.setValue('');
-					}
-					var bp = Ext.getCmp('modx-ticket-publish');
-					if (bp) {
-						bp.show();
-					}
-					var bu = Ext.getCmp('modx-ticket-unpublish');
-					if (bu) {
-						bu.hide();
-					}
+					if (po) {po.setValue('');}
 				},scope:this}
 			}
 		});
 	}
 
-	,cancel: function(btn,e) {
-		var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
-		var fp = Ext.getCmp(this.config.formpanel);
-		if (fp && fp.isDirty()) {
-			Ext.Msg.confirm(_('warning'),_('resource_cancel_dirty_confirm'),function(e) {
-				if (e == 'yes') {
-					MODx.releaseLock(MODx.request.id);
-					MODx.sleep(400);
-					location.href = 'index.php?a='+updatePage+'&id='+this.config.record['parent'];
-				}
-			},this);
-		} else {
+	,deleteProduct: function(btn,e) {
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/delete'
+				,id: this.record.id
+			}
+			,listeners: {
+				success: {fn:function(r) {
+					var bd = Ext.getCmp('minishop2-panel-btn-delete');
+					if (bd) {bd.hide();}
+					var bu = Ext.getCmp('minishop2-panel-btn-undelete');
+					if (bu) {bu.show();}
+
+					var d = Ext.getCmp('modx-resource-deleted');
+					if (d) {d.setValue(1);}
+					var dd = Ext.getCmp('modx-resource-deletedon');
+					if (dd) {dd.setValue(r.object.deletedon);}
+				},scope:this}
+			}
+		});
+	}
+
+	,undeleteProduct: function(btn,e) {
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/undelete'
+				,id: this.record.id
+			}
+			,listeners: {
+				success: {fn:function(r) {
+					var bd = Ext.getCmp('minishop2-panel-btn-delete');
+					if (bd) {bd.show();}
+					bu = Ext.getCmp('minishop2-panel-btn-undelete').show();
+					if (bu) {bu.hide();}
+
+					var d = Ext.getCmp('modx-resource-deleted');
+					if (d) {d.setValue(0);}
+					var dd = Ext.getCmp('modx-resource-deletedon');
+					if (dd) {dd.setValue('');}
+				},scope:this}
+			}
+		});
+	}
+
+	,loadHelpPane: function(b) {
+		var url = MODx.config.help_url;
+		if (!url) { return false; }
+		MODx.helpWindow = new Ext.Window({
+			title: _('help')
+			,width: 850
+			,height: 500
+			,resizable: true
+			,maximizable: true
+			,modal: false
+			,layout: 'fit'
+			,html: '<iframe src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>'
+		});
+		MODx.helpWindow.show(b);
+		return true;
+	}
+
+	,prevPage: function(btn,e) {
+		if (this.prev_page) {
+			var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+			var id = this.prev_page;
+
 			MODx.releaseLock(MODx.request.id);
-			location.href = 'index.php?a='+updatePage+'&id='+this.config.record['parent'];
+			MODx.sleep(400);
+			MODx.loadPage(action = updatePage, extraParams = 'id=' + id)
 		}
 	}
+
+	,nextPage: function(btn,e) {
+		if (this.next_page) {
+			var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+			var id = this.next_page;
+
+			MODx.releaseLock(MODx.request.id);
+			MODx.sleep(400);
+			MODx.loadPage(action = updatePage, extraParams = 'id=' + id)
+		}
+	}
+
+	,upPage: function(btn,e) {
+		var id = this.up_page;
+		if (id != 0) {var upPage = MODx.action ? MODx.action['resource/update'] : 'resource/update';}
+		else {var upPage = MODx.action['welcome'];}
+
+		MODx.releaseLock(MODx.request.id);
+		MODx.sleep(400);
+		MODx.loadPage(action = upPage, extraParams = 'id=' + id)
+	}
+
 });
 Ext.reg('minishop2-page-product-update',miniShop2.page.UpdateProduct);
 
 
 
-miniShop2.panel.Ticket = function(config) {
+miniShop2.panel.Product = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
 	});
-	miniShop2.panel.Ticket.superclass.constructor.call(this,config);
+	miniShop2.panel.Product.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.panel.Ticket,MODx.panel.Resource,{
+Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 	getFields: function(config) {
 		var it = [];
 		it.push({
@@ -461,4 +574,4 @@ Ext.extend(miniShop2.panel.Ticket,MODx.panel.Resource,{
 	}
 
 });
-Ext.reg('modx-panel-product',miniShop2.panel.Ticket);
+Ext.reg('modx-panel-product',miniShop2.panel.Product);

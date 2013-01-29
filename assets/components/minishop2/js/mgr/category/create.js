@@ -4,11 +4,79 @@ miniShop2.page.CreateMSCategory = function(config) {
 	Ext.applyIf(config,{
 		panelXType: 'minishop2-panel-category'
 	});
-	config.canDuplicate = false;
-	config.canDelete = false;
 	miniShop2.page.CreateMSCategory.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.page.CreateMSCategory,MODx.page.CreateResource,{});
+Ext.extend(miniShop2.page.CreateMSCategory,MODx.page.CreateResource,{
+
+	getButtons: function(cfg) {
+		var btns = [];
+
+		if (cfg.canSave == 1) {
+			btns.push({
+				process: 'create'
+				,text: '<i class="bicon-ok"></i> ' + _('ms2_btn_save')
+				,method: 'remote'
+				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
+				,keys: [{
+					key: MODx.config.keymap_save || 's'
+					,ctrl: true
+				}]
+			});
+			btns.push('-');
+		}
+
+		btns.push({
+			text: '<i class="bicon-ban-circle"></i>' + _('ms2_btn_cancel')
+			,handler: this.upPage
+			,scope: this
+			,tooltip: _('ms2_btn_back')
+		});
+
+		/*
+		 btns.push({
+		 text: '<i class="bicon-question-sign"></i>'
+		 ,handler: this.loadHelpPane
+		 ,tooltip: _('ms2_product_help')
+		 });
+		 */
+
+		return btns;
+	}
+
+	,loadHelpPane: function(b) {
+		var url = MODx.config.help_url;
+		if (!url) { return false; }
+		MODx.helpWindow = new Ext.Window({
+			title: _('help')
+			,width: 850
+			,height: 500
+			,resizable: true
+			,maximizable: true
+			,modal: false
+			,layout: 'fit'
+			,html: '<iframe src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>'
+		});
+		MODx.helpWindow.show(b);
+		return true;
+	}
+
+	,upPage: function(btn,e) {
+		var id = MODx.request.parent;
+		if (id != 0) {var upPage = MODx.action ? MODx.action['resource/update'] : 'resource/update';}
+		else {var upPage = MODx.action['welcome'];}
+
+		var fp = Ext.getCmp(this.config.formpanel);
+		if (fp && fp.isDirty()) {
+			Ext.Msg.confirm(_('warning'),_('ms2_product_dirty_confirm'),function(e) {
+				if (e == 'yes') {
+					MODx.loadPage(action = upPage, 'id=' + id)
+				}
+			},this);
+		} else {
+			MODx.loadPage(action = upPage, 'id=' + id)
+		}
+	}
+});
 Ext.reg('minishop2-page-category-create',miniShop2.page.CreateMSCategory);
 
 
