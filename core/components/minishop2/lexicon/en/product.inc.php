@@ -19,8 +19,16 @@ $_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 
+$_lang['ms2_product_sections'] = 'Sections';
+$_lang['ms2_product_properties'] = 'Main properties';
+$_lang['ms2_product_tv'] = 'Additional properties';
+$_lang['ms2_product_tab_main'] = 'Web page';
+$_lang['ms2_product_tab_properties'] = 'Product properties';
+$_lang['ms2_product_tab_seo'] = 'SEO params';
+
 $_lang['ms2_product_id'] = 'ID';
 $_lang['ms2_product_pagetitle'] = 'Name';
+$_lang['ms2_product_parent'] = 'Category';
 $_lang['ms2_product_longtitle'] = 'Full name';
 $_lang['ms2_product_description'] = 'Description';
 $_lang['ms2_product_alias'] = 'Alias';
@@ -30,23 +38,38 @@ $_lang['ms2_product_template'] = 'Template';
 $_lang['ms2_product_richtext'] = 'Richtext';
 $_lang['ms2_product_searchable'] = 'Searchable';
 $_lang['ms2_product_cacheable'] = 'Cacheable';
+$_lang['ms2_product_link_attributes'] = 'Link Attributes';
+$_lang['ms2_product_menutitle'] = 'Menu Title';
+
+$_lang['ms2_product_published'] = 'Published';
+$_lang['ms2_product_deleted'] = 'Deleted';
+$_lang['ms2_product_pub_date'] = 'Publish Date';
+$_lang['ms2_product_unpub_date'] = 'Unpublish date';
 
 $_lang['ms2_product_createdby'] = 'Created by';
+$_lang['ms2_product_createdby_help'] = 'User who created resource.';
 $_lang['ms2_product_createdon'] = 'Created on';
+$_lang['ms2_product_createdon_help'] = 'Date of resource creation.';
 $_lang['ms2_product_editedby'] = 'Edited by';
+$_lang['ms2_product_editedby_help'] = 'User who edited resource last.';
 $_lang['ms2_product_editedon'] = 'Edited on';
-$_lang['ms2_product_deleted'] = 'Deleted';
+$_lang['ms2_product_editedon_help'] = 'Date of last edit of resource.';
 $_lang['ms2_product_deletedon'] = 'Deleted on';
+$_lang['ms2_product_deletedon_help'] = 'Date of delete of resource.';
 $_lang['ms2_product_deletedby'] = 'Deleted by';
-$_lang['ms2_product_published'] = 'Published';
+$_lang['ms2_product_deletedby_help'] = 'User who delete the resource.';
 $_lang['ms2_product_publishedon'] = 'Published on';
+$_lang['ms2_product_publishedon_help'] = 'Date of resource publication.';
 $_lang['ms2_product_publishedby'] = 'Published by';
+$_lang['ms2_product_publishedby_help'] = 'User who published resource.';
 
 $_lang['ms2_product_menutitle'] = 'Menu title';
 $_lang['ms2_product_hidemenu'] = 'Hide in menu';
 $_lang['ms2_product_uri_override'] = 'Override URI';
-$_lang['ms2_product_uri_'] = 'URI';
+$_lang['ms2_product_uri'] = 'URI';
 $_lang['ms2_product_show_in_tree'] = 'Show in tree';
+$_lang['ms2_product_show_in_tree_help'] = 'By default, the goods is not displayed in the MODX resource tree for speed reasons. But you can enable displaying of some positions.';
+$_lang['ms2_product_syncsite'] = 'Empty Cache';
 
 $_lang['ms2_product_article'] = 'Article';
 $_lang['ms2_product_price'] = 'Price';

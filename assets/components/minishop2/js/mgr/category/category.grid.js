@@ -29,9 +29,9 @@ miniShop2.grid.Category = function(config) {
 		,sm: this.sm
 		,cls: 'minishop2-grid'
 		,columns: this.getColumns()
-		//,stateful: true
-		//,stateId: 'minishop2-category-grid-' + config.resource
-		//,stateEvents: ['columnresize', 'columnmove', 'show', 'hide']
+		,stateful: true
+		,stateId: 'minishop2-category-grid'
+		,stateEvents: ['columnresize']
 		,tbar: [{
 			text: '<i class="bicon-list"></i> ' + _('ms2_bulk_actions')
 			,menu: [{
@@ -320,14 +320,14 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,cacheable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 
 			,createdby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'createdby'}}
-			,createdon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', renderer: this.formatDate}}
+			,createdon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
 			,editedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'editedby'}}
-			,editedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', renderer: this.formatDate}}
+			,editedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
 			,deleted: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,deletedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', renderer: this.formatDate}}
+			,deletedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
 			,deletedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'deletedby'}}
 			,published: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime'}, renderer: this.formatDate}
+			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime'}, timePosition:'below', renderer: this.formatDate}
 			,publishedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'publishedby'}}
 
 			,menutitle: {width:100, sortable:true, editor:{xtype:'textfield'}}

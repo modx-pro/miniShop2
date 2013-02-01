@@ -31,12 +31,26 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 	 * {@inheritDoc}
 	 * @return boolean
 	 */
+	public function beforeSet() {
+		$this->setDefaultProperties(array(
+			'show_in_tree' => $this->modx->getOption('ms2_product_show_in_tree_default', null, false)
+			,'hidemenu' => $this->modx->getOption('hidemenu_default', null, true)
+		));
+
+		return parent::beforeSet();
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return boolean
+	 */
 	public function beforeSave() {
-		$this->object->set('show_in_tree', false);
-		$this->object->set('hidemenu', true);
+		$this->object->set('isfolder', 0);
 
 		return parent::beforeSave();
 	}
+
 
 	/**
 	 * {@inheritDoc}

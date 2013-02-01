@@ -28,7 +28,3 @@ function formatDate(formatDate, formatString) {
 
 	return formatString;
 }
-
-Date.prototype.format = function(format) {
-	return formatDate(this, format);
-};

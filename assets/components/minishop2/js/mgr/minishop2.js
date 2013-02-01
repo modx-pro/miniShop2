@@ -3,7 +3,7 @@ var miniShop2 = function(config) {
 	miniShop2.superclass.constructor.call(this,config);
 };
 Ext.extend(miniShop2,Ext.Component,{
-	page:{},window:{},grid:{},tree:{},panel:{},combo:{},config: {},view: {}
+	page:{},window:{},grid:{},tree:{},panel:{},combo:{},config: {},view: {},keymap: {}
 });
 Ext.reg('minishop2',miniShop2);
 

@@ -34,28 +34,38 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
 		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
 
-		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_category_show_comments')? 1 : 0;
+		$product_fields = array_merge($this->resource->getFieldsNames(), array('syncsite'));
+
+		if (!$product_main_fields = $this->modx->getOption('ms2_product_main_fields')) {
+			$product_main_fields = 'pagetitle,longtitle,introtext,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree';
+		}
+		$product_main_fields = array_map('trim', explode(',',$product_main_fields));
+		$product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
 
 		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');
-		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.panel.resource.tv.js');
+		$this->addJavascript($minishopJsUrl.'product/product.tv.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.panel.resource.js');
 		$this->addJavascript($mgrUrl.'assets/modext/sections/resource/create.js');
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
+		$this->addLastJavascript($minishopJsUrl.'product/product.common.js');
 		$this->addLastJavascript($minishopJsUrl.'product/create.js');
 
-		$this->addLastJavascript($minishopJsUrl.'product/create.js');
+		$this->resourceArray['show_in_tree'] = $this->context->getOption('ms2_product_show_in_tree_default', 0, $this->modx->_userConfig);
+		$this->resourceArray['show_in_tree'] = isset($this->resourceArray['show_in_tree']) && intval($this->resourceArray['show_in_tree']) == 1 ? true : false;
+
 		$this->addHtml('
 		<script type="text/javascript">
 		// <![CDATA[
 		miniShop2.config = {
 			assets_url: "'.$minishopAssetsUrl.'"
 			,connector_url: "'.$connectorUrl.'"
-			,show_comments: '.$showComments.'
+			,show_comments: false
+			,main_fields: '.json_encode($product_main_fields).'
 		}
 		MODx.config.publish_document = "'.$this->canPublish.'";
 		MODx.onDocFormRender = "'.$this->onDocFormRender.'";

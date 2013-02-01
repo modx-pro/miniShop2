@@ -109,3 +109,31 @@
 .minishop2-grid .product-title-column ul {
 	clear: both;
 }
+
+
+.minishop2-category-list-item {
+	font:normal 11px tahoma, arial, helvetica, sans-serif;
+	padding:3px 10px 3px 10px;
+	border:1px solid #fff;
+	border-bottom:1px solid #eeeeee;
+	white-space:normal;
+	color:#555;
+	cursor: pointer;
+}
+.minishop2-category-list-item:hover {
+	background: #efefef;
+}
+
+.minishop2-category-list-item h3 {
+	display:block;
+	font:inherit;
+	font-weight:bold;
+	color:#222;
+}
+
+.minishop2-category-list-item .parents {
+	font:inherit;
+	font-weight:normal;
+	color:#555;
+	font-size: .9em;
+}

@@ -93,7 +93,10 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 		},{
 			xtype: 'fieldset'
 			,items: this.getSettingRightFieldset(config)
-		}];
+		},{
+			xtype: 'hidden',name: 'content_type',id: 'modx-resource-content-type', value: MODx.config.default_content_type || 1
+		}
+		];
 	}
 
 	,getSettingRightFieldset: function(config) {
