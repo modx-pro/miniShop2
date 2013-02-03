@@ -42,3 +42,10 @@ $xpdo_meta_map['msProduct']= array (
     ),
   ),
 );
+
+if (!in_array('ms2Plugins', get_declared_classes())) {
+	require_once (dirname(dirname(__FILE__)) . '/plugins.class.php');
+	$this->ms2Plugins = new ms2Plugins($this, array());
+}
+
+$xpdo_meta_map['msProduct'] = $this->ms2Plugins->loadMap('msProduct', $xpdo_meta_map['msProduct']);

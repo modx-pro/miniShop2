@@ -12,6 +12,8 @@ $xpdo_meta_map['msVendor']= array (
     'address' => NULL,
     'phone' => NULL,
     'fax' => NULL,
+    'description' => NULL,
+    'properties' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -56,6 +58,18 @@ $xpdo_meta_map['msVendor']= array (
       'phptype' => 'string',
       'null' => true,
     ),
+    'description' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'properties' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
+      'null' => true,
+    ),
   ),
   'aggregates' => 
   array (
@@ -69,3 +83,10 @@ $xpdo_meta_map['msVendor']= array (
     ),
   ),
 );
+
+if (!in_array('ms2Plugins', get_declared_classes())) {
+	require_once (dirname(dirname(__FILE__)) . '/plugins.class.php');
+	$this->ms2Plugins = new ms2Plugins($this, array());
+}
+
+$xpdo_meta_map['msVendor'] = $this->ms2Plugins->loadMap('msVendor', $xpdo_meta_map['msVendor']);

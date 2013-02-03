@@ -128,12 +128,15 @@
 	display:block;
 	font:inherit;
 	font-weight:bold;
-	color:#222;
+	font-size: 1.1em;
+	line-height: 1.1em;
 }
 
 .minishop2-category-list-item .parents {
+	display:block;
 	font:inherit;
 	font-weight:normal;
 	color:#555;
-	font-size: .9em;
+	font-size: 1em;
+	line-height: 1em;
 }

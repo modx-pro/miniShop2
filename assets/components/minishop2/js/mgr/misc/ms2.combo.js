@@ -49,7 +49,7 @@ miniShop2.combo.Category = function(config) {
 			+'<tpl if="parents">'
 					+'<span class="parents">'
 						+'<tpl for="parents">'
-							+'{pagetitle} / '
+							+'<nobr>{pagetitle} / </nobr>'
 						+'</tpl>'
 					+'</span>'
 			+'</tpl>'

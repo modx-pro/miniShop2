@@ -111,8 +111,7 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 			}
 		}
 
-		$array['parents'] = $parents;
-
+		$array['parents'] = array_reverse($parents);
 		return $array;
 	}
 }
