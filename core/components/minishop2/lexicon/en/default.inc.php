@@ -15,6 +15,7 @@ $_lang['ms2_search'] = 'Search';
 $_lang['ms2_search_clear'] = 'Clear';
 
 $_lang['ms2_category'] = 'Category of the products';
+$_lang['ms2_category_tree'] = 'Category tree';
 $_lang['ms2_category_type'] = 'Category of the products';
 $_lang['ms2_category_create'] = 'Add category';
 $_lang['ms2_category_create_here'] = 'Category with the products';

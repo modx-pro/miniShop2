@@ -82,13 +82,6 @@ miniShop2.combo.DateTime = function(config) {
 	});
 	miniShop2.combo.DateTime.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.combo.DateTime,Ext.ux.form.DateTime, {
-/*	renderer: function(field) {
-		if (!field) {return '';}
-		var date = new Date(field);
-		return date.format('HH:NN  DD.MM.YY');
-	}
-	*/
-});
+Ext.extend(miniShop2.combo.DateTime,Ext.ux.form.DateTime);
 Ext.reg('minishop2-xdatetime',miniShop2.combo.DateTime);
 

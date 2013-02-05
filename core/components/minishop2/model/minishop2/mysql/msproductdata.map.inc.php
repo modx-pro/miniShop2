@@ -53,7 +53,7 @@ $xpdo_meta_map['msProductData']= array (
     'color' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '20',
+      'precision' => '50',
       'phptype' => 'string',
       'null' => true,
     ),
@@ -74,7 +74,7 @@ $xpdo_meta_map['msProductData']= array (
     'image' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '100',
+      'precision' => '255',
       'phptype' => 'string',
       'null' => true,
     ),
@@ -152,6 +152,22 @@ $xpdo_meta_map['msProductData']= array (
       'columns' => 
       array (
         'color' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'made_in' => 
+    array (
+      'alias' => 'made_in',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'made_in' => 
         array (
           'length' => '',
           'collation' => 'A',

@@ -18,8 +18,17 @@ $settings['ms2_category_grid_fields']->fromArray(array(
 
 $settings['ms2_product_main_fields']= $modx->newObject('modSystemSetting');
 $settings['ms2_product_main_fields']->fromArray(array(
-	'key' => 'ms2_category_grid_fields',
+	'key' => 'ms2_product_main_fields',
 	'value' => 'pagetitle,longtitle,introtext,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree',
+	'xtype' => 'textarea',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
+$settings['ms2_product_extra_fields']= $modx->newObject('modSystemSetting');
+$settings['ms2_product_extra_fields']->fromArray(array(
+	'key' => 'ms2_product_extra_fields',
+	'value' => 'article,price,new_price,weight,color,remains,reserved,image,vendor,made_in',
 	'xtype' => 'textarea',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_product',

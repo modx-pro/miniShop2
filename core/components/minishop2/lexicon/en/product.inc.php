@@ -23,7 +23,7 @@ $_lang['ms2_product_sections'] = 'Sections';
 $_lang['ms2_product_properties'] = 'Main properties';
 $_lang['ms2_product_tv'] = 'Additional properties';
 $_lang['ms2_product_tab_main'] = 'Web page';
-$_lang['ms2_product_tab_properties'] = 'Product properties';
+$_lang['ms2_product_tab_extra'] = 'Product properties';
 $_lang['ms2_product_tab_seo'] = 'SEO params';
 
 $_lang['ms2_product_id'] = 'ID';

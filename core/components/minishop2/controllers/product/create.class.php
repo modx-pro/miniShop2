@@ -33,7 +33,9 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$connectorUrl = $minishopAssetsUrl.'connector.php';
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
 		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
+		$minishopImgUrl = $minishopAssetsUrl.'img/mgr/';
 
+		// Customizable product fields feature
 		$product_fields = array_merge($this->resource->getFieldsNames(), array('syncsite'));
 
 		if (!$product_main_fields = $this->modx->getOption('ms2_product_main_fields')) {
@@ -41,6 +43,13 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		}
 		$product_main_fields = array_map('trim', explode(',',$product_main_fields));
 		$product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
+
+		if (!$product_extra_fields = $this->modx->getOption('ms2_product_extra_fields')) {
+			$product_extra_fields = 'article,price,new_price,weight,color,remains,reserved,image,vendor,made_in';
+		}
+		$product_extra_fields = array_map('trim', explode(',',$product_extra_fields));
+		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
+		//---
 
 		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
@@ -52,6 +61,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
+		$this->addLastJavascript($minishopJsUrl.'product/category.tree.js');
 		$this->addLastJavascript($minishopJsUrl.'product/product.common.js');
 		$this->addLastJavascript($minishopJsUrl.'product/create.js');
 
@@ -65,7 +75,10 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 			assets_url: "'.$minishopAssetsUrl.'"
 			,connector_url: "'.$connectorUrl.'"
 			,show_comments: false
+			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
+			,extra_fields: '.json_encode($product_extra_fields).'
+			,additional_fields: []
 		}
 		MODx.config.publish_document = "'.$this->canPublish.'";
 		MODx.onDocFormRender = "'.$this->onDocFormRender.'";

@@ -15,6 +15,7 @@ $_lang['ms2_search'] = 'Поиск';
 $_lang['ms2_search_clear'] = 'Очистить';
 
 $_lang['ms2_category'] = 'Категория товаров';
+$_lang['ms2_category_tree'] = 'Дерево категорий';
 $_lang['ms2_category_type'] = 'Категория товаров';
 $_lang['ms2_category_create'] = 'Добавить категорию';
 $_lang['ms2_category_create_here'] = 'Категорию с товарами';

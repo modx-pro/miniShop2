@@ -242,7 +242,7 @@ class msProduct extends modResource {
 	 * @return array
 	 * */
 	public function getFieldsNames() {
-		return array_keys(array_merge($this->toArray()));
+		return array_keys($this->toArray());
 	}
 
 
