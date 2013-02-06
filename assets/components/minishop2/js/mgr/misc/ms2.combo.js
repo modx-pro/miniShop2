@@ -19,7 +19,8 @@ miniShop2.combo.User = function(config) {
 		,baseParams: {
 			action: 'getlist'
 			,combo: 1
-			,limit: 0
+			,id: config.value
+			//,limit: 0
 		}
 	});
 	miniShop2.combo.User.superclass.constructor.call(this,config);
@@ -43,6 +44,9 @@ miniShop2.combo.Category = function(config) {
 		,url: miniShop2.config.connector_url
 		,baseParams: {
 			action: 'mgr/category/getcats'
+			,combo: 1
+			,id: config.value
+			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
 		+'<tpl for="."><div class="minishop2-category-list-item">'
@@ -68,7 +72,6 @@ Ext.extend(miniShop2.combo.Category,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-category',miniShop2.combo.Category);
 
 
-
 miniShop2.combo.DateTime = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
@@ -85,3 +88,106 @@ miniShop2.combo.DateTime = function(config) {
 Ext.extend(miniShop2.combo.DateTime,Ext.ux.form.DateTime);
 Ext.reg('minishop2-xdatetime',miniShop2.combo.DateTime);
 
+
+miniShop2.combo.Autocomplete = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: config.name
+		,fieldLabel: _('ms2_product_' + config.name)
+		,id: 'minishop2-product-' + config.name
+		,hiddenName: config.name
+		,displayField: config.name
+		,valueField: config.name
+		,anchor: '99%'
+		,fields: [config.name]
+		//,pageSize: 20
+		,forceSelection: false
+		,url: miniShop2.config.connector_url
+		,typeAhead: true
+		,editable: true
+		,allowBlank: true
+		,baseParams: {
+			action: 'mgr/product/autocomplete'
+			,name: config.name
+			,combo:1
+			,limit: 0
+		}
+		,hideTrigger: true
+	});
+	miniShop2.combo.Autocomplete.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Autocomplete,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-autocomplete',miniShop2.combo.Autocomplete);
+
+
+miniShop2.combo.Vendor = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: config.name || 'vendor'
+		,fieldLabel: _('ms2_product_' + config.name || 'vendor')
+		,hiddenName: config.name || 'vendor'
+		,displayField: 'name'
+		,valueField: 'id'
+		,anchor: '99%'
+		,fields: ['name','id']
+		,pageSize: 20
+		,url: miniShop2.config.connector_url
+		,typeAhead: true
+		,editable: true
+		,allowBlank: true
+		,emptyText: _('no')
+		,baseParams: {
+			action: 'mgr/vendor/getlist'
+			,combo: 1
+			,id: config.value
+			//,limit: 0
+		}
+	});
+	miniShop2.combo.Vendor.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Vendor,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-vendor',miniShop2.combo.Vendor);
+
+
+miniShop2.combo.Tags = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		xtype:'superboxselect'
+		,allowBlank: true
+		,msgTarget: 'under'
+		,allowAddNewData: true
+		,addNewDataOnBlur : true
+		,resizable: true
+		,name: 'tags[]'
+		,anchor:'100%'
+		,minChars: 3
+		,store:new Ext.data.JsonStore({
+			id:'tags-store'
+			,root:'results'
+			,autoLoad: true
+			,autoSave: false
+			,totalProperty:'total'
+			,fields:['tag']
+			,url: miniShop2.config.connector_url
+			,baseParams: {action: 'mgr/product/gettags'}
+		})
+		,mode: 'remote'
+		,displayField: 'tag'
+		,valueField: 'tag'
+		,triggerAction: 'all'
+		,extraItemCls: 'x-tag'
+		,listeners: {
+			newitem: function(bs,v, f){
+				var newObj = {
+					tag: v
+				};
+				bs.addItem(newObj);
+			}
+		}
+	});
+	miniShop2.combo.Tags.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Tags,Ext.ux.form.SuperBoxSelect);
+Ext.reg('minishop2-combo-tags',miniShop2.combo.Tags);

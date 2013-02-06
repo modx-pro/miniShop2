@@ -13,21 +13,24 @@
 		<field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msProduct" index="index" />
 
 		<aggregate alias="Category" class="msCategory" local="id" foreign="parent" cardinality="one" owner="foreign" />
+		<aggregate alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="one" owner="foreign" />
 		<composite alias="Data" class="msProductData" local="id" foreign="id" cardinality="one" owner="local" />
+		<composite alias="Tags" class="msProductTag" local="id" foreign="product_id" cardinality="many" owner="local" />
 	</object>
 
 
 	<object class="msProductData" table="ms2_products" extends="xPDOSimpleObject">
-		<field key="article" dbtype="varchar" precision="50" phptype="string" null="true" />
-		<field key="price" dbtype="varchar" precision="20" phptype="string" null="false" default="0" />
+		<field key="article" dbtype="varchar" precision="50" phptype="int" null="true" />
+		<field key="price" dbtype="varchar" precision="20" phptype="int" null="false" default="0" />
 		<field key="new_price" dbtype="varchar" precision="20" phptype="string" null="false" default="0" />
 		<field key="weight" dbtype="varchar" precision="20" phptype="string" null="false" default="0" />
 		<field key="color" dbtype="varchar" precision="50" phptype="string" null="true" />
-		<field key="remains" dbtype="varchar" precision="20" phptype="string" null="true" />
-		<field key="reserved" dbtype="varchar" precision="20" phptype="string" null="true" />
+		<field key="remains" dbtype="int" precision="10" phptype="int" null="false" default="0" />
+		<field key="reserved" dbtype="int" precision="10" phptype="int" null="false" default="0" />
 		<field key="image" dbtype="varchar" precision="255" phptype="string" null="true" />
-		<field key="vendor" dbtype="int" precision="10" phptype="int" null="false" />
+		<field key="vendor" dbtype="int" precision="10" phptype="int" null="false" default="0" />
 		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="false" />
+		<field key="tags" dbtype="text" phptype="string" null="true" />
 
 		<index alias="vendor" name="vendor" primary="false" unique="false" type="BTREE">
 			<column key="vendor" length="" collation="A" null="false" />
@@ -65,6 +68,34 @@
 
 		<aggregate alias="Products" class="msProduct" local="id" foreign="vendor" cardinality="many" owner="local" />
 	</object>
+
+
+	<object class="msCategoryMember" table="ms2_product_categories" extends="xPDOObject">
+		<field key="product_id" dbtype="int" precision="10" phptype="integer" null="false" />
+		<field key="category_id" dbtype="int" precision="10" phptype="integer" null="false" />
+
+		<index alias="product" name="product" primary="true" unique="true" type="BTREE" >
+			<column key="product_id" length="" collation="A" null="false" />
+			<column key="category_id" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="local" />
+		<aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one" owner="local" />
+	</object>
+
+
+	<object class="msProductTag" table="ms2_product_tags" extends="xPDOObject">
+		<field key="product_id" dbtype="int" precision="10" phptype="integer" null="false" />
+		<field key="tag" dbtype="varchar" precision="255" phptype="string" null="false" />
+
+		<index alias="product" name="product" primary="true" unique="true" type="BTREE" >
+			<column key="product_id" length="" collation="A" null="false" />
+			<column key="tag" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="local" />
+	</object>
+
 
 
 </model>

@@ -45,7 +45,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
 
 		if (!$product_extra_fields = $this->modx->getOption('ms2_product_extra_fields')) {
-			$product_extra_fields = 'article,price,new_price,weight,color,remains,reserved,image,vendor,made_in';
+			$product_extra_fields = 'article,price,new_price,weight,color,remains,reserved,vendor,made_in,tags';
 		}
 		$product_extra_fields = array_map('trim', explode(',',$product_extra_fields));
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
@@ -67,6 +67,8 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$this->addLastJavascript($minishopJsUrl.'product/product.common.js');
 		$this->addLastJavascript($minishopJsUrl.'product/update.js');
 
+		$this->prepareFields();
+
 		if ($showComments) {$this->loadTickets();}
 		$neighborhood = $this->resource->getNeighborhood();
 
@@ -80,7 +82,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
-			,additional_fields: []
+			,additional_fields: {size: {xtype:\'textfield\',fieldLabel:\'size\'}}
 		}
 		MODx.config.publish_document = "'.$this->canPublish.'";
 		MODx.onDocFormRender = "'.$this->onDocFormRender.'";
@@ -153,4 +155,23 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$this->canDuplicate = $this->resource->checkPolicy('save');
 	}
 
+
+	/*
+	 * Additional preparation of the resource fields
+	 * @return void
+	 * */
+	function prepareFields() {
+		$tags = $this->resourceArray['tags'];
+		$this->resourceArray['tags'] = array();
+		if (!empty($tags)) {
+			$tags = explode(',', $tags);
+			foreach ($tags as $v) {
+				$this->resourceArray['tags'][] = array('tag' => $v);
+			}
+		}
+
+		if (empty($this->resourceArray['vendor'])) {
+			$this->resourceArray['vendor'] = '';
+		}
+	}
 }

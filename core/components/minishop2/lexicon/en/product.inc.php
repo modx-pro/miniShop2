@@ -19,12 +19,13 @@ $_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 
-$_lang['ms2_product_sections'] = 'Sections';
-$_lang['ms2_product_properties'] = 'Main properties';
-$_lang['ms2_product_tv'] = 'Additional properties';
 $_lang['ms2_product_tab_main'] = 'Web page';
 $_lang['ms2_product_tab_extra'] = 'Product properties';
 $_lang['ms2_product_tab_seo'] = 'SEO params';
+$_lang['ms2_product_tab_gallery'] = 'Gallery';
+$_lang['ms2_product_sections'] = 'Sections';
+$_lang['ms2_product_properties'] = 'Main properties';
+$_lang['ms2_product_tv'] = 'Additional properties';
 
 $_lang['ms2_product_id'] = 'ID';
 $_lang['ms2_product_pagetitle'] = 'Name';
@@ -72,15 +73,27 @@ $_lang['ms2_product_show_in_tree_help'] = 'By default, the goods is not displaye
 $_lang['ms2_product_syncsite'] = 'Empty Cache';
 
 $_lang['ms2_product_article'] = 'Article';
+$_lang['ms2_product_article_help'] = '';
 $_lang['ms2_product_price'] = 'Price';
+$_lang['ms2_product_price_help'] = '';
 $_lang['ms2_product_new_price'] = 'New price';
+$_lang['ms2_product_new_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Weight';
+$_lang['ms2_product_weight_help'] = '';
 $_lang['ms2_product_color'] = 'Color';
+$_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Remains';
+$_lang['ms2_product_remains_help'] = '';
 $_lang['ms2_product_reserved'] = 'Reserved';
+$_lang['ms2_product_reserved_help'] = '';
 $_lang['ms2_product_image'] = 'Image';
+$_lang['ms2_product_image_help'] = '';
 $_lang['ms2_product_vendor'] = 'Vendor';
+$_lang['ms2_product_vendor_help'] = '';
 $_lang['ms2_product_made_in'] = 'Made in';
+$_lang['ms2_product_made_in__help'] = '';
+$_lang['ms2_product_tags'] = 'Tags';
+$_lang['ms2_product_tags_help'] = 'Any tags of the product.';
 
 $_lang['ms2_panel_save'] = 'Save';
 $_lang['ms2_product_edit'] = 'Edit';
@@ -102,4 +115,3 @@ $_lang['ms2_product_selected_publish'] = 'Publish selected goods';
 $_lang['ms2_product_selected_unpublish'] = 'Unpublish selected goods';
 $_lang['ms2_product_selected_delete'] = 'Delete selected goods';
 $_lang['ms2_product_selected_undelete'] = 'Undelete selected goods';
-

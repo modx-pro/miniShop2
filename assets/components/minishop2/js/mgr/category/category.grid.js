@@ -340,12 +340,13 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
 			,new_price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
 			,weight: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,color: {width:50, sortable:false}
+			,color: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-autocomplete', name: 'color'}}
 			,remains: {width:25, sortable:true, editor:{xtype:'numberfield'}}
 			,reserved: {width:25, sortable:true, editor:{xtype:'numberfield'}}
 			,image: {width:50, sortable:false}
-			,vendor: {width:50, sortable:true}
-			,made_in: {width:50, sortable:true}
+			,vendor: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-vendor'}}
+			,made_in: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-autocomplete', name: 'made_in'}}
+			//,tags: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-tags'}}
 		};
 
 		var fields = [this.sm];

@@ -32,9 +32,13 @@ $modx->addPackage($package, $Model);
 
 //$manager->removeObjectContainer('msProductData');
 //$manager->removeObjectContainer('msVendor');
+$manager->removeObjectContainer('msCategoryMember');
+$manager->removeObjectContainer('msProductTag');
 
 //$manager->createObjectContainer('msProductData');
 //$manager->createObjectContainer('msVendor');
+$manager->createObjectContainer('msCategoryMember');
+$manager->createObjectContainer('msProductTag');
 
 add_plugins_call($Model.$package);
 
@@ -61,15 +65,17 @@ function add_plugins_call($dir) {
 	require $dir . '/metadata.mysql.php';
 	foreach ($xpdo_meta_map as $object) {
 		foreach ($object as $name) {
-			$file = $dir . '/mysql/' . strtolower($name .'.map.inc.php');
-			if (file_exists($file)) {
-				file_put_contents($file, '
+			if ($name == 'msProductData') {
+				$file = $dir . '/mysql/' . strtolower($name .'.map.inc.php');
+				if (file_exists($file)) {
+					file_put_contents($file, '
 if (!in_array(\'ms2Plugins\', get_declared_classes())) {
 	require_once (dirname(dirname(__FILE__)) . \'/plugins.class.php\');
 	$this->ms2Plugins = new ms2Plugins($this, array());
 }
 
 $xpdo_meta_map[\''.$name.'\'] = $this->ms2Plugins->loadMap(\''.$name.'\', $xpdo_meta_map[\''.$name.'\']);', FILE_APPEND);
+				}
 			}
 		}
 	}

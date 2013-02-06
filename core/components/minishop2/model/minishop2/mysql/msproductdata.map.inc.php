@@ -11,11 +11,12 @@ $xpdo_meta_map['msProductData']= array (
     'new_price' => '0',
     'weight' => '0',
     'color' => NULL,
-    'remains' => NULL,
-    'reserved' => NULL,
+    'remains' => 0,
+    'reserved' => 0,
     'image' => NULL,
-    'vendor' => NULL,
+    'vendor' => 0,
     'made_in' => NULL,
+    'tags' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -23,14 +24,14 @@ $xpdo_meta_map['msProductData']= array (
     array (
       'dbtype' => 'varchar',
       'precision' => '50',
-      'phptype' => 'string',
+      'phptype' => 'int',
       'null' => true,
     ),
     'price' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '20',
-      'phptype' => 'string',
+      'phptype' => 'int',
       'null' => false,
       'default' => '0',
     ),
@@ -59,17 +60,19 @@ $xpdo_meta_map['msProductData']= array (
     ),
     'remains' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '20',
-      'phptype' => 'string',
-      'null' => true,
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'int',
+      'null' => false,
+      'default' => 0,
     ),
     'reserved' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '20',
-      'phptype' => 'string',
-      'null' => true,
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'int',
+      'null' => false,
+      'default' => 0,
     ),
     'image' => 
     array (
@@ -84,6 +87,7 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '10',
       'phptype' => 'int',
       'null' => false,
+      'default' => 0,
     ),
     'made_in' => 
     array (
@@ -91,6 +95,12 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '100',
       'phptype' => 'string',
       'null' => false,
+    ),
+    'tags' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'string',
+      'null' => true,
     ),
   ),
   'indexes' => 

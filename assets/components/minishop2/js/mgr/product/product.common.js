@@ -1,3 +1,4 @@
+miniShop2.config.active_fields = [];
 miniShop2.panel.ProductSettings = function(config) {
 	config = config || {};
 	config.listeners = {
@@ -11,8 +12,8 @@ miniShop2.panel.ProductSettings = function(config) {
 	Ext.applyIf(config,{
 		id: 'minishop2-product-settings-panel'
 		,border: false
-		,plain: true
 		,deferredRender: false
+		,forceLayout: true
 		,anchor: '97%'
 		,stateful: true
 		,stateEvents: ['tabchange']
@@ -23,26 +24,27 @@ miniShop2.panel.ProductSettings = function(config) {
 			,id: 'modx-resource-vtabs-header'
 			,html: '<img src="' + this.getTabImage(config.record.image) + '" width="120" height="90" id="minishop2-product-header-image" />'
 		}
-		/*
-		,footerCfg: {
-			tag: 'div'
-			,cls: 'x-tab-panel-header vertical-tabs-header'
-			,id: 'modx-resource-vtabs-footer'
-			,html: '<h4 id="minishop2-product-footer-title">123456</h4>'
-		}
-		*/
 		,items: [{
 			title: _('ms2_product_tab_main')
+			,hideMode: 'offsets'
 			,anchor: '100%'
 			,items: this.getMainFields(config)
 			,listeners: config.listeners
 		},{
 			title: _('ms2_product_tab_extra')
+			,hideMode: 'offsets'
 			,anchor: '100%'
 			,items: this.getExtraFields(config)
 			,listeners: config.listeners
 		},{
+			title: _('ms2_product_tab_gallery')
+			,hideMode: 'offsets'
+			,anchor: '100%'
+			,items: []
+			//,listeners: config.listeners
+		},{
 			title: _('ms2_product_tab_seo')
+			,hideMode: 'offsets'
 			,anchor: '100%'
 			,items: []
 			,listeners: config.listeners
@@ -101,9 +103,52 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
 	,getMainLeftFields: function(config) {
 		config = config || {record:{}};
-		var enabled = ['pagetitle','longtitle','introtext','description','content'];
+		var fields = [];
 
-		return this.getProductFields(config, enabled, miniShop2.config.main_fields);
+		var enabled = ['pagetitle','longtitle','introtext','description'];
+		var items = fields.push(this.getProductFields(config, enabled, miniShop2.config.main_fields));
+
+		enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags'];
+		var tmp = this.getProductFields(config, enabled, miniShop2.config.main_fields);
+		var middle = Math.ceil(tmp.length / 2) - 1;
+		if (tmp.length > 0) {
+			var array = {
+				layout:'column'
+				,xtype: 'fieldset'
+				,title: _('ms2_product')
+				,border: false
+				,defaults: {border: false}
+				,items: [{
+					columnWidth: .5
+					,layout: 'form'
+					,items: []
+				},{
+					columnWidth: .5
+					,layout: 'form'
+					,items: []
+				}]
+			};
+
+			for (var i=0; i < tmp.length; i++) {
+				var field = tmp[i];
+				//if (typeof(field) != 'object') {continue;}
+				field.anchor = '100%';
+				if (i > middle) {
+					array.items[1].items.push(field);
+				}
+				else {
+					array.items[0].items.push(field);
+				}
+			}
+
+			fields.push(array);
+		}
+
+
+		enabled = ['content'];
+		fields.push(this.getProductFields(config, enabled, miniShop2.config.main_fields));
+
+		return fields;
 	}
 
 	,getMainRightFields: function(config) {
@@ -113,33 +158,38 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
 		enabled = ['createdby','publishedby','deletedby','publishedon','pub_date','unpub_date','createdon','deletedon'];
 		items = this.getProductFields(config, enabled, miniShop2.config.main_fields);
-		fields.push({
-			xtype: 'fieldset'
-			//,title: _('ms2_dates')
-			,id: 'minishop2-box-dates'
-			,items: items
-		});
+		if (items.length > 0) {
+			fields.push({
+				xtype: 'fieldset'
+				//,title: _('ms2_dates')
+				,id: 'minishop2-box-dates'
+				,items: items
+			});
+		}
 
 		enabled = ['parent','template','alias','menutitle','link_attributes'];
 		items = this.getProductFields(config, enabled, miniShop2.config.main_fields);
-		fields.push({
-			xtype: 'fieldset'
-			,id: 'minishop2-box-template'
-			,items: items
-		});
+		if (items.length > 0) {
+			fields.push({
+				xtype: 'fieldset'
+				,id: 'minishop2-box-template'
+				,items: items
+			});
+		}
 
 		enabled = ['searchable','cacheable','richtext','syncsite','uri_override','hidemenu','show_in_tree'];
 		items = this.getProductFields(config, enabled, miniShop2.config.main_fields);
 		items.push({xtype:'xcheckbox', name:'deleted', inputValue:1, id: 'modx-resource-deleted', boxLabel: _('ms2_product_deleted'), description: '<b>[[*deleted]]</b><br/>' + _('resource_deleted_help'), checked:parseInt(config.record.deleted), hidden: config.mode == 'update' ? 1 : 0});
 		items.push({xtype:'xcheckbox', name:'published', inputValue:1, id: 'modx-resource-published', boxLabel: _('ms2_product_published'), description: '<b>[[*published]]</b><br/>' + _('resource_published_help'), checked:parseInt(config.record.published), hidden: config.mode == 'update' ? 1 : 0});
-		fields.push({
-			xtype: 'checkboxgroup'
-			,columns: 2
-			,id: 'minishop2-box-options'
-			,items: items
-		});
-
-		fields.push({xtype:'textfield', name: 'uri', id: 'modx-resource-uri',fieldLabel: _('ms2_product_uri'),value:config.record.uri || '',hidden: !config.record.uri_override,anchor: '100%'});
+		if (items.length > 0) {
+			fields.push({
+				xtype: 'checkboxgroup'
+				,columns: 2
+				,id: 'minishop2-box-options'
+				,items: items
+			});
+			fields.push({xtype:'textfield', name: 'uri', id: 'modx-resource-uri',fieldLabel: _('ms2_product_uri'),value:config.record.uri || '',hidden: !config.record.uri_override,anchor: '100%'});
+		}
 
 		/*
 		fields.push({
@@ -154,6 +204,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
 	,getExtraFields: function(config) {
 		config = config || {record:{}};
+		console.log(config)
 		return  [{
 			layout:'column'
 			,border: false
@@ -166,32 +217,23 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 				,msgTarget: 'under'
 			}
 			,items:[{
-				columnWidth: .2
+				columnWidth: .3
 				,layout: 'form'
 				,id: 'minishop2-product-extra-left'
-				//,defaults: { msgTarget: 'under' }
-				,items: {
-					xtype: 'fieldset'
-					,items: this.getExtraLeftFields(config)
-				}
+				,items: this.getExtraLeftFields(config)
 			},{
-				columnWidth: .5
+				columnWidth: .4
 				,layout: 'form'
 				,id: 'minishop2-product-extra-middle'
-				//,defaults: { msgTarget: 'under' }
-				//,items: this.getExtraMiddleFields(config)
-				,items: [{
-					xtype: 'fieldset'
-					,items: []
-				}]
+				,items: this.getExtraMiddleFields(config)
 			},{
 				columnWidth: .3
 				,title: _('ms2_category_tree')
-
 				,id: 'minishop2-product-extra-right'
-				,style: 'margin-right: 0'
+				,style: 'margin-top: 12px;'
 				,items: [{
-					xtype: 'minishop2-tree-categories'
+					xtype: config.mode == 'create' ? 'displayfield' : 'minishop2-tree-categories'
+					,value: _('ms2_disabled_while_creating')
 					,record: config.record
 				}]
 			}]
@@ -201,9 +243,30 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
 	,getExtraLeftFields: function(config) {
 		config = config || {record:{}};
-		var enabled = ['article','price','new_price','weight','color','remains','reserved','image','vendor','made_in'];
+		var enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags'];
+		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
 
-		return this.getProductFields(config, enabled, miniShop2.config.extra_fields);
+		if (items.length > 0) {
+			return {
+				xtype: 'fieldset'
+				,items: items
+			};
+		}
+		else {return [];}
+	}
+
+	,getExtraMiddleFields: function(config) {
+		config = config || {record:{}};
+		var enabled = [];
+		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
+
+		if (items.length > 0) {
+			return {
+				xtype: 'fieldset'
+				,items: items
+			};
+		}
+		else {return [];}
 	}
 
 	,getProductFields: function(config, enabled, available) {
@@ -212,9 +275,9 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 		var tmp, properties;
 		for (var i = 0; i < available.length; i++) {
 			var field = available[i];
-			if (enabled.indexOf(field) === -1) {continue;}
+			if ((enabled.length > 0 && enabled.indexOf(field) === -1) || miniShop2.config.active_fields.indexOf(field) !== -1) {continue;}
 			if (tmp = product_fields[field]) {
-
+				miniShop2.config.active_fields.push(field);
 				properties = {
 					description: '<b>[[*'+field+']]</b><br />'+_('resource_'+field+'_help')
 					,enableKeyEvents: true
@@ -281,15 +344,16 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 			,show_in_tree: {xtype:'xcheckbox', inputValue:1, description: '<b>[[*show_in_tree]]</b><br/>' + _('ms2_product_show_in_tree_help'), checked:parseInt(config.record.show_in_tree)}
 
 
-			,article: {xtype: 'textfield'}
-			,price: {xtype: 'numberfield', decimalPrecision: 2}
-			,new_price: {xtype: 'numberfield', decimalPrecision: 2}
-			,weight: {xtype: 'numberfield', decimalPrecision: 3}
-			//,color: {xtype: 'minishop2-combo-color'}
-			,remains: {xtype: 'numberfield'}
-			,reserved: {xtype: 'numberfield'}
-			//,vendor: {xtype: 'minishop2-combo-vendor'}
-			//,made_in: {xtype: 'minishop2-combo-madein'}
+			,article: {xtype: 'textfield', description: '<b>[[+article]]</b><br />'+_('ms2_product_article_help')}
+			,price: {xtype: 'numberfield', decimalPrecision: 2, description: '<b>[[+price]]</b><br />'+_('ms2_product_price_help')}
+			,new_price: {xtype: 'numberfield', decimalPrecision: 2, description: '<b>[[+new_price]]</b><br />'+_('ms2_product_new_price_help')}
+			,weight: {xtype: 'numberfield', decimalPrecision: 3, description: '<b>[[+weight]]</b><br />'+_('ms2_product_weight_help')}
+			,color: {xtype: 'minishop2-combo-autocomplete', description: '<b>[[+color]]</b><br />'+_('ms2_product_color_help')}
+			,remains: {xtype: 'numberfield', description: '<b>[[+remains]]</b><br />'+_('ms2_product_remains_help')}
+			,reserved: {xtype: 'numberfield', description: '<b>[[+reserved]]</b><br />'+_('ms2_product_reserved_help')}
+			,vendor: {xtype: 'minishop2-combo-vendor', description: '<b>[[+vendor]]</b><br />'+_('ms2_product_vendor_help')}
+			,made_in: {xtype: 'minishop2-combo-autocomplete', description: '<b>[[+made_in]]</b><br />'+_('ms2_product_made_in_help')}
+			,tags: {xtype: 'minishop2-combo-tags', name: 'tags[]', description: '<b>[[+tags]]</b><br />'+_('ms2_product_tags_help')}
 		};
 
 		return Ext.applyIf(fields, miniShop2.config.additional_fields);
@@ -324,7 +388,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 	}
 
 	,getTabImage: function(image) {
-		if (image === null || image == '' ) {
+		if (image === null || image == '' || typeof(image) == 'undefined') {
 			return miniShop2.config.logo_small;
 		}
 		else {

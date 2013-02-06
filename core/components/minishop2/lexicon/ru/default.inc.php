@@ -32,3 +32,5 @@ $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';
 $_lang['ms2_product_create_here'] = 'Товар категории';
 $_lang['ms2_product_create'] = 'Добавить товар';
+
+$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';

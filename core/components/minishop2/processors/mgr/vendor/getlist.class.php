@@ -1,7 +1,7 @@
 <?php
 
-class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
-	public $classKey = 'msCategory';
+class msVendorGetCatsProcessor extends modObjectGetListProcessor {
+	public $classKey = 'msVendor';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
 	public $checkListPermission = true;
@@ -99,11 +99,9 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 	 * @return xPDOQuery
 	 */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
-		$c->select('id,parent,pagetitle,context_key');
-		$c->where(array(
-			'class_key' => 'msCategory'
-		));
-
+		if ($this->getProperty('combo')) {
+			$c->select('id,name');
+		}
 		if ($query = $this->getProperty('query')) {
 			$c->where(array('pagetitle:LIKE' => "%$query%"));
 		}
@@ -119,24 +117,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 	 * @return array
 	 */
 	public function prepareResult(array $array) {
-		$parents = $this->modx->getParentIds($array['id'], 2, array('context' => $array['context_key']));
-		if ($parents[count($parents) - 1] == 0) {
-			unset($parents[count($parents) - 1]);
-		}
-		$q = $this->modx->newQuery('msCategory', array('id:IN' => $parents, 'class_key' => 'msCategory'));
-		$q->select('id,pagetitle');
-		if ($q->prepare() && $q->stmt->execute()) {
-			while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
-				$key = array_search($row['id'], $parents);
-				if ($key !== false) {
-					$parents[$key] = $row;
-				}
-			}
-		}
-
-		$array['parents'] = array_reverse($parents);
 		return $array;
 	}
 }
 
-return 'msCategoryGetCatsProcessor';
+return 'msVendorGetCatsProcessor';

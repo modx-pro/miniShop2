@@ -6,7 +6,13 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 	public $nodes = array();
 	public $sort = 'id';
 	public $dir = 'ASC';
+	public $pid;
 
+	public function initialize() {
+		$initialize = parent::initialize();
+		$this->pid = $this->getProperty('currentResource');
+		return $initialize;
+	}
 
 	/**
 	 * Get the query object for grabbing Resources in the tree
@@ -32,9 +38,11 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 		$this->itemClass= 'modResource';
 		$c= $this->modx->newQuery($this->itemClass);
 		$c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
+		$c->leftJoin('msCategoryMember', 'Member', array('modResource.id = Member.category_id AND Member.product_id = '.$this->pid));
 		$c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
 		$c->select(array(
 			'childrenCount' => 'COUNT(Child.id)',
+			'member' => 'category_id'
 		));
 		$c->where(array(
 			'context_key' => $this->contextKey
@@ -53,6 +61,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 		}
 		$c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
 		$c->sortby('modResource.'.$this->getProperty('sortBy'),$this->getProperty('sortDir'));
+
 		return $c;
 	}
 
@@ -109,6 +118,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 			'ctx' => $resource->context_key,
 			'hide_children_in_tree' => $resource->hide_children_in_tree,
 			'qtip' => $qtip,
+			'checked' => !empty($resource->member) ? true : false
 		);
 		if (!$hasChildren) {
 			$itemArray['hasChildren'] = false;
@@ -117,8 +127,6 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 		} else {
 			$itemArray['hasChildren'] = true;
 		}
-
-		$itemArray['checked'] = false;
 
 		return $itemArray;
 	}

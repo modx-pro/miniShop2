@@ -28,7 +28,7 @@ $settings['ms2_product_main_fields']->fromArray(array(
 $settings['ms2_product_extra_fields']= $modx->newObject('modSystemSetting');
 $settings['ms2_product_extra_fields']->fromArray(array(
 	'key' => 'ms2_product_extra_fields',
-	'value' => 'article,price,new_price,weight,color,remains,reserved,image,vendor,made_in',
+	'value' => 'article,price,new_price,weight,color,remains,reserved,vendor,made_in,tags',
 	'xtype' => 'textarea',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_product',

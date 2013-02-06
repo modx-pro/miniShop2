@@ -16,6 +16,8 @@ if ($object->xpdo) {
 			$manager = $modx->getManager();
 
 			$manager->createObjectContainer('msProductData');
+			$manager->createObjectContainer('msProductTag');
+			$manager->createObjectContainer('msCategoryMember');
 			$manager->createObjectContainer('msVendor');
 
 			if ($modx instanceof modX) {

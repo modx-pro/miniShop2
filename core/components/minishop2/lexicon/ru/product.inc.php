@@ -19,12 +19,13 @@ $_lang['ms2_btn_prev'] = 'Предыдущий товар (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Следующий товар (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Помощь';
 
-$_lang['ms2_product_sections'] = 'Разделы';
-$_lang['ms2_product_properties'] = 'Основные свойства';
-$_lang['ms2_product_tv'] = 'Дополнительные свойства';
 $_lang['ms2_product_tab_main'] = 'Веб страница';
 $_lang['ms2_product_tab_extra'] = 'Свойства товара';
 $_lang['ms2_product_tab_seo'] = 'Параметры SEO';
+$_lang['ms2_product_tab_gallery'] = 'Галерея';
+$_lang['ms2_product_sections'] = 'Разделы';
+$_lang['ms2_product_properties'] = 'Основные свойства';
+$_lang['ms2_product_tv'] = 'Дополнительные свойства';
 
 $_lang['ms2_product_id'] = 'ID';
 $_lang['ms2_product_pagetitle'] = 'Название';
@@ -72,15 +73,27 @@ $_lang['ms2_product_show_in_tree_help'] = 'По умолчанию, товары
 $_lang['ms2_product_syncsite'] = 'Очистить кэш';
 
 $_lang['ms2_product_article'] = 'Артикул';
+$_lang['ms2_product_article_help'] = '';
 $_lang['ms2_product_price'] = 'Цена';
+$_lang['ms2_product_price_help'] = '';
 $_lang['ms2_product_new_price'] = 'Новая цена';
+$_lang['ms2_product_new_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Вес';
+$_lang['ms2_product_weight_help'] = '';
 $_lang['ms2_product_color'] = 'Цвет';
+$_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Остаток';
+$_lang['ms2_product_remains_help'] = '';
 $_lang['ms2_product_reserved'] = 'Резерв';
+$_lang['ms2_product_reserved_help'] = '';
 $_lang['ms2_product_image'] = 'Изображение';
+$_lang['ms2_product_image_help'] = '';
 $_lang['ms2_product_vendor'] = 'Производитель';
+$_lang['ms2_product_vendor_help'] = '';
 $_lang['ms2_product_made_in'] = 'Страна';
+$_lang['ms2_product_made_in_help'] = '';
+$_lang['ms2_product_tags'] = 'Теги';
+$_lang['ms2_product_tags_help'] = 'Любые теги продукта.';
 
 $_lang['ms2_product_save'] = 'Сохранить';
 $_lang['ms2_product_edit'] = 'Изменить';
@@ -102,4 +115,3 @@ $_lang['ms2_product_selected_publish'] = 'Включить выбранные т
 $_lang['ms2_product_selected_unpublish'] = 'Отключить выбранные товары';
 $_lang['ms2_product_selected_delete'] = 'Удалить выбранные товары';
 $_lang['ms2_product_selected_undelete'] = 'Восстановить выбранные товары';
-

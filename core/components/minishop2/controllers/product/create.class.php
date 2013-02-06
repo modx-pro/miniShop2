@@ -45,7 +45,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
 
 		if (!$product_extra_fields = $this->modx->getOption('ms2_product_extra_fields')) {
-			$product_extra_fields = 'article,price,new_price,weight,color,remains,reserved,image,vendor,made_in';
+			$product_extra_fields = 'article,price,new_price,weight,color,remains,reserved,vendor,made_in,tags';
 		}
 		$product_extra_fields = array_map('trim', explode(',',$product_extra_fields));
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));

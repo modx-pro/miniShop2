@@ -86,6 +86,7 @@ class msProduct extends modResource {
 	public function set($k, $v= null, $vType= '') {
 		if (in_array($k, $this->dataFields)) {
 			if (!is_object($this->data)) {$this->loadData();}
+			if ($k == 'tags' && is_array($v)) {$v = implode(',',$v);}
 			return $this->data->set($k, $v, $vType);
 		}
 		else {

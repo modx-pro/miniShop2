@@ -12,7 +12,6 @@ miniShop2.page.CreateProduct = function(config) {
 		]);
 		miniShop2.keymap.product_navigation = 1;
 	}
-	console.log(config.record);
 };
 
 Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
