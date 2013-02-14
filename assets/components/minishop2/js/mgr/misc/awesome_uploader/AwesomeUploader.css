@@ -1,0 +1,126 @@
+/*
+For hidden file selection and form
+*/
+.au-hidden, .au-hidden *, *.au-hidden {
+	visibility: hidden;
+	width:1px;
+	height:1px;
+	display:block;
+	z-index:-99;
+	position:absolute;
+}
+
+/*
+For progress bar:
+*/
+
+td.x-grid3-td-progress-cell {
+    padding: 0;
+}
+
+td.x-grid3-td-progress-cell div.x-grid3-cell-inner {
+    padding: 0;
+    position: relative;
+    height: 21px;
+}
+
+.ux-progress-cell-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.ux-progress-cell-background {
+    background: #E0E8F3; /*url(../../resources/images/default/qtip/bg.gif) repeat-x scroll 0 -1px;*/
+    white-space: nowrap;
+}
+.x-grid3-td-progress-cell .low {
+    background: #11aa11;
+}
+.x-grid3-td-progress-cell .medium {
+    background: #f1fa1a;
+}
+.x-grid3-td-progress-cell .high {
+    background: #ee1111;
+}
+
+.ux-progress-cell-foreground {
+    color: #000;
+    background-color: #9CBFEE;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.ux-progress-cell-inner-right {
+    text-align: right;
+}
+
+.ux-progress-cell-inner-center {
+    text-align: center;
+}
+
+.ux-progress-cell .ux-progress-cell-inner div {
+    padding: 3px 0 0 4px;
+}
+
+.ux-progress-cell-inner-right div {
+    padding: 3px 4px 0 0;
+    position: relative;
+}
+
+.ux-progress-cell-inner-center div {
+    padding: 3px 0 0 0;
+    position: relative;
+}
+
+.ux-progress-cell-inner-left div {
+    padding: 3px 0 0 4px;
+    position: relative;
+}
+
+/*
+.aerp-fileBrowser-icon {
+	background-image: url("/inc/img/disk.png");
+	background-repeat: no-repeat;
+}
+		.ul-icon {
+			width:16px;
+			height:16px;
+			border: 0;
+		}
+		.ul-cont {
+			position:relative; 
+			width:400px; 
+			height:70px; 
+			border:1px solid #7F7F7F; 
+		}
+		.ul-progress-cont {
+			position:relative; 
+			left:-1px; 
+			width:400px; 
+			height:8px; 
+			border:1px solid #7F7F7F;
+		}
+		.ul-progress-bar {
+			background-color:#AAFF44;
+			width:0px;
+			height:8px
+		}
+		.ul-file {
+			padding-left: 20px;
+		}
+		.ul-left {
+			float:left; 
+			width:240px; 
+			padding-left: 20px;
+		}
+		.ul-right {
+			float:right; 
+			width:120px; 
+			text-align:right; 
+			padding-right: 20px;
+		}
+*/

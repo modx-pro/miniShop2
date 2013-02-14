@@ -29,14 +29,6 @@ $xpdo_meta_map['msProduct']= array (
       'cardinality' => 'one',
       'owner' => 'local',
     ),
-    'Tags' => 
-    array (
-      'class' => 'msProductTag',
-      'local' => 'id',
-      'foreign' => 'product_id',
-      'cardinality' => 'many',
-      'owner' => 'local',
-    ),
   ),
   'aggregates' => 
   array (
@@ -45,14 +37,6 @@ $xpdo_meta_map['msProduct']= array (
       'class' => 'msCategory',
       'local' => 'id',
       'foreign' => 'parent',
-      'cardinality' => 'one',
-      'owner' => 'foreign',
-    ),
-    'Categories' => 
-    array (
-      'class' => 'msCategoryMember',
-      'local' => 'id',
-      'foreign' => 'product_id',
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),

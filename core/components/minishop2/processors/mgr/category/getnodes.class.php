@@ -7,10 +7,14 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 	public $sort = 'id';
 	public $dir = 'ASC';
 	public $pid;
+	public $parent_id;
 
 	public function initialize() {
 		$initialize = parent::initialize();
 		$this->pid = $this->getProperty('currentResource');
+		if ($res = $this->modx->getObject('msCategory', $this->pid)) {
+			$this->parent_id = $res->get('parent');
+		}
 		return $initialize;
 	}
 
@@ -118,7 +122,8 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 			'ctx' => $resource->context_key,
 			'hide_children_in_tree' => $resource->hide_children_in_tree,
 			'qtip' => $qtip,
-			'checked' => !empty($resource->member) ? true : false
+			'checked' => !empty($resource->member) || $resource->id == $this->parent_id ? true : false
+			,'disabled' =>  $resource->id == $this->parent_id ? true : false
 		);
 		if (!$hasChildren) {
 			$itemArray['hasChildren'] = false;

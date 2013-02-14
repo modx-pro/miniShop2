@@ -79,7 +79,7 @@ $xpdo_meta_map['msVendor']= array (
       'local' => 'id',
       'foreign' => 'vendor',
       'cardinality' => 'many',
-      'owner' => 'local',
+      'owner' => 'foreign',
     ),
   ),
 );

@@ -14,9 +14,11 @@ $xpdo_meta_map['msProductData']= array (
     'remains' => 0,
     'reserved' => 0,
     'image' => NULL,
+    'thumb' => NULL,
     'vendor' => 0,
     'made_in' => NULL,
     'tags' => NULL,
+    'source' => 1,
   ),
   'fieldMeta' => 
   array (
@@ -81,6 +83,13 @@ $xpdo_meta_map['msProductData']= array (
       'phptype' => 'string',
       'null' => true,
     ),
+    'thumb' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => true,
+    ),
     'vendor' => 
     array (
       'dbtype' => 'int',
@@ -101,6 +110,14 @@ $xpdo_meta_map['msProductData']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
+    ),
+    'source' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'int',
+      'null' => false,
+      'default' => 1,
     ),
   ),
   'indexes' => 
@@ -184,6 +201,33 @@ $xpdo_meta_map['msProductData']= array (
           'null' => false,
         ),
       ),
+    ),
+  ),
+  'composites' => 
+  array (
+    'Tags' => 
+    array (
+      'class' => 'msProductTag',
+      'local' => 'id',
+      'foreign' => 'product_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+    'Files' => 
+    array (
+      'class' => 'msProductFile',
+      'local' => 'id',
+      'foreign' => 'product_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+    'Categories' => 
+    array (
+      'class' => 'msCategoryMember',
+      'local' => 'id',
+      'foreign' => 'product_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
     ),
   ),
   'aggregates' => 

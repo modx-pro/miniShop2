@@ -10,7 +10,7 @@ $settings = array();
 $settings['ms2_category_grid_fields']= $modx->newObject('modSystemSetting');
 $settings['ms2_category_grid_fields']->fromArray(array(
 	'key' => 'ms2_category_grid_fields',
-	'value' => 'pagetitle,article,price,weight,image,remains,reserved',
+	'value' => 'pagetitle,article,price,weight,thumb,remains,reserved',
 	'xtype' => 'textarea',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_category',
@@ -55,7 +55,7 @@ $settings['ms2_product_show_comments']->fromArray(array(
 $settings['ms2_template_product_default']= $modx->newObject('modSystemSetting');
 $settings['ms2_template_product_default']->fromArray(array(
 	'key' => 'ms2_template_product_default',
-	'value' => 'true',
+	'value' => '',
 	'xtype' => 'modx-combo-template',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_product',
@@ -70,5 +70,13 @@ $settings['ms2_product_show_in_tree_default']->fromArray(array(
 	'area' => 'ms2_product',
 ),'',true,true);
 
+$settings['ms2_product_source_default']= $modx->newObject('modSystemSetting');
+$settings['ms2_product_source_default']->fromArray(array(
+	'key' => 'ms2_product_source_default',
+	'value' => '1',
+	'xtype' => 'modx-combo-source',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_gallery',
+),'',true,true);
 
 return $settings;

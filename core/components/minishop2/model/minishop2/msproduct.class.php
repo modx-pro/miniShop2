@@ -299,4 +299,23 @@ class msProduct extends modResource {
 		return $arr;
 	}
 
+
+
+
+
+
+	public function generateAllThumbnails() {
+		$this->data->generateAllThumbnails();
+	}
+
+	public function initializeMediaSource() {
+		if (!is_object($this->data)) {$this->loadData();}
+		return $this->data->initializeMediaSource($this->get('context_key'));
+	}
+
+	public function updateProductImage() {
+		if (!is_object($this->data)) {$this->loadData();}
+		return $this->data->updateProductImage();
+	}
+
 }

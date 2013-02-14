@@ -65,3 +65,5 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 		return parent::afterSave();
 	}
 }
+
+return 'msProductCreateProcessor';

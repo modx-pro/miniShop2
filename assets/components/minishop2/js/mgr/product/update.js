@@ -253,7 +253,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 			MODx.releaseLock(MODx.request.id);
 			MODx.sleep(400);
-			MODx.loadPage(action = updatePage, extraParams = 'id=' + id)
+			MODx.loadPage(updatePage, 'id=' + id)
 		}
 	}
 
@@ -264,7 +264,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 			MODx.releaseLock(MODx.request.id);
 			MODx.sleep(400);
-			MODx.loadPage(action = updatePage, extraParams = 'id=' + id)
+			MODx.loadPage(updatePage, 'id=' + id)
 		}
 	}
 
@@ -275,7 +275,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 		MODx.releaseLock(MODx.request.id);
 		MODx.sleep(400);
-		MODx.loadPage(action = upPage, extraParams = 'id=' + id)
+		MODx.loadPage(upPage, 'id=' + id)
 	}
 
 	,refreshNode: function() {

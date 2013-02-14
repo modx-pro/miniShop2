@@ -7,6 +7,7 @@
  */
 $_lang['area_ms2_category'] = 'Категория товаров';
 $_lang['area_ms2_product'] = 'Товар';
+$_lang['area_ms2_gallery'] = 'Галерея';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Поля таблицы товаров';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимых полей таблицы с товарами категории, через запятую.';
@@ -23,3 +24,7 @@ $_lang['setting_ms2_template_product_default'] = 'Шаблон по умолча
 $_lang['setting_ms2_template_product_default_desc'] = 'Выберете шаблон, который будет установлен по умолчанию при создании товара.';
 $_lang['setting_ms2_product_show_in_tree_default'] = 'Показывать в дереве по умолчанию';
 $_lang['setting_ms2_product_show_in_tree_default_desc'] = 'Включите эту опцию, чтобы все создаваемые товары были видны в дереве ресурсов.';
+
+$_lang['setting_ms2_product_source_default'] = 'Источник файлов по умолчанию';
+$_lang['setting_ms2_product_source_default_desc'] = 'Источник файлов для галереи изображений товара по умолчанию.';
+$_lang['ms2_source_thumbnails_desc'] = 'Закодированный в JSON массив с параметрами генерации уменьшенных копий изображений.';

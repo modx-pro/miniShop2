@@ -60,3 +60,5 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	}
 
 }
+
+return 'msProductUpdateProcessor';

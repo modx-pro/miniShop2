@@ -13,9 +13,7 @@
 		<field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msProduct" index="index" />
 
 		<aggregate alias="Category" class="msCategory" local="id" foreign="parent" cardinality="one" owner="foreign" />
-		<aggregate alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="one" owner="foreign" />
 		<composite alias="Data" class="msProductData" local="id" foreign="id" cardinality="one" owner="local" />
-		<composite alias="Tags" class="msProductTag" local="id" foreign="product_id" cardinality="many" owner="local" />
 	</object>
 
 
@@ -28,9 +26,11 @@
 		<field key="remains" dbtype="int" precision="10" phptype="int" null="false" default="0" />
 		<field key="reserved" dbtype="int" precision="10" phptype="int" null="false" default="0" />
 		<field key="image" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="vendor" dbtype="int" precision="10" phptype="int" null="false" default="0" />
 		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="false" />
 		<field key="tags" dbtype="text" phptype="string" null="true" />
+		<field key="source" dbtype="int" precision="10" phptype="int" null="false" default="1" />
 
 		<index alias="vendor" name="vendor" primary="false" unique="false" type="BTREE">
 			<column key="vendor" length="" collation="A" null="false" />
@@ -51,6 +51,9 @@
 			<column key="made_in" length="" collation="A" null="false" />
 		</index>
 
+		<composite alias="Tags" class="msProductTag" local="id" foreign="product_id" cardinality="many" owner="local" />
+		<composite alias="Files" class="msProductFile" local="id" foreign="product_id" cardinality="many" owner="local" />
+		<composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many" owner="local" />
 		<aggregate alias="Product" class="msProduct" local="id" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Vendor" class="msVendor" local="vendor" foreign="id" cardinality="one" owner="foreign" />
 	</object>
@@ -66,7 +69,7 @@
 		<field key="description" dbtype="text" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
 
-		<aggregate alias="Products" class="msProduct" local="id" foreign="vendor" cardinality="many" owner="local" />
+		<aggregate alias="Products" class="msProduct" local="id" foreign="vendor" cardinality="many" owner="foreign" />
 	</object>
 
 
@@ -79,8 +82,8 @@
 			<column key="category_id" length="" collation="A" null="false" />
 		</index>
 
-		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="local" />
-		<aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one" owner="local" />
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one" owner="foreign" />
 	</object>
 
 
@@ -93,9 +96,37 @@
 			<column key="tag" length="" collation="A" null="false" />
 		</index>
 
-		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="local" />
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign" />
 	</object>
 
 
+	<object class="msProductFile" table="ms2_product_files" extends="xPDOSimpleObject">
+		<field key="product_id" dbtype="int" precision="10" phptype="int" null="false" />
+		<field key="source" dbtype="int" precision="10" phptype="int" null="false" default="0" />
+		<field key="parent" dbtype="int" precision="10" phptype="int" null="false" default="0" />
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="description" dbtype="text" phptype="string" null="true" />
+		<field key="path" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="file" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="type" dbtype="varchar" precision="50" phptype="string" null="true" />
+		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+		<field key="createdby" dbtype="int" precision="10" phptype="int" null="false" default="0" />
+		<field key="rank" dbtype="int" precision="10" phptype="int" null="false" default="0" />
+		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" />
+
+		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
+			<column key="product_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="type" name="type" primary="false" unique="false" type="BTREE" >
+			<column key="type" length="" collation="A" null="false" />
+		</index>
+		<index alias="parent" name="parent" primary="false" unique="false" type="BTREE" >
+			<column key="parent" length="" collation="A" null="false" />
+		</index>
+
+		<composite alias="Children" class="msProductFile" local="id" foreign="parent" cardinality="many" owner="local" />
+		<aggregate alias="Parent" class="msProductFile" local="parent" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign" />
+	</object>
 
 </model>

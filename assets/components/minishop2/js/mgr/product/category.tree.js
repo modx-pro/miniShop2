@@ -2,6 +2,7 @@ miniShop2.tree.Categories = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
 		url: miniShop2.config.connector_url
+		,id: 'minishop2-categories-tree'
 		,title: ''
 		,anchor: '100%'
 		,rootVisible: false

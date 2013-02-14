@@ -7,6 +7,7 @@
  */
 $_lang['area_ms2_category'] = 'Category of the goods';
 $_lang['area_ms2_product'] = 'Product';
+$_lang['area_ms2_gallery'] = 'Gallery';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
@@ -23,3 +24,7 @@ $_lang['setting_ms2_template_product_default'] = 'Default template for new produ
 $_lang['setting_ms2_template_product_default_desc'] = 'Select template which will be set by default when you creating new product.';
 $_lang['setting_ms2_product_show_in_tree_default'] = 'Show in tree by default';
 $_lang['setting_ms2_product_show_in_tree_default_desc'] = 'If you activate this option, all new goods will be shown in resource tree.';
+
+$_lang['setting_ms2_product_source_default'] = 'Default media source';
+$_lang['setting_ms2_product_source_default_desc'] = 'Default media source for the product gallery.';
+$_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';

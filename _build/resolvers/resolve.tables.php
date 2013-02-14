@@ -8,6 +8,7 @@
 if ($object->xpdo) {
 	switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 		case xPDOTransport::ACTION_INSTALL:
+		case xPDOTransport::ACTION_UPGRADE:
 			/* @var modX $modx */
 			$modx =& $object->xpdo;
 			$modelPath = $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/';
@@ -15,10 +16,11 @@ if ($object->xpdo) {
 
 			$manager = $modx->getManager();
 
+			$manager->createObjectContainer('msVendor');
+			$manager->createObjectContainer('msCategoryMember');
 			$manager->createObjectContainer('msProductData');
 			$manager->createObjectContainer('msProductTag');
-			$manager->createObjectContainer('msCategoryMember');
-			$manager->createObjectContainer('msVendor');
+			$manager->createObjectContainer('msProductFile');
 
 			if ($modx instanceof modX) {
 				$modx->addExtensionPackage('minishop2', '[[++core_path]]components/minishop2/model/');

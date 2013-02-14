@@ -88,12 +88,17 @@ $_lang['ms2_product_reserved'] = 'Резерв';
 $_lang['ms2_product_reserved_help'] = '';
 $_lang['ms2_product_image'] = 'Изображение';
 $_lang['ms2_product_image_help'] = '';
+$_lang['ms2_product_thumb'] = 'Превью';
+$_lang['ms2_product_thumb_help'] = '';
 $_lang['ms2_product_vendor'] = 'Производитель';
 $_lang['ms2_product_vendor_help'] = '';
 $_lang['ms2_product_made_in'] = 'Страна';
 $_lang['ms2_product_made_in_help'] = '';
 $_lang['ms2_product_tags'] = 'Теги';
 $_lang['ms2_product_tags_help'] = 'Любые теги продукта.';
+$_lang['ms2_product_source'] = 'Источник файлов';
+$_lang['ms2_product_source_help'] = 'Источник файлов, который хранят изображения товара.';
+$_lang['ms2_product_change_source_confirm'] = 'Вы уверены, что хотите изменить источник файлов? ВНИМАНИЕ: При этом будут сохранены все изменения, убедитесь, что вы готовы сделать это перед продолжением.';
 
 $_lang['ms2_product_save'] = 'Сохранить';
 $_lang['ms2_product_edit'] = 'Изменить';

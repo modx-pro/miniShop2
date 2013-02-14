@@ -1,4 +1,3 @@
-miniShop2.config.active_fields = [];
 miniShop2.panel.ProductSettings = function(config) {
 	config = config || {};
 	config.listeners = {
@@ -9,12 +8,19 @@ miniShop2.panel.ProductSettings = function(config) {
 		,uncheck:{fn:MODx.fireResourceFormChange}
 	};
 
+	miniShop2.config.active_fields = [];
+
 	Ext.applyIf(config,{
 		id: 'minishop2-product-settings-panel'
 		,border: false
 		,deferredRender: false
 		,forceLayout: true
 		,anchor: '97%'
+		,listeners: {
+			render: {fn: function(a) {
+				console.log(a)
+			}, scope: this}
+		}
 		,stateful: true
 		,stateEvents: ['tabchange']
 		,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
@@ -22,7 +28,7 @@ miniShop2.panel.ProductSettings = function(config) {
 			tag: 'div'
 			,cls: 'x-tab-panel-header vertical-tabs-header'
 			,id: 'modx-resource-vtabs-header'
-			,html: '<img src="' + this.getTabImage(config.record.image) + '" width="120" height="90" id="minishop2-product-header-image" />'
+			,html: '<img src="' + miniShop2.config.logo_small + '" width="120" height="90" id="minishop2-product-header-image" />'
 		}
 		,items: [{
 			title: _('ms2_product_tab_main')
@@ -40,19 +46,18 @@ miniShop2.panel.ProductSettings = function(config) {
 			title: _('ms2_product_tab_gallery')
 			,hideMode: 'offsets'
 			,anchor: '100%'
-			,items: []
+			,items: this.getGallery(config)
 			//,listeners: config.listeners
-		},{
+		}/*,{
 			title: _('ms2_product_tab_seo')
 			,hideMode: 'offsets'
 			,anchor: '100%'
 			,items: []
 			,listeners: config.listeners
-		}]
-		,listeners: config.listeners
+		}*/]
+
 	});
 	miniShop2.panel.ProductSettings.superclass.constructor.call(this,config);
-
 };
 Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
@@ -98,6 +103,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 		,{xtype: 'hidden',name: 'parent',value: config.record.parent || 0,id: 'modx-resource-parent-hidden'}
 		,{xtype: 'hidden',name: 'isfolder',value: 0,id: 'modx-resource-isfolder-hidden'}
 		,{xtype: 'hidden',name: 'parent-original',value: config.record.parent || 0,id: 'modx-resource-parent-old-hidden'}
+		,{xtype: 'hidden',name: 'source',value: config.record.source || 1,id: 'modx-resource-source-hidden'}
 		];
 	}
 
@@ -108,7 +114,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 		var enabled = ['pagetitle','longtitle','introtext','description'];
 		var items = fields.push(this.getProductFields(config, enabled, miniShop2.config.main_fields));
 
-		enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags'];
+		enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags','source'];
 		var tmp = this.getProductFields(config, enabled, miniShop2.config.main_fields);
 		var middle = Math.ceil(tmp.length / 2) - 1;
 		if (tmp.length > 0) {
@@ -204,7 +210,6 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
 	,getExtraFields: function(config) {
 		config = config || {record:{}};
-		console.log(config)
 		return  [{
 			layout:'column'
 			,border: false
@@ -240,10 +245,9 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 		}];
 	}
 
-
 	,getExtraLeftFields: function(config) {
 		config = config || {record:{}};
-		var enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags'];
+		var enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags','source'];
 		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
 
 		if (items.length > 0) {
@@ -268,6 +272,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 		}
 		else {return [];}
 	}
+
 
 	,getProductFields: function(config, enabled, available) {
 		var product_fields =  this.getAllProductFields(config);
@@ -354,10 +359,12 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 			,vendor: {xtype: 'minishop2-combo-vendor', description: '<b>[[+vendor]]</b><br />'+_('ms2_product_vendor_help')}
 			,made_in: {xtype: 'minishop2-combo-autocomplete', description: '<b>[[+made_in]]</b><br />'+_('ms2_product_made_in_help')}
 			,tags: {xtype: 'minishop2-combo-tags', name: 'tags[]', description: '<b>[[+tags]]</b><br />'+_('ms2_product_tags_help')}
+			,source: {xtype: config.mode == 'update' ? 'hidden' : 'minishop2-combo-source', name: 'source-cmb', disabled: config.mode == 'update', value:config.record.source || 1, description: '<b>[[+source]]</b><br />'+_('ms2_product_source_help'), listeners: {select: {fn:function(data) {Ext.getCmp('modx-resource-source-hidden').setValue(data.value);MODx.fireResourceFormChange();}}}}
 		};
 
 		return Ext.applyIf(fields, miniShop2.config.additional_fields);
 	}
+
 
 	,templateWarning: function() {
 		if (this.config.mode == 'create') {return true;}
@@ -387,15 +394,12 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 		}
 	}
 
-	,getTabImage: function(image) {
-		if (image === null || image == '' || typeof(image) == 'undefined') {
-			return miniShop2.config.logo_small;
-		}
-		else {
-			/* TODO Need to add image checks and link to the 120x90 thumb */
-			return image;
-		}
-
+	,getGallery: function(config) {
+		return {
+			xtype: config.mode == 'create' ? 'displayfield' : 'minishop2-product-gallery'
+			,value: _('ms2_disabled_while_creating')
+			,record: config.record
+		};
 	}
 });
 Ext.reg('minishop2-product-settings',miniShop2.panel.ProductSettings);

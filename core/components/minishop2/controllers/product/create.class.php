@@ -67,6 +67,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 
 		$this->resourceArray['show_in_tree'] = $this->context->getOption('ms2_product_show_in_tree_default', 0, $this->modx->_userConfig);
 		$this->resourceArray['show_in_tree'] = isset($this->resourceArray['show_in_tree']) && intval($this->resourceArray['show_in_tree']) == 1 ? true : false;
+		$this->resourceArray['source'] = $this->context->getOption('ms2_product_source_default', 1, $this->modx->_userConfig);
 
 		$this->addHtml('
 		<script type="text/javascript">

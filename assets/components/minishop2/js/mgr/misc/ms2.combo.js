@@ -151,6 +151,27 @@ Ext.extend(miniShop2.combo.Vendor,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-vendor',miniShop2.combo.Vendor);
 
 
+miniShop2.combo.Source = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: config.name || 'source-cmb'
+		,id: 'minishop2-product-source'
+		,hiddenName: 'source-cmb'
+		,displayField: 'name'
+		,valueField: 'id'
+		,width: 300
+		,listWidth: 300
+		,fieldLabel: _('ms2_product_' + config.name || 'source')
+		,anchor: '99%'
+		,allowBlank: false
+	});
+	miniShop2.combo.Source.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Source,MODx.combo.MediaSource);
+Ext.reg('minishop2-combo-source',miniShop2.combo.Source);
+
+
 miniShop2.combo.Tags = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{

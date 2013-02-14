@@ -59,7 +59,7 @@ $xpdo_meta_map['msCategoryMember']= array (
       'local' => 'product_id',
       'foreign' => 'id',
       'cardinality' => 'one',
-      'owner' => 'local',
+      'owner' => 'foreign',
     ),
     'Category' => 
     array (
@@ -67,7 +67,7 @@ $xpdo_meta_map['msCategoryMember']= array (
       'local' => 'category_id',
       'foreign' => 'id',
       'cardinality' => 'one',
-      'owner' => 'local',
+      'owner' => 'foreign',
     ),
   ),
 );

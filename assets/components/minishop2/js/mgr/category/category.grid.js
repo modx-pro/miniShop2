@@ -89,9 +89,10 @@ miniShop2.grid.Category = function(config) {
 Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 
 	_makeTemplates: function() {
+		var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 		this.tplPageTitle = new Ext.XTemplate(''
 			+'<tpl for="."><div class="product-title-column">'
-				+'<h3 class="main-column"><span class="product-id">{id}</span>{pagetitle}</h3>'
+				+'<h3 class="main-column"><span class="product-id">{id}</span><a href="?a=' + updatePage + '&id={id}" onclick="if (event.which == 1) {MODx.loadPage(\''+updatePage+'\', \'id={id}\'); return false;}">{pagetitle}</a></h3>'
 				+'<tpl if="actions">'
 					+'<ul class="actions">'
 						+'<tpl for="actions">'
@@ -343,7 +344,8 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,color: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-autocomplete', name: 'color'}}
 			,remains: {width:25, sortable:true, editor:{xtype:'numberfield'}}
 			,reserved: {width:25, sortable:true, editor:{xtype:'numberfield'}}
-			,image: {width:50, sortable:false}
+			,image: {width:50, sortable:false, renderer: this.renderThumb}
+			,thumb: {width:50, sortable:false, renderer: this.renderThumb}
 			,vendor: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-vendor'}}
 			,made_in: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-autocomplete', name: 'made_in'}}
 			//,tags: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-tags'}}
@@ -376,7 +378,6 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		}
 	}
 
-
 	,formatDate: function(value) {
 		if (value) {
 			var date = new Date(value);
@@ -386,5 +387,15 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			return '';
 		}
 	}
+
+	,renderThumb: function(value) {
+		if (value) {
+			return '<img src="' + value + '" height="41" style="display:block;margin:auto;"/>';
+		}
+		else {
+			return '';
+		}
+	}
+
 });
 Ext.reg('minishop2-grid-category',miniShop2.grid.Category);

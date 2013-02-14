@@ -88,12 +88,17 @@ $_lang['ms2_product_reserved'] = 'Reserved';
 $_lang['ms2_product_reserved_help'] = '';
 $_lang['ms2_product_image'] = 'Image';
 $_lang['ms2_product_image_help'] = '';
+$_lang['ms2_product_thumb'] = 'Thumb';
+$_lang['ms2_product_thumb_help'] = '';
 $_lang['ms2_product_vendor'] = 'Vendor';
 $_lang['ms2_product_vendor_help'] = '';
 $_lang['ms2_product_made_in'] = 'Made in';
 $_lang['ms2_product_made_in__help'] = '';
 $_lang['ms2_product_tags'] = 'Tags';
 $_lang['ms2_product_tags_help'] = 'Any tags of the product.';
+$_lang['ms2_product_source'] = 'Media source';
+$_lang['ms2_product_source_help'] = 'The media source that store product images.';
+$_lang['ms2_product_change_source_confirm'] = 'Are you sure you want to change the media source of the product? WARNING: This will save your prior changes, ensure you are ready to do so before proceeding.';
 
 $_lang['ms2_panel_save'] = 'Save';
 $_lang['ms2_product_edit'] = 'Edit';

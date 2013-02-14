@@ -77,11 +77,11 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 		if (fp && fp.isDirty()) {
 			Ext.Msg.confirm(_('warning'),_('ms2_product_dirty_confirm'),function(e) {
 				if (e == 'yes') {
-					MODx.loadPage(action = upPage, 'id=' + id)
+					MODx.loadPage(upPage, 'id=' + id)
 				}
 			},this);
 		} else {
-			MODx.loadPage(action = upPage, 'id=' + id)
+			MODx.loadPage(upPage, 'id=' + id)
 		}
 	}
 

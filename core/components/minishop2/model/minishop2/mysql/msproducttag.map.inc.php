@@ -59,7 +59,7 @@ $xpdo_meta_map['msProductTag']= array (
       'local' => 'product_id',
       'foreign' => 'id',
       'cardinality' => 'one',
-      'owner' => 'local',
+      'owner' => 'foreign',
     ),
   ),
 );
