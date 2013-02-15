@@ -12,6 +12,17 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	public $afterSaveEvent = 'OnDocFormSave';
 
 	/**
+	 * Handle formatting of various checkbox fields
+	 * @return void
+	 */
+	public function handleCheckBoxes() {
+		parent::handleCheckBoxes();
+		$this->setCheckbox('new');
+		$this->setCheckbox('popular');
+		$this->setCheckbox('favorite');
+	}
+
+	/**
 	 * Set publishedon date if publish change is different
 	 * @return int
 	 */

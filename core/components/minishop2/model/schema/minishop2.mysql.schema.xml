@@ -29,8 +29,11 @@
 		<field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="vendor" dbtype="int" precision="10" phptype="int" null="false" default="0" />
 		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="false" />
+		<field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
 		<field key="tags" dbtype="text" phptype="string" null="true" />
-		<field key="source" dbtype="int" precision="10" phptype="int" null="false" default="1" />
+		<field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="int" null="false" default="1" />
 
 		<index alias="vendor" name="vendor" primary="false" unique="false" type="BTREE">
 			<column key="vendor" length="" collation="A" null="false" />
@@ -46,6 +49,15 @@
 		</index>
 		<index alias="vendor" name="vendor" primary="false" unique="false" type="BTREE">
 			<column key="vendor" length="" collation="A" null="false" />
+		</index>
+		<index alias="new" name="new" primary="false" unique="false" type="BTREE">
+			<column key="new" length="" collation="A" null="false" />
+		</index>
+		<index alias="favorite" name="favorite" primary="false" unique="false" type="BTREE">
+			<column key="favorite" length="" collation="A" null="false" />
+		</index>
+		<index alias="popular" name="popular" primary="false" unique="false" type="BTREE">
+			<column key="popular" length="" collation="A" null="false" />
 		</index>
 		<index alias="made_in" name="made_in" primary="false" unique="false" type="BTREE">
 			<column key="made_in" length="" collation="A" null="false" />

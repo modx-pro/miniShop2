@@ -183,7 +183,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 			});
 		}
 
-		enabled = ['searchable','cacheable','richtext','syncsite','uri_override','hidemenu','show_in_tree'];
+		enabled = ['searchable','cacheable','richtext','syncsite','uri_override','hidemenu','show_in_tree','new','favorite','popular'];
 		items = this.getProductFields(config, enabled, miniShop2.config.main_fields);
 		items.push({xtype:'xcheckbox', name:'deleted', inputValue:1, id: 'modx-resource-deleted', boxLabel: _('ms2_product_deleted'), description: '<b>[[*deleted]]</b><br/>' + _('resource_deleted_help'), checked:parseInt(config.record.deleted), hidden: config.mode == 'update' ? 1 : 0});
 		items.push({xtype:'xcheckbox', name:'published', inputValue:1, id: 'modx-resource-published', boxLabel: _('ms2_product_published'), description: '<b>[[*published]]</b><br/>' + _('resource_published_help'), checked:parseInt(config.record.published), hidden: config.mode == 'update' ? 1 : 0});
@@ -247,7 +247,7 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 
 	,getExtraLeftFields: function(config) {
 		config = config || {record:{}};
-		var enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags','source'];
+		var enabled = ['article','price','new_price','weight','color','remains','reserved','vendor','made_in','tags','source','new','favorite','popular'];
 		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
 
 		if (items.length > 0) {
@@ -360,6 +360,10 @@ Ext.extend(miniShop2.panel.ProductSettings,MODx.VerticalTabs,{
 			,made_in: {xtype: 'minishop2-combo-autocomplete', description: '<b>[[+made_in]]</b><br />'+_('ms2_product_made_in_help')}
 			,tags: {xtype: 'minishop2-combo-tags', name: 'tags[]', description: '<b>[[+tags]]</b><br />'+_('ms2_product_tags_help')}
 			,source: {xtype: config.mode == 'update' ? 'hidden' : 'minishop2-combo-source', name: 'source-cmb', disabled: config.mode == 'update', value:config.record.source || 1, description: '<b>[[+source]]</b><br />'+_('ms2_product_source_help'), listeners: {select: {fn:function(data) {Ext.getCmp('modx-resource-source-hidden').setValue(data.value);MODx.fireResourceFormChange();}}}}
+
+			,new: {xtype:'xcheckbox', inputValue:1, checked:parseInt(config.record.new), description: '<b>[[+new]]</b><br />'+_('ms2_product_new_help')}
+			,favorite: {xtype:'xcheckbox', inputValue:1, checked:parseInt(config.record.favorite), description: '<b>[[+favorite]]</b><br />'+_('ms2_product_favorite_help')}
+			,popular: {xtype:'xcheckbox', inputValue:1, checked:parseInt(config.record.popular), description: '<b>[[+popular]]</b><br />'+_('ms2_product_popular_help')}
 		};
 
 		return Ext.applyIf(fields, miniShop2.config.additional_fields);
