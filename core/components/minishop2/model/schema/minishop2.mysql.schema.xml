@@ -32,7 +32,7 @@
 		<field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
 		<field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
 		<field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
-		<field key="tags" dbtype="text" phptype="string" null="true" />
+		<field key="tags" dbtype="text" phptype="json" null="true" />
 		<field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="int" null="false" default="1" />
 
 		<index alias="vendor" name="vendor" primary="false" unique="false" type="BTREE">

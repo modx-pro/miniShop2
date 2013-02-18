@@ -15,11 +15,11 @@ class msProductData extends xPDOSimpleObject {
 
 		if (!empty($tags)) {
 			$table = $this->xpdo->getTableName('msProductTag');
-			$tags_arr = explode(',', $tags);
+			$string = implode(',', $tags);
 
-			$sql = "DELETE FROM {$table} WHERE `product_id` = '{$id}' AND `tag` NOT IN ('$tags');";
-			foreach ($tags_arr as $tag) {
-				$sql .= "INSERT INTO {$table} (`product_id`,`tag`) VALUES ('{$id}','{$tag}') ON DUPLICATE KEY UPDATE `tag` = '{$tag}';";
+			$sql = "DELETE FROM {$table} WHERE `product_id` = '{$id}' AND `tag` NOT IN ('$string');";
+			foreach ($tags as $tag) {
+				$sql .= "INSERT INTO {$table} (`product_id`,`tag`) VALUES ('{$id}','{$tag}') ON DUPLICATE KEY UPDATE `tag` = '{$string}';";
 			}
 
 			$this->xpdo->exec($sql);
@@ -27,6 +27,7 @@ class msProductData extends xPDOSimpleObject {
 
 		return $save;
 	}
+
 
 	public function generateAllThumbnails() {
 		$files = $this->xpdo->getCollection('msProductFile', array(
@@ -78,6 +79,7 @@ class msProductData extends xPDOSimpleObject {
 		}
 	}
 
+
 	public function updateProductImage() {
 		$this->rankProductImages();
 		/* @var msProductFile $file*/
@@ -102,6 +104,20 @@ class msProductData extends xPDOSimpleObject {
 		else {
 			return false;
 		}
+	}
+
+
+	public function getPrice() {
+		$price = $this->get('new_price');
+		if (!$price) {
+			 $price = $this->get('price');
+		}
+		return $price;
+	}
+
+
+	public function getWeight() {
+		return $this->get('weight');
 	}
 
 

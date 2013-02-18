@@ -86,7 +86,6 @@ class msProduct extends modResource {
 	public function set($k, $v= null, $vType= '') {
 		if (in_array($k, $this->dataFields)) {
 			if (!is_object($this->data)) {$this->loadData();}
-			if ($k == 'tags' && is_array($v)) {$v = implode(',',$v);}
 			return $this->data->set($k, $v, $vType);
 		}
 		else {
@@ -318,4 +317,13 @@ class msProduct extends modResource {
 		return $this->data->updateProductImage();
 	}
 
+	public function getPrice() {
+		if (!is_object($this->data)) {$this->loadData();}
+		return $this->data->getPrice();
+	}
+
+	public function getWeight() {
+		if (!is_object($this->data)) {$this->loadData();}
+		return $this->data->getWeight();
+	}
 }

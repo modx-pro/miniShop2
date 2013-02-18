@@ -76,7 +76,16 @@ $settings['ms2_product_source_default']->fromArray(array(
 	'value' => '1',
 	'xtype' => 'modx-combo-source',
 	'namespace' => 'minishop2',
-	'area' => 'ms2_gallery',
+	'area' => 'ms2_product',
+),'',true,true);
+
+$settings['ms2_cart_handler_class']= $modx->newObject('modSystemSetting');
+$settings['ms2_cart_handler_class']->fromArray(array(
+	'key' => 'ms2_cart_handler_class',
+	'value' => 'msCart',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_cart',
 ),'',true,true);
 
 return $settings;

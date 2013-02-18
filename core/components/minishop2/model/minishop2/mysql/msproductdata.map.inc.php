@@ -17,6 +17,9 @@ $xpdo_meta_map['msProductData']= array (
     'thumb' => NULL,
     'vendor' => 0,
     'made_in' => NULL,
+    'new' => 0,
+    'popular' => 0,
+    'favorite' => 0,
     'tags' => NULL,
     'source' => 1,
   ),
@@ -105,16 +108,44 @@ $xpdo_meta_map['msProductData']= array (
       'phptype' => 'string',
       'null' => false,
     ),
+    'new' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'attributes' => 'unsigned',
+      'phptype' => 'boolean',
+      'null' => false,
+      'default' => 0,
+    ),
+    'popular' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'attributes' => 'unsigned',
+      'phptype' => 'boolean',
+      'null' => false,
+      'default' => 0,
+    ),
+    'favorite' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'attributes' => 'unsigned',
+      'phptype' => 'boolean',
+      'null' => false,
+      'default' => 0,
+    ),
     'tags' => 
     array (
       'dbtype' => 'text',
-      'phptype' => 'string',
+      'phptype' => 'json',
       'null' => true,
     ),
     'source' => 
     array (
       'dbtype' => 'int',
       'precision' => '10',
+      'attributes' => 'unsigned',
       'phptype' => 'int',
       'null' => false,
       'default' => 1,
@@ -179,6 +210,54 @@ $xpdo_meta_map['msProductData']= array (
       'columns' => 
       array (
         'color' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'new' => 
+    array (
+      'alias' => 'new',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'new' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'favorite' => 
+    array (
+      'alias' => 'favorite',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'favorite' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'popular' => 
+    array (
+      'alias' => 'popular',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'popular' => 
         array (
           'length' => '',
           'collation' => 'A',

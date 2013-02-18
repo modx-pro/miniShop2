@@ -8,6 +8,7 @@
 $_lang['area_ms2_category'] = 'Category of the goods';
 $_lang['area_ms2_product'] = 'Product';
 $_lang['area_ms2_gallery'] = 'Gallery';
+$_lang['area_ms2_cart'] = 'Cart';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
@@ -28,3 +29,6 @@ $_lang['setting_ms2_product_show_in_tree_default_desc'] = 'If you activate this 
 $_lang['setting_ms2_product_source_default'] = 'Default media source';
 $_lang['setting_ms2_product_source_default_desc'] = 'Default media source for the product gallery.';
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
+
+$_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
+$_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';

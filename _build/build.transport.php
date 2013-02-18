@@ -206,30 +206,34 @@ if (is_array($templates)) {
 } else {
 	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in Access Policy Templates.');
 }
-unset ($templates,$template,$idx,$ct,$attributes);
+unset ($templates,$template,$attributes);
 
-/* load menu */
-$menu = include $sources['data'].'transport.menu.php';
-if (empty($menu)) {
-	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in menu.');
-} else {
-	$vehicle= $builder->createVehicle($menu,array (
-		xPDOTransport::PRESERVE_KEYS => true,
-		xPDOTransport::UPDATE_OBJECT => true,
-		xPDOTransport::UNIQUE_KEY => 'text',
-		xPDOTransport::RELATED_OBJECTS => true,
-		xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
-			'Action' => array (
-				xPDOTransport::PRESERVE_KEYS => false,
-				xPDOTransport::UPDATE_OBJECT => false,
-				xPDOTransport::UNIQUE_KEY => array ('namespace','controller'),
-			),
+/* load menus */
+$menus = include $sources['data'].'transport.menu.php';
+$attributes = array (
+	xPDOTransport::PRESERVE_KEYS => true,
+	xPDOTransport::UPDATE_OBJECT => true,
+	xPDOTransport::UNIQUE_KEY => 'text',
+	xPDOTransport::RELATED_OBJECTS => true,
+	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+		'Action' => array (
+			xPDOTransport::PRESERVE_KEYS => false,
+			xPDOTransport::UPDATE_OBJECT => false,
+			xPDOTransport::UNIQUE_KEY => array ('namespace','controller'),
 		),
-	));
-	$builder->putVehicle($vehicle);
-	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in menu.');
+	),
+);
+if (is_array($menus)) {
+	foreach ($menus as $menu) {
+		$vehicle = $builder->createVehicle($menu,$attributes);
+		$builder->putVehicle($vehicle);
+		$modx->log(modX::LOG_LEVEL_INFO,'Packaged in menu "'.$menu->get('text').'".');
+	}
 }
-unset($vehicle,$menu);
+else {
+	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in menu.');
+}
+unset($vehicle,$menus,$menu,$attributes);
 
 /* now pack in the license file, readme and setup options */
 $vehicle = $builder->createVehicle($category,$attr);

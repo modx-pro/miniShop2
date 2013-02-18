@@ -9,6 +9,11 @@
 include_once('setting.inc.php');
 
 $_lang['minishop2'] = 'miniShop2';
+$_lang['ms2_menu_desc'] = 'Awesome e-commerce extension';
+$_lang['ms2_orders'] = 'Orders';
+$_lang['ms2_menu_orders_desc'] = 'Manage your orders';
+$_lang['ms2_settings'] = 'Settings';
+$_lang['ms2_menu_settings_desc'] = 'Statuses of orders, options of payments and deliveries';
 
 $_lang['ms2_bulk_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';

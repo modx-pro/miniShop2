@@ -1,0 +1,1 @@
+<div id="minishop2-panel-settings-div"></div>
