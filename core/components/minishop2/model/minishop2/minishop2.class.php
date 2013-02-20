@@ -11,6 +11,7 @@ class miniShop2 {
 	public $context;
 	/* @var msCart $cart */
 	public $cart;
+	public $initialized = array();
 
 
 	function __construct(modX &$modx,array $config = array()) {
@@ -52,6 +53,9 @@ class miniShop2 {
 	 * @param array $scriptProperties Properties for initialization.
 	 */
 	public function initialize($ctx = 'web', $scriptProperties = array()) {
+		if (!empty($this->initialized[$ctx])) {
+			return true;
+		}
 		switch ($ctx) {
 			case 'mgr': break;
 			default:
@@ -68,10 +72,55 @@ class miniShop2 {
 					$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 cart handler class: "'.$cart_class.'" is not instance of msCartInterface');
 					return false;
 				}
+
+				if (!MODX_API_MODE) {
+					$config = $this->makePlaceholders($this->config);
+					if ($css = $this->modx->getOption('ms2_frontend_css')) {
+						$this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
+					}
+					if ($js = $this->modx->getOption('ms2_frontend_js')) {
+						$this->modx->regClientStartupScript(str_replace('					', '', '
+						<script type="text/javascript">
+						miniShop2Config = {
+							cssUrl: "'.$this->config['cssUrl'].'web/"
+							,jsUrl: "'.$this->config['jsUrl'].'web/"
+							,imagesUrl: "'.$this->config['imagesUrl'].'web/"
+							,actionUrl: "'.$this->config['actionUrl'].'"
+							,ctx: "'.$this->modx->context->get('key').'"
+						};
+						if(typeof jQuery == "undefined") {
+							document.write("<script src=\""+miniShop2Config.jsUrl+"lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
+						}
+						</script>
+					'), true);
+						$this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
+					}
+				}
+
+				$this->initialized[$ctx] = true;
 			break;
 		}
 
 		return true;
 	}
+
+
+	/*
+	 *
+	 *
+	 * */
+	public function makePlaceholders(array $array = array()) {
+		$result = array(
+			'pl' => array()
+			,'vl' => array()
+		);
+		foreach ($array as $k => $v) {
+			$result['pl'][$k] = "[[+{$k}]]";
+			$result['vl'][$k] = $v;
+		}
+
+		return $result;
+	}
+
 
 }

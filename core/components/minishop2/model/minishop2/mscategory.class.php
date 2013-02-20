@@ -73,11 +73,13 @@ class msCategory extends modResource {
 				)
 			))
 		);
+
 		$menu[] = '-';
 		$menu[] = array(
 			'text' => $this->xpdo->lexicon('ms2_category_duplicate'),
 			'handler' => 'function(itm,e) {return console.log(itm,e,this); itm.classKey = "msCategory"; this.duplicateResource(itm,e); }',
 		);
+
 		if ($this->get('published')) {
 			$menu[] = array(
 				'text' => $this->xpdo->lexicon('ms2_category_unpublish'),

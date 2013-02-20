@@ -36,7 +36,8 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$minishopImgUrl = $minishopAssetsUrl.'img/mgr/';
 
 		// Customizable product fields feature
-		$product_fields = array_merge($this->resource->getFieldsNames(), array('syncsite'));
+		$product_fields = array_merge($this->resource->getAllFieldsNames(), array('syncsite'));
+		$product_data_fields = $this->resource->getDataFieldsNames();
 
 		if (!$product_main_fields = $this->modx->getOption('ms2_product_main_fields')) {
 			$product_main_fields = 'pagetitle,longtitle,introtext,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree';
@@ -45,10 +46,11 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
 
 		if (!$product_extra_fields = $this->modx->getOption('ms2_product_extra_fields')) {
-			$product_extra_fields = 'article,price,new_price,weight,color,remains,reserved,vendor,made_in,tags';
+			$product_extra_fields = 'article,price,old_price,weight,color,remains,reserved,vendor,made_in,tags';
 		}
 		$product_extra_fields = array_map('trim', explode(',',$product_extra_fields));
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
+
 		//---
 
 		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_product_show_comments')? 1 : 0;
@@ -85,7 +87,9 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
-			,additional_fields: {size: {xtype:\'textfield\',fieldLabel:\'size\'}}
+			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
+			,data_fields: '.json_encode($product_data_fields).'
+			,additional_fields: []
 		}
 		MODx.config.publish_document = "'.$this->canPublish.'";
 		MODx.onDocFormRender = "'.$this->onDocFormRender.'";
@@ -164,12 +168,15 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 	 * @return void
 	 * */
 	function prepareFields() {
-		$tags = $this->resourceArray['tags'];
-		$this->resourceArray['tags'] = array();
-		if (!empty($tags)) {
-			$tags = explode(',', $tags);
-			foreach ($tags as $v) {
-				$this->resourceArray['tags'][] = array('tag' => $v);
+		foreach ($this->resourceArray as $k => $v) {
+			if (is_array($v)) {
+				$tmp = $this->resourceArray[$k];
+				$this->resourceArray[$k] = array();
+				foreach ($tmp as $v2) {
+					if (!empty($v2)) {
+						$this->resourceArray[$k][] = array('value' => $v2);
+					}
+				}
 			}
 		}
 

@@ -13,6 +13,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $renderers = '';
 	/** @var modAction $editAction */
 	public $editAction;
+	public $parent = 0;
 
 	public function initialize() {
 		$this->editAction = $this->modx->getObject('modAction',array(
@@ -24,6 +25,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$c->leftJoin('msProductData','Data', 'msProduct.id = Data.id');
+		$c->leftJoin('msCategoryMember','Category', 'msProduct.id = Category.product_id');
 		if ($query = $this->getProperty('query',null)) {
 			$queryWhere = array(
 				'pagetitle:LIKE' => '%'.$query.'%'
@@ -35,23 +37,20 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 			);
 			$c->where($queryWhere);
 		}
-		$c->where(array(
-			'class_key' => 'msProduct'
-			,'parent' => $this->getProperty('parent')
-		));
+		$parent = $this->getProperty('parent');
+		$c->where(array('class_key' => 'msProduct'));
+		if (!empty($parent)) {
+			$this->parent = $parent;
+			$c->orCondition(array('parent' => $parent, 'Category.category_id' => $parent), '', 1);
+		}
+
 		return $c;
 	}
 
 	public function prepareRow(xPDOObject $object) {
 		$resourceArray = parent::prepareRow($object);
-		/*
-		if (!empty($resourceArray['publishedon'])) {
-			$resourceArray['publishedon_date'] = strftime('%b %d',strtotime($resourceArray['publishedon']));
-			$resourceArray['publishedon_time'] = strftime('%H:%I %p',strtotime($resourceArray['publishedon']));
-			$resourceArray['publishedon'] = strftime('%b %d, %Y %H:%I %p',strtotime($resourceArray['publishedon']));
-		}
-		*/
 
+		$resourceArray['cls'] = $object->get('parent') != $this->parent ? 'multicategory' : '';
 		$resourceArray['action_edit'] = '?a='.$this->editAction->get('id').'&action=post/update&id='.$resourceArray['id'];
 
 		$this->modx->getContext($resourceArray['context_key']);

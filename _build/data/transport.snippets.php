@@ -7,17 +7,17 @@
  */
 $snippets = array();
 
-$snippets[0]= $modx->newObject('modSnippet');
-$snippets[0]->fromArray(array(
+$snippets['msGetProducts']= $modx->newObject('modSnippet');
+$snippets['msGetProducts']->fromArray(array(
 	'id' => 0
-	,'name' => 'miniShop2'
-	,'description' => 'Main miniShop2 snippet'
-	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.minishop2.php')
+	,'name' => 'msGetProducts'
+	,'description' => 'Snippet for fast retrieving miniShop2 goods'
+	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.get_products.php')
 	,'static' => 1
-	,'static_file' => 'minishop2/elements/snippets/snippet.minishop2.php'
+	,'static_file' => 'minishop2/elements/snippets/snippet.get_products.php'
 ),'',true,true);
-$properties = include $sources['build'].'properties/properties.minishop2.php';
-$snippets[0]->setProperties($properties);
+$properties = include $sources['build'].'properties/properties.get_products.php';
+$snippets['msGetProducts']->setProperties($properties);
 unset($properties);
 
 return $snippets;

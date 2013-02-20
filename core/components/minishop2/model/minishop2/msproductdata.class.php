@@ -6,28 +6,53 @@ class msProductData extends xPDOSimpleObject {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * All json fields of product are synchronized with msProduct Options
+	 *
 	 */
 	public function save($cacheFlag= null) {
 		$save = parent::save();
-
 		$id = $this->get('id');
-		$tags = $this->get('tags');
+		$table = $this->xpdo->getTableName('msProductOption');
 
-		if (!empty($tags)) {
-			$table = $this->xpdo->getTableName('msProductTag');
-			$string = implode(',', $tags);
-
-			$sql = "DELETE FROM {$table} WHERE `product_id` = '{$id}' AND `tag` NOT IN ('$string');";
-			foreach ($tags as $tag) {
-				$sql .= "INSERT INTO {$table} (`product_id`,`tag`) VALUES ('{$id}','{$tag}') ON DUPLICATE KEY UPDATE `tag` = '{$string}';";
+		$arrays = array();
+		foreach ($this->_fieldMeta as $name => $field) {
+			if (strtolower($field['phptype']) == 'json') {
+				$tmp = $this->get($name);
+				if (!empty($tmp) && is_array($tmp)) {
+					$arrays[$name] = $tmp;
+				}
 			}
-
-			$this->xpdo->exec($sql);
 		}
+
+		$sql = "DELETE FROM {$table} WHERE `product_id` = '{$id}';";
+		foreach ($arrays as $key => $v) {
+			foreach ($v as $value) {
+				if (!empty($value)) {
+					$sql .= "INSERT INTO {$table} (`product_id`,`key`,`value`) VALUES ('{$id}','{$key}','{$value}');";
+				}
+			}
+		}
+		$this->xpdo->exec($sql);
 
 		return $save;
 	}
 
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
+	public function remove() {
+		$id = $this->get('id');
+		$table = $this->xpdo->getTableName('msCategoryMember');
+		$sql = "DELETE FROM {$table} WHERE `product_id` = '$id';";
+		$table = $this->xpdo->getTableName('msProductOption');
+		$sql .= "DELETE FROM {$table} WHERE `product_id` = '$id';";
+		$this->xpdo->exec($sql);
+
+		return parent::remove();
+	}
 
 	public function generateAllThumbnails() {
 		$files = $this->xpdo->getCollection('msProductFile', array(
@@ -108,11 +133,7 @@ class msProductData extends xPDOSimpleObject {
 
 
 	public function getPrice() {
-		$price = $this->get('new_price');
-		if (!$price) {
-			 $price = $this->get('price');
-		}
-		return $price;
+		return $this->get('price');
 	}
 
 

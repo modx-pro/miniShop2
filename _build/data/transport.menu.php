@@ -48,9 +48,9 @@ $menus = array();
 $menus['main']= $modx->newObject('modMenu');
 $menus['main']->fromArray(array(
 	'text' => 'minishop2',
-	'parent' => 'components',
+	'parent' => '',
 	'description' => 'ms2_menu_desc',
-	'menuindex' => 0,
+	'menuindex' => 2,
 	'params' => '',
 	'handler' => 'return false;',
 ),'',true,true);

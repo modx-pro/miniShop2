@@ -161,7 +161,7 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 
 	,getTabSettings: function(config) {
 		return [{
-			xtype: 'minishop2-product-settings'
+			xtype: miniShop2.config.vertical_tabs ? 'minishop2-product-settings' : 'minishop2-product-settings-horizontal'
 			,record: config.record
 			,mode: config.mode
 		}];

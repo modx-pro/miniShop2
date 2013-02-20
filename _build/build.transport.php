@@ -212,7 +212,7 @@ unset ($templates,$template,$attributes);
 $menus = include $sources['data'].'transport.menu.php';
 $attributes = array (
 	xPDOTransport::PRESERVE_KEYS => true,
-	xPDOTransport::UPDATE_OBJECT => true,
+	xPDOTransport::UPDATE_OBJECT => false,
 	xPDOTransport::UNIQUE_KEY => 'text',
 	xPDOTransport::RELATED_OBJECTS => true,
 	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (

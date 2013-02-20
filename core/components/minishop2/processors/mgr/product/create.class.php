@@ -10,6 +10,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 	public $objectType = 'resource';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
+	/* @var msProduct $object */
+	public $object;
 
 	/**
 	 * {@inheritDoc}
@@ -64,6 +66,19 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 
 		return parent::afterSave();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function clearCache() {
+		$clear = parent::clearCache();
+		/* @var msCategory $category */
+		$category = $this->object->getOne('Category');
+		$category->clearCache();
+
+		return $clear;
+	}
+
 }
 
 return 'msProductCreateProcessor';

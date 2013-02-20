@@ -33,13 +33,13 @@ $modx->addPackage($package, $Model);
 //$manager->removeObjectContainer('msProductData');
 //$manager->removeObjectContainer('msVendor');
 //$manager->removeObjectContainer('msCategoryMember');
-//$manager->removeObjectContainer('msProductTag');
+//$manager->removeObjectContainer('msProductOption');
 //$manager->removeObjectContainer('msProductFile');
 
 //$manager->createObjectContainer('msProductData');
 //$manager->createObjectContainer('msVendor');
 //$manager->createObjectContainer('msCategoryMember');
-//$manager->createObjectContainer('msProductTag');
+//$manager->createObjectContainer('msProductOption');
 //$manager->createObjectContainer('msProductFile');
 
 add_plugins_call($Model.$package);

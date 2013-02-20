@@ -10,7 +10,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	public $objectType = 'resource';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
-
+	/** @var msProduct $object */
+	public $object;
 	/**
 	 * Handle formatting of various checkbox fields
 	 * @return void
@@ -68,6 +69,15 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 		$this->object->set('isfolder', 0);
 
 		return parent::beforeSave();
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function clearCache() {
+		parent::clearCache();
+		$this->object->clearCache();
 	}
 
 }

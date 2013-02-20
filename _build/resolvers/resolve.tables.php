@@ -19,7 +19,7 @@ if ($object->xpdo) {
 			$manager->createObjectContainer('msVendor');
 			$manager->createObjectContainer('msCategoryMember');
 			$manager->createObjectContainer('msProductData');
-			$manager->createObjectContainer('msProductTag');
+			$manager->createObjectContainer('msProductOption');
 			$manager->createObjectContainer('msProductFile');
 
 			if ($modx instanceof modX) {

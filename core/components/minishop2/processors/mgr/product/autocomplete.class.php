@@ -20,10 +20,18 @@ class msProductAutocompleteProcessor extends modObjectProcessor {
 		$c->select($name);
 		$c->groupby($name);
 		$c->where("$name LIKE '%{$query}%'");
+		$found = 0;
 		if ($c->prepare() && $c->stmt->execute()) {
 			$res = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($res as $v) {
+				if ($v['value'] == $query) {$found = 1;}
+			}
 		}
 		else {$res = array();}
+
+		if (!$found) {
+			$res = array_merge_recursive(array(array($name => $query)), $res);
+		}
 
 		return $this->outputArray($res);
 	}

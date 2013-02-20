@@ -19,31 +19,11 @@ class msProduct extends modResource {
 	function __construct(xPDO & $xpdo) {
 		parent::__construct($xpdo);
 
-		$fields = str_replace(array('`',' '), '', $this->xpdo->getSelectColumns('msProductData','', '', array('id'), true));
-		$this->dataFields = explode(',', $fields);
+		$fields = $this->xpdo->getFieldMeta('msProductData'); unset($fields['id']);
+		$this->dataFields = array_keys($fields);
 
 		$aggregates = $this->xpdo->getAggregates('msProductData');
-		/*
-		foreach ($aggregates as $k => $v) {
-			if (!in_array($v['class'], $this->dataRelated)) {
-				$this->dataRelated[] = $v['class'];
-			}
-			if (!in_array($k, $this->dataRelated)) {
-				$this->dataRelated[] = $k;
-			}
-		}
-		*/
 		$composites = $this->xpdo->getComposites('msProductData');
-		/*
-		foreach ($composites as $k => $v) {
-			if (!in_array($v['class'], $this->dataRelated)) {
-				$this->dataRelated[] = $v['class'];
-			}
-			if (!in_array($k, $this->dataRelated)) {
-				$this->dataRelated[] = $k;
-			}
-		}
-		*/
 		$this->dataRelated = array_merge(array_keys($aggregates), array_keys($composites));
 	}
 
@@ -237,12 +217,19 @@ class msProduct extends modResource {
 
 
 	/*
-	 * Returns all fields names including fields from msProductData
+	 * Returns names of fields for msProduct and msProductData
 	 *
 	 * @return array
 	 * */
-	public function getFieldsNames() {
-		return array_keys($this->toArray());
+	public function getDataFieldsNames() {
+		if (!is_object($this->data)) {$this->loadData();}
+		return array_keys($this->data->_fieldMeta);
+	}
+	public function getResourceFieldsNames() {
+		return array_keys($this->_fieldMeta);
+	}
+	public function getAllFieldsNames() {
+		return array_merge($this->getResourceFieldsNames(), $this->getDataFieldsNames());
 	}
 
 
@@ -262,6 +249,115 @@ class msProduct extends modResource {
 		$key = $this->getCacheKey();
 		$cache->delete($key, array('deleteTop' => true));
 		$cache->delete($key);
+	}
+
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function duplicate(array $options = array()) {
+		if (!($this->xpdo instanceof modX)) return false;
+
+		/* duplicate resource */
+		$prefixDuplicate = !empty($options['prefixDuplicate']) ? true : false;
+		$newName = !empty($options['newName']) ? $options['newName'] : ($prefixDuplicate ? $this->xpdo->lexicon('duplicate_of', array('name' => $this->get('pagetitle'))) : $this->get('pagetitle'));
+		/** @var msProduct $newResource */
+		$newResource = $this->xpdo->newObject($this->get('class_key'));
+		$newResource->fromArray($this->toArray());
+		$newResource->set('pagetitle', $newName);
+		$newResource->set('image', null);
+		$newResource->set('thumb', null);
+
+		/* do published status preserving */
+		$publishedMode = $this->getOption('publishedMode',$options,'preserve');
+		switch ($publishedMode) {
+			case 'unpublish':
+				$newResource->set('published',false);
+				$newResource->set('publishedon',0);
+				$newResource->set('publishedby',0);
+				break;
+			case 'publish':
+				$newResource->set('published',true);
+				$newResource->set('publishedon',time());
+				$newResource->set('publishedby',$this->xpdo->user->get('id'));
+				break;
+			case 'preserve':
+			default:
+				$newResource->set('published',$this->get('published'));
+				$newResource->set('publishedon',$this->get('publishedon'));
+				$newResource->set('publishedby',$this->get('publishedby'));
+				break;
+		}
+
+		/* allow overrides for every item */
+		if (!empty($options['overrides']) && is_array($options['overrides'])) {
+			$newResource->fromArray($options['overrides']);
+		}
+		$newResource->set('id',0);
+
+		/* make sure children get assigned to new parent */
+		$newResource->set('parent',isset($options['parent']) ? $options['parent'] : $this->get('parent'));
+		$newResource->set('createdby',$this->xpdo->user->get('id'));
+		$newResource->set('createdon',time());
+		$newResource->set('editedby',0);
+		$newResource->set('editedon',0);
+
+		/* get new alias */
+		$alias = $newResource->cleanAlias($newName);
+		if ($this->xpdo->getOption('friendly_urls', $options, false)) {
+			/* auto assign alias */
+			$aliasPath = $newResource->getAliasPath($newName);
+			$dupeContext = $this->xpdo->getOption('global_duplicate_uri_check', $options, false) ? '' : $newResource->get('context_key');
+			if ($newResource->isDuplicateAlias($aliasPath, $dupeContext)) {
+				$alias = '';
+				if ($newResource->get('uri_override')) {
+					$newResource->set('uri_override', false);
+				}
+			}
+		}
+		$newResource->set('alias',$alias);
+
+		/* set new menuindex */
+		$childrenCount = $this->xpdo->getCount('modResource',array('parent' => $this->get('parent')));
+		$newResource->set('menuindex',$childrenCount);
+
+		/* save resource */
+		if (!$newResource->save()) {
+			return $this->xpdo->lexicon('resource_err_duplicate');
+		}
+
+		$tvds = $this->getMany('TemplateVarResources');
+		/** @var modTemplateVarResource $oldTemplateVarResource */
+		foreach ($tvds as $oldTemplateVarResource) {
+			/** @var modTemplateVarResource $newTemplateVarResource */
+			$newTemplateVarResource = $this->xpdo->newObject('modTemplateVarResource');
+			$newTemplateVarResource->set('contentid',$newResource->get('id'));
+			$newTemplateVarResource->set('tmplvarid',$oldTemplateVarResource->get('tmplvarid'));
+			$newTemplateVarResource->set('value',$oldTemplateVarResource->get('value'));
+			$newTemplateVarResource->save();
+		}
+
+		$groups = $this->getMany('ResourceGroupResources');
+		/** @var modResourceGroupResource $oldResourceGroupResource */
+		foreach ($groups as $oldResourceGroupResource) {
+			/** @var modResourceGroupResource $newResourceGroupResource */
+			$newResourceGroupResource = $this->xpdo->newObject('modResourceGroupResource');
+			$newResourceGroupResource->set('document_group',$oldResourceGroupResource->get('document_group'));
+			$newResourceGroupResource->set('document',$newResource->get('id'));
+			$newResourceGroupResource->save();
+		}
+
+		$categories = $this->getMany('Categories');
+		/** @var msCategoryMember $oldCategoryMember */
+		foreach ($categories as $oldCategoryMember) {
+			/** @var msCategoryMember $newCategoryMember */
+			$newCategoryMember = $this->xpdo->newObject('msCategoryMember');
+			$newCategoryMember->set('category_id',$oldCategoryMember->get('category_id'));
+			$newCategoryMember->set('product_id',$newResource->get('id'));
+			$newCategoryMember->save();
+		}
+
+		return $newResource;
 	}
 
 

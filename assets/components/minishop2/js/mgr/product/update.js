@@ -88,6 +88,14 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 		btns.push('-');
 
 		btns.push({
+			text: '<i class="bicon-file"></i>'
+			,handler: this.duplicateProduct
+			,scope: this
+			,tooltip: _('ms2_btn_duplicate')
+		});
+		btns.push('-');
+
+		btns.push({
 			text: '<i class="bicon-arrow-left"></i>'
 			,handler: this.prevPage
 			,disabled: !cfg.prev_page ? 1 : 0
@@ -224,6 +232,22 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 					if (db) {db.setValue(0);}
 
 					this.refreshNode();
+				},scope:this}
+			}
+		});
+	}
+
+	,duplicateProduct: function(btn,e) {
+		MODx.msg.confirm({
+			url: MODx.config.connectors_url+'resource/index.php'
+			,text: _('ms2_product_duplicate_confirm')
+			,params: {
+				action: 'duplicate'
+				,id: this.record.id
+			}
+			,listeners: {
+				success: {fn:function(response) {
+					location.href = '?a='+MODx.action['resource/update']+'&id='+response.object.id;
 				},scope:this}
 			}
 		});
@@ -384,7 +408,7 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 
 	,getTabSettings: function(config) {
 		return [{
-			xtype: 'minishop2-product-settings'
+			xtype: miniShop2.config.vertical_tabs ? 'minishop2-product-settings' : 'minishop2-product-settings-horizontal'
 			,record: config.record
 			,mode: config.mode
 		}];

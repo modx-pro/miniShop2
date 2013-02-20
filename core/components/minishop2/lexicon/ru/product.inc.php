@@ -18,6 +18,7 @@ $_lang['ms2_btn_back'] = 'Назад (alt + &uarr;)';
 $_lang['ms2_btn_prev'] = 'Предыдущий товар (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Следующий товар (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Помощь';
+$_lang['ms2_btn_duplicate'] = 'Сделать копию товара';
 
 $_lang['ms2_product_tab_main'] = 'Веб страница';
 $_lang['ms2_product_tab_extra'] = 'Свойства товара';
@@ -76,8 +77,8 @@ $_lang['ms2_product_article'] = 'Артикул';
 $_lang['ms2_product_article_help'] = '';
 $_lang['ms2_product_price'] = 'Цена';
 $_lang['ms2_product_price_help'] = '';
-$_lang['ms2_product_new_price'] = 'Новая цена';
-$_lang['ms2_product_new_price_help'] = '';
+$_lang['ms2_product_old_price'] = 'Старая цена';
+$_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Вес';
 $_lang['ms2_product_weight_help'] = '';
 $_lang['ms2_product_color'] = 'Цвет';
@@ -96,6 +97,10 @@ $_lang['ms2_product_made_in'] = 'Страна';
 $_lang['ms2_product_made_in_help'] = '';
 $_lang['ms2_product_tags'] = 'Теги';
 $_lang['ms2_product_tags_help'] = 'Любые теги продукта.';
+$_lang['ms2_product_size'] = 'Размеры';
+$_lang['ms2_product_size_help'] = 'Размеры товара, если есть.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
 $_lang['ms2_product_new'] = 'Новый';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Особый';
@@ -121,8 +126,39 @@ $_lang['ms2_product_help'] = 'Помощь';
 
 
 $_lang['ms2_product_dirty_confirm'] = 'У вас есть отложенные изменения. Вы действительно хотите отменить?';
+$_lang['ms2_product_duplicate_confirm'] = 'Вы уверены, что хотите сделать копию этого товара?';
 $_lang['ms2_product_delete_desc'] = 'Вы действительно хотите удалить этот товар?';
 $_lang['ms2_product_selected_publish'] = 'Включить выбранные товары';
 $_lang['ms2_product_selected_unpublish'] = 'Отключить выбранные товары';
 $_lang['ms2_product_selected_delete'] = 'Удалить выбранные товары';
 $_lang['ms2_product_selected_undelete'] = 'Восстановить выбранные товары';
+
+
+$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
+
+$_lang['ms2_gallery_emptymsg'] = 'Перетяните в эту таблицу файлы для загрузки, или выберите их кнопкой вверху.';
+$_lang['ms2_gallery_introtext'] = 'Здесь вы управляете галереей товара. Вы можете загрузить новые изображения просто перетянув их в таблицу. Первое изображение в галерее является основным для товара.';
+$_lang['ms2_gallery_filename'] = 'Имя файла';
+$_lang['ms2_gallery_size'] = 'Размер';
+$_lang['ms2_gallery_status'] = 'Статус';
+$_lang['ms2_gallery_progress'] = 'Прогресс';
+$_lang['ms2_gallery_inactive'] = 'Отключено';
+$_lang['ms2_gallery_createdon'] = 'Дата создания';
+$_lang['ms2_gallery_createdby'] = 'Автор';
+$_lang['ms2_gallery_url'] = 'Адрес';
+$_lang['ms2_gallery_name'] = 'Название';
+$_lang['ms2_gallery_status'] = 'Статус';
+$_lang['ms2_gallery_button_upload'] = 'Выбрать файлы';
+$_lang['ms2_gallery_status_aborted'] = '<i class="bicon-remove"></i> Отменен';
+$_lang['ms2_gallery_status_error'] = '<i class="bicon-remove"></i> Ошибка';
+$_lang['ms2_gallery_status_sending'] = '<i class="bicon-repeat"></i> В процессе';
+$_lang['ms2_gallery_status_done'] = '<i class="bicon-ok"></i> Готово';
+$_lang['ms2_gallery_uploads_clear'] = 'Очистить';
+$_lang['ms2_gallery_generate_thumbs'] = 'Обновить все превьюшки';
+
+$_lang['ms2_gallery_image_generate_thumbs'] = 'Обновить превьюшки';
+$_lang['ms2_gallery_image_update'] = 'Изменить свойства';
+$_lang['ms2_gallery_image_delete'] = 'Удалить изображение';
+$_lang['ms2_gallery_image_delete_confirm'] = 'Вы действительно хотите удалить это изображение вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
+$_lang['ms2_gallery_image_delete_multiple'] = 'Удалить изображения';
+$_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти изображения со всеми их уменьшенными копиями?<br/>Эта операция необратима.';

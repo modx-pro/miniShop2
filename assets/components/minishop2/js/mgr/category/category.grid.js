@@ -91,7 +91,7 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 	_makeTemplates: function() {
 		var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 		this.tplPageTitle = new Ext.XTemplate(''
-			+'<tpl for="."><div class="product-title-column">'
+			+'<tpl for="."><div class="product-title-column {cls}">'
 				+'<h3 class="main-column"><span class="product-id">{id}</span><a href="?a=' + updatePage + '&id={id}" onclick="if (event.which == 1) {MODx.loadPage(\''+updatePage+'\', \'id={id}\'); return false;}">{pagetitle}</a></h3>'
 				+'<tpl if="actions">'
 					+'<ul class="actions">'
@@ -173,10 +173,8 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 	}
 
 	,deleteProduct: function(btn,e) {
-		MODx.msg.confirm({
-			title: _('ms2_product_delete') + ' ' + this.menu.record.data.pagetitle
-			,text: _('ms2_product_delete_desc')
-			,url: miniShop2.config.connector_url
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
 			,params: {
 				action: 'mgr/product/delete'
 				,id: this.menu.record.id
@@ -308,7 +306,6 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 
 	,getColumns: function() {
 		var columns =  {
-			//id: {width:25, sortable:true}
 			pagetitle: {width:150, sortable:true, renderer: {fn:this._renderPageTitle,scope:this}, id: 'main'}
 			,longtitle: {width:50, sortable:true, editor:{xtype:'textfield'}}
 			,description: {width:100, sortable:false, editor:{xtype:'textarea'}}
@@ -316,10 +313,6 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,introtext: {width:100, sortable:false, editor:{xtype:'textarea'}}
 			,content: {width:100, sortable:false, editor:{xtype:'textarea'}}
 			,template: {width:100, sortable:true, editor:{xtype:'modx-combo-template'}}
-			,richtext: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,searchable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,cacheable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-
 			,createdby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'createdby'}}
 			,createdon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
 			,editedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'editedby'}}
@@ -330,29 +323,30 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,published: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime'}, timePosition:'below', renderer: this.formatDate}
 			,publishedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'publishedby'}}
-
 			,menutitle: {width:100, sortable:true, editor:{xtype:'textfield'}}
-			,hidemenu: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 			,uri: {width:50, sortable:true, editor:{xtype:'textfield'}}
-			,uri_override: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,show_in_tree: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-
-			,article: {width:50, sortable:true, editor:{xtype:'textfield'}}
-			,price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,new_price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,weight: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,color: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-autocomplete', name: 'color'}}
-			,remains: {width:25, sortable:true, editor:{xtype:'numberfield'}}
-			,reserved: {width:25, sortable:true, editor:{xtype:'numberfield'}}
-			,image: {width:50, sortable:false, renderer: this.renderThumb}
-			,thumb: {width:50, sortable:false, renderer: this.renderThumb}
-			,vendor: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-vendor'}}
-			,made_in: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-autocomplete', name: 'made_in'}}
-			//,tags: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-tags'}}
 
 			,new: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 			,favorite: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 			,popular: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+			,uri_override: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+			,show_in_tree: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+			,hidemenu: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+			,richtext: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+			,searchable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+			,cacheable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
+
+			,article: {width:50, sortable:true, editor:{xtype:'textfield'}}
+			,price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
+			,old_price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
+			,weight: {width:50, sortable:true, editor:{xtype:'numberfield'}}
+			,image: {width:50, sortable:false, renderer: this.renderThumb}
+			,thumb: {width:50, sortable:false, renderer: this.renderThumb}
+			,vendor: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-vendor'}}
+			,made_in: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-autocomplete', name: 'made_in'}}
+			//,tags: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'tags'}}
+			//,color: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'color'}}
+			//,size: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'size'}}
 		};
 
 		var fields = [this.sm];

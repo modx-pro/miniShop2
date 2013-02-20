@@ -113,6 +113,10 @@ a.link {color: #005580;}
 	clear: both;
 }
 
+.minishop2-grid .multicategory h3 a {
+	color: #AAA !important;
+}
+
 
 .minishop2-category-list-item {
 	font:normal 11px tahoma, arial, helvetica, sans-serif;

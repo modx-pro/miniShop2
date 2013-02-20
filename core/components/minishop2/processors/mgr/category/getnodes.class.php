@@ -12,7 +12,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 	public function initialize() {
 		$initialize = parent::initialize();
 		$this->pid = $this->getProperty('currentResource');
-		if ($res = $this->modx->getObject('msCategory', $this->pid)) {
+		if ($res = $this->modx->getObject('msProduct', $this->pid)) {
 			$this->parent_id = $res->get('parent');
 		}
 		return $initialize;

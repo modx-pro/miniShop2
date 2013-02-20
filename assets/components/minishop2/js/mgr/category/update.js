@@ -91,6 +91,14 @@ Ext.extend(miniShop2.page.UpdateMSCategory,MODx.page.UpdateResource, {
 		btns.push('-');
 
 		btns.push({
+			text: '<i class="bicon-file"></i>'
+			,handler: this.duplicateResource
+			,scope: this
+			,tooltip: _('ms2_btn_duplicate')
+		});
+		btns.push('-');
+
+		btns.push({
 			text: '<i class="bicon-arrow-left"></i>'
 			,handler: this.prevPage
 			,disabled: !cfg.prev_page ? 1 : 0

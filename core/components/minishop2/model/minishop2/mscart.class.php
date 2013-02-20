@@ -10,7 +10,7 @@ interface msCartInterface {
 	 *
 	 * @return array|string $response
 	 * */
-	public function add($id, $count = 1, array $data = array());
+	public function add($id, $count = 1, $data = array());
 
 	/* Removes product from cart
 	 *
@@ -66,7 +66,7 @@ class msCart implements msCartInterface {
 
 		$this->config = array_merge(array(
 			'cart' => & $_SESSION['minishop2']['cart']
-			,'json_response' => true
+			,'json_response' => false
 			,'max_count' => 1000
 			,'allow_deleted' => false
 			,'allow_unpublished' => false
@@ -82,7 +82,7 @@ class msCart implements msCartInterface {
 
 
 	/* @inheritdoc} */
-	public function add($id, $count = 1, array $data = array()) {
+	public function add($id, $count = 1, $data = array()) {
 		if (empty($id) || !is_numeric($id)) {
 			return $this->error('ms2_cart_add_err_id');
 		}

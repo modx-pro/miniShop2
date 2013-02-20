@@ -172,7 +172,7 @@ Ext.extend(miniShop2.combo.Source,MODx.combo.MediaSource);
 Ext.reg('minishop2-combo-source',miniShop2.combo.Source);
 
 
-miniShop2.combo.Tags = function(config) {
+miniShop2.combo.Options = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
 		xtype:'superboxselect'
@@ -181,22 +181,25 @@ miniShop2.combo.Tags = function(config) {
 		,allowAddNewData: true
 		,addNewDataOnBlur : true
 		,resizable: true
-		,name: 'tags[]'
+		,name: config.name || 'tags'
 		,anchor:'100%'
-		,minChars: 3
+		,minChars: 2
 		,store:new Ext.data.JsonStore({
-			id:'tags-store'
+			id: (config.name || 'tags') + '-store'
 			,root:'results'
 			,autoLoad: true
 			,autoSave: false
 			,totalProperty:'total'
-			,fields:['tag']
+			,fields:['value']
 			,url: miniShop2.config.connector_url
-			,baseParams: {action: 'mgr/product/gettags'}
+			,baseParams: {
+				action: 'mgr/product/getoptions'
+				,key: config.name
+			}
 		})
 		,mode: 'remote'
-		,displayField: 'tag'
-		,valueField: 'tag'
+		,displayField: 'value'
+		,valueField: 'value'
 		,triggerAction: 'all'
 		,extraItemCls: 'x-tag'
 		,listeners: {
@@ -208,7 +211,8 @@ miniShop2.combo.Tags = function(config) {
 			}
 		}
 	});
-	miniShop2.combo.Tags.superclass.constructor.call(this,config);
+	config.name += '[]';
+	miniShop2.combo.Options.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.combo.Tags,Ext.ux.form.SuperBoxSelect);
-Ext.reg('minishop2-combo-tags',miniShop2.combo.Tags);
+Ext.extend(miniShop2.combo.Options,Ext.ux.form.SuperBoxSelect);
+Ext.reg('minishop2-combo-options',miniShop2.combo.Options);

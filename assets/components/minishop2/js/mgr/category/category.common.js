@@ -36,7 +36,7 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 			,anchor: '100%'
 			,height: 300
 			,grow: false
-			,value: config.record && config.record.content ? config.record.content : "[[!getPage?\n    &element=`getMSGoods`\n]]\n\n<div class=\"pagination\">\n    <ul>\n        [[!+page.nav]]\n    </ul>\n</div>"
+			,value: config.record && config.record.content ? config.record.content : "[[!getPage?\n	&element=`msGetProducts`\n]]\n\n<div class=\"pagination\">\n	<ul>[[!+page.nav]]</ul>\n</div>"
 		},{
 			id: 'modx-content-below'
 			,border: false
