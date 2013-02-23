@@ -15,7 +15,7 @@ set_time_limit(0);
 define('PKG_NAME','miniShop2');
 define('PKG_NAME_LOWER',strtolower(PKG_NAME));
 define('PKG_VERSION','2.0.0');
-define('PKG_RELEASE','beta');
+define('PKG_RELEASE','beta-0');
 
 /* define sources */
 $root = dirname(dirname(__FILE__)).'/';
@@ -259,12 +259,9 @@ $vehicle->resolve('php',array(
 $vehicle->resolve('php',array(
 	'source' => $sources['resolvers'] . 'resolve.sources.php',
 ));
-
-/*
 $vehicle->resolve('php',array(
 	'source' => $sources['resolvers'] . 'resolve.setup.php',
 ));
-*/
 
 $modx->log(modX::LOG_LEVEL_INFO,'Packaged in resolvers.'); flush();
 $builder->putVehicle($vehicle);
@@ -273,11 +270,9 @@ $builder->setPackageAttributes(array(
 	'changelog' => file_get_contents($sources['docs'] . 'changelog.txt')
 	,'license' => file_get_contents($sources['docs'] . 'license.txt')
 	,'readme' => file_get_contents($sources['docs'] . 'readme.txt')
-	/*
 	,'setup-options' => array(
 		'source' => $sources['build'].'setup.options.php',
 	),
-	*/
 ));
 $modx->log(modX::LOG_LEVEL_INFO,'Added package attributes and setup options.');
 

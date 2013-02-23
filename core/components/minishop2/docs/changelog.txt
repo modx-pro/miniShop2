@@ -1,5 +1,5 @@
 Changelog for miniShop2.
 
-0.1.0
+2.0.0 beta-0
 ==============
 - Initial release.

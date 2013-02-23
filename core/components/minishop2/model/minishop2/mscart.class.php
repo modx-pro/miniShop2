@@ -6,11 +6,11 @@ interface msCartInterface {
 	 *
 	 * @param integer $id Id of MODX resource. It must be an msProduct descendant
 	 * @param integer $count.A number of product exemplars
-	 * @param array $data Additional data of the product: color, type etc.
+	 * @param array $options Additional options of the product: color, size etc.
 	 *
 	 * @return array|string $response
 	 * */
-	public function add($id, $count = 1, $data = array());
+	public function add($id, $count = 1, $options = array());
 
 	/* Removes product from cart
 	 *
@@ -40,7 +40,7 @@ interface msCartInterface {
 	 * @param array $data Additional data to return with status
 	 * @return array $status
 	 * */
-	public function status();
+	public function status($data = array());
 
 	/* Returns the cart items
 	 *
@@ -82,7 +82,7 @@ class msCart implements msCartInterface {
 
 
 	/* @inheritdoc} */
-	public function add($id, $count = 1, $data = array()) {
+	public function add($id, $count = 1, $options = array()) {
 		if (empty($id) || !is_numeric($id)) {
 			return $this->error('ms2_cart_add_err_id');
 		}
@@ -100,9 +100,9 @@ class msCart implements msCartInterface {
 				return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
 			}
 
-			$this->modx->invokeEvent('msOnBeforeAddToCart', array('product' => & $product, 'count' => & $count, 'data' => & $data, 'cart' => $this));
+			$this->modx->invokeEvent('msOnBeforeAddToCart', array('product' => & $product, 'count' => & $count, 'options' => & $options, 'cart' => $this));
 
-			$key = md5($id.(json_encode($data)));
+			$key = md5($id.(json_encode($options)));
 			if (array_key_exists($key, $this->cart)) {
 				return $this->change($key, $this->cart[$key]['count'] + $count);
 			}
@@ -112,10 +112,10 @@ class msCart implements msCartInterface {
 					,'price' => $product->getPrice()
 					,'weight' => $product->getWeight()
 					,'count' => $count
-					,'data' => $data
+					,'options' => $options
 				);
 				$this->modx->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
-				return $this->success('ms2_cart_add_success', $this->status(array('key' => $key)));
+				return $this->success('ms2_cart_add_success', $this->status(array('key' => $key)), array('count' => $count));
 			}
 		}
 
@@ -149,10 +149,10 @@ class msCart implements msCartInterface {
 				$this->cart[$key]['count'] = $count;
 				$this->modx->invokeEvent('msOnChangeInCart', array('key' => $key, 'count' => $count, 'cart' => $this));
 			}
-			return $this->success('ms2_cart_change_success', $this->status(array('key' => $key)));
+			return $this->success('ms2_cart_change_success', $this->status(array('key' => $key)), array('count' => $count));
 		}
 		else {
-			return $this->error('ms2_cart_change_error', $this->status());
+			return $this->error('ms2_cart_change_error', $this->status(array()));
 		}
 	}
 
@@ -170,14 +170,14 @@ class msCart implements msCartInterface {
 	/* @inheritdoc} */
 	public function status($data = array()) {
 		$status = array(
-			'total' => 0
-			,'count' => 0
-			,'weight' => 0
+			'total_count' => 0
+			,'total_cost' => 0
+			,'total_weight' => 0
 		);
 		foreach ($this->cart as $item) {
-			$status['count'] += $item['count'];
-			$status['total'] += $item['price'] * $item['count'];
-			$status['weight'] += $item['weight'] * $item['count'];
+			$status['total_count'] += $item['count'];
+			$status['total_cost'] += $item['price'] * $item['count'];
+			$status['total_weight'] += $item['weight'] * $item['count'];
 		}
 		return array_merge($data, $status);
 	}

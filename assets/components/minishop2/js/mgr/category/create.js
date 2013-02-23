@@ -3,6 +3,7 @@ miniShop2.page.CreateMSCategory = function(config) {
 	config.record = config.record || {};
 	Ext.applyIf(config,{
 		panelXType: 'minishop2-panel-category'
+		,mode: "create"
 	});
 	miniShop2.page.CreateMSCategory.superclass.constructor.call(this,config);
 };
@@ -167,6 +168,7 @@ Ext.extend(miniShop2.panel.Section,MODx.panel.Resource,{
 		return [{
 			xtype: 'minishop2-tab-template-settings'
 			,record: config.record
+			,mode: "create"
 		}];
 	}
 

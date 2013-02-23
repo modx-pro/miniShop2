@@ -28,6 +28,10 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 	}
 
 	,getContentField: function(config) {
+		if (config.mode == "create") {
+			config.record.content = "[[!getPage?\n	&element=`msProducts`\n]]\n\n<div class=\"pagination\">\n	<ul>[[!+page.nav]]</ul>\n</div>";
+		}
+
 		return [{
 			xtype: 'textarea'
 			,name: 'ta'
@@ -36,7 +40,7 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 			,anchor: '100%'
 			,height: 300
 			,grow: false
-			,value: config.record && config.record.content ? config.record.content : "[[!getPage?\n	&element=`msGetProducts`\n]]\n\n<div class=\"pagination\">\n	<ul>[[!+page.nav]]</ul>\n</div>"
+			,value: config.record.content
 		},{
 			id: 'modx-content-below'
 			,border: false

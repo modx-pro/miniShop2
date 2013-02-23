@@ -36,7 +36,7 @@
 						)
 						,'thumbnails' => array(
 							'name' => 'thumbnails','desc' => 'ms2_source_thumbnails_desc','type' => 'textarea','lexicon' => 'minishop2:setting'
-							,'value' => '[{"w":120,"h":90,"q":90,"zc":"T","bg":"000000"}]'
+							,'value' => '[{"w":120,"h":90,"q":90,"zc":"1","bg":"000000"},{"w":360,"h":270,"q":90,"zc":"1","bg":"000000"}]'
 						)
 					)
 					,'is_stream' => 1
@@ -44,11 +44,10 @@
 				if (!$source = $modx->getObject('sources.modMediaSource', array('name' => $properties['name']))) {
 					$source = $modx->newObject('sources.modMediaSource', $properties);
 					$source->save();
-
-					if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_product_source_default'))) {
-						$setting->set('value', $source->get('id'));
-						$setting->save();
-					}
+				}
+				if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_product_source_default'))) {
+					$setting->set('value', $source->get('id'));
+					$setting->save();
 				}
 				break;
 			case xPDOTransport::ACTION_UNINSTALL:

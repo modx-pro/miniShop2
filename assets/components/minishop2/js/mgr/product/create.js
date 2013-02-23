@@ -160,6 +160,7 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 	}
 
 	,getTabSettings: function(config) {
+		config.record.template = MODx.config.ms2_template_product_default > 0 ? MODx.config.ms2_template_product_default : MODx.config.default_template;
 		return [{
 			xtype: miniShop2.config.vertical_tabs ? 'minishop2-product-settings' : 'minishop2-product-settings-horizontal'
 			,record: config.record

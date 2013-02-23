@@ -39,7 +39,14 @@ $_lang['ms2_product_create_here'] = 'Товар категории';
 $_lang['ms2_product_create'] = 'Добавить товар';
 
 $_lang['ms2_frontend_currency'] = 'руб.';
+$_lang['ms2_frontend_weight_unit'] = 'кг.';
+$_lang['ms2_frontend_count_unit'] = 'шт.';
 $_lang['ms2_frontend_add_to_cart'] = 'Добавить в корзину';
 $_lang['ms2_frontend_tags'] = 'Теги';
-$_lang['ms2_frontend_color'] = 'Цвета';
-$_lang['ms2_frontend_size'] = 'Размеры';
+$_lang['ms2_frontend_colors'] = 'Цвета';
+$_lang['ms2_frontend_color'] = 'Цвет';
+$_lang['ms2_frontend_sizes'] = 'Размеры';
+$_lang['ms2_frontend_size'] = 'Размер';
+
+$_lang['ms2_message_close_all'] = 'закрыть все';
+$_lang['ms2_err_unknown'] = 'Неизвестная ошибка';

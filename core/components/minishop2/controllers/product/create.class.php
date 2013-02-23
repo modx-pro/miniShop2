@@ -18,7 +18,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 	 * @return bool
 	 */
 	public function checkPermissions() {
-		return $this->modx->hasPermission('msproduct_save');
+		return $this->modx->hasPermission('edit_document');
 	}
 
 

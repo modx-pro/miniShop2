@@ -1,13 +1,14 @@
 <?php
-$xpdo_meta_map['msProductTag']= array (
+$xpdo_meta_map['msProductOption']= array (
   'package' => 'minishop2',
   'version' => '1.1',
-  'table' => 'ms2_product_tags',
+  'table' => 'ms2_product_options',
   'extends' => 'xPDOObject',
   'fields' => 
   array (
     'product_id' => NULL,
-    'tag' => NULL,
+    'key' => NULL,
+    'value' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -18,10 +19,16 @@ $xpdo_meta_map['msProductTag']= array (
       'phptype' => 'integer',
       'null' => false,
     ),
-    'tag' => 
+    'key' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '255',
+      'phptype' => 'string',
+      'null' => false,
+    ),
+    'value' => 
+    array (
+      'dbtype' => 'text',
       'phptype' => 'string',
       'null' => false,
     ),
@@ -31,8 +38,8 @@ $xpdo_meta_map['msProductTag']= array (
     'product' => 
     array (
       'alias' => 'product',
-      'primary' => true,
-      'unique' => true,
+      'primary' => false,
+      'unique' => false,
       'type' => 'BTREE',
       'columns' => 
       array (
@@ -42,7 +49,7 @@ $xpdo_meta_map['msProductTag']= array (
           'collation' => 'A',
           'null' => false,
         ),
-        'tag' => 
+        'key' => 
         array (
           'length' => '',
           'collation' => 'A',

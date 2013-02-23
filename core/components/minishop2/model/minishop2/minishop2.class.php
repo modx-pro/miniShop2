@@ -35,7 +35,7 @@ class miniShop2 {
 			,'modelPath' => $corePath.'model/'
 
 			//,'chunksPath' => $corePath.'elements/chunks/'
-			//,'templatesPath' => $corePath.'elements/templates/'
+			,'templatesPath' => $corePath.'elements/templates/'
 			//,'snippetsPath' => $corePath.'elements/snippets/'
 			//,'processorsPath' => $corePath.'processors/'
 		),$config);
@@ -87,6 +87,7 @@ class miniShop2 {
 							,imagesUrl: "'.$this->config['imagesUrl'].'web/"
 							,actionUrl: "'.$this->config['actionUrl'].'"
 							,ctx: "'.$this->modx->context->get('key').'"
+							,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
 						};
 						if(typeof jQuery == "undefined") {
 							document.write("<script src=\""+miniShop2Config.jsUrl+"lib/jquery.min.js\" type=\"text/javascript\"><\/script>");

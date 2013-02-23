@@ -1,0 +1,40 @@
+@import url("./lib/jquery.jgrowl.css");
+
+#msCart th, #msCart td {text-align:center; line-height: 30px;}
+#msCart .title {text-align:left;}
+#msCart th.total {text-align:right; padding-right:5px;}
+
+#msMiniCart {font-size: .8em;}
+#msMiniCart h5 {margin: 0;}
+
+#msGallery {text-align: center;}
+#msGallery #mainImage {margin-bottom: 10px; padding: 2px; border: 1px solid #ddd;}
+#msGallery .thumbnails {width: 405px; margin:auto;}
+#msGallery .span2 {margin-left: 10px; width: 120px; padding: 2px;}
+
+.ms2_product .price {
+	padding-left: 50px;
+	padding-right: 30px;
+}
+.ms2_product .old_price {padding-right: 30px;}
+.ms2_product .tags, .ms2_product .color, .ms2_product .size  {
+	padding-right: 20px;
+	font-size: 0.9em;
+}
+
+.ms2_product .old_price, #msProduct .old_price {
+	color: brown;
+	font-style: italic;
+	text-decoration: line-through;
+}
+
+.msProductsLog, .msGalleryLog {
+	width: 100%;
+	overflow: auto;
+	word-wrap: normal;
+	white-space: pre;
+}
+
+.ms2-message-success  {background-color: green !important;}
+.ms2-message-error  {background-color: brown !important;}
+.ms2-message-info  {background-color: black !important;}

@@ -51,7 +51,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 		$c->where(array(
 			'context_key' => $this->contextKey
 			,'show_in_tree' => true
-			,'class_key' => 'msCategory'
+			,'isfolder' => true
 		));
 		if (empty($this->startNode) && !empty($this->defaultRootId)) {
 			$c->where(array(
@@ -131,6 +131,10 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 			$itemArray['expanded'] = true;
 		} else {
 			$itemArray['hasChildren'] = true;
+		}
+
+		if ($itemArray['classKey'] != 'msCategory') {
+			unset($itemArray['checked']);
 		}
 
 		return $itemArray;

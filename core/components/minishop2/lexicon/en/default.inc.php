@@ -39,7 +39,15 @@ $_lang['ms2_product_create_here'] = 'Product of the category';
 $_lang['ms2_product_create'] = 'Add product';
 
 $_lang['ms2_frontend_currency'] = 'USD';
+$_lang['ms2_frontend_weight_unit'] = 'pt.';
+$_lang['ms2_frontend_count_unit'] = 'pcs.';
 $_lang['ms2_frontend_add_to_cart'] = 'Add to cart';
 $_lang['ms2_frontend_tags'] = 'Tags';
+$_lang['ms2_frontend_colors'] = 'Colors';
 $_lang['ms2_frontend_color'] = 'Color';
+$_lang['ms2_frontend_sizes'] = 'Sizes';
 $_lang['ms2_frontend_size'] = 'Size';
+
+$_lang['ms2_message_close_all'] = 'close all';
+$_lang['ms2_err_unknown'] = 'Unknown error';
+

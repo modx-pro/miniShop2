@@ -43,7 +43,7 @@ class msProductData extends xPDOSimpleObject {
 	 * {@inheritdoc}
 	 *
 	 */
-	public function remove() {
+	public function remove(array $ancestors= array ()) {
 		$id = $this->get('id');
 		$table = $this->xpdo->getTableName('msCategoryMember');
 		$sql = "DELETE FROM {$table} WHERE `product_id` = '$id';";

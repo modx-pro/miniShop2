@@ -6,9 +6,9 @@
  * @subpackage build
  */
 $plugins = array();
-$plugins[0] = $modx->newObject('modPlugin');
-$plugins[0]->set('name','miniShop2');
-$plugins[0]->fromArray(array(
+$plugins['miniShop2'] = $modx->newObject('modPlugin');
+$plugins['miniShop2']->set('name','miniShop2');
+$plugins['miniShop2']->fromArray(array(
 	'id' => 0
 	,'category' => 0
 	,'description' =>'Main plugin for miniShop2'
@@ -18,8 +18,8 @@ $plugins[0]->fromArray(array(
 ));
 
 
-$events[0]= $modx->newObject('modPluginEvent');
-$events[0]->fromArray(array(
+$events['miniShop2']= $modx->newObject('modPluginEvent');
+$events['miniShop2']->fromArray(array(
 	'event' => 'OnManagerPageInit',
 	'priority' => 0,
 	'propertyset' => 0,
@@ -27,10 +27,8 @@ $events[0]->fromArray(array(
 
 
 if (is_array($events) && !empty($events)) {
-	$plugins[0]->addMany($events);
-	$modx->log(xPDO::LOG_LEVEL_INFO,'Packaged in '.count($events).' plugin events.'); flush();
-} else {
-	$modx->log(xPDO::LOG_LEVEL_ERROR,'Could not find plugin events!');
+	$plugins['miniShop2']->addMany($events);
+	//$modx->log(xPDO::LOG_LEVEL_INFO,'Added '.count($events).' events to plugin miniShop2.'); flush();
 }
 
 unset($events);

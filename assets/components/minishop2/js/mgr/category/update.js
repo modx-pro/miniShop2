@@ -404,6 +404,7 @@ Ext.extend(miniShop2.panel.Section,MODx.panel.Resource,{
 		return [{
 			xtype: 'minishop2-tab-template-settings'
 			,record: config.record
+			,mode: "update"
 		}];
 	}
 

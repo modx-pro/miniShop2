@@ -164,7 +164,7 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 
 	,createProduct: function(btn,e) {
 		var createPage = MODx.action ? MODx.action['resource/create'] : 'resource/create';
-		MODx.loadPage(createPage, 'class_key=msProduct&parent='+MODx.request.id+'&context_key='+MODx.ctx+'&template=' + MODx.config.ms2_template_product_default || MODx.config.default_template);
+		MODx.loadPage(createPage, 'class_key=msProduct&parent='+MODx.request.id+'&context_key='+MODx.ctx);
 	}
 
 	,editProduct: function(btn,e) {

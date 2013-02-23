@@ -1,0 +1,1 @@
+[[%ms2_cart_is_empty]]
