@@ -9,6 +9,7 @@ $_lang['area_ms2_category'] = 'Category of the goods';
 $_lang['area_ms2_product'] = 'Product';
 $_lang['area_ms2_gallery'] = 'Gallery';
 $_lang['area_ms2_cart'] = 'Cart';
+$_lang['area_ms2_order'] = 'Order';
 $_lang['area_ms2_frontend'] = 'Frontend';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
@@ -34,6 +35,8 @@ $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for genera
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';
+$_lang['setting_ms2_order_handler_class'] = 'Order handler class';
+$_lang['setting_ms2_order_handler_class_desc'] = 'The name of the class that implements the logic of an ordering.';
 
 $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';

@@ -318,7 +318,7 @@ $xpdo_meta_map['msProductData']= array (
   ),
 );
 
-if (!in_array('ms2Plugins', get_declared_classes())) {
+if (!class_exists('ms2Plugins') || !is_object($this->ms2Plugins)) {
 	require_once (dirname(dirname(__FILE__)) . '/plugins.class.php');
 	$this->ms2Plugins = new ms2Plugins($this, array());
 }

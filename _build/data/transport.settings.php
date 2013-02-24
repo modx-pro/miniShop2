@@ -91,10 +91,19 @@ $settings['ms2_product_vertical_tabs']->fromArray(array(
 $settings['ms2_cart_handler_class']= $modx->newObject('modSystemSetting');
 $settings['ms2_cart_handler_class']->fromArray(array(
 	'key' => 'ms2_cart_handler_class',
-	'value' => 'msCart',
+	'value' => 'msCartHandler',
 	'xtype' => 'textfield',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_cart',
+),'',true,true);
+
+$settings['ms2_order_handler_class']= $modx->newObject('modSystemSetting');
+$settings['ms2_order_handler_class']->fromArray(array(
+	'key' => 'ms2_order_handler_class',
+	'value' => 'msOrderHandler',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_order',
 ),'',true,true);
 
 $settings['ms2_frontend_css']= $modx->newObject('modSystemSetting');

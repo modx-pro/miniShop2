@@ -71,7 +71,7 @@ function add_plugins_call($dir) {
 				$file = $dir . '/mysql/' . strtolower($name .'.map.inc.php');
 				if (file_exists($file)) {
 					file_put_contents($file, '
-if (!in_array(\'ms2Plugins\', get_declared_classes())) {
+if (!class_exists(\'ms2Plugins\') || !is_object($this->ms2Plugins)) {
 	require_once (dirname(dirname(__FILE__)) . \'/plugins.class.php\');
 	$this->ms2Plugins = new ms2Plugins($this, array());
 }

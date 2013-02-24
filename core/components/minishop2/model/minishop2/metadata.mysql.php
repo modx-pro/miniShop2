@@ -11,6 +11,7 @@ $xpdo_meta_map = array (
     0 => 'msProductData',
     1 => 'msVendor',
     2 => 'msProductFile',
+    3 => 'msOrder',
   ),
   'xPDOObject' => 
   array (

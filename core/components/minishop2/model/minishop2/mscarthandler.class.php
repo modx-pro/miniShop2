@@ -2,6 +2,15 @@
 
 interface msCartInterface {
 
+	/* Initializes cart to context
+	 * Here you can load custom javascript or styles
+	 *
+	 * @param string $ctx Context for initialization
+	 *
+	 * @return boolean
+	 * */
+	public function initialize($ctx = 'web');
+
 	/* Adds product to cart
 	 *
 	 * @param integer $id Id of MODX resource. It must be an msProduct descendant
@@ -57,12 +66,11 @@ interface msCartInterface {
 }
 
 
-class msCart implements msCartInterface {
+class msCartHandler implements msCartInterface {
 	private $cart;
 
-
-	function __construct(modX &$modx, array $config = array()) {
-		$this->modx =& $modx;
+	function __construct(modX & $modx, array $config = array()) {
+		$this->modx = & $modx;
 
 		$this->config = array_merge(array(
 			'cart' => & $_SESSION['minishop2']['cart']
@@ -78,6 +86,12 @@ class msCart implements msCartInterface {
 		if (empty($this->cart) || !is_array($this->cart)) {
 			$this->cart = array();
 		}
+	}
+
+
+	/* @inheritdoc} */
+	public function initialize($ctx = 'web') {
+		return true;
 	}
 
 

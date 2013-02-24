@@ -138,4 +138,25 @@
 		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign" />
 	</object>
 
+	<object class="msOrder" table="ms2_orders" extends="xPDOSimpleObject">
+		<field key="user_id" dbtype="int" precision="11" phptype="integer" null="false" index="index" />
+		<field key="num" dbtype="varchar" precision="20" phptype="string" null="false" />
+		<field key="status" dbtype="tinyint" precision="2" phptype="integer" null="false" default="1" index="index" />
+		<field key="sum" dbtype="float" precision="10,2" phptype="float" null="false" />
+		<field key="weight" dbtype="float" precision="10,3" phptype="float" null="false" default="0.000" />
+		<field key="created" dbtype="timestamp" phptype="timestamp" null="false" default="0000-00-00 00:00:00" />
+		<field key="updated" dbtype="timestamp" phptype="timestamp" null="false" default="0000-00-00 00:00:00" />
+		<field key="comment" dbtype="text" phptype="string" null="false" />
+		<field key="delivery" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
+		<field key="payment" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
+		<field key="address" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
+
+		<index alias="status" name="status" primary="false" unique="false" type="BTREE" >
+			<column key="status" length="" collation="A" null="false" />
+		</index>
+		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
+			<column key="user_id" length="" collation="A" null="false" />
+		</index>
+	</object>
+
 </model>
