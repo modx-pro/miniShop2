@@ -38,7 +38,7 @@ abstract class miniShop2MainController extends modExtraManagerController {
 
 
 	public function getLanguageTopics() {
-		return array('minishop2:default');
+		return array('minishop2:default','minishop2:manager');
 	}
 
 

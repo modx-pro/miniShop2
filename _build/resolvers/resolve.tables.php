@@ -21,6 +21,11 @@ if ($object->xpdo) {
 			$manager->createObjectContainer('msProductData');
 			$manager->createObjectContainer('msProductOption');
 			$manager->createObjectContainer('msProductFile');
+			$manager->createObjectContainer('msOrder');
+			$manager->createObjectContainer('msOrderStatus');
+			$manager->createObjectContainer('msOrderLog');
+			$manager->createObjectContainer('msPayment');
+			$manager->createObjectContainer('msDelivery');
 
 			if ($modx instanceof modX) {
 				$modx->addExtensionPackage('minishop2', '[[++core_path]]components/minishop2/model/');

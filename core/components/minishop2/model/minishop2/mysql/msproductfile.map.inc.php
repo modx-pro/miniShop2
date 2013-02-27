@@ -14,9 +14,9 @@ $xpdo_meta_map['msProductFile']= array (
     'path' => '',
     'file' => NULL,
     'type' => NULL,
-    'createdon' => NULL,
+    'createdon' => '0000-00-00 00:00:00',
     'createdby' => 0,
-    'rank' => 0,
+    'rank' => '0',
     'url' => NULL,
   ),
   'fieldMeta' => 
@@ -25,14 +25,16 @@ $xpdo_meta_map['msProductFile']= array (
     array (
       'dbtype' => 'int',
       'precision' => '10',
-      'phptype' => 'int',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
     ),
     'source' => 
     array (
       'dbtype' => 'int',
       'precision' => '10',
-      'phptype' => 'int',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 0,
     ),
@@ -40,7 +42,8 @@ $xpdo_meta_map['msProductFile']= array (
     array (
       'dbtype' => 'int',
       'precision' => '10',
-      'phptype' => 'int',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 0,
     ),
@@ -84,22 +87,25 @@ $xpdo_meta_map['msProductFile']= array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
+      'default' => '0000-00-00 00:00:00',
     ),
     'createdby' => 
     array (
       'dbtype' => 'int',
       'precision' => '10',
-      'phptype' => 'int',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 0,
     ),
     'rank' => 
     array (
-      'dbtype' => 'int',
-      'precision' => '10',
-      'phptype' => 'int',
+      'dbtype' => 'tiny',
+      'precision' => '1',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
-      'default' => 0,
+      'default' => '0',
     ),
     'url' => 
     array (

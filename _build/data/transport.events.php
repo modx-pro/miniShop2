@@ -63,5 +63,12 @@ $events['msOnEmptyCart']->fromArray(array (
 	'groupname' => 'miniShop2',
 ), '', true, true);
 
+$events['msOnManagerCustomCssJs']= $modx->newObject('modEvent');
+$events['msOnManagerCustomCssJs']->fromArray(array (
+	'name' => 'msOnManagerCustomCssJs',
+	'service' => 6,
+	'groupname' => 'miniShop2',
+), '', true, true);
+
 
 return $events;

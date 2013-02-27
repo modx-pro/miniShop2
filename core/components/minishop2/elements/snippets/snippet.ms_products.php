@@ -71,6 +71,7 @@ foreach ($scriptProperties as $k => $v) {
 // Fields to select
 $resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
 $dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
+$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor_');
 
 // Default parameters
 $default = array(
@@ -78,10 +79,12 @@ $default = array(
 	,'where' => $modx->toJSON($where)
 	,'leftJoin' => '[
 		{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"}
+		,{"class":"msVendor","alias":"Vendor","on":"msProduct.id=Vendor.id"}
 	]'
 	,'select' => '{
 		"msProduct":"'.$resourceColumns.'"
 		,"Data":"'.$dataColumns.'"
+		,"Vendor":"'.$vendorColumns.'"
 	}'
 	,'sortby' => 'id'
 	,'sortdir' => 'ASC'
@@ -122,6 +125,17 @@ foreach ($rows as $k => $row) {
 				$row[$field] .= str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
 			}
 			$row[$field] = substr($row[$field], 1);
+		}
+		else {
+			$row[$field] = '';
+		}
+	}
+
+	// Processing product flags
+	foreach (array('favorite','new','popular') as $field) {
+		if (!empty($row[$field]) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
+			$pl = $pdoFetch->makePlaceholders($row);
+			$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
 		}
 		else {
 			$row[$field] = '';

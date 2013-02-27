@@ -260,6 +260,9 @@ $vehicle->resolve('php',array(
 	'source' => $sources['resolvers'] . 'resolve.sources.php',
 ));
 $vehicle->resolve('php',array(
+	'source' => $sources['resolvers'] . 'resolve.statuses.php',
+));
+$vehicle->resolve('php',array(
 	'source' => $sources['resolvers'] . 'resolve.setup.php',
 ));
 

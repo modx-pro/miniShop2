@@ -60,7 +60,7 @@ $menus['orders']= $modx->newObject('modMenu');
 $menus['orders']->fromArray(array(
 	'text' => 'ms2_orders',
 	'parent' => 'minishop2',
-	'description' => 'ms2_menu_orders_desc',
+	'description' => 'ms2_orders_desc',
 	'menuindex' => 0,
 	'params' => '',
 	'handler' => '',
@@ -71,7 +71,7 @@ $menus['settings']= $modx->newObject('modMenu');
 $menus['settings']->fromArray(array(
 	'text' => 'ms2_settings',
 	'parent' => 'minishop2',
-	'description' => 'ms2_menu_settings_desc',
+	'description' => 'ms2_settings_desc',
 	'menuindex' => 1,
 	'params' => '',
 	'handler' => '',

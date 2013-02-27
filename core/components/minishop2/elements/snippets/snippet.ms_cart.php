@@ -15,7 +15,7 @@ if (empty($cart)) {
 $pdoFetch->getChunk($tplRow);
 
 // Working
-$outer = array('goods','total_count','total_weight','total_cost');
+$outer = array('goods' => '', 'total_count' => 0, 'total_weight' => 0, 'total_cost' => 0);
 foreach ($cart as $k => $v) {
 	/* @var msProduct $product */
 	if ($product = $modx->getObject('msProduct', array('id' => $v['id'], 'class_key' => 'msProduct', 'published' => 1, 'deleted' => 0))) {

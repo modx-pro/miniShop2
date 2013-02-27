@@ -57,7 +57,7 @@ interface msCartInterface {
 	 * */
 	public function get();
 
-	/* Returns the cart items
+	/* Set all the cart items by one array
 	 *
 	 * @return void
 	 * */
@@ -69,8 +69,9 @@ interface msCartInterface {
 class msCartHandler implements msCartInterface {
 	private $cart;
 
-	function __construct(modX & $modx, array $config = array()) {
-		$this->modx = & $modx;
+	function __construct(miniShop2 & $ms2, array $config = array()) {
+		$this->ms2 = & $ms2;
+		$this->modx = & $ms2->modx;
 
 		$this->config = array_merge(array(
 			'cart' => & $_SESSION['minishop2']['cart']

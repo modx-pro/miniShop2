@@ -16,7 +16,6 @@ $xpdo_meta_map['msCategory']= array (
       'phptype' => 'string',
       'null' => false,
       'default' => 'msCategory',
-      'index' => 'index',
     ),
   ),
   'aggregates' => 

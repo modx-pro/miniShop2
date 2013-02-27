@@ -16,7 +16,6 @@ $xpdo_meta_map['msProduct']= array (
       'phptype' => 'string',
       'null' => false,
       'default' => 'msProduct',
-      'index' => 'index',
     ),
   ),
   'composites' => 

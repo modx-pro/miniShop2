@@ -93,7 +93,7 @@ class miniShop2 {
 				if ($cart_class != 'msCartHandler') {$this->loadCustomClasses('cart');}
 				if (!class_exists($cart_class)) {$cart_class = 'msCartHandler';}
 
-				$this->cart = new $cart_class($this->modx, $this->config);
+				$this->cart = new $cart_class($this, $this->config);
 				if (!($this->cart instanceof msCartInterface) || $this->cart->initialize($ctx) !== true) {
 					$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 cart handler class: "'.$cart_class.'"');
 					return false;
@@ -104,7 +104,7 @@ class miniShop2 {
 				if ($order_class != 'msOrderHandler') {$this->loadCustomClasses('order');}
 				if (!class_exists($order_class)) {$order_class = 'msOrderHandler';}
 
-				$this->order = new $order_class($this->modx, $this->config);
+				$this->order = new $order_class($this, $this->config);
 				if (!($this->order instanceof msOrderInterface) || $this->order->initialize($ctx) !== true) {
 					$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 order handler class: "'.$order_class.'"');
 					return false;

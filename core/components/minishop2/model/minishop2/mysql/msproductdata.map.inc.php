@@ -73,7 +73,8 @@ $xpdo_meta_map['msProductData']= array (
     array (
       'dbtype' => 'int',
       'precision' => '10',
-      'phptype' => 'int',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 0,
     ),
@@ -134,7 +135,7 @@ $xpdo_meta_map['msProductData']= array (
       'dbtype' => 'int',
       'precision' => '10',
       'attributes' => 'unsigned',
-      'phptype' => 'int',
+      'phptype' => 'integer',
       'null' => false,
       'default' => 1,
     ),

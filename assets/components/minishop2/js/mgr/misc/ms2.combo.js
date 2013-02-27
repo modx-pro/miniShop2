@@ -139,7 +139,7 @@ miniShop2.combo.Vendor = function(config) {
 		,allowBlank: true
 		,emptyText: _('no')
 		,baseParams: {
-			action: 'mgr/vendor/getlist'
+			action: 'mgr/settings/vendor/getlist'
 			,combo: 1
 			,id: config.value
 			//,limit: 0
@@ -216,3 +216,27 @@ miniShop2.combo.Options = function(config) {
 };
 Ext.extend(miniShop2.combo.Options,Ext.ux.form.SuperBoxSelect);
 Ext.reg('minishop2-combo-options',miniShop2.combo.Options);
+
+
+miniShop2.combo.Chunk = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		name: 'chunk'
+		,hiddenName: 'chunk'
+		,displayField: 'name'
+		,valueField: 'id'
+		,editable: true
+		,fields: ['id','name']
+		,pageSize: 20
+		,emptyText: _('ms2_combo_select')
+		,hideMode: 'offsets'
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/system/element/chunk/getlist'
+			,mode: 'chunks'
+		}
+	});
+	miniShop2.combo.Chunk.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Chunk,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-chunk',miniShop2.combo.Chunk);

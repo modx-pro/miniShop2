@@ -68,7 +68,7 @@ function installPackage($packageName) {
 					if ($file === false) {
 						return array(
 							'success' => 0
-						,'message' => 'Could not download package <b>'.$packageName.'</b>: '.curl_error($curl)
+							,'message' => 'Could not download package <b>'.$packageName.'</b>: '.curl_error($curl)
 						);
 					}
 					curl_close($curl);
@@ -76,7 +76,6 @@ function installPackage($packageName) {
 					$file = file_get_contents($url);
 				}
 
-				$file = file_get_contents($url);
 				file_put_contents($modx->getOption('core_path').'packages/'.$foundPackage->signature.'.transport.zip',$file);
 
 				/* add in the package as an object so it can be upgraded */
@@ -109,7 +108,7 @@ function installPackage($packageName) {
 				if($package->save() && $package->install()) {
 					return array(
 						'success' => 1
-					,'message' => '<b>'.$packageName.'</b> was successfully installed'
+						,'message' => '<b>'.$packageName.'</b> was successfully installed'
 					);
 				}
 				else {
@@ -125,7 +124,9 @@ function installPackage($packageName) {
 	else {
 		return array(
 			'success' => 0
-		,'message' => 'Could not find <b>'.$packageName.'</b> in MODX repository'
+			,'message' => 'Could not find <b>'.$packageName.'</b> in MODX repository'
 		);
 	}
+
+return true;
 }

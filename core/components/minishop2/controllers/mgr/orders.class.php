@@ -15,6 +15,7 @@ class Minishop2OrdersManagerController extends miniShop2MainController {
 		//$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.grid.js');
 		//$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.panel.js');
 		//$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/home.js');
+		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'orders'));
 	}
 
 	public function getTemplateFile() {

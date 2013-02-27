@@ -16,6 +16,7 @@ $xpdo_meta_map['msProductOption']= array (
     array (
       'dbtype' => 'int',
       'precision' => '10',
+      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
     ),

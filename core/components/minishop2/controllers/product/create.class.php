@@ -107,6 +107,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		</script>');
 		/* load RTE */
 		$this->loadRichTextEditor();
+		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'product_create'));
 	}
 
 

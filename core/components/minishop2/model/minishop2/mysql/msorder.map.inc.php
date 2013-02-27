@@ -8,12 +8,13 @@ $xpdo_meta_map['msOrder']= array (
   array (
     'user_id' => NULL,
     'num' => NULL,
-    'status' => 1,
-    'sum' => NULL,
-    'weight' => 0,
-    'created' => '0000-00-00 00:00:00',
-    'updated' => '0000-00-00 00:00:00',
+    'cost' => '0',
+    'weight' => '0',
+    'createdon' => '0000-00-00 00:00:00',
+    'updatedon' => '0000-00-00 00:00:00',
     'comment' => NULL,
+    'properties' => NULL,
+    'status' => 1,
     'delivery' => 0,
     'payment' => 0,
     'address' => 0,
@@ -24,65 +25,73 @@ $xpdo_meta_map['msOrder']= array (
     array (
       'dbtype' => 'int',
       'precision' => '11',
+      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
-      'index' => 'index',
     ),
     'num' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '20',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
     ),
-    'status' => 
+    'cost' => 
     array (
-      'dbtype' => 'tinyint',
-      'precision' => '2',
-      'phptype' => 'integer',
-      'null' => false,
-      'default' => 1,
-      'index' => 'index',
-    ),
-    'sum' => 
-    array (
-      'dbtype' => 'float',
-      'precision' => '10,2',
+      'dbtype' => 'varchar',
+      'precision' => '10',
       'phptype' => 'float',
       'null' => false,
+      'default' => '0',
     ),
     'weight' => 
     array (
-      'dbtype' => 'float',
-      'precision' => '10,3',
+      'dbtype' => 'varchar',
+      'precision' => '10',
       'phptype' => 'float',
       'null' => false,
-      'default' => 0,
+      'default' => '0',
     ),
-    'created' => 
+    'createdon' => 
     array (
-      'dbtype' => 'timestamp',
-      'phptype' => 'timestamp',
-      'null' => false,
+      'dbtype' => 'datetime',
+      'phptype' => 'datetime',
+      'null' => true,
       'default' => '0000-00-00 00:00:00',
     ),
-    'updated' => 
+    'updatedon' => 
     array (
-      'dbtype' => 'timestamp',
-      'phptype' => 'timestamp',
-      'null' => false,
+      'dbtype' => 'datetime',
+      'phptype' => 'datetime',
+      'null' => true,
       'default' => '0000-00-00 00:00:00',
     ),
     'comment' => 
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
+      'null' => true,
+    ),
+    'properties' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
+      'null' => true,
+    ),
+    'status' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
+      'default' => 1,
     ),
     'delivery' => 
     array (
       'dbtype' => 'int',
-      'precision' => '11',
+      'precision' => '10',
+      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
@@ -90,7 +99,8 @@ $xpdo_meta_map['msOrder']= array (
     'payment' => 
     array (
       'dbtype' => 'int',
-      'precision' => '11',
+      'precision' => '10',
+      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
@@ -98,7 +108,8 @@ $xpdo_meta_map['msOrder']= array (
     'address' => 
     array (
       'dbtype' => 'int',
-      'precision' => '11',
+      'precision' => '10',
+      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
@@ -106,6 +117,22 @@ $xpdo_meta_map['msOrder']= array (
   ),
   'indexes' => 
   array (
+    'user_id' => 
+    array (
+      'alias' => 'user_id',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'user_id' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
     'status' => 
     array (
       'alias' => 'status',
@@ -122,21 +149,40 @@ $xpdo_meta_map['msOrder']= array (
         ),
       ),
     ),
-    'user_id' => 
+  ),
+  'aggregates' => 
+  array (
+    'User' => 
     array (
-      'alias' => 'user_id',
-      'primary' => false,
-      'unique' => false,
-      'type' => 'BTREE',
-      'columns' => 
-      array (
-        'user_id' => 
-        array (
-          'length' => '',
-          'collation' => 'A',
-          'null' => false,
-        ),
-      ),
+      'class' => 'modUser',
+      'local' => 'user_id',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
+    'Status' => 
+    array (
+      'class' => 'msOrderStatus',
+      'local' => 'status',
+      'foreign' => 'status',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
+    'Payment' => 
+    array (
+      'class' => 'msPayment',
+      'local' => 'payment',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
+    'Delivery' => 
+    array (
+      'class' => 'msDelivery',
+      'local' => 'delivery',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
     ),
   ),
 );
