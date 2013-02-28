@@ -102,6 +102,9 @@ class msVendorGetCatsProcessor extends modObjectGetListProcessor {
 		if ($this->getProperty('combo')) {
 			$c->select('id,name');
 		}
+		else {
+			$c->select($this->modx->getSelectColumns('msVendor'));
+		}
 		if ($query = $this->getProperty('query')) {
 			$c->where(array('pagetitle:LIKE' => "%$query%"));
 		}

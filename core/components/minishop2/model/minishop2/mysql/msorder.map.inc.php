@@ -8,8 +8,8 @@ $xpdo_meta_map['msOrder']= array (
   array (
     'user_id' => NULL,
     'num' => NULL,
-    'cost' => '0',
-    'weight' => '0',
+    'cost' => 0,
+    'weight' => 0,
     'createdon' => '0000-00-00 00:00:00',
     'updatedon' => '0000-00-00 00:00:00',
     'comment' => NULL,
@@ -38,19 +38,19 @@ $xpdo_meta_map['msOrder']= array (
     ),
     'cost' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '10',
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
       'phptype' => 'float',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'weight' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '10',
+      'dbtype' => 'decimal',
+      'precision' => '13,3',
       'phptype' => 'float',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'createdon' => 
     array (

@@ -12,6 +12,13 @@ class msPaymentCreateProcessor extends modObjectCreateProcessor {
 		return !$this->hasErrors();
 	}
 
+	public function beforeSave() {
+		$this->object->fromArray(array(
+			'rank' => $this->modx->getCount('msPayment')
+		));
+		return parent::beforeSave();
+	}
+
 }
 
 return 'msPaymentCreateProcessor';

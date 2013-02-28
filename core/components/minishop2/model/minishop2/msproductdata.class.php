@@ -95,12 +95,12 @@ class msProductData extends xPDOSimpleObject {
 
 		if ($q->prepare() && $q->stmt->execute()) {
 			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-			$i = 0;
+			$sql = '';
 			$table = $this->xpdo->getTableName('msProductFile');
-			foreach ($ids as $id) {
-				$this->xpdo->exec("UPDATE {$table} SET `rank` = '{$i}' WHERE `id` = '{$id}';");
-				$i++;
+			foreach ($ids as $k => $id) {
+				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `id` = '{$id}';";
 			}
+			$this->xpdo->exec($sql);
 		}
 	}
 

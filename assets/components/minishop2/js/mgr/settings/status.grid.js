@@ -48,14 +48,13 @@ miniShop2.grid.Status = function(config) {
 		,plugins: this.exp
 		,columns: [this.exp
 			,{header: _('ms2_id'),dataIndex: 'id',width: 50}
-			,{header: _('ms2_name'),dataIndex: 'name',width: 150}
+			,{header: _('ms2_name'),dataIndex: 'name',width: 150, editor: {xtype: 'textfield', allowBlank: false}}
 			,{header: _('ms2_color'),dataIndex: 'color',renderer: this.renderColor, width: 50}
 			,{header: _('ms2_email_user'),dataIndex: 'email_user',width: 50, renderer: this.renderBoolean}
 			,{header: _('ms2_email_manager'),dataIndex: 'email_manager',width: 50, renderer: this.renderBoolean}
 			,{header: _('ms2_active'),dataIndex: 'active',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
-			,{header: _('ms2_final'),dataIndex: 'final',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
-			,{header: _('ms2_fixed'),dataIndex: 'fixed',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
-			//,{header: _('ms2_description'),dataIndex: 'description',width: 250}
+			,{header: _('ms2_status_final'),dataIndex: 'final',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
+			,{header: _('ms2_status_fixed'),dataIndex: 'fixed',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
 		]
 		,tbar: [{
 			text: _('ms2_btn_create')
@@ -165,12 +164,12 @@ Ext.extend(miniShop2.grid.Status,MODx.grid.Grid,{
 					}
 				}
 			}
-			,{xtype: 'textarea', fieldLabel: _('ms2_description'), name: 'description', anchor: '99%', id: 'minishop2-status-description-'+type}
 			,{xtype: 'xcheckbox', fieldLabel: _('ms2_email_user'),name: 'email_user', id: 'minishop2-status-email_user-'+type
 				,listeners: {
 					check: {fn: function(r) { this.handleStatusFields('user-'+type);},scope:this }
 					,afterrender: {fn: function(r) { this.handleStatusFields('user-'+type);},scope:this }
 				}
+				,style: 'height: 30px;'
 			}
 			,{xtype: 'textfield', fieldLabel: _('ms2_subject_user'),name: 'subject_user',id: 'minishop2-status-subject_user-'+type,anchor: '99%'}
 			,{xtype: 'minishop2-combo-chunk',fieldLabel: _('ms2_body_user'), name: 'body_user',hiddenName: 'body_user',id: 'minishop2-status-body_user-'+type, anchor: '99%'}
@@ -180,14 +179,16 @@ Ext.extend(miniShop2.grid.Status,MODx.grid.Grid,{
 					check: {fn: function(r) { this.handleStatusFields('manager-'+type);},scope:this }
 					,afterrender: {fn: function(r) { this.handleStatusFields('manager-'+type);},scope:this }
 				}
+				,style: 'height: 30px;'
 			}
 			,{xtype: 'textfield',fieldLabel: _('ms2_subject_manager'),name: 'subject_manager',id: 'minishop2-status-subject_manager-'+type,anchor: '99%'}
 			,{xtype: 'minishop2-combo-chunk',fieldLabel: _('ms2_body_manager'),name: 'body_manager',hiddenName: 'body_manager',id: 'minishop2-status-body_manager-'+type, anchor: '99%'}
+			,{xtype: 'textarea', fieldLabel: _('ms2_description'), name: 'description', anchor: '99%', id: 'minishop2-status-description-'+type}
 			,{xtype: 'checkboxgroup'
-				,labelAlign: 'top'
+				,fieldLabel: _('ms2_options')
 				,columns: 1
 				,items: [
-					{xtype: 'xcheckbox', boxLabel: _('ms2_status_active'), description: _('ms2_status_active_help'), name: 'active', id: 'minishop2-status-active-'+type}
+					{xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-status-active-'+type}
 					,{xtype: 'xcheckbox', boxLabel: _('ms2_status_final'), description: _('ms2_status_final_help'), name: 'final', id: 'minishop2-status-final-'+type}
 					,{xtype: 'xcheckbox', boxLabel: _('ms2_status_fixed'), description: _('ms2_status_fixed_help'), name: 'fixed', id: 'minishop2-status-fixed-'+type}
 				]
@@ -222,16 +223,15 @@ miniShop2.window.CreateStatus = function(config) {
 	config = config || {};
 	this.ident = config.ident || 'mecitem'+Ext.id();
 	Ext.applyIf(config,{
-		title: _('modextra.item_create')
+		title: _('ms2_menu_create')
 		,id: this.ident
-		,height: 150
 		,width: 600
 		,labelAlign: 'left'
-		,labelWidth: 200
+		,labelWidth: 180
 		,url: miniShop2.config.connector_url
 		,action: 'mgr/settings/status/create'
 		,fields: config.fields
-		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn:  function() {this.submit() },scope: this}]
+		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
 	});
 	miniShop2.window.CreateStatus.superclass.constructor.call(this,config);
 };
@@ -243,16 +243,15 @@ miniShop2.window.UpdateStatus = function(config) {
 	config = config || {};
 	this.ident = config.ident || 'meuitem'+Ext.id();
 	Ext.applyIf(config,{
-		title: _('modextra.item_update')
+		title: _('ms2_menu_update')
 		,id: this.ident
-		,height: 150
 		,width: 600
 		,labelAlign: 'left'
-		,labelWidth: 200
+		,labelWidth: 180
 		,url: miniShop2.config.connector_url
 		,action: 'mgr/settings/status/update'
 		,fields: config.fields
-		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn:  function() {this.submit() },scope: this}]
+		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
 	});
 	miniShop2.window.UpdateStatus.superclass.constructor.call(this,config);
 };

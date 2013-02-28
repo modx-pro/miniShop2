@@ -12,6 +12,13 @@ class msDeliveryCreateProcessor extends modObjectCreateProcessor {
 		return !$this->hasErrors();
 	}
 
+	public function beforeSave() {
+		$this->object->fromArray(array(
+			'rank' => $this->modx->getCount('msDelivery')
+		));
+		return parent::beforeSave();
+	}
+
 }
 
 return 'msDeliveryCreateProcessor';

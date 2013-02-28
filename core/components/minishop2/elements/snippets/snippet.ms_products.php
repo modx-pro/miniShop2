@@ -108,16 +108,23 @@ foreach ($meta as $k => $v) {
 }
 
 // Initializing chunk for template rows
-$pdoFetch->getChunk($tpl);
+if (!empty($tpl)) {
+	$pdoFetch->getChunk($tpl);
+}
 
 // Processing rows
 $output = null;
 foreach ($rows as $k => $row) {
+	// Processing main fields
+	$row['price'] = round($row['price'], 2);
+	$row['old_price'] = round($row['old_price'], 2);
+	$row['weight'] = round($row['weight'], 3);
+
 	// Processing JSON fields
 	foreach ($jsonFields as $field) {
 		$array = $modx->fromJSON($row[$field]);
 
-		if (!empty($array[0]) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
+		if (!empty($array[0]) && !empty($tpl) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
 			$row[$field] = '';
 			
 			foreach ($array as $value) {
@@ -133,7 +140,7 @@ foreach ($rows as $k => $row) {
 
 	// Processing product flags
 	foreach (array('favorite','new','popular') as $field) {
-		if (!empty($row[$field]) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
+		if (!empty($row[$field]) && !empty($tpl) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
 			$pl = $pdoFetch->makePlaceholders($row);
 			$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
 		}
@@ -152,6 +159,7 @@ foreach ($rows as $k => $row) {
 }
 $pdoFetch->addTime('Returning processed chunks');
 
+if (empty($outputSeparator)) {$outputSeparator = "\n";}
 if (!empty($output)) {
 	$output = implode($outputSeparator, $output);
 }

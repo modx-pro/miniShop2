@@ -8,8 +8,11 @@ $xpdo_meta_map['msPayment']= array (
   array (
     'name' => NULL,
     'description' => NULL,
+    'logo' => NULL,
+    'rank' => 0,
     'active' => 1,
     'class' => NULL,
+    'properties' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -25,6 +28,22 @@ $xpdo_meta_map['msPayment']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
+    ),
+    'logo' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'rank' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 0,
     ),
     'active' => 
     array (
@@ -42,6 +61,12 @@ $xpdo_meta_map['msPayment']= array (
       'phptype' => 'string',
       'null' => true,
     ),
+    'properties' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
+      'null' => true,
+    ),
   ),
   'aggregates' => 
   array (
@@ -50,6 +75,14 @@ $xpdo_meta_map['msPayment']= array (
       'class' => 'msOrder',
       'local' => 'id',
       'foreign' => 'payment',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+    'Deliveries' => 
+    array (
+      'class' => 'msDeliveryMember',
+      'local' => 'id',
+      'foreign' => 'payment_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),

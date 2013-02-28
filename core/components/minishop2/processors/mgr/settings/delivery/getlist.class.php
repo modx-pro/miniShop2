@@ -11,6 +11,15 @@ class msDeliveryGetListProcessor extends modObjectGetListProcessor {
 
 	public function prepareRow(xPDOObject $object) {
 		$array = $object->toArray();
+
+		$payments = $object->getMany('Payments');
+		$enabled = array();
+		foreach ($payments as $payment) {
+			$enabled[$payment->get('payment_id')] = 1;
+		}
+
+		$array['payments'] = $enabled;
+
 		return $array;
 	}
 

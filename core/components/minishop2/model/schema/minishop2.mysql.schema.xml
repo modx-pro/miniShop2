@@ -5,7 +5,8 @@
 	<object class="msCategory" extends="modResource">
 		<field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msCategory" />
 
-		<aggregate alias="Products" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local" />
+		<aggregate alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local" />
+		<aggregate alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many" owner="local" />
 	</object>
 
 
@@ -19,9 +20,9 @@
 
 	<object class="msProductData" table="ms2_products" extends="xPDOSimpleObject">
 		<field key="article" dbtype="varchar" precision="50" phptype="varchar" null="true" />
-		<field key="price" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
-		<field key="old_price" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
-		<field key="weight" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="old_price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
 		<field key="image" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
@@ -70,10 +71,11 @@
 	<object class="msVendor" table="ms2_vendors" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="100" phptype="string" null="false" />
 		<field key="country" dbtype="varchar" precision="100" phptype="string" null="true" />
-		<field key="image" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="address" dbtype="text" phptype="string" null="true" />
 		<field key="phone" dbtype="varchar" precision="20" phptype="string" null="true" />
 		<field key="fax" dbtype="varchar" precision="20" phptype="string" null="true" />
+		<field key="email" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
 
@@ -143,8 +145,8 @@
 		<field key="user_id" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
 		<field key="num" dbtype="varchar" precision="20" phptype="string" null="true" />
 
-		<field key="cost" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
-		<field key="weight" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
+		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
 
 		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
 		<field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
@@ -170,26 +172,48 @@
 	</object>
 
 
-	<object class="msPayment" table="ms2_payments" extends="xPDOSimpleObject">
-		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
-		<field key="description" dbtype="text" phptype="string" null="true" />
-		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="1" />
-		<field key="class" dbtype="varchar" precision="50" phptype="string" null="true" />
-
-		<aggregate alias="Orders" class="msOrder" local="id" foreign="payment" cardinality="many" owner="local" />
-	</object>
-
-
 	<object class="msDelivery" table="ms2_deliveries" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
-		<field key="price" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
-		<field key="add_price" dbtype="varchar" precision="10" phptype="float" null="false" default="0" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="weight_price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="distance_price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="active" dbtype="tinyint" precision="1" phptype="integer" null="false" default="1" />
-		<field key="payments" dbtype="text" phptype="json" null="true" />
 		<field key="class" dbtype="varchar" precision="50" phptype="string" null="true" />
+		<field key="properties" dbtype="text" phptype="json" null="true" />
 
 		<aggregate alias="Orders" class="msOrder" local="id" foreign="delivery" cardinality="many" owner="local" />
+		<aggregate alias="Payments" class="msDeliveryMember" local="id" foreign="delivery_id" cardinality="many" owner="local" />
+	</object>
+
+
+	<object class="msPayment" table="ms2_payments" extends="xPDOSimpleObject">
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="description" dbtype="text" phptype="string" null="true" />
+		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="1" />
+		<field key="class" dbtype="varchar" precision="50" phptype="string" null="true" />
+		<field key="properties" dbtype="text" phptype="json" null="true" />
+
+		<aggregate alias="Orders" class="msOrder" local="id" foreign="payment" cardinality="many" owner="local" />
+		<aggregate alias="Deliveries" class="msDeliveryMember" local="id" foreign="payment_id" cardinality="many" owner="local" />
+	</object>
+
+
+	<object class="msDeliveryMember" table="ms2_delivery_payments" extends="xPDOObject">
+		<field key="delivery_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
+		<field key="payment_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
+
+		<index alias="delivery" name="delivery" primary="true" unique="true" type="BTREE" >
+			<column key="delivery_id" length="" collation="A" null="false" />
+			<column key="payment_id" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Deliveries" class="msDelivery" local="delivery_id" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Orders" class="msPayment" local="payment_id" foreign="id" cardinality="one" owner="foreign" />
 	</object>
 
 

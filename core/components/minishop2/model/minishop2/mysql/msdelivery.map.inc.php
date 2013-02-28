@@ -8,11 +8,14 @@ $xpdo_meta_map['msDelivery']= array (
   array (
     'name' => NULL,
     'description' => NULL,
-    'price' => '0',
-    'add_price' => '0',
+    'price' => 0,
+    'weight_price' => 0,
+    'distance_price' => 0,
+    'logo' => NULL,
+    'rank' => 0,
     'active' => 1,
-    'payments' => NULL,
     'class' => NULL,
+    'properties' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -31,19 +34,43 @@ $xpdo_meta_map['msDelivery']= array (
     ),
     'price' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '10',
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
       'phptype' => 'float',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
-    'add_price' => 
+    'weight_price' => 
+    array (
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
+      'phptype' => 'float',
+      'null' => false,
+      'default' => 0,
+    ),
+    'distance_price' => 
+    array (
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
+      'phptype' => 'float',
+      'null' => false,
+      'default' => 0,
+    ),
+    'logo' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '10',
-      'phptype' => 'float',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'rank' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'active' => 
     array (
@@ -53,17 +80,17 @@ $xpdo_meta_map['msDelivery']= array (
       'null' => false,
       'default' => 1,
     ),
-    'payments' => 
-    array (
-      'dbtype' => 'text',
-      'phptype' => 'json',
-      'null' => true,
-    ),
     'class' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '50',
       'phptype' => 'string',
+      'null' => true,
+    ),
+    'properties' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
       'null' => true,
     ),
   ),
@@ -74,6 +101,14 @@ $xpdo_meta_map['msDelivery']= array (
       'class' => 'msOrder',
       'local' => 'id',
       'foreign' => 'delivery',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+    'Payments' => 
+    array (
+      'class' => 'msDeliveryMember',
+      'local' => 'id',
+      'foreign' => 'delivery_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),

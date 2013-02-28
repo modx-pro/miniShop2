@@ -2,13 +2,13 @@
 
 // It is adapted code from https://github.com/splittingred/Gallery/blob/a51442648fde1066cf04d46550a04265b1ad67da/core/components/gallery/processors/mgr/item/sort.php
 
-class msOrderStatusSortProcessor extends modObjectProcessor {
-	public $objectType = 'msOrderStatus';
+class msPaymentSortProcessor extends modObjectProcessor {
+	public $objectType = 'msPayment';
 
 	public function process() {
-		/* @var msOrderStatus $source */
+		/* @var msPayment $source */
 		$source = $this->modx->getObject($this->objectType, $this->getProperty('source'));
-		/* @var msOrderStatus $target */
+		/* @var msPayment $target */
 		$target = $this->modx->getObject($this->objectType, $this->getProperty('target'));
 
 		if (empty($source) || empty($target)) {
@@ -55,6 +55,7 @@ class msOrderStatusSortProcessor extends modObjectProcessor {
 			$this->modx->exec($sql);
 		}
 	}
+
 }
 
-return 'msOrderStatusSortProcessor';
+return 'msPaymentSortProcessor';

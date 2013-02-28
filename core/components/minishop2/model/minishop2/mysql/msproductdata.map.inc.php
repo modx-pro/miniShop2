@@ -7,9 +7,9 @@ $xpdo_meta_map['msProductData']= array (
   'fields' => 
   array (
     'article' => NULL,
-    'price' => '0',
-    'old_price' => '0',
-    'weight' => '0',
+    'price' => 0,
+    'old_price' => 0,
+    'weight' => 0,
     'image' => NULL,
     'thumb' => NULL,
     'vendor' => 0,
@@ -33,27 +33,27 @@ $xpdo_meta_map['msProductData']= array (
     ),
     'price' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '10',
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
       'phptype' => 'float',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'old_price' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '10',
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
       'phptype' => 'float',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'weight' => 
     array (
-      'dbtype' => 'varchar',
-      'precision' => '10',
+      'dbtype' => 'decimal',
+      'precision' => '13,3',
       'phptype' => 'float',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'image' => 
     array (

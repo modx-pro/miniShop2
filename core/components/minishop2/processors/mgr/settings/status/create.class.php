@@ -17,7 +17,6 @@ class msOrderStatusCreateProcessor extends modObjectCreateProcessor {
 			'rank' => $this->modx->getCount('msOrderStatus')
 			,'editable' => true
 		));
-
 		return parent::beforeSave();
 	}
 

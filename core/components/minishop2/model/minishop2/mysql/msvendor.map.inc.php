@@ -8,10 +8,11 @@ $xpdo_meta_map['msVendor']= array (
   array (
     'name' => NULL,
     'country' => NULL,
-    'image' => NULL,
+    'logo' => NULL,
     'address' => NULL,
     'phone' => NULL,
     'fax' => NULL,
+    'email' => NULL,
     'description' => NULL,
     'properties' => NULL,
   ),
@@ -31,7 +32,7 @@ $xpdo_meta_map['msVendor']= array (
       'phptype' => 'string',
       'null' => true,
     ),
-    'image' => 
+    'logo' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '255',
@@ -55,6 +56,13 @@ $xpdo_meta_map['msVendor']= array (
     array (
       'dbtype' => 'varchar',
       'precision' => '20',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'email' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
       'phptype' => 'string',
       'null' => true,
     ),

@@ -12,8 +12,8 @@ $xpdo_meta_map = array (
     1 => 'msVendor',
     2 => 'msProductFile',
     3 => 'msOrder',
-    4 => 'msPayment',
-    5 => 'msDelivery',
+    4 => 'msDelivery',
+    5 => 'msPayment',
     6 => 'msOrderStatus',
     7 => 'msOrderLog',
   ),
@@ -21,5 +21,6 @@ $xpdo_meta_map = array (
   array (
     0 => 'msCategoryMember',
     1 => 'msProductOption',
+    2 => 'msDeliveryMember',
   ),
 );

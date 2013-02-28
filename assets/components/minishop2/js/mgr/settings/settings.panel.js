@@ -11,7 +11,7 @@ miniShop2.page.Settings = function(config) {
 		,baseCls: 'modx-formpanel'
 		,cls: 'container'
 		,items: [{
-			html: '<h2>'+_('ms2_settings')+'</h2>'
+			html: '<h2>'+_('minishop2') + ' :: ' + _('ms2_settings')+'</h2>'
 			,border: false
 			,cls: 'modx-page-header'
 		},{
