@@ -291,8 +291,6 @@ var methods = {
 
 
 	,templateWarning: function() {
-		if (this.config.mode == 'create') {return true;}
-
 		var t = Ext.getCmp('modx-resource-template');
 		if (!t) { return false; }
 		if(t.getValue() !== t.originalValue) {
@@ -304,7 +302,7 @@ var methods = {
 					MODx.activePage.submitForm({
 						success: {fn:function(r) {
 							var page = MODx.action ? MODx.action[r.result.object.action] : r.result.object.action;
-							MODx.loadPage(page, '&id='+r.result.object.id+'&reload='+r.result.object.reload)
+							MODx.loadPage(page, '&id='+r.result.object.id+'&reload='+r.result.object.reload+'&class_key='+this.config.record.class_key);
 						},scope:this}
 					},{
 						bypassValidCheck: true

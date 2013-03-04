@@ -66,26 +66,51 @@ foreach ($scriptProperties as $k => $v) {
 			$scriptProperties['where'] = $modx->toJSON(array_merge($where, $tmp));
 		}
 	}
+$pdoFetch->addTime('"Where" expression built.');
 // End of building "Where" expression
+
+// Include TVs
+if (!empty($includeTVList)) {
+	$tvs = array_map('trim',explode(',',$includeTVList));
+	
+	if(!empty($tvs)){
+		$tvsLeftJoin = '';
+		$tvsSelect = array();
+
+		$q = $modx->newQuery('modTemplateVar', array('name:IN' => $tvs));
+		$q->select('id,name');
+		if ($q->prepare() && $q->stmt->execute()) {
+			$tv_ids = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+			if (!empty($tv_ids)) {
+				foreach ($tv_ids as $tv) {
+					$tvsLeftJoin .= ',{"class":"modTemplateVarResource","alias":"TV'.$tv['name'].'","on":"TV'.$tv['name'].'.contentid = msProduct.id AND TV'.$tv['name'].'.tmplvarid = '.$tv['id'].'"}';
+					$tvsSelect[] = ' "TV'.$tv['name'].'":"IFNULL(TV'.$tv['name'].'.value,\'\') as '.$tv['name'].'" ';
+				}
+			}
+
+		}
+		$pdoFetch->addTime('Included list of tvs: <b>'.implode(', ',$tvs).'</b>.');
+	}
+}
+// End of including TVs
 
 // Fields to select
 $resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
 $dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
-$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor_');
+$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', '', array('id'), true);
+
+// Tables for joining
+$leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"msProduct.id=Vendor.id"}';
+if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
+$select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor":"'.$vendorColumns.'"';
+if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
 
 // Default parameters
 $default = array(
 	'class' => 'msProduct'
 	,'where' => $modx->toJSON($where)
-	,'leftJoin' => '[
-		{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"}
-		,{"class":"msVendor","alias":"Vendor","on":"msProduct.id=Vendor.id"}
-	]'
-	,'select' => '{
-		"msProduct":"'.$resourceColumns.'"
-		,"Data":"'.$dataColumns.'"
-		,"Vendor":"'.$vendorColumns.'"
-	}'
+	,'leftJoin' => '['.$leftJoin.']'
+	,'select' => '{'.$select.'}'
 	,'sortby' => 'id'
 	,'sortdir' => 'ASC'
 	,'fastMode' => false
@@ -98,7 +123,7 @@ $pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
 $pdoFetch->addTime('Query parameters are prepared.');
 $rows = $pdoFetch->run();
 
-// Get json fields
+// Get json fields of msProductData
 $meta = $modx->getFieldMeta('msProductData');
 $jsonFields = array();
 foreach ($meta as $k => $v) {

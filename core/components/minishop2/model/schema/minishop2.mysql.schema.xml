@@ -141,37 +141,6 @@
 	</object>
 
 
-	<object class="msOrder" table="ms2_orders" extends="xPDOSimpleObject">
-		<field key="user_id" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
-		<field key="num" dbtype="varchar" precision="20" phptype="string" null="true" />
-
-		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
-
-		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
-		<field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
-		<field key="comment" dbtype="text" phptype="string" null="true" />
-		<field key="properties" dbtype="text" phptype="json" null="true" />
-
-		<field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="1" />
-		<field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-
-		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
-			<column key="user_id" length="" collation="A" null="false" />
-		</index>
-		<index alias="status" name="status" primary="false" unique="false" type="BTREE" >
-			<column key="status" length="" collation="A" null="false" />
-		</index>
-
-		<aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
-		<aggregate alias="Status" class="msOrderStatus" local="status" foreign="status" cardinality="one" owner="foreign" />
-		<aggregate alias="Payment" class="msPayment" local="payment" foreign="id" cardinality="one" owner="foreign" />
-		<aggregate alias="Delivery" class="msDelivery" local="delivery" foreign="id" cardinality="one" owner="foreign" />
-	</object>
-
-
 	<object class="msDelivery" table="ms2_deliveries" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
@@ -183,6 +152,7 @@
 		<field key="active" dbtype="tinyint" precision="1" phptype="integer" null="false" default="1" />
 		<field key="class" dbtype="varchar" precision="50" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
+		<field key="requires" dbtype="varchar" precision="255" phptype="string" null="true" default="email,receiver" />
 
 		<aggregate alias="Orders" class="msOrder" local="id" foreign="delivery" cardinality="many" owner="local" />
 		<aggregate alias="Payments" class="msDeliveryMember" local="id" foreign="delivery_id" cardinality="many" owner="local" />
@@ -214,6 +184,39 @@
 
 		<aggregate alias="Deliveries" class="msDelivery" local="delivery_id" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Orders" class="msPayment" local="payment_id" foreign="id" cardinality="one" owner="foreign" />
+	</object>
+
+
+	<object class="msOrder" table="ms2_orders" extends="xPDOSimpleObject">
+		<field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
+		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
+		<field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
+		<field key="num" dbtype="varchar" precision="20" phptype="string" null="true" />
+		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="delivery_cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
+		<field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="context" dbtype="varchar" precision="100" phptype="string" null="false" default="web" />
+		<field key="comment" dbtype="text" phptype="string" null="true" />
+		<field key="properties" dbtype="text" phptype="json" null="true" />
+
+		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
+			<column key="user_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="status" name="status" primary="false" unique="false" type="BTREE" >
+			<column key="status" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Status" class="msOrderStatus" local="status" foreign="status" cardinality="one" owner="foreign" />
+		<aggregate alias="Delivery" class="msDelivery" local="delivery" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Payment" class="msPayment" local="payment" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one" owner="foreign" />
+		<composite alias="Products" class="msOrderProduct" local="id" foreign="order_id" cardinality="many" owner="local" />
 	</object>
 
 
@@ -259,4 +262,49 @@
 		<aggregate alias="Order" class="modUser" local="order_id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
 
+
+	<object class="msOrderAddress" table="ms2_order_addresses" extends="xPDOSimpleObject">
+		<field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
+		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
+		<field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
+		<field key="receiver" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="phone" dbtype="varchar" precision="20" phptype="string" null="true" />
+		<field key="country" dbtype="varchar" precision="100" phptype="string" null="true" />
+		<field key="index" dbtype="varchar" precision="50" phptype="integer" null="true" />
+		<field key="region" dbtype="varchar" precision="100" phptype="string" null="true" />
+		<field key="city" dbtype="varchar" precision="100" phptype="string" null="true" />
+		<field key="metro" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="street" dbtype="varchar" precision="255" phptype="string" null="true" />
+		<field key="building" dbtype="varchar" precision="10" phptype="string" null="true" />
+		<field key="room" dbtype="varchar" precision="10" phptype="string" null="true" />
+		<field key="comment" dbtype="text" phptype="string" null="true" />
+		<field key="properties" dbtype="text" phptype="json" null="true" />
+
+		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
+			<column key="user_id" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
+	</object>
+
+
+	<object class="msOrderProduct" table="ms2_order_products" extends="xPDOSimpleObject">
+		<field key="product_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+		<field key="order_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+		<field key="count" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="1" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
+		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="options" dbtype="text" phptype="json" null="true" />
+
+		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
+			<column key="product_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="order_id" name="order_id" primary="false" unique="false" type="BTREE" >
+			<column key="order_id" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" owner="foreign" cardinality="one" />
+		<aggregate alias="Order" class="msOrder" local="order_id" foreign="id" owner="foreign" cardinality="one" />
+	</object>
 </model>

@@ -131,7 +131,7 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 			xtype: 'hidden'
 			,name: 'class_key'
 			,id: 'modx-resource-class-key'
-			,value: 'miniShop2Section'
+			,value: 'msCategory'
 		},{
 			xtype: 'xcheckbox'
 			,boxLabel: _('resource_uri_override')

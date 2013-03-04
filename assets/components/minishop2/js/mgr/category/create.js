@@ -1,13 +1,13 @@
-miniShop2.page.CreateMSCategory = function(config) {
+miniShop2.page.CreateCategory = function(config) {
 	config = config || {record:{}};
 	config.record = config.record || {};
 	Ext.applyIf(config,{
 		panelXType: 'minishop2-panel-category'
 		,mode: "create"
 	});
-	miniShop2.page.CreateMSCategory.superclass.constructor.call(this,config);
+	miniShop2.page.CreateCategory.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.page.CreateMSCategory,MODx.page.CreateResource,{
+Ext.extend(miniShop2.page.CreateCategory,MODx.page.CreateResource,{
 
 	getButtons: function(cfg) {
 		var btns = [];
@@ -78,17 +78,14 @@ Ext.extend(miniShop2.page.CreateMSCategory,MODx.page.CreateResource,{
 		}
 	}
 });
-Ext.reg('minishop2-page-category-create',miniShop2.page.CreateMSCategory);
+Ext.reg('minishop2-page-category-create',miniShop2.page.CreateCategory);
 
 
-
-
-
-miniShop2.panel.Section = function(config) {
+miniShop2.panel.Category = function(config) {
 	config = config || {};
-	miniShop2.panel.Section.superclass.constructor.call(this,config);
+	miniShop2.panel.Category.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.panel.Section,MODx.panel.Resource,{
+Ext.extend(miniShop2.panel.Category,MODx.panel.Resource,{
 
 	getFields: function(config) {
 		var it = [];
@@ -172,5 +169,30 @@ Ext.extend(miniShop2.panel.Section,MODx.panel.Resource,{
 		}];
 	}
 
+	,templateWarning: function() {
+		var t = Ext.getCmp('modx-resource-template');
+		if (!t) { return false; }
+		if(t.getValue() !== t.originalValue) {
+			Ext.Msg.confirm(_('warning'), _('resource_change_template_confirm'), function(e) {
+				if (e == 'yes') {
+					var nt = t.getValue();
+					var f = Ext.getCmp('modx-page-update-resource');
+					f.config.action = 'reload';
+					MODx.activePage.submitForm({
+						success: {fn:function(r) {
+							var page = MODx.action ? MODx.action[r.result.object.action] : r.result.object.action;
+							MODx.loadPage(page, '&id='+r.result.object.id+'&reload='+r.result.object.reload+'&class_key='+this.config.record.class_key);
+						},scope:this}
+					},{
+						bypassValidCheck: true
+					},{
+						reloadOnly: true
+					});
+				} else {
+					t.setValue(this.config.record.template);
+				}
+			},this);
+		}
+	}
 });
-Ext.reg('minishop2-panel-category',miniShop2.panel.Section);
+Ext.reg('minishop2-panel-category',miniShop2.panel.Category);

@@ -39,7 +39,7 @@ miniShop2.grid.Delivery = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/delivery/getlist'
 		}
-		,fields: ['id','name','description','price','weight_price','distance_price','logo','active','class','payments']
+		,fields: ['id','name','description','price','weight_price','distance_price','logo','active','class','payments','requires']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -155,6 +155,7 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 			,{xtype: 'numberfield',fieldLabel: _('ms2_distance_price'), description: _('ms2_distance_price_help'), name: 'distance_price', decimalPrecision: 2, allowBlank: true, anchor: '50%', id: 'minishop2-delivery-distance_price-'+type}
 			,{xtype: 'minishop2-combo-browser',fieldLabel: _('ms2_logo'), name: 'logo', anchor: '99%',  id: 'minishop2-delivery-logo-'+type}
 			,{xtype: 'textarea', fieldLabel: _('ms2_description'), name: 'description', anchor: '99%', id: 'minishop2-delivery-description-'+type}
+			,{xtype: 'textfield', fieldLabel: _('ms2_order_requires'), description: _('ms2_order_requires_help'), name: 'requires',anchor: '99%', id: 'minishop2-delivery-requires-'+type}
 		);
 		var payments = this.getAvailablePayments();
 		if (payments.length > 0) {

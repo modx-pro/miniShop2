@@ -16,6 +16,7 @@ $xpdo_meta_map['msDelivery']= array (
     'active' => 1,
     'class' => NULL,
     'properties' => NULL,
+    'requires' => 'email,receiver',
   ),
   'fieldMeta' => 
   array (
@@ -92,6 +93,14 @@ $xpdo_meta_map['msDelivery']= array (
       'dbtype' => 'text',
       'phptype' => 'json',
       'null' => true,
+    ),
+    'requires' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => true,
+      'default' => 'email,receiver',
     ),
   ),
   'aggregates' => 

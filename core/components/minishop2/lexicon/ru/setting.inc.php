@@ -37,6 +37,8 @@ $_lang['setting_ms2_cart_handler_class'] = 'Класс обработчик ко
 $_lang['setting_ms2_cart_handler_class_desc'] = 'Имя класса, который реализует логику работы с корзиной.';
 $_lang['setting_ms2_order_handler_class'] = 'Класс обработчик заказа';
 $_lang['setting_ms2_order_handler_class_desc'] = 'Имя класса, который реализует логику оформления заказа.';
+$_lang['setting_ms2_order_user_groups'] = 'Группы регистрации покупателей';
+$_lang['setting_ms2_order_user_groups_desc'] = 'Список групп, через запятую, в которые вы хотите добавлять новых покупателей при оформлении заказа.';
 
 $_lang['setting_ms2_frontend_css'] = 'Стили фронтенда';
 $_lang['setting_ms2_frontend_css_desc'] = 'Путь к файлу со стилями магазина. Если вы хотите использовать собственные стили - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';

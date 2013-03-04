@@ -91,6 +91,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			text: '<i class="bicon-file"></i>'
 			,handler: this.duplicateProduct
 			,scope: this
+			,hidden: !cfg.canSave
 			,tooltip: _('ms2_btn_duplicate')
 		});
 		btns.push('-');

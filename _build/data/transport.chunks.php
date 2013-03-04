@@ -160,6 +160,42 @@ $chunks['tpl.msEmail.cancelled.user']->fromArray(array(
 	'static_file' => 'minishop2/elements/chunks/chunk.ms_email_cancelled_user.tpl'
 ),'',true,true);
 
+$chunks['tpl.msOrder.outer']= $modx->newObject('modChunk');
+$chunks['tpl.msOrder.outer']->fromArray(array(
+	'id' => 0,
+	'name' => 'tpl.msOrder.outer',
+	'description' => 'Wrapper for template ordering form.',
+	'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.ms_order_outer.tpl'),
+	'static_file' => 'minishop2/elements/chunks/chunk.ms_order_outer.tpl'
+),'',true,true);
+
+$chunks['tpl.msOrder.payment']= $modx->newObject('modChunk');
+$chunks['tpl.msOrder.payment']->fromArray(array(
+	'id' => 0,
+	'name' => 'tpl.msOrder.payment',
+	'description' => 'Chunk to process a one payment method',
+	'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.ms_order_payment.tpl'),
+	'static_file' => 'minishop2/elements/chunks/chunk.ms_order_payment.tpl'
+),'',true,true);
+
+$chunks['tpl.msOrder.delivery']= $modx->newObject('modChunk');
+$chunks['tpl.msOrder.delivery']->fromArray(array(
+	'id' => 0,
+	'name' => 'tpl.msOrder.delivery',
+	'description' => 'Chunk to process a one delivery method',
+	'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.ms_order_delivery.tpl'),
+	'static_file' => 'minishop2/elements/chunks/chunk.ms_order_delivery.tpl'
+),'',true,true);
+
+$chunks['tpl.msOrder.success']= $modx->newObject('modChunk');
+$chunks['tpl.msOrder.success']->fromArray(array(
+	'id' => 0,
+	'name' => 'tpl.msOrder.success',
+	'description' => 'Chunk with message about successfull order',
+	'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.ms_order_success.tpl'),
+	'static_file' => 'minishop2/elements/chunks/chunk.ms_order_success.tpl'
+),'',true,true);
+
 
 foreach ($chunks as $key => $chunk) {
 	$chunks[$key]->set('static', 1);

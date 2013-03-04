@@ -94,6 +94,13 @@ $properties = array(
 		'value' => false,
 		'lexicon' => 'minishop2:properties',
 	)
+	,array(
+		'name' => 'includeTVList',
+		'desc' => 'ms2_prop_includeTVList',
+		'type' => 'textfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
 
 	,array(
 		'name' => 'showUnpublished', 'desc' => 'ms2_prop_showUnpublished', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'

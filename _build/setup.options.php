@@ -23,7 +23,7 @@ if (!$exists) {
 			$output = 'Этот компонент требует <b>pdoTools</b> для быстрой работы сниппетов.<br/><br/>Могу я автоматически скачать и установить его?';
 			break;
 		default:
-			$output = 'This component is require <b>pdoTools</b> for fast work of snippets.<br/><br/>Can i automaticly download and install it?';
+			$output = 'This component requires <b>pdoTools</b> for fast work of snippets.<br/><br/>Can i automaticly download and install it?';
 	}
 
 }

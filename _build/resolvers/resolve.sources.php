@@ -19,7 +19,7 @@
 					,'properties' => array(
 						'basePath' => array(
 							'name' => 'basePath','desc' => 'prop_file.basePath_desc','type' => 'textfield','lexicon' => 'core:source'
-							,'value' => 'assets/images/products/'
+							,'value' => MODX_ASSETS_URL . '/images/products/'
 						)
 						,'baseUrl' => array(
 							'name' => 'baseUrl','desc' => 'prop_file.baseUrl_desc','type' => 'textfield','lexicon' => 'core:source'
@@ -49,6 +49,10 @@
 					$setting->set('value', $source->get('id'));
 					$setting->save();
 				}
+
+				@mkdir(MODX_ASSETS_PATH . 'images/');
+				@mkdir(MODX_ASSETS_PATH . 'images/products/');
+
 				break;
 			case xPDOTransport::ACTION_UNINSTALL:
 				if ($modx instanceof modX) {

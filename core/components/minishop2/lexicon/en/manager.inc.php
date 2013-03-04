@@ -41,4 +41,7 @@ $_lang['ms2_weight_price'] = 'Price for 1 u/w';
 $_lang['ms2_weight_price_help'] = 'Additional cost per unit of weight.<br/>Can be used in custom classes.';
 $_lang['ms2_distance_price'] = 'Price for 1 u/d';
 $_lang['ms2_distance_price_help'] = 'Additional cost per unit of distance.<br/>Can be used in custom classes.';
+$_lang['ms2_order_requires'] = 'Required fields';
+$_lang['ms2_order_requires_help'] = 'When ordering, custom class can require the filling of these fields';
+
 

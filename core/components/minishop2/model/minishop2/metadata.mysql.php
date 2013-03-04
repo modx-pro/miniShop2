@@ -11,11 +11,13 @@ $xpdo_meta_map = array (
     0 => 'msProductData',
     1 => 'msVendor',
     2 => 'msProductFile',
-    3 => 'msOrder',
-    4 => 'msDelivery',
-    5 => 'msPayment',
+    3 => 'msDelivery',
+    4 => 'msPayment',
+    5 => 'msOrder',
     6 => 'msOrderStatus',
     7 => 'msOrderLog',
+    8 => 'msOrderAddress',
+    9 => 'msOrderProduct',
   ),
   'xPDOObject' => 
   array (

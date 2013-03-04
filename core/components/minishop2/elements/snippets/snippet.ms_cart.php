@@ -8,8 +8,11 @@ $pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 
 $pdoFetch->addTime('pdoTools loaded.');
 
 $cart = $miniShop2->cart->get();
-if (empty($cart)) {
-	return $pdoFetch->getChunk($tplEmpty);
+if (!empty($_GET['msorder'])) {
+	return '';
+}
+else if (empty($cart)) {
+	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
 // Initializing chunk for template rows
 $pdoFetch->getChunk($tplRow);
@@ -61,5 +64,4 @@ foreach ($cart as $k => $v) {
 		$outer['total_cost'] += $item['cost'];
 	}
 }
-
 return $pdoFetch->getChunk($tplOuter, $outer);

@@ -18,6 +18,7 @@ $_lang['ms2_prop_parents'] = 'Container list, separated by commas, to search res
 $_lang['ms2_prop_resources'] = 'Comma-delimited list of ids to include in the results. Prefix an id with a dash to exclude the resource from the result.';
 $_lang['ms2_prop_fastMode'] = 'If enabled, then in chunk will be only received values ​​from the database. All raw tags of MODX, such as filters, snippets calls will be cut.';
 $_lang['ms2_prop_includeContent'] = 'Retrieve field "content" from products.';
+$_lang['ms2_prop_includeTVList'] = 'An optional comma-delimited list of TemplateVar names to include in selection.';
 
 $_lang['ms2_prop_showUnpublished'] = 'Show unpublished goods.';
 $_lang['ms2_prop_showDeleted'] = 'Show deleted goods.';
@@ -27,6 +28,11 @@ $_lang['ms2_prop_showZeroPrice'] = 'Show goods with zero price.';
 $_lang['ms2_prop_tplRow'] = 'Chunk for template one row of query.';
 $_lang['ms2_prop_tplOuter'] = 'Wrapper for template results of snippet work.';
 $_lang['ms2_prop_tplEmpty'] = 'Chunk that returns when no results.';
+$_lang['ms2_prop_tplSuccess'] = 'Chunk with successfull message about snippet work.';
+$_lang['ms2_prop_tplPaymentsOuter'] = 'Chunk for templating of a block of possible payment methods.';
+$_lang['ms2_prop_tplPaymentsRow'] = 'Chunk to process a payment method.';
+$_lang['ms2_prop_tplDeliveriesOuter'] = 'Chunk for templating of a block of possible ways of deliveries.';
+$_lang['ms2_prop_tplDeliveriesRow'] = 'Chunk to process a way of delivery.';
 
 $_lang['ms2_prop_product'] = 'Id of the product. If empty, will used id of the current document.';
 $_lang['ms2_prop_optionSelected'] = 'Name of the active option, for setting attribute "selected"';

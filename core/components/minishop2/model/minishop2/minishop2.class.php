@@ -35,6 +35,7 @@ class miniShop2 {
 
 			,'corePath' => $corePath
 			,'modelPath' => $corePath.'model/'
+			,'ctx' => 'web'
 
 			//,'chunksPath' => $corePath.'elements/chunks/'
 			,'templatesPath' => $corePath.'elements/templates/'
@@ -55,14 +56,14 @@ class miniShop2 {
 	 * @param array $scriptProperties Properties for initialization.
 	 */
 	public function initialize($ctx = 'web', $scriptProperties = array()) {
+		$this->config = array_merge($this->config, $scriptProperties);
+		$this->config['ctx'] = $ctx;
 		if (!empty($this->initialized[$ctx])) {
 			return true;
 		}
 		switch ($ctx) {
 			case 'mgr': break;
 			default:
-				$this->config = array_merge($this->config, $scriptProperties);
-
 				if (!MODX_API_MODE) {
 					$config = $this->makePlaceholders($this->config);
 					if ($css = $this->modx->getOption('ms2_frontend_css')) {
@@ -147,6 +148,65 @@ class miniShop2 {
 				include_once($this->config['customPath'] . $dir . '/' . $file);
 			}
 		}
+	}
+
+
+	/* Returns id of current customer. If no exists - register him and returns id.
+	 *
+	 * @return integer $id
+	 * */
+	public function getCustomerId() {
+		if ($this->modx->user->isAuthenticated()) {
+			$profile = $this->modx->user->Profile;
+			if (!$email = $profile->get('email')) {
+				$profile->set('email', $this->order['email']);
+				$profile->save();
+			}
+			$uid = $this->modx->user->id;
+		}
+		else {
+			/* @var modUser $user */
+			$order = $this->order->get();
+			$email = $order['email'];
+			if ($user = $this->modx->getObject('modUser', array('username' => $email))) {
+				$uid = $user->get('id');
+			}
+			else {
+				$user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
+				$profile = $this->modx->newObject('modUserProfile', array('email' => $email, 'fullname' => $order['receiver']));
+				$user->addOne($profile);
+				$user->save();
+
+				if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
+					$groups = array_map('trim', explode(',', $groups));
+					foreach ($groups as $group) {
+						$user->joinGroup($group);
+					}
+				}
+				$uid = $user->get('id');
+			}
+		}
+
+		return $uid;
+	}
+
+
+	/* Switch order status
+	 *
+	 * @param integer $order_id The id of msOrder
+	 * @param integer $status_id The id of msOrderStatus
+	 * @return boolean
+	 * */
+	public function switchOrderStatus($order_id, $status_id) {
+		if (!$order = $this->modx->getObject('msOrder', $order_id)) {
+			return false;
+		}
+		if (!$status = $this->modx->getObject('msOrderStatus', $status_id)) {
+			return false;
+		}
+		$order->set('status', $status->get('id'));
+		$order->save();
+		return true;
 	}
 
 }

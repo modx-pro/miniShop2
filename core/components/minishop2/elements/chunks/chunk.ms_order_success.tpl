@@ -1,0 +1,1 @@
+[[%ms2_frontend_order_success]]

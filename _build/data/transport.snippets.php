@@ -72,4 +72,18 @@ $properties = include $sources['build'].'properties/properties.ms_options.php';
 $snippets['msOptions']->setProperties($properties);
 unset($properties);
 
+$snippets['msOrder']= $modx->newObject('modSnippet');
+$snippets['msOrder']->fromArray(array(
+	'id' => 0
+	,'name' => 'msOrder'
+	,'description' => 'Snippet for ordering of goods'
+	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.ms_order.php')
+	,'static' => 1
+	,'static_file' => 'minishop2/elements/snippets/snippet.ms_order.php'
+),'',true,true);
+$properties = include $sources['build'].'properties/properties.ms_order.php';
+$snippets['msOrder']->setProperties($properties);
+unset($properties);
+
+
 return $snippets;

@@ -16,9 +16,9 @@ if ($object->xpdo) {
 
 			$manager = $modx->getManager();
 
+			$manager->createObjectContainer('msProductData');
 			$manager->createObjectContainer('msVendor');
 			$manager->createObjectContainer('msCategoryMember');
-			$manager->createObjectContainer('msProductData');
 			$manager->createObjectContainer('msProductOption');
 			$manager->createObjectContainer('msProductFile');
 			$manager->createObjectContainer('msOrder');
@@ -27,6 +27,8 @@ if ($object->xpdo) {
 			$manager->createObjectContainer('msPayment');
 			$manager->createObjectContainer('msDelivery');
 			$manager->createObjectContainer('msDeliveryMember');
+			$manager->createObjectContainer('msOrderAddress');
+			$manager->createObjectContainer('msOrderProduct');
 
 			$msProductData = $modx->getTableName('msProductData');
 			$modx->exec("ALTER TABLE {$msProductData} CHANGE `price` `price` DECIMAL(12,2) NOT NULL DEFAULT '0';");

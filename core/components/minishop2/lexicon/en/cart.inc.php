@@ -37,3 +37,6 @@ $_lang['ms2_cart_change_error'] = 'Error when changing product count in cart';
 $_lang['ms2_cart_clean_success'] = 'Cart was successfully cleared';
 $_lang['ms2_cart_is_empty'] = 'Your cart is empty';
 $_lang['ms2_cart_clean'] = 'Clean shopping cart';
+
+$_lang['ms2_order_err_delivery'] = 'You must to select the delivery method';
+$_lang['ms2_order_err_куйгшкуы'] = 'You must to fill needed fields';

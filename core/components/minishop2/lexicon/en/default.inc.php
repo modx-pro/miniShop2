@@ -24,6 +24,7 @@ $_lang['ms2_statuses'] = 'Statuses';
 $_lang['ms2_statuses_intro'] = '';
 $_lang['ms2_vendors'] = 'Vendors goods';
 $_lang['ms2_vendors_intro'] = '';
+$_lang['ms2_vendors_intro'] = '';
 
 
 $_lang['ms2_bulk_actions'] = 'Actions';
@@ -61,6 +62,28 @@ $_lang['ms2_frontend_size'] = 'Size';
 $_lang['ms2_frontend_popular'] = 'Popular';
 $_lang['ms2_frontend_favorite'] = 'Favorite';
 $_lang['ms2_frontend_new'] = 'New';
+$_lang['ms2_frontend_deliveries'] = 'Deliveries';
+$_lang['ms2_frontend_payments'] = 'Payments';
+$_lang['ms2_frontend_delivery_select'] = 'Select delivery';
+$_lang['ms2_frontend_payment_select'] = 'Select payment';
+$_lang['ms2_frontend_credentials'] = 'Credentials';
+$_lang['ms2_frontend_address'] = 'Address';
+
+$_lang['ms2_frontend_comment'] = 'Comment';
+$_lang['ms2_frontend_receiver'] = 'Receiver';
+$_lang['ms2_frontend_email'] = 'Email';
+$_lang['ms2_frontend_phone'] = 'Phone';
+$_lang['ms2_frontend_index'] = 'Zip/Postal code';
+$_lang['ms2_frontend_region'] = 'State/Province';
+$_lang['ms2_frontend_city'] = 'City';
+$_lang['ms2_frontend_street'] = 'Street';
+$_lang['ms2_frontend_building'] = 'Building';
+$_lang['ms2_frontend_room'] = 'Room';
+
+$_lang['ms2_frontend_order_cost'] = 'Total cost';
+$_lang['ms2_frontend_order_submit'] = 'Checkout!';
+$_lang['ms2_frontend_order_cancel'] = 'Reset form';
+$_lang['ms2_frontend_order_success'] = 'Thank you for created order <b>#[[+num]]</b> on our website <b>[[++site_name]]</b>!';
 
 $_lang['ms2_message_close_all'] = 'close all';
 $_lang['ms2_err_unknown'] = 'Unknown error';

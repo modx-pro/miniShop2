@@ -412,6 +412,8 @@ class msProduct extends modResource {
 	}
 
 
+
+
 	public function generateAllThumbnails() {
 		$this->data->generateAllThumbnails();
 	}

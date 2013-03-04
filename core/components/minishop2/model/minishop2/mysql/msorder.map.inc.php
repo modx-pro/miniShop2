@@ -7,27 +7,44 @@ $xpdo_meta_map['msOrder']= array (
   'fields' => 
   array (
     'user_id' => NULL,
-    'num' => NULL,
-    'cost' => 0,
-    'weight' => 0,
     'createdon' => '0000-00-00 00:00:00',
     'updatedon' => '0000-00-00 00:00:00',
-    'comment' => NULL,
-    'properties' => NULL,
-    'status' => 1,
+    'num' => NULL,
+    'cost' => 0,
+    'cart_cost' => 0,
+    'delivery_cost' => 0,
+    'weight' => 0,
+    'status' => 0,
     'delivery' => 0,
     'payment' => 0,
     'address' => 0,
+    'context' => 'web',
+    'comment' => NULL,
+    'properties' => NULL,
   ),
   'fieldMeta' => 
   array (
     'user_id' => 
     array (
       'dbtype' => 'int',
-      'precision' => '11',
+      'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
+    ),
+    'createdon' => 
+    array (
+      'dbtype' => 'datetime',
+      'phptype' => 'datetime',
+      'null' => true,
+      'default' => '0000-00-00 00:00:00',
+    ),
+    'updatedon' => 
+    array (
+      'dbtype' => 'datetime',
+      'phptype' => 'datetime',
+      'null' => true,
+      'default' => '0000-00-00 00:00:00',
     ),
     'num' => 
     array (
@@ -44,6 +61,22 @@ $xpdo_meta_map['msOrder']= array (
       'null' => false,
       'default' => 0,
     ),
+    'cart_cost' => 
+    array (
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
+      'phptype' => 'float',
+      'null' => false,
+      'default' => 0,
+    ),
+    'delivery_cost' => 
+    array (
+      'dbtype' => 'decimal',
+      'precision' => '12,2',
+      'phptype' => 'float',
+      'null' => false,
+      'default' => 0,
+    ),
     'weight' => 
     array (
       'dbtype' => 'decimal',
@@ -52,32 +85,6 @@ $xpdo_meta_map['msOrder']= array (
       'null' => false,
       'default' => 0,
     ),
-    'createdon' => 
-    array (
-      'dbtype' => 'datetime',
-      'phptype' => 'datetime',
-      'null' => true,
-      'default' => '0000-00-00 00:00:00',
-    ),
-    'updatedon' => 
-    array (
-      'dbtype' => 'datetime',
-      'phptype' => 'datetime',
-      'null' => true,
-      'default' => '0000-00-00 00:00:00',
-    ),
-    'comment' => 
-    array (
-      'dbtype' => 'text',
-      'phptype' => 'string',
-      'null' => true,
-    ),
-    'properties' => 
-    array (
-      'dbtype' => 'text',
-      'phptype' => 'json',
-      'null' => true,
-    ),
     'status' => 
     array (
       'dbtype' => 'int',
@@ -85,7 +92,7 @@ $xpdo_meta_map['msOrder']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
-      'default' => 1,
+      'default' => 0,
     ),
     'delivery' => 
     array (
@@ -113,6 +120,26 @@ $xpdo_meta_map['msOrder']= array (
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
+    ),
+    'context' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '100',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => 'web',
+    ),
+    'comment' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'properties' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
+      'null' => true,
     ),
   ),
   'indexes' => 
@@ -150,6 +177,17 @@ $xpdo_meta_map['msOrder']= array (
       ),
     ),
   ),
+  'composites' => 
+  array (
+    'Products' => 
+    array (
+      'class' => 'msOrderProduct',
+      'local' => 'id',
+      'foreign' => 'order_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+  ),
   'aggregates' => 
   array (
     'User' => 
@@ -168,6 +206,14 @@ $xpdo_meta_map['msOrder']= array (
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),
+    'Delivery' => 
+    array (
+      'class' => 'msDelivery',
+      'local' => 'delivery',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
     'Payment' => 
     array (
       'class' => 'msPayment',
@@ -176,10 +222,10 @@ $xpdo_meta_map['msOrder']= array (
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),
-    'Delivery' => 
+    'Address' => 
     array (
-      'class' => 'msDelivery',
-      'local' => 'delivery',
+      'class' => 'msOrderAddress',
+      'local' => 'address',
       'foreign' => 'id',
       'cardinality' => 'one',
       'owner' => 'foreign',

@@ -25,6 +25,7 @@ foreach ($options as $value) {
 	);
 	$rows[] = empty($tplRow) ? $value : $pdoFetch->getChunk($tplRow, $pls);
 }
+
 if (!empty($rows)) {
 	$rows = empty($tplRow) ? implode(', ', $rows) : implode('', $rows);
 	$output = empty($tplOuter) ? $rows : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, array('rows' => $rows)));

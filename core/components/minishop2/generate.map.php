@@ -40,7 +40,9 @@ $modx->addPackage($package, $Model);
 //$manager->removeObjectContainer('msOrderLog');
 //$manager->removeObjectContainer('msPayment');
 //$manager->removeObjectContainer('msDelivery');
-$manager->removeObjectContainer('msDeliveryMember');
+//$manager->removeObjectContainer('msDeliveryMember');
+//$manager->removeObjectContainer('msOrderAddress');
+//$manager->removeObjectContainer('msOrderProduct');
 
 //$manager->createObjectContainer('msProductData');
 //$manager->createObjectContainer('msVendor');
@@ -52,7 +54,9 @@ $manager->removeObjectContainer('msDeliveryMember');
 //$manager->createObjectContainer('msOrderLog');
 //$manager->createObjectContainer('msPayment');
 //$manager->createObjectContainer('msDelivery');
-$manager->createObjectContainer('msDeliveryMember');
+//$manager->createObjectContainer('msDeliveryMember');
+//$manager->createObjectContainer('msOrderAddress');
+//$manager->createObjectContainer('msOrderProduct');
 
 add_plugins_call($Model.$package);
 

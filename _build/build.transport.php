@@ -32,7 +32,6 @@ $sources = array(
 	'pages' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/pages/',
 	'source_assets' => $root.'assets/components/'.PKG_NAME_LOWER,
 	'source_core' => $root.'core/components/'.PKG_NAME_LOWER,
-	'source_images' => $root.'assets/images/',
 );
 unset($root);
 
@@ -241,10 +240,6 @@ $modx->log(modX::LOG_LEVEL_INFO,'Adding resolvers to category...');
 $vehicle->resolve('file',array(
 	'source' => $sources['source_assets'],
 	'target' => "return MODX_ASSETS_PATH . 'components/';",
-));
-$vehicle->resolve('file',array(
-	'source' => $sources['source_images'],
-	'target' => "return MODX_ASSETS_PATH;",
 ));
 $vehicle->resolve('file',array(
 	'source' => $sources['source_core'],

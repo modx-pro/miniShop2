@@ -106,6 +106,15 @@ $settings['ms2_order_handler_class']->fromArray(array(
 	'area' => 'ms2_order',
 ),'',true,true);
 
+$settings['ms2_order_user_groups']= $modx->newObject('modSystemSetting');
+$settings['ms2_order_user_groups']->fromArray(array(
+	'key' => 'ms2_order_user_groups',
+	'value' => '',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_order',
+),'',true,true);
+
 $settings['ms2_frontend_css']= $modx->newObject('modSystemSetting');
 $settings['ms2_frontend_css']->fromArray(array(
 	'key' => 'ms2_frontend_css',

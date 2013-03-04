@@ -1,6 +1,6 @@
 <?php
 
-class msProductGetOptionsProcessor extends modObjectProcessor {
+class msDeliveryGetOptionsProcessor extends modObjectProcessor {
 
 	public function process() {
 		$query = $this->getProperty('query');
@@ -29,4 +29,4 @@ class msProductGetOptionsProcessor extends modObjectProcessor {
 
 }
 
-return 'msProductGetOptionsProcessor';
+return 'msDeliveryGetOptionsProcessor';

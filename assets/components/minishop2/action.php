@@ -28,6 +28,10 @@ switch ($action) {
 	case 'cart/change': $response = $miniShop2->cart->change(@$_POST['key'], @$_POST['count']); break;
 	case 'cart/remove': $response = $miniShop2->cart->remove(@$_POST['key']); break;
 	case 'cart/clean': $response = $miniShop2->cart->clean(); break;
+	case 'order/add': $response = $miniShop2->order->add(@$_POST['key'], @$_POST['value']); break;
+	case 'order/submit': $response = $miniShop2->order->submit(@$_POST['order']); break;
+	case 'order/getcost': $response = $miniShop2->order->getcost(); break;
+	case 'order/clean': $response = $miniShop2->order->clean(); break;
 	default: $response = json_encode(array('success' => false, 'message' => $modx->lexicon('ms2_err_unknown')));
 }
 

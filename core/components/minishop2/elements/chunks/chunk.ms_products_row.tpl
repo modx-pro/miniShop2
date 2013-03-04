@@ -14,6 +14,8 @@
 	</div>
 </div>
 <br/><br/>
+[[+test]]
+[[+test2]]
 <!--minishop2_tags , [[+value]]-->
 <!--minishop2_color , [[+value]]-->
 <!--minishop2_size , [[+value]]-->
