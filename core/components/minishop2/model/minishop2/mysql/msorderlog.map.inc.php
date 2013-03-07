@@ -11,6 +11,7 @@ $xpdo_meta_map['msOrderLog']= array (
     'timestamp' => '0000-00-00 00:00:00',
     'action' => '',
     'entry' => '0',
+    'ip' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -54,6 +55,12 @@ $xpdo_meta_map['msOrderLog']= array (
       'phptype' => 'string',
       'null' => false,
       'default' => '0',
+    ),
+    'ip' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
+      'null' => false,
     ),
   ),
   'indexes' => 
@@ -101,9 +108,17 @@ $xpdo_meta_map['msOrderLog']= array (
       'owner' => 'foreign',
       'cardinality' => 'one',
     ),
+    'UserProfile' => 
+    array (
+      'class' => 'modUserProfile',
+      'local' => 'user_id',
+      'foreign' => 'internalKey',
+      'owner' => 'foreign',
+      'cardinality' => 'one',
+    ),
     'Order' => 
     array (
-      'class' => 'modUser',
+      'class' => 'msOrder',
       'local' => 'order_id',
       'foreign' => 'id',
       'owner' => 'foreign',

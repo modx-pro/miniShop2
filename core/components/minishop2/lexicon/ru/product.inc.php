@@ -6,20 +6,6 @@
 * @subpackage lexicon
 */
 
-$_lang['ms2_btn_save'] = 'Сохранить';
-$_lang['ms2_btn_edit'] = 'Изменить';
-$_lang['ms2_btn_view'] = 'Просмотр';
-$_lang['ms2_btn_delete'] = 'Удалить';
-$_lang['ms2_btn_undelete'] = 'Восстановить';
-$_lang['ms2_btn_publish'] = 'Включить';
-$_lang['ms2_btn_unpublish'] = 'Отключить';
-$_lang['ms2_btn_cancel'] = 'Отмена';
-$_lang['ms2_btn_back'] = 'Назад (alt + &uarr;)';
-$_lang['ms2_btn_prev'] = 'Предыдущий товар (alt + &larr;)';
-$_lang['ms2_btn_next'] = 'Следующий товар (alt + &rarr;)';
-$_lang['ms2_btn_help'] = 'Помощь';
-$_lang['ms2_btn_duplicate'] = 'Сделать копию товара';
-
 $_lang['ms2_product_tab_main'] = 'Веб страница';
 $_lang['ms2_product_tab_extra'] = 'Свойства товара';
 $_lang['ms2_product_tab_seo'] = 'Параметры SEO';

@@ -187,6 +187,14 @@ $xpdo_meta_map['msOrder']= array (
       'cardinality' => 'many',
       'owner' => 'local',
     ),
+    'Log' => 
+    array (
+      'class' => 'msOrderLog',
+      'local' => 'id',
+      'foreign' => 'order_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
   ),
   'aggregates' => 
   array (
@@ -198,11 +206,19 @@ $xpdo_meta_map['msOrder']= array (
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),
+    'UserProfile' => 
+    array (
+      'class' => 'modUserProfile',
+      'local' => 'user_id',
+      'foreign' => 'internalKey',
+      'owner' => 'foreign',
+      'cardinality' => 'one',
+    ),
     'Status' => 
     array (
       'class' => 'msOrderStatus',
       'local' => 'status',
-      'foreign' => 'status',
+      'foreign' => 'id',
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),

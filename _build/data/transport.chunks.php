@@ -196,9 +196,19 @@ $chunks['tpl.msOrder.success']->fromArray(array(
 	'static_file' => 'minishop2/elements/chunks/chunk.ms_order_success.tpl'
 ),'',true,true);
 
+$chunks['tpl.msGetOrder.row']= $modx->newObject('modChunk');
+$chunks['tpl.msGetOrder.row']->fromArray(array(
+	'id' => 0,
+	'name' => 'tpl.msGetOrder.row',
+	'description' => 'Chunk for templating one row of ordered product',
+	'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.ms_get_order_row.tpl'),
+	'static_file' => 'minishop2/elements/chunks/chunk.ms_get_order_row.tpl'
+),'',true,true);
 
+/*
 foreach ($chunks as $key => $chunk) {
 	$chunks[$key]->set('static', 1);
 }
+*/
 
 return $chunks;

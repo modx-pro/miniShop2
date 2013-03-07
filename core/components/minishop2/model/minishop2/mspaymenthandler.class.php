@@ -2,17 +2,28 @@
 
 interface msPaymentInterface {
 
-	/* Initializes payment method to context
+	/* Send user to payment service
 	 *
-	 * @param string $ctx Context for initialization
-	 * @return boolean
-	 * */
-	public function initialize($ctx = 'web');
-
-	/* Creates new operation of payment
-	 *
-	 * @param msOrder $order Object with a new order
+	 * @param msOrderInterface $order Object with an order
 	 * @return array|boolean $response
 	 * */
-	public function create($order);
+	public function send(msOrder $order);
+
+	/* Receives payment
+	 *
+	 * @param msOrderInterface $order Object with an order
+	 * @return array|boolean $response
+	 * */
+	public function receive(msOrder $order);
+}
+
+class msPaymentHandler implements msPaymentInterface {
+
+	public function send(msOrder $order) {
+		return array('msorder' => $order->get('id'));
+	}
+
+	public function receive(msOrder $order) {
+		return true;
+	}
 }

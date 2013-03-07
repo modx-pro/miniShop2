@@ -15,7 +15,7 @@ set_time_limit(0);
 define('PKG_NAME','miniShop2');
 define('PKG_NAME_LOWER',strtolower(PKG_NAME));
 define('PKG_VERSION','2.0.0');
-define('PKG_RELEASE','beta-0');
+define('PKG_RELEASE','beta-1');
 
 /* define sources */
 $root = dirname(dirname(__FILE__)).'/';
@@ -255,7 +255,7 @@ $vehicle->resolve('php',array(
 	'source' => $sources['resolvers'] . 'resolve.sources.php',
 ));
 $vehicle->resolve('php',array(
-	'source' => $sources['resolvers'] . 'resolve.statuses.php',
+	'source' => $sources['resolvers'] . 'resolve.settings.php',
 ));
 $vehicle->resolve('php',array(
 	'source' => $sources['resolvers'] . 'resolve.setup.php',

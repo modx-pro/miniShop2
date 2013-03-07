@@ -21,8 +21,8 @@ if ($object->xpdo) {
 					,'color' => '000000'
 					,'email_user' => 1
 					,'email_manager' => 1
-					,'subject_user' => !$lang ? 'Вы сделали заказ #[[+num]] на сайте [[++sitename]]' : 'You made the order #[[+num]] on the [[++sitename]]'
-					,'subject_manager' => !$lang ? 'У вас новый заказ #[[+num]]' : 'You have a new order #[[+num]]'
+					,'subject_user' => '[[%ms2_email_subject_new_user]]'
+					,'subject_manager' => '[[%ms2_email_subject_new_manager]]'
 					,'body_user' => 'tpl.msEmail.new.user'
 					,'body_manager' => 'tpl.msEmail.new.manager'
 					,'final' => 0
@@ -32,8 +32,8 @@ if ($object->xpdo) {
 					,'color' => '008000'
 					,'email_user' => 1
 					,'email_manager' => 1
-					,'subject_user' => !$lang ? 'Вы оплатили заказ #[[+num]]' : 'You have paid for the order #[[+num]]'
-					,'subject_manager' => !$lang ? 'Заказ #[[+num]] был оплачен' : 'Order #[[+num]] was paid'
+					,'subject_user' => '[[%ms2_email_subject_paid_user]]'
+					,'subject_manager' => '[[%ms2_email_subject_paid_manager]]'
 					,'body_user' => 'tpl.msEmail.paid.user'
 					,'body_manager' => 'tpl.msEmail.paid.manager'
 					,'final' => 0
@@ -43,7 +43,7 @@ if ($object->xpdo) {
 					,'color' => '003366'
 					,'email_user' => 1
 					,'email_manager' => 0
-					,'subject_user' => !$lang ? 'Ваш заказ #[[+num]] был отправлен' : 'Your order #[[+num]] was sent'
+					,'subject_user' => '[[%ms2_email_subject_sent_user]]'
 					,'subject_manager' => ''
 					,'body_user' => 'tpl.msEmail.sent.user'
 					,'body_manager' => ''
@@ -54,7 +54,7 @@ if ($object->xpdo) {
 					,'color' => '800000'
 					,'email_user' => 1
 					,'email_manager' => 0
-					,'subject_user' => !$lang ? 'Ваш заказ #[[+num]] был отменён' : 'Your order #[[+num]] was cancelled'
+					,'subject_user' => '[[%ms2_email_subject_cancelled_user]]'
 					,'subject_manager' => ''
 					,'body_user' => 'tpl.msEmail.cancelled.user'
 					,'body_manager' => ''

@@ -145,7 +145,7 @@ Ext.extend(miniShop2.grid.Payment,MODx.grid.Grid,{
 				,id: this.menu.record.id
 			}
 			,listeners: {
-				'success': {fn:function(r) { this.refresh(); },scope:this}
+				success: {fn:function(r) {this.refresh();}, scope:this}
 			}
 		});
 	}

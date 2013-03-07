@@ -1,19 +1,30 @@
 Ext.onReady(function() {
-	MODx.load({ xtype: 'minishop2-panel-settings'});
+	MODx.load({ xtype: 'minishop2-page-settings'});
 });
 
 miniShop2.page.Settings = function(config) {
 	config = config || {};
+	Ext.applyIf(config,{
+		components: [{
+			xtype: 'minishop2-panel-settings'
+			,renderTo: 'minishop2-panel-settings-div'
+		}]
+	});
+	miniShop2.page.Settings.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.page.Settings,MODx.Component);
+Ext.reg('minishop2-page-settings',miniShop2.page.Settings);
+
+miniShop2.panel.Settings = function(config) {
+	config = config || {};
 	Ext.apply(config,{
-		renderTo: 'minishop2-panel-settings-div'
-		,border: false
+		border: false
 		,deferredRender: true
 		,baseCls: 'modx-formpanel'
-		,cls: 'container'
 		,items: [{
 			html: '<h2>'+_('minishop2') + ' :: ' + _('ms2_settings')+'</h2>'
 			,border: false
-			,cls: 'modx-page-header'
+			,cls: 'modx-page-header container'
 		},{
 			xtype: 'modx-tabs'
 			,bodyStyle: 'padding: 5px'
@@ -71,7 +82,7 @@ miniShop2.page.Settings = function(config) {
 			}]
 		}]
 	});
-	miniShop2.page.Settings.superclass.constructor.call(this,config);
+	miniShop2.panel.Settings.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.page.Settings,MODx.Panel);
-Ext.reg('minishop2-panel-settings',miniShop2.page.Settings);
+Ext.extend(miniShop2.panel.Settings,MODx.Panel);
+Ext.reg('minishop2-panel-settings',miniShop2.panel.Settings);

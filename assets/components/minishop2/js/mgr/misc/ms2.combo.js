@@ -49,7 +49,7 @@ miniShop2.combo.Category = function(config) {
 			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
-		+'<tpl for="."><div class="minishop2-category-list-item">'
+			+'<tpl for="."><div class="minishop2-category-list-item">'
 			+'<tpl if="parents">'
 					+'<span class="parents">'
 						+'<tpl for="parents">'
@@ -298,14 +298,14 @@ Ext.extend(miniShop2.combo.Browser,Ext.form.TriggerField,{
 				path = this.getPath(n);
 				this.setValue(path);
 			},this
-		)
+		);
 		this.browser.win.tree.on('dblclick', function(n,e) {
 				path = this.getPath(n);
 				this.setValue(path);
 				this.browser.hide()
 			},this
-		)
-		this.browser.show(btn)
+		);
+		this.browser.show(btn);
 		return true;
 	}
 	,onDestroy: function(){
@@ -314,9 +314,126 @@ Ext.extend(miniShop2.combo.Browser,Ext.form.TriggerField,{
 	,getPath: function(n) {
 		if (n.id == '/') {return '';}
 		data = n.attributes;
-		path = data.path + '/'
+		path = data.path + '/';
 
 		return path;
 	}
 });
 Ext.reg('minishop2-combo-browser',miniShop2.combo.Browser);
+
+
+miniShop2.combo.listeners_disable = {
+	render: function() {
+		this.store.on('load', function() {
+			if (this.store.getTotalCount() == 1 && this.store.getAt(0).id == this.value) {
+				this.readOnly = true;
+				this.addClass('disabled');
+			}
+			else {
+				this.readOnly = false;
+				this.removeClass('disabled');
+			}
+		}, this);
+	}
+};
+
+
+miniShop2.combo.status = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: 'status'
+		,id: 'minishop2-combo-status'
+		,hiddenName: 'status'
+		,displayField: 'name'
+		,valueField: 'id'
+		,fields: ['id','name']
+		,pageSize: 10
+		,emptyText: _('ms2_combo_select_status')
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/settings/status/getlist'
+			,combo: true
+			,addall: config.addall || 0
+			,order_id: config.order_id || 0
+		}
+		,listeners: miniShop2.combo.listeners_disable
+	});
+	miniShop2.combo.status.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.status,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-status',miniShop2.combo.status);
+
+
+miniShop2.combo.delivery = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: 'delivery'
+		,id: 'minishop2-combo-delivery'
+		,hiddenName: 'delivery'
+		,displayField: 'name'
+		,valueField: 'id'
+		,fields: ['id','name']
+		,pageSize: 10
+		,emptyText: _('ms2_combo_select')
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/settings/delivery/getlist'
+			,combo: true
+			//,addall: config.addall || 0
+			//,order_id: config.order_id || 0
+		}
+		,listeners: {
+			render: function() {
+				this.store.on('load', function() {
+					if (this.store.getTotalCount() == 1 && this.store.getAt(0).id == this.value) {
+						this.readOnly = true;
+						this.addClass('disabled');
+					}
+					else {
+						this.readOnly = false;
+						this.removeClass('disabled');
+					}
+				}, this);
+			}
+			,select: function(combo,row) {
+				var payments = Ext.getCmp('minishop2-combo-payment');
+				var store = payments.getStore();
+				payments.setValue('');
+				store.baseParams.delivery_id = row.id;
+				store.load();
+			}
+		}
+	});
+	miniShop2.combo.delivery.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.delivery,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-delivery',miniShop2.combo.delivery);
+
+
+miniShop2.combo.payment = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: 'payment'
+		,id: 'minishop2-combo-payment'
+		,hiddenName: 'payment'
+		,displayField: 'name'
+		,valueField: 'id'
+		,fields: ['id','name']
+		,pageSize: 10
+		,emptyText: _('ms2_combo_select')
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/settings/payment/getlist'
+			,combo: true
+			//,addall: config.addall || 0
+			,delivery_id: config.delivery_id || 0
+		}
+		,listeners: miniShop2.combo.listeners_disable
+	});
+	miniShop2.combo.payment.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.payment,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-payment',miniShop2.combo.payment);

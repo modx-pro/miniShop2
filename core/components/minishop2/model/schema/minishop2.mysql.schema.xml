@@ -122,7 +122,7 @@
 		<field key="type" dbtype="varchar" precision="50" phptype="string" null="true" />
 		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
 		<field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="rank" dbtype="tiny" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" />
 
 		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
@@ -212,11 +212,13 @@
 		</index>
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
-		<aggregate alias="Status" class="msOrderStatus" local="status" foreign="status" cardinality="one" owner="foreign" />
+		<aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+		<aggregate alias="Status" class="msOrderStatus" local="status" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Delivery" class="msDelivery" local="delivery" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Payment" class="msPayment" local="payment" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one" owner="foreign" />
 		<composite alias="Products" class="msOrderProduct" local="id" foreign="order_id" cardinality="many" owner="local" />
+		<composite alias="Log" class="msOrderLog" local="id" foreign="order_id" cardinality="many" owner="local" />
 	</object>
 
 
@@ -250,6 +252,7 @@
 		<field key="timestamp" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
 		<field key="action" dbtype="varchar" precision="100" phptype="string" null="false" default="" />
 		<field key="entry" dbtype="varchar" precision="255" phptype="string" null="false" default="0" />
+		<field key="ip" dbtype="text" phptype="json" null="false" />
 
 		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
 			<column key="user_id" length="" collation="A" null="false" />
@@ -259,7 +262,8 @@
 		</index>
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
-		<aggregate alias="Order" class="modUser" local="order_id" foreign="id" owner="foreign" cardinality="one" />
+		<aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+		<aggregate alias="Order" class="msOrder" local="order_id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
 
 
@@ -285,6 +289,7 @@
 		</index>
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
+		<aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
 	</object>
 
 

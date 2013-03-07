@@ -5,12 +5,15 @@
  * @package minishop2
  * @subpackage lexicon
  */
-$_lang['ms2_btn_create'] = 'Создать';
 $_lang['ms2_menu_create'] = 'Создать';
 $_lang['ms2_menu_update'] = 'Изменить';
 $_lang['ms2_menu_remove'] = 'Удалить';
+$_lang['ms2_menu_remove_multiple'] = 'Удалить выбранное';
 $_lang['ms2_menu_remove_confirm'] = 'Вы уверены, что хотите удалить эту запись?';
+$_lang['ms2_menu_remove_multiple_confirm'] = 'Вы уверены, что хотите удалить все выбранные записи?';
+
 $_lang['ms2_combo_select'] = 'Нажмите для выбора';
+$_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
 
 $_lang['ms2_id'] = 'Id';
 $_lang['ms2_name'] = 'Имя';
@@ -24,6 +27,35 @@ $_lang['ms2_email'] = 'Email';
 $_lang['ms2_active'] = 'Включен';
 $_lang['ms2_class'] = 'Класс-обработчик';
 $_lang['ms2_description'] = 'Описание';
+$_lang['ms2_num'] = 'Номер';
+$_lang['ms2_status'] = 'Статус';
+$_lang['ms2_count'] = 'Количество';
+$_lang['ms2_cost'] = 'Стоимость';
+$_lang['ms2_order_cost'] = 'Стоимость заказа';
+$_lang['ms2_cart_cost'] = 'Стоимость покупок';
+$_lang['ms2_delivery_cost'] = 'Стоимость доставки';
+$_lang['ms2_weight'] = 'Вес';
+$_lang['ms2_createdon'] = 'Дата создания';
+$_lang['ms2_updatedon'] = 'Дата изменения';
+$_lang['ms2_user'] = 'Пользователь';
+$_lang['ms2_timestamp'] = 'Метка времени';
+$_lang['ms2_order_log'] = 'История заказа';
+$_lang['ms2_order_products'] = 'Покупки';
+$_lang['ms2_action'] = 'Действие';
+$_lang['ms2_entry'] = 'Запись';
+$_lang['ms2_username'] = 'Логин';
+$_lang['ms2_fullname'] = 'Пользователь';
+
+$_lang['ms2_receiver'] = 'Получатель';
+$_lang['ms2_index'] = 'Индекс';
+$_lang['ms2_region'] = 'Область';
+$_lang['ms2_city'] = 'Город';
+$_lang['ms2_metro'] = 'Станция метро';
+$_lang['ms2_street'] = 'Улица';
+$_lang['ms2_building'] = 'Здание';
+$_lang['ms2_room'] = 'Комната';
+$_lang['ms2_comment'] = 'Комментарий';
+
 $_lang['ms2_email_user'] = 'Письмо покупателю';
 $_lang['ms2_email_manager'] = 'Письмо менеджеру';
 $_lang['ms2_subject_user'] = 'Тема письма покупателю';
@@ -43,3 +75,5 @@ $_lang['ms2_distance_price'] = 'Стоимость ед/рст';
 $_lang['ms2_distance_price_help'] = 'Добавочная стоимость доставки за единицу расстояния.<br/>Может быть использовано в кастомных классах.';
 $_lang['ms2_order_requires'] = 'Обязательные поля';
 $_lang['ms2_order_requires_help'] = 'При оформлении заказа, кастомный класс может требовать заполнение этих полей.';
+
+$_lang['ms2_orders_selected_status'] = 'Сменить статус';

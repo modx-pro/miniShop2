@@ -1,5 +1,10 @@
 Changelog for miniShop2.
 
+2.0.0 beta-1
+==============
+- Added manager pages
+- Added create and manage orders
+
 2.0.0 beta-0
 ==============
 - Initial release.

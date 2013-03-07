@@ -6,20 +6,6 @@
  * @subpackage lexicon
  */
 
-$_lang['ms2_btn_save'] = 'Save';
-$_lang['ms2_btn_edit'] = 'Edit';
-$_lang['ms2_btn_view'] = 'View';
-$_lang['ms2_btn_delete'] = 'Delete';
-$_lang['ms2_btn_undelete'] = 'Undelete';
-$_lang['ms2_btn_publish'] = 'Publish';
-$_lang['ms2_btn_unpublish'] = 'Unpublish';
-$_lang['ms2_btn_cancel'] = 'Cancel';
-$_lang['ms2_btn_back'] = 'Back (alt + &uarr;)';
-$_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
-$_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
-$_lang['ms2_btn_help'] = 'Help';
-$_lang['ms2_btn_duplicate'] = 'Duplicate product';
-
 $_lang['ms2_product_tab_main'] = 'Web page';
 $_lang['ms2_product_tab_extra'] = 'Product properties';
 $_lang['ms2_product_tab_seo'] = 'SEO params';

@@ -125,8 +125,8 @@ Ext.extend(miniShop2.grid.Status,MODx.grid.Grid,{
 			});
 		}
 		this.windows.updateStatus.fp.getForm().reset();
-		this.windows.updateStatus.fp.getForm().setValues(r);
 		this.windows.updateStatus.show(e.target);
+		this.windows.updateStatus.fp.getForm().setValues(r);
 	}
 
 	,removeStatus: function(btn,e) {
@@ -141,7 +141,7 @@ Ext.extend(miniShop2.grid.Status,MODx.grid.Grid,{
 				,id: this.menu.record.id
 			}
 			,listeners: {
-				success: {fn:function(r) { this.refresh(); },scope:this}
+				success: {fn:function(r) {this.refresh();}, scope:this}
 			}
 		});
 	}

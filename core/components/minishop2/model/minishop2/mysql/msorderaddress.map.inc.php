@@ -158,5 +158,13 @@ $xpdo_meta_map['msOrderAddress']= array (
       'owner' => 'foreign',
       'cardinality' => 'one',
     ),
+    'UserProfile' => 
+    array (
+      'class' => 'modUserProfile',
+      'local' => 'user_id',
+      'foreign' => 'internalKey',
+      'owner' => 'foreign',
+      'cardinality' => 'one',
+    ),
   ),
 );

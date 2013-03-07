@@ -73,6 +73,8 @@ interface msOrderInterface {
 
 class msOrderHandler implements msOrderInterface {
 	private $order;
+	/* @var miniShop2 $ms2  */
+	public $ms2;
 
 	function __construct(miniShop2 & $ms2, array $config = array()) {
 		$this->ms2 = & $ms2;
@@ -201,7 +203,7 @@ class msOrderHandler implements msOrderInterface {
 
 		$user_id = $this->ms2->getCustomerId();
 		$cart_status = $this->ms2->cart->status();
-		$delivery_cost = $this->getcost();
+		$delivery_cost = $this->getcost(false, true);
 		$createdon = date('Y-m-d H:i:s');
 		/* @var msOrder $order */
 		$order = $this->modx->newObject('msOrder');
@@ -244,7 +246,6 @@ class msOrderHandler implements msOrderInterface {
 
 		$this->modx->invokeEvent('msOnBeforeCreateOrder', array('order' => $this));
 		if ($order->save()) {
-			$this->ms2->switchOrderStatus($order->get('id'), 1); // set status "new"
 			$this->modx->invokeEvent('msOnCreateOrder', array('order' => $this));
 
 			$this->ms2->cart->clean();
@@ -254,22 +255,15 @@ class msOrderHandler implements msOrderInterface {
 			}
 			$_SESSION['minishop2']['orders'][] = $order->get('id');
 
+			$this->ms2->changeOrderStatus($order->get('id'), 1); // set status "new"
+			/* @var msPayment $payment*/
 			if ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
-				$class = $payment->get('class');
-				if (!empty($class)) {
-					$this->ms2->loadCustomClasses('payment');
-					/* @var msPaymentInterface $class */
-					if (class_exists($class)) {
-						$class = new $class($this->ms2);
-						if ($class instanceof msPaymentInterface) {
-							$class->initialize($this->ms2->config['ctx']);
-							return $class->create($order);
-						}
-					}
+				if ($response = $payment->send($order)) {
+					return $this->success('', $response);
 				}
 			}
 		}
-		return $this->success('', array('msorder' => $order->get('id')));
+		return $this->error();
 	}
 
 	/* @inheritdoc} */
@@ -283,23 +277,19 @@ class msOrderHandler implements msOrderInterface {
 
 
 	/* @inheritdoc} */
-	public function getcost($with_cart = true) {
+	public function getcost($with_cart = true, $only_cost = false) {
 		$cost = 0;
 		$cart = $this->ms2->cart->status();
 		/* @var msDelivery $delivery */
 		if ($delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
-			$min_price = $delivery->get('price');
-			$weight_price = $delivery->get('weight_price');
-			//$distance_price = $delivery->get('distance_price');
-
-			$cart_weight = $cart['total_weight'];
-			$cost = $min_price + ($weight_price * $cart_weight);
+			$cost = $delivery->getcost($this);
 		}
 
 		if ($with_cart) {
 			$cost += $cart['total_cost'];
 		}
-		return $this->success('', array('cost' => $cost));
+
+		return $only_cost ? $cost : $this->success('', array('cost' => $cost));
 	}
 
 

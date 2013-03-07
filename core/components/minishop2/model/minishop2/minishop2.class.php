@@ -197,16 +197,164 @@ class miniShop2 {
 	 * @param integer $status_id The id of msOrderStatus
 	 * @return boolean
 	 * */
-	public function switchOrderStatus($order_id, $status_id) {
-		if (!$order = $this->modx->getObject('msOrder', $order_id)) {
-			return false;
+	public function changeOrderStatus($order_id, $status_id) {
+		$error = '';
+		/* @var msOrder $order */
+		if (!$order = $this->modx->getObject('msOrder', $order_id)) {$error = 'ms2_err_order_nf';}
+		/* @var msOrderStatus $status */
+		else if (!$status = $this->modx->getObject('msOrderStatus', array('id' => $status_id, 'active' => 1))) {$error = 'ms2_err_status_nf';}
+		/* @var msOrderStatus $old_status */
+		else if ($old_status = $this->modx->getObject('msOrderStatus', array('id' => $order->get('status'), 'active' => 1))) {
+			if ($old_status->get('final')) {$error = 'ms2_err_status_final';}
+			else if ($old_status->get('fixed')) {
+				if ($status->get('rank') <= $old_status->get('rank')) {
+					$error = 'ms2_err_status_fixed';
+				}
+			}
 		}
-		if (!$status = $this->modx->getObject('msOrderStatus', $status_id)) {
-			return false;
+		if ($order->get('status') == $status_id) {
+			$error = 'ms2_err_status_same';
 		}
-		$order->set('status', $status->get('id'));
-		$order->save();
+
+		if (!empty($error)) {
+			return $this->modx->lexicon($error);
+		}
+
+		$this->modx->invokeEvent('msOnBeforeChangeOrderStatus', array('order' => $order, 'status' => $order->get('status')));
+		$order->set('status', $status_id);
+
+		if ($order->save()) {
+			$this->modx->invokeEvent('msOnChangeOrderStatus', array('order' => $order, 'status' => $status_id));
+			$this->orderLog($order->get('id'), 'status', $status_id);
+
+		/* @var modContext $context */
+			if ($context = $this->modx->getObject('modContext', array('key' => $order->get('context')))) {
+				$context->prepare(true);
+				$lang = $context->getOption('cultureKey');
+				$this->modx->setOption('cultureKey',$lang);
+				$this->modx->lexicon->load($lang.':minishop2:default',$lang.':minishop2:cart');
+			}
+
+			$pls = $order->toArray();
+			/* @var modChunk $chunk*/
+			if ($status->get('email_manager')) {
+				$subject = '';
+				if ($chunk = $this->modx->newObject('modChunk', array('snippet' => $status->get('subject_manager')))){
+					$chunk->setCacheable(false);
+					$subject = $this->processTags($chunk->process($pls));
+				}
+				$body = 'no chunk set';
+				if ($chunk = $this->modx->getObject('modChunk', $status->get('body_manager'))) {
+					$chunk->setCacheable(false);
+					$body = $this->processTags($chunk->process($pls));
+				}
+				$emails = array_map('trim', explode(',', $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))));
+				if (!empty($subject)) {
+					foreach ($emails as $email) {
+						if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+							$this->sendEmail($email, $subject, $body);
+						}
+					}
+				}
+			}
+
+			if ($status->get('email_user')) {
+				/* @var modUserProfile $profile */
+				if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $order->get('user_id')))) {
+					$subject = '';
+					if ($chunk = $this->modx->newObject('modChunk', array('snippet' => $status->get('subject_user')))){
+						$chunk->setCacheable(false);
+						$subject = $this->processTags($chunk->process($pls));
+					}
+					$body = 'no chunk set';
+					if ($chunk = $this->modx->getObject('modChunk', $status->get('body_user'))) {
+						$chunk->setCacheable(false);
+						$body = $this->processTags($chunk->process($pls));
+					}
+					$email = $profile->get('email');
+					if (!empty($subject) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+						$this->sendEmail($email, $subject, $body);
+					}
+				}
+			}
+		}
 		return true;
 	}
 
+
+	/* Collects and processes any set of tags
+	 *
+	 * @param mixed $html Source code for parse
+	 * @param integer $maxIterations
+	 * @return mixed $html Parsed html
+	 * */
+	public function processTags($html, $maxIterations = 10) {
+		$this->modx->getParser()->processElementTags('', $html, false, false, '[[', ']]', array(), $maxIterations);
+		$this->modx->getParser()->processElementTags('', $html, true, true, '[[', ']]', array(), $maxIterations);
+		return $html;
+	}
+
+
+	/* Function for sending email
+	 *
+	 * @param string $email
+	 * @param string $subject
+	 * @param string $body
+	 *
+	 * @return void
+	 * */
+	public function sendEmail($email, $subject, $body = 'no body set') {
+		if (!isset($this->modx->mail) || !is_object($this->modx->mail)) {
+			$this->modx->getService('mail', 'mail.modPHPMailer');
+		}
+		$this->modx->mail->set(modMail::MAIL_FROM, $this->modx->getOption('emailsender'));
+		$this->modx->mail->set(modMail::MAIL_FROM_NAME, $this->modx->getOption('site_name'));
+		$this->modx->mail->setHTML(true);
+		$this->modx->mail->set(modMail::MAIL_SUBJECT, trim($subject));
+		$this->modx->mail->set(modMail::MAIL_BODY, $body);
+		$this->modx->mail->address('to', trim($email));
+		if (!$this->modx->mail->send()) {
+			$this->modx->log(modX::LOG_LEVEL_ERROR,'An error occurred while trying to send the email: '.$this->modx->mail->mailer->ErrorInfo);
+		}
+		$this->modx->mail->reset();
+	}
+
+
+	/* Function for logging changes of the order
+	 *
+	 * @param integer $order_id The id of the order
+	 * @param string $action The name of action made with order
+	 * @param string $entry The value of action
+	 *
+	 * @return void
+	 * */
+	public function orderLog($order_id, $action = 'status', $entry) {
+		/* @var msOrder $order */
+		if (!$order = $this->modx->getObject('msOrder', $order_id)) {
+			return false;
+		}
+
+		$user_id = ($action == 'status' && $entry == 1) || !$this->modx->user->id ? $order->get('user_id') : $this->modx->user->id;
+		$log = $this->modx->newObject('msOrderLog', array(
+			'order_id' => $order_id
+			,'user_id' => $user_id
+			,'timestamp' => time()
+			,'action' => $action
+			,'entry' => $entry
+			,'ip' => $this->modx->request->getClientIp()
+		));
+
+		return $log->save();
+	}
+
+
+	/* Function for formatting dates
+	 *
+	 * @param string $date Source date
+	 * @return string $date Formatted date
+	 * */
+	public function formatDate($date = '') {
+		$df = $this->modx->getOption('ms2_date_format');
+		return (!empty($date) && $date !== '0000-00-00 00:00:00') ? strftime($df, strtotime($date)) : '&nbsp;';
+	}
 }

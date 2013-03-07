@@ -49,7 +49,7 @@ foreach ($cart as $k => $v) {
 				}
 			}
 		}
-		unset($v['data']);
+		unset($v['options']);
 
 		// Unset json options
 		foreach ($item as $key => $value) {

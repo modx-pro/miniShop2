@@ -7,19 +7,19 @@ $pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.c
 $pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
 $pdoFetch->addTime('pdoTools loaded.');
 
-$cart = $miniShop2->cart->get();
-$order = $miniShop2->order->get();
 if (!empty($_GET['msorder'])) {
 	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
-		if (in_array($_GET['msorder'], $_SESSION['minishop2']['orders']) || $order->get('user_id') == $modx->user->id) {
+		if (in_array($_GET['msorder'], $_SESSION['minishop2']['orders']) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
 			return $pdoFetch->getChunk($tplSuccess, $order->toArray());
 		}
 	}
 }
-else if (empty($cart)) {
+
+$cart = $miniShop2->cart->get();
+$order = $miniShop2->order->get();
+if (empty($cart)) {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
-
 
 $deliveryColumns = $modx->getSelectColumns('msDelivery', 'msDelivery', 'delivery_');
 $paymentColumns = $modx->getSelectColumns('msPayment', 'msPayment', 'payment_');

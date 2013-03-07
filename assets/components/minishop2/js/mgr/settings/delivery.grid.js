@@ -95,9 +95,12 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 	}
 
 	,createDelivery: function(btn,e) {
+		var w = Ext.getCmp('minishop2-window-delivery-create');
+		if (w) {w.hide().getEl().remove();}
 		//if (!this.windows.createDelivery) {
 			this.windows.createDelivery = MODx.load({
 				xtype: 'minishop2-window-delivery-create'
+				,id: 'minishop2-window-delivery-create'
 				,fields: this.getDeliveryFields('create', {})
 				,listeners: {
 					success: {fn:function() { this.refresh(); },scope:this}
@@ -112,9 +115,12 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 		if (!this.menu.record || !this.menu.record.id) return false;
 		var r = this.menu.record;
 
+		var w = Ext.getCmp('minishop2-window-delivery-update');
+		if (w) {w.hide().getEl().remove();}
 		//if (!this.windows.updateDelivery) {
 			this.windows.updateDelivery = MODx.load({
 				xtype: 'minishop2-window-delivery-update'
+				,id: 'minishop2-window-delivery-update'
 				,record: r
 				,fields: this.getDeliveryFields('update', r)
 				,listeners: {
@@ -141,7 +147,7 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 				,id: this.menu.record.id
 			}
 			,listeners: {
-				success: {fn:function(r) { this.refresh(); },scope:this}
+				success: {fn:function(r) {this.refresh();}, scope:this}
 			}
 		});
 	}

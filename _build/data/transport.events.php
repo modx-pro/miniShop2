@@ -133,4 +133,20 @@ $events['msOnEmptyOrder']->fromArray(array (
 	'groupname' => 'miniShop2',
 ), '', true, true);
 
+
+$events['msOnBeforeChangeOrderStatus']= $modx->newObject('modEvent');
+$events['msOnBeforeChangeOrderStatus']->fromArray(array (
+	'name' => 'msOnBeforeChangeOrderStatus',
+	'service' => 6,
+	'groupname' => 'miniShop2',
+), '', true, true);
+
+
+$events['msOnChangeOrderStatus']= $modx->newObject('modEvent');
+$events['msOnChangeOrderStatus']->fromArray(array (
+	'name' => 'msOnChangeOrderStatus',
+	'service' => 6,
+	'groupname' => 'miniShop2',
+), '', true, true);
+
 return $events;

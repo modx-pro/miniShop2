@@ -74,7 +74,8 @@ miniShop2.grid.Category = function(config) {
 				,listeners: {
 					'click': {fn: this.clearFilter, scope: this}
 				}
-			}]
+			}
+		]
 	});
 	miniShop2.grid.Category.superclass.constructor.call(this,config);
 	this._makeTemplates();
@@ -314,14 +315,14 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,content: {width:100, sortable:false, editor:{xtype:'textarea'}}
 			,template: {width:100, sortable:true, editor:{xtype:'modx-combo-template'}}
 			,createdby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'createdby'}}
-			,createdon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
+			,createdon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below'}, renderer: miniShop2.utils.formatDate}
 			,editedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'editedby'}}
-			,editedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
+			,editedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below'}, renderer: miniShop2.utils.formatDate}
 			,deleted: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,deletedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below', renderer: this.formatDate}}
+			,deletedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below'}, renderer: miniShop2.utils.formatDate}
 			,deletedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'deletedby'}}
 			,published: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
-			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime'}, timePosition:'below', renderer: this.formatDate}
+			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below'}, renderer: miniShop2.utils.formatDate}
 			,publishedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'publishedby'}}
 			,menutitle: {width:100, sortable:true, editor:{xtype:'textfield'}}
 			,uri: {width:50, sortable:true, editor:{xtype:'textfield'}}
@@ -373,16 +374,6 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 				item.data = row;
 				item.data.pagetitle = pagetitle;
 			}
-		}
-	}
-
-	,formatDate: function(value) {
-		if (value) {
-			var date = new Date(value);
-			return date.format('DD.MM.YY&nbsp;&nbsp;<span class="gray">HH:NN</span>');
-		}
-		else {
-			return '';
 		}
 	}
 

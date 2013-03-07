@@ -16,7 +16,7 @@ $xpdo_meta_map['msProductFile']= array (
     'type' => NULL,
     'createdon' => '0000-00-00 00:00:00',
     'createdby' => 0,
-    'rank' => '0',
+    'rank' => 0,
     'url' => NULL,
   ),
   'fieldMeta' => 
@@ -100,12 +100,12 @@ $xpdo_meta_map['msProductFile']= array (
     ),
     'rank' => 
     array (
-      'dbtype' => 'tiny',
+      'dbtype' => 'tinyint',
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
-      'default' => '0',
+      'default' => 0,
     ),
     'url' => 
     array (

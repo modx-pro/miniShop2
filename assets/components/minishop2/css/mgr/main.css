@@ -1,6 +1,7 @@
-a.link {color: #005580;}
+a.link, a.ms2-link {color: #005580;}
 .ms2-image-inactive {opacity: .8;}
 .x-color-palette {width:80%;height:auto;cursor:pointer}
+input.disabled {color: #AAA !important;}
 
 .gray {color: #AAA;}
 

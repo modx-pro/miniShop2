@@ -10,22 +10,41 @@ include_once('setting.inc.php');
 
 $_lang['minishop2'] = 'miniShop2';
 $_lang['ms2_menu_desc'] = 'Awesome e-commerce extension';
+$_lang['ms2_order'] = 'Order';
 $_lang['ms2_orders'] = 'Orders';
 $_lang['ms2_orders_intro'] = 'Manage your orders';
 $_lang['ms2_orders_desc'] = 'Manage your orders';
 $_lang['ms2_settings'] = 'Settings';
 $_lang['ms2_settings_intro'] = 'Main settings of the shop. Here you can specify the methods of payments, deliveries and the statuses of orders';
 $_lang['ms2_settings_desc'] = 'Statuses of orders, options of payments and deliveries';
+$_lang['ms2_payment'] = 'Payment';
 $_lang['ms2_payments'] = 'Payments';
 $_lang['ms2_payments_intro'] = '';
+$_lang['ms2_delivery'] = 'Delivery';
 $_lang['ms2_deliveries'] = 'Deliveries';
 $_lang['ms2_deliveries_intro'] = '';
 $_lang['ms2_statuses'] = 'Statuses';
 $_lang['ms2_statuses_intro'] = '';
 $_lang['ms2_vendors'] = 'Vendors goods';
 $_lang['ms2_vendors_intro'] = '';
-$_lang['ms2_vendors_intro'] = '';
+$_lang['ms2_customer'] = 'Customer';
+$_lang['ms2_all'] = 'All';
+$_lang['ms2_action'] = 'All';
 
+$_lang['ms2_btn_create'] = 'Create';
+$_lang['ms2_btn_save'] = 'Save';
+$_lang['ms2_btn_edit'] = 'Edit';
+$_lang['ms2_btn_view'] = 'View';
+$_lang['ms2_btn_delete'] = 'Delete';
+$_lang['ms2_btn_undelete'] = 'Undelete';
+$_lang['ms2_btn_publish'] = 'Publish';
+$_lang['ms2_btn_unpublish'] = 'Unpublish';
+$_lang['ms2_btn_cancel'] = 'Cancel';
+$_lang['ms2_btn_back'] = 'Back (alt + &uarr;)';
+$_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
+$_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
+$_lang['ms2_btn_help'] = 'Help';
+$_lang['ms2_btn_duplicate'] = 'Duplicate product';
 
 $_lang['ms2_bulk_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';
@@ -87,5 +106,19 @@ $_lang['ms2_frontend_order_success'] = 'Thank you for created order <b>#[[+num]]
 
 $_lang['ms2_message_close_all'] = 'close all';
 $_lang['ms2_err_unknown'] = 'Unknown error';
+$_lang['ms2_err_ns'] = 'This field is required';
 $_lang['ms2_err_ae'] = 'This field must be unique';
+$_lang['ms2_err_order_nf'] = 'The order with this id not found.';
+$_lang['ms2_err_status_nf'] = 'The status with this id not found.';
+$_lang['ms2_err_delivery_nf'] = 'The delivery with this id not found.';
+$_lang['ms2_err_payment_nf'] = 'The payment with this id not found.';
+$_lang['ms2_err_status_final'] = 'Final status is set, you can not change it.';
+$_lang['ms2_err_status_fixed'] = 'Fixed status is set. You can not change it to previous status.';
+$_lang['ms2_err_status_same'] = 'This status is already set.';
 
+$_lang['ms2_email_subject_new_user'] = 'You made the order #[[+num]] on the [[++site_name]]';
+$_lang['ms2_email_subject_new_manager'] = 'You have a new order #[[+num]]';
+$_lang['ms2_email_subject_paid_user'] = 'You have paid for the order #[[+num]]';
+$_lang['ms2_email_subject_paid_manager'] = 'Order #[[+num]] was paid';
+$_lang['ms2_email_subject_sent_user'] = 'Your order #[[+num]] was sent';
+$_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';

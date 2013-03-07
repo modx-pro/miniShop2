@@ -115,6 +115,15 @@ $settings['ms2_order_user_groups']->fromArray(array(
 	'area' => 'ms2_order',
 ),'',true,true);
 
+$settings['ms2_email_manager']= $modx->newObject('modSystemSetting');
+$settings['ms2_email_manager']->fromArray(array(
+	'key' => 'ms2_email_manager',
+	'value' => '',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_order',
+),'',true,true);
+
 $settings['ms2_frontend_css']= $modx->newObject('modSystemSetting');
 $settings['ms2_frontend_css']->fromArray(array(
 	'key' => 'ms2_frontend_css',
@@ -131,6 +140,15 @@ $settings['ms2_frontend_js']->fromArray(array(
 	'xtype' => 'textfield',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_frontend',
+),'',true,true);
+
+$settings['ms2_date_format']= $modx->newObject('modSystemSetting');
+$settings['ms2_date_format']->fromArray(array(
+	'key' => 'ms2_date_format',
+	'value' => '%d.%m.%y <span class="gray">%H:%M</span>',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_order',
 ),'',true,true);
 
 return $settings;

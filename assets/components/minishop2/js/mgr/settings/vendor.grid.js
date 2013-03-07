@@ -21,10 +21,10 @@ miniShop2.grid.Vendor = function(config) {
 		,autosave: true
 		,plugins: this.exp
 		,columns: [this.exp
-			,{header: _('ms2_id'),dataIndex: 'id',width: 50}
-			,{header: _('ms2_name'),dataIndex: 'name',width: 100, editor: {xtype: 'textfield', allowBlank: false}}
-			,{header: _('ms2_country'),dataIndex: 'country',width: 75, editor: {xtype: 'textfield'}}
-			,{header: _('ms2_email'),dataIndex: 'email',width: 100, editor: {xtype: 'textfield'}}
+			,{header: _('ms2_id'),dataIndex: 'id',width: 50, sortable: true}
+			,{header: _('ms2_name'),dataIndex: 'name',width: 100, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
+			,{header: _('ms2_country'),dataIndex: 'country',width: 75, editor: {xtype: 'textfield'}, sortable: true}
+			,{header: _('ms2_email'),dataIndex: 'email',width: 100, editor: {xtype: 'textfield'}, sortable: true}
 			,{header: _('ms2_logo'),dataIndex: 'logo',width: 75, renderer: this.renderLogo}
 			,{header: _('ms2_address'),dataIndex: 'address',width: 100, editor: {xtype: 'textarea'}}
 			,{header: _('ms2_phone'),dataIndex: 'phone',width: 75, editor: {xtype: 'textfield'}}
@@ -110,7 +110,7 @@ Ext.extend(miniShop2.grid.Vendor,MODx.grid.Grid,{
 				,id: this.menu.record.id
 			}
 			,listeners: {
-				success: {fn:function(r) { this.refresh(); },scope:this}
+				success: {fn:function(r) {this.refresh();}, scope:this}
 			}
 		});
 	}

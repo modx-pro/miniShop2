@@ -86,4 +86,18 @@ $snippets['msOrder']->setProperties($properties);
 unset($properties);
 
 
+$snippets['msGetOrder']= $modx->newObject('modSnippet');
+$snippets['msGetOrder']->fromArray(array(
+	'id' => 0
+	,'name' => 'msGetOrder'
+	,'description' => 'Snippet for retrieving users orders'
+	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.ms_get_order.php')
+	,'static' => 1
+	,'static_file' => 'minishop2/elements/snippets/snippet.ms_get_order.php'
+),'',true,true);
+$properties = include $sources['build'].'properties/properties.ms_get_order.php';
+$snippets['msGetOrder']->setProperties($properties);
+unset($properties);
+
+
 return $snippets;
