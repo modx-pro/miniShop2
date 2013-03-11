@@ -79,6 +79,15 @@ $settings['ms2_product_source_default']->fromArray(array(
 	'area' => 'ms2_product',
 ),'',true,true);
 
+$settings['ms2_product_thumbnail_size']= $modx->newObject('modSystemSetting');
+$settings['ms2_product_thumbnail_size']->fromArray(array(
+	'key' => 'ms2_product_thumbnail_size',
+	'value' => '120x90',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
 $settings['ms2_product_vertical_tabs']= $modx->newObject('modSystemSetting');
 $settings['ms2_product_vertical_tabs']->fromArray(array(
 	'key' => 'ms2_product_vertical_tabs',

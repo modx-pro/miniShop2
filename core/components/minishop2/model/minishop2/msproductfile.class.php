@@ -80,7 +80,7 @@ class msProductFile extends xPDOSimpleObject {
 		}
 
 		if ($phpThumb->GenerateThumbnail() && $phpThumb->RenderOutput()) {
-			unlink($phpThumb->sourceFilename);
+			@unlink($phpThumb->sourceFilename);
 			return $phpThumb->outputImageData;
 		}
 		else {
@@ -129,10 +129,17 @@ class msProductFile extends xPDOSimpleObject {
 
 
 	public function getFirstThumbnail() {
-		$q = $this->xpdo->newQuery('msProductFile', array(
+		$c = array(
 			'product_id' => $this->get('product_id')
 			,'parent' => $this->get('id')
-		));
+			,'path:LIKE' => '%'.$this->xpdo->getOption('ms2_product_thumbnail_size', null, '120x90').'/'
+		);
+
+		if (!$this->xpdo->getCount('msProductFile', $c)) {
+			unset($c['path']);
+		}
+
+		$q = $this->xpdo->newQuery('msProductFile', $c);
 		$q->limit(1);
 		$q->sortby('url', 'ASC');
 		$q->select('id,url');

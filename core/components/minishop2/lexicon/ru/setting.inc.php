@@ -31,6 +31,8 @@ $_lang['setting_ms2_product_source_default'] = 'Источник файлов п
 $_lang['setting_ms2_product_source_default_desc'] = 'Источник файлов для галереи изображений товара по умолчанию.';
 $_lang['setting_ms2_product_vertical_tabs'] = 'Вертикальные табы на странице товара';
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'Как показывать страницу твоара? Отключение этой опции позволяет уместить страницу товара на экранах с небольшой горизонталью. Не рекомендуется.';
+$_lang['setting_ms2_product_thumbnail_size'] = 'Размер превью по умолчанию';
+$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Вы можете указать размер уменьшенной копии изображения для поля "thumb" товара.';
 $_lang['ms2_source_thumbnails_desc'] = 'Закодированный в JSON массив с параметрами генерации уменьшенных копий изображений.';
 
 $_lang['setting_ms2_cart_handler_class'] = 'Класс обработчик корзины';

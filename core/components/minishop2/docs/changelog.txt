@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.0.0 beta-2
+==============
+- Added system setting "ms2_product_thumbnail_size" for setting default size of product thumbnail.
+
 2.0.0 beta-1
 ==============
 - Added manager pages

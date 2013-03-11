@@ -31,6 +31,8 @@ $_lang['setting_ms2_product_source_default'] = 'Default media source';
 $_lang['setting_ms2_product_source_default_desc'] = 'Default media source for the product gallery.';
 $_lang['setting_ms2_product_vertical_tabs'] = 'Vertical tabs at product page';
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'How to display product page in manager? Disabling this option allows you to fit the product page on the screen with a small horizontal size. Not recommended.';
+$_lang['setting_ms2_product_thumbnail_size'] = 'Default thumbnail size';
+$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of thumbnails for field "thumb" in msProduct table.';
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
