@@ -41,17 +41,15 @@ $rows = $pdoFetch->run();
 
 // Processing rows
 $output = null;
-$images = $rank = array();
+$images = array();
 foreach ($rows as $k => $row) {
 	if ($row['parent'] == 0) {
 		$images[$row['id']]['rank'] = $row['rank'];
 		$images[$row['id']]['name'] = $row['name'];
 		$images[$row['id']]['image'] = $row['url'];
 	}
-	else {
-		if (preg_match('/(\d{1,4}x\d{1,4})/', $row['url'], $size)) {
-			$images[$row['parent']][$size[0]] = $row['url'];
-		}
+	else if (preg_match('/(\d{1,4}x\d{1,4})/', $row['url'], $size)) {
+		$images[$row['parent']][$size[0]] = $row['url'];
 	}
 }
 

@@ -45,7 +45,7 @@ $properties = array(
 		'name' => 'limit'
 		,'desc' => 'ms2_prop_limit'
 		,'type' => 'numberfield'
-		,'value' => 20
+		,'value' => 0
 		,'lexicon' => 'minishop2:properties'
 	)
 	,array(
