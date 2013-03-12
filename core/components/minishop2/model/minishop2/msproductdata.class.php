@@ -25,15 +25,23 @@ class msProductData extends xPDOSimpleObject {
 			}
 		}
 
-		$sql = "DELETE FROM {$table} WHERE `product_id` = '{$id}';";
+		$sql1 = "DELETE FROM {$table} WHERE `product_id` = '{$id}';";
+		$sql2 = "INSERT INTO {$table} (`product_id`,`key`,`value`) VALUES ";
+		$values = array();
 		foreach ($arrays as $key => $v) {
 			foreach ($v as $value) {
 				if (!empty($value)) {
-					$sql .= "INSERT INTO {$table} (`product_id`,`key`,`value`) VALUES ('{$id}','{$key}','{$value}');";
+					$values[] = "('{$id}','{$key}','{$value}');";
 				}
 			}
 		}
-		$this->xpdo->exec($sql);
+		if (!empty($values)) {
+			$sql2 .= implode(', ', $values);
+			$this->xpdo->exec($sql1.$sql2);
+		}
+		else {
+			$this->xpdo->exec($sql1);
+		}
 
 		return $save;
 	}
