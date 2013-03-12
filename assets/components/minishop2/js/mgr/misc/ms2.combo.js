@@ -242,6 +242,30 @@ Ext.extend(miniShop2.combo.Chunk,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-chunk',miniShop2.combo.Chunk);
 
 
+miniShop2.combo.Resource = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		name: 'resource'
+		,hiddenName: 'resource'
+		,displayField: 'pagetitle'
+		,valueField: 'id'
+		,editable: true
+		,fields: ['id','pagetitle']
+		,pageSize: 20
+		,emptyText: _('ms2_combo_select')
+		,hideMode: 'offsets'
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/system/element/resource/getlist'
+			,combo: true
+		}
+	});
+	miniShop2.combo.Resource.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Resource,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-resource',miniShop2.combo.Resource);
+
+
 miniShop2.combo.Browser = function(config) {
 	config = config || {};
 

@@ -45,6 +45,7 @@ $_lang['ms2_action'] = 'Action';
 $_lang['ms2_entry'] = 'Entry';
 $_lang['ms2_username'] = 'Username';
 $_lang['ms2_fullname'] = 'Fullname';
+$_lang['ms2_resource'] = 'Resource';
 
 $_lang['ms2_receiver'] = 'Receiver';
 $_lang['ms2_index'] = 'Zip/Postal code';

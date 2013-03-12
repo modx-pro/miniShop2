@@ -51,6 +51,9 @@ if ($object->xpdo) {
 			$modx->exec("ALTER TABLE {$msDelivery} ADD `rank` TINYINT(1) NOT NULL DEFAULT '0' AFTER `logo`;");
 			$modx->exec("ALTER TABLE {$msDelivery} ADD `properties` TEXT NULL DEFAULT NULL AFTER `class`;");
 
+			$msVendor = $modx->getTableName('msVendor');
+			$modx->exec("ALTER TABLE {$msVendor} ADD `resource` INT(10) UNSIGNED NULL DEFAULT '0' AFTER `name`;");
+
 			if ($modx instanceof modX) {
 				$modx->addExtensionPackage('minishop2', '[[++core_path]]components/minishop2/model/');
 			}

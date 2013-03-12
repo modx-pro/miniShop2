@@ -13,7 +13,7 @@ miniShop2.grid.Vendor = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/vendor/getlist'
 		}
-		,fields: ['id','name','country','logo','address','phone','fax','description']
+		,fields: ['id','name','resource','country','logo','address','phone','fax','description']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -23,6 +23,7 @@ miniShop2.grid.Vendor = function(config) {
 		,columns: [this.exp
 			,{header: _('ms2_id'),dataIndex: 'id',width: 50, sortable: true}
 			,{header: _('ms2_name'),dataIndex: 'name',width: 100, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
+			,{header: _('ms2_resource'),dataIndex: 'resource',width: 100, editor: {xtype: 'minishop2-combo-resource'}, sortable: true, hidden: true}
 			,{header: _('ms2_country'),dataIndex: 'country',width: 75, editor: {xtype: 'textfield'}, sortable: true}
 			,{header: _('ms2_email'),dataIndex: 'email',width: 100, editor: {xtype: 'textfield'}, sortable: true}
 			,{header: _('ms2_logo'),dataIndex: 'logo',width: 75, renderer: this.renderLogo}
@@ -119,6 +120,7 @@ Ext.extend(miniShop2.grid.Vendor,MODx.grid.Grid,{
 		return [
 			{xtype: 'hidden',name: 'id', id: 'minishop2-vendor-id-'+type}
 			,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-vendor-name-'+type}
+			,{xtype: 'minishop2-combo-resource',fieldLabel: _('ms2_resource'), name: 'resource', anchor: '99%', id: 'minishop2-vendor-resource-'+type}
 			,{xtype: 'textfield',fieldLabel: _('ms2_country'), name: 'country', anchor: '99%', id: 'minishop2-vendor-country-'+type}
 			,{xtype: 'textfield',fieldLabel: _('ms2_email'), name: 'email', anchor: '99%', id: 'minishop2-vendor-email-'+type}
 			,{xtype: 'minishop2-combo-browser',fieldLabel: _('ms2_logo'), name: 'logo', anchor: '99%',  id: 'minishop2-vendor-logo-'+type}

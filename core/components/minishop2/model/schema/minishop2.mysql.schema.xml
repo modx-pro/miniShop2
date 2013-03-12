@@ -70,6 +70,7 @@
 
 	<object class="msVendor" table="ms2_vendors" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="100" phptype="string" null="false" />
+		<field key="resource" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
 		<field key="country" dbtype="varchar" precision="100" phptype="string" null="true" />
 		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="address" dbtype="text" phptype="string" null="true" />
@@ -80,6 +81,7 @@
 		<field key="properties" dbtype="text" phptype="json" null="true" />
 
 		<aggregate alias="Products" class="msProduct" local="id" foreign="vendor" cardinality="many" owner="foreign" />
+		<aggregate alias="Resource" class="modResource" local="resource" foreign="id" cardinality="one" owner="local" />
 	</object>
 
 

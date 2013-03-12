@@ -45,6 +45,7 @@ $_lang['ms2_action'] = 'Действие';
 $_lang['ms2_entry'] = 'Запись';
 $_lang['ms2_username'] = 'Логин';
 $_lang['ms2_fullname'] = 'Пользователь';
+$_lang['ms2_resource'] = 'Ресурс';
 
 $_lang['ms2_receiver'] = 'Получатель';
 $_lang['ms2_index'] = 'Индекс';

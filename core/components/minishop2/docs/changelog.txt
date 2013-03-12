@@ -3,6 +3,8 @@ Changelog for miniShop2.
 2.0.0 beta-2
 ==============
 - Added system setting "ms2_product_thumbnail_size" for setting default size of product thumbnail.
+- Added vendor placeholders on product page. Now you can use [[+vendor.name]], [[+vendor.logo]] etc.
+- [mgr] Added link to resource for Vendor. Now you can specify page with detailed information about product vendor.
 
 2.0.0 beta-1
 ==============

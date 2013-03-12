@@ -400,12 +400,16 @@ class msProduct extends modResource {
 	 */
 	public function process() {
 		if (!$this->get('cacheable') || !$this->_processed || !$this->_content) {
-			$this->xpdo->lexicon->load('minishop2:default');
-			$this->xpdo->lexicon->load('minishop2:cart');
-			$this->xpdo->lexicon->load('minishop2:product');
+			//$this->xpdo->lexicon->load('minishop2:default');
+			//$this->xpdo->lexicon->load('minishop2:cart');
+			//$this->xpdo->lexicon->load('minishop2:product');
 			/* @var msProductData $data */
 			if ($data = $this->getOne('Data')) {
 				$this->xpdo->setPlaceholders($data->toArray());
+			}
+			/* @var msVendor $vendor */
+			if ($vendor = $this->getOne('Vendor')) {
+				$this->xpdo->setPlaceholders($vendor->toArray('vendor.'));
 			}
 		}
 		return parent::process();
