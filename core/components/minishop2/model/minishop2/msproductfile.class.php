@@ -104,7 +104,7 @@ class msProductFile extends xPDOSimpleObject {
 			,'path' => $path
 			,'source' => $this->mediaSource->get('id')
 			,'type' => $this->get('type')
-			,'rank' => $this->xpdo->getCount('msProductFile', array('parent' => $this->get('id'), 'product_id' => $this->get('product_id')))
+			,'rank' => $this->get('rank')
 			,'createdon' => date('Y-m-d H:i:s')
 			,'createdby' => $this->xpdo->user->id
 			,'active' => 1

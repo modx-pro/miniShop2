@@ -43,19 +43,20 @@ foreach ($scriptProperties as $k => $v) {
 				if (!is_numeric($v)) {continue;}
 				$parents = array_merge($parents, $modx->getChildIds($v, $depth));
 			}
-		}
-		// Add product categories
-		$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
-		$q->select('product_id');
-		if ($q->prepare() && $q->stmt->execute()) {
-			$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-		}
 
-		if (!empty($parents) && !empty($members)) {
-			$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
-		}
-		else {
-			$where['parent:IN'] = $parents;
+			// Add product categories
+			$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
+			$q->select('product_id');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+			}
+
+			if (!empty($members)) {
+				$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
+			}
+			else {
+				$where['parent:IN'] = $parents;
+			}
 		}
 	}
 
@@ -70,13 +71,12 @@ $pdoFetch->addTime('"Where" expression built.');
 // End of building "Where" expression
 
 // Include TVs
-if (!empty($includeTVList)) {
-	$tvs = array_map('trim',explode(',',$includeTVList));
-	
-	if(!empty($tvs)){
-		$tvsLeftJoin = '';
-		$tvsSelect = array();
-
+$tvsLeftJoin = '';
+$tvsSelect = array();
+if (!empty($includeTVList) && empty($includeTVs)) {$includeTVs = $includeTVList;}
+if (!empty($includeTVs)) {
+	$tvs = array_map('trim',explode(',',$includeTVs));
+	if(!empty($tvs[0])){
 		$q = $modx->newQuery('modTemplateVar', array('name:IN' => $tvs));
 		$q->select('id,name');
 		if ($q->prepare() && $q->stmt->execute()) {
@@ -87,23 +87,39 @@ if (!empty($includeTVList)) {
 					$tvsSelect[] = ' "TV'.$tv['name'].'":"IFNULL(TV'.$tv['name'].'.value,\'\') as '.$tv['name'].'" ';
 				}
 			}
-
 		}
 		$pdoFetch->addTime('Included list of tvs: <b>'.implode(', ',$tvs).'</b>.');
 	}
 }
 // End of including TVs
 
+// Include Thumbnails
+$thumbsLeftJoin = '';
+$thumbsSelect = array();
+if (!empty($includeThumbs)) {
+	$thumbs = array_map('trim',explode(',',$includeThumbs));
+	if(!empty($thumbs[0])){
+		foreach ($thumbs as $thumb) {
+			$thumbsLeftJoin .= ',{"class":"msProductFile","alias":"'.$thumb.'","on":"'.$thumb.'.product_id = msProduct.id AND '.$thumb.'.parent != 0 AND '.$thumb.'.path LIKE \'%/'.$thumb.'/\'"}';
+			$thumbsSelect[] = ' "'.$thumb.'":"'.$thumb.'.url as '.$thumb.'" ';
+		}
+		$pdoFetch->addTime('Included list of thumbnails: <b>'.implode(', ',$thumbs).'</b>.');
+	}
+}
+// End of including Thumbnails
+
 // Fields to select
 $resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
 $dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
-$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', '', array('id'), true);
+$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true);
 
 // Tables for joining
-$leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"msProduct.id=Vendor.id"}';
+$leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
 if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
+if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
 $select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor":"'.$vendorColumns.'"';
 if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
+if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
 
 // Default parameters
 $default = array(
@@ -113,6 +129,7 @@ $default = array(
 	,'select' => '{'.$select.'}'
 	,'sortby' => 'id'
 	,'sortdir' => 'ASC'
+	,'groupby' => 'msProduct.id'
 	,'fastMode' => false
 	,'return' => 'data'
 	,'nestedChunkPrefix' => 'minishop2_'
@@ -159,7 +176,7 @@ foreach ($rows as $k => $row) {
 			$row[$field] = substr($row[$field], 1);
 		}
 		else {
-			$row[$field] = '';
+			//$row[$field] = '';
 		}
 	}
 
@@ -170,7 +187,7 @@ foreach ($rows as $k => $row) {
 			$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
 		}
 		else {
-			$row[$field] = '';
+			//$row[$field] = '';
 		}
 	}
 
