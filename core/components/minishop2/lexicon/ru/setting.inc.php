@@ -21,6 +21,8 @@ $_lang['setting_ms2_product_extra_fields_desc'] = 'Список дополнит
 
 $_lang['setting_ms2_category_show_comments'] = 'Показывать комментарии категории';
 $_lang['setting_ms2_category_show_comments_desc'] = 'Показывать комментарии оставленные ко всем товарам категории, если установлен компонент "Tickets"';
+$_lang['setting_ms2_category_show_nested_products'] = 'Показывать вложенные товары категории';
+$_lang['setting_ms2_category_show_nested_products_desc'] = 'Если вы включаете эту опцию, то в категории будут показаны все вложенные товары. Они выделены другим цветом и у них есть имя родной категории под pagetitle.';
 $_lang['setting_ms2_product_show_comments'] = 'Показывать комментарии товара';
 $_lang['setting_ms2_product_show_comments_desc'] = 'Показывать комментарии оставленные к товару, если установлен компонент "Tickets"';
 $_lang['setting_ms2_template_product_default'] = 'Шаблон по умолчанию для новых товаров';

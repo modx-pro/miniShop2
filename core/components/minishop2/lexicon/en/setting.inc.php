@@ -21,6 +21,8 @@ $_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of field
 
 $_lang['setting_ms2_category_show_comments'] = 'Display comments of the category';
 $_lang['setting_ms2_category_show_comments_desc'] = 'Display comments of all goods from category if component "Tickets" is installed.';
+$_lang['setting_ms2_category_show_nested_products'] = 'Show nested product of category';
+$_lang['setting_ms2_category_show_nested_products_desc'] = 'If set to true, you will see all nested products of category. They will have another color and name of their category below pagetitle.';
 $_lang['setting_ms2_product_show_comments'] = 'Display comments of the product';
 $_lang['setting_ms2_product_show_comments_desc'] = 'Display comments of the product if component "Tickets" is installed.';
 $_lang['setting_ms2_template_product_default'] = 'Default template for new product';

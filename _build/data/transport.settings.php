@@ -16,6 +16,15 @@ $settings['ms2_category_grid_fields']->fromArray(array(
 	'area' => 'ms2_category',
 ),'',true,true);
 
+$settings['ms2_category_show_nested_products']= $modx->newObject('modSystemSetting');
+$settings['ms2_category_show_nested_products']->fromArray(array(
+	'key' => 'ms2_category_show_nested_products',
+	'value' => 'true',
+	'xtype' => 'combo-boolean',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_category',
+),'',true,true);
+
 $settings['ms2_product_main_fields']= $modx->newObject('modSystemSetting');
 $settings['ms2_product_main_fields']->fromArray(array(
 	'key' => 'ms2_product_main_fields',

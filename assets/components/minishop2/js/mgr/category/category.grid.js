@@ -93,7 +93,7 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 		this.tplPageTitle = new Ext.XTemplate(''
 			+'<tpl for="."><div class="product-title-column {cls}">'
-				+'<h3 class="main-column"><span class="product-id">{id}</span><a href="?a=' + updatePage + '&id={id}" onclick="if (event.which == 1) {MODx.loadPage(\''+updatePage+'\', \'id={id}\'); return false;}">{pagetitle}</a></h3>'
+				+'<h3 class="main-column"><span class="product-id">({id})</span><a href="?a=' + updatePage + '&id={id}" onclick="if (event.which == 1) {MODx.loadPage(\''+updatePage+'\', \'id={id}\'); return false;}">{pagetitle}</a></h3><div class="product-category">{category_name}</div>'
 				+'<tpl if="actions">'
 					+'<ul class="actions">'
 						+'<tpl for="actions">'
@@ -343,8 +343,10 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,weight: {width:50, sortable:true, editor:{xtype:'numberfield'}}
 			,image: {width:50, sortable:false, renderer: this.renderThumb}
 			,thumb: {width:50, sortable:false, renderer: this.renderThumb}
-			,vendor: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-vendor'}}
+			,vendor: {width:50, sortable:true, renderer: this.renderVendor, editor: {xtype: 'minishop2-combo-vendor'}}
 			,made_in: {width:50, sortable:true, editor: {xtype: 'minishop2-combo-autocomplete', name: 'made_in'}}
+
+			,vendor_name: {width:50, sortable:true, header: _('ms2_product_vendor')}
 			//,tags: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'tags'}}
 			//,color: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'color'}}
 			//,size: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'size'}}
@@ -361,8 +363,10 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		for (var i = 0; i < miniShop2.config.grid_fields.length; i++) {
 			var field = miniShop2.config.grid_fields[i];
 			if (columns[field]) {
-				columns[field].header = _('ms2_product_' + field);
-				columns[field].dataIndex = field;
+				Ext.applyIf(columns[field], {
+					header: _('ms2_product_' + field)
+					,dataIndex: field
+				});
 				fields.push(columns[field]);
 			}
 		}
@@ -391,6 +395,10 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		else {
 			return '';
 		}
+	}
+
+	,renderVendor: function(value, cell, row) {
+		return row.data['vendor_name'];
 	}
 
 });
