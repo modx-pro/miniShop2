@@ -108,6 +108,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		/* load RTE */
 		$this->loadRichTextEditor();
 		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'product_create'));
+		$this->loadPlugins();
 	}
 
 
@@ -124,5 +125,19 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$this->canPublish = $this->modx->hasPermission('publish_document');
 		$this->canDelete = ($this->modx->hasPermission('delete_document') && $this->resource->checkPolicy(array('save' => true, 'delete' => true)));
 		$this->canDuplicate = $this->resource->checkPolicy('save');
+	}
+
+
+	/*
+	 * Loads additional scripts for product form from miniShop2 plugins
+	 *
+	 * @return void
+	 * */
+	function loadPlugins() {
+		foreach ($this->modx->ms2Plugins->plugins as $plugin) {
+			if (!empty($plugin['manager']['msProductData'])) {
+				$this->addJavascript($plugin['manager']['msProductData']);
+			}
+		}
 	}
 }

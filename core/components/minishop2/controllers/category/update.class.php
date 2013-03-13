@@ -105,6 +105,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		/* load RTE */
 		$this->loadRichTextEditor();
 		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'category_update'));
+		$this->loadPlugins();
 	}
 
 
@@ -144,6 +145,20 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		};
 		// ]]>
 		</script>');
+	}
+
+
+	/*
+	 * Loads additional scripts for product form from miniShop2 plugins
+	 *
+	 * @return void
+	 * */
+	function loadPlugins() {
+		foreach ($this->modx->ms2Plugins->plugins as $plugin) {
+			if (!empty($plugin['manager']['msProductData'])) {
+				$this->addJavascript($plugin['manager']['msProductData']);
+			}
+		}
 	}
 
 }

@@ -9,7 +9,7 @@ class ms2Plugins {
 		$this->xpdo = $xpdo;
 
 		$this->config = array_merge(array(
-			'pluginsPath' => $this->xpdo->getOption('ms2_plugins_path')
+			'pluginsPath' => $this->xpdo->getOption('ms2_plugins_path', null, MODX_CORE_PATH . 'components/minishop2/plugins/')
 		), $config);
 
 		$this->getPlugins();
@@ -22,24 +22,17 @@ class ms2Plugins {
 	 * @return void
 	 * */
 	public function getPlugins() {
-		$this->plugins = array();
-
-		/*
-		$this->plugins['plugin1']['xpdo_meta_map']['msProductData'] = array(
-			'fields' => array(
-				'size' => 20
-			)
-			,'fieldMeta' => array(
-				'size' => array(
-					'dbtype' => 'varchar'
-					,'precision' => 20
-					,'phptype' => 'string'
-					,'null' => 1
-					,'default' => 0
-				)
-			)
-		);
-		*/
+		$plugins = scandir($this->config['pluginsPath']);
+		foreach ($plugins as $plugin) {
+			if ($plugin == '.' || $plugin == '..') {continue;}
+			$dir = $this->config['pluginsPath'] . $plugin;
+			if (is_dir($dir) && file_exists($dir.'/index.php')) {
+				$include = include_once($dir.'/index.php');
+				if (is_array($include)) {
+					$this->plugins[$plugin] = $include;
+				}
+			}
+		}
 	}
 
 
@@ -55,7 +48,9 @@ class ms2Plugins {
 
 		foreach ($this->plugins as $plugin) {
 			if (array_key_exists('xpdo_meta_map', $plugin) && array_key_exists($className, $plugin['xpdo_meta_map']) && is_array($plugin['xpdo_meta_map'][$className])) {
-				$xpdo_meta_map = array_merge_recursive($xpdo_meta_map, $plugin['xpdo_meta_map'][$className]);
+				foreach ($plugin['xpdo_meta_map'][$className] as $k => $v) {
+					$xpdo_meta_map[$k] = array_merge($xpdo_meta_map[$k], $v);
+				}
 			}
 		}
 

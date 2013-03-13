@@ -121,6 +121,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		/* load RTE */
 		$this->loadRichTextEditor();
 		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'product_update'));
+		$this->loadPlugins();
 	}
 
 
@@ -183,6 +184,20 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 
 		if (empty($this->resourceArray['vendor'])) {
 			$this->resourceArray['vendor'] = '';
+		}
+	}
+
+
+	/*
+	 * Loads additional scripts for product form from miniShop2 plugins
+	 *
+	 * @return void
+	 * */
+	function loadPlugins() {
+		foreach ($this->modx->ms2Plugins->plugins as $plugin) {
+			if (!empty($plugin['manager']['msProductData'])) {
+				$this->addJavascript($plugin['manager']['msProductData']);
+			}
 		}
 	}
 }

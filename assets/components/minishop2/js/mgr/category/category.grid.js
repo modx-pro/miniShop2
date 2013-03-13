@@ -350,6 +350,13 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			//,size: {width:50, sortable:false, editor: {xtype: 'minishop2-combo-options', name: 'size'}}
 		};
 
+		for (i in miniShop2.plugin) {
+			if (typeof(miniShop2.plugin[i]['getColumns']) == 'function') {
+				var add = miniShop2.plugin[i].getColumns();
+				Ext.apply(columns, add);
+			}
+		}
+
 		var fields = [this.sm];
 		for (var i = 0; i < miniShop2.config.grid_fields.length; i++) {
 			var field = miniShop2.config.grid_fields[i];

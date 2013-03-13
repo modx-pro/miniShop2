@@ -286,7 +286,13 @@ var methods = {
 			,size: {xtype: 'minishop2-combo-options', description: _('ms2_product_size_help')}
 		};
 
-		return Ext.applyIf(fields, miniShop2.config.additional_fields);
+		for (i in miniShop2.plugin) {
+			if (typeof(miniShop2.plugin[i]['getFields']) == 'function') {
+				var add = miniShop2.plugin[i].getFields(config);
+				Ext.apply(fields, add);
+			}
+		}
+		return fields;
 	}
 
 
