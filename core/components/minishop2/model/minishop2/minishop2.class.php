@@ -156,17 +156,19 @@ class miniShop2 {
 	 * @return integer $id
 	 * */
 	public function getCustomerId() {
+		$order = $this->order->get();
+		if (empty($order['email'])) {return false;}
+
 		if ($this->modx->user->isAuthenticated()) {
 			$profile = $this->modx->user->Profile;
 			if (!$email = $profile->get('email')) {
-				$profile->set('email', $this->order['email']);
+				$profile->set('email', $order['email']);
 				$profile->save();
 			}
 			$uid = $this->modx->user->id;
 		}
 		else {
 			/* @var modUser $user */
-			$order = $this->order->get();
 			$email = $order['email'];
 			if ($user = $this->modx->getObject('modUser', array('username' => $email))) {
 				$uid = $user->get('id');
