@@ -161,7 +161,7 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 			,url: miniShop2.config.connector_url
 			,params: {
 				action: 'mgr/orders/remove'
-				,id: id
+				,id: this.menu.record.id
 			}
 			,listeners: {
 				success: {fn:function(r) { this.refresh();}, scope:this}
