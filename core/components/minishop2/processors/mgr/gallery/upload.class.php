@@ -77,6 +77,9 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 				$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate thumbnails for image with id = '.$product_file->get('id').'. '.$generate);
 			}
 		}
+		else {
+			return $this->modx->lexicon('ms2_gallery_err_no_file_saved');
+		}
 
 		return $this->success($thumb);
 	}
