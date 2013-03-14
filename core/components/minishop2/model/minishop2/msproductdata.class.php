@@ -31,7 +31,7 @@ class msProductData extends xPDOSimpleObject {
 		foreach ($arrays as $key => $v) {
 			foreach ($v as $value) {
 				if (!empty($value)) {
-					$values[] = "('{$id}','{$key}','{$value}');";
+					$values[] = "('{$id}','{$key}','{$value}')";
 				}
 			}
 		}
