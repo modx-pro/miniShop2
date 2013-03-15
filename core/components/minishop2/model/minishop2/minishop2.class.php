@@ -359,4 +359,77 @@ class miniShop2 {
 		$df = $this->modx->getOption('ms2_date_format');
 		return (!empty($date) && $date !== '0000-00-00 00:00:00') ? strftime($df, strtotime($date)) : '&nbsp;';
 	}
+
+
+	/*
+	 * Gets mathing resources by tags. This is adapted function from miniShop1 for backward compatibility
+	 *
+	 * @param array $tags Tags for search
+	 * @param int $only_ids Return only ids of matched resources
+	 * @param int $strict 0 - goods must have at least one specified tag
+	 *					  1 - goods must have all specified tags, but can have more
+	 * 					  2 - goods must have exactly the same tags.
+	 * @return array $ids Or array with resources with data and tags
+	 * */
+	function getTagged($tags = array(), $strict = 0, $only_ids = 0) {
+		if (!is_array($tags)) {$tags = explode(',', $tags);}
+
+		$q = $this->modx->newQuery('msProductOption', array('key' => 'tags', 'value:IN' => $tags));
+		$q->select('product_id');
+		$ids = array();
+		if ($q->prepare() && $q->stmt->execute()){
+			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+		}
+		$ids = array_unique($ids);
+
+		// If needed only ids of not strictly mathed items - return.
+		if (!$strict && $only_ids) {return $ids;}
+
+		// Filtering ids
+		$count = count($tags);
+
+		/* @var PDOStatement $stmt*/
+		if ($strict) {
+			foreach ($ids as $key => $product_id) {
+				if ($strict > 1) {
+					$sql = "SELECT COUNT(*) FROM {$this->modx->getTableName('msProductOption')} WHERE `product_id` = {$product_id} AND `key` = 'tags';";
+					$stmt = $this->modx->prepare($sql);
+					$stmt->execute();
+					if ($stmt->fetch(PDO::FETCH_COLUMN) != $count) {
+						unset($ids[$key]);
+						continue;
+					}
+				}
+
+				foreach ($tags as $tag) {
+					$sql = "SELECT COUNT(`product_id`) FROM {$this->modx->getTableName('msProductOption')} WHERE `product_id` = {$product_id} AND `key` = 'tags' AND `value` = '{$tag}';";
+					$stmt = $this->modx->prepare($sql);
+					$stmt->execute();
+					if (!$stmt->fetch(PDO::FETCH_COLUMN)) {
+						unset($ids[$key]);
+						break;
+					}
+				}
+			}
+		}
+
+		// Return strictly ids, if needed
+		$ids = array_unique($ids);
+		if ($only_ids) {
+			return $ids;
+		}
+
+		// Process results
+		$data = array();
+		foreach ($ids as $id) {
+			if (!$only_ids) {
+				if ($res = $this->modx->getObject('msProduct', $id)) {
+					$data[$id] = $res->toArray();
+				}
+			}
+		}
+
+		return $data;
+	}
+
 }
