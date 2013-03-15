@@ -111,7 +111,7 @@ class msCartHandler implements msCartInterface {
 			if (!($product instanceof msProduct)) {
 				return $this->error('ms2_cart_add_err_product', $this->status());
 			}
-			if ($count > $this->config['max_count']) {
+			if ($count > $this->config['max_count'] || $count <= 0) {
 				return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
 			}
 

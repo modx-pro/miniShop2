@@ -25,7 +25,7 @@ $_lang['ms2_cart_add_success'] = 'Product has been added to cart: [[+count]]';
 $_lang['ms2_cart_add_error'] = 'Error when adding to the cart';
 $_lang['ms2_cart_add_err_id'] = 'Error when adding to the cart: id of product is not set';
 $_lang['ms2_cart_add_err_nf'] = 'Error when adding to the cart: product not found';
-$_lang['ms2_cart_add_err_count'] = 'Error when adding to the cart: too much goods - [[+count]]';
+$_lang['ms2_cart_add_err_count'] = 'Error when adding to the cart: wrong count "[[+count]]"';
 $_lang['ms2_cart_add_err_product'] = 'Error when adding to the cart: wrong type of product';
 
 $_lang['ms2_cart_remove_success'] = 'Product was removed from cart';
