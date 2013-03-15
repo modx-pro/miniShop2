@@ -119,7 +119,7 @@ miniShop2.Cart = {
 			$('.ms2_total_weight').text(status.total_weight);
 			$('.ms2_total_count').text(status.total_count);
 			$('.ms2_total_cost').text(status.total_cost);
-			$(document).trigger('cartstatus');
+			$(document).trigger('cartstatus', status);
 		}
 	}
 	,clean: function() {
@@ -240,7 +240,7 @@ miniShop2.Order = {
 						}
 						else {
 							miniShop2.Order.updatePayments(field.data('payments'));
-							$(document).trigger('cartstatus');
+							$(document).trigger('cartstatus', response.data);
 						}
 					break;
 					case 'payment':
