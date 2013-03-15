@@ -38,4 +38,3 @@ $_lang['ms2_prop_tplDeliveriesRow'] = 'Чанк для оформления од
 $_lang['ms2_prop_product'] = 'Идентификатор товара. Если не указан, используется id текущего документа.';
 $_lang['ms2_prop_optionSelected'] = 'Имя активной опции, чтобы поставить аттрибут "selected"';
 $_lang['ms2_prop_optionName'] = 'Имя опции для вывода.';
-$_lang['ms2_prop_thumbSize'] = 'Размер уменьшенных копий.';

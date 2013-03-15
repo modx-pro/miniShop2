@@ -35,13 +35,6 @@ $properties = array(
 		,'lexicon' => 'minishop2:properties'
 	)
 	,array(
-		'name' => 'thumbSize'
-		,'desc' => 'ms2_prop_thumbSize'
-		,'type' => 'textfield'
-		,'value' => '120x90'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
 		'name' => 'limit'
 		,'desc' => 'ms2_prop_limit'
 		,'type' => 'numberfield'
