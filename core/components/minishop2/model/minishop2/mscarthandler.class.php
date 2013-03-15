@@ -67,7 +67,7 @@ interface msCartInterface {
 
 
 class msCartHandler implements msCartInterface {
-	private $cart;
+	protected $cart;
 
 	function __construct(miniShop2 & $ms2, array $config = array()) {
 		$this->ms2 = & $ms2;

@@ -72,7 +72,7 @@ interface msOrderInterface {
 
 
 class msOrderHandler implements msOrderInterface {
-	private $order;
+	protected $order;
 	/* @var miniShop2 $ms2  */
 	public $ms2;
 
