@@ -102,9 +102,11 @@ if (!empty($deliveries)) {
 if (!empty($tplOuter)) {$pdoFetch->getChunk($tplOuter);}
 $cart_status = $miniShop2->cart->status();
 $order_cost = $miniShop2->order->getcost();
+$deliveries = implode('', $arrays['deliveries']);
+$payments = implode('', $arrays['payments']);
 $form = array(
-	'deliveries' => !empty($arrays['deliveries']) ? str_replace('[[+value]]', implode('',$arrays['deliveries']), @$pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) : ''
-	,'payments' => !empty($arrays['payments']) ? str_replace('[[+value]]', implode('',$arrays['payments']), @$pdoFetch->elements[$tplOuter]['placeholders']['payments']) : ''
+	'deliveries' => !empty($pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) ? str_replace('[[+value]]', $deliveries, $pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) : $deliveries
+	,'payments' => !empty($pdoFetch->elements[$tplOuter]['placeholders']['payments']) ? str_replace('[[+value]]', $payments, @$pdoFetch->elements[$tplOuter]['placeholders']['payments']) : $payments
 	,'order_cost' => @$order_cost['data']['cost']
 );
 
@@ -128,6 +130,7 @@ $user_fields = array(
 foreach ($user_fields as $key => $value) {
 	if (!empty($order[$key])) {
 		$form[$key] = $order[$key];
+		unset($order[$key]);
 	}
 	else if (!empty($profile) && !empty($value)) {
 		//$form[$key] = $profile[$value];
@@ -136,8 +139,8 @@ foreach ($user_fields as $key => $value) {
 			$form[$key] = $tmp['data'][$key];
 		}
 	}
-
 }
+$form = array_merge($order, $form);
 
 if (!empty($tplOuter)) {
 	$pdoFetch->getChunk($tplOuter);
@@ -149,4 +152,5 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 	$output .= '<pre class="msOrderLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
+unset($modx->services['pdofetch']);
 return $output;

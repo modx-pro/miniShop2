@@ -54,6 +54,9 @@ if ($object->xpdo) {
 			$msVendor = $modx->getTableName('msVendor');
 			$modx->exec("ALTER TABLE {$msVendor} ADD `resource` INT(10) UNSIGNED NULL DEFAULT '0' AFTER `name`;");
 
+			$msProductFile = $modx->getTableName('msProductFile');
+			$modx->exec("ALTER TABLE {$msProductFile} ORDER BY `rank`");
+
 			if ($modx instanceof modX) {
 				$modx->addExtensionPackage('minishop2', '[[++core_path]]components/minishop2/model/');
 			}

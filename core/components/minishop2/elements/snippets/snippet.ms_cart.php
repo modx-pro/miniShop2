@@ -14,54 +14,115 @@ if (!empty($_GET['msorder'])) {
 else if (empty($cart)) {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
+
+// Include TVs
+$tvsLeftJoin = '';
+$tvsSelect = array();
+if (!empty($includeTVs)) {
+	$tvs = array_map('trim',explode(',',$includeTVs));
+	if(!empty($tvs[0])){
+		$q = $modx->newQuery('modTemplateVar', array('name:IN' => $tvs));
+		$q->select('id,name');
+		if ($q->prepare() && $q->stmt->execute()) {
+			$tv_ids = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+			if (!empty($tv_ids)) {
+				foreach ($tv_ids as $tv) {
+					$tvsLeftJoin .= ',{"class":"modTemplateVarResource","alias":"TV'.$tv['name'].'","on":"TV'.$tv['name'].'.contentid = msProduct.id AND TV'.$tv['name'].'.tmplvarid = '.$tv['id'].'"}';
+					$tvsSelect[] = ' "TV'.$tv['name'].'":"IFNULL(TV'.$tv['name'].'.value,\'\') as '.$tv['name'].'" ';
+				}
+			}
+		}
+		$pdoFetch->addTime('Included list of tvs: <b>'.implode(', ',$tvs).'</b>.');
+	}
+}
+// End of including TVs
+
+// Include Thumbnails
+$thumbsLeftJoin = '';
+$thumbsSelect = array();
+if (!empty($includeThumbs)) {
+	$thumbs = array_map('trim',explode(',',$includeThumbs));
+	if(!empty($thumbs[0])){
+		foreach ($thumbs as $thumb) {
+			$thumbsLeftJoin .= ',{"class":"msProductFile","alias":"'.$thumb.'","on":"'.$thumb.'.product_id = msProduct.id AND '.$thumb.'.parent != 0 AND '.$thumb.'.path LIKE \'%/'.$thumb.'/\'"}';
+			$thumbsSelect[] = ' "'.$thumb.'":"'.$thumb.'.url as '.$thumb.'" ';
+		}
+		$pdoFetch->addTime('Included list of thumbnails: <b>'.implode(', ',$thumbs).'</b>.');
+	}
+}
+// End of including Thumbnails
+
+// Fields to select
+$resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
+$dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
+$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true);
+
+// Tables for joining
+$leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
+if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
+if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
+$select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor":"'.$vendorColumns.'"';
+if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
+if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
+$pdoFetch->addTime('Query parameters are prepared.');
+
 // Initializing chunk for template rows
-$pdoFetch->getChunk($tplRow);
+if (!empty($tplRow)) {$pdoFetch->getChunk($tplRow);}
 
 // Working
 $outer = array('goods' => '', 'total_count' => 0, 'total_weight' => 0, 'total_cost' => 0);
 foreach ($cart as $k => $v) {
-	/* @var msProduct $product */
-	if ($product = $modx->getObject('msProduct', array('id' => $v['id'], 'class_key' => 'msProduct', 'published' => 1, 'deleted' => 0))) {
-		$item = $product->toArray();
-		$item['key'] = $k;
-		$item['count'] = $v['count'];
-		$item['price'] = $v['price'];
-		$item['weight'] = $v['weight'];
-		$item['cost'] = $v['count'] * $v['price'];
 
-		$tvs = $product->getMany('TemplateVars');
-		/* @var modTemplateVar $tv */
-		foreach ($tvs as $tv) {
-			$item[$tv->get('name')] = $tv->get('value');
-		}
+	$default = array(
+		'class' => 'msProduct'
+		,'where' => '{"msProduct.id":"'.$v['id'].'","class_key":"msProduct"}'
+		,'leftJoin' => '['.$leftJoin.']'
+		,'select' => '{'.$select.'}'
+		,'sortby' => 'id'
+		,'sortdir' => 'ASC'
+		,'groupby' => 'msProduct.id'
+		,'fastMode' => false
+		,'limit' => 0
+		,'return' => 'data'
+		,'nestedChunkPrefix' => 'minishop2_'
+	);
+// Merge all properties and run!
+	$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
+	$rows = $pdoFetch->run();
+
+	if (!empty($rows[0])) {
+		$row = $rows[0];
+		$row['key'] = $k;
+		$row['count'] = $v['count'];
+		$row['price'] = $v['price'];
+		$row['weight'] = $v['weight'];
+		$row['cost'] = $v['count'] * $v['price'];
 
 		// Additional properties of product
 		if (!empty($v['options']) && is_array($v['options'])) {
 			foreach ($v['options'] as $key => $value) {
-				if (is_array($value)) {
-					$item[$key] = '';
-					foreach ($values as $value2) {
-						$item[$key] .= str_replace('[[+value]]', $value2, @$pdoFetch->elements[$tplRow]['placeholders'][$key]);
-					}
-				}
-				else {
-					$item[$key] = str_replace('[[+value]]', $value, @$pdoFetch->elements[$tplRow]['placeholders'][$key]);
-				}
+				$row['option.'.$key] = $value;
 			}
 		}
 		unset($v['options']);
 
-		// Unset json options
-		foreach ($item as $key => $value) {
-			if (is_array($value)) {
-				unset($item[$key]);
+		// Processing quick fields
+		if (!empty($tplRow)) {
+			$pl = $pdoFetch->makePlaceholders($row);
+			$qfields = array_keys($pdoFetch->elements[$tplRow]['placeholders']);
+			foreach ($qfields as $field) {
+				if (!empty($row[$field])) {
+					$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tplRow]['placeholders'][$field]);
+				}
 			}
 		}
 
-		$outer['goods'] .= $pdoFetch->getChunk($tplRow, $item);
+		$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
 		$outer['total_count'] += $v['count'];
 		$outer['total_weight'] += $v['count'] * $v['weight'];
-		$outer['total_cost'] += $item['cost'];
+		$outer['total_cost'] += $row['cost'];
 	}
 }
-return $pdoFetch->getChunk($tplOuter, $outer);
+
+unset($modx->services['pdofetch']);
+return !empty($tplOuter) ? $pdoFetch->getChunk($tplOuter, $outer) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($outer,1));

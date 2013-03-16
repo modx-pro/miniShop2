@@ -211,6 +211,7 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 }
 
 // Return output
+unset($modx->services['pdofetch']);
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);
 }

@@ -27,6 +27,20 @@ $properties = array(
 		,'value' => ''
 		,'lexicon' => 'minishop2:properties'
 	)
+	,array(
+		'name' => 'includeTVs',
+		'desc' => 'ms2_prop_includeTVs',
+		'type' => 'textfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
+	,array(
+		'name' => 'includeThumbs',
+		'desc' => 'ms2_prop_includeThumbs',
+		'type' => 'textfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
 );
 
 return $properties;

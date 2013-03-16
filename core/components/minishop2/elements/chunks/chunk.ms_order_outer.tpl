@@ -27,10 +27,26 @@
 				</div>
 			</div>
 		</div>
-		[[+payments]]
+		<div class="span6" id="payments">
+			<h4>[[%ms2_frontend_payments]]:</h4>
+			<div class="control-group">
+				<label class="control-label">[[%ms2_frontend_payment_select]]</label>
+				<div class="controls">
+					[[+payments]]
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="row">
-		[[+deliveries]]
+		<div class="span6" id="deliveries">
+			<h4>[[%ms2_frontend_deliveries]]:</h4>
+			<div class="control-group">
+				<label class="control-label">[[%ms2_frontend_delivery_select]]</label>
+				<div class="controls">
+					[[+deliveries]]
+				</div>
+			</div>
+		</div>
 		<div class="span6">
 			<h4>[[%ms2_frontend_address]]:</h4>
 			<div class="control-group">
@@ -73,23 +89,3 @@
 		miniShop2.Order.initialize('#msOrder');
 	});
 </script>
-<!--minishop2_deliveries
-<div class="span6" id="deliveries">
-	<h4>[[%ms2_frontend_deliveries]]:</h4>
-	<div class="control-group">
-		<label class="control-label">[[%ms2_frontend_delivery_select]]</label>
-		<div class="controls">
-			[[+value]]
-		</div>
-	</div>
-</div>-->
-<!--minishop2_payments
-<div class="span6" id="payments">
-	<h4>[[%ms2_frontend_payments]]:</h4>
-	<div class="control-group">
-		<label class="control-label">[[%ms2_frontend_payment_select]]</label>
-		<div class="controls">
-			[[+value]]
-		</div>
-	</div>
-</div>-->

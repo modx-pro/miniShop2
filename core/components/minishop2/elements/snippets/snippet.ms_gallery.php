@@ -74,6 +74,7 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 	$output .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
+unset($modx->services['pdofetch']);
 // Return output
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);

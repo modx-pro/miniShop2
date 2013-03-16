@@ -106,7 +106,7 @@ class msProductData extends xPDOSimpleObject {
 			$sql = '';
 			$table = $this->xpdo->getTableName('msProductFile');
 			foreach ($ids as $k => $id) {
-				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `id` = '{$id}';";
+				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `type` = 'image' AND (`id` = '{$id}' OR `parent` = '{$id}');";
 			}
 			$this->xpdo->exec($sql);
 		}
