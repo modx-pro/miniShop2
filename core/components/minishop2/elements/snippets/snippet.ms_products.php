@@ -3,70 +3,65 @@
 /* @var pdoFetch $pdoFetch */
 $miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', $scriptProperties);
 $miniShop2->initialize($modx->context->key);
+if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.core_path',null,$modx->getOption('core_path').'components/pdotools/').'model/pdotools/',$scriptProperties);
+$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
 $pdoFetch->addTime('pdoTools loaded.');
 
-foreach ($scriptProperties as $k => $v) {
-	if ($v === 'false') {
-		$scriptProperties[$k] = false;
+// Start building "Where" expression
+$where = array('class_key' => 'msProduct');
+if (empty($showUnpublished)) {$where['published'] = 1;}
+if (empty($showHidden)) {$where['hidden'] = 0;}
+if (empty($showDeleted)) {$where['deleted'] = 0;}
+if (empty($showZeroPrice)) {$where['Data.price:>'] = 0;}
+
+// Filter by ids
+if (!empty($resources)){
+	$resources = array_map('trim', explode(',', $resources));
+	$in = $out = array();
+	foreach ($resources as $v) {
+		if (!is_numeric($v)) {continue;}
+		if ($v < 0) {$out[] = abs($v);}
+		else {$in[] = $v;}
 	}
-	$$k = $scriptProperties[$k];
+	if (!empty($in)) {$where['id:IN'] = $in;}
+	if (!empty($out)) {$where['id:NOT IN'] = $out;}
+}
+else {
+	// Filter by parents
+	if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
+	if (!empty($parents)){
+		if (empty($depth)) {$depth = 1;}
+		$pids = array_map('trim', explode(',', $parents));
+		$parents = $pids;
+		foreach ($pids as $v) {
+			if (!is_numeric($v)) {continue;}
+			$parents = array_merge($parents, $modx->getChildIds($v, $depth));
+		}
+
+		// Add product categories
+		$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
+		$q->select('product_id');
+		if ($q->prepare() && $q->stmt->execute()) {
+			$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+		}
+
+		if (!empty($members)) {
+			$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
+		}
+		else {
+			$where['parent:IN'] = $parents;
+		}
+	}
 }
 
-// Start building "Where" expression
-	$where = array('class_key' => 'msProduct');
-	if (empty($showUnpublished)) {$where['published'] = 1;}
-	if (empty($showDeleted)) {$where['deleted'] = 0;}
-	if (empty($showZeroPrice)) {$where['Data.price:>'] = 0;}
-
-	// Filter by ids
-	if (!empty($resources)){
-		$resources = array_map('trim', explode(',', $resources));
-		$in = $out = array();
-		foreach ($resources as $v) {
-			if (!is_numeric($v)) {continue;}
-			if ($v < 0) {$out[] = abs($v);}
-			else {$in[] = $v;}
-		}
-		if (!empty($in)) {$where['id:IN'] = $in;}
-		if (!empty($out)) {$where['id:NOT IN'] = $out;}
+// Adding custom where parameters
+if (!empty($scriptProperties['where'])) {
+	$tmp = $modx->fromJSON($scriptProperties['where']);
+	if (is_array($tmp)) {
+		$scriptProperties['where'] = $modx->toJSON(array_merge($where, $tmp));
 	}
-	else {
-		// Filter by parents
-
-		if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
-		if (!empty($parents)){
-			if (empty($depth)) {$depth = 1;}
-			$pids = array_map('trim', explode(',', $parents));
-			$parents = $pids;
-			foreach ($pids as $v) {
-				if (!is_numeric($v)) {continue;}
-				$parents = array_merge($parents, $modx->getChildIds($v, $depth));
-			}
-
-			// Add product categories
-			$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
-			$q->select('product_id');
-			if ($q->prepare() && $q->stmt->execute()) {
-				$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-			}
-
-			if (!empty($members)) {
-				$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
-			}
-			else {
-				$where['parent:IN'] = $parents;
-			}
-		}
-	}
-
-	// Adding custom where parameters
-	if (!empty($scriptProperties['where'])) {
-		$tmp = $modx->fromJSON($scriptProperties['where']);
-		if (is_array($tmp)) {
-			$scriptProperties['where'] = $modx->toJSON(array_merge($where, $tmp));
-		}
-	}
+}
 $pdoFetch->addTime('"Where" expression built.');
 // End of building "Where" expression
 
@@ -84,7 +79,7 @@ if (!empty($includeTVs)) {
 			if (!empty($tv_ids)) {
 				foreach ($tv_ids as $tv) {
 					$tvsLeftJoin .= ',{"class":"modTemplateVarResource","alias":"TV'.$tv['name'].'","on":"TV'.$tv['name'].'.contentid = msProduct.id AND TV'.$tv['name'].'.tmplvarid = '.$tv['id'].'"}';
-					$tvsSelect[] = ' "TV'.$tv['name'].'":"IFNULL(TV'.$tv['name'].'.value,\'\') as '.$tv['name'].'" ';
+					$tvsSelect[] = ' "TV'.$tv['name'].'":"TV'.$tv['name'].'.value as '.$tv['name'].'" ';
 				}
 			}
 		}
@@ -132,22 +127,12 @@ $default = array(
 	,'groupby' => 'msProduct.id'
 	,'fastMode' => false
 	,'return' => 'data'
-	,'nestedChunkPrefix' => 'minishop2_'
 );
 
 // Merge all properties and run!
 $pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
 $pdoFetch->addTime('Query parameters are prepared.');
 $rows = $pdoFetch->run();
-
-// Get json fields of msProductData
-$meta = $modx->getFieldMeta('msProductData');
-$jsonFields = array();
-foreach ($meta as $k => $v) {
-	if ($v['phptype'] == 'json') {
-		$jsonFields[] = $k;
-	}
-}
 
 // Initializing chunk for template rows
 if (!empty($tpl)) {
@@ -162,42 +147,21 @@ foreach ($rows as $k => $row) {
 	$row['old_price'] = round($row['old_price'], 2);
 	$row['weight'] = round($row['weight'], 3);
 
-	// Processing JSON fields
-	foreach ($jsonFields as $field) {
-		$array = $modx->fromJSON($row[$field]);
-
-		if (!empty($array[0]) && !empty($tpl) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
-			$row[$field] = '';
-			
-			foreach ($array as $value) {
-				$pl = $pdoFetch->makePlaceholders(array_merge($row, array('value' => $value)));
-				$row[$field] .= str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
+	// Processing quick fields
+	if (!empty($tpl)) {
+		$pl = $pdoFetch->makePlaceholders($row);
+		$qfields = array_keys($pdoFetch->elements[$tpl]['placeholders']);
+		foreach ($qfields as $field) {
+			if (!empty($row[$field])) {
+				$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
 			}
-			$row[$field] = substr($row[$field], 1);
-		}
-		else {
-			//$row[$field] = '';
-		}
-	}
-
-	// Processing product flags
-	foreach (array('favorite','new','popular') as $field) {
-		if (!empty($row[$field]) && !empty($tpl) && !empty($pdoFetch->elements[$tpl]['placeholders'][$field])) {
-			$pl = $pdoFetch->makePlaceholders($row);
-			$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
-		}
-		else {
-			//$row[$field] = '';
 		}
 	}
 
 	// Processing chunk
-	if (empty($tpl)) {
-		$output[] = '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>';
-	}
-	else {
-		$output[] = $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
-	}
+	$output[] = empty($tpl)
+		? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
+		: $output[] = $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
 }
 $pdoFetch->addTime('Returning processed chunks');
 
@@ -211,7 +175,6 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 }
 
 // Return output
-unset($modx->services['pdofetch']);
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);
 }

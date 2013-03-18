@@ -5,8 +5,9 @@ if (empty($id)) {return $modx->lexicon('ms2_err_order_nf');}
 /* @var pdoFetch $pdoFetch */
 $miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', $scriptProperties);
 $miniShop2->initialize($modx->context->key);
+if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.core_path',null,$modx->getOption('core_path').'components/pdotools/').'model/pdotools/',$scriptProperties);
-$pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
+$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
 $pdoFetch->addTime('pdoTools loaded.');
 
 // Initializing chunk for template rows
@@ -14,7 +15,7 @@ if (!empty($tplRow)) {$pdoFetch->getChunk($tplRow);}
 
 /* @var msOrder $order */
 if (!$order = $modx->getObject('msOrder', $id)) {return $modx->lexicon('ms2_err_order_nf');}
-if (!in_array($id, $_SESSION['minishop2']['orders']) && $order->get('user_id') != $modx->user->id && $modx->context->key != 'mgr') {
+if (!in_array($id, @$_SESSION['minishop2']['orders']) && $order->get('user_id') != $modx->user->id && $modx->context->key != 'mgr') {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
 
@@ -123,7 +124,6 @@ foreach ($rows as $row) {
 	$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
 }
 
-unset($modx->services['pdofetch']);
 if (empty($tplOuter)) {
 	$modx->setPlaceholders($outer);
 }

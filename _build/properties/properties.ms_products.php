@@ -118,7 +118,7 @@ $properties = array(
 		,'value' => false,
 	)
 	,array(
-		'name' => 'showHidden', 'desc' => 'ms2_prop_showZeroPrice', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'
+		'name' => 'showHidden', 'desc' => 'ms2_prop_showHidden', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'
 		,'value' => false,
 	)
 	,array(

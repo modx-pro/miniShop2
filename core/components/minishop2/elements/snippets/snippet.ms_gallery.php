@@ -83,5 +83,5 @@ else if (!empty($tplOuter) && !empty($output)) {
 	return $pdoFetch->getChunk($tplOuter, array('rows' => $output));
 }
 else {
-	return $pdoFetch->getChunk($tplEmpty);
+	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }

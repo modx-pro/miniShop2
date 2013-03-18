@@ -3,8 +3,9 @@
 /* @var pdoFetch $pdoFetch */
 $miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', $scriptProperties);
 $miniShop2->initialize($modx->context->key);
+if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.core_path',null,$modx->getOption('core_path').'components/pdotools/').'model/pdotools/',$scriptProperties);
-$pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
+$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
 $pdoFetch->addTime('pdoTools loaded.');
 
 $cart = $miniShop2->cart->get();
@@ -28,7 +29,7 @@ if (!empty($includeTVs)) {
 			if (!empty($tv_ids)) {
 				foreach ($tv_ids as $tv) {
 					$tvsLeftJoin .= ',{"class":"modTemplateVarResource","alias":"TV'.$tv['name'].'","on":"TV'.$tv['name'].'.contentid = msProduct.id AND TV'.$tv['name'].'.tmplvarid = '.$tv['id'].'"}';
-					$tvsSelect[] = ' "TV'.$tv['name'].'":"IFNULL(TV'.$tv['name'].'.value,\'\') as '.$tv['name'].'" ';
+					$tvsSelect[] = ' "TV'.$tv['name'].'":"TV'.$tv['name'].'.value as '.$tv['name'].'" ';
 				}
 			}
 		}
@@ -84,7 +85,6 @@ foreach ($cart as $k => $v) {
 		,'fastMode' => false
 		,'limit' => 0
 		,'return' => 'data'
-		,'nestedChunkPrefix' => 'minishop2_'
 	);
 // Merge all properties and run!
 	$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
@@ -124,5 +124,4 @@ foreach ($cart as $k => $v) {
 	}
 }
 
-unset($modx->services['pdofetch']);
 return !empty($tplOuter) ? $pdoFetch->getChunk($tplOuter, $outer) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($outer,1));
