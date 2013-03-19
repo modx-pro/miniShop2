@@ -20,3 +20,11 @@ miniShop2.utils.userLink = function(val,cell,row) {
 
 	return '<a href="' + url + '" target="_blank" class="ms2-link">' + val + '</a>'
 };
+
+miniShop2.utils.productLink = function(val,cell,row) {
+	if (!val) {return '';}
+	var action = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+	var url = 'index.php?a='+action+'&id='+row.data['product_id'];
+
+	return '<a href="' + url + '" target="_blank" class="ms2-link">' + val + '</a>'
+};
