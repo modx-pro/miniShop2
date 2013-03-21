@@ -56,7 +56,7 @@
 				break;
 			case xPDOTransport::ACTION_UNINSTALL:
 				if ($modx instanceof modX) {
-					$modx->removeExtensionPackage('minishop2');
+					//$modx->removeExtensionPackage('minishop2');
 				}
 				break;
 		}
