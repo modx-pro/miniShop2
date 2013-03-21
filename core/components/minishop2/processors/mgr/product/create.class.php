@@ -64,6 +64,11 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 			$this->object->save();
 		}
 
+		// Updating resourceMap before OnDocSaveForm event
+		$results = $this->modx->cacheManager->generateContext($this->object->context_key);
+		$this->modx->context->resourceMap = $results['resourceMap'];
+		$this->modx->context->aliasMap = $results['aliasMap'];
+
 		return parent::afterSave();
 	}
 
