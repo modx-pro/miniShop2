@@ -5,7 +5,7 @@ Date.ext={};Date.ext.util={};Date.ext.util.xPad=function(x,pad,r){if(typeof (r)=
 
 miniShop2.utils.formatDate = function(string) {
 	if (string && string != '0000-00-00 00:00:00') {
-		var date = new Date(string);
+		var date = new Date(string.replace(/(\d+)-(\d+)-(\d+)/, '$2/$3/$1'));
 		return date.strftime(MODx.config.ms2_date_format);
 	}
 	else {
