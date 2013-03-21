@@ -19,8 +19,9 @@ class Minishop2SettingsManagerController extends miniShop2MainController {
 		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.combo.js');
 		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/delivery.grid.js');
 		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/payment.grid.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/vendor.grid.js');
 		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/status.grid.js');
+		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/vendor.grid.js');
+		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/link.grid.js');
 		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/settings/settings.panel.js');
 		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'settings'));
 	}

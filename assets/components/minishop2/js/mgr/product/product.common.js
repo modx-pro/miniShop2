@@ -329,6 +329,14 @@ var methods = {
 			,record: config.record
 		};
 	}
+
+	,getLinks: function(config) {
+		return {
+			xtype: config.mode == 'create' ? 'displayfield' : 'minishop2-product-links-grid'
+			,value: _('ms2_disabled_while_creating')
+			,record: config.record
+		};
+	}
 };
 
 
@@ -376,6 +384,11 @@ miniShop2.panel.ProductSettings = function(config) {
 			,hideMode: 'offsets'
 			,anchor: '100%'
 			,items: this.getGallery(config)
+		},{
+			title: _('ms2_product_tab_links')
+			,hideMode: 'offsets'
+			,anchor: '100%'
+			,items: this.getLinks(config)
 		}]
 	});
 	miniShop2.panel.ProductSettings.superclass.constructor.call(this,config);
@@ -438,6 +451,12 @@ miniShop2.panel.ProductSettingsHorizontal = function(config) {
 				,hideMode: 'offsets'
 				,style: 'padding: 5px;'
 				,items: this.getGallery(config)
+			},{
+				title: _('ms2_product_tab_links')
+				,hideMode: 'offsets'
+				,anchor: '100%'
+				,style: 'padding: 5px;'
+				,items: this.getLinks(config)
 			}]
 		}]
 	});

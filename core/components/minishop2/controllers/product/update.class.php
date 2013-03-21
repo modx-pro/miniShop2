@@ -9,7 +9,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 	 * @return array
 	 */
 	public function getLanguageTopics() {
-		return array('resource','minishop2:default','minishop2:product','tickets:default');
+		return array('resource','minishop2:default','minishop2:product','minishop2:manager');
 	}
 
 
@@ -69,6 +69,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$this->addJavascript($minishopJsUrl.'misc/ext.ddview.js');
 		$this->addLastJavascript($minishopJsUrl.'product/category.tree.js');
 		$this->addLastJavascript($minishopJsUrl.'product/gallery.panel.js');
+		$this->addLastJavascript($minishopJsUrl.'product/links.grid.js');
 		$this->addLastJavascript($minishopJsUrl.'product/product.common.js');
 		$this->addLastJavascript($minishopJsUrl.'product/update.js');
 

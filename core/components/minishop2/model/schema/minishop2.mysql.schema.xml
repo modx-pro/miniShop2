@@ -314,4 +314,34 @@
 		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" owner="foreign" cardinality="one" />
 		<aggregate alias="Order" class="msOrder" local="order_id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
+
+
+	<object class="msLink" table="ms2_links" extends="xPDOSimpleObject">
+		<field key="type" dbtype="varchar" precision="100" phptype="string" null="false" />
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="description" dbtype="text" phptype="string" null="true" />
+
+		<index alias="type" name="type" primary="false" unique="false" type="BTREE" >
+			<column key="type" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Links" class="msProductLink" local="is" foreign="link" owner="local" cardinality="many" />
+	</object>
+
+
+	<object class="msProductLink" table="ms2_product_links" extends="xPDOObject">
+		<field key="link" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+		<field key="master" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+		<field key="slave" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+
+		<index alias="link" name="type" primary="true" unique="true" type="BTREE" >
+			<column key="link" length="" collation="A" null="false" />
+			<column key="master" length="" collation="A" null="false" />
+			<column key="slave" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Link" class="msLink" local="link" foreign="id" owner="foreign" cardinality="one" />
+		<aggregate alias="Master" class="msProduct" local="master" foreign="id" owner="foreign" cardinality="one" />
+		<aggregate alias="Slave" class="msProduct" local="slave" foreign="id" owner="foreign" cardinality="one" />
+	</object>
 </model>

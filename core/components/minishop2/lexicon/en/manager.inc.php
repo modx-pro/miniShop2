@@ -78,3 +78,15 @@ $_lang['ms2_order_requires'] = 'Required fields';
 $_lang['ms2_order_requires_help'] = 'When ordering, custom class can require the filling of these fields';
 
 $_lang['ms2_orders_selected_status'] = 'Change status of selected orders';
+
+$_lang['ms2_link_name'] = 'Name of link';
+$_lang['ms2_link_one_to_one'] = 'One to one';
+$_lang['ms2_link_one_to_one_desc'] = 'Equal union of two goods. If you want to connect more than 2 product, you need to use the "many-to-many".';
+$_lang['ms2_link_one_to_many'] = 'One to many';
+$_lang['ms2_link_one_to_many_desc'] = 'The connection of the master of the goods with slaves. For example, the product is a set of other goods. Well suited for the specifying recommended goods.';
+$_lang['ms2_link_many_to_one'] = 'Many to one';
+$_lang['ms2_link_many_to_one_desc'] = 'Link slaves with the master and slaves has no connection with each other. For example, goods are included in a set.';
+$_lang['ms2_link_many_to_many'] = 'Many to many';
+$_lang['ms2_link_many_to_many_desc'] = 'Equal union of many goods. All the goods of the group are connected with each other and with the addition of a new connection to one product, all other will have the same. Typical applications: link by one parameter, such as color, size, language, version, etc.';
+$_lang['ms2_link_master'] = 'Master product';
+$_lang['ms2_link_slave'] = 'Slave product';

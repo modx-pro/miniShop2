@@ -4,9 +4,4 @@ $miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minisho
 $miniShop2->initialize($modx->context->key);
 
 $cart = $miniShop2->cart->status();
-if (!empty($tpl)) {
-	return $modx->getChunk($tpl, $cart);
-}
-else {
-	return print_r($cart,1);
-}
+return !empty($tpl) ? $modx->getChunk($tpl, $cart) : print_r($cart,1);

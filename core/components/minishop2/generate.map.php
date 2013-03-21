@@ -43,6 +43,8 @@ $modx->addPackage($package, $Model);
 //$manager->removeObjectContainer('msDeliveryMember');
 //$manager->removeObjectContainer('msOrderAddress');
 //$manager->removeObjectContainer('msOrderProduct');
+//$manager->removeObjectContainer('msLink');
+//$manager->removeObjectContainer('msProductLink');
 
 //$manager->createObjectContainer('msProductData');
 //$manager->createObjectContainer('msVendor');
@@ -57,6 +59,8 @@ $modx->addPackage($package, $Model);
 //$manager->createObjectContainer('msDeliveryMember');
 //$manager->createObjectContainer('msOrderAddress');
 //$manager->createObjectContainer('msOrderProduct');
+//$manager->createObjectContainer('msLink');
+//$manager->createObjectContainer('msProductLink');
 
 add_plugins_call($Model.$package);
 
@@ -80,6 +84,7 @@ function rrmdir($dir) {
 }
 
 function add_plugins_call($dir) {
+	global $xpdo_meta_map;
 	require $dir . '/metadata.mysql.php';
 	foreach ($xpdo_meta_map as $object) {
 		foreach ($object as $name) {
