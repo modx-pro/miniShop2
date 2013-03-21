@@ -13,11 +13,9 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 		foreach (array('pdoTools') as $package) {
 			if (!$modx->getObject('transport.modTransportPackage', array('package_name' => $package))) {
 				$modx->log(modX::LOG_LEVEL_INFO, 'Trying to install <b>'.$package.'</b>. Please wait...');
-
 				$response = installPackage($package);
 				if ($response['success']) {$level = modX::LOG_LEVEL_INFO;}
 				else {$level = modX::LOG_LEVEL_ERROR;}
-
 				$modx->log($level, $response['message']);
 			}
 		}
@@ -64,6 +62,7 @@ function installPackage($packageName) {
 					curl_setopt($curl, CURLOPT_AUTOREFERER, true);
 					curl_setopt($curl, CURLOPT_URL, $url);
 					curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+					curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 					$file = curl_exec($curl);
 					if ($file === false) {
 						return array(
@@ -127,6 +126,5 @@ function installPackage($packageName) {
 			,'message' => 'Could not find <b>'.$packageName.'</b> in MODX repository'
 		);
 	}
-
-return true;
+	return true;
 }
