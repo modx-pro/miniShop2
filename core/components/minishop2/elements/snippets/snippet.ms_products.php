@@ -59,7 +59,7 @@ else {
 if (!empty($scriptProperties['where'])) {
 	$tmp = $modx->fromJSON($scriptProperties['where']);
 	if (is_array($tmp)) {
-		$scriptProperties['where'] = $modx->toJSON(array_merge($where, $tmp));
+		$where = $modx->toJSON(array_merge($where, $tmp));
 	}
 }
 unset($scriptProperties['where']);

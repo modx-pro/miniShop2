@@ -10,7 +10,7 @@ $pdoFetch->addTime('pdoTools loaded.');
 
 if (!empty($_GET['msorder'])) {
 	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
-		if (in_array($_GET['msorder'], $_SESSION['minishop2']['orders']) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
+		if ((!empty($_SESSION['minishop2']['orders']) && in_array($_GET['msorder'], $_SESSION['minishop2']['orders'])) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
 			return $pdoFetch->getChunk($tplSuccess, $order->toArray());
 		}
 	}

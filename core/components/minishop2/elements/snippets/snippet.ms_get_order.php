@@ -15,7 +15,7 @@ if (!empty($tplRow)) {$pdoFetch->getChunk($tplRow);}
 
 /* @var msOrder $order */
 if (!$order = $modx->getObject('msOrder', $id)) {return $modx->lexicon('ms2_err_order_nf');}
-if (!in_array($id, @$_SESSION['minishop2']['orders']) && $order->get('user_id') != $modx->user->id && $modx->context->key != 'mgr') {
+if ((empty($_SESSION['minishop2']['orders']) || !in_array($id, $_SESSION['minishop2']['orders'])) && $order->get('user_id') != $modx->user->id && $modx->context->key != 'mgr') {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
 
