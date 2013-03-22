@@ -11,7 +11,7 @@ $pdoFetch->addTime('pdoTools loaded.');
 // Start building "Where" expression
 $where = array('class_key' => 'msProduct');
 if (empty($showUnpublished)) {$where['published'] = 1;}
-if (empty($showHidden)) {$where['hidden'] = 0;}
+if (empty($showHidden)) {$where['hidemenu'] = 0;}
 if (empty($showDeleted)) {$where['deleted'] = 0;}
 if (empty($showZeroPrice)) {$where['Data.price:>'] = 0;}
 
@@ -30,7 +30,7 @@ if (!empty($resources)){
 else {
 	// Filter by parents
 	if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
-	if (!empty($parents)){
+	if (!empty($parents) && $parents > 0){
 		if (empty($depth)) {$depth = 1;}
 		$pids = array_map('trim', explode(',', $parents));
 		$parents = $pids;
@@ -62,6 +62,7 @@ if (!empty($scriptProperties['where'])) {
 		$scriptProperties['where'] = $modx->toJSON(array_merge($where, $tmp));
 	}
 }
+unset($scriptProperties['where']);
 $pdoFetch->addTime('"Where" expression built.');
 // End of building "Where" expression
 
@@ -147,6 +148,7 @@ foreach ($rows as $k => $row) {
 	$row['old_price'] = round($row['old_price'], 2);
 	$row['weight'] = round($row['weight'], 3);
 
+
 	// Processing quick fields
 	if (!empty($tpl)) {
 		$pl = $pdoFetch->makePlaceholders($row);
@@ -155,16 +157,18 @@ foreach ($rows as $k => $row) {
 			if (!empty($row[$field])) {
 				$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
 			}
+			else {
+				$row[$field] = '';
+			}
 		}
 	}
 
 	// Processing chunk
 	$output[] = empty($tpl)
 		? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
-		: $output[] = $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
+		: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
 }
 $pdoFetch->addTime('Returning processed chunks');
-
 if (empty($outputSeparator)) {$outputSeparator = "\n";}
 if (!empty($output)) {
 	$output = implode($outputSeparator, $output);

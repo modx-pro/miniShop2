@@ -108,6 +108,13 @@ $properties = array(
 		'value' => '',
 		'lexicon' => 'minishop2:properties',
 	)
+	,array(
+		'name' => 'where',
+		'desc' => 'ms2_prop_where',
+		'type' => 'textfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
 
 	,array(
 		'name' => 'showUnpublished', 'desc' => 'ms2_prop_showUnpublished', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'

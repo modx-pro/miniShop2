@@ -9,7 +9,7 @@ $pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
 $pdoFetch->addTime('pdoTools loaded.');
 
 if (empty($product) && !empty($input)) {$product = $input;}
-if (empty($name) && !empty($options)) {$name = $options;}
+if ((empty($name) || $name == 'id') && !empty($options)) {$name = $options;}
 
 $output = '';
 $product = !empty($product) ? $modx->getObject('msProduct', $product) : $product = $modx->resource;
@@ -31,7 +31,7 @@ else if ($options = $product->get($name)) {
 		}
 		if (!empty($rows)) {
 			$rows = empty($tplRow) ? implode(', ', $rows) : implode('', $rows);
-			$output = empty($tplOuter) ? $rows : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, array('rows' => $rows)));
+			$output = empty($tplOuter) ? $rows : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, array('name' => $name, 'rows' => $rows)));
 		}
 	}
 }

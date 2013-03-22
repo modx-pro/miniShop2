@@ -114,6 +114,9 @@ foreach ($cart as $k => $v) {
 				if (!empty($row[$field])) {
 					$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tplRow]['placeholders'][$field]);
 				}
+				else {
+					$row[$field] = '';
+				}
 			}
 		}
 

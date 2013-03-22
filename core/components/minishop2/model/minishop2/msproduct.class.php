@@ -407,6 +407,9 @@ class msProduct extends modResource {
 		if ($vendor = $this->getOne('Vendor')) {
 			$this->xpdo->setPlaceholders($vendor->toArray('vendor.'));
 		}
+		$this->xpdo->lexicon->load('minishop2:default');
+		$this->xpdo->lexicon->load('minishop2:cart');
+		$this->xpdo->lexicon->load('minishop2:product');
 		return parent::process();
 	}
 

@@ -11,7 +11,7 @@
 			<th class="weight span1">[[%ms2_cart_weight]]</th>
 			<th class="price span1">[[%ms2_cart_cost]]</th>
 		</tr>
-		[[+products]]
+		[[+goods]]
 		<tr class="footer">
 			<th class="total" colspan="2">[[%ms2_cart_total]]:</th>
 			<th class="total_count"><span class="ms2_total_count">[[+cart_count]]</span> [[%ms2_frontend_count_unit]]</th>

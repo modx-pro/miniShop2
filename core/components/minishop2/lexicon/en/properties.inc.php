@@ -18,6 +18,7 @@ $_lang['ms2_prop_parents'] = 'Container list, separated by commas, to search res
 $_lang['ms2_prop_resources'] = 'Comma-delimited list of ids to include in the results. Prefix an id with a dash to exclude the resource from the result.';
 $_lang['ms2_prop_fastMode'] = 'If enabled, then in chunk will be only received values ​​from the database. All raw tags of MODX, such as filters, snippets calls will be cut.';
 $_lang['ms2_prop_includeContent'] = 'Retrieve field "content" from products.';
+$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from.';
 $_lang['ms2_prop_includeTVs'] = 'An optional comma-delimited list of TemplateVar names to include in selection. For example "action,time" give you placeholders [[+action]] and [[+time]].';
 $_lang['ms2_prop_includeThumbs'] = 'An optional comma-delimited list of Thumbnail sizes to include in selection. For example: "120x90,360x240" give you placeholders [[+120x90]] and [[+360x240]]. Thumbnails must be generted in gallery of product.';
 
