@@ -24,7 +24,7 @@ class msProductAutocompleteProcessor extends modObjectProcessor {
 		if ($c->prepare() && $c->stmt->execute()) {
 			$res = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($res as $v) {
-				if ($v['value'] == $query) {$found = 1;}
+				if ($v[$name] == $query) {$found = 1;}
 			}
 		}
 		else {$res = array();}
