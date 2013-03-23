@@ -1,8 +1,11 @@
 Changelog for miniShop2.
 
+2.0.0 rc3
+==============
+- Fixed bugs in snippets
+
 2.0.0 rc
 ==============
-- [mgr] Added link to resource for Vendor. Now you can specify page with detailed information about product vendor.
 - [mgr] Added displaying of nested products in categories. System setting "ms2_category_show_nested_products" can disable it.
 - [mgr] Added the ability to link products together.
 - [mgr] Added link to resource from ordered products.

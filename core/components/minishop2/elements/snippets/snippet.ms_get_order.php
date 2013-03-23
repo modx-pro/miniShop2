@@ -76,7 +76,7 @@ $orderProductColumns = $modx->getSelectColumns('msOrderProduct', 'msOrderProduct
 $leftJoin = '{"class":"msProduct","alias":"msProduct","on":"msProduct.id=msOrderProduct.product_id"},{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
 if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
 if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
-$select = '"msProduct":"'.$resourceColumns.'","OrderProduct":"'.$orderProductColumns.'","Vendor":"'.$vendorColumns.'"';
+$select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","OrderProduct":"'.$orderProductColumns.'","Vendor":"'.$vendorColumns.'"';
 if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
 $pdoFetch->addTime('Query parameters are prepared.');
