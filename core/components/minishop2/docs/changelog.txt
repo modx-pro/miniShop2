@@ -1,8 +1,9 @@
 Changelog for miniShop2.
 
-2.0.0 rc3
+2.0.0 rc4
 ==============
 - Fixed bugs in snippets
+- Fixed joining images by rank when includeThumbs.
 
 2.0.0 rc
 ==============
