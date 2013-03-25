@@ -15,7 +15,7 @@ set_time_limit(0);
 define('PKG_NAME','miniShop2');
 define('PKG_NAME_LOWER',strtolower(PKG_NAME));
 define('PKG_VERSION','2.0.0');
-define('PKG_RELEASE','rc4');
+define('PKG_RELEASE','rc5');
 
 /* define sources */
 $root = dirname(dirname(__FILE__)).'/';

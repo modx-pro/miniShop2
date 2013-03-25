@@ -72,6 +72,8 @@ interface msOrderInterface {
 
 
 class msOrderHandler implements msOrderInterface {
+	/* @var modX $modx */
+	public $modx;
 	protected $order;
 	/* @var miniShop2 $ms2  */
 	public $ms2;
@@ -258,13 +260,16 @@ class msOrderHandler implements msOrderInterface {
 			$this->ms2->changeOrderStatus($order->get('id'), 1); // set status "new"
 			/* @var msPayment $payment*/
 			if ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
-				if ($response = $payment->send($order)) {
-					return $this->success('', $response);
-				}
+				$response = $payment->send($order);
+				exit(is_array($response) ? $this->modx->toJSON($response) : $response);
+			}
+			else {
+				return $this->success('', array('msorder' => $order->get('id')));
 			}
 		}
 		return $this->error();
 	}
+
 
 	/* @inheritdoc} */
 	public function clean() {
@@ -325,12 +330,8 @@ class msOrderHandler implements msOrderInterface {
 			,'message' => $this->modx->lexicon($message, $placeholders)
 			,'data' => $data
 		);
-		if ($this->config['json_response']) {
-			return json_encode($response);
-		}
-		else {
-			return $response;
-		}
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
 
@@ -348,12 +349,8 @@ class msOrderHandler implements msOrderInterface {
 			,'message' => $this->modx->lexicon($message, $placeholders)
 			,'data' => $data
 		);
-		if ($this->config['json_response']) {
-			return json_encode($response);
-		}
-		else {
-			return $response;
-		}
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
 
@@ -367,6 +364,5 @@ class msOrderHandler implements msOrderInterface {
 		}
 
 		return $str;
-
 	}
 }

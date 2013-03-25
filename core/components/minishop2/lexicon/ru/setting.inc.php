@@ -11,6 +11,7 @@ $_lang['area_ms2_gallery'] = 'Галерея';
 $_lang['area_ms2_cart'] = 'Корзина';
 $_lang['area_ms2_order'] = 'Заказы';
 $_lang['area_ms2_frontend'] = 'Сайт';
+$_lang['area_ms2_payment'] = 'Платежи';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Поля таблицы товаров';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимых полей таблицы с товарами категории, через запятую.';
@@ -52,3 +53,14 @@ $_lang['setting_ms2_frontend_css'] = 'Стили фронтенда';
 $_lang['setting_ms2_frontend_css_desc'] = 'Путь к файлу со стилями магазина. Если вы хотите использовать собственные стили - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
 $_lang['setting_ms2_frontend_js'] = 'Скрипты фронтенда';
 $_lang['setting_ms2_frontend_js_desc'] = 'Путь к файлу со скриптами магазина. Если вы хотите использовать собственные скрипты - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+
+$_lang['setting_ms2_payment_paypal_api_url'] = 'Url api запросов PayPal';
+$_lang['setting_ms2_payment_paypal_checkout_url'] = 'Url оплаты PayPal';
+$_lang['setting_ms2_payment_paypal_currency'] = 'Валюта на PayPal';
+$_lang['setting_ms2_payment_paypal_user'] = 'Логин продавца PayPal';
+$_lang['setting_ms2_payment_paypal_pwd'] = 'Пароль продавца PayPal';
+$_lang['setting_ms2_payment_paypal_signature'] = 'Подпись продавца PayPal';
+$_lang['setting_ms2_payment_paypal_success_id'] = 'Страница успешной оплаты PayPal';
+$_lang['setting_ms2_payment_paypal_cancel_id'] = 'Страница отказа от оплаты PayPal';
+$_lang['setting_ms2_payment_paypal_cancel_order'] = 'Отмена заказа PayPalß';
+$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'Если включено, заказ будет отменён при отказе от оплааты.';

@@ -169,4 +169,85 @@ $settings['ms2_date_format']->fromArray(array(
 	'area' => 'ms2_order',
 ),'',true,true);
 
+$settings['ms2_payment_paypal_api_url']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_api_url']->fromArray(array(
+	'key' => 'ms2_payment_paypal_api_url',
+	'value' => 'https://api-3t.paypal.com/nvp',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_checkout_url']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_checkout_url']->fromArray(array(
+	'key' => 'ms2_payment_paypal_checkout_url',
+	'value' => 'https://www.paypal.com/webscr?cmd=_express-checkout&token=',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_currency']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_currency']->fromArray(array(
+	'key' => 'ms2_payment_paypal_currency',
+	'value' => 'USD',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_user']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_user']->fromArray(array(
+	'key' => 'ms2_payment_paypal_user',
+	'value' => '',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_pwd']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_pwd']->fromArray(array(
+	'key' => 'ms2_payment_paypal_pwd',
+	'value' => '',
+	'xtype' => 'text-password',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_signature']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_signature']->fromArray(array(
+	'key' => 'ms2_payment_paypal_signature',
+	'value' => '',
+	'xtype' => 'text-password',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_success_id']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_success_id']->fromArray(array(
+	'key' => 'ms2_payment_paypal_success_id',
+	'value' => '',
+	'xtype' => 'numberfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_cancel_id']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_cancel_id']->fromArray(array(
+	'key' => 'ms2_payment_paypal_cancel_id',
+	'value' => '',
+	'xtype' => 'numberfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
+$settings['ms2_payment_paypal_cancel_order']= $modx->newObject('modSystemSetting');
+$settings['ms2_payment_paypal_cancel_order']->fromArray(array(
+	'key' => 'ms2_payment_paypal_cancel_order',
+	'value' => 'false',
+	'xtype' => 'combo-boolean',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_payment',
+),'',true,true);
+
 return $settings;

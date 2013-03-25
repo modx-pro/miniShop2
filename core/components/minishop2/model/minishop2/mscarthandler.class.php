@@ -67,6 +67,11 @@ interface msCartInterface {
 
 
 class msCartHandler implements msCartInterface {
+	/* @var modX $modx */
+	public $modx;
+	protected $config = array(
+		'json_response' => false
+	);
 	protected $cart;
 
 	function __construct(miniShop2 & $ms2, array $config = array()) {
@@ -224,12 +229,8 @@ class msCartHandler implements msCartInterface {
 			,'message' => $this->modx->lexicon($message, $placeholders)
 			,'data' => $data
 		);
-		if ($this->config['json_response']) {
-			return json_encode($response);
-		}
-		else {
-			return $response;
-		}
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
 
@@ -247,12 +248,8 @@ class msCartHandler implements msCartInterface {
 			,'message' => $this->modx->lexicon($message, $placeholders)
 			,'data' => $data
 		);
-		if ($this->config['json_response']) {
-			return json_encode($response);
-		}
-		else {
-			return $response;
-		}
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
 }

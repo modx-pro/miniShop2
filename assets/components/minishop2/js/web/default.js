@@ -313,7 +313,7 @@ miniShop2.Order = {
 						field.parent().addClass('error');
 					}
 					else {
-					field.addClass('error');
+						field.addClass('error');
 					}
 				}
 			}

@@ -11,6 +11,7 @@ $_lang['area_ms2_gallery'] = 'Gallery';
 $_lang['area_ms2_cart'] = 'Cart';
 $_lang['area_ms2_order'] = 'Order';
 $_lang['area_ms2_frontend'] = 'Frontend';
+$_lang['area_ms2_payment'] = 'Payments';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
@@ -52,3 +53,14 @@ $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
+
+$_lang['setting_ms2_payment_paypal_api_url'] = 'PayPal api url';
+$_lang['setting_ms2_payment_paypal_checkout_url'] = 'PayPal checkout url';
+$_lang['setting_ms2_payment_paypal_currency'] = 'PayPal currency';
+$_lang['setting_ms2_payment_paypal_user'] = 'PayPal user';
+$_lang['setting_ms2_payment_paypal_pwd'] = 'PayPal password';
+$_lang['setting_ms2_payment_paypal_signature'] = 'PayPal signature';
+$_lang['setting_ms2_payment_paypal_success_id'] = 'PayPal successful page id';
+$_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal cancel page id';
+$_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal cancel order';
+$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'If true, order will be cancelled if customer cancel payment.';

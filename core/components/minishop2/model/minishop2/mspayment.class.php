@@ -42,7 +42,17 @@ class msPayment extends xPDOSimpleObject {
 				return false;
 			}
 		}
-		return $this->handler->send($order, $this);
+		return $this->handler->send($order);
+	}
+
+
+	public function receive(msOrder $order, $params = array()) {
+		if (!is_object($this->handler) || !($this->handler instanceof msDeliveryHandler)) {
+			if (!$this->loadHandler()) {
+				return false;
+			}
+		}
+		return $this->handler->receive($order, $params);
 	}
 
 	/**

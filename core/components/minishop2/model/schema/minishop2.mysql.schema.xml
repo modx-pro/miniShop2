@@ -201,7 +201,7 @@
 		<field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" default="0" />
 		<field key="context" dbtype="varchar" precision="100" phptype="string" null="false" default="web" />
 		<field key="comment" dbtype="text" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />

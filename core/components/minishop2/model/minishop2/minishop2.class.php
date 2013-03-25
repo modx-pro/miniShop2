@@ -336,6 +336,10 @@ class miniShop2 {
 			return false;
 		}
 
+		if (empty($this->modx->request)) {
+			$this->modx->getRequest();
+		}
+
 		$user_id = ($action == 'status' && $entry == 1) || !$this->modx->user->id ? $order->get('user_id') : $this->modx->user->id;
 		$log = $this->modx->newObject('msOrderLog', array(
 			'order_id' => $order_id
