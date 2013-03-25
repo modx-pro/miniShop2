@@ -61,4 +61,25 @@ class msDelivery extends xPDOSimpleObject {
 
 		return parent::remove();
 	}
+
+
+	/* Returns id of first active payment method for this delivery
+	 *
+	 * */
+	public function getFirstPayment() {
+		$id = 0;
+		$q = $this->xpdo->newQuery('msPayment');
+		$q->leftJoin('msDeliveryMember', 'Member', '`msPayment`.`id` = `Member`.`payment_id`');
+		$q->leftJoin('msDelivery', 'Delivery', '`Member`.`delivery_id` = `Delivery`.`id`');
+		$q->sortby('`msPayment`.`rank`', 'ASC');
+		$q->select('`msPayment`.`id`');
+		$q->where(array('msPayment.active' => 1, 'Delivery.id' => $this->get('id')));
+		$q->limit(1);
+
+		if ($q->prepare() && $q->stmt->execute()) {
+			$id = $q->stmt->fetch(PDO::FETCH_COLUMN);
+		}
+
+		return $id;
+	}
 }
