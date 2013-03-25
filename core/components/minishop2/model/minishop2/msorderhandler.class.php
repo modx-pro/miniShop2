@@ -193,6 +193,7 @@ class msOrderHandler implements msOrderInterface {
 			return $this->error('ms2_order_err_delivery', array('delivery'));
 		}
 		$requires = array_map('trim', explode(',',$delivery->get('requires')));
+		$requires[] = 'email';
 		$errors = array();
 		foreach ($requires as $v) {
 			if (!empty($v) && empty($this->order[$v])) {
