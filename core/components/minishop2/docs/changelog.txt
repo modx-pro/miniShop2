@@ -1,5 +1,10 @@
 Changelog for miniShop2.
 
+2.0.0 rc6
+==============
+- Fixed cleaning pdoTools in msGallery
+- Improved saving payment method in order when quickly switch delivery.
+
 2.0.0 rc5
 ==============
 - Integration of PayPal express-checkout payment method.
