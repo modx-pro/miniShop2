@@ -118,7 +118,6 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
       'default' => 0,
     ),
     'context' => 

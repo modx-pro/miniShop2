@@ -72,6 +72,8 @@ interface msOrderInterface {
 
 
 class msOrderHandler implements msOrderInterface {
+	/* @var modX $modx */
+	public $modx;
 	protected $order;
 	/* @var miniShop2 $ms2  */
 	public $ms2;
@@ -139,11 +141,21 @@ class msOrderHandler implements msOrderInterface {
 				$value = implode(' ', $value);
 			break;
 			case 'phone': $value = substr(preg_replace('/[^-+0-9]/iu','',$value),0,15); break;
-			case 'delivery': $value = $this->modx->getCount('msDelivery',array('id' => $value, 'active' => 1)) ? $value : @$this->order[$key]; break;
+			case 'delivery':
+				/* @var msDelivery $delivery */
+				if (!$delivery = $this->modx->getObject('msDelivery',array('id' => $value, 'active' => 1))) {
+					$value = @$this->order['delivery'];
+				}
+				else if (!empty($this->order['payment'])) {
+					if (!$this->hasPayment($value, $this->order['payment'])) {
+						$this->order['payment'] = $delivery->getFirstPayment();
+					};
+				}
+			break;
 			case 'payment':
-				$q = $this->modx->newQuery('msPayment', array('id' => $value, 'active' => 1));
-				$q->innerJoin('msDeliveryMember','Member','Member.payment_id = msPayment.id AND Member.delivery_id = '.$this->order['delivery']);
-				$value = $this->modx->getCount('msPayment', $q) ? $value : @$this->order[$key];
+				if (!empty($this->order['delivery'])) {
+					$value = $this->hasPayment($this->order['delivery'], $value) ? $value : @$this->order['payment'];
+				}
 			break;
 			case 'index': $value = substr(preg_replace('/[^-0-9]/iu', '',$value),0,10); break;
 			default: break;
@@ -151,6 +163,16 @@ class msOrderHandler implements msOrderInterface {
 
 		if ($value === false) {$value = '';}
 		return $value;
+	}
+
+
+	/* Checks accordance of payment and delivery
+	 * */
+	public function hasPayment($delivery, $payment) {
+		$q = $this->modx->newQuery('msPayment', array('id' => $payment, 'active' => 1));
+		$q->innerJoin('msDeliveryMember','Member','Member.payment_id = msPayment.id AND Member.delivery_id = '.$delivery);
+
+		return $this->modx->getCount('msPayment', $q) ? true : false;
 	}
 
 
@@ -191,6 +213,7 @@ class msOrderHandler implements msOrderInterface {
 			return $this->error('ms2_order_err_delivery', array('delivery'));
 		}
 		$requires = array_map('trim', explode(',',$delivery->get('requires')));
+		$requires[] = 'email';
 		$errors = array();
 		foreach ($requires as $v) {
 			if (!empty($v) && empty($this->order[$v])) {
@@ -258,13 +281,16 @@ class msOrderHandler implements msOrderInterface {
 			$this->ms2->changeOrderStatus($order->get('id'), 1); // set status "new"
 			/* @var msPayment $payment*/
 			if ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
-				if ($response = $payment->send($order)) {
-					return $this->success('', $response);
-				}
+				$response = $payment->send($order);
+				exit(is_array($response) ? $this->modx->toJSON($response) : $response);
+			}
+			else {
+				return $this->success('', array('msorder' => $order->get('id')));
 			}
 		}
 		return $this->error();
 	}
+
 
 	/* @inheritdoc} */
 	public function clean() {
@@ -325,12 +351,8 @@ class msOrderHandler implements msOrderInterface {
 			,'message' => $this->modx->lexicon($message, $placeholders)
 			,'data' => $data
 		);
-		if ($this->config['json_response']) {
-			return json_encode($response);
-		}
-		else {
-			return $response;
-		}
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
 
@@ -348,12 +370,8 @@ class msOrderHandler implements msOrderInterface {
 			,'message' => $this->modx->lexicon($message, $placeholders)
 			,'data' => $data
 		);
-		if ($this->config['json_response']) {
-			return json_encode($response);
-		}
-		else {
-			return $response;
-		}
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
 
@@ -367,6 +385,5 @@ class msOrderHandler implements msOrderInterface {
 		}
 
 		return $str;
-
 	}
 }

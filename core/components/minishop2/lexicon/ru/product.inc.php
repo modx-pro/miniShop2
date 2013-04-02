@@ -10,6 +10,7 @@ $_lang['ms2_product_tab_main'] = 'Веб страница';
 $_lang['ms2_product_tab_extra'] = 'Свойства товара';
 $_lang['ms2_product_tab_seo'] = 'Параметры SEO';
 $_lang['ms2_product_tab_gallery'] = 'Галерея';
+$_lang['ms2_product_tab_links'] = 'Связи';
 $_lang['ms2_product_sections'] = 'Разделы';
 $_lang['ms2_product_properties'] = 'Основные свойства';
 $_lang['ms2_product_tv'] = 'Дополнительные свойства';

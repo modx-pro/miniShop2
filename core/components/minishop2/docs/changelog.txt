@@ -1,11 +1,47 @@
 Changelog for miniShop2.
 
-2.0.0 beta-2
+2.0.0 pl
 ==============
+- [mgr] Changing of product image now cleans its cache.
+- Small improvements of the snippets at initialization.
+
+2.0.0 rc6
+==============
+- Fixed cleaning pdoTools in msGallery
+- Improved saving payment method in order when quickly switch delivery.
+
+2.0.0 rc5
+==============
+- Integration of PayPal express-checkout payment method.
+
+2.0.0 rc4
+==============
+- Fixed bugs in snippets
+- Fixed joining images by rank when includeThumbs.
+
+2.0.0 rc
+==============
+- [mgr] Added displaying of nested products in categories. System setting "ms2_category_show_nested_products" can disable it.
+- [mgr] Added the ability to link products together.
+- [mgr] Added link to resource from ordered products.
+- [mgr] Added ability to specify web document for Vendor by property "resource".
+- [#6] Fixed error when order makes authenticated user without email.
+- [#8] Fixed remove of order.
+- [#9] Fixed date formatting in manager for working in Firefox.
+- [#10] Added checking for negative value of adding products in cart.
+- [#12] Added regeneration site maps after new product create.
+- [#14] Added check of "register_globals" on cart/add.
 - Added system setting "ms2_product_thumbnail_size" for setting default size of product thumbnail.
 - Added vendor placeholders on product page. Now you can use [[+vendor.name]], [[+vendor.logo]] etc.
-- [mgr] Added link to resource for Vendor. Now you can specify page with detailed information about product vendor.
-- [mgr] Added displaying of nested products in categories. System setting "ms2_category_show_nested_products" can disable it.
+- Added beta scripts for console converting miniShop1 to miniShop2.
+- Added partial french translation.
+- Added method miniShop2::getTagged() from MS1.
+- Added ability to load plugins, that can add new or overload existing product fields in model and manager.
+- Added parameters for joining thumbnails and tvs in snippets msProducts, msCart and msGetOrder.
+- Improved save of product options.
+- Fixed automatic install of pdoTools.
+- Fixed fetching images in snippet msGallery
+- Other fixes and improvements.
 
 2.0.0 beta-1
 ==============

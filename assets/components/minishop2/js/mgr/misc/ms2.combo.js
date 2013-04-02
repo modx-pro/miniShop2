@@ -32,9 +32,9 @@ Ext.reg('minishop2-combo-user',miniShop2.combo.User);
 miniShop2.combo.Category = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
-		id: 'tickets-combo-section'
-		,fieldLabel: _('ms2_product_parent')
-		,description: '<b>[[*parent]]</b><br />'+_('ms2_ms2_product_parent_help')
+		id: 'minishop2-combo-section'
+		,fieldLabel: _('ms2_link')
+		,description: '<b>[[*parent]]</b><br />'+_('ms2_product_parent_help')
 		,fields: ['id','pagetitle','parents']
 		,valueField: 'id'
 		,displayField: 'pagetitle'
@@ -63,7 +63,7 @@ miniShop2.combo.Category = function(config) {
 		})
 		,itemSelector: 'div.minishop2-category-list-item'
 		,pageSize: 20
-		,typeAhead: true
+		//,typeAhead: true
 		,editable: true
 	});
 	miniShop2.combo.Category.superclass.constructor.call(this,config);
@@ -362,7 +362,7 @@ miniShop2.combo.listeners_disable = {
 };
 
 
-miniShop2.combo.status = function(config) {
+miniShop2.combo.Status = function(config) {
 	config = config || {};
 
 	Ext.applyIf(config,{
@@ -383,13 +383,13 @@ miniShop2.combo.status = function(config) {
 		}
 		,listeners: miniShop2.combo.listeners_disable
 	});
-	miniShop2.combo.status.superclass.constructor.call(this,config);
+	miniShop2.combo.Status.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.combo.status,MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-status',miniShop2.combo.status);
+Ext.extend(miniShop2.combo.Status,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-status',miniShop2.combo.Status);
 
 
-miniShop2.combo.delivery = function(config) {
+miniShop2.combo.Delivery = function(config) {
 	config = config || {};
 
 	Ext.applyIf(config,{
@@ -430,13 +430,13 @@ miniShop2.combo.delivery = function(config) {
 			}
 		}
 	});
-	miniShop2.combo.delivery.superclass.constructor.call(this,config);
+	miniShop2.combo.Delivery.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.combo.delivery,MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-delivery',miniShop2.combo.delivery);
+Ext.extend(miniShop2.combo.Delivery,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-delivery',miniShop2.combo.Delivery);
 
 
-miniShop2.combo.payment = function(config) {
+miniShop2.combo.Payment = function(config) {
 	config = config || {};
 
 	Ext.applyIf(config,{
@@ -457,7 +457,110 @@ miniShop2.combo.payment = function(config) {
 		}
 		,listeners: miniShop2.combo.listeners_disable
 	});
-	miniShop2.combo.payment.superclass.constructor.call(this,config);
+	miniShop2.combo.Payment.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.combo.payment,MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-payment',miniShop2.combo.payment);
+Ext.extend(miniShop2.combo.Payment,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-payment',miniShop2.combo.Payment);
+
+
+MODx.combo.LinkType = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		store: new Ext.data.SimpleStore({
+			fields: ['type', 'name', 'description']
+			,data: this.getTypes()
+		})
+		,emptyText: _('ms2_combo_select')
+		,displayField: 'name'
+		,valueField: 'type'
+		,hiddenName: 'type'
+		,mode: 'local'
+		,triggerAction: 'all'
+		,editable: false
+		,selectOnFocus: false
+		,preventRender: true
+		,forceSelection: true
+		,enableKeyEvents: true
+	});
+	MODx.combo.LinkType.superclass.constructor.call(this,config);
+};
+Ext.extend(MODx.combo.LinkType,MODx.combo.ComboBox, {
+
+	getTypes: function() {
+		var array = [];
+		var types = ['many_to_many','one_to_many','many_to_one','one_to_one'];
+		for(var i = 0; i < types.length; i++) {
+			var t = types[i];
+			array.push([t, _('ms2_link_'+t), _('ms2_link_'+t+'_desc')]);
+		}
+		return array;
+	}
+});
+Ext.reg('minishop2-combo-link-type',MODx.combo.LinkType);
+
+
+miniShop2.combo.Link = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		name: 'link'
+		,id: 'minishop2-combo-link'
+		,hiddenName: 'link'
+		,displayField: 'name'
+		,valueField: 'id'
+		,fields: ['id','name']
+		,pageSize: 10
+		,editable: true
+		,emptyText: _('ms2_combo_select')
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/settings/link/getlist'
+			,combo: true
+		}
+	});
+	miniShop2.combo.Link.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Link,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-link',miniShop2.combo.Link);
+
+
+miniShop2.combo.Product = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		id: 'minishop2-combo-product'
+		,fieldLabel: _('ms2_product_name')
+		,fields: ['id','pagetitle','parents']
+		,valueField: 'id'
+		,displayField: 'pagetitle'
+		,name: 'product'
+		,hiddenName: 'product'
+		,allowBlank: false
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/product/getlist'
+			,combo: 1
+			,id: config.value
+		}
+		,tpl: new Ext.XTemplate(''
+			+'<tpl for="."><div class="minishop2-product-list-item">'
+				+'<tpl if="parents">'
+					+'<span class="parents">'
+						+'<tpl for="parents">'
+							+'<nobr>{pagetitle} / </nobr>'
+						+'</tpl>'
+					+'</span>'
+			+'</tpl>'
+				+'<h3 class="">({id}) {pagetitle}</h3>'
+			+'</div></tpl>',{
+			compiled: true
+		})
+		,itemSelector: 'div.minishop2-product-list-item'
+		,pageSize: 20
+		,emptyText: _('ms2_combo_select')
+		//,typeAhead: true
+		,editable: true
+	});
+	miniShop2.combo.Product.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Product,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-product',miniShop2.combo.Product);

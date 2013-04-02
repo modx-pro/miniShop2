@@ -13,11 +13,9 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 		foreach (array('pdoTools') as $package) {
 			if (!$modx->getObject('transport.modTransportPackage', array('package_name' => $package))) {
 				$modx->log(modX::LOG_LEVEL_INFO, 'Trying to install <b>'.$package.'</b>. Please wait...');
-
 				$response = installPackage($package);
 				if ($response['success']) {$level = modX::LOG_LEVEL_INFO;}
 				else {$level = modX::LOG_LEVEL_ERROR;}
-
 				$modx->log($level, $response['message']);
 			}
 		}
@@ -65,17 +63,28 @@ function installPackage($packageName) {
 					curl_setopt($curl, CURLOPT_URL, $url);
 					curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 					$file = curl_exec($curl);
+					$info = curl_getinfo($curl);
 					if ($file === false) {
 						return array(
 							'success' => 0
 							,'message' => 'Could not download package <b>'.$packageName.'</b>: '.curl_error($curl)
 						);
 					}
+					else if (empty($file) && !empty($info['redirect_url'])) {
+						curl_setopt($curl, CURLOPT_URL, $info['redirect_url']);
+						$file = curl_exec($curl);
+					}
 					curl_close($curl);
 				} else {
 					$file = file_get_contents($url);
 				}
 
+				if (empty($file)) {
+					return array(
+						'success' => 0
+						,'message' => 'Could not download package <b>'.$packageName.'</b>: Nothing to save'
+					);
+				}
 				file_put_contents($modx->getOption('core_path').'packages/'.$foundPackage->signature.'.transport.zip',$file);
 
 				/* add in the package as an object so it can be upgraded */
@@ -127,6 +136,5 @@ function installPackage($packageName) {
 			,'message' => 'Could not find <b>'.$packageName.'</b> in MODX repository'
 		);
 	}
-
-return true;
+	return true;
 }

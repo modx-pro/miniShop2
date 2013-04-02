@@ -8,17 +8,9 @@
 			<a href="#" class="ms2_link" data-action="cart/add" data-id="[[+id]]" data-count="1" data-options='[]'><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</a>
 		</p>
 		<p><small>[[+introtext]]</small></p>
-		[[+tags:notempty=`<span class="tags">[[%ms2_frontend_tags]]: [[+tags]];</span>`]]
-		[[+color:notempty=`<span class="color">[[%ms2_frontend_colors]]: [[+color]];</span>`]]
-		[[+size:notempty=`<span class="size">[[%ms2_frontend_sizes]]: [[+size]];</span>`]]
 	</div>
 </div>
 <br/><br/>
-[[+test]]
-[[+test2]]
-<!--minishop2_tags , [[+value]]-->
-<!--minishop2_color , [[+value]]-->
-<!--minishop2_size , [[+value]]-->
 <!--minishop2_popular <i class="icon-star" title="[[%ms2_frontend_popular]]"></i>-->
 <!--minishop2_new <i class="icon-flag" title="[[%ms2_frontend_new]]"></i>-->
 <!--minishop2_favorite <i class="icon-bookmark" title="[[%ms2_frontend_favorite]]"></i>-->

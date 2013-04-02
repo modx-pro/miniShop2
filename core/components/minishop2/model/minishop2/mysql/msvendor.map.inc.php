@@ -7,6 +7,7 @@ $xpdo_meta_map['msVendor']= array (
   'fields' => 
   array (
     'name' => NULL,
+    'resource' => 0,
     'country' => NULL,
     'logo' => NULL,
     'address' => NULL,
@@ -24,6 +25,15 @@ $xpdo_meta_map['msVendor']= array (
       'precision' => '100',
       'phptype' => 'string',
       'null' => false,
+    ),
+    'resource' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'null' => true,
+      'default' => 0,
     ),
     'country' => 
     array (
@@ -88,6 +98,14 @@ $xpdo_meta_map['msVendor']= array (
       'foreign' => 'vendor',
       'cardinality' => 'many',
       'owner' => 'foreign',
+    ),
+    'Resource' => 
+    array (
+      'class' => 'modResource',
+      'local' => 'resource',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'local',
     ),
   ),
 );

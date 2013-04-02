@@ -12,6 +12,9 @@
 				/* @var modX $modx */
 				$modx =& $object->xpdo;
 
+				$tmp = explode('/', MODX_ASSETS_URL);
+				$assets = $tmp[count($tmp) - 2];
+
 				$properties = array(
 					'name' => 'MS2 Images'
 					,'description' => 'Default media source for images of miniShop2 products'
@@ -19,7 +22,7 @@
 					,'properties' => array(
 						'basePath' => array(
 							'name' => 'basePath','desc' => 'prop_file.basePath_desc','type' => 'textfield','lexicon' => 'core:source'
-							,'value' => MODX_ASSETS_URL . '/images/products/'
+							,'value' => $assets . '/images/products/'
 						)
 						,'baseUrl' => array(
 							'name' => 'baseUrl','desc' => 'prop_file.baseUrl_desc','type' => 'textfield','lexicon' => 'core:source'
@@ -56,7 +59,7 @@
 				break;
 			case xPDOTransport::ACTION_UNINSTALL:
 				if ($modx instanceof modX) {
-					$modx->removeExtensionPackage('minishop2');
+					//$modx->removeExtensionPackage('minishop2');
 				}
 				break;
 		}

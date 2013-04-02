@@ -35,7 +35,9 @@ switch ($action) {
 	case 'order/getcost': $response = $miniShop2->order->getcost(); break;
 	case 'order/clean': $response = $miniShop2->order->clean(); break;
 	case 'order/get': $response = $miniShop2->order->get(); break;
-	default: $response = json_encode(array('success' => false, 'message' => $modx->lexicon('ms2_err_unknown')));
+	default:
+		$message = $_REQUEST['action'] != $action ? 'ms2_err_register_globals' : 'ms2_err_unknown';
+		$response = json_encode(array('success' => false, 'message' => $modx->lexicon($message)));
 }
 
 exit($response);

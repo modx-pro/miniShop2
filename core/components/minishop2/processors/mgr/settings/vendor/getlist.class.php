@@ -1,6 +1,6 @@
 <?php
 
-class msVendorGetCatsProcessor extends modObjectGetListProcessor {
+class msVendorGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msVendor';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
@@ -124,4 +124,4 @@ class msVendorGetCatsProcessor extends modObjectGetListProcessor {
 	}
 }
 
-return 'msVendorGetCatsProcessor';
+return 'msVendorGetListProcessor';

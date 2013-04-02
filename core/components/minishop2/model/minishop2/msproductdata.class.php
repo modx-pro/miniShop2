@@ -108,6 +108,7 @@ class msProductData extends xPDOSimpleObject {
 			foreach ($ids as $k => $id) {
 				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `type` = 'image' AND (`id` = '{$id}' OR `parent` = '{$id}');";
 			}
+			$sql .= "ALTER TABLE {$table} ORDER BY `rank` ASC;";
 			$this->xpdo->exec($sql);
 		}
 	}
@@ -132,6 +133,10 @@ class msProductData extends xPDOSimpleObject {
 
 		$this->fromArray($arr);
 		if ($this->save()) {
+			/* @var msProduct $product */
+			if ($product = $this->getOne('Product')) {
+				$product->clearCache();
+			}
 			return $arr['thumb'];
 		}
 		else {

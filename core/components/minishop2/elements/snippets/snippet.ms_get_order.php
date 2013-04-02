@@ -3,10 +3,11 @@ if (empty($id)) {return $modx->lexicon('ms2_err_order_nf');}
 
 /* @var miniShop2 $miniShop2 */
 /* @var pdoFetch $pdoFetch */
-$miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', $scriptProperties);
+$miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
-$pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.core_path',null,$modx->getOption('core_path').'components/pdotools/').'model/pdotools/',$scriptProperties);
-$pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
+if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
+$pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
+$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
 $pdoFetch->addTime('pdoTools loaded.');
 
 // Initializing chunk for template rows
@@ -14,7 +15,7 @@ if (!empty($tplRow)) {$pdoFetch->getChunk($tplRow);}
 
 /* @var msOrder $order */
 if (!$order = $modx->getObject('msOrder', $id)) {return $modx->lexicon('ms2_err_order_nf');}
-if (!in_array($id, $_SESSION['minishop2']['orders']) && $order->get('user_id') != $modx->user->id && $modx->context->key != 'mgr') {
+if ((empty($_SESSION['minishop2']['orders']) || !in_array($id, $_SESSION['minishop2']['orders'])) && $order->get('user_id') != $modx->user->id && $modx->context->key != 'mgr') {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
 
@@ -75,7 +76,7 @@ $orderProductColumns = $modx->getSelectColumns('msOrderProduct', 'msOrderProduct
 $leftJoin = '{"class":"msProduct","alias":"msProduct","on":"msProduct.id=msOrderProduct.product_id"},{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
 if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
 if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
-$select = '"msProduct":"'.$resourceColumns.'","OrderProduct":"'.$orderProductColumns.'","Vendor":"'.$vendorColumns.'"';
+$select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","OrderProduct":"'.$orderProductColumns.'","Vendor":"'.$vendorColumns.'"';
 if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
 $pdoFetch->addTime('Query parameters are prepared.');
@@ -117,13 +118,15 @@ foreach ($rows as $row) {
 			if (!empty($row[$field])) {
 				$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tplRow]['placeholders'][$field]);
 			}
+			else {
+				$row[$field] = '';
+			}
 		}
 	}
 
 	$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
 }
 
-unset($modx->services['pdofetch']);
 if (empty($tplOuter)) {
 	$modx->setPlaceholders($outer);
 }

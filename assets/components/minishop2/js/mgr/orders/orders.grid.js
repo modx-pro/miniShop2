@@ -214,7 +214,7 @@ miniShop2.window.UpdateOrder = function(config) {
 	Ext.applyIf(config,{
 		title: _('ms2_menu_update')
 		,id: this.ident
-		,width: 700
+		,width: 750
 		,labelAlign: 'top'
 		,url: miniShop2.config.connector_url
 		,action: 'mgr/orders/update'
@@ -395,14 +395,15 @@ miniShop2.grid.Products = function(config) {
 			,order_id: config.order_id
 			,type: 'status'
 		}
-		,fields: ['id','pagetitle','article','weight','count','price','cost']
+		,fields: ['id','product_id','pagetitle','article','weight','count','price','cost']
 		,pageSize: Math.round(MODx.config.default_per_page / 2)
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
 		,columns: [
-			{header: _('ms2_id'),dataIndex: 'id', hidden: true, sortable: true, width: 50}
-			,{header: _('ms2_product_pagetitle'),dataIndex: 'pagetitle', width: 75}
+			{header: _('ms2_id'),dataIndex: 'id', hidden: true, sortable: true, width: 40}
+			,{header: _('ms2_product_id'), dataIndex: 'product_id', hidden: true, sortable: true, width: 40}
+			,{header: _('ms2_product_pagetitle'),dataIndex: 'pagetitle', width: 100, renderer: miniShop2.utils.productLink}
 			,{header: _('ms2_product_article'),dataIndex: 'article', width: 50}
 			,{header: _('ms2_product_weight'),dataIndex: 'weight', sortable: true, width: 50}
 			,{header: _('ms2_product_price'),dataIndex: 'price', sortable: true, width: 50}

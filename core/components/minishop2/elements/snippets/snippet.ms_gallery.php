@@ -1,9 +1,10 @@
 <?php
 /* @var miniShop2 $miniShop2 */
 /* @var pdoFetch $pdoFetch */
-$miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', $scriptProperties);
+$miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
-$pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.core_path',null,$modx->getOption('core_path').'components/pdotools/').'model/pdotools/',$scriptProperties);
+if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
+$pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
 $pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
 $pdoFetch->addTime('pdoTools loaded.');
 
@@ -83,5 +84,5 @@ else if (!empty($tplOuter) && !empty($output)) {
 	return $pdoFetch->getChunk($tplOuter, array('rows' => $output));
 }
 else {
-	return $pdoFetch->getChunk($tplEmpty);
+	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }

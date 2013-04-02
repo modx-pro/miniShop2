@@ -29,6 +29,8 @@ if ($object->xpdo) {
 			$manager->createObjectContainer('msDeliveryMember');
 			$manager->createObjectContainer('msOrderAddress');
 			$manager->createObjectContainer('msOrderProduct');
+			$manager->createObjectContainer('msLink');
+			$manager->createObjectContainer('msProductLink');
 
 			$msProductData = $modx->getTableName('msProductData');
 			$modx->exec("ALTER TABLE {$msProductData} CHANGE `price` `price` DECIMAL(12,2) NOT NULL DEFAULT '0';");
@@ -64,7 +66,7 @@ if ($object->xpdo) {
 			break;
 		case xPDOTransport::ACTION_UNINSTALL:
 			if ($modx instanceof modX) {
-				$modx->removeExtensionPackage('minishop2');
+				//$modx->removeExtensionPackage('minishop2');
 			}
 			break;
 	}

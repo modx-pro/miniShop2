@@ -58,6 +58,17 @@ miniShop2.panel.Settings = function(config) {
 					xtype: 'minishop2-grid-payment'
 				}]
 			},{
+				title: _('ms2_statuses')
+				,deferredRender: true
+				,items: [{
+					html: '<p>'+_('ms2_statuses_intro')+'</p>'
+					,border: false
+					,bodyCssClass: 'panel-desc'
+					,bodyStyle: 'margin-bottom: 10px'
+				},{
+					xtype: 'minishop2-grid-status'
+				}]
+			},{
 				title: _('ms2_vendors')
 				,deferredRender: true
 				,items: [{
@@ -69,15 +80,15 @@ miniShop2.panel.Settings = function(config) {
 					xtype: 'minishop2-grid-vendor'
 				}]
 			},{
-				title: _('ms2_statuses')
+				title: _('ms2_links')
 				,deferredRender: true
 				,items: [{
-					html: '<p>'+_('ms2_statuses_intro')+'</p>'
+					html: '<p>'+_('ms2_links_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
 					,bodyStyle: 'margin-bottom: 10px'
 				},{
-					xtype: 'minishop2-grid-status'
+					xtype: 'minishop2-grid-link'
 				}]
 			}]
 		}]

@@ -97,6 +97,7 @@ if ($object->xpdo) {
 					,'distance_price' => 0
 					,'active' => 1
 					,'requires' => 'email,receiver'
+					,'rank' => 0
 				), '', true);
 				$delivery->save();
 			}
@@ -108,6 +109,20 @@ if ($object->xpdo) {
 					'id' => 1
 					,'name' => !$lang ? 'Оплата наличными' : 'Cash'
 					,'active' => 1
+					,'rank' => 0
+				), '', true);
+				$payment->save();
+			}
+
+			/* @var msPayment $payment */
+			if (!$payment = $modx->getObject('msPayment', 2)) {
+				$payment = $modx->newObject('msPayment');
+				$payment->fromArray(array(
+					'id' => 2
+					,'name' => 'PayPal'
+					,'active' => $lang
+					,'class' => 'PayPal'
+					,'rank' => 1
 				), '', true);
 				$payment->save();
 			}

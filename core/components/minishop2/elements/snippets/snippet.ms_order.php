@@ -1,15 +1,16 @@
 <?php
 /* @var miniShop2 $miniShop2 */
 /* @var pdoFetch $pdoFetch */
-$miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', $scriptProperties);
+$miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
-$pdoFetch = $modx->getService('pdofetch','pdoFetch',$modx->getOption('pdotools.core_path',null,$modx->getOption('core_path').'components/pdotools/').'model/pdotools/',$scriptProperties);
-$pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
+if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
+$pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
+$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
 $pdoFetch->addTime('pdoTools loaded.');
 
 if (!empty($_GET['msorder'])) {
 	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
-		if (in_array($_GET['msorder'], $_SESSION['minishop2']['orders']) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
+		if ((!empty($_SESSION['minishop2']['orders']) && in_array($_GET['msorder'], $_SESSION['minishop2']['orders'])) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
 			return $pdoFetch->getChunk($tplSuccess, $order->toArray());
 		}
 	}
@@ -152,5 +153,4 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 	$output .= '<pre class="msOrderLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
-unset($modx->services['pdofetch']);
 return $output;

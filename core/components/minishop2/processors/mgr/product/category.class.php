@@ -1,8 +1,12 @@
 <?php
 
-class msProductCategoryMemberProcessor extends modProcessor {
+class msProductCategoryMemberProcessor extends modObjectCreateProcessor {
+	public $permission = 'new_document';
 
 	public function process() {
+		if (!$this->checkPermissions()) {
+			return $this->failure($this->modx->lexicon('permission_denied'));
+		}
 		$pid = $this->getProperty('product_id');
 		$cid = $this->getProperty('category_id');
 		if ($pid > 0 && $cid > 0) {

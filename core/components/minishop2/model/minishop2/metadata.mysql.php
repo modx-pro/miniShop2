@@ -18,11 +18,13 @@ $xpdo_meta_map = array (
     7 => 'msOrderLog',
     8 => 'msOrderAddress',
     9 => 'msOrderProduct',
+    10 => 'msLink',
   ),
   'xPDOObject' => 
   array (
     0 => 'msCategoryMember',
     1 => 'msProductOption',
     2 => 'msDeliveryMember',
+    3 => 'msProductLink',
   ),
 );

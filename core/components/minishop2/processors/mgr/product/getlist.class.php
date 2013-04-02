@@ -30,13 +30,19 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		$c->leftJoin('msCategoryMember','Member', 'msProduct.id = Member.product_id');
 		$c->leftJoin('msVendor','Vendor', 'Data.vendor = Vendor.id');
 		$c->leftJoin('msCategory','Category', 'Category.id = msProduct.parent');
-		$c->select($this->modx->getSelectColumns('msProduct','msProduct'));
-		$c->select($this->modx->getSelectColumns('msProductData','Data'));
-		$c->select($this->modx->getSelectColumns('msVendor','Vendor', 'vendor_', array('name')));
-		$c->select($this->modx->getSelectColumns('msCategory','Category', 'category_', array('pagetitle')));
+		if ($this->getProperty('combo')) {
+			$c->select('msProduct.id,msProduct.pagetitle,msProduct.context_key');
+		}
+		else {
+			$c->select($this->modx->getSelectColumns('msProduct','msProduct'));
+			$c->select($this->modx->getSelectColumns('msProductData','Data'));
+			$c->select($this->modx->getSelectColumns('msVendor','Vendor', 'vendor_', array('name')));
+			$c->select($this->modx->getSelectColumns('msCategory','Category', 'category_', array('pagetitle')));
+		}
 		if ($query = $this->getProperty('query',null)) {
 			$queryWhere = array(
-				'pagetitle:LIKE' => '%'.$query.'%'
+				'msProduct.id' => $query
+				,'OR:msProduct.pagetitle:LIKE' => '%'.$query.'%'
 				,'OR:description:LIKE' => '%'.$query.'%'
 				,'OR:introtext:LIKE' => '%'.$query.'%'
 				,'OR:Data.article:LIKE' =>  '%'.$query.'%'
@@ -106,52 +112,75 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 	}
 
 	public function prepareArray(array $resourceArray) {
-		if ($resourceArray['parent'] != $this->parent) {
-			$resourceArray['cls'] = 'multicategory';
-			$resourceArray['category_name'] = $resourceArray['category_pagetitle'];
+		if ($this->getProperty('combo')) {
+			$parents = $this->modx->getParentIds($resourceArray['id'], 2, array('context' => $resourceArray['context_key']));
+			if ($parents[count($parents) - 1] == 0) {
+				unset($parents[count($parents) - 1]);
+			}
+			$q = $this->modx->newQuery('msCategory', array('class_key' => 'msCategory'));
+			if (!empty($parents) && is_array($parents)) {
+				$q->where(array('id:IN' => $parents));
+			}
+			$q->select('id,pagetitle');
+			if ($q->prepare() && $q->stmt->execute()) {
+				while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
+					$key = array_search($row['id'], $parents);
+					if ($key !== false) {
+						$parents[$key] = $row;
+					}
+				}
+			}
+
+			$resourceArray['parents'] = array_reverse($parents);
 		}
 		else {
-			$resourceArray['cls'] = $resourceArray['category_name'] = '';
-		}
+			if ($resourceArray['parent'] != $this->parent) {
+				$resourceArray['cls'] = 'multicategory';
+				$resourceArray['category_name'] = $resourceArray['category_pagetitle'];
+			}
+			else {
+				$resourceArray['cls'] = $resourceArray['category_name'] = '';
+			}
 
 
-		$resourceArray['action_edit'] = '?a='.$this->editAction->get('id').'&action=post/update&id='.$resourceArray['id'];
+			$resourceArray['action_edit'] = '?a='.$this->editAction->get('id').'&action=post/update&id='.$resourceArray['id'];
 
-		$this->modx->getContext($resourceArray['context_key']);
-		$resourceArray['preview_url'] = $this->modx->makeUrl($resourceArray['id'],$resourceArray['context_key']);
+			$this->modx->getContext($resourceArray['context_key']);
+			$resourceArray['preview_url'] = $this->modx->makeUrl($resourceArray['id'],$resourceArray['context_key']);
 
-		$resourceArray['actions'] = array();
+			$resourceArray['actions'] = array();
 
-		$resourceArray['actions'][] = array(
-			'className' => 'edit',
-			'text' => $this->modx->lexicon('ms2_product_edit'),
-		);
-
-		$resourceArray['actions'][] = array(
-			'className' => 'view',
-			'text' => $this->modx->lexicon('ms2_product_view'),
-		);
-		if (!empty($resourceArray['deleted'])) {
 			$resourceArray['actions'][] = array(
-				'className' => 'undelete green',
-				'text' => $this->modx->lexicon('ms2_product_undelete'),
+				'className' => 'edit',
+				'text' => $this->modx->lexicon('ms2_product_edit'),
 			);
-		} else {
+
 			$resourceArray['actions'][] = array(
-				'className' => 'delete',
-				'text' => $this->modx->lexicon('ms2_product_delete'),
+				'className' => 'view',
+				'text' => $this->modx->lexicon('ms2_product_view'),
 			);
-		}
-		if (!empty($resourceArray['published'])) {
-			$resourceArray['actions'][] = array(
-				'className' => 'unpublish',
-				'text' => $this->modx->lexicon('ms2_product_unpublish'),
-			);
-		} else {
-			$resourceArray['actions'][] = array(
-				'className' => 'publish orange',
-				'text' => $this->modx->lexicon('ms2_product_publish'),
-			);
+			if (!empty($resourceArray['deleted'])) {
+				$resourceArray['actions'][] = array(
+					'className' => 'undelete green',
+					'text' => $this->modx->lexicon('ms2_product_undelete'),
+				);
+			} else {
+				$resourceArray['actions'][] = array(
+					'className' => 'delete',
+					'text' => $this->modx->lexicon('ms2_product_delete'),
+				);
+			}
+			if (!empty($resourceArray['published'])) {
+				$resourceArray['actions'][] = array(
+					'className' => 'unpublish',
+					'text' => $this->modx->lexicon('ms2_product_unpublish'),
+				);
+			} else {
+				$resourceArray['actions'][] = array(
+					'className' => 'publish orange',
+					'text' => $this->modx->lexicon('ms2_product_publish'),
+				);
+			}
 		}
 
 		return $resourceArray;
