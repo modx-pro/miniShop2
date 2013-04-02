@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.0.0 pl
+==============
+- [mgr] Changing of product image now cleans its cache.
+
 2.0.0 rc6
 ==============
 - Fixed cleaning pdoTools in msGallery

@@ -133,6 +133,10 @@ class msProductData extends xPDOSimpleObject {
 
 		$this->fromArray($arr);
 		if ($this->save()) {
+			/* @var msProduct $product */
+			if ($product = $this->getOne('Product')) {
+				$product->clearCache();
+			}
 			return $arr['thumb'];
 		}
 		else {
