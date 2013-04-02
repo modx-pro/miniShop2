@@ -34,7 +34,7 @@ miniShop2.combo.Category = function(config) {
 	Ext.applyIf(config,{
 		id: 'minishop2-combo-section'
 		,fieldLabel: _('ms2_link')
-		,description: '<b>[[*parent]]</b><br />'+_('ms2_ms2_product_parent_help')
+		,description: '<b>[[*parent]]</b><br />'+_('ms2_product_parent_help')
 		,fields: ['id','pagetitle','parents']
 		,valueField: 'id'
 		,displayField: 'pagetitle'
