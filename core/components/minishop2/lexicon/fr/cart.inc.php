@@ -9,8 +9,8 @@
 $_lang['ms2_cart'] = 'Panier';
 $_lang['ms2_minicart'] = 'Panier';
 
-$_lang['ms2_minicart_goods'] = 'Tout les articles:';
-$_lang['ms2_minicart_cost'] = 'pour la somme de:';
+$_lang['ms2_minicart_goods'] = 'Toutes les marchandises :';
+$_lang['ms2_minicart_cost'] = 'pour la somme de :';
 $_lang['ms2_minicart_is_empty'] = 'Votre panier est vide';
 
 $_lang['ms2_cart_title'] = 'Titre';
