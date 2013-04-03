@@ -115,6 +115,41 @@ $properties = array(
 		'value' => '',
 		'lexicon' => 'minishop2:properties',
 	)
+	,array(
+		'name' => 'link',
+		'desc' => 'ms2_prop_link',
+		'type' => 'numberfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
+	,array(
+		'name' => 'master',
+		'desc' => 'ms2_prop_master',
+		'type' => 'numberfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
+	,array(
+		'name' => 'slave',
+		'desc' => 'ms2_prop_slave',
+		'type' => 'numberfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
+	,array(
+		'name' => 'class',
+		'desc' => 'ms2_prop_class',
+		'type' => 'textfield',
+		'value' => 'msProduct',
+		'lexicon' => 'minishop2:properties',
+	)
+	,array(
+		'name' => 'tvPrefix',
+		'desc' => 'ms2_prop_tvPrefix',
+		'type' => 'textfield',
+		'value' => '',
+		'lexicon' => 'minishop2:properties',
+	)
 
 	,array(
 		'name' => 'showUnpublished', 'desc' => 'ms2_prop_showUnpublished', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'

@@ -10,13 +10,14 @@ input.disabled {color: #AAA !important;}
 .btn-red button {color: red;}
 .btn-brown button {color: brown;}
 
-.icon-mscategory .x-tree-node-icon {
-	background-image: url(../../img/mgr/folder_close.png) !important;
-}
+.icon-mscategory .x-tree-node-icon, .icon-msproduct .x-tree-node-icon {background-image: url(../../img/mgr/ms2_icons.png) !important;}
+.icon-mscategory .x-tree-node-icon {background-position: -1px 0;}
+.icon-mscategory.active-node .x-tree-node-icon {background-position: -19px 0;}
+.icon-msproduct .x-tree-node-icon {background-position: -37px 0;}
+.icon-mscategory:hover .x-tree-node-icon {background-position: -1px -18px;}
+.icon-mscategory.active-node:hover .x-tree-node-icon {background-position: -19px -18px;}
+.icon-msproduct:hover .x-tree-node-icon {background-position: -37px -18px;}
 
-.icon-mscategory.active-node .x-tree-node-icon {
-	background-image: url(../../img/mgr/folder_open.png) !important;
-}
 
 .minishop2-grid .product-id {
 	font-size: 12px;

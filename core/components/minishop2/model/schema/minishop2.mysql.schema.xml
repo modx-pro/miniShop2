@@ -325,7 +325,7 @@
 			<column key="type" length="" collation="A" null="false" />
 		</index>
 
-		<aggregate alias="Links" class="msProductLink" local="is" foreign="link" owner="local" cardinality="many" />
+		<composite alias="Links" class="msProductLink" local="id" foreign="link" owner="local" cardinality="many" />
 	</object>
 
 
