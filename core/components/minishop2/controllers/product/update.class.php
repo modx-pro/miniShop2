@@ -9,7 +9,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 	 * @return array
 	 */
 	public function getLanguageTopics() {
-		return array('resource','minishop2:default','minishop2:product','minishop2:manager');
+		return array('resource','minishop2:default','minishop2:product','minishop2:manager','tickets:default');
 	}
 
 
