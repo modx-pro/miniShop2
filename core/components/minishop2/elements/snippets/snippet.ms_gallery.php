@@ -1,8 +1,5 @@
 <?php
-/* @var miniShop2 $miniShop2 */
 /* @var pdoFetch $pdoFetch */
-$miniShop2 = $modx->getService('minishop2');
-$miniShop2->initialize($modx->context->key);
 if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
 $pdoFetch->config = array_merge($pdoFetch->config, array('nestedChunkPrefix' => 'minishop2_'));
