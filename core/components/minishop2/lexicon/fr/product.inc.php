@@ -10,6 +10,7 @@ $_lang['ms2_product_tab_main'] = 'page Web';
 $_lang['ms2_product_tab_extra'] = 'Propriétées des Articles';
 $_lang['ms2_product_tab_seo'] = 'Paramètres SEO';
 $_lang['ms2_product_tab_gallery'] = 'Gallerie';
+$_lang['ms2_product_tab_links'] = 'liens';
 $_lang['ms2_product_sections'] = 'Sections';
 $_lang['ms2_product_properties'] = 'Propriétées principales';
 $_lang['ms2_product_tv'] = 'Propriétées additionnelles';

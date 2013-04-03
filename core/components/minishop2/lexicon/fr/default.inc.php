@@ -9,7 +9,7 @@
 include_once('setting.inc.php');
 
 $_lang['minishop2'] = 'miniShop2';
-$_lang['ms2_menu_desc'] = 'Extension e-commerce impressionnante';
+$_lang['ms2_menu_desc'] = 'Impressionnante extension de e-commerce';
 $_lang['ms2_order'] = 'Commande';
 $_lang['ms2_orders'] = 'Commandes';
 $_lang['ms2_orders_intro'] = 'Gestion de vos commandes';
@@ -19,17 +19,21 @@ $_lang['ms2_settings_intro'] = 'Paramètres principaux du magasin. Ici vous pouv
 $_lang['ms2_settings_desc'] = 'États des commandes, options de paiements et de livraisons';
 $_lang['ms2_payment'] = 'Paiement';
 $_lang['ms2_payments'] = 'Paiements';
-$_lang['ms2_payments_intro'] = '';
+$_lang['ms2_payments_intro'] = 'You can create any type of payments. The logic of payment (sending of the buyer on the remote service, reception of payment, etc.) is being implemented in the classroom that you specify.<br/>For methods of payment for the parameter "class" is required.';
 $_lang['ms2_delivery'] = 'Livraison';
 $_lang['ms2_deliveries'] = 'Options de livraisons';
 $_lang['ms2_deliveries_intro'] = 'Options possibles pour la livraison. Définit la logique du calcul des coûts d\'expédition en fonction de la distance et de la catégorie de poids.<br/> Si vous ne spécifiez pas de classe, les calculs seront effectués par l\'algorithme par défaut.';
 $_lang['ms2_statuses'] = 'États';
-$_lang['ms2_statuses_intro'] = '';
+$_lang['ms2_statuses_intro'] = 'There are several mandatory status of the order: "new", "paid", "sent" and "cancelled". They can be configured, but can not be removed, as they are necessary for the operation of the shop. You can indicate your status for an extended the logic of work with orders.<br/>Status may be the final, it means that it cannot be switched to another, for example, "sent" and "cancelled". Стутус can be fixed, that is, with him you cannot switch to earlier statuses, such as "paid" cannot be switched on "new".';
 $_lang['ms2_vendors'] = 'Fournisseurs des articles';
 $_lang['ms2_vendors_intro'] = '';
+$_lang['ms2_link'] = 'Lien de produits';
+$_lang['ms2_links'] = 'Lien de produits';
+$_lang['ms2_links_intro'] = 'Liste des liens possible de produits entre eux. Le type de connexion décrit exactement comment il va fonctionner, il n\'est pas possible d\'en créer de nouveau, vous pouvez seulement le sélectionner dans la liste.';
 $_lang['ms2_customer'] = 'Clients';
 $_lang['ms2_all'] = 'Tout';
 $_lang['ms2_action'] = 'Tout';
+$_lang['ms2_type'] = 'Type';
 
 $_lang['ms2_btn_create'] = 'Création';
 $_lang['ms2_btn_save'] = 'Enregistrer';
@@ -115,6 +119,7 @@ $_lang['ms2_err_payment_nf'] = 'Aucun paiement avec cet ID n\' été trouvé.';
 $_lang['ms2_err_status_final'] = 'L\'état Terminé est posistionné, vous ne pouvez pas le modifier.';
 $_lang['ms2_err_status_fixed'] = 'L\'état Vérouillé est positionné, vous ne pouvez pas revenir à un état précedant.';
 $_lang['ms2_err_status_same'] = 'Cet état est déjà positionné.';
+$_lang['ms2_err_register_globals'] = 'Erreur : le paramètre PHP <b>register_globals</b> doit être off.';
 
 $_lang['ms2_email_subject_new_user'] = 'Vous avez passé la commande n°[[+num]] sur le site [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'Vous avez une nouvelle commande n°[[+num]]';

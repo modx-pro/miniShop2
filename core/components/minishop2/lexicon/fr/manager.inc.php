@@ -45,6 +45,7 @@ $_lang['ms2_action'] = 'Action';
 $_lang['ms2_entry'] = 'Écriture';
 $_lang['ms2_username'] = 'Nom de l\'utilisateur';
 $_lang['ms2_fullname'] = 'Nom complet';
+$_lang['ms2_resource'] = 'Ressource';
 
 $_lang['ms2_receiver'] = 'Destinnataire';
 $_lang['ms2_index'] = 'Code postal';
@@ -77,3 +78,15 @@ $_lang['ms2_order_requires'] = 'Champs requis';
 $_lang['ms2_order_requires_help'] = 'Lors de la commande, une classe personnalisée peut exiger le remplissage d\'un de ses champs';
 
 $_lang['ms2_orders_selected_status'] = 'Changer l\'état de la commande sélectionnée';
+
+$_lang['ms2_link_name'] = 'Nom du lien';
+$_lang['ms2_link_one_to_one'] = 'Un pour un';
+$_lang['ms2_link_one_to_one_desc'] = 'Liaison d\égalité de 2 articles. Si vous voulez lier plus de 2 articles, vous devez utiliser le type de relation "Plusieurs à plusieurs".';
+$_lang['ms2_link_one_to_many'] = 'Un à plusieurs';
+$_lang['ms2_link_one_to_many_desc'] = 'Liaison d\'un article maitre avec ses esclaves. Par exemple, un article est un ensemble d\'autres articles. Bien adapté aussi pour préciser des articles recommandés.';
+$_lang['ms2_link_many_to_one'] = 'Plusieurs à un';
+$_lang['ms2_link_many_to_one_desc'] = 'Liaison des articles esclaves vers l\'article maitre, les exclaves non aucun lien entre eux. Par exemple, les articles inclus dans un "kit".';
+$_lang['ms2_link_many_to_many'] = 'Plusieurs à plusieurs';
+$_lang['ms2_link_many_to_many_desc'] = 'Liaison d\'égalité entre plusieurs articles. Tous les articles sont liés entre eux. L\'ajout d\'une nouvelle liaison a un article, implique l\'ajout de cette liaison à tous les autres. Par exemple un paramètre de couleur, de taille, de langue, de version, etc.';
+$_lang['ms2_link_master'] = 'Article maitre';
+$_lang['ms2_link_slave'] = 'Article esclave';
