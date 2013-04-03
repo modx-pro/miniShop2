@@ -13,8 +13,8 @@ $plugins['miniShop2']->fromArray(array(
 	,'category' => 0
 	,'description' =>'Main plugin for miniShop2'
 	,'plugincode' => getSnippetContent($sources['plugins'] . 'plugin.minishop2.php')
-	,'static' => 1
-	,'static_file' => 'minishop2/elements/plugins/plugin.minishop2.php'
+	//,'static' => 1
+	//,'static_file' => 'minishop2/elements/plugins/plugin.minishop2.php'
 ));
 
 
