@@ -5,6 +5,7 @@ Changelog for miniShop2.
 - [mgr] Changing of product image now cleans its cache.
 - [mgr] New icons in tree
 - Small improvements of the snippets at initialization.
+- Added selection of product links in snippet msProducts. See the new snippet properties.
 
 2.0.0 rc6
 ==============

@@ -104,6 +104,17 @@ if (!empty($includeThumbs)) {
 }
 // End of including Thumbnails
 
+// include Linked products
+if (!empty($link) && !empty($master)) {
+	$linksInnerJoin = '{"class":"msProductLink","alias":"Link","on":"msProduct.id=Link.slave AND Link.link='.$link.'"}';
+	$where['Link.master'] = $master;
+}
+else if (!empty($link) && !empty($slave)) {
+	$linksInnerJoin = '{"class":"msProductLink","alias":"Link","on":"msProduct.id=Link.master AND Link.link='.$link.'"}';
+	$where['Link.slave'] = $slave;
+}
+// End of including Linked products
+
 // Fields to select
 $resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
 $dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
@@ -111,8 +122,10 @@ $vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array(
 
 // Tables for joining
 $leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
+$innerJoin = '';
 if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
 if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
+if (!empty($linksInnerJoin)) {$innerJoin .= $linksInnerJoin;}
 $select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor":"'.$vendorColumns.'"';
 if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
@@ -122,6 +135,7 @@ $default = array(
 	'class' => 'msProduct'
 	,'where' => $modx->toJSON($where)
 	,'leftJoin' => '['.$leftJoin.']'
+	,'innerJoin' => '['.$innerJoin.']'
 	,'select' => '{'.$select.'}'
 	,'sortby' => 'id'
 	,'sortdir' => 'ASC'
@@ -142,36 +156,37 @@ if (!empty($tpl)) {
 
 // Processing rows
 $output = null;
-foreach ($rows as $k => $row) {
-	// Processing main fields
-	$row['price'] = round($row['price'], 2);
-	$row['old_price'] = round($row['old_price'], 2);
-	$row['weight'] = round($row['weight'], 3);
+if (!empty($rows)) {
+	foreach ($rows as $k => $row) {
+		// Processing main fields
+		$row['price'] = round($row['price'], 2);
+		$row['old_price'] = round($row['old_price'], 2);
+		$row['weight'] = round($row['weight'], 3);
 
-
-	// Processing quick fields
-	if (!empty($tpl)) {
-		$pl = $pdoFetch->makePlaceholders($row);
-		$qfields = array_keys($pdoFetch->elements[$tpl]['placeholders']);
-		foreach ($qfields as $field) {
-			if (!empty($row[$field])) {
-				$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
-			}
-			else {
-				$row[$field] = '';
+		// Processing quick fields
+		if (!empty($tpl)) {
+			$pl = $pdoFetch->makePlaceholders($row);
+			$qfields = array_keys($pdoFetch->elements[$tpl]['placeholders']);
+			foreach ($qfields as $field) {
+				if (!empty($row[$field])) {
+					$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tpl]['placeholders'][$field]);
+				}
+				else {
+					$row[$field] = '';
+				}
 			}
 		}
-	}
 
-	// Processing chunk
-	$output[] = empty($tpl)
-		? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
-		: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
-}
-$pdoFetch->addTime('Returning processed chunks');
-if (empty($outputSeparator)) {$outputSeparator = "\n";}
-if (!empty($output)) {
-	$output = implode($outputSeparator, $output);
+		// Processing chunk
+		$output[] = empty($tpl)
+			? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
+			: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
+	}
+	$pdoFetch->addTime('Returning processed chunks');
+	if (empty($outputSeparator)) {$outputSeparator = "\n";}
+	if (!empty($output)) {
+		$output = implode($outputSeparator, $output);
+	}
 }
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {

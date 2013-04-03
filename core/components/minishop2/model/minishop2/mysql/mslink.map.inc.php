@@ -52,12 +52,12 @@ $xpdo_meta_map['msLink']= array (
       ),
     ),
   ),
-  'aggregates' => 
+  'composites' => 
   array (
     'Links' => 
     array (
       'class' => 'msProductLink',
-      'local' => 'is',
+      'local' => 'id',
       'foreign' => 'link',
       'owner' => 'local',
       'cardinality' => 'many',
