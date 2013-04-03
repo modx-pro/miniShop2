@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.0.0 pl
 ==============
 - [mgr] Changing of product image now cleans its cache.
+- [mgr] New icons in tree
 - Small improvements of the snippets at initialization.
 
 2.0.0 rc6
