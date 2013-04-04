@@ -11,7 +11,7 @@ $pdoFetch->addTime('pdoTools loaded.');
 if (!empty($_GET['msorder'])) {
 	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
 		if ((!empty($_SESSION['minishop2']['orders']) && in_array($_GET['msorder'], $_SESSION['minishop2']['orders'])) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
-			return $pdoFetch->getChunk($tplSuccess, $order->toArray());
+			return $pdoFetch->getChunk($tplSuccess, array('id' => $_GET['msorder']));
 		}
 	}
 }
@@ -101,14 +101,14 @@ if (!empty($deliveries)) {
 }
 
 if (!empty($tplOuter)) {$pdoFetch->getChunk($tplOuter);}
-$cart_status = $miniShop2->cart->status();
+//$cart_status = $miniShop2->cart->status();
 $order_cost = $miniShop2->order->getcost();
 $deliveries = implode('', $arrays['deliveries']);
 $payments = implode('', $arrays['payments']);
 $form = array(
 	'deliveries' => !empty($pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) ? str_replace('[[+value]]', $deliveries, $pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) : $deliveries
 	,'payments' => !empty($pdoFetch->elements[$tplOuter]['placeholders']['payments']) ? str_replace('[[+value]]', $payments, @$pdoFetch->elements[$tplOuter]['placeholders']['payments']) : $payments
-	,'order_cost' => @$order_cost['data']['cost']
+	,'order_cost' => $miniShop2->formatPrice(@$order_cost['data']['cost'])
 );
 
 // Setting user fields

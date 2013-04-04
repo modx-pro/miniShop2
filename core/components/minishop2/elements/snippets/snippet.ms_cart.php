@@ -86,7 +86,7 @@ foreach ($cart as $k => $v) {
 		,'limit' => 0
 		,'return' => 'data'
 	);
-// Merge all properties and run!
+	// Merge all properties and run!
 	$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
 	$rows = $pdoFetch->run();
 
@@ -94,8 +94,8 @@ foreach ($cart as $k => $v) {
 		$row = $rows[0];
 		$row['key'] = $k;
 		$row['count'] = $v['count'];
-		$row['price'] = $v['price'];
-		$row['weight'] = $v['weight'];
+		$row['price'] = $miniShop2->formatPrice($v['price']);
+		$row['weight'] = $miniShop2->formatWeight($v['weight']);
 		$row['cost'] = $v['count'] * $v['price'];
 
 		// Additional properties of product
@@ -122,9 +122,12 @@ foreach ($cart as $k => $v) {
 
 		$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
 		$outer['total_count'] += $v['count'];
+		$outer['total_cost'] +=  $v['count'] * $v['price'];
 		$outer['total_weight'] += $v['count'] * $v['weight'];
-		$outer['total_cost'] += $row['cost'];
 	}
 }
+
+$outer['total_cost'] = $miniShop2->formatPrice($outer['total_cost']);
+$outer['total_weight'] = $miniShop2->formatWeight($outer['total_weight']);
 
 return !empty($tplOuter) ? $pdoFetch->getChunk($tplOuter, $outer) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($outer,1));

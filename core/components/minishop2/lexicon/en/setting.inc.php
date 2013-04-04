@@ -47,7 +47,15 @@ $_lang['setting_ms2_order_user_groups_desc'] = 'Comma-separated list of user gro
 $_lang['setting_ms2_email_manager'] = 'Managers mailboxes';
 $_lang['setting_ms2_email_manager_desc'] = 'Comma-separated list of mailboxes of managers, for sending notifications about changes of the status of the order';
 $_lang['setting_ms2_date_format'] = 'Format of dates';
-$_lang['setting_ms2_date_format_desc'] = 'You can specify how to format miniShop2 dates using php strftime() syntax.';
+$_lang['setting_ms2_date_format_desc'] = 'You can specify how to format miniShop2 dates using php strftime() syntax. By default format is "%d.%m.%y %H:%M".';
+$_lang['setting_ms2_price_format'] = 'Format of prices';
+$_lang['setting_ms2_price_format_desc'] = 'You can specify, how to format prices of product by function number_format(). For this used JSON string with array of 3 values: number of decimals, decimals separator and thousands separator. By default format is [2,"."," "], that transforms "15336.6" into "15 336.60"';
+$_lang['setting_ms2_price_format_no_zeros'] = 'Remove extra zeros in the prices';
+$_lang['setting_ms2_price_format_no_zeros_desc'] = 'By default, weight of goods shown with 2 decimals: "15.20". If enabled this option, extra zeroes at the end will removed and price transforms to "15.2"';
+$_lang['setting_ms2_weight_format'] = 'Format of weight';
+$_lang['setting_ms2_weight_format_desc'] = 'You can specify, how to format weight of product by function number_format(). For this used JSON string with array of 3 values: number of decimals, decimals separator and thousands separator. By default format is [3,"."," "], that transforms "141.3" into "141.300"';
+$_lang['setting_ms2_weight_format_no_zeros'] = 'Remove extra zeros in the weight';
+$_lang['setting_ms2_weight_format_no_zeros_desc'] = 'By default, weight of goods shown with 3 decimals: "15.250". If enabled this option, extra zeroes at the end will removed and weight transforms to "15.25".';
 
 $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';

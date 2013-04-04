@@ -1,4 +1,6 @@
 <?php
+/* @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('minishop2');
 if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 /* @var pdoFetch $pdoFetch */
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
@@ -168,9 +170,9 @@ if (!empty($rows) && is_array($rows)) {
 	foreach ($rows as $k => $row) {
 		// Processing main fields
 		if ($class == 'msProduct') {
-			$row['price'] = round($row['price'], 2);
-			$row['old_price'] = round($row['old_price'], 2);
-			$row['weight'] = round($row['weight'], 3);
+			$row['price'] = $miniShop2->formatPrice($row['price']);
+			$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
+			$row['weight'] = $miniShop2->formatWeight($row['weight']);
 		}
 
 		// Processing quick fields

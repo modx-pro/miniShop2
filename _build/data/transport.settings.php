@@ -19,7 +19,7 @@ $settings['ms2_category_grid_fields']->fromArray(array(
 $settings['ms2_category_show_nested_products']= $modx->newObject('modSystemSetting');
 $settings['ms2_category_show_nested_products']->fromArray(array(
 	'key' => 'ms2_category_show_nested_products',
-	'value' => 'true',
+	'value' => true,
 	'xtype' => 'combo-boolean',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_category',
@@ -46,7 +46,7 @@ $settings['ms2_product_extra_fields']->fromArray(array(
 $settings['ms2_category_show_comments']= $modx->newObject('modSystemSetting');
 $settings['ms2_category_show_comments']->fromArray(array(
 	'key' => 'ms2_category_show_comments',
-	'value' => 'true',
+	'value' => true,
 	'xtype' => 'combo-boolean',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_category',
@@ -55,7 +55,7 @@ $settings['ms2_category_show_comments']->fromArray(array(
 $settings['ms2_product_show_comments']= $modx->newObject('modSystemSetting');
 $settings['ms2_product_show_comments']->fromArray(array(
 	'key' => 'ms2_product_show_comments',
-	'value' => 'true',
+	'value' => true,
 	'xtype' => 'combo-boolean',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_product',
@@ -73,7 +73,7 @@ $settings['ms2_template_product_default']->fromArray(array(
 $settings['ms2_product_show_in_tree_default']= $modx->newObject('modSystemSetting');
 $settings['ms2_product_show_in_tree_default']->fromArray(array(
 	'key' => 'ms2_product_show_in_tree_default',
-	'value' => 'false',
+	'value' => false,
 	'xtype' => 'combo-boolean',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_product',
@@ -169,6 +169,42 @@ $settings['ms2_date_format']->fromArray(array(
 	'area' => 'ms2_order',
 ),'',true,true);
 
+$settings['ms2_price_format']= $modx->newObject('modSystemSetting');
+$settings['ms2_price_format']->fromArray(array(
+	'key' => 'ms2_price_format',
+	'value' => '[2, ".", " "]',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
+$settings['ms2_price_format_no_zeros']= $modx->newObject('modSystemSetting');
+$settings['ms2_price_format_no_zeros']->fromArray(array(
+	'key' => 'ms2_price_format_no_zeros',
+	'value' => true,
+	'xtype' => 'combo-boolean',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
+$settings['ms2_weight_format']= $modx->newObject('modSystemSetting');
+$settings['ms2_weight_format']->fromArray(array(
+	'key' => 'ms2_weight_format',
+	'value' => '[3, ".", " "]',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
+$settings['ms2_weight_format_no_zeros']= $modx->newObject('modSystemSetting');
+$settings['ms2_weight_format_no_zeros']->fromArray(array(
+	'key' => 'ms2_weight_format_no_zeros',
+	'value' => true,
+	'xtype' => 'combo-boolean',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
 $settings['ms2_payment_paypal_api_url']= $modx->newObject('modSystemSetting');
 $settings['ms2_payment_paypal_api_url']->fromArray(array(
 	'key' => 'ms2_payment_paypal_api_url',
@@ -244,7 +280,7 @@ $settings['ms2_payment_paypal_cancel_id']->fromArray(array(
 $settings['ms2_payment_paypal_cancel_order']= $modx->newObject('modSystemSetting');
 $settings['ms2_payment_paypal_cancel_order']->fromArray(array(
 	'key' => 'ms2_payment_paypal_cancel_order',
-	'value' => 'false',
+	'value' => false,
 	'xtype' => 'combo-boolean',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_payment',

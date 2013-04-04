@@ -9,6 +9,10 @@ Changelog for miniShop2.
 - Added ability to use msProducts with any modResource class.
 - Added property "tvPrefix" to msProducts for compatibility with getResources.
 - Added property "outputSeparator" to snippets msOptions and msProducts.
+- Added system parameter "ms2_price_format" for specifying how to format price of product.
+- Added system parameter "ms2_price_format_no_zeros" for optional removing extra zeros at the end of price.
+- Added system parameter "ms2_weight_format" for specifying how to format weight of product.
+- Added system parameter "ms2_weight_format_no_zeros" for optional removing extra zeros at the end of weight.
 
 2.0.0 rc6
 ==============

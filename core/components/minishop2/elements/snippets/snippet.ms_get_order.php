@@ -1,6 +1,7 @@
 <?php
 if (empty($id)) {return $modx->lexicon('ms2_err_order_nf');}
-
+/* @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('minishop2');
 /* @var pdoFetch $pdoFetch */
 if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
@@ -25,6 +26,10 @@ $outer = array_merge($pls_order, $pls_user, $pls_address, $pls_delivery, $pls_pa
 
 $outer['goods'] = '';
 $outer['cart_count'] = 0;
+$outer['cost'] = $miniShop2->formatPrice($outer['cost']);
+$outer['cart_cost'] = $miniShop2->formatPrice($outer['cart_cost']);
+$outer['delivery_cost'] = $miniShop2->formatPrice($outer['delivery_cost']);
+$outer['weight'] = $miniShop2->formatWeight($outer['weight']);
 
 // Include TVs
 $tvsLeftJoin = '';
@@ -98,6 +103,10 @@ $rows = $pdoFetch->run();
 /* @var msOrderProduct $row */
 foreach ($rows as $row) {
 	$outer['cart_count'] += $row['count'];
+	$row['price'] = $miniShop2->formatPrice($row['price']);
+	$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
+	$row['cost'] = $miniShop2->formatPrice($row['cost']);
+	$row['weight'] = $miniShop2->formatWeight($row['weight']);
 
 	// Additional properties of product
 	$options = json_decode($row['options'],1);

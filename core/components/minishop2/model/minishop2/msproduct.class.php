@@ -401,7 +401,13 @@ class msProduct extends modResource {
 	public function process() {
 		/* @var msProductData $data */
 		if ($data = $this->getOne('Data')) {
-			$this->xpdo->setPlaceholders($data->toArray());
+			/* @var miniShop2 $miniShop2 */
+			$miniShop2 = $this->xpdo->getService('minishop2');
+			$pls = $data->toArray();
+			$pls['price'] = $miniShop2->formatPrice($pls['price']);
+			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
+			$pls['weight'] = $miniShop2->formatWeight($pls['weight']);
+			$this->xpdo->setPlaceholders($pls);
 		}
 		/* @var msVendor $vendor */
 		if ($vendor = $this->getOne('Vendor')) {

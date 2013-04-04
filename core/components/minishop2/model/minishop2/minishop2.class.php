@@ -79,6 +79,10 @@ class miniShop2 {
 							,actionUrl: "'.$this->config['actionUrl'].'"
 							,ctx: "'.$this->modx->context->get('key').'"
 							,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
+							,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
+							,price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
+							,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
+							,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
 						};
 						if(typeof jQuery == "undefined") {
 							document.write("<script src=\""+miniShop2Config.jsUrl+"lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
@@ -237,7 +241,8 @@ class miniShop2 {
 				$this->modx->lexicon->load($lang.':minishop2:default',$lang.':minishop2:cart');
 			}
 
-			$pls = $order->toArray();
+			//$pls = $order->toArray();
+			$pls = array('id' => $order->get('id'));
 			/* @var modChunk $chunk*/
 			if ($status->get('email_manager')) {
 				$subject = '';
@@ -360,13 +365,49 @@ class miniShop2 {
 	 * @return string $date Formatted date
 	 * */
 	public function formatDate($date = '') {
-		$df = $this->modx->getOption('ms2_date_format');
+		$df = $this->modx->getOption('ms2_date_format', null, '%d.%m.%Y %H:%M');
 		return (!empty($date) && $date !== '0000-00-00 00:00:00') ? strftime($df, strtotime($date)) : '&nbsp;';
 	}
 
 
+	/* Function for formatting price
+	 *
+	 * @param string $price Source price
+	 * @return string $price Formatted price
+	 * */
+	public function formatPrice($price = 0) {
+		$pf = json_decode($this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'), true);
+		$price = number_format($price, $pf[0], $pf[1], $pf[2]);
+
+		if ($this->modx->getOption('ms2_price_format_no_zeros', null, true)) {
+			$price = preg_replace('/(0+)$/', '', $price);
+			$price = preg_replace('/[^0-9]$/', '', $price);
+		}
+
+		return $price;
+	}
+
+
+	/* Function for formatting weight
+	 *
+	 * @param string $weight Source weight
+	 * @return string $weight Formatted weight
+	 * */
+	public function formatWeight($weight = 0) {
+		$wf = json_decode($this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'), true);
+		$weight = number_format($weight, $wf[0], $wf[1], $wf[2]);
+
+		if ($this->modx->getOption('ms2_weight_format_no_zeros', null, true)) {
+			$weight = preg_replace('/(0+)$/', '', $weight);
+			$weight = preg_replace('/[^0-9]$/', '', $weight);
+		}
+
+		return $weight;
+	}
+
+
 	/*
-	 * Gets mathing resources by tags. This is adapted function from miniShop1 for backward compatibility
+	 * Gets matching resources by tags. This is adapted function from miniShop1 for backward compatibility
 	 *
 	 * @param array $tags Tags for search
 	 * @param int $only_ids Return only ids of matched resources
