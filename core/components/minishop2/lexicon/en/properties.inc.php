@@ -26,6 +26,7 @@ $_lang['ms2_prop_master'] = 'Id of the master product. If specified both "master
 $_lang['ms2_prop_slave'] = 'Id of the slave product. If specified "master" this option will be ignored.';
 $_lang['ms2_prop_class'] = 'Name of class for selection. By default, "msProduct".';
 $_lang['ms2_prop_tvPrefix'] = 'The prefix for TemplateVar properties, "tv." for example. By default it is empty.';
+$_lang['ms2_prop_outputSeparator'] = 'An optional string to separate each tpl instance.';
 
 $_lang['ms2_prop_showUnpublished'] = 'Show unpublished goods.';
 $_lang['ms2_prop_showDeleted'] = 'Show deleted goods.';

@@ -48,6 +48,13 @@ $properties = array(
 		,'value' => ''
 		,'lexicon' => 'minishop2:properties'
 	)
+	,array(
+		'name' => 'outputSeparator'
+		,'desc' => 'ms2_prop_outputSeparator'
+		,'type' => 'textfield'
+		,'value' => "\n"
+		,'lexicon' => 'minishop2:properties'
+	)
 );
 
 return $properties;

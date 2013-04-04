@@ -7,6 +7,7 @@ $pdoFetch->addTime('pdoTools loaded.');
 
 if (empty($product) && !empty($input)) {$product = $input;}
 if ((empty($name) || $name == 'id') && !empty($options)) {$name = $options;}
+if (empty($outputSeparator)) {$outputSeparator = "\n";}
 
 $output = '';
 $product = !empty($product) ? $modx->getObject('msProduct', $product) : $product = $modx->resource;
@@ -27,7 +28,7 @@ else if ($options = $product->get($name)) {
 			$rows[] = empty($tplRow) ? $value : $pdoFetch->getChunk($tplRow, $pls);
 		}
 		if (!empty($rows)) {
-			$rows = empty($tplRow) ? implode(', ', $rows) : implode('', $rows);
+			$rows = implode($outputSeparator, $rows);
 			$output = empty($tplOuter) ? $rows : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, array('name' => $name, 'rows' => $rows)));
 		}
 	}

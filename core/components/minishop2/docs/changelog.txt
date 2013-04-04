@@ -8,6 +8,7 @@ Changelog for miniShop2.
 - Added selection of product links in snippet msProducts. See the new snippet properties.
 - Added ability to use msProducts with any modResource class.
 - Added property "tvPrefix" to msProducts for compatibility with getResources.
+- Added property "outputSeparator" to snippets msOptions and msProducts.
 
 2.0.0 rc6
 ==============

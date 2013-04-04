@@ -150,6 +150,13 @@ $properties = array(
 		'value' => '',
 		'lexicon' => 'minishop2:properties',
 	)
+	,array(
+		'name' => 'outputSeparator'
+		,'desc' => 'ms2_prop_outputSeparator'
+		,'type' => 'textfield'
+		,'value' => "\n"
+		,'lexicon' => 'minishop2:properties'
+	)
 
 	,array(
 		'name' => 'showUnpublished', 'desc' => 'ms2_prop_showUnpublished', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'
