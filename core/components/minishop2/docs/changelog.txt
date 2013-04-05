@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.0.0 pl
+2.0.0 pl1
 ==============
 - [mgr] Changing of product image now cleans its cache.
 - [mgr] New icons in tree
