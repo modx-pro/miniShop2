@@ -21,11 +21,12 @@ $_lang['ms2_prop_includeContent'] = 'Récupérer le champ "contenu" des articles
 $_lang['ms2_prop_where'] = 'Une expression JSON pour construire les critères supplémentaires de la clause "where".';
 $_lang['ms2_prop_includeTVs'] = 'Une liste optionnelle, séparée par des virgules, de nom de "TemplateVar" a inclure dans la sélection.';
 $_lang['ms2_prop_includeThumbs'] = 'Une liste optionnelle, séparée par des virgules, de taille de vignette à inclure dans la sélection. Par exemple : "120x90,360x240" vous donne les espaces réservés [[+120x90]] et [[+360x240]]. Les vignettes doivent être générée dans la gallerie des articles.';
-$_lang['ms2_prop_link'] = 'Id of link of goods, which is automatically assigned when you create a new link in the settings.';
-$_lang['ms2_prop_master'] = 'Id of the master product. If specified both "master" and "slave" - query will built for master.';
-$_lang['ms2_prop_slave'] = 'Id of the slave product. If specified "master" this option will be ignored.';
-$_lang['ms2_prop_class'] = 'Name of class for selection. By default, "msProduct".';
-$_lang['ms2_prop_tvPrefix'] = 'The prefix for TemplateVar properties, "tv." for example. By default it is empty.';
+$_lang['ms2_prop_link'] = 'ID du lien des marchandises, qui est automatiquement attribué quand vous créez un nouveau lien dans les paramètres.';
+$_lang['ms2_prop_master'] = 'ID de l\'article maître. Si spécifié il est à la fois "maître" et "esclave" - La requête sera construite pour le maître.';
+$_lang['ms2_prop_slave'] = 'ID de l\'article esclave. Si "maître" est spécifié, cette option sera ignorée.';
+$_lang['ms2_prop_class'] = 'Nom de la classe pour la sélection. Par défaut, "msProduct".';
+$_lang['ms2_prop_tvPrefix'] = 'Préfix pour le propriétés "TemplateVar", "tv.", par exemple. Vide par défaut.';
+$_lang['ms2_prop_outputSeparator'] = 'Chaine de caratères optionnelle séparant chaque instance de modèle.';
 
 $_lang['ms2_prop_showUnpublished'] = 'Afficher les articles non publiés.';
 $_lang['ms2_prop_showDeleted'] = 'Afficher les article supprimés.';
