@@ -14,7 +14,7 @@ class msCategoryCreateManagerController extends ResourceCreateManagerController 
 	 * @return bool
 	 */
 	public function checkPermissions() {
-		return $this->modx->hasPermission('edit_document');
+		return $this->modx->hasPermission('new_document');
 	}
 
 	/**
