@@ -81,7 +81,7 @@ class msCartHandler implements msCartInterface {
 		$this->config = array_merge(array(
 			'cart' => & $_SESSION['minishop2']['cart']
 			,'json_response' => false
-			,'max_count' => 1000
+			,'max_count' => $this->modx->getOption('ms2_cart_max_count', null, 1000, true)
 			,'allow_deleted' => false
 			,'allow_unpublished' => false
 		),$config);
@@ -163,6 +163,9 @@ class msCartHandler implements msCartInterface {
 		if (array_key_exists($key, $this->cart)) {
 			if ($count <= 0) {
 				return $this->remove($key);
+			}
+			else if ($count > $this->config['max_count']) {
+				return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
 			}
 			else {
 				$this->modx->invokeEvent('msOnBeforeChangeInCart', array('key' => $key, 'count' => $count, 'cart' => $this));
