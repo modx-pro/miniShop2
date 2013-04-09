@@ -3,7 +3,7 @@
 class msOrderStatusUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msOrderStatus';
 	public $languageTopics = array('minishop2');
-	public $permission = 'update_document';
+	public $permission = 'edit_document';
 
 	public function beforeSet() {
 		if ($this->modx->getObject('msOrderStatus',array('name' => $this->getProperty('name'), 'id:!=' => $this->getProperty('id') ))) {

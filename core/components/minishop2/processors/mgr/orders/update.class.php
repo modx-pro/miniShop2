@@ -3,7 +3,7 @@
 class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msOrder';
 	public $languageTopics = array('minishop2:default');
-	public $permission = 'update_document';
+	public $permission = 'edit_document';
 	private $status;
 	private $delivery;
 	private $payment;

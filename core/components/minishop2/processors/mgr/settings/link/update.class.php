@@ -3,7 +3,7 @@
 class msLinkUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msLink';
 	public $languageTopics = array('minishop2');
-	public $permission = 'update_document';
+	public $permission = 'edit_document';
 
 	public function beforeSet() {
 		if ($this->modx->getObject('msLink',array('name' => $this->getProperty('name'), 'id:!=' => $this->getProperty('id') ))) {

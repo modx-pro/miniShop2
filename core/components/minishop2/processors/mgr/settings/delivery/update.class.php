@@ -3,7 +3,7 @@
 class msDeliveryUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msDelivery';
 	public $languageTopics = array('minishop2');
-	public $permission = 'update_document';
+	public $permission = 'edit_document';
 
 	public function beforeSet() {
 		if ($this->modx->getObject('msDelivery',array('name' => $this->getProperty('name'), 'id:!=' => $this->getProperty('id') ))) {
