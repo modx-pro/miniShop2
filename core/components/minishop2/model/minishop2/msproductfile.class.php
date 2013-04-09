@@ -74,13 +74,18 @@ class msProductFile extends xPDOSimpleObject {
 	public function makeThumbnail($options = array()) {
 		$phpThumb = new modPhpThumb($this->xpdo);
 		$phpThumb->initialize();
-		$phpThumb->setSourceData($this->file['content']);
+
+		$tmp = tempnam(MODX_BASE_PATH, 'uf_');
+		file_put_contents($tmp, $this->file['content']);
+		$phpThumb->setSourceFilename($tmp);
+
 		foreach ($options as $k => $v) {
 			$phpThumb->setParameter($k, $v);
 		}
 
 		if ($phpThumb->GenerateThumbnail() && $phpThumb->RenderOutput()) {
 			@unlink($phpThumb->sourceFilename);
+			@unlink($tmp);
 			return $phpThumb->outputImageData;
 		}
 		else {
