@@ -241,8 +241,12 @@ class miniShop2 {
 				$this->modx->lexicon->load($lang.':minishop2:default',$lang.':minishop2:cart');
 			}
 
-			//$pls = $order->toArray();
-			$pls = array('id' => $order->get('id'));
+			$pls = $order->toArray();
+			$pls['cost'] = $this->formatPrice($pls['cost']);
+			$pls['cart_cost'] = $this->formatPrice($pls['cart_cost']);
+			$pls['delivery_cost'] = $this->formatPrice($pls['delivery_cost']);
+			$pls['weight'] = $this->formatWeight($pls['weight']);
+
 			/* @var modChunk $chunk*/
 			if ($status->get('email_manager')) {
 				$subject = '';

@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - [mgr] Fixed formatting of dates in category grid.
 - Added ability to create system setting "ms2_cart_max_count" to override maximum number of products for one operation.
+- Fixed placeholders in emails subjects
 
 2.0.0 pl1
 ==============
