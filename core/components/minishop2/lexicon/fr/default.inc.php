@@ -120,6 +120,7 @@ $_lang['ms2_err_status_final'] = 'L\'état Terminé est posistionné, vous ne po
 $_lang['ms2_err_status_fixed'] = 'L\'état Vérouillé est positionné, vous ne pouvez pas revenir à un état précedant.';
 $_lang['ms2_err_status_same'] = 'Cet état est déjà positionné.';
 $_lang['ms2_err_register_globals'] = 'Erreur : le paramètre PHP <b>register_globals</b> doit être off.';
+$_lang['ms2_err_link_equal'] = 'Vous essayez d\'ajouter un lien de produit à lui-même';
 
 $_lang['ms2_email_subject_new_user'] = 'Vous avez passé la commande n°[[+num]] sur le site [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'Vous avez une nouvelle commande n°[[+num]]';

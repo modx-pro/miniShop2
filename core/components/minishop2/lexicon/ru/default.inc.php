@@ -118,6 +118,7 @@ $_lang['ms2_err_status_final'] = 'Установлен финальный ста
 $_lang['ms2_err_status_fixed'] = 'Установлен фиксирующий статус. Вы не можете сменить его на более ранний.';
 $_lang['ms2_err_status_same'] = 'Этот статус уже установлен.';
 $_lang['ms2_err_register_globals'] = 'Ошибка: php параметр <b>register_globals</b> должен быть выключен.';
+$_lang['ms2_err_link_equal'] = 'Вы пытаетесь добавить товару ссылку на самого себя';
 
 $_lang['ms2_email_subject_new_user'] = 'Вы сделали заказ #[[+num]] на сайте [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'У вас новый заказ #[[+num]]';

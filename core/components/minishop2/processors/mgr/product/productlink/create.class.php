@@ -2,7 +2,7 @@
 
 class msProductLinkCreateProcessor extends modObjectCreateProcessor {
 	public $classKey = 'msProductLink';
-	public $languageTopics = array('minishop2');
+	public $languageTopics = array('minishop2:default');
 	public $permission = 'new_document';
 
 	public function initialize() {
@@ -38,24 +38,27 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor {
 
 		switch ($type) {
 			case 'many_to_many':
-				$q = $this->modx->newQuery('msProductLink', array('link' => $link));
-				$q->select('master, slave');
-				if ($q->prepare() && $q->stmt->execute()) {
-					$sql = "INSERT INTO {$this->modx->getTableName('msProductLink')} (`link`,`master`,`slave`) VALUES ('$link','$master','$slave'), ('$link','$slave','$master') ";
+				$this->addLink($link, $master, $slave);
+				$this->addLink($link, $slave, $master);
 
+				$q = $this->modx->newQuery('msProductLink', array('link' => $link));
+				$q->andCondition(array('master:IN' => array($master,$slave)));
+				$q->select('slave');
+
+				if ($q->prepare() && $q->stmt->execute()) {
+					$slaves = $row = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+					$slaves = array_unique($slaves);
 					$rows = array();
-					while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
-						if ($master != $row['master']) {
-							$rows[] = "('$link','$master','{$row['master']}')";
-							$rows[] = "('$link','{$row['master']}','$master')";
-						}
-						if ($slave != $row['slave']) {
-							$rows[] = "('$link','$slave','{$row['slave']}')";
-							$rows[] = "('$link','{$row['slave']}','$slave')";
+					foreach ($slaves as $v) {
+						foreach ($slaves as $v2) {
+							if ($v != $v2) {
+								$rows[] = "('$link','$v','$v2')";
+							}
 						}
 					}
-					if (!empty($rows)) {$sql .= ',' . implode(',', $rows);}
-					$sql .= "ON DUPLICATE KEY UPDATE `link` = '$link';";
+					$sql = "INSERT INTO {$this->modx->getTableName('msProductLink')} (`link`,`master`,`slave`) VALUES ";
+					$sql .= implode(',', $rows);
+					$sql .= " ON DUPLICATE KEY UPDATE `link` = '$link';";
 					$this->modx->exec($sql);
 				}
 			break;

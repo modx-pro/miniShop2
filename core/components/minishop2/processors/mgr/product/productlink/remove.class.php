@@ -33,7 +33,7 @@ class msLinkRemoveProcessor extends modObjectRemoveProcessor  {
 		switch ($type) {
 			case 'many_to_many':
 			case 'one_to_one':
-				$sql .= "`master` = {$master} OR `slave` = {$master}";
+				$sql .= "`master` = {$slave} OR `slave` = {$slave}";
 			break;
 
 			case 'one_to_many':
