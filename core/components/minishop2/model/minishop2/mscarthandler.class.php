@@ -122,15 +122,17 @@ class msCartHandler implements msCartInterface {
 
 			$this->modx->invokeEvent('msOnBeforeAddToCart', array('product' => & $product, 'count' => & $count, 'options' => & $options, 'cart' => $this));
 
-			$key = md5($id.(json_encode($options)));
+			$price = $product->getPrice($this);
+			$weight = $product->getWeight($this);
+			$key = md5($id.$price.$weight.(json_encode($options)));
 			if (array_key_exists($key, $this->cart)) {
 				return $this->change($key, $this->cart[$key]['count'] + $count);
 			}
 			else {
 				$this->cart[$key] = array(
 					'id' => $id
-					,'price' => $product->getPrice()
-					,'weight' => $product->getWeight()
+					,'price' => $price
+					,'weight' => $weight
 					,'count' => $count
 					,'options' => $options
 				);

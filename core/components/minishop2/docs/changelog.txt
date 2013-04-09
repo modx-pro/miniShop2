@@ -8,6 +8,9 @@ Changelog for miniShop2.
 - Fixed generation of thumbnails in gallery for working with ImageMagick.
 - Fixed link type "Many to many".
 - Fixed requirement of non-existing permission "update_document" in processors.
+- Added system setting "ms2_price_snippet" for modification of product price.
+- Added system setting "ms2_weight_snippet" for modification of product weight.
+- Product key in msCartHandler now generates with using "$price" and "$weight", because they can be modified when adding to cart.
 
 2.0.0 pl1
 ==============

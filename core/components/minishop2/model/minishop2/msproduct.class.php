@@ -404,9 +404,9 @@ class msProduct extends modResource {
 			/* @var miniShop2 $miniShop2 */
 			$miniShop2 = $this->xpdo->getService('minishop2');
 			$pls = $data->toArray();
-			$pls['price'] = $miniShop2->formatPrice($pls['price']);
+			$pls['price'] = $miniShop2->formatPrice($data->getPrice());
 			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
-			$pls['weight'] = $miniShop2->formatWeight($pls['weight']);
+			$pls['weight'] = $miniShop2->formatWeight($data->getWeight());
 			$this->xpdo->setPlaceholders($pls);
 		}
 		/* @var msVendor $vendor */
@@ -436,13 +436,13 @@ class msProduct extends modResource {
 		return $this->data->updateProductImage();
 	}
 
-	public function getPrice() {
+	public function getPrice($data = array()) {
 		if (!is_object($this->data)) {$this->loadData();}
-		return $this->data->getPrice();
+		return $this->data->getPrice($data);
 	}
 
-	public function getWeight() {
+	public function getWeight($data = array()) {
 		if (!is_object($this->data)) {$this->loadData();}
-		return $this->data->getWeight();
+		return $this->data->getWeight($data);
 	}
 }

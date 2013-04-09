@@ -145,13 +145,45 @@ class msProductData extends xPDOSimpleObject {
 	}
 
 
-	public function getPrice() {
-		return $this->get('price');
+	/* Returns product price.
+	 *
+	 * @param mixed $data Any additional data for price modification
+	 * @return integer $price Product price
+	 * */
+	public function getPrice($data = array()) {
+		$price = 0;
+		if ($setting = $this->xpdo->getOption('ms2_price_snippet', null, false, true)) {
+			/* @var modSnippet $snippet */
+			if ($snippet = $this->xpdo->getObject('modSnippet', array('name' => $setting))) {
+				$snippet->setCacheable(false);
+				$price = $snippet->process(array('product' => $this->getOne('Product'), 'data' => $data));
+			}
+		}
+		else {
+			$price = $this->get('price');
+		}
+		return $price;
 	}
 
 
-	public function getWeight() {
-		return $this->get('weight');
+	/* Returns product weight.
+	 *
+	 * @param mixed $data Any additional data for weight modification
+	 * @return integer $weight Product weight
+	 * */
+	public function getWeight($data = array()) {
+		$weight = 0;
+		if ($setting = $this->xpdo->getOption('ms2_weight_snippet', null, false, true)) {
+			/* @var modSnippet $snippet */
+			if ($snippet = $this->xpdo->getObject('modSnippet', array('name' => $setting))) {
+				$snippet->setCacheable(false);
+				$weight = $snippet->process(array('product' => $this->getOne('Product'), 'data' => $data));
+			}
+		}
+		else {
+			$weight = $this->get('weight');
+		}
+		return $weight;
 	}
 
 

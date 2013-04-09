@@ -165,12 +165,20 @@ if (!empty($tpl)) {
 	$pdoFetch->getChunk($tpl);
 }
 
+$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
+
 // Processing rows
 $output = null;
 if (!empty($rows) && is_array($rows)) {
 	foreach ($rows as $k => $row) {
 		// Processing main fields
 		if ($class == 'msProduct') {
+			if ($modificators) {
+				/* @var msProduct $product */
+				$product = $modx->getObject('msProduct', $row['id']);
+				$row['price'] = $product->getPrice($scriptProperties);
+				$row['weight'] = $product->getWeight($scriptProperties);
+			}
 			$row['price'] = $miniShop2->formatPrice($row['price']);
 			$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
 			$row['weight'] = $miniShop2->formatWeight($row['weight']);

@@ -178,6 +178,15 @@ $settings['ms2_price_format']->fromArray(array(
 	'area' => 'ms2_product',
 ),'',true,true);
 
+$settings['ms2_price_snippet']= $modx->newObject('modSystemSetting');
+$settings['ms2_price_snippet']->fromArray(array(
+	'key' => 'ms2_price_snippet',
+	'value' => '',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
 $settings['ms2_price_format_no_zeros']= $modx->newObject('modSystemSetting');
 $settings['ms2_price_format_no_zeros']->fromArray(array(
 	'key' => 'ms2_price_format_no_zeros',
@@ -191,6 +200,15 @@ $settings['ms2_weight_format']= $modx->newObject('modSystemSetting');
 $settings['ms2_weight_format']->fromArray(array(
 	'key' => 'ms2_weight_format',
 	'value' => '[3, ".", " "]',
+	'xtype' => 'textfield',
+	'namespace' => 'minishop2',
+	'area' => 'ms2_product',
+),'',true,true);
+
+$settings['ms2_weight_snippet']= $modx->newObject('modSystemSetting');
+$settings['ms2_weight_snippet']->fromArray(array(
+	'key' => 'ms2_weight_snippet',
+	'value' => '',
 	'xtype' => 'textfield',
 	'namespace' => 'minishop2',
 	'area' => 'ms2_product',

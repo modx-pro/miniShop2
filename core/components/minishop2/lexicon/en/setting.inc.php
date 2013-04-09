@@ -56,6 +56,10 @@ $_lang['setting_ms2_weight_format'] = 'Format of weight';
 $_lang['setting_ms2_weight_format_desc'] = 'You can specify, how to format weight of product by function number_format(). For this used JSON string with array of 3 values: number of decimals, decimals separator and thousands separator. By default format is [3,"."," "], that transforms "141.3" into "141.300"';
 $_lang['setting_ms2_weight_format_no_zeros'] = 'Remove extra zeros in the weight';
 $_lang['setting_ms2_weight_format_no_zeros_desc'] = 'By default, weight of goods shown with 3 decimals: "15.250". If enabled this option, extra zeroes at the end will removed and weight transforms to "15.25".';
+$_lang['setting_ms2_price_snippet'] = 'Price modificator';
+$_lang['setting_ms2_price_snippet_desc'] = 'You can specify existing snippet for modification of product price, when it showing on site or adding to cart. This snippet must receive object "$product" and return integer.';
+$_lang['setting_ms2_weight_snippet'] = 'Weight modificator';
+$_lang['setting_ms2_weight_snippet_desc'] = 'You can specify existing snippet for modification of product weight, when it showing on site or adding to cart. This snippet must receive object "$product" and return integer.';
 
 $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
