@@ -2,8 +2,6 @@
 /**
  * Add miniShop2 events for plugins to build
  *
- * @package tickets
- * @subpackage build
  */
 $events = array();
 

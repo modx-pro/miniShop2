@@ -22,7 +22,7 @@ if ($object->xpdo) {
 					$modx->log(xPDO::LOG_LEVEL_ERROR,'[miniShop2] Could not find miniShopManagerPolicyTemplate Access Policy Template!');
 				}
 			} else {
-				$modx->log(xPDO::LOG_LEVEL_ERROR,'[Tickets] Could not find miniShopManagerPolicy Access Policy!');
+				$modx->log(xPDO::LOG_LEVEL_ERROR,'[miniShop2] Could not find miniShopManagerPolicy Access Policy!');
 			}
 
 			break;

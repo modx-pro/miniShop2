@@ -2,8 +2,6 @@
 /**
  * Resolves setup-options settings
  *
- * @package tickets
- * @subpackage build
  */
 $success= false;
 switch ($options[xPDOTransport::PACKAGE_ACTION]) {

@@ -49,7 +49,7 @@ class miniShop2 {
 
 
 	/**
-	 * Initializes Tickets into different contexts.
+	 * Initializes component into different contexts.
 	 *
 	 * @access public
 	 * @param string $ctx The context to load. Defaults to web.
