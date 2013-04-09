@@ -142,7 +142,9 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 				$resourceArray['cls'] = $resourceArray['category_name'] = '';
 			}
 
-
+			$resourceArray['price'] = round($resourceArray['price'],2);
+			$resourceArray['old_price'] = round($resourceArray['old_price'],2);
+			$resourceArray['weight'] = round($resourceArray['weight'],3);
 			$resourceArray['action_edit'] = '?a='.$this->editAction->get('id').'&action=post/update&id='.$resourceArray['id'];
 
 			$this->modx->getContext($resourceArray['context_key']);

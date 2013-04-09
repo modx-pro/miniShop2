@@ -338,9 +338,9 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,cacheable: {width:100, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}
 
 			,article: {width:50, sortable:true, editor:{xtype:'textfield'}}
-			,price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,old_price: {width:50, sortable:true, editor:{xtype:'numberfield'}}
-			,weight: {width:50, sortable:true, editor:{xtype:'numberfield'}}
+			,price: {width:50, sortable:true, editor:{xtype:'numberfield', decimalPrecision: 2}}
+			,old_price: {width:50, sortable:true, editor:{xtype:'numberfield', decimalPrecision: 2}}
+			,weight: {width:50, sortable:true, editor:{xtype:'numberfield', decimalPrecision: 3}}
 			,image: {width:50, sortable:false, renderer: this.renderThumb}
 			,thumb: {width:50, sortable:false, renderer: this.renderThumb}
 			,vendor: {width:50, sortable:true, renderer: this.renderVendor, editor: {xtype: 'minishop2-combo-vendor'}}
