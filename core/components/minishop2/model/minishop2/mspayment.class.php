@@ -37,7 +37,7 @@ class msPayment extends xPDOSimpleObject {
 
 
 	public function send(msOrder $order) {
-		if (!is_object($this->handler) || !($this->handler instanceof msDeliveryHandler)) {
+		if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
 			if (!$this->loadHandler()) {
 				return false;
 			}
@@ -47,7 +47,7 @@ class msPayment extends xPDOSimpleObject {
 
 
 	public function receive(msOrder $order, $params = array()) {
-		if (!is_object($this->handler) || !($this->handler instanceof msDeliveryHandler)) {
+		if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
 			if (!$this->loadHandler()) {
 				return false;
 			}

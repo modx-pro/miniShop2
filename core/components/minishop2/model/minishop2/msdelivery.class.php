@@ -40,7 +40,7 @@ class msDelivery extends xPDOSimpleObject {
 		if (is_object($order->ms2) && $order->ms2 instanceof miniShop2) {
 			$this->ms2 = & $order->ms2;
 		}
-		if (!is_object($this->handler) || !($this->handler instanceof msDeliveryHandler)) {
+		if (!is_object($this->handler) || !($this->handler instanceof msDeliveryInterface)) {
 			if (!$this->loadHandler()) {
 				return false;
 			}
