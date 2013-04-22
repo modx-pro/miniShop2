@@ -122,19 +122,24 @@ class miniShop2 {
 	}
 
 
-	/* Method for transform array to placeholdres
+	/* Method for transform array to placeholders
 	 *
 	 * @var array $array With keys and values
 	 * @return array $array Two nested arrays With placeholders and values
 	 * */
-	public function makePlaceholders(array $array = array()) {
+	public function makePlaceholders(array $array = array(), $prefix = '') {
 		$result = array(
 			'pl' => array()
 			,'vl' => array()
 		);
 		foreach ($array as $k => $v) {
-			$result['pl'][$k] = "[[+{$k}]]";
-			$result['vl'][$k] = $v;
+			if (is_array($v)) {
+				$result = array_merge_recursive($result, $this->makePlaceholders($v, $k.'.'));
+			}
+			else {
+				$result['pl'][$prefix.$k] = '[[+'.$prefix.$k.']]';
+				$result['vl'][$prefix.$k] = $v;
+			}
 		}
 		return $result;
 	}

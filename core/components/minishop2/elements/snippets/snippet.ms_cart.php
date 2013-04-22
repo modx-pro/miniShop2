@@ -3,9 +3,8 @@
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
-if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
+$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 $cart = $miniShop2->cart->get();
@@ -15,28 +14,6 @@ if (!empty($_GET['msorder'])) {
 else if (empty($cart)) {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
-
-// Include TVs
-$tvsLeftJoin = '';
-$tvsSelect = array();
-if (!empty($includeTVs)) {
-	$tvs = array_map('trim',explode(',',$includeTVs));
-	if(!empty($tvs[0])){
-		$q = $modx->newQuery('modTemplateVar', array('name:IN' => $tvs));
-		$q->select('id,name');
-		if ($q->prepare() && $q->stmt->execute()) {
-			$tv_ids = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
-			if (!empty($tv_ids)) {
-				foreach ($tv_ids as $tv) {
-					$tvsLeftJoin .= ',{"class":"modTemplateVarResource","alias":"TV'.$tv['name'].'","on":"TV'.$tv['name'].'.contentid = msProduct.id AND TV'.$tv['name'].'.tmplvarid = '.$tv['id'].'"}';
-					$tvsSelect[] = ' "TV'.$tv['name'].'":"TV'.$tv['name'].'.value as '.$tv['name'].'" ';
-				}
-			}
-		}
-		$pdoFetch->addTime('Included list of tvs: <b>'.implode(', ',$tvs).'</b>.');
-	}
-}
-// End of including TVs
 
 // Include Thumbnails
 $thumbsLeftJoin = '';
@@ -63,7 +40,6 @@ $leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"
 if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
 if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
 $select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor":"'.$vendorColumns.'"';
-if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
 $pdoFetch->addTime('Query parameters are prepared.');
 
@@ -85,6 +61,7 @@ foreach ($cart as $k => $v) {
 		,'fastMode' => false
 		,'limit' => 0
 		,'return' => 'data'
+		,'nestedChunkPrefix' => 'minishop2_'
 	);
 	// Merge all properties and run!
 	$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
@@ -105,20 +82,6 @@ foreach ($cart as $k => $v) {
 			}
 		}
 		unset($v['options']);
-
-		// Processing quick fields
-		if (!empty($tplRow)) {
-			$pl = $pdoFetch->makePlaceholders($row);
-			$qfields = array_keys($pdoFetch->elements[$tplRow]['placeholders']);
-			foreach ($qfields as $field) {
-				if (!empty($row[$field])) {
-					$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tplRow]['placeholders'][$field]);
-				}
-				else {
-					$row[$field] = '';
-				}
-			}
-		}
 
 		$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
 		$outer['total_count'] += $v['count'];

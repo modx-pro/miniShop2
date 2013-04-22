@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.0.0 pl3
+==============
+- Compatibility with pdoTools 1.2.0
+
 2.0.0 pl2
 ==============
 - [mgr] Fixed formatting of dates in category grid.

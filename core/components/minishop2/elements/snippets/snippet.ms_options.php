@@ -1,11 +1,11 @@
 <?php
 /* @var pdoFetch $pdoFetch */
-if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
+$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 if (empty($product) && !empty($input)) {$product = $input;}
+if (empty($selected)) {$selected = '';}
 if ((empty($name) || $name == 'id') && !empty($options)) {$name = $options;}
 if (empty($outputSeparator)) {$outputSeparator = "\n";}
 

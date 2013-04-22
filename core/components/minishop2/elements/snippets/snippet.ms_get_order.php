@@ -4,9 +4,8 @@ if (empty($id)) {return $modx->lexicon('ms2_err_order_nf');}
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
-if (!empty($modx->services['pdofetch'])) {unset($modx->services['pdofetch']);}
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->config['nestedChunkPrefix'] = 'minishop2_';
+$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 // Initializing chunk for template rows
@@ -114,20 +113,6 @@ foreach ($rows as $row) {
 	if (!empty($options) && is_array($options)) {
 		foreach ($options as $key => $value) {
 			$row['option.'.$key] = $value;
-		}
-	}
-
-	// Processing quick fields
-	if (!empty($tplRow)) {
-		$pl = $pdoFetch->makePlaceholders($row);
-		$qfields = array_keys($pdoFetch->elements[$tplRow]['placeholders']);
-		foreach ($qfields as $field) {
-			if (!empty($row[$field])) {
-				$row[$field] = str_replace($pl['pl'], $pl['vl'], $pdoFetch->elements[$tplRow]['placeholders'][$field]);
-			}
-			else {
-				$row[$field] = '';
-			}
 		}
 	}
 
