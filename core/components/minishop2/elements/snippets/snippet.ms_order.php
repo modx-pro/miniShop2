@@ -72,12 +72,6 @@ if (!empty($deliveries)) {
 					$order = $miniShop2->order->get();
 				}
 				if (!array_key_exists($pid, $arrays['payments'])) {
-					if (!empty($pdoFetch->elements[$tplPayment]['placeholders']['logo']) && !empty($payment['logo'])) {
-						$payment['logo'] = str_replace('[[+value]]', $payment['logo'], $pdoFetch->elements[$tplPayment]['placeholders']['logo']);
-					}
-					if (!empty($pdoFetch->elements[$tplPayment]['placeholders']['description']) && !empty($payment['description'])) {
-						$payment['description'] = str_replace('[[+value]]', $payment['description'], $pdoFetch->elements[$tplPayment]['placeholders']['description']);
-					}
 					$payment['checked'] = !empty($order['payment']) && $order['payment'] == $pid ? 'checked' : '';
 					$arrays['payments'][$pid] = $pdoFetch->getChunk($tplPayment, $payment);
 				}
@@ -86,13 +80,6 @@ if (!empty($deliveries)) {
 		}
 
 		$pdoFetch->addTime('Processing delivery '.$delivery['name'].'.');
-
-		if (!empty($pdoFetch->elements[$tplDelivery]['placeholders']['logo']) && !empty($delivery['logo'])) {
-			$delivery['logo'] = str_replace('[[+value]]', $delivery['logo'], $pdoFetch->elements[$tplDelivery]['placeholders']['logo']);
-		}
-		if (!empty($pdoFetch->elements[$tplDelivery]['placeholders']['description']) && !empty($payment['description'])) {
-			$delivery['description'] = str_replace('[[+value]]', $delivery['description'], $pdoFetch->elements[$tplDelivery]['placeholders']['description']);
-		}
 		$delivery['checked'] = !empty($order['delivery']) && $order['delivery'] == $did ? 'checked' : '';
 		$delivery['payments'] = json_encode($delivery['payments']);
 		$arrays['deliveries'][$did] = $pdoFetch->getChunk($tplDelivery, $delivery);

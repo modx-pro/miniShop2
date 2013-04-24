@@ -3,5 +3,5 @@
 	[[+logo:default=`[[+name]]`]] <!--&mdash; <i>[[+price]] [[%ms2_frontend_currency]]</i>-->
 	[[+description]]
 </label>
-<!--minishop2_logo <img src="[[+value]]" />-->
-<!--minishop2_description <p><small>[[+value]]</small></p>-->
+<!--minishop2_logo <img src="[[+logo]]" />-->
+<!--minishop2_description <p><small>[[+description]]</small></p>-->
