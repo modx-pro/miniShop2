@@ -1,7 +1,3 @@
-Ext.onReady(function() {
-	MODx.load({ xtype: 'minishop2-page-orders'});
-});
-
 miniShop2.page.Orders = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
