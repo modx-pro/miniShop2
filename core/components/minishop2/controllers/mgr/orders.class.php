@@ -19,10 +19,16 @@ class Minishop2OrdersManagerController extends miniShop2MainController {
 		$this->addCss($this->miniShop2->config['cssUrl']. 'mgr/bootstrap.min.css');
 
 		$this->addJavascript(MODX_MANAGER_URL.'assets/modext/util/datetime.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.utils.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.combo.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.grid.js');
-		$this->modx->regClientStartupScript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.panel.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.utils.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.combo.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.grid.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.panel.js');
+		$this->addHtml('<script type="text/javascript">
+			Ext.onReady(function() {
+				MODx.load({ xtype: "minishop2-page-orders"});
+			});
+		</script>');
+
 		$this->modx->invokeEvent('msOnManagerCustomCssJs',array('controller' => &$this, 'page' => 'orders'));
 	}
 
