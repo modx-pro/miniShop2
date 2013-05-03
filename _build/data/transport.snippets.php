@@ -37,7 +37,7 @@ $snippets['msMiniCart']= $modx->newObject('modSnippet');
 $snippets['msMiniCart']->fromArray(array(
 	'id' => 0
 	,'name' => 'msMiniCart'
-	,'description' => 'Simple sniuppet for displaying cart status'
+	,'description' => 'Simple snippet for displaying cart status'
 	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.ms_minicart.php')
 	,'static' => 1
 	,'static_file' => 'minishop2/elements/snippets/snippet.ms_minicart.php'
@@ -50,7 +50,7 @@ $snippets['msGallery']= $modx->newObject('modSnippet');
 $snippets['msGallery']->fromArray(array(
 	'id' => 0
 	,'name' => 'msGallery'
-	,'description' => 'Simple sniuppet for displaying cart status'
+	,'description' => 'Simple snippet for displaying cart status'
 	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.ms_gallery.php')
 	,'static' => 1
 	,'static_file' => 'minishop2/elements/snippets/snippet.ms_gallery.php'
@@ -63,7 +63,7 @@ $snippets['msOptions']= $modx->newObject('modSnippet');
 $snippets['msOptions']->fromArray(array(
 	'id' => 0
 	,'name' => 'msOptions'
-	,'description' => 'Simple sniuppet for displaying cart status'
+	,'description' => 'Simple snippet for displaying cart status'
 	,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.ms_options.php')
 	,'static' => 1
 	,'static_file' => 'minishop2/elements/snippets/snippet.ms_options.php'
