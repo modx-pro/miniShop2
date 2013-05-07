@@ -38,7 +38,7 @@ else if (!empty($response['PAYMENTREQUEST_0_INVNUM'])) {
 	}
 }
 else {
-	$modx->log(modX::LOG_LEVEL_ERROR, '[miniShop2] Error on receive details of PayPal operation: ' . $response .'; '.print_r($_GET,1));
+	$modx->log(modX::LOG_LEVEL_ERROR, '[miniShop2] Error on receive details of PayPal operation: ' . print_r($response,1) .'; '.print_r($_GET,1));
 }
 
 
