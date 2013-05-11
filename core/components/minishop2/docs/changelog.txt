@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.0.1
 ==============
 - Fixed quick fields in snippet msOrder. Update your chunks for delivery and payment methods.
+- Improved "totalVar" placeholder in snippet msGallery.
 
 2.0.0 pl3
 ==============

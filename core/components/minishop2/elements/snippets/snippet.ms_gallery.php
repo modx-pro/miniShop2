@@ -40,13 +40,13 @@ $pdoFetch->addTime('Query parameters are prepared.');
 $rows = $pdoFetch->run();
 
 // Processing rows
-$output = null;
-$images = array();
+$output = null; $images = array(); $total = 0;
 foreach ($rows as $k => $row) {
 	if ($row['parent'] == 0) {
 		$images[$row['id']]['rank'] = $row['rank'];
 		$images[$row['id']]['name'] = $row['name'];
 		$images[$row['id']]['image'] = $row['url'];
+		$total++;
 	}
 	else if (preg_match('/(\d{1,4}x\d{1,4})/', $row['url'], $size)) {
 		$images[$row['parent']][$size[0]] = $row['url'];
@@ -76,12 +76,19 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 
 unset($modx->services['pdofetch']);
 // Return output
+if (!empty($output)) {
+	if (!empty($tplOuter)) {
+		$output = $pdoFetch->getChunk($tplOuter, array('rows' => $output));
+	}
+}
+else {
+	$output = !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
+}
+$modx->setPlaceholder($pdoFetch->config['totalVar'], $total);
+
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);
 }
-else if (!empty($tplOuter) && !empty($output)) {
-	return $pdoFetch->getChunk($tplOuter, array('rows' => $output));
-}
 else {
-	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
+	return $output;
 }
