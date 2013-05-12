@@ -128,7 +128,7 @@ class msOrderHandler implements msOrderInterface {
 			$value = preg_replace('/\s+/',' ', trim($value));
 		}
 		switch ($key) {
-			case 'email': $value = filter_var($value, FILTER_VALIDATE_EMAIL) ? $value : @$this->order[$key]; break;
+			case 'email': $value = preg_match('/.+@.+..+/i', $value) ? $value : @$this->order[$key]; break;
 			case 'receiver':
 				$value = preg_replace('/[^a-zа-я\s]/iu','',$value);
 				$tmp = explode(' ',$value);

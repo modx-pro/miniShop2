@@ -267,7 +267,7 @@ class miniShop2 {
 				$emails = array_map('trim', explode(',', $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))));
 				if (!empty($subject)) {
 					foreach ($emails as $email) {
-						if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+						if (preg_match('/.+@.+..+/i', $email)) {
 							$this->sendEmail($email, $subject, $body);
 						}
 					}
@@ -288,7 +288,7 @@ class miniShop2 {
 						$body = $this->processTags($chunk->process($pls));
 					}
 					$email = $profile->get('email');
-					if (!empty($subject) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+					if (!empty($subject) && preg_match('/.+@.+..+/i', $email)) {
 						$this->sendEmail($email, $subject, $body);
 					}
 				}
