@@ -46,7 +46,9 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 
 		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_category_show_comments')? 1 : 0;
 
-		$neighborhood = $this->resource->getNeighborhood();
+		if ($this->resource instanceof msCategory) {
+			$neighborhood = $this->resource->getNeighborhood();
+		}
 
 		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');

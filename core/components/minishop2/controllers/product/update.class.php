@@ -76,7 +76,9 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$this->prepareFields();
 
 		if ($showComments) {$this->loadTickets();}
-		$neighborhood = $this->resource->getNeighborhood();
+		if ($this->resource instanceof msProduct) {
+			$neighborhood = $this->resource->getNeighborhood();
+		}
 
 		$this->addHtml('
 		<script type="text/javascript">
