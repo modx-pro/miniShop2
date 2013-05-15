@@ -144,10 +144,12 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 			,deferredRender: false
 			,collapsible: true
 			,itemId: 'tabs'
-			,stateful: true
-			,stateId: 'minishop2-product-upd-tabpanel'
+			,stateful: MODx.config.ms2_product_remember_tabs == true
+			,stateId: 'minishop2-product-new-tabpanel'
 			,stateEvents: ['tabchange']
-			,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
+			,getState:function() {return {activeTab:
+				MODx.config.ms2_product_remember_tabs ? this.items.indexOf(this.getActiveTab()) : 0
+			};}
 			,items: it
 		});
 

@@ -7,301 +7,205 @@
  */
 $settings = array();
 
-$settings['ms2_category_grid_fields']= $modx->newObject('modSystemSetting');
-$settings['ms2_category_grid_fields']->fromArray(array(
-	'key' => 'ms2_category_grid_fields',
-	'value' => 'pagetitle,article,price,weight,thumb,new,favorite,popular',
-	'xtype' => 'textarea',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_category',
-),'',true,true);
+$tmp = array(
+	'ms2_category_grid_fields' => array(
+		'value' => 'pagetitle,article,price,weight,thumb,new,favorite,popular'
+		,'xtype' => 'textarea'
+		,'area' => 'ms2_category'
+	)
+	,'ms2_category_show_nested_products' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_category'
+	)
+	,'ms2_category_show_comments' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_category'
+	)
+	,'ms2_category_remember_tabs' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_category'
+	)
 
-$settings['ms2_category_show_nested_products']= $modx->newObject('modSystemSetting');
-$settings['ms2_category_show_nested_products']->fromArray(array(
-	'key' => 'ms2_category_show_nested_products',
-	'value' => true,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_category',
-),'',true,true);
+	,'ms2_product_main_fields' => array(
+		'value' => 'pagetitle,longtitle,introtext,price,old_price,article,weight,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree'
+		,'xtype' => 'textarea'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_extra_fields' => array(
+		'value' => 'color,size,vendor,new,popular,favorite,made_in,tags'
+		,'xtype' => 'textarea'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_show_comments' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_template_product_default' => array(
+		'value' => ''
+		,'xtype' => 'modx-combo-template'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_show_in_tree_default' => array(
+		'value' => false
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_source_default' => array(
+		'value' => 1
+		,'xtype' => 'modx-combo-source'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_thumbnail_size' => array(
+		'value' => '120x90'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_vertical_tabs' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_remember_tabs' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_price_format' => array(
+		'value' => '[2, ".", " "]'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_weight_format' => array(
+		'value' => '[3, ".", " "]'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_price_snippet' => array(
+		'value' => ''
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_price_format_no_zeros' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_weight_snippet' => array(
+		'value' => ''
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_weight_format_no_zeros' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
 
-$settings['ms2_product_main_fields']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_main_fields']->fromArray(array(
-	'key' => 'ms2_product_main_fields',
-	'value' => 'pagetitle,longtitle,introtext,price,old_price,article,weight,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree',
-	'xtype' => 'textarea',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
 
-$settings['ms2_product_extra_fields']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_extra_fields']->fromArray(array(
-	'key' => 'ms2_product_extra_fields',
-	'value' => 'color,size,vendor,new,popular,favorite,made_in,tags',
-	'xtype' => 'textarea',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
+	,'ms2_cart_handler_class' => array(
+		'value' => 'msCartHandler'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_cart'
+	)
 
-$settings['ms2_category_show_comments']= $modx->newObject('modSystemSetting');
-$settings['ms2_category_show_comments']->fromArray(array(
-	'key' => 'ms2_category_show_comments',
-	'value' => true,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_category',
-),'',true,true);
 
-$settings['ms2_product_show_comments']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_show_comments']->fromArray(array(
-	'key' => 'ms2_product_show_comments',
-	'value' => true,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
+	,'ms2_order_handler_class' => array(
+		'value' => 'msOrderHandler'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_order'
+	)
+	,'ms2_order_user_groups' => array(
+		'value' => ''
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_order'
+	)
+	,'ms2_date_format' => array(
+		'value' => '%d.%m.%y <span class="gray">%H:%M</span>'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_order'
+	)
+	,'ms2_email_manager' => array(
+		'value' => ''
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_order'
+	)
 
-$settings['ms2_template_product_default']= $modx->newObject('modSystemSetting');
-$settings['ms2_template_product_default']->fromArray(array(
-	'key' => 'ms2_template_product_default',
-	'value' => '',
-	'xtype' => 'modx-combo-template',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
 
-$settings['ms2_product_show_in_tree_default']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_show_in_tree_default']->fromArray(array(
-	'key' => 'ms2_product_show_in_tree_default',
-	'value' => false,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
+	,'ms2_frontend_css' => array(
+		'value' => '[[+cssUrl]]web/default.css'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_frontend'
+	)
+	,'ms2_frontend_js' => array(
+		'value' => '[[+jsUrl]]web/default.js'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_frontend'
+	)
 
-$settings['ms2_product_source_default']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_source_default']->fromArray(array(
-	'key' => 'ms2_product_source_default',
-	'value' => '1',
-	'xtype' => 'modx-combo-source',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
 
-$settings['ms2_product_thumbnail_size']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_thumbnail_size']->fromArray(array(
-	'key' => 'ms2_product_thumbnail_size',
-	'value' => '120x90',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
+	,'ms2_payment_paypal_api_url' => array(
+		'value' => 'https://api-3t.paypal.com/nvp'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_checkout_url' => array(
+		'value' => 'https://www.paypal.com/webscr?cmd=_express-checkout&token='
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_currency' => array(
+		'value' => 'USD'
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_user' => array(
+		'value' => ''
+		,'xtype' => 'textfield'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_pwd' => array(
+		'value' => ''
+		,'xtype' => 'text-password'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_signature' => array(
+		'value' => ''
+		,'xtype' => 'text-password'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_success_id' => array(
+		'value' => ''
+		,'xtype' => 'numberfield'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_cancel_id' => array(
+		'value' => ''
+		,'xtype' => 'numberfield'
+		,'area' => 'ms2_payment'
+	)
+	,'ms2_payment_paypal_cancel_order' => array(
+		'value' => false
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_payment'
+	)
+);
 
-$settings['ms2_product_vertical_tabs']= $modx->newObject('modSystemSetting');
-$settings['ms2_product_vertical_tabs']->fromArray(array(
-	'key' => 'ms2_product_vertical_tabs',
-	'value' => true,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
 
-$settings['ms2_cart_handler_class']= $modx->newObject('modSystemSetting');
-$settings['ms2_cart_handler_class']->fromArray(array(
-	'key' => 'ms2_cart_handler_class',
-	'value' => 'msCartHandler',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_cart',
-),'',true,true);
+foreach ($tmp as $k => $v) {
+	/* @var modSystemSetting $setting */
+	$setting = $modx->newObject('modSystemSetting');
+	$setting->fromArray(array_merge(
+		array(
+			'key' => $k
+			,'namespace' => 'minishop2'
+		), $v
+	),'',true,true);
 
-$settings['ms2_order_handler_class']= $modx->newObject('modSystemSetting');
-$settings['ms2_order_handler_class']->fromArray(array(
-	'key' => 'ms2_order_handler_class',
-	'value' => 'msOrderHandler',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_order',
-),'',true,true);
-
-$settings['ms2_order_user_groups']= $modx->newObject('modSystemSetting');
-$settings['ms2_order_user_groups']->fromArray(array(
-	'key' => 'ms2_order_user_groups',
-	'value' => '',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_order',
-),'',true,true);
-
-$settings['ms2_email_manager']= $modx->newObject('modSystemSetting');
-$settings['ms2_email_manager']->fromArray(array(
-	'key' => 'ms2_email_manager',
-	'value' => '',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_order',
-),'',true,true);
-
-$settings['ms2_frontend_css']= $modx->newObject('modSystemSetting');
-$settings['ms2_frontend_css']->fromArray(array(
-	'key' => 'ms2_frontend_css',
-	'value' => '[[+cssUrl]]web/default.css',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_frontend',
-),'',true,true);
-
-$settings['ms2_frontend_js']= $modx->newObject('modSystemSetting');
-$settings['ms2_frontend_js']->fromArray(array(
-	'key' => 'ms2_frontend_js',
-	'value' => '[[+jsUrl]]web/default.js',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_frontend',
-),'',true,true);
-
-$settings['ms2_date_format']= $modx->newObject('modSystemSetting');
-$settings['ms2_date_format']->fromArray(array(
-	'key' => 'ms2_date_format',
-	'value' => '%d.%m.%y <span class="gray">%H:%M</span>',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_order',
-),'',true,true);
-
-$settings['ms2_price_format']= $modx->newObject('modSystemSetting');
-$settings['ms2_price_format']->fromArray(array(
-	'key' => 'ms2_price_format',
-	'value' => '[2, ".", " "]',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
-
-$settings['ms2_price_snippet']= $modx->newObject('modSystemSetting');
-$settings['ms2_price_snippet']->fromArray(array(
-	'key' => 'ms2_price_snippet',
-	'value' => '',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
-
-$settings['ms2_price_format_no_zeros']= $modx->newObject('modSystemSetting');
-$settings['ms2_price_format_no_zeros']->fromArray(array(
-	'key' => 'ms2_price_format_no_zeros',
-	'value' => true,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
-
-$settings['ms2_weight_format']= $modx->newObject('modSystemSetting');
-$settings['ms2_weight_format']->fromArray(array(
-	'key' => 'ms2_weight_format',
-	'value' => '[3, ".", " "]',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
-
-$settings['ms2_weight_snippet']= $modx->newObject('modSystemSetting');
-$settings['ms2_weight_snippet']->fromArray(array(
-	'key' => 'ms2_weight_snippet',
-	'value' => '',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
-
-$settings['ms2_weight_format_no_zeros']= $modx->newObject('modSystemSetting');
-$settings['ms2_weight_format_no_zeros']->fromArray(array(
-	'key' => 'ms2_weight_format_no_zeros',
-	'value' => true,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_product',
-),'',true,true);
-
-$settings['ms2_payment_paypal_api_url']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_api_url']->fromArray(array(
-	'key' => 'ms2_payment_paypal_api_url',
-	'value' => 'https://api-3t.paypal.com/nvp',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_checkout_url']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_checkout_url']->fromArray(array(
-	'key' => 'ms2_payment_paypal_checkout_url',
-	'value' => 'https://www.paypal.com/webscr?cmd=_express-checkout&token=',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_currency']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_currency']->fromArray(array(
-	'key' => 'ms2_payment_paypal_currency',
-	'value' => 'USD',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_user']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_user']->fromArray(array(
-	'key' => 'ms2_payment_paypal_user',
-	'value' => '',
-	'xtype' => 'textfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_pwd']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_pwd']->fromArray(array(
-	'key' => 'ms2_payment_paypal_pwd',
-	'value' => '',
-	'xtype' => 'text-password',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_signature']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_signature']->fromArray(array(
-	'key' => 'ms2_payment_paypal_signature',
-	'value' => '',
-	'xtype' => 'text-password',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_success_id']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_success_id']->fromArray(array(
-	'key' => 'ms2_payment_paypal_success_id',
-	'value' => '',
-	'xtype' => 'numberfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_cancel_id']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_cancel_id']->fromArray(array(
-	'key' => 'ms2_payment_paypal_cancel_id',
-	'value' => '',
-	'xtype' => 'numberfield',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
-
-$settings['ms2_payment_paypal_cancel_order']= $modx->newObject('modSystemSetting');
-$settings['ms2_payment_paypal_cancel_order']->fromArray(array(
-	'key' => 'ms2_payment_paypal_cancel_order',
-	'value' => false,
-	'xtype' => 'combo-boolean',
-	'namespace' => 'minishop2',
-	'area' => 'ms2_payment',
-),'',true,true);
+	$settings[] = $setting;
+}
 
 return $settings;

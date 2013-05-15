@@ -392,7 +392,7 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 			,deferredRender: false
 			,collapsible: true
 			,itemId: 'tabs'
-			,stateful: true
+			,stateful: MODx.config.ms2_product_remember_tabs == true
 			,stateId: 'minishop2-product-upd-tabpanel'
 			,stateEvents: ['tabchange']
 			,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}

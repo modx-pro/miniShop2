@@ -358,7 +358,7 @@ miniShop2.panel.ProductSettings = function(config) {
 		,deferredRender: false
 		,forceLayout: true
 		,anchor: '97%'
-		,stateful: true
+		,stateful: MODx.config.ms2_product_remember_tabs == true
 		,stateEvents: ['tabchange']
 		,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
 		,headerCfg: {
@@ -431,7 +431,7 @@ miniShop2.panel.ProductSettingsHorizontal = function(config) {
 			,deferredRender: false
 			,forceLayout: true
 			,anchor: '97%'
-			,stateful: true
+			,stateful: MODx.config.ms2_product_remember_tabs == true
 			,stateEvents: ['tabchange']
 			,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
 			,items: [{
