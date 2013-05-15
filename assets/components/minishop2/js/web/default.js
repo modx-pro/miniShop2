@@ -1,5 +1,12 @@
 miniShop2 = {
 	initialize: function() {
+
+		// Indicator of active ajax request
+		ajaxProgress = false;
+		$(document)
+			.ajaxStart(function() {ajaxProgress = true;})
+			.ajaxStop(function() {ajaxProgress = false;});
+
 		if(!jQuery().ajaxForm) {
 			document.write('<script src="'+miniShop2Config.jsUrl+'lib/jquery.form.min.js"><\/script>');
 		}
@@ -342,6 +349,17 @@ miniShop2.Order = {
 	}
 	,submit: function() {
 		miniShop2.Message.close();
+
+		// Checking for active ajax request
+		if (ajaxProgress) {
+			$(document).ajaxComplete(function() {
+				ajaxProgress = false;
+				$(document).unbind('ajaxComplete');
+				miniShop2.Order.submit();
+			});
+			return false;
+		}
+
 		$.post(miniShop2Config.actionUrl, {action:"order/submit", ctx: miniShop2Config.ctx}, function(response) {
 			response = $.parseJSON(response);
 			if (response.success) {
