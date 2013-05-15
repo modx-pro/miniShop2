@@ -84,12 +84,18 @@ class miniShop2 {
 							,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
 							,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
 						};
-						if(typeof jQuery == "undefined") {
-							document.write("<script src=\""+miniShop2Config.jsUrl+"lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
-						}
 						</script>
 					'), true);
-						$this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
+						if (!empty($js) && !is_numeric($js)) {
+							$this->modx->regClientScript(str_replace('							', '', '
+							<script type="text/javascript">
+							if(typeof jQuery == "undefined") {
+								document.write("<script src=\"'.$this->config['jsUrl'].'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
+							}
+							</script>
+							'), true);
+							$this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
+						}
 					}
 				}
 

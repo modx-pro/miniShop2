@@ -51,6 +51,8 @@ miniShop2 = {
 
 		$(document).ready(function() {
 			$.jGrowl.defaults.closerTemplate = '<div>[ '+miniShop2Config.close_all_message+' ]</div>';
+			miniShop2.Order.initialize('#msOrder');
+			miniShop2.Gallery.initialize('#msGallery');
 		});
 	}
 };
@@ -235,6 +237,7 @@ miniShop2.Utils = {
 miniShop2.Gallery = {
 	initialize: function(selector) {
 		var gallery = $(selector);
+		if (!gallery.length) {return false;}
 
 		$(document).on('click', selector + ' .thumbnail', function(e) {
 			var src = $(this).attr('href');
@@ -244,6 +247,7 @@ miniShop2.Gallery = {
 		});
 
 		$('.thumbnail:first', gallery).trigger('click');
+		return true;
 	}
 };
 
@@ -251,6 +255,8 @@ miniShop2.Order = {
 	element: null
 	,initialize: function(selector) {
 		var order = this.element = $(selector);
+		if (!order.length) {return false;}
+
 		var deliveries = $('#deliveries', order);
 		var payments = $('#payments', order);
 
@@ -272,6 +278,7 @@ miniShop2.Order = {
 		});
 
 		this.updatePayments($('input[name="delivery"]:checked', this.element).data('payments'));
+		return true;
 	}
 	,updatePayments: function(payments) {
 		$('input[name="payment"]', this.element).attr('disabled',true).parent().hide();

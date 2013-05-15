@@ -84,8 +84,3 @@
 		<button  class="btn btn-primary ms2_link" data-action="order/submit" id="orderSubmit">[[%ms2_frontend_order_submit]]</button>
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		miniShop2.Order.initialize('#msOrder');
-	});
-</script>

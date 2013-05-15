@@ -6,8 +6,3 @@
 		[[+rows]]
 	</ul>
 </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		miniShop2.Gallery.initialize('#msGallery');
-	})
-</script>

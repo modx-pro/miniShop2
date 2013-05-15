@@ -11,6 +11,7 @@ Changelog for miniShop2.
 - [#27] Improved ajax requests in default javascript.
 - [#26] Improvements of categories tree.
 - Fixed model. Added right primary keys for xPDOObjects.
+- Ability to load only "miniShop2Config" object on frontend, without default javascript and jQuery.
 
 2.0.0 pl3
 ==============
