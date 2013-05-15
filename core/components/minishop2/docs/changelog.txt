@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - Improved "totalVar" placeholder in snippet msGallery.
 - [#36] Removed filter_var(), because of issues on stupid hostings.
 - [#29] Added verification of object instance, when loading neighborhood resources in manager.
+- [#28] Returned the lost fields in images of msGallery.
 - [#27] Improved ajax requests in default javascript.
 - [#26] Improvements of categories tree.
 - Fixed model. Added right primary keys for xPDOObjects.
