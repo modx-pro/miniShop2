@@ -5,6 +5,7 @@ Changelog for miniShop2.
 - Fixed quick fields in snippet msOrder. Update your chunks for delivery and payment methods.
 - Improved "totalVar" placeholder in snippet msGallery.
 - [#36] Removed filter_var(), because of issues on stupid hostings.
+- Fixed model. Added right primary keys for xPDOObjects.
 
 2.0.0 pl3
 ==============

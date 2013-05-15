@@ -86,8 +86,8 @@
 
 
 	<object class="msCategoryMember" table="ms2_product_categories" extends="xPDOObject">
-		<field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
-		<field key="category_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
+		<field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
+		<field key="category_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
 
 		<index alias="product" name="product" primary="true" unique="true" type="BTREE" >
 			<column key="product_id" length="" collation="A" null="false" />
@@ -176,8 +176,8 @@
 
 
 	<object class="msDeliveryMember" table="ms2_delivery_payments" extends="xPDOObject">
-		<field key="delivery_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
-		<field key="payment_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
+		<field key="delivery_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
+		<field key="payment_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
 
 		<index alias="delivery" name="delivery" primary="true" unique="true" type="BTREE" >
 			<column key="delivery_id" length="" collation="A" null="false" />
@@ -330,9 +330,9 @@
 
 
 	<object class="msProductLink" table="ms2_product_links" extends="xPDOObject">
-		<field key="link" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
-		<field key="master" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
-		<field key="slave" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+		<field key="link" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk" />
+		<field key="master" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk" />
+		<field key="slave" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk" />
 
 		<index alias="link" name="type" primary="true" unique="true" type="BTREE" >
 			<column key="link" length="" collation="A" null="false" />

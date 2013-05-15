@@ -18,6 +18,7 @@ $xpdo_meta_map['msCategoryMember']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
+      'index' => 'pk',
     ),
     'category_id' => 
     array (
@@ -26,6 +27,7 @@ $xpdo_meta_map['msCategoryMember']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
+      'index' => 'pk',
     ),
   ),
   'indexes' => 

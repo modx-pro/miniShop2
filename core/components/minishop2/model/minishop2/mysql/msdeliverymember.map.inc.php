@@ -18,6 +18,7 @@ $xpdo_meta_map['msDeliveryMember']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
+      'index' => 'pk',
     ),
     'payment_id' => 
     array (
@@ -26,6 +27,7 @@ $xpdo_meta_map['msDeliveryMember']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
+      'index' => 'pk',
     ),
   ),
   'indexes' => 

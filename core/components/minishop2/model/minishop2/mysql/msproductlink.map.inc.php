@@ -19,6 +19,7 @@ $xpdo_meta_map['msProductLink']= array (
       'phptype' => 'integer',
       'attributes' => 'unsigned',
       'null' => false,
+      'index' => 'pk',
     ),
     'master' => 
     array (
@@ -27,6 +28,7 @@ $xpdo_meta_map['msProductLink']= array (
       'phptype' => 'integer',
       'attributes' => 'unsigned',
       'null' => false,
+      'index' => 'pk',
     ),
     'slave' => 
     array (
@@ -35,6 +37,7 @@ $xpdo_meta_map['msProductLink']= array (
       'phptype' => 'integer',
       'attributes' => 'unsigned',
       'null' => false,
+      'index' => 'pk',
     ),
   ),
   'indexes' => 
