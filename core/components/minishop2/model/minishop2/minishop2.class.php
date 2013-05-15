@@ -64,12 +64,12 @@ class miniShop2 {
 		switch ($ctx) {
 			case 'mgr': break;
 			default:
-				if (!MODX_API_MODE) {
+				if (!defined('MODX_API_MODE') || !MODX_API_MODE) {
 					$config = $this->makePlaceholders($this->config);
 					if ($css = $this->modx->getOption('ms2_frontend_css')) {
 						$this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
 					}
-					if ($js = $this->modx->getOption('ms2_frontend_js')) {
+					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
 						$this->modx->regClientStartupScript(str_replace('					', '', '
 						<script type="text/javascript">
 						miniShop2Config = {
@@ -86,7 +86,7 @@ class miniShop2 {
 						};
 						</script>
 					'), true);
-						if (!empty($js) && !is_numeric($js)) {
+						if (!empty($js) && preg_match('/\.js$/i', $js)) {
 							$this->modx->regClientScript(str_replace('							', '', '
 							<script type="text/javascript">
 							if(typeof jQuery == "undefined") {
@@ -215,11 +215,22 @@ class miniShop2 {
 	 * @return boolean
 	 * */
 	public function changeOrderStatus($order_id, $status_id) {
+
+		// This method can be overriden by order class
+		if (empty($this->order) || !is_object($this->order)) {
+			$ctx = !$this->modx->context->key || $this->modx->context->key == 'mgr' ? 'web' : $this->modx->context->key;
+			$this->initialize($ctx);
+		}
+		if (is_object($this->order) && method_exists($this->order, 'changeOrderStatus')) {
+			return $this->order->changeOrderStatus($order_id, $status_id);
+		}
+
 		$error = '';
 		/* @var msOrder $order */
 		if (!$order = $this->modx->getObject('msOrder', $order_id)) {$error = 'ms2_err_order_nf';}
+
 		/* @var msOrderStatus $status */
-		else if (!$status = $this->modx->getObject('msOrderStatus', array('id' => $status_id, 'active' => 1))) {$error = 'ms2_err_status_nf';}
+		if (!$status = $this->modx->getObject('msOrderStatus', array('id' => $status_id, 'active' => 1))) {$error = 'ms2_err_status_nf';}
 		/* @var msOrderStatus $old_status */
 		else if ($old_status = $this->modx->getObject('msOrderStatus', array('id' => $order->get('status'), 'active' => 1))) {
 			if ($old_status->get('final')) {$error = 'ms2_err_status_final';}
@@ -244,7 +255,7 @@ class miniShop2 {
 			$this->modx->invokeEvent('msOnChangeOrderStatus', array('order' => $order, 'status' => $status_id));
 			$this->orderLog($order->get('id'), 'status', $status_id);
 
-		/* @var modContext $context */
+			/* @var modContext $context */
 			if ($context = $this->modx->getObject('modContext', array('key' => $order->get('context')))) {
 				$context->prepare(true);
 				$lang = $context->getOption('cultureKey');

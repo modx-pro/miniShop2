@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - Fixed quick fields in snippet msOrder. Update your chunks for delivery and payment methods.
 - Improved "totalVar" placeholder in snippet msGallery.
+- [#37] Ability to override method miniShop2::changeOrderStatus() in custom order class.
 - [#36] Removed filter_var(), because of issues on stupid hostings.
 - [#35] Added 2 system setting to enable or disable the remembering of panel tabs.
 - [#29] Added verification of object instance, when loading neighborhood resources in manager.
