@@ -88,7 +88,6 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 	public function prepareResourceNode(modResource $resource) {
 		$qtipField = $this->getProperty('qtipField');
 		$nodeField = $this->getProperty('nodeField');
-		$noHref = $this->getProperty('noHref',false);
 
 		$hasChildren = (int)$resource->get('childrenCount') > 0 && $resource->get('hide_children_in_tree') == 0 ? true : false;
 
@@ -98,6 +97,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 		if (!$resource->get('published')) $class[] = 'unpublished';
 		if ($resource->get('deleted')) $class[] = 'deleted';
 		if ($resource->get('hidemenu')) $class[] = 'hidemenu';
+		if ($hasChildren) $class[] = 'haschildren';
 
 		$qtip = '';
 		if (!empty($qtipField)) {
