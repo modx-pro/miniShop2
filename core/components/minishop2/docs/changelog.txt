@@ -14,6 +14,7 @@ Changelog for miniShop2.
 - [#28] Returned the lost fields in images of msGallery.
 - [#27] Improved ajax requests in default javascript.
 - [#26] Improvements of categories tree.
+- [#25] Removed replacing of empty alias to id. Added 2 system setting for switching using resource id as alias for categories and products.
 - Fixed model. Added proper primary keys for xPDOObjects.
 - Ability to load only "miniShop2Config" object on frontend, without default javascript and jQuery.
 - Fixed parameter "depth" in snippet "msProducts".

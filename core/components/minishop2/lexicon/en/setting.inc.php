@@ -26,6 +26,8 @@ $_lang['setting_ms2_category_show_nested_products'] = 'Show nested product of ca
 $_lang['setting_ms2_category_show_nested_products_desc'] = 'If set to true, you will see all nested products of category. They will have another color and name of their category below pagetitle.';
 $_lang['setting_ms2_category_remember_tabs'] = 'Remember category active tab';
 $_lang['setting_ms2_category_remember_tabs_desc'] = 'If true, active tab of category panel will be remembered and restored on reload page.';
+$_lang['setting_ms2_category_id_as_alias'] = 'Use id of category as alias';
+$_lang['setting_ms2_category_id_as_alias_desc'] = 'If true, aliases for friendly urls of categories will don be generated. Id will be set as alias.';
 $_lang['setting_ms2_product_show_comments'] = 'Display comments of the product';
 $_lang['setting_ms2_product_show_comments_desc'] = 'Display comments of the product if component "Tickets" is installed.';
 $_lang['setting_ms2_template_product_default'] = 'Default template for new product';
@@ -39,6 +41,8 @@ $_lang['setting_ms2_product_vertical_tabs_desc'] = 'How to display product page 
 $_lang['setting_ms2_product_remember_tabs'] = 'Remember product active tab';
 $_lang['setting_ms2_product_remember_tabs_desc'] = 'If true, active tab of product panel will be remembered and restored on reload page.';
 $_lang['setting_ms2_product_thumbnail_size'] = 'Default thumbnail size';
+$_lang['setting_ms2_product_id_as_alias'] = 'Use id of product as alias';
+$_lang['setting_ms2_product_id_as_alias_desc'] = 'If true, aliases for friendly urls of products will don be generated. Id will be set as alias.';
 $_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 

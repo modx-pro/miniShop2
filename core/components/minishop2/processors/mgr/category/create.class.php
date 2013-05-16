@@ -17,4 +17,37 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 		));
 		return parent::beforeSet();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 * @return * @return string|mixed
+	 */
+	public function prepareAlias() {
+		if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
+			$alias = 'empty-resource-alias';
+			$this->setProperty('alias', $alias);
+		}
+		else {
+			$alias = parent::prepareAlias();
+		}
+		return $alias;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @return boolean
+	 */
+	public function afterSave() {
+		if ($this->object->alias == 'empty-resource-alias') {
+			$this->object->set('alias', $this->object->id);
+			$this->object->save();
+		}
+
+		// Updating resourceMap before OnDocSaveForm event
+		$results = $this->modx->cacheManager->generateContext($this->object->context_key);
+		$this->modx->context->resourceMap = $results['resourceMap'];
+		$this->modx->context->aliasMap = $results['aliasMap'];
+
+		return parent::afterSave();
+	}
 }

@@ -11,6 +11,21 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor {
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
 
+	/**
+	 * {@inheritDoc}
+	 * @return string|mixed
+	 */
+	public function checkFriendlyAlias() {
+		if ($this->workingContext->getOption('ms2_category_id_as_alias')) {
+			$alias = $this->object->id;
+			$this->setProperty('alias', $alias);
+		}
+		else {
+			$alias = parent::checkFriendlyAlias();
+		}
+		return $alias;
+	}
+
 	public function beforeSet() {
 		$this->setProperties(array(
 			'isfolder' => 1

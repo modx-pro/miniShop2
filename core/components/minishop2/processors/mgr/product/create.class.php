@@ -15,18 +15,17 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 
 	/**
 	 * {@inheritDoc}
-	 * @return boolean
+	 * @return * @return string|mixed
 	 */
 	public function prepareAlias() {
-		parent::prepareAlias();
-
-		foreach ($this->modx->error->errors as $k => $v) {
-			if ($v['id'] == 'alias') {
-				unset($this->modx->error->errors[$k]);
-				$this->setProperty('alias', 'empty-resource-alias');
-			}
+		if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
+			$alias = 'empty-resource-alias';
+			$this->setProperty('alias', $alias);
 		}
-
+		else {
+			$alias = parent::prepareAlias();
+		}
+		return $alias;
 	}
 
 	/**

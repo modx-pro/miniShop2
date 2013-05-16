@@ -28,6 +28,12 @@ $tmp = array(
 		,'xtype' => 'combo-boolean'
 		,'area' => 'ms2_category'
 	)
+	,'ms2_category_id_as_alias' => array(
+		'value' => false
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_category'
+	)
+
 
 	,'ms2_product_main_fields' => array(
 		'value' => 'pagetitle,longtitle,introtext,price,old_price,article,weight,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree'
@@ -71,6 +77,11 @@ $tmp = array(
 	)
 	,'ms2_product_remember_tabs' => array(
 		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_id_as_alias' => array(
+		'value' => false
 		,'xtype' => 'combo-boolean'
 		,'area' => 'ms2_product'
 	)

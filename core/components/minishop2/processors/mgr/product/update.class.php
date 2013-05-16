@@ -49,16 +49,17 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 
 	/**
 	 * {@inheritDoc}
-	 * @return boolean
+	 * @return string|mixed
 	 */
 	public function checkFriendlyAlias() {
-		parent::checkFriendlyAlias();
-		foreach ($this->modx->error->errors as $k => $v) {
-			if ($v['id'] == 'alias') {
-				unset($this->modx->error->errors[$k]);
-				$this->setProperty('alias', $this->object->id);
-			}
+		if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
+			$alias = $this->object->id;
+			$this->setProperty('alias', $alias);
 		}
+		else {
+			$alias = parent::checkFriendlyAlias();
+		}
+		return $alias;
 	}
 
 	/**
