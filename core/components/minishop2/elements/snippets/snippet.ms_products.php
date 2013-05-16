@@ -41,12 +41,13 @@ else {
 	// Filter by parents
 	if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
 	if (!empty($parents) && $parents > 0){
-		if (empty($depth)) {$depth = 1;}
 		$pids = array_map('trim', explode(',', $parents));
 		$parents = $pids;
-		foreach ($pids as $v) {
-			if (!is_numeric($v)) {continue;}
-			$parents = array_merge($parents, $modx->getChildIds($v, $depth));
+		if (!empty($depth) && $depth > 0) {
+			foreach ($pids as $v) {
+				if (!is_numeric($v)) {continue;}
+				$parents = array_merge($parents, $modx->getChildIds($v, $depth));
+			}
 		}
 
 		// Add product categories

@@ -13,6 +13,7 @@ Changelog for miniShop2.
 - [#26] Improvements of categories tree.
 - Fixed model. Added right primary keys for xPDOObjects.
 - Ability to load only "miniShop2Config" object on frontend, without default javascript and jQuery.
+- Fixed parameter "depth" in snippet "msProducts".
 
 2.0.0 pl3
 ==============
