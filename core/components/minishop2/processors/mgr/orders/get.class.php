@@ -3,6 +3,7 @@
 class msOrderGetProcessor extends modObjectGetProcessor {
 	public $classKey = 'msOrder';
 	public $languageTopics = array('minishop2:default');
+	public $permission = 'msorder_view';
 
 	public function cleanup() {
 		$order = $this->object->toArray();

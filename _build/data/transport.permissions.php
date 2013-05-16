@@ -7,17 +7,27 @@
  */
 $permissions = array();
 
-$permissions[0][] = $modx->newObject('modAccessPermission',array(
-	'name' => 'mscategory_save',
-	'description' => 'mscategory_save',
-	'value' => true,
-));
+$tmp = array(
+	array(
+		'mscategory_save' => array()
+		,'msproduct_save' => array()
+		,'msorder_save' => array()
+		,'msorder_view' => array()
+	)
+);
 
-$permissions[0][] = $modx->newObject('modAccessPermission',array(
-	'name' => 'msproduct_save',
-	'description' => 'msproduct_save',
-	'value' => true,
-));
-
+foreach ($tmp as $k => $v) {
+	foreach ($v as $k2 => $v2) {
+		/* @var modAccessPermission $event */
+		$permission = $modx->newObject('modAccessPermission');
+		$permission->fromArray(array_merge(array(
+				'name' => $k2
+				,'description' => $k2
+				,'value' => true
+			), $v2)
+			,'', true, true);
+		$permissions[$k][] = $permission;
+	}
+}
 
 return $permissions;

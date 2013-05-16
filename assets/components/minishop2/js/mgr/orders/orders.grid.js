@@ -410,6 +410,15 @@ miniShop2.grid.Products = function(config) {
 			,{header: _('ms2_count'),dataIndex: 'count', sortable: true, width: 50}
 			,{header: _('ms2_cost'),dataIndex: 'cost', width: 50}
 		]
+		,tbar: [{
+			xtype: 'minishop2-combo-product'
+			,width: '50%'
+			,listeners: {
+				select: {fn: function(combo, row) {
+					console.log(combo, row)
+				}, scope: this}
+			}
+		}]
 	});
 	miniShop2.grid.Products.superclass.constructor.call(this,config);
 };

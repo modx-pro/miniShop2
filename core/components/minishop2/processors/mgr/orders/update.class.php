@@ -3,10 +3,12 @@
 class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msOrder';
 	public $languageTopics = array('minishop2:default');
-	public $permission = 'edit_document';
-	private $status;
-	private $delivery;
-	private $payment;
+	public $permission = 'msorder_save';
+	public $beforeSaveEvent = 'msOnBeforeUpdateOrder';
+	public $afterSaveEvent = 'msOnUpdateOrder';
+	protected $status;
+	protected $delivery;
+	protected $payment;
 
 	public function beforeSet() {
 		foreach (array('status','delivery','payment') as $v) {

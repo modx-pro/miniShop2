@@ -2,8 +2,6 @@ Changelog for miniShop2.
 
 2.0.1
 ==============
-- Fixed quick fields in snippet msOrder. Update your chunks for delivery and payment methods.
-- Improved "totalVar" placeholder in snippet msGallery.
 - [#38] Added "menuindex" in product fields.
 - [#37] Ability to override method miniShop2::changeOrderStatus() in custom order class.
 - [#36] Removed filter_var(), because of issues on stupid hostings.
@@ -15,9 +13,12 @@ Changelog for miniShop2.
 - [#27] Improved ajax requests in default javascript.
 - [#26] Improvements of categories tree.
 - [#25] Removed replacing of empty alias to id. Added 2 system setting for switching using resource id as alias for categories and products.
+- Fixed quick fields in snippet msOrder. Update your chunks for delivery and payment methods.
+- Improved "totalVar" placeholder in snippet msGallery.
 - Fixed model. Added proper primary keys for xPDOObjects.
 - Ability to load only "miniShop2Config" object on frontend, without default javascript and jQuery.
 - Fixed parameter "depth" in snippet "msProducts".
+- New permissions for work with order: "save" and "view". New events for update order.
 
 2.0.0 pl3
 ==============
