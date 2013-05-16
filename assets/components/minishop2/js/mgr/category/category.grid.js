@@ -325,6 +325,7 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 			,publishedon: {width:50, sortable:true, editor:{xtype:'minishop2-xdatetime', timePosition:'below'}, renderer: miniShop2.utils.formatDate}
 			,publishedby: {width:100, sortable:true, editor:{xtype:'minishop2-combo-user', name:'publishedby'}}
 			,menutitle: {width:100, sortable:true, editor:{xtype:'textfield'}}
+			,menuindex: {width:50, sortable:true, editor:{xtype:'numberfield'}}
 			,uri: {width:50, sortable:true, editor:{xtype:'textfield'}}
 
 			,new: {width:50, sortable:true, editor:{xtype:'combo-boolean', renderer:'boolean'}}

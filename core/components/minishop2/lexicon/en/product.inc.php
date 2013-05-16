@@ -29,6 +29,7 @@ $_lang['ms2_product_searchable'] = 'Searchable';
 $_lang['ms2_product_cacheable'] = 'Cacheable';
 $_lang['ms2_product_link_attributes'] = 'Link Attributes';
 $_lang['ms2_product_menutitle'] = 'Menu Title';
+$_lang['ms2_product_menuindex'] = 'Menu Index';
 
 $_lang['ms2_product_published'] = 'Published';
 $_lang['ms2_product_deleted'] = 'Deleted';

@@ -29,6 +29,7 @@ $_lang['ms2_product_searchable'] = 'Участвует в поиске';
 $_lang['ms2_product_cacheable'] = 'Кэшируется';
 $_lang['ms2_product_link_attributes'] = 'Атрибуты ссылки';
 $_lang['ms2_product_menutitle'] = 'Пункт меню';
+$_lang['ms2_product_menuindex'] = 'Позиция в меню';
 
 $_lang['ms2_product_deleted'] = 'Удалён';
 $_lang['ms2_product_published'] = 'Опубликован';

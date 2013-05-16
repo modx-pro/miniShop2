@@ -111,7 +111,7 @@ var methods = {
 			});
 		}
 
-		enabled = ['parent','template','alias','menutitle','link_attributes'];
+		enabled = ['parent','template','alias','menutitle','menuindex','link_attributes'];
 		items = this.getProductFields(config, enabled, miniShop2.config.main_fields);
 		if (items.length > 0) {
 			fields.push({
@@ -256,6 +256,7 @@ var methods = {
 			,parent: {xtype: 'minishop2-combo-category',value: config.record.parent,listeners: {select: {fn:function(data) {Ext.getCmp('modx-resource-parent-hidden').setValue(data.value);MODx.fireResourceFormChange();}}}}
 			,alias: {xtype: 'textfield', value: config.record.alias || ''}
 			,menutitle: {xtype: 'textfield', value: config.record.menutitle || ''}
+			,menuindex: {xtype: 'numberfield', value: config.record.menuindex || 0, anchor: '50%'}
 			,link_attributes: {xtype: 'textfield', value:config.record.link_attributes || '', id:'modx-resource-link-attributes'}
 
 			,searchable: {xtype:'xcheckbox', inputValue:1, checked:parseInt(config.record.searchable)}
