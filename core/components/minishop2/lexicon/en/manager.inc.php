@@ -6,6 +6,7 @@
  * @subpackage lexicon
  */
 $_lang['ms2_menu_create'] = 'Create';
+$_lang['ms2_menu_add'] = 'Add';
 $_lang['ms2_menu_update'] = 'Update';
 $_lang['ms2_menu_remove'] = 'Remove';
 $_lang['ms2_menu_remove_multiple'] = 'Remove selected';

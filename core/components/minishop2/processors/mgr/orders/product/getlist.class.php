@@ -1,15 +1,10 @@
 <?php
-/**
- * Get a list of Products
- *
- * @package minishop2
- * @subpackage processors
- */
+
 class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderProduct';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
-	public $languageTopics = array('default','minishop2:product');
+	public $languageTopics = array('minishop2:product');
 
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		if ($order_id = $this->getProperty('order_id')) {

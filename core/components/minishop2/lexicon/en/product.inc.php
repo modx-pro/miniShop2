@@ -98,6 +98,8 @@ $_lang['ms2_product_popular_help'] = '';
 $_lang['ms2_product_source'] = 'Media source';
 $_lang['ms2_product_source_help'] = 'The media source that store product images.';
 $_lang['ms2_product_change_source_confirm'] = 'Are you sure you want to change the media source of the product? WARNING: This will save your prior changes, ensure you are ready to do so before proceeding.';
+$_lang['ms2_product_count'] = 'Count';
+$_lang['ms2_product_options'] = 'Options';
 
 $_lang['ms2_panel_save'] = 'Save';
 $_lang['ms2_product_edit'] = 'Edit';

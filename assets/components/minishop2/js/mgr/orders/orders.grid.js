@@ -80,6 +80,7 @@ miniShop2.grid.Orders = function(config) {
 		}
 	});
 	miniShop2.grid.Orders.superclass.constructor.call(this,config);
+	this.changed = false;
 };
 Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 	windows: {}
@@ -134,18 +135,24 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 					var w = Ext.getCmp('minishop2-window-order-update');
 					if (w) {w.hide().getEl().remove();}
 
-					this.windows.updateOrder = MODx.load({
+					w = MODx.load({
 							xtype: 'minishop2-window-order-update'
 							,id: 'minishop2-window-order-update'
 							,record:r.object
 							,listeners: {
 								success: {fn:function() {this.refresh();},scope:this}
-								,hide: {fn: function() {this.getEl().remove();}}
+								,hide: {fn: function() {
+									if (miniShop2.grid.Orders.changed === true) {
+										Ext.getCmp('minishop2-grid-orders').getStore().reload();
+										miniShop2.grid.Orders.changed = false;
+									}
+									this.getEl().remove();
+								}}
 							}
 						});
-					this.windows.updateOrder.fp.getForm().reset();
-					this.windows.updateOrder.fp.getForm().setValues(r.object);
-					this.windows.updateOrder.show(e.target,function() {this.windows.updateOrder.setPosition(null,100)},this);
+					w.fp.getForm().reset();
+					w.fp.getForm().setValues(r.object);
+					w.show(e.target,function() {w.setPosition(null,100)},this);
 					/* Need to refresh grids with goods and logs */
 				},scope:this}
 			}
@@ -256,6 +263,7 @@ miniShop2.window.UpdateOrder = function(config) {
 		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
 	});
 	miniShop2.window.UpdateOrder.superclass.constructor.call(this,config);
+
 };
 Ext.extend(miniShop2.window.UpdateOrder,MODx.Window, {
 
@@ -384,47 +392,6 @@ Ext.reg('minishop2-window-order-update',miniShop2.window.UpdateOrder);
 
 
 /*------------------------------------*/
-miniShop2.grid.Products = function(config) {
-	config = config || {};
-
-	Ext.applyIf(config,{
-		id: this.ident
-		,url: miniShop2.config.connector_url
-		,baseParams: {
-			action: 'mgr/orders/product/getlist'
-			,order_id: config.order_id
-			,type: 'status'
-		}
-		,fields: ['id','product_id','pagetitle','article','weight','count','price','cost']
-		,pageSize: Math.round(MODx.config.default_per_page / 2)
-		,autoHeight: true
-		,paging: true
-		,remoteSort: true
-		,columns: [
-			{header: _('ms2_id'),dataIndex: 'id', hidden: true, sortable: true, width: 40}
-			,{header: _('ms2_product_id'), dataIndex: 'product_id', hidden: true, sortable: true, width: 40}
-			,{header: _('ms2_product_pagetitle'),dataIndex: 'pagetitle', width: 100, renderer: miniShop2.utils.productLink}
-			,{header: _('ms2_product_article'),dataIndex: 'article', width: 50}
-			,{header: _('ms2_product_weight'),dataIndex: 'weight', sortable: true, width: 50}
-			,{header: _('ms2_product_price'),dataIndex: 'price', sortable: true, width: 50}
-			,{header: _('ms2_count'),dataIndex: 'count', sortable: true, width: 50}
-			,{header: _('ms2_cost'),dataIndex: 'cost', width: 50}
-		]
-		,tbar: [{
-			xtype: 'minishop2-combo-product'
-			,width: '50%'
-			,listeners: {
-				select: {fn: function(combo, row) {
-					console.log(combo, row)
-				}, scope: this}
-			}
-		}]
-	});
-	miniShop2.grid.Products.superclass.constructor.call(this,config);
-};
-Ext.extend(miniShop2.grid.Products,MODx.grid.Grid);
-Ext.reg('minishop2-grid-order-products',miniShop2.grid.Products);
-
 miniShop2.grid.Logs = function(config) {
 	config = config || {};
 
@@ -454,3 +421,207 @@ miniShop2.grid.Logs = function(config) {
 };
 Ext.extend(miniShop2.grid.Logs,MODx.grid.Grid);
 Ext.reg('minishop2-grid-order-logs',miniShop2.grid.Logs);
+
+
+miniShop2.grid.Products = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		id: this.ident
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/orders/product/getlist'
+			,order_id: config.order_id
+			,type: 'status'
+		}
+		,fields: ['id','product_id','pagetitle','article','weight','count','price','cost']
+		,pageSize: Math.round(MODx.config.default_per_page / 2)
+		,autoHeight: true
+		,paging: true
+		,remoteSort: true
+		,columns: [
+			{header: _('ms2_id'),dataIndex: 'id', hidden: true, sortable: true, width: 40}
+			,{header: _('ms2_product_id'), dataIndex: 'product_id', hidden: true, sortable: true, width: 40}
+			,{header: _('ms2_product_pagetitle'),dataIndex: 'pagetitle', width: 100, renderer: miniShop2.utils.productLink}
+			,{header: _('ms2_product_article'),dataIndex: 'article', width: 50}
+			,{header: _('ms2_product_weight'),dataIndex: 'weight', sortable: true, width: 50}
+			,{header: _('ms2_product_price'),dataIndex: 'price', sortable: true, width: 50}
+			,{header: _('ms2_count'),dataIndex: 'count', sortable: true, width: 50}
+			,{header: _('ms2_cost'),dataIndex: 'cost', width: 50}
+		]
+		,tbar: [{
+			xtype: 'minishop2-combo-product'
+			,allowBlank: true
+			,width: '50%'
+			,listeners: {
+				select: {fn: this.addOrderProduct, scope: this}
+			}
+		}]
+		,listeners: {
+			rowDblClick: function(grid, rowIndex, e) {
+				var row = grid.store.getAt(rowIndex);
+				this.updateOrderProduct(grid, e, row);
+			}
+		}
+	});
+	miniShop2.grid.Products.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.grid.Products,MODx.grid.Grid, {
+
+	getMenu: function() {
+		var m = [];
+		m.push({
+			text: _('ms2_menu_update')
+			,handler: this.updateOrderProduct
+		});
+		m.push('-');
+		m.push({
+			text: _('ms2_menu_remove')
+			,handler: this.removeOrderProduct
+		});
+		this.addContextMenuItem(m);
+	}
+
+	,addOrderProduct: function(combo, row, e) {
+		var id = row.id;
+		combo.reset();
+
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/get'
+				,id: id
+			}
+			,listeners: {
+				success: {fn:function(r) {
+					 var w = Ext.getCmp('minishop2-window-orderproduct-update');
+					 if (w) {w.hide().getEl().remove();}
+
+					r.object.order_id = this.config.order_id;
+					r.object.count = 1;
+					console.log(r.object);
+					 w = MODx.load({
+						 xtype: 'minishop2-window-orderproduct-update'
+						 ,id: 'minishop2-window-orderproduct-update'
+						 ,record:r.object
+						 ,action: 'mgr/orders/product/create'
+						 ,listeners: {
+							 success: {fn:function() {
+								 miniShop2.grid.Orders.changed = true;
+								 this.refresh();
+							 },scope:this}
+							 ,hide: {fn: function() {this.getEl().remove();}}
+						 }
+					 });
+					 w.fp.getForm().reset();
+					 w.fp.getForm().setValues(r.object);
+					 w.show(e.target,function() {w.setPosition(null,100)},this);
+				},scope:this}
+			}
+		});
+	}
+
+	,updateOrderProduct: function(btn,e,row) {
+		if (typeof(row) != 'undefined') {this.menu.record = row.data;}
+		var id = this.menu.record.id;
+
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/orders/product/get'
+				,id: id
+			}
+			,listeners: {
+				success: {fn:function(r) {
+					var w = Ext.getCmp('minishop2-window-orderproduct-update');
+					if (w) {w.hide().getEl().remove();}
+
+					r.object.order_id = this.config.order_id;
+					w = MODx.load({
+						xtype: 'minishop2-window-orderproduct-update'
+						,id: 'minishop2-window-orderproduct-update'
+						,record:r.object
+						,action: 'mgr/orders/product/update'
+						,listeners: {
+							success: {fn:function() {
+								miniShop2.grid.Orders.changed = true;
+								this.refresh();
+							},scope:this}
+							,hide: {fn: function() {this.getEl().remove();}}
+						}
+					});
+					w.fp.getForm().reset();
+					w.fp.getForm().setValues(r.object);
+					w.show(e.target,function() {w.setPosition(null,100)},this);
+				},scope:this}
+			}
+		});
+	}
+
+	,removeOrderProduct: function(btn,e) {
+		if (!this.menu.record) return false;
+
+		MODx.msg.confirm({
+			title: _('ms2_menu_remove')
+			,text: _('ms2_menu_remove_confirm')
+			,url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/orders/product/remove'
+				,id: this.menu.record.id
+			}
+			,listeners: {
+				success: {fn:function(r) { this.refresh(); },scope:this}
+			}
+		});
+		return true;
+	}
+});
+Ext.reg('minishop2-grid-order-products',miniShop2.grid.Products);
+
+
+miniShop2.window.OrderProduct = function(config) {
+	config = config || {};
+	this.ident = config.ident || 'meuitem'+Ext.id();
+	Ext.applyIf(config,{
+		title: _('ms2_menu_update')
+		,autoHeight: true
+		,width: 600
+		,url: miniShop2.config.connector_url
+		,action: config.action || 'mgr/orders/product/update'
+		,fields: [
+			{xtype: 'hidden',name: 'id'}
+			,{xtype: 'hidden',name: 'order_id'}
+			,{
+				layout:'column'
+				,border: false
+				,anchor: '100%'
+				,items: [
+					{columnWidth: .3,layout: 'form',defaults: { msgTarget: 'under' }, border:false, items: [
+						{xtype: 'numberfield', fieldLabel: _('ms2_product_count'), name: 'count', anchor: '100%', allowNegative: false, allowBlank: false}
+					]}
+					,{columnWidth: .7,layout: 'form',defaults: { msgTarget: 'under' }, border:false, items: [
+						{xtype: 'textfield', fieldLabel: _('ms2_product_pagetitle'), name: 'pagetitle', anchor: '100%', disabled: true }
+					]}
+				]
+			}
+			,{
+				layout:'column'
+				,border: false
+				,anchor: '100%'
+				,items: [
+					{columnWidth: .5,layout: 'form',defaults: { msgTarget: 'under' }, border:false, items: [
+						{xtype: 'numberfield', decimalPrecision: 2, fieldLabel: _('ms2_product_price'), name: 'price', anchor: '100%'}
+					]}
+					,{columnWidth: .5,layout: 'form',defaults: { msgTarget: 'under' }, border:false, items: [
+						{xtype: 'numberfield', decimalPrecision: 3, fieldLabel: _('ms2_product_weight'), name: 'weight', anchor: '100%'}
+					]}
+				]
+			}
+			,{xtype: 'textarea',fieldLabel: _('ms2_product_options'), name: 'options', height: 100, anchor: '100%'}
+		]
+		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
+	});
+	miniShop2.window.OrderProduct.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.window.OrderProduct,MODx.Window);
+Ext.reg('minishop2-window-orderproduct-update',miniShop2.window.OrderProduct);

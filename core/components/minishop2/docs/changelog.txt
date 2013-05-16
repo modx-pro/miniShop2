@@ -19,6 +19,7 @@ Changelog for miniShop2.
 - Ability to load only "miniShop2Config" object on frontend, without default javascript and jQuery.
 - Fixed parameter "depth" in snippet "msProducts".
 - New permissions for work with order: "save" and "view". New events for update order.
+- Added ability to add\update\remove products in order.
 
 2.0.0 pl3
 ==============

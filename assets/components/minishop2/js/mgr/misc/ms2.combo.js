@@ -53,11 +53,11 @@ miniShop2.combo.Category = function(config) {
 			+'<tpl if="parents">'
 					+'<span class="parents">'
 						+'<tpl for="parents">'
-							+'<nobr>{pagetitle} / </nobr>'
+							+'<nobr><small>{pagetitle} / </small></nobr>'
 						+'</tpl>'
 					+'</span>'
 			+'</tpl>'
-			+'<h3 class="">{pagetitle}</h3>'
+			+'<span><small>({id})</small> <b>{pagetitle}</b></span>'
 			+'</div></tpl>',{
 			compiled: true
 		})
@@ -546,11 +546,11 @@ miniShop2.combo.Product = function(config) {
 				+'<tpl if="parents">'
 					+'<span class="parents">'
 						+'<tpl for="parents">'
-							+'<nobr>{pagetitle} / </nobr>'
+							+'<nobr><small>{pagetitle} / </small></nobr>'
 						+'</tpl>'
 					+'</span>'
 			+'</tpl>'
-				+'<h3 class="">({id}) {pagetitle}</h3>'
+				+'<span><small>({id})</small> <b>{pagetitle}</b></span>'
 			+'</div></tpl>',{
 			compiled: true
 		})

@@ -112,6 +112,7 @@ $_lang['ms2_message_close_all'] = 'закрыть все';
 $_lang['ms2_err_unknown'] = 'Неизвестная ошибка';
 $_lang['ms2_err_ns'] = 'Это поле обязательно';
 $_lang['ms2_err_ae'] = 'Это поле должно быть уникально';
+$_lang['ms2_err_json'] = 'Это поле требует JSON строку';
 $_lang['ms2_err_order_nf'] = 'Заказ с таким идентификатором не найден.';
 $_lang['ms2_err_status_nf'] = 'Статус с таким идентификатором не найден.';
 $_lang['ms2_err_status_final'] = 'Установлен финальный статус. Его нельзя менять.';
@@ -120,10 +121,9 @@ $_lang['ms2_err_status_same'] = 'Этот статус уже установле
 $_lang['ms2_err_register_globals'] = 'Ошибка: php параметр <b>register_globals</b> должен быть выключен.';
 $_lang['ms2_err_link_equal'] = 'Вы пытаетесь добавить товару ссылку на самого себя';
 
-$_lang['ms2_err_gallery_save'] = 'Не могу сохранить файл';
+$_lang['ms2_err_gallery_save'] = 'Не могу сохранить файл не был сохранён (см. системный журнал).';
 $_lang['ms2_err_gallery_ns'] = 'Передан пустой файл';
 $_lang['ms2_err_gallery_ext'] = 'Неверное расширение файла';
-$_lang['ms2_err_gallery_thumb'] = 'Не могу сгенерировать превью. Подробности от phpThumb в системном журнале.';
 
 $_lang['ms2_email_subject_new_user'] = 'Вы сделали заказ #[[+num]] на сайте [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'У вас новый заказ #[[+num]]';

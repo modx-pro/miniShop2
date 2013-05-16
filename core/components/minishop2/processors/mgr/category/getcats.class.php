@@ -118,27 +118,27 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 	 * {@inheritDoc}
 	 * @return array
 	 */
-	public function prepareResult(array $array) {
-		$parents = $this->modx->getParentIds($array['id'], 2, array('context' => $array['context_key']));
+	public function prepareResult(array $resourceArray) {
+		$resourceArray['parents'] = array();
+		$parents = $this->modx->getParentIds($resourceArray['id'], 2, array('context' => $resourceArray['context_key']));
 		if ($parents[count($parents) - 1] == 0) {
 			unset($parents[count($parents) - 1]);
 		}
-		$q = $this->modx->newQuery('msCategory', array('class_key' => 'msCategory'));
 		if (!empty($parents) && is_array($parents)) {
-			$q->where(array('id:IN' => $parents));
-		}
-		$q->select('id,pagetitle');
-		if ($q->prepare() && $q->stmt->execute()) {
-			while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
-				$key = array_search($row['id'], $parents);
-				if ($key !== false) {
-					$parents[$key] = $row;
+			$q = $this->modx->newQuery('msCategory', array('id:IN' => $parents));
+			$q->select('id,pagetitle');
+			if ($q->prepare() && $q->stmt->execute()) {
+				while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
+					$key = array_search($row['id'], $parents);
+					if ($key !== false) {
+						$parents[$key] = $row;
+					}
 				}
 			}
+			$resourceArray['parents'] = array_reverse($parents);
 		}
 
-		$array['parents'] = array_reverse($parents);
-		return $array;
+		return $resourceArray;
 	}
 }
 

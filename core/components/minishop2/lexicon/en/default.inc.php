@@ -112,6 +112,7 @@ $_lang['ms2_message_close_all'] = 'close all';
 $_lang['ms2_err_unknown'] = 'Unknown error';
 $_lang['ms2_err_ns'] = 'This field is required';
 $_lang['ms2_err_ae'] = 'This field must be unique';
+$_lang['ms2_err_json'] = 'This field requires JSON string';
 $_lang['ms2_err_order_nf'] = 'The order with this id not found.';
 $_lang['ms2_err_status_nf'] = 'The status with this id not found.';
 $_lang['ms2_err_delivery_nf'] = 'The delivery with this id not found.';
@@ -121,11 +122,12 @@ $_lang['ms2_err_status_fixed'] = 'Fixed status is set. You can not change it to 
 $_lang['ms2_err_status_same'] = 'This status is already set.';
 $_lang['ms2_err_register_globals'] = 'Error: php parameter <b>register_globals</b> must be off.';
 $_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
+$_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
 
 $_lang['ms2_err_gallery_save'] = 'Could not save file';
 $_lang['ms2_err_gallery_ns'] = 'Could not read file';
 $_lang['ms2_err_gallery_ext'] = 'Wrong file extension';
-$_lang['ms2_err_gallery_thumb'] = 'Could not generate thumbnails. See details from phpThumb in system log.';
+$_lang['ms2_err_gallery_thumb'] = 'Could not generate thumbnails. See system log for details.';
 
 $_lang['ms2_email_subject_new_user'] = 'You made the order #[[+num]] on the [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'You have a new order #[[+num]]';

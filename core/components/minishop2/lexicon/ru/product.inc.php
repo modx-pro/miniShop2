@@ -98,6 +98,8 @@ $_lang['ms2_product_popular_help'] = '';
 $_lang['ms2_product_source'] = 'Источник файлов';
 $_lang['ms2_product_source_help'] = 'Источник файлов, который хранят изображения товара.';
 $_lang['ms2_product_change_source_confirm'] = 'Вы уверены, что хотите изменить источник файлов? ВНИМАНИЕ: При этом будут сохранены все изменения, убедитесь, что вы готовы сделать это перед продолжением.';
+$_lang['ms2_product_count'] = 'Количество';
+$_lang['ms2_product_options'] = 'Опции';
 
 $_lang['ms2_product_save'] = 'Сохранить';
 $_lang['ms2_product_edit'] = 'Изменить';

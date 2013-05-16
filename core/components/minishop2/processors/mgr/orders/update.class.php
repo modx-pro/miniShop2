@@ -18,6 +18,12 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 			}
 		}
 
+		if ($status = $this->object->getOne('Status')) {
+			if ($status->get('final')) {
+				return $this->modx->lexicon('ms2_err_status_final');
+			}
+		}
+
 		return parent::beforeSet();
 	}
 
