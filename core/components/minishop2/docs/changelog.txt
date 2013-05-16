@@ -8,11 +8,12 @@ Changelog for miniShop2.
 - [#37] Ability to override method miniShop2::changeOrderStatus() in custom order class.
 - [#36] Removed filter_var(), because of issues on stupid hostings.
 - [#35] Added 2 system setting to enable or disable the remembering of panel tabs.
+- [#30] "miniShopManagerPolicy" is automatically assigned to a group "Administrators".
 - [#29] Added verification of object instance, when loading neighborhood resources in manager.
 - [#28] Returned the lost fields in images of msGallery.
 - [#27] Improved ajax requests in default javascript.
 - [#26] Improvements of categories tree.
-- Fixed model. Added right primary keys for xPDOObjects.
+- Fixed model. Added proper primary keys for xPDOObjects.
 - Ability to load only "miniShop2Config" object on frontend, without default javascript and jQuery.
 - Fixed parameter "depth" in snippet "msProducts".
 

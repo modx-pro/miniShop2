@@ -15,7 +15,7 @@ $policies[0]->fromArray(array (
 	'parent' => 0,
 	'class' => '',
 	'lexicon' => 'minishop2:permissions',
-	'data' => '{"mscategory_save":true,"msproduct_save":true,"load":true,"list":true,"view":true}',
+	'data' => '{"mscategory_save":true,"msproduct_save":true}',
 ), '', true, true);
 
 
