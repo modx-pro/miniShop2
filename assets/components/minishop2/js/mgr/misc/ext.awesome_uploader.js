@@ -171,18 +171,17 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 			return true;
 		}
 		if(this.fileAlertMsg === undefined || !this.fileAlertMsg.isVisible()){
-			this.fileAlertMsgText = 'Error uploading:<br/>'+text;
-			/*
+			this.fileAlertMsgText = text;
 			this.fileAlertMsg = Ext.MessageBox.show({
-				title:'Upload Error',
-				msg: this.fileAlertMsgText,
-				buttons: Ext.Msg.OK,
-				modal:false,
+				title:'Upload Error'
+				,msg: this.fileAlertMsgText
+				,buttons: Ext.Msg.OK
+				,modal:false
+				,minWidth: 600
 				//icon: Ext.MessageBox.ERROR
 			});
-			*/
 		}else{
-			this.fileAlertMsgText += text;
+			this.fileAlertMsgText += '<br>' + text;
 			this.fileAlertMsg.updateText(this.fileAlertMsgText);
 			this.fileAlertMsg.getDialog().focus();
 		}
@@ -369,7 +368,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 
 		if(file.size > this.maxFileSizeBytes){
 			this.updateFile(fileRec, 'status', 'Error');
-			this.fileAlert('<br/>'+file.name+'<br/><b>File size exceeds allowed limit.</b><br/>');
+			this.fileAlert(file.name+'<br/><i>File size exceeds allowed limit.</i><br/>');
 			this.fireEvent('fileselectionerror', 'File size exceeds allowed limit.');
 			return true;
 		}
@@ -410,15 +409,14 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 					try{
 						var result = Ext.util.JSON.decode(upload.xhr.responseText);//throws a SyntaxError.
 					}catch(e){
-						/*
 						Ext.MessageBox.show({
 							buttons: Ext.MessageBox.OK
-							,icon: Ext.MessageBox.ERROR
+							//,icon: Ext.MessageBox.ERROR
 							,modal:false
+							,minWidth: 600
 							,title:'Upload Error!'
-							,msg:'Invalid JSON Data Returned!<br/><br/>Please refresh the page to try again.'
+							,msg:'Invalid JSON Data Returned: ' + upload.xhr.responseText
 						});
-						*/
 						this.updateFile(fileRec, 'status', _('ms2_gallery_status_error'));
 						this.fireEvent('fileupload', this, false, {error:'Invalid JSON returned'});
 						return true;
@@ -429,7 +427,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 						fileRec.commit();
 						this.fireEvent('fileupload', this, true, result);
 					}else{
-						this.fileAlert('<br/>'+file.name+'<br/><b>'+result.error+'</b><br/>');
+						this.fileAlert(file.name+'<br/><i>'+result.message+'</i><br/>');
 						this.updateFile(fileRec, 'status', _('ms2_gallery_status_error'));
 						this.fireEvent('fileupload', this, false, result);
 					}
@@ -457,7 +455,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 	}
 
 	,swfUploadUploadError:function(file, errorCode, message){
-		this.fileAlert('<br/>'+file.name+'<br/><b>'+message+'</b><br/>');//SWFUpload.UPLOAD_ERROR_DESC[errorCode.toString()]
+		this.fileAlert(file.name+'<br/><i>'+message+'</i><br/>');//SWFUpload.UPLOAD_ERROR_DESC[errorCode.toString()]
 
 		this.updateFile(this.swfUploadItems[file.index], 'status', _('ms2_gallery_status_error'));
 		this.fireEvent('fileupload', this, false, {error:message});
@@ -467,15 +465,14 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 		try{
 			var result = Ext.util.JSON.decode(serverData);//throws a SyntaxError.
 		}catch(e){
-			/*
 			Ext.MessageBox.show({
 				buttons: Ext.MessageBox.OK
-				,icon: Ext.MessageBox.ERROR
+				//,icon: Ext.MessageBox.ERROR
 				,modal:false
+				,minWidth: 600
 				,title:'Upload Error!'
-				,msg:'Invalid JSON Data Returned!<br/><br/>Please refresh the page to try again.'
+				,msg:'Invalid JSON Data Returned: ' + serverData
 			});
-			*/
 			this.updateFile(this.swfUploadItems[file.index], 'status', _('ms2_gallery_status_error'));
 			this.fireEvent('fileupload', this, false, {error:'Invalid JSON returned'});
 			return true;
@@ -486,7 +483,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 			this.swfUploadItems[file.index].commit();
 			this.fireEvent('fileupload', this, true, result);
 		}else{
-			this.fileAlert('<br/>'+file.name+'<br/><b>'+result.error+'</b><br/>');
+			this.fileAlert(file.name+'<br/><i>'+result.message+'</i><br/>');
 			this.updateFile(this.swfUploadItems[file.index], 'status', _('ms2_gallery_status_error'));
 			this.fireEvent('fileupload', this, false, result);
 		}
@@ -506,7 +503,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 			,size: file.size
 		});
 		this.updateFile(this.swfUploadItems[file.index], 'status', _('ms2_gallery_status_error'));
-		this.fileAlert('<br/>'+file.name+'<br/><b>'+message+'</b><br/>');
+		this.fileAlert(file.name+'<br/><i>'+message+'</i><br/>');
 		this.fireEvent('fileselectionerror', message);
 	}
 
@@ -520,7 +517,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 	,stdUploadFail:function(form, action){
 		this.updateFile(form.el.fileRec, 'status', _('ms2_gallery_status_error'));
 		this.fireEvent('fileupload', this, false, action.result);
-		this.fileAlert('<br/>'+form.el.fileRec.get('name')+'<br/><b>'+action.result.error+'</b><br/>');
+		this.fileAlert(form.el.fileRec.get('name')+'<br/><i>'+action.result.message+'</i><br/>');
 	}
 
 	,stdUploadFileSelected:function(fileBrowser, fileName){
@@ -544,7 +541,7 @@ AwesomeUploader = Ext.extend(Ext.Panel, {
 
 		if( file.size > this.maxFileSizeBytes){
 			this.updateFile(fileRec, 'status', _('ms2_gallery_status_error'));
-			this.fileAlert('<br/>'+file.name+'<br/><b>File size exceeds allowed limit.</b><br/>');
+			this.fileAlert(file.name+'<br/><i>File size exceeds allowed limit.</i><br/>');
 			this.fireEvent('fileselectionerror', 'File size exceeds allowed limit.');
 			return true;
 		}

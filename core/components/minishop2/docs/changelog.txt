@@ -8,6 +8,7 @@ Changelog for miniShop2.
 - [#37] Ability to override method miniShop2::changeOrderStatus() in custom order class.
 - [#36] Removed filter_var(), because of issues on stupid hostings.
 - [#35] Added 2 system setting to enable or disable the remembering of panel tabs.
+- [#32] Enabled displaying of errors when uploading files in product gallery.
 - [#30] "miniShopManagerPolicy" is automatically assigned to a group "Administrators".
 - [#29] Added verification of object instance, when loading neighborhood resources in manager.
 - [#28] Returned the lost fields in images of msGallery.

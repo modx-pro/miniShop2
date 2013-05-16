@@ -75,7 +75,7 @@ class msProductFile extends xPDOSimpleObject {
 		$phpThumb = new modPhpThumb($this->xpdo);
 		$phpThumb->initialize();
 
-		$tmp = tempnam(MODX_BASE_PATH, 'uf_');
+		$tmp = tempnam(MODX_BASE_PATH, 'ms_');
 		file_put_contents($tmp, $this->file['content']);
 		$phpThumb->setSourceFilename($tmp);
 

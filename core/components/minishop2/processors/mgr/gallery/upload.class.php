@@ -24,7 +24,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 
 	public function process() {
 		if (!$data = $this->handleFile ()) {
-			return $this->failure($this->modx->lexicon('ms2_gallery_err_no_file'));
+			return $this->failure($this->modx->lexicon('ms2_err_gallery_ns'));
 		}
 
 		$properties = $this->mediaSource->get('properties');
@@ -38,9 +38,8 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		if (!empty($properties['allowedFileTypes']['value'])) {
 			$allowed_extensions = array_map('trim', explode(',',strtolower($properties['allowedFileTypes']['value'])));
 		}
-
 		if (!empty($allowed_extensions) && !in_array($extension, $allowed_extensions)) {
-			return $this->failure($this->modx->lexicon('ms2_product_gallery_err_wrong_ext'));
+			return $this->failure($this->modx->lexicon('ms2_err_gallery_ext'));
 		}
 		else if (in_array($extension, $image_extensions)) {$type = 'image';}
 		else {$type = $extension;}
@@ -60,14 +59,13 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			,'active' => 1
 		));
 
-		$dir = $this->mediaSource->createContainer($product_file->get('path'), '/');
+		$this->mediaSource->createContainer($product_file->get('path'), '/');
 		$file = $this->mediaSource->createObject(
 			$product_file->get('path')
 			,$product_file->get('file')
 			,$data['stream']
 		);
 
-		$thumb = '';
 		if ($file) {
 			$product_file->set('url', $this->mediaSource->getObjectUrl($product_file->get('path').$product_file->get('file')));
 			$product_file->save();
@@ -75,10 +73,11 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			$thumb = $this->product->updateProductImage();
 			if ($generate !== true) {
 				$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate thumbnails for image with id = '.$product_file->get('id').'. '.$generate);
+				return $this->failure($this->modx->lexicon('ms2_err_gallery_thumb'));
 			}
 		}
 		else {
-			return $this->modx->lexicon('ms2_gallery_err_no_file_saved');
+			return $this->failure($this->modx->lexicon('ms2_err_gallery_save') . ': '.print_r($this->mediaSource->getErrors(), 1));
 		}
 
 		return $this->success($thumb);

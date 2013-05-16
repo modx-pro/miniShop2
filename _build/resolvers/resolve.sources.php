@@ -32,6 +32,10 @@
 							'name' => 'imageExtensions','desc' => 'prop_file.imageExtensions_desc','type' => 'textfield','lexicon' => 'core:source'
 							,'value' => 'jpg,jpeg,png'
 						)
+						,'allowedFileTypes' => array(
+							'name' => 'allowedFileTypes','desc' => 'prop_file.allowedFileTypes_desc','type' => 'textfield','lexicon' => 'core:source'
+							,'value' => 'jpg,jpeg,png'
+						)
 						,'thumbnailType' => array(
 							'name' => 'thumbnailType','desc' => 'prop_file.thumbnailType_desc','type' => 'list','lexicon' => 'core:source'
 							,'options' => array(array('value' => 'png','text' => 'png'), array('value' => 'jpg','text' => 'jpg'))
