@@ -40,4 +40,5 @@ switch ($action) {
 		$response = json_encode(array('success' => false, 'message' => $modx->lexicon($message)));
 }
 
+@session_write_close();
 exit($response);

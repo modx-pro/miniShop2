@@ -1,6 +1,10 @@
 Changelog for miniShop2.
 
-2.0.1
+2.0.1 rc
+==============
+- Maybe fixed bug with php-apc and sessions
+
+2.0.1 beta
 ==============
 - [#38] Added "menuindex" in product fields.
 - [#37] Ability to override method miniShop2::changeOrderStatus() in custom order class.
