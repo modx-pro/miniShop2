@@ -267,9 +267,9 @@ class msOrderHandler implements msOrderInterface {
 		}
 		$order->addMany($products);
 
-		$this->modx->invokeEvent('msOnBeforeCreateOrder', array('order' => $this));
+		$this->modx->invokeEvent('msOnBeforeCreateOrder', array('msOrder' => & $order, 'order' => $this));
 		if ($order->save()) {
-			$this->modx->invokeEvent('msOnCreateOrder', array('order' => $this));
+			$this->modx->invokeEvent('msOnCreateOrder', array('msOrder' => & $order, 'order' => $this));
 
 			$this->ms2->cart->clean();
 			$this->clean();

@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.0.1 rc
 ==============
 - Maybe fixed bug with php-apc and sessions
+- Fixed plugin params on events "msOnBeforeCreateOrder" and "msOnCreateOrder". Now you can change $msOrder by link.
 
 2.0.1 beta
 ==============
