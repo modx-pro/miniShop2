@@ -1,9 +1,14 @@
 Changelog for miniShop2.
 
-2.0.1 rc
+2.0.1 beta2
+==============
+- Snippet msGallery now can to display placeholders like [[+600x]] or [[+x450]].
+
+2.0.1 beta1
 ==============
 - Maybe fixed bug with php-apc and sessions
 - Fixed plugin params on events "msOnBeforeCreateOrder" and "msOnCreateOrder". Now you can change $msOrder by link.
+- Fixed error with no changing status of order in manager.
 
 2.0.1 beta
 ==============

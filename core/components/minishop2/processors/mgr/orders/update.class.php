@@ -18,7 +18,7 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 			}
 		}
 
-		if ($status = $this->object->getOne('Status')) {
+		if ($status = $this->modx->getObject('msOrderStatus')) {
 			if ($status->get('final')) {
 				return $this->modx->lexicon('ms2_err_status_final');
 			}

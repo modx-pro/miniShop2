@@ -51,7 +51,7 @@ foreach ($rows as $k => $row) {
 		}
 		$total++;
 	}
-	else if (preg_match('/(\d{1,4}x\d{1,4})/', $row['url'], $size)) {
+	else if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $row['url'], $size)) {
 		$images[$row['parent']][$size[0]] = $row['url'];
 	}
 }
