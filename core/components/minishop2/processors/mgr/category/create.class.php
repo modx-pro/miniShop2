@@ -45,8 +45,8 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 
 		// Updating resourceMap before OnDocSaveForm event
 		$results = $this->modx->cacheManager->generateContext($this->object->context_key);
-		$this->modx->context->resourceMap = $results['resourceMap'];
-		$this->modx->context->aliasMap = $results['aliasMap'];
+		if (isset($results['resourceMap'])) {$this->modx->context->resourceMap = $results['resourceMap'];}
+		if (isset($results['aliasMap'])) {$this->modx->context->aliasMap = $results['aliasMap'];}
 
 		return parent::afterSave();
 	}
