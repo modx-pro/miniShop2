@@ -37,32 +37,30 @@ if (!empty($resources)){
 	if (!empty($in)) {$where['id:IN'] = $in;}
 	if (!empty($out)) {$where['id:NOT IN'] = $out;}
 }
-else {
-	// Filter by parents
-	if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
-	if (!empty($parents) && $parents > 0){
-		$pids = array_map('trim', explode(',', $parents));
-		$parents = $pids;
-		if (!empty($depth) && $depth > 0) {
-			foreach ($pids as $v) {
-				if (!is_numeric($v)) {continue;}
-				$parents = array_merge($parents, $modx->getChildIds($v, $depth));
-			}
+// Filter by parents
+if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
+if (!empty($parents) && $parents > 0){
+	$pids = array_map('trim', explode(',', $parents));
+	$parents = $pids;
+	if (!empty($depth) && $depth > 0) {
+		foreach ($pids as $v) {
+			if (!is_numeric($v)) {continue;}
+			$parents = array_merge($parents, $modx->getChildIds($v, $depth));
 		}
+	}
 
-		// Add product categories
-		$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
-		$q->select('product_id');
-		if ($q->prepare() && $q->stmt->execute()) {
-			$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-		}
+	// Add product categories
+	$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
+	$q->select('product_id');
+	if ($q->prepare() && $q->stmt->execute()) {
+		$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+	}
 
-		if (!empty($members)) {
-			$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
-		}
-		else {
-			$where['parent:IN'] = $parents;
-		}
+	if (!empty($members)) {
+		$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
+	}
+	else {
+		$where['parent:IN'] = $parents;
 	}
 }
 
