@@ -33,7 +33,7 @@ $properties = array(
 		,'type' => 'textfield'
 		,'value' => 'tpl.msGallery.empty'
 		,'lexicon' => 'minishop2:properties'
-	)/*
+	)
 	,array(
 		'name' => 'limit'
 		,'desc' => 'ms2_prop_limit'
@@ -65,7 +65,7 @@ $properties = array(
 		),
 		'value' => 'ASC',
 		'lexicon' => 'minishop2:properties',
-	)*/
+	)
 	,array(
 		'name' => 'toPlaceholder',
 		'desc' => 'ms2_prop_toPlaceholder',

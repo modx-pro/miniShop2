@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - Fixed display an original image in msGallery. If upgrade, replace placeholders [[+image]] to [[+url]] in chunk "tpl.msGallery.row" manually.
 - Added setting placeholder [[+idx]] to snippet msGallery.
 - Added parameter "where" in snippet msGallery, for specify JSON encoded string with additional query data.
+- Added parameters "limit" and "offset" for pagination. msGallery can be used with getPage now.
 
 2.0.1 beta1
 ==============

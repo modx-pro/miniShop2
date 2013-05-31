@@ -4,7 +4,6 @@ $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 if (!empty($product)) {
@@ -15,8 +14,10 @@ else {
 }
 
 if (!($product instanceof msProduct)) {return false;}
+$limit = !empty($scriptProperties['limit']) ? $scriptProperties['limit'] : 0;
 $where = array(
 	'product_id' => $product->get('id')
+	,'parent' => 0
 	,'type' => 'image'
 );
 // processing additional query params
@@ -32,9 +33,8 @@ if (!empty($scriptProperties['where'])) {
 $default = array(
 	'class' => 'msProductFile'
 	,'where' => $modx->toJSON($where)
-	,'select' => '{
-		"msProductFile":"all"
-	}'
+	,'select' => '{"msProductFile":"all"}'
+	,'limit' => $limit
 	,'sortby' => 'rank'
 	,'sortdir' => 'ASC'
 	,'fastMode' => false
@@ -43,40 +43,40 @@ $default = array(
 );
 
 // Merge all properties and run!
-$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
 $pdoFetch->addTime('Query parameters are prepared.');
+$pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
 
 // Processing rows
-$output = null; $images = array(); $total = $idx = 0;
+$output = null; $images = array(); $idx = 0;
+$pdoFetch->addTime('Fetching thumbnails');
 foreach ($rows as $k => $row) {
-	if ($row['parent'] == 0) {
-		$idx++;
-		$row['idx'] = $idx;
-		if (isset($images[$row['id']])) {
-			$images[$row['id']] = array_merge($images[$row['id']], $row);
+	$idx++;
+	$row['idx'] = $idx;
+	$images[$row['id']] = $row;
+	$q = $modx->newQuery('msProductFile', array('parent' => $row['id']));
+	$q->select('url');
+	if ($q->prepare() && $q->stmt->execute()) {
+		while ($tmp = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
+			if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $tmp, $size)) {
+				$images[$row['id']][$size[0]] = $tmp;
+			}
 		}
-		else {
-			$images[$row['id']] = $row;
-		}
-		$total++;
-	}
-	else if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $row['url'], $size)) {
-		$images[$row['parent']][$size[0]] = $row['url'];
 	}
 }
 
-// Processing chunk
+// Processing chunks
+$pdoFetch->addTime('Processing chunks');
 $rows = array();
 foreach ($images as $row) {
 	if (empty($tplRow)) {
-		$rows[$row['rank']] = '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>';
+		$rows[] = '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>';
 	}
 	else {
-		$rows[$row['rank']] = $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
+		$rows[] = $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
 	}
 }
-ksort($rows);
+
 $pdoFetch->addTime('Returning processed chunks');
 if (!empty($rows)) {
 	$output = implode($pdoFetch->config['outputSeparator'], $rows);
@@ -95,7 +95,6 @@ if (!empty($output)) {
 else {
 	$output = !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
-$modx->setPlaceholder($pdoFetch->config['totalVar'], $total);
 
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);
