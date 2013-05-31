@@ -11,11 +11,7 @@ $mtime = $mtime[1] + $mtime[0];
 $tstart = $mtime;
 set_time_limit(0);
 
-/* define package */
-define('PKG_NAME','miniShop2');
-define('PKG_NAME_LOWER',strtolower(PKG_NAME));
-define('PKG_VERSION','2.0.1');
-define('PKG_RELEASE','beta2');
+require_once 'build.config.php';
 
 /* define sources */
 $root = dirname(dirname(__FILE__)).'/';
@@ -35,8 +31,6 @@ $sources = array(
 );
 unset($root);
 
-/* override with your own defines here (see build.config.sample.php) */
-require_once $sources['build'] . '/build.config.php';
 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
 require_once $sources['build'] . '/includes/functions.php';
 
@@ -53,6 +47,7 @@ $builder->registerNamespace(PKG_NAME_LOWER,false,true,'{core_path}components/'.P
 $modx->log(modX::LOG_LEVEL_INFO,'Created Transport Package and Namespace.');
 
 /* create category */
+/* @var modCategory $category */
 $category= $modx->newObject('modCategory');
 $category->set('id',1);
 $category->set('category',PKG_NAME);
@@ -99,34 +94,34 @@ $attr = array(
 			xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
 				'Snippets' => array(
 					xPDOTransport::PRESERVE_KEYS => false,
-					xPDOTransport::UPDATE_OBJECT => true,
+					xPDOTransport::UPDATE_OBJECT => BUILD_SNIPPET_UPDATE,
 					xPDOTransport::UNIQUE_KEY => 'name',
 				),
 				'Chunks' => array(
 					xPDOTransport::PRESERVE_KEYS => false,
-					xPDOTransport::UPDATE_OBJECT => false,
+					xPDOTransport::UPDATE_OBJECT => BUILD_CHUNK_UPDATE,
 					xPDOTransport::UNIQUE_KEY => 'name',
 				),
 			),
 		),
 		'Snippets' => array(
 			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => true,
+			xPDOTransport::UPDATE_OBJECT => BUILD_SNIPPET_UPDATE,
 			xPDOTransport::UNIQUE_KEY => 'name',
 		),
 		'Chunks' => array (
 			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => false,
+			xPDOTransport::UPDATE_OBJECT => BUILD_CHUNK_UPDATE,
 			xPDOTransport::UNIQUE_KEY => 'name',
 		),
 		'Plugins' => array (
 			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => true,
+			xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
 			xPDOTransport::UNIQUE_KEY => 'name',
 		),
 		'PluginEvents' => array (
 			xPDOTransport::PRESERVE_KEYS => true,
-			xPDOTransport::UPDATE_OBJECT => true,
+			xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
 			xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
 		),
 	),
@@ -139,7 +134,7 @@ if (!is_array($events)) {
 } else {
 	$attributes = array (
 		xPDOTransport::PRESERVE_KEYS => true,
-		xPDOTransport::UPDATE_OBJECT => true,
+		xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
 	);
 	foreach ($events as $event) {
 		$vehicle = $builder->createVehicle($event,$attributes);
@@ -157,7 +152,7 @@ if (!is_array($settings)) {
 	$attributes= array(
 		xPDOTransport::UNIQUE_KEY => 'key',
 		xPDOTransport::PRESERVE_KEYS => true,
-		xPDOTransport::UPDATE_OBJECT => false,
+		xPDOTransport::UPDATE_OBJECT => BUILD_SETTING_UPDATE,
 	);
 	foreach ($settings as $setting) {
 		$vehicle = $builder->createVehicle($setting,$attributes);
@@ -171,7 +166,7 @@ unset($settings,$setting,$attributes);
 $attributes = array (
 	xPDOTransport::PRESERVE_KEYS => false,
 	xPDOTransport::UNIQUE_KEY => array('name'),
-	xPDOTransport::UPDATE_OBJECT => true,
+	xPDOTransport::UPDATE_OBJECT => BUILD_POLICY_UPDATE,
 );
 $policies = include $sources['data'].'transport.policies.php';
 if (!is_array($policies)) { $modx->log(modX::LOG_LEVEL_FATAL,'Adding policies failed.'); }
@@ -181,17 +176,18 @@ foreach ($policies as $policy) {
 }
 $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($policies).' Access Policies.'); flush();
 unset($policies,$policy,$attributes);
-/* package in default access policy template */
+
+/* package in default access policy templates */
 $templates = include dirname(__FILE__).'/data/transport.policytemplates.php';
 $attributes = array (
 	xPDOTransport::PRESERVE_KEYS => false,
 	xPDOTransport::UNIQUE_KEY => array('name'),
-	xPDOTransport::UPDATE_OBJECT => true,
+	xPDOTransport::UPDATE_OBJECT => BUILD_POLICY_TEMPLATE_UPDATE,
 	xPDOTransport::RELATED_OBJECTS => true,
 	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
 		'Permissions' => array (
 			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => true,
+			xPDOTransport::UPDATE_OBJECT => BUILD_PERMISSION_UPDATE,
 			xPDOTransport::UNIQUE_KEY => array ('template','name'),
 		),
 	)
@@ -211,13 +207,13 @@ unset ($templates,$template,$attributes);
 $menus = include $sources['data'].'transport.menu.php';
 $attributes = array (
 	xPDOTransport::PRESERVE_KEYS => true,
-	xPDOTransport::UPDATE_OBJECT => false,
+	xPDOTransport::UPDATE_OBJECT => BUILD_MENU_UPDATE,
 	xPDOTransport::UNIQUE_KEY => 'text',
 	xPDOTransport::RELATED_OBJECTS => true,
 	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
 		'Action' => array (
 			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => false,
+			xPDOTransport::UPDATE_OBJECT => BUILD_ACTION_UPDATE,
 			xPDOTransport::UNIQUE_KEY => array ('namespace','controller'),
 		),
 	),
@@ -226,6 +222,7 @@ if (is_array($menus)) {
 	foreach ($menus as $menu) {
 		$vehicle = $builder->createVehicle($menu,$attributes);
 		$builder->putVehicle($vehicle);
+		/* @var modMenu $menu */
 		$modx->log(modX::LOG_LEVEL_INFO,'Packaged in menu "'.$menu->get('text').'".');
 	}
 }
