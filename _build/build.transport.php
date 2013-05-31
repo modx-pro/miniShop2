@@ -46,104 +46,6 @@ $builder->createPackage(PKG_NAME_LOWER,PKG_VERSION,PKG_RELEASE);
 $builder->registerNamespace(PKG_NAME_LOWER,false,true,'{core_path}components/'.PKG_NAME_LOWER.'/');
 $modx->log(modX::LOG_LEVEL_INFO,'Created Transport Package and Namespace.');
 
-/* create category */
-/* @var modCategory $category */
-$category= $modx->newObject('modCategory');
-$category->set('id',1);
-$category->set('category',PKG_NAME);
-
-/* add snippets */
-$snippets = include $sources['data'].'transport.snippets.php';
-if (!is_array($snippets)) {
-	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
-} else {
-	$category->addMany($snippets);
-	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.');
-}
-
-/* add chunks */
-$chunks = include $sources['data'].'transport.chunks.php';
-if (!is_array($chunks)) {
-	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
-} else {
-	$category->addMany($chunks);
-	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($chunks).' chunks.');
-}
-
-/* add plugins */
-$plugins = include $sources['data'].'transport.plugins.php';
-if (!is_array($plugins)) {
-	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in plugins.');
-} else {
-	$category->addMany($plugins);
-	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($plugins).' plugins.');
-}
-
-/* create category vehicle */
-$attr = array(
-	xPDOTransport::UNIQUE_KEY => 'category',
-	xPDOTransport::PRESERVE_KEYS => false,
-	xPDOTransport::UPDATE_OBJECT => true,
-	xPDOTransport::RELATED_OBJECTS => true,
-	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
-		'Children' => array(
-			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => true,
-			xPDOTransport::UNIQUE_KEY => 'category',
-			xPDOTransport::RELATED_OBJECTS => true,
-			xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
-				'Snippets' => array(
-					xPDOTransport::PRESERVE_KEYS => false,
-					xPDOTransport::UPDATE_OBJECT => BUILD_SNIPPET_UPDATE,
-					xPDOTransport::UNIQUE_KEY => 'name',
-				),
-				'Chunks' => array(
-					xPDOTransport::PRESERVE_KEYS => false,
-					xPDOTransport::UPDATE_OBJECT => BUILD_CHUNK_UPDATE,
-					xPDOTransport::UNIQUE_KEY => 'name',
-				),
-			),
-		),
-		'Snippets' => array(
-			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => BUILD_SNIPPET_UPDATE,
-			xPDOTransport::UNIQUE_KEY => 'name',
-		),
-		'Chunks' => array (
-			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => BUILD_CHUNK_UPDATE,
-			xPDOTransport::UNIQUE_KEY => 'name',
-		),
-		'Plugins' => array (
-			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
-			xPDOTransport::UNIQUE_KEY => 'name',
-		),
-		'PluginEvents' => array (
-			xPDOTransport::PRESERVE_KEYS => true,
-			xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
-			xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
-		),
-	),
-);
-
-/* load plugins events */
-$events = include $sources['data'].'transport.events.php';
-if (!is_array($events)) {
-	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in events.');
-} else {
-	$attributes = array (
-		xPDOTransport::PRESERVE_KEYS => true,
-		xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
-	);
-	foreach ($events as $event) {
-		$vehicle = $builder->createVehicle($event,$attributes);
-		$builder->putVehicle($vehicle);
-	}
-	$modx->log(xPDO::LOG_LEVEL_INFO,'Packaged in '.count($events).' plugins events.');
-}
-unset ($events, $event, $attributes);
-
 /* load system settings */
 $settings = include $sources['data'].'transport.settings.php';
 if (!is_array($settings)) {
@@ -161,6 +63,23 @@ if (!is_array($settings)) {
 	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($settings).' System Settings.');
 }
 unset($settings,$setting,$attributes);
+
+/* load plugins events */
+$events = include $sources['data'].'transport.events.php';
+if (!is_array($events)) {
+	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in events.');
+} else {
+	$attributes = array (
+		xPDOTransport::PRESERVE_KEYS => true,
+		xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
+	);
+	foreach ($events as $event) {
+		$vehicle = $builder->createVehicle($event,$attributes);
+		$builder->putVehicle($vehicle);
+	}
+	$modx->log(xPDO::LOG_LEVEL_INFO,'Packaged in '.count($events).' Plugins events.');
+}
+unset ($events, $event, $attributes);
 
 /* package in default access policy */
 $attributes = array (
@@ -231,9 +150,73 @@ else {
 }
 unset($vehicle,$menus,$menu,$attributes);
 
-/* now pack in the license file, readme and setup options */
+
+/* create category */
+$modx->log(xPDO::LOG_LEVEL_INFO,'Created category.');
+/* @var modCategory $category */
+$category= $modx->newObject('modCategory');
+$category->set('id',1);
+$category->set('category',PKG_NAME);
+
+/* add snippets */
+$snippets = include $sources['data'].'transport.snippets.php';
+if (!is_array($snippets)) {
+	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
+} else {
+	$category->addMany($snippets);
+	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.');
+}
+
+/* add chunks */
+$chunks = include $sources['data'].'transport.chunks.php';
+if (!is_array($chunks)) {
+	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
+} else {
+	$category->addMany($chunks);
+	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($chunks).' chunks.');
+}
+
+/* add plugins */
+$plugins = include $sources['data'].'transport.plugins.php';
+if (!is_array($plugins)) {
+	$modx->log(modX::LOG_LEVEL_ERROR,'Could not package in plugins.');
+} else {
+	$category->addMany($plugins);
+	$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($plugins).' plugins.');
+}
+
+/* create category vehicle */
+$attr = array(
+	xPDOTransport::UNIQUE_KEY => 'category',
+	xPDOTransport::PRESERVE_KEYS => false,
+	xPDOTransport::UPDATE_OBJECT => true,
+	xPDOTransport::RELATED_OBJECTS => true,
+	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+		'Snippets' => array(
+			xPDOTransport::PRESERVE_KEYS => false,
+			xPDOTransport::UPDATE_OBJECT => BUILD_SNIPPET_UPDATE,
+			xPDOTransport::UNIQUE_KEY => 'name',
+		),
+		'Chunks' => array (
+			xPDOTransport::PRESERVE_KEYS => false,
+			xPDOTransport::UPDATE_OBJECT => BUILD_CHUNK_UPDATE,
+			xPDOTransport::UNIQUE_KEY => 'name',
+		),
+		'Plugins' => array (
+			xPDOTransport::PRESERVE_KEYS => false,
+			xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
+			xPDOTransport::UNIQUE_KEY => 'name',
+		),
+		'PluginEvents' => array (
+			xPDOTransport::PRESERVE_KEYS => true,
+			xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
+			xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+		),
+	),
+);
 $vehicle = $builder->createVehicle($category,$attr);
-$modx->log(modX::LOG_LEVEL_INFO,'Adding resolvers to category...');
+
+/* now pack in resolvers */
 $vehicle->resolve('file',array(
 	'source' => $sources['source_assets'],
 	'target' => "return MODX_ASSETS_PATH . 'components/';",
@@ -242,25 +225,21 @@ $vehicle->resolve('file',array(
 	'source' => $sources['source_core'],
 	'target' => "return MODX_CORE_PATH . 'components/';",
 ));
-$vehicle->resolve('php',array(
-	'source' => $sources['resolvers'] . 'resolve.tables.php',
-));
-$vehicle->resolve('php',array(
-	'source' => $sources['resolvers'] . 'resolve.policy.php',
-));
-$vehicle->resolve('php',array(
-	'source' => $sources['resolvers'] . 'resolve.sources.php',
-));
-$vehicle->resolve('php',array(
-	'source' => $sources['resolvers'] . 'resolve.settings.php',
-));
-$vehicle->resolve('php',array(
-	'source' => $sources['resolvers'] . 'resolve.setup.php',
-));
 
-$modx->log(modX::LOG_LEVEL_INFO,'Packaged in resolvers.'); flush();
+$resolvers = array('extension','tables','policy','sources','settings','setup',);
+foreach ($resolvers as $resolver) {
+	if ($vehicle->resolve('php', array('source' => $sources['resolvers'] . 'resolve.'.$resolver.'.php'))) {
+		$modx->log(modX::LOG_LEVEL_INFO,'Added resolver "'.$resolver.'" to category.');
+	}
+	else {
+		$modx->log(modX::LOG_LEVEL_INFO,'Could not add resolver "'.$resolver.'" to category.');
+	}
+}
+
+flush();
 $builder->putVehicle($vehicle);
 
+/* now pack in the license file, readme and setup options */
 $builder->setPackageAttributes(array(
 	'changelog' => file_get_contents($sources['docs'] . 'changelog.txt')
 	,'license' => file_get_contents($sources['docs'] . 'license.txt')

@@ -1,13 +1,13 @@
 <?php
 /**
  * Resolve creating policies
+ *
  * @var xPDOObject $object
  * @var array $options
- * @package minishop2
- * @subpackage build
  */
 
 if ($object->xpdo) {
+	/* @var modX $modx */
 	$modx =& $object->xpdo;
 
 	switch ($options[xPDOTransport::PACKAGE_ACTION]) {

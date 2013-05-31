@@ -2,39 +2,51 @@
 /**
  * Resolves setup-options settings
  *
+ * @var xPDOObject $object
+ * @var array $options
  */
-$success= false;
-switch ($options[xPDOTransport::PACKAGE_ACTION]) {
-	case xPDOTransport::ACTION_INSTALL:
-	case xPDOTransport::ACTION_UPGRADE:
-	/* Checking and installing required packages */
-		$packages = array(
-			'pdoTools' => array(
-				'version_major' => 1
-				,'version_minor' => 2
-			)
-		);
-		foreach ($packages as $package => $options) {
-			$query = array('package_name' => $package);
-			if (!empty($options)) {$query = array_merge($query, $options);}
-			if (!$modx->getObject('transport.modTransportPackage', $query)) {
-				$modx->log(modX::LOG_LEVEL_INFO, 'Trying to install <b>'.$package.'</b>. Please wait...');
 
-				$response = installPackage($package);
-				if ($response['success']) {$level = modX::LOG_LEVEL_INFO;}
-				else {$level = modX::LOG_LEVEL_ERROR;}
+if ($object->xpdo) {
+	/* @var modX $modx */
+	$modx =& $object->xpdo;
 
-				$modx->log($level, $response['message']);
+	$success= false;
+	switch ($options[xPDOTransport::PACKAGE_ACTION]) {
+		case xPDOTransport::ACTION_INSTALL:
+		case xPDOTransport::ACTION_UPGRADE:
+		/* Checking and installing required packages */
+			$packages = array(
+				'pdoTools' => array(
+					'version_major' => 1
+					,'version_minor' => 2
+				)
+			);
+			foreach ($packages as $package => $options) {
+				$query = array('package_name' => $package);
+				if (!empty($options)) {$query = array_merge($query, $options);}
+				if (!$modx->getObject('transport.modTransportPackage', $query)) {
+					$modx->log(modX::LOG_LEVEL_INFO, 'Trying to install <b>'.$package.'</b>. Please wait...');
+
+					$response = installPackage($package);
+					if ($response['success']) {$level = modX::LOG_LEVEL_INFO;}
+					else {$level = modX::LOG_LEVEL_ERROR;}
+
+					$modx->log($level, $response['message']);
+				}
 			}
-		}
-		$success= true;
-		break;
+			$success = true;
+			break;
 
-	case xPDOTransport::ACTION_UNINSTALL:
-		$success= true;
-		break;
+		case xPDOTransport::ACTION_UNINSTALL:
+			if ($object->xpdo instanceof modX) {
+				$modx->removeExtensionPackage('minishop2');
+			}
+			$success = true;
+			break;
+	}
+
+	return $success;
 }
-return $success;
 
 
 
@@ -43,7 +55,10 @@ function installPackage($packageName) {
 	global $modx;
 
 	/* @var modTransportProvider $provider */
-	$provider = $modx->getObject('transport.modTransportProvider', 1);
+	if (!$provider = $modx->getObject('transport.modTransportProvider', array('service_url:LIKE' => '%simpledream%'))) {
+		$provider = $modx->getObject('transport.modTransportProvider', 1);
+	}
+
 	$provider->getClient();
 	$modx->getVersionData();
 	$productVersion = $modx->version['code_name'].'-'.$modx->version['full_version'];
@@ -131,7 +146,7 @@ function installPackage($packageName) {
 				else {
 					return array(
 						'success' => 0
-					,'message' => 'Could not save package <b>'.$packageName.'</b>'
+						,'message' => 'Could not save package <b>'.$packageName.'</b>'
 					);
 				}
 				break;

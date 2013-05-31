@@ -162,6 +162,7 @@ else {
 
 	$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
 
+	$idx = !empty($scriptProperties['offset']) ? $scriptProperties['offset'] : 0;
 	if (!empty($rows) && is_array($rows)) {
 		foreach ($rows as $k => $row) {
 			// Processing main fields
@@ -176,6 +177,8 @@ else {
 				$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
 				$row['weight'] = $miniShop2->formatWeight($row['weight']);
 			}
+			$idx++;
+			$row['idx'] = $idx;
 
 			// Processing chunk
 			$output[] = empty($tpl)

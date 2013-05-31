@@ -2,15 +2,17 @@
 /**
  * Resolve creating needed statuses
  *
- * @package minishop2
- * @subpackage build
+ * @var xPDOObject $object
+ * @var array $options
  */
+
 if ($object->xpdo) {
+	/* @var modX $modx */
+	$modx =& $object->xpdo;
+
 	switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 		case xPDOTransport::ACTION_INSTALL:
 		case xPDOTransport::ACTION_UPGRADE:
-			/* @var modX $modx */
-			$modx =& $object->xpdo;
 			$modelPath = $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/';
 			$modx->addPackage('minishop2',$modelPath);
 			$lang = $modx->getOption('manager_language') == 'en' ? 1 : 0;
@@ -140,9 +142,6 @@ if ($object->xpdo) {
 			break;
 
 		case xPDOTransport::ACTION_UNINSTALL:
-			if ($modx instanceof modX) {
-				$modx->removeExtensionPackage('minishop2');
-			}
 			break;
 	}
 }

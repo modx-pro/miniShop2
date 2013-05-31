@@ -48,7 +48,8 @@ $pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
 
 // Processing rows
-$output = null; $images = array(); $idx = 0;
+$output = null; $images = array();
+$idx = !empty($scriptProperties['offset']) ? $scriptProperties['offset'] : 0;
 $pdoFetch->addTime('Fetching thumbnails');
 foreach ($rows as $k => $row) {
 	$idx++;
