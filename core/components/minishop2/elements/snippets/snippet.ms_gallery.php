@@ -14,11 +14,19 @@ else {
 	$product = $modx->resource;
 }
 
-if ($product->get('class_key') != 'msProduct') {return false;}
+if (!($product instanceof msProduct)) {return false;}
 $where = array(
 	'product_id' => $product->get('id')
 	,'type' => 'image'
 );
+// processing additional query params
+if (!empty($scriptProperties['where'])) {
+	$tmp = $modx->fromJSON($scriptProperties['where']);
+	if (is_array($tmp) && !empty($tmp)) {
+		$where = array_merge($where, $tmp);
+	}
+	unset($scriptProperties['where']);
+}
 
 // Default parameters
 $default = array(
@@ -40,9 +48,11 @@ $pdoFetch->addTime('Query parameters are prepared.');
 $rows = $pdoFetch->run();
 
 // Processing rows
-$output = null; $images = array(); $total = 0;
+$output = null; $images = array(); $total = $idx = 0;
 foreach ($rows as $k => $row) {
 	if ($row['parent'] == 0) {
+		$idx++;
+		$row['idx'] = $idx;
 		if (isset($images[$row['id']])) {
 			$images[$row['id']] = array_merge($images[$row['id']], $row);
 		}
@@ -68,7 +78,6 @@ foreach ($images as $row) {
 }
 ksort($rows);
 $pdoFetch->addTime('Returning processed chunks');
-
 if (!empty($rows)) {
 	$output = implode($pdoFetch->config['outputSeparator'], $rows);
 }
@@ -77,7 +86,6 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 	$output .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
-unset($modx->services['pdofetch']);
 // Return output
 if (!empty($output)) {
 	if (!empty($tplOuter)) {

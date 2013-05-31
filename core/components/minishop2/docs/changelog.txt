@@ -2,8 +2,10 @@ Changelog for miniShop2.
 
 2.0.1 beta2
 ==============
-- Snippet msGallery now can to display placeholders like [[+600x]] or [[+
+- Snippet msGallery now can to display placeholders like [[+600x]] or [[+x600]].
 - Fixed display an original image in msGallery. If upgrade, replace placeholders [[+image]] to [[+url]] in chunk "tpl.msGallery.row" manually.
+- Added setting placeholder [[+idx]] to snippet msGallery.
+- Added parameter "where" in snippet msGallery, for specify JSON encoded string with additional query data.
 
 2.0.1 beta1
 ==============

@@ -12,7 +12,7 @@ $properties = array(
 		,'type' => 'numberfield'
 		,'value' => ''
 		,'lexicon' => 'minishop2:properties'
-		)
+	)
 	,array(
 		'name' => 'tplRow'
 		,'desc' => 'ms2_prop_tplRow'
@@ -33,7 +33,7 @@ $properties = array(
 		,'type' => 'textfield'
 		,'value' => 'tpl.msGallery.empty'
 		,'lexicon' => 'minishop2:properties'
-	)
+	)/*
 	,array(
 		'name' => 'limit'
 		,'desc' => 'ms2_prop_limit'
@@ -65,7 +65,7 @@ $properties = array(
 		),
 		'value' => 'ASC',
 		'lexicon' => 'minishop2:properties',
-	)
+	)*/
 	,array(
 		'name' => 'toPlaceholder',
 		'desc' => 'ms2_prop_toPlaceholder',
@@ -78,6 +78,13 @@ $properties = array(
 		'desc' => 'ms2_prop_showLog',
 		'type' => 'combo-boolean',
 		'value' => false,
+		'lexicon' => 'minishop2:properties',
+	)
+	,array(
+		'name' => 'where',
+		'desc' => 'ms2_prop_where',
+		'type' => 'textfield',
+		'value' => '',
 		'lexicon' => 'minishop2:properties',
 	)
 
