@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - [#44] Enabled duplicate of category.
 - [#42] Added parameter "returnIds" to snippet msProducts.
+- [#41] Fixed panel with tvs on product create.
 - Parameter "resources" not suppressing "parents" in msProducts anymore. Now they working together: resources that are not in parents will not be returned.
 - Snippet msGallery now can to display placeholders like [[+600x]] or [[+x600]].
 - Fixed display an original image in msGallery. If upgrade, replace placeholders [[+image]] to [[+url]] in chunk "tpl.msGallery.row" manually.

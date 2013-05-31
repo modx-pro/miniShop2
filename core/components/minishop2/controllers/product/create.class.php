@@ -5,6 +5,17 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 
 
 	/**
+	 * Custom logic code here for setting placeholders, etc
+	 * @param array $scriptProperties
+	 * @return mixed
+	 */
+	public function process(array $scriptProperties = array()) {
+		$this->scriptProperties['template'] = $this->modx->getOption('ms2_template_product_default',null,$this->modx->getOption('default_template',null,1));
+
+		return parent::process($scriptProperties);
+	}
+
+	/**
 	 * Returns language topics
 	 * @return array
 	 */
