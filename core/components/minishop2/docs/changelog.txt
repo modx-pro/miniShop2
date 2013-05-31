@@ -2,6 +2,10 @@ Changelog for miniShop2.
 
 2.0.1 beta2
 ==============
+- Fixed msGallery
+
+2.0.1 beta2
+==============
 - [#44] Enabled duplicate of category.
 - [#42] Added parameter "returnIds" to snippet msProducts.
 - [#41] Fixed panel with tvs on product create.

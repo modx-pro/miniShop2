@@ -26,8 +26,8 @@ if (!empty($scriptProperties['where'])) {
 	if (is_array($tmp) && !empty($tmp)) {
 		$where = array_merge($where, $tmp);
 	}
-	unset($scriptProperties['where']);
 }
+unset($scriptProperties['where']);
 
 // Default parameters
 $default = array(
