@@ -157,6 +157,13 @@ $properties = array(
 		,'value' => "\n"
 		,'lexicon' => 'minishop2:properties'
 	)
+	,array(
+		'name' => 'returnIds'
+		,'desc' => 'ms2_prop_returnIds'
+		,'type' => 'combo-boolean'
+		,'value' => false
+		,'lexicon' => 'minishop2:properties'
+	)
 
 	,array(
 		'name' => 'showUnpublished', 'desc' => 'ms2_prop_showUnpublished', 'type' => 'combo-boolean', 'lexicon' => 'minishop2:properties'

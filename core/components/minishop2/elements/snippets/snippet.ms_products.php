@@ -4,10 +4,10 @@ $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 $class = !empty($class) ? trim($class) : 'msProduct';
+$returnIds = !empty($scriptProperties['returnIds']);
 if (!$tmp = $modx->newObject($class)) {
 	$modx->log(modX::LOG_LEVEL_ERROR, '[msProducts] Error: could not load class "'.$class.'". Cannot continue.');
 	return;
@@ -78,12 +78,12 @@ $pdoFetch->addTime('"Where" expression built.');
 // End of building "Where" expression
 
 // Joining tables
-$leftJoin = ($class == 'msProduct')
+$leftJoin = ($class == 'msProduct' && !$returnIds)
 	? array('{"class":"msProductData","alias":"Data","on":"`msProduct`.`id`=`Data`.`id`"}','{"class":"msVendor","alias":"Vendor","on":"`Data`.`vendor`=`Vendor`.`id`"}')
 	: array();
 $innerJoin = array();
 
-if ($class == 'msProduct') {
+if ($class == 'msProduct' && !$returnIds) {
 	// Include Thumbnails
 	$thumbsLeftJoin = '';
 	$thumbsSelect = array();
@@ -110,9 +110,14 @@ if ($class == 'msProduct') {
 }
 
 // Fields to select
-$resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns($class, $class) : $modx->getSelectColumns($class, $class, '', array('content'), true);
+if ($returnIds) {
+	$resourceColumns = "`$class`.`id`";
+}
+else {
+	$resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns($class, $class) : $modx->getSelectColumns($class, $class, '', array('content'), true);
+}
 $select = array('"'.$class.'":"'.$resourceColumns.'"');
-if ($class == 'msProduct') {
+if ($class == 'msProduct' && !$returnIds) {
 	$select[] = '"Data":"'.$modx->getSelectColumns('msProductData', 'Data', '', array('id'), true).'"';
 	$select[] = '"Vendor":"'.$modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true).'"';
 	if (!empty($thumbsSelect)) {$select = array_merge($select, $thumbsSelect);}
@@ -133,44 +138,57 @@ $default = array(
 	,'nestedChunkPrefix' => 'minishop2_'
 );
 
-// Merge all properties and run!
-$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
-$pdoFetch->addTime('Query parameters are prepared.');
-$rows = $pdoFetch->run();
-
-// Initializing chunk for template rows
-if (!empty($tpl)) {
-	$pdoFetch->getChunk($tpl);
+if ($returnIds) {
+	unset($scriptProperties['includeTVs'], $default['groupby']);
 }
 
-$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
+// Merge all properties and run!
+$pdoFetch->addTime('Query parameters are prepared.');
+$pdoFetch->setConfig(array_merge($default, $scriptProperties));
+$rows = $pdoFetch->run();
 
 // Processing rows
 $output = null;
-if (!empty($rows) && is_array($rows)) {
-	foreach ($rows as $k => $row) {
-		// Processing main fields
-		if ($class == 'msProduct') {
-			if ($modificators) {
-				/* @var msProduct $product */
-				$product = $modx->getObject('msProduct', $row['id']);
-				$row['price'] = $product->getPrice($scriptProperties);
-				$row['weight'] = $product->getWeight($scriptProperties);
-			}
-			$row['price'] = $miniShop2->formatPrice($row['price']);
-			$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
-			$row['weight'] = $miniShop2->formatWeight($row['weight']);
-		}
-
-		// Processing chunk
-		$output[] = empty($tpl)
-			? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
-			: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
+if ($returnIds) {
+	$ids = array();
+	foreach ($rows as $row) {
+		$ids[] = $row['id'];
 	}
-	$pdoFetch->addTime('Returning processed chunks');
-	if (empty($outputSeparator)) {$outputSeparator = "\n";}
-	if (!empty($output)) {
-		$output = implode($outputSeparator, $output);
+	$output = implode(',', $ids);
+}
+else {
+	// Initializing chunk for template rows
+	if (!empty($tpl)) {
+		$pdoFetch->getChunk($tpl);
+	}
+
+	$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
+
+	if (!empty($rows) && is_array($rows)) {
+		foreach ($rows as $k => $row) {
+			// Processing main fields
+			if ($class == 'msProduct') {
+				if ($modificators) {
+					/* @var msProduct $product */
+					$product = $modx->getObject('msProduct', $row['id']);
+					$row['price'] = $product->getPrice($scriptProperties);
+					$row['weight'] = $product->getWeight($scriptProperties);
+				}
+				$row['price'] = $miniShop2->formatPrice($row['price']);
+				$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
+				$row['weight'] = $miniShop2->formatWeight($row['weight']);
+			}
+
+			// Processing chunk
+			$output[] = empty($tpl)
+				? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
+				: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
+		}
+		$pdoFetch->addTime('Returning processed chunks');
+		if (empty($outputSeparator)) {$outputSeparator = "\n";}
+		if (!empty($output)) {
+			$output = implode($outputSeparator, $output);
+		}
 	}
 }
 
