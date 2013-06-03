@@ -31,28 +31,6 @@ $outer['cart_cost'] = $miniShop2->formatPrice($outer['cart_cost']);
 $outer['delivery_cost'] = $miniShop2->formatPrice($outer['delivery_cost']);
 $outer['weight'] = $miniShop2->formatWeight($outer['weight']);
 
-// Include TVs
-$tvsLeftJoin = '';
-$tvsSelect = array();
-if (!empty($includeTVs)) {
-	$tvs = array_map('trim',explode(',',$includeTVs));
-	if(!empty($tvs[0])){
-		$q = $modx->newQuery('modTemplateVar', array('name:IN' => $tvs));
-		$q->select('id,name');
-		if ($q->prepare() && $q->stmt->execute()) {
-			$tv_ids = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
-			if (!empty($tv_ids)) {
-				foreach ($tv_ids as $tv) {
-					$tvsLeftJoin .= ',{"class":"modTemplateVarResource","alias":"TV'.$tv['name'].'","on":"TV'.$tv['name'].'.contentid = msProduct.id AND TV'.$tv['name'].'.tmplvarid = '.$tv['id'].'"}';
-					$tvsSelect[] = ' "TV'.$tv['name'].'":"IFNULL(TV'.$tv['name'].'.value,\'\') as '.$tv['name'].'" ';
-				}
-			}
-		}
-		$pdoFetch->addTime('Included list of tvs: <b>'.implode(', ',$tvs).'</b>.');
-	}
-}
-// End of including TVs
-
 // Include Thumbnails
 $thumbsLeftJoin = '';
 $thumbsSelect = array();
@@ -76,10 +54,8 @@ $orderProductColumns = $modx->getSelectColumns('msOrderProduct', 'msOrderProduct
 
 // Tables for joining
 $leftJoin = '{"class":"msProduct","alias":"msProduct","on":"msProduct.id=msOrderProduct.product_id"},{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
-if (!empty($tvsLeftJoin)) {$leftJoin .= $tvsLeftJoin;}
 if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
 $select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","OrderProduct":"'.$orderProductColumns.'","Vendor":"'.$vendorColumns.'"';
-if (!empty($tvsSelect)) {$select .= ','.implode(',', $tvsSelect);}
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
 $pdoFetch->addTime('Query parameters are prepared.');
 
