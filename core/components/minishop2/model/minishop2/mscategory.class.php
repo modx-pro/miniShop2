@@ -11,6 +11,32 @@ class msCategory extends modResource {
 
 	/**
 	 * {@inheritDoc}
+	 * @return object|null
+	 */
+	public static function load(xPDO & $xpdo, $className, $criteria= null, $cacheFlag= true){
+		if (!is_object($criteria)) {
+			$criteria= $xpdo->getCriteria($className, $criteria, $cacheFlag);
+		}
+		$xpdo->addDerivativeCriteria($className, $criteria);
+		return parent::load($xpdo, $className, $criteria, $cacheFlag);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return array
+	 */
+	public static function loadCollection(xPDO & $xpdo, $className, $criteria= null, $cacheFlag= true){
+		if (!is_object($criteria)) {
+			$criteria= $xpdo->getCriteria($className, $criteria, $cacheFlag);
+		}
+		$xpdo->addDerivativeCriteria($className, $criteria);
+		return parent::loadCollection($xpdo, $className, $criteria, $cacheFlag);
+	}
+
+
+	/**
+	 * {@inheritDoc}
 	 * @return mixed
 	 */
 	public static function getControllerPath(xPDO &$modx) {

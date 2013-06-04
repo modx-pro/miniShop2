@@ -1,6 +1,11 @@
 Changelog for miniShop2.
 
-2.0.1 beta2
+2.0.1 pl
+==============
+- Added 2 new events on order remove: "msOnBeforeRemoveOrder" and "msOnRemoveOrder".
+- Improved classes: "msProduct" and "msCategory". Now $modx->getCollection('msProduct'); returns only products.
+
+2.0.1 beta3
 ==============
 - Fixed msGallery
 

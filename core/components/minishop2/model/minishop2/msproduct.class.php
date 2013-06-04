@@ -8,9 +8,35 @@ class msProduct extends modResource {
 	public $showInContextMenu = false;
 	public $allowChildrenResources = false;
 	/* @var msProductData $data */
-	private $data;
-	private $dataFields = array();
-	private $dataRelated = array();
+	protected $data;
+	protected $dataFields = array();
+	protected $dataRelated = array();
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return object|null
+	 */
+	public static function load(xPDO & $xpdo, $className, $criteria= null, $cacheFlag= true){
+		if (!is_object($criteria)) {
+			$criteria= $xpdo->getCriteria($className, $criteria, $cacheFlag);
+		}
+		$xpdo->addDerivativeCriteria($className, $criteria);
+		return parent::load($xpdo, $className, $criteria, $cacheFlag);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * @return array
+	 */
+	public static function loadCollection(xPDO & $xpdo, $className, $criteria= null, $cacheFlag= true){
+		if (!is_object($criteria)) {
+			$criteria= $xpdo->getCriteria($className, $criteria, $cacheFlag);
+		}
+		$xpdo->addDerivativeCriteria($className, $criteria);
+		return parent::loadCollection($xpdo, $className, $criteria, $cacheFlag);
+	}
 
 
 	/**

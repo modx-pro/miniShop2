@@ -29,6 +29,8 @@ $tmp = array(
 	,'msOnUpdateOrder' => array()
 	,'msOnBeforeCreateOrder' => array()
 	,'msOnCreateOrder' => array()
+	,'msOnBeforeRemoveOrder' => array()
+	,'msOnRemoveOrder' => array()
 
 	,'msOnSubmitOrder' => array()
 	,'msOnManagerCustomCssJs' => array()
