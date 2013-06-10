@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.0.1 pl1
+==============
+- Added loading of lexicons for 3rd party payment methods. They must be named in "msp.%name%.inc.php" format.
+
 2.0.1 pl
 ==============
 - Added 2 new events on order remove: "msOnBeforeRemoveOrder" and "msOnRemoveOrder".

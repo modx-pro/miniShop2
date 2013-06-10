@@ -7,6 +7,12 @@
  */
 
 include_once('setting.inc.php');
+$files = scandir(dirname(__FILE__));
+foreach ($files as $file) {
+	if (strpos($file, 'msp.') === 0) {
+		@include_once($file);
+	}
+}
 
 $_lang['minishop2'] = 'miniShop2';
 $_lang['ms2_menu_desc'] = 'Impressionnante extension de e-commerce';
