@@ -137,3 +137,5 @@ $_lang['ms2_email_subject_paid_user'] = 'Вы оплатили заказ #[[+nu
 $_lang['ms2_email_subject_paid_manager'] = 'Заказ #[[+num]] был оплачен';
 $_lang['ms2_email_subject_sent_user'] = 'Ваш заказ #[[+num]] был отправлен';
 $_lang['ms2_email_subject_cancelled_user'] = 'Ваш заказ #[[+num]] был отменён';
+
+$_lang['ms2_payment_link'] = 'Если вы случайно прервали процедуру оплаты, вы всегда можете <a href="[[+link]]">продолжить её по этой ссылке</a>.';

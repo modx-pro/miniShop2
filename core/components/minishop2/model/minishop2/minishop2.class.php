@@ -268,6 +268,19 @@ class miniShop2 {
 			$pls['cart_cost'] = $this->formatPrice($pls['cart_cost']);
 			$pls['delivery_cost'] = $this->formatPrice($pls['delivery_cost']);
 			$pls['weight'] = $this->formatWeight($pls['weight']);
+			$pls['payment_link'] = '';
+			if ($payment = $order->getOne('Payment')) {
+				if ($class = $payment->get('class')) {
+					$this->loadCustomClasses('payment');
+					if (class_exists($class)) {
+						$handler = new $class($order);
+						if (method_exists($handler, 'getPaymentLink')) {
+							$link = $handler->getPaymentLink($order);
+							$pls['payment_link'] = $this->modx->lexicon('ms2_payment_link', array('link' => $link));
+						}
+					}
+				}
+			}
 
 			/* @var modChunk $chunk*/
 			if ($status->get('email_manager')) {

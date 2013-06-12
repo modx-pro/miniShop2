@@ -141,3 +141,5 @@ $_lang['ms2_email_subject_paid_user'] = 'You have paid for the order #[[+num]]';
 $_lang['ms2_email_subject_paid_manager'] = 'Order #[[+num]] was paid';
 $_lang['ms2_email_subject_sent_user'] = 'Your order #[[+num]] was sent';
 $_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';
+
+$_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]">to continue it at this link</a>.';
