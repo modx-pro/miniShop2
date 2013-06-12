@@ -28,8 +28,8 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 	}
 
 	,getContentField: function(config) {
-		if (config.mode == "create") {
-			config.record.content = "[[!getPage?\n	&element=`msProducts`\n]]\n\n<div class=\"pagination\">\n	<ul>[[!+page.nav]]</ul>\n</div>";
+		if (config.mode == "create" && MODx.config.ms2_category_content_default) {
+			config.record.content = MODx.config.ms2_category_content_default;
 		}
 
 		return [{

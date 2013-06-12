@@ -433,6 +433,7 @@ class msProduct extends modResource {
 			$pls['price'] = $miniShop2->formatPrice($data->getPrice());
 			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
 			$pls['weight'] = $miniShop2->formatWeight($data->getWeight());
+			unset($pls['id']);
 			$this->xpdo->setPlaceholders($pls);
 		}
 		/* @var msVendor $vendor */

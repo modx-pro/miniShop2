@@ -33,6 +33,11 @@ $tmp = array(
 		,'xtype' => 'combo-boolean'
 		,'area' => 'ms2_category'
 	)
+	,'ms2_category_content_default' => array(
+		'value' => "[[!getPage?\n	&element=`msProducts`\n]]\n\n<div class=\"pagination\">\n	<ul>[[!+page.nav]]</ul>\n</div>"
+		,'xtype' => 'textarea'
+		,'area' => 'ms2_category'
+	)
 
 
 	,'ms2_product_main_fields' => array(

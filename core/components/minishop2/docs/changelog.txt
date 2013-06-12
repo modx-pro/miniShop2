@@ -3,6 +3,8 @@ Changelog for miniShop2.
 2.0.1 pl1
 ==============
 - Added loading of lexicons for 3rd party payment methods. They must be named in "msp.%name%.inc.php" format.
+- Removed placeholder [[+id]] from product page because of issues.
+- [#45] Added system setting for specify default content of category.
 
 2.0.1 pl
 ==============
