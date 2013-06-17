@@ -1,4 +1,4 @@
-<div class="form-horizontal ms2_form" data-action="order/submit" id="msOrder">
+<form class="form-horizontal ms2_form" data-action="order/submit" id="msOrder">
 	<div class="row">
 		<div class="span6">
 			<h4>[[%ms2_frontend_credentials]]:</h4>
@@ -83,4 +83,4 @@
 		<h3>[[%ms2_frontend_order_cost]]: <span id="ms2_order_cost">[[+order_cost:default=`0`]]</span> [[%ms2_frontend_currency]]</h3>
 		<button  class="btn btn-primary ms2_link" data-action="order/submit" id="orderSubmit">[[%ms2_frontend_order_submit]]</button>
 	</div>
-</div>
+</form>

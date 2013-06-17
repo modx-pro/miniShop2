@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.0.1 pl2
+==============
+- Improved submit of order form.
+
 2.0.1 pl1
 ==============
 - Added loading of lexicons for 3rd party payment methods. They must be named in "msp.%name%.inc.php" format.

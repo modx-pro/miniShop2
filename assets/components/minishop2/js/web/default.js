@@ -44,7 +44,9 @@ miniShop2 = {
 					var count = json['count']; delete(json['count']);
 					miniShop2.Cart.add(id, count, json);
 				break;
-				default: return false;
+				case 'order/submit':
+					miniShop2.Order.submit();
+				break;
 			}
 			return false;
 		});
@@ -68,7 +70,6 @@ miniShop2.Cart = {
 		};
 
 		$.post(miniShop2Config.actionUrl, params, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -78,11 +79,10 @@ miniShop2.Cart = {
 			else {
 				miniShop2.Message.error(response.message);
 			}
-		});
+		}, 'json');
 	}
 	,remove: function(key) {
 		$.post(miniShop2Config.actionUrl, {action:"cart/remove", key: key, ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -93,11 +93,10 @@ miniShop2.Cart = {
 			else {
 				miniShop2.Message.error(response.message);
 			}
-		});
+		}, 'json');
 	}
 	,change: function(key, count) {
 		$.post(miniShop2Config.actionUrl, {action:"cart/change", key: key, count: count, ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -113,7 +112,7 @@ miniShop2.Cart = {
 			else {
 				miniShop2.Message.error(response.message);
 			}
-		});
+		}, 'json');
 	}
 	,status: function(status) {
 		if (status.total_count < 1) {
@@ -133,7 +132,6 @@ miniShop2.Cart = {
 	}
 	,clean: function() {
 		$.post(miniShop2Config.actionUrl, {action:"cart/clean", ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -143,7 +141,7 @@ miniShop2.Cart = {
 			else {
 				miniShop2.Message.error(response.message);
 			}
-		});
+		}, 'json');
 	}
 	,remove_position: function(key) {
 		$('#'+key).remove();
@@ -270,13 +268,6 @@ miniShop2.Order = {
 			miniShop2.Order.getcost();
 		});
 
-		$(document).ajaxStart(function() {
-			$("#orderSubmit").attr('disabled',true);
-		})
-		.ajaxComplete(function() {
-			$("#orderSubmit").attr('disabled',false);
-		});
-
 		this.updatePayments($('input[name="delivery"]:checked', this.element).data('payments'));
 		return true;
 	}
@@ -294,7 +285,6 @@ miniShop2.Order = {
 	,add: function(key, value) {
 		var old_value = value;
 		$.post(miniShop2Config.actionUrl, {action:"order/add", key: key, value: value, ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -324,11 +314,10 @@ miniShop2.Order = {
 				miniShop2.Message.error(response.message);
 				field.val('');
 			}
-		});
+		}, 'json');
 	}
 	,getcost: function() {
 		$.post(miniShop2Config.actionUrl, {action:"order/getcost", ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -338,11 +327,10 @@ miniShop2.Order = {
 			else {
 				miniShop2.Message.error(response.message);
 			}
-		});
+		}, 'json');
 	}
 	,clean: function() {
 		$.post(miniShop2Config.actionUrl, {action:"order/clean", ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -352,7 +340,7 @@ miniShop2.Order = {
 			else {
 				miniShop2.Message.error(response.message);
 			}
-		});
+		}, 'json');
 	}
 	,submit: function() {
 		miniShop2.Message.close();
@@ -367,8 +355,9 @@ miniShop2.Order = {
 			return false;
 		}
 
+		$('button,a', this.element).attr('disabled',true);
 		$.post(miniShop2Config.actionUrl, {action:"order/submit", ctx: miniShop2Config.ctx}, function(response) {
-			response = $.parseJSON(response);
+			$('button,a', this.element).attr('disabled',false);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -396,7 +385,7 @@ miniShop2.Order = {
 					}
 				}
 			}
-		});
+		}, 'json');
 	}
 };
 
