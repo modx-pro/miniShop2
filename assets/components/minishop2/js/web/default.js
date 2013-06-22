@@ -61,7 +61,7 @@ miniShop2 = {
 
 miniShop2.Cart = {
 	add: function(id, count, options) {
-		params = {
+		var params = {
 			action: 'cart/add'
 			,ctx: miniShop2Config.ctx
 			,id: id
@@ -357,7 +357,7 @@ miniShop2.Order = {
 
 		$('button,a', this.element).attr('disabled',true);
 		$.post(miniShop2Config.actionUrl, {action:"order/submit", ctx: miniShop2Config.ctx}, function(response) {
-			$('button,a', this.element).attr('disabled',false);
+			$('button,a', miniShop2.Order.element).attr('disabled',false);
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
@@ -374,9 +374,9 @@ miniShop2.Order = {
 			}
 			else {
 				miniShop2.Message.error(response.message);
-				$('[name]', this.element).removeClass('error');
+				$('[name]', miniShop2.Order.element).removeClass('error');
 				for (i in response.data) {
-					var field = $('[name="'+response.data[i]+'"]', this.element);
+					var field = $('[name="'+response.data[i]+'"]', miniShop2.Order.element);
 					if (field.attr('type') == 'checkbox' || field.attr('type') == 'radio') {
 						field.parent().addClass('error');
 					}
