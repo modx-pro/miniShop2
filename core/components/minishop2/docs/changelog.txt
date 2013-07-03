@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - Improved submit of order form.
 - msProducts saves order of ids received through &resources=``. It need for smooth work with mSearch2.
+- [mgr] Fixed search in vendors combo
 
 2.0.1 pl1
 ==============

@@ -106,7 +106,7 @@ class msVendorGetListProcessor extends modObjectGetListProcessor {
 			$c->select($this->modx->getSelectColumns('msVendor'));
 		}
 		if ($query = $this->getProperty('query')) {
-			$c->where(array('pagetitle:LIKE' => "%$query%"));
+			$c->where(array('name:LIKE' => "%$query%"));
 		}
 		else if ($this->item_id) {
 			$c->where(array('id' => $this->item_id));
