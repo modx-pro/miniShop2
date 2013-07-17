@@ -1,5 +1,5 @@
 <tr>
-	<td class="weight"><img src="[[++site_url]][[+thumb:default=`[[++assets_url]]components/minishop2/img/web/ms2_small.png`]]" /></td>
+	<td class="image"><img src="[[++site_url]][[+thumb:default=`[[++assets_url]]components/minishop2/img/web/ms2_small.png`]]" /></td>
 	<td class="title"><a href="[[~[[+id]]]]">[[+pagetitle]]</a><br/>
 		<small><i>[[+option.color]] [[+option.size]]</i></small>
 	</td>
