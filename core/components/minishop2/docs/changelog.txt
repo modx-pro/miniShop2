@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.0.1 pl3
+==============
+- Added german lexicon.
+
 2.0.1 pl2
 ==============
 - Improved submit of order form.
