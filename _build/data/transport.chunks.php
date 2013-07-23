@@ -42,7 +42,7 @@ foreach ($tmp as $k => $v) {
 		,'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.'.$v.'.tpl')
 		,'static' => BUILD_CHUNK_STATIC
 		,'source' => 1
-		,'static_file' => 'core/components/minishop2/elements/chunks/'.$v.'.chunk.tpl'
+		,'static_file' => 'core/components/minishop2/elements/chunks/chunk.'.$v.'.tpl'
 	),'',true,true);
 
 	$chunks[] = $chunk;
