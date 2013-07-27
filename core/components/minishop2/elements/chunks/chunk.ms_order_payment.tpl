@@ -1,4 +1,4 @@
-<label class="radio payment">
+<label class="radio payment input-parent">
 	<input type="radio" name="payment" value="[[+id]]" id="payment_[[+id]]" [[+checked]]>
 	[[+logo:default=`[[+name]]`]]
 	[[+description]]

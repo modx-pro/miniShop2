@@ -79,8 +79,8 @@ class msOrderHandler implements msOrderInterface {
 	public $ms2;
 
 	function __construct(miniShop2 & $ms2, array $config = array()) {
-		$this->ms2 = & $ms2;
-		$this->modx = & $ms2->modx;
+		$this->ms2	= & $ms2;
+		$this->modx	= & $ms2->modx;
 
 		$this->config = array_merge(array(
 			'order' => & $_SESSION['minishop2']['order']
@@ -128,11 +128,11 @@ class msOrderHandler implements msOrderInterface {
 			$value = preg_replace('/\s+/',' ', trim($value));
 		}
 		switch ($key) {
-			case 'email': $value = preg_match('/.+@.+..+/i', $value) ? $value : @$this->order[$key]; break;
+			case 'email': $value = preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/i', $value) ? $value : @$this->order[$key]; break;
 			case 'receiver':
-				$value = preg_replace('/[^a-zа-я\s]/iu','',$value);
-				$tmp = explode(' ',$value);
-				$value = array();
+				$value	= preg_replace('/[^a-zа-я\s]/iu','',$value);
+				$tmp	= explode(' ',$value);
+				$value	= array();
 				for ($i=0;$i<=2;$i++) {
 					if (!empty($tmp[$i])) {
 						$value[] = $this->ucfirst($tmp[$i]);
@@ -202,18 +202,29 @@ class msOrderHandler implements msOrderInterface {
 	}
 
 	/* @inheritdoc} */
+	public function getDeliveryRequiresFields ($id = false) {
+		$id = ($id) ? $id : $this->order['delivery'];
+		/* @var msDelivery $delivery */
+		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $id, 'active' => 1))) {
+			return $this->error('ms2_order_err_delivery', array('delivery'));
+		}
+		$requires = array_map('trim', explode(',',$delivery->get('requires')));
+		$requires[] = 'email';
+		return $this->success('', array('requires' => $requires));
+	}
+
+	/* @inheritdoc} */
 	public function submit($data = array()) {
 		$this->modx->invokeEvent('msOnSubmitOrder', array('data' => & $data, 'order' => $this));
 		if (!empty($data)) {
 			$this->set($data);
 		}
 
-		/* @var msDelivery $delivery */
-		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $this->order['delivery'], 'active' => 1))) {
-			return $this->error('ms2_order_err_delivery', array('delivery'));
-		}
-		$requires = array_map('trim', explode(',',$delivery->get('requires')));
-		$requires[] = 'email';
+		$response = $this->getDeliveryRequiresFields();
+		$response = ($this->config['json_response']) 
+						? $this->modx->fromJSON($response)
+						: $response;
+		$requires = $response['data']['requires'];
 		$errors = array();
 		foreach ($requires as $v) {
 			if (!empty($v) && empty($this->order[$v])) {
@@ -224,44 +235,44 @@ class msOrderHandler implements msOrderInterface {
 			return $this->error('ms2_order_err_requires', $errors);
 		}
 
-		$user_id = $this->ms2->getCustomerId();
-		$cart_status = $this->ms2->cart->status();
-		$delivery_cost = $this->getcost(false, true);
-		$createdon = date('Y-m-d H:i:s');
+		$user_id		= $this->ms2->getCustomerId();
+		$cart_status	= $this->ms2->cart->status();
+		$delivery_cost	= $this->getcost(false, true);
+		$createdon		= date('Y-m-d H:i:s');
 		/* @var msOrder $order */
 		$order = $this->modx->newObject('msOrder');
 		$order->fromArray(array(
-			'user_id' => $user_id
-			,'createdon' => $createdon
-			,'num' => $this->getnum()
-			,'delivery' => $this->order['delivery']
-			,'payment' => $this->order['payment']
-			,'cart_cost' => $cart_status['total_cost']
-			,'weight' => $cart_status['total_weight']
-			,'delivery_cost' => $delivery_cost
-			,'cost' => $cart_status['total_cost'] + $delivery_cost
-			,'status' => 0
-			,'context' => $this->ms2->config['ctx']
+			'user_id'			=> $user_id
+			,'createdon'		=> $createdon
+			,'num'				=> $this->getnum()
+			,'delivery'			=> $this->order['delivery']
+			,'payment'			=> $this->order['payment']
+			,'cart_cost'		=> $cart_status['total_cost']
+			,'weight'			=> $cart_status['total_weight']
+			,'delivery_cost'	=> $delivery_cost
+			,'cost'				=> $cart_status['total_cost'] + $delivery_cost
+			,'status'			=> 0
+			,'context'			=> $this->ms2->config['ctx']
 		));
 
 		// Adding address
 		/* @var msOrderAddress $address */
 		$address = $this->modx->newObject('msOrderAddress');
 		$address->fromArray(array_merge($this->order,array(
-			'user_id' => $user_id
-			,'createdon' => $createdon
+			'user_id'		=> $user_id
+			,'createdon'	=> $createdon
 		)));
 		$order->addOne($address);
 
 		// Adding products
-		$cart = $this->ms2->cart->get();
-		$products = array();
+		$cart		= $this->ms2->cart->get();
+		$products	= array();
 		foreach ($cart as $v) {
 			/* @var msOrderProduct $product */
 			$product = $this->modx->newObject('msOrderProduct');
 			$product->fromArray(array_merge($v, array(
-				'product_id' => $v['id']
-				,'cost' => $v['price'] * $v['count']
+				'product_id'	=> $v['id']
+				,'cost'			=> $v['price'] * $v['count']
 			)));
 			$products[] = $product;
 		}
@@ -281,16 +292,34 @@ class msOrderHandler implements msOrderInterface {
 			$this->ms2->changeOrderStatus($order->get('id'), 1); // set status "new"
 			/* @var msPayment $payment*/
 			if ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
-				$response = $payment->send($order);
-				exit(is_array($response) ? $this->modx->toJSON($response) : $response);
+				$referer	= $_SERVER['HTTP_REFERER'];
+				$response	= $payment->send($order);
+				if ($this->config['json_response']) {
+					exit(is_array($response) ? $this->modx->toJSON($response) : $response);
+				} else {
+					if (isset($response['data']['redirect']) && !empty($response['data']['redirect'])) {
+						$this->modx->sendRedirect($response['data']['redirect']);
+					} else if (isset($response['data']['msorder']) && !empty($response['data']['msorder'])) {
+						$parsedUrl = parse_url($referer);
+						$delimiter = (isset($parsedUrl['query']) && !empty($parsedUrl['query'])) ? '&' : '?';
+						$this->modx->sendRedirect($referer . $delimiter .'msorder='. $response['data']['msorder']);
+					} else if ($referer) {
+						$this->modx->sendRedirect($referer);
+					}
+				}
 			}
 			else {
-				return $this->success('', array('msorder' => $order->get('id')));
+				if ($this->config['json_response']) {
+					return $this->success('', array('msorder' => $order->get('id')));
+				} else {
+					$parsedUrl = parse_url($referer);
+					$delimiter = (isset($parsedUrl['query']) && !empty($parsedUrl['query'])) ? '&' : '?';
+					$this->modx->sendRedirect($referer . $delimiter .'msorder='. $order->get('id'));
+				}
 			}
 		}
 		return $this->error();
 	}
-
 
 	/* @inheritdoc} */
 	public function clean() {
@@ -323,15 +352,15 @@ class msOrderHandler implements msOrderInterface {
 	 *
 	 * */
 	public function getnum() {
-		$table = $this->modx->getTableName('msOrder');
-		$cur = date('ym');
-
-		$sql = $this->modx->query("SELECT `num` FROM {$table} WHERE `num` LIKE '{$cur}%' ORDER BY `id` DESC LIMIT 1");
-		$num = $sql->fetch(PDO::FETCH_COLUMN);
-
+		$table	= $this->modx->getTableName('msOrder');
+		$cur	= date('ym');
+		
+		$sql	= $this->modx->query("SELECT `num` FROM {$table} WHERE `num` LIKE '{$cur}%' ORDER BY `id` DESC LIMIT 1");
+		$num	= $sql->fetch(PDO::FETCH_COLUMN);
+		
 		if (empty($num)) {$num = date('ym').'/0';}
-		$num = explode('/', $num);
-		$num = $cur.'/'.($num[1] + 1);
+		$num	= explode('/', $num);
+		$num	= $cur.'/'.($num[1] + 1);
 
 		return $num;
 	}
@@ -347,9 +376,9 @@ class msOrderHandler implements msOrderInterface {
 	 * */
 	public function error($message = '', $data = array(), $placeholders = array()) {
 		$response = array(
-			'success' => false
-			,'message' => $this->modx->lexicon($message, $placeholders)
-			,'data' => $data
+			'success'	=> false
+			,'message'	=> $this->modx->lexicon($message, $placeholders)
+			,'data'		=> $data
 		);
 
 		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
@@ -366,9 +395,9 @@ class msOrderHandler implements msOrderInterface {
 	 * */
 	public function success($message = '', $data = array(), $placeholders = array()) {
 		$response = array(
-			'success' => true
-			,'message' => $this->modx->lexicon($message, $placeholders)
-			,'data' => $data
+			'success'	=> true
+			,'message'	=> $this->modx->lexicon($message, $placeholders)
+			,'data'		=> $data
 		);
 
 		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;

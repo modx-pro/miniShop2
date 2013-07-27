@@ -69,14 +69,14 @@ class miniShop2 {
 					if ($css = $this->modx->getOption('ms2_frontend_css')) {
 						$this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
 					}
-					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
-						$this->modx->regClientStartupScript(str_replace('					', '', '
-						<script type="text/javascript">
-						miniShop2Config = {
+					$this->modx->regClientStartupScript(str_replace('					', '', '
+					<script type="text/javascript">
+						miniShop2		= {};
+						miniShop2Config	= {
 							cssUrl: "'.$this->config['cssUrl'].'web/"
 							,jsUrl: "'.$this->config['jsUrl'].'web/"
 							,imagesUrl: "'.$this->config['imagesUrl'].'web/"
-							,actionUrl: "'.$this->config['actionUrl'].'"
+							// ,actionUrl: "'.$this->config['actionUrl'].'"
 							,ctx: "'.$this->modx->context->get('key').'"
 							,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
 							,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
@@ -84,14 +84,49 @@ class miniShop2 {
 							,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
 							,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
 						};
-						</script>
+						// \'this\' into callbacks-functions is a \'miniShop2\' object
+						miniShop2Config.callbacksObjectTemplate = function() {
+							var obj = {
+								before: function() {
+									// return false to prevent send data
+								},
+								response: {
+									success: function(response) {},
+									error: function(response) {}
+								},
+								ajax: {
+									done: function(xhr) {},
+									fail: function(xhr) {},
+									always: function(xhr) {}
+								}
+							};
+							return obj;
+						};
+						// Define user Callbacks template
+						miniShop2.Callbacks = miniShop2Config.Callbacks = {
+							Cart: {
+								add		: miniShop2Config.callbacksObjectTemplate(),
+								remove	: miniShop2Config.callbacksObjectTemplate(),
+								change	: miniShop2Config.callbacksObjectTemplate(),
+								clean	: miniShop2Config.callbacksObjectTemplate()
+							},
+							Order: {
+								add			: miniShop2Config.callbacksObjectTemplate(),
+								getcost		: miniShop2Config.callbacksObjectTemplate(),
+								clean		: miniShop2Config.callbacksObjectTemplate(),
+								submit		: miniShop2Config.callbacksObjectTemplate(),
+								getRequired	: miniShop2Config.callbacksObjectTemplate()
+							}
+						};
+					</script>
 					'), true);
+					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
 						if (!empty($js) && preg_match('/\.js$/i', $js)) {
 							$this->modx->regClientScript(str_replace('							', '', '
 							<script type="text/javascript">
-							if(typeof jQuery == "undefined") {
-								document.write("<script src=\"'.$this->config['jsUrl'].'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
-							}
+								if(typeof jQuery == "undefined") {
+									document.write("<script src=\"'.$this->config['jsUrl'].'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
+								}
 							</script>
 							'), true);
 							$this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
@@ -297,7 +332,7 @@ class miniShop2 {
 				$emails = array_map('trim', explode(',', $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))));
 				if (!empty($subject)) {
 					foreach ($emails as $email) {
-						if (preg_match('/.+@.+..+/i', $email)) {
+						if (preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/i', $email)) {
 							$this->sendEmail($email, $subject, $body);
 						}
 					}
@@ -318,7 +353,7 @@ class miniShop2 {
 						$body = $this->processTags($chunk->process($pls));
 					}
 					$email = $profile->get('email');
-					if (!empty($subject) && preg_match('/.+@.+..+/i', $email)) {
+					if (!empty($subject) && preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/i', $email)) {
 						$this->sendEmail($email, $subject, $body);
 					}
 				}

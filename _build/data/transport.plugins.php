@@ -12,7 +12,8 @@ $tmp = array(
 		'file' => 'minishop2'
 		,'description' => ''
 		,'events' => array(
-			'OnManagerPageInit'
+			'OnManagerPageInit',
+			'OnHandleRequest'
 		)
 	)
 );

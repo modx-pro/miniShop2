@@ -128,6 +128,22 @@ foreach ($user_fields as $key => $value) {
 	}
 }
 $form = array_merge($order, $form);
+if (isset($_POST)) {
+	$form['errors'] = array();
+	$response = $miniShop2->order->getDeliveryRequiresFields();
+	$requires = $response['data']['requires'];
+
+	foreach ($_POST as $field => $val) {
+		$validated = (is_string($val)) ? $miniShop2->order->validate($field, $val) : $val;
+		if (
+			(in_array($field, $requires) && empty($val))
+				||
+			(!empty($val) && is_string($val) && empty($validated))
+		) {
+			$form['errors'][$field] = 'error';
+		}
+	}
+}
 
 if (!empty($tplOuter)) {
 	$pdoFetch->getChunk($tplOuter);

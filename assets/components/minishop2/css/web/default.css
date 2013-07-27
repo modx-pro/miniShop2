@@ -3,9 +3,24 @@
 #msCart th, #msCart td {text-align:center; line-height: 30px;}
 #msCart .title {text-align:left;}
 #msCart th.total {text-align:right; padding-right:5px;}
+.js #msCart [type="submit"][value="cart/change"] {
+	display: none;
+}
 
 #msMiniCart {font-size: .8em;}
 #msMiniCart h5 {margin: 0;}
+#msMiniCart .empty {
+	display:block;
+}
+#msMiniCart .not_empty {
+	display: none;
+}
+#msMiniCart.not_empty .empty {
+	display:none;
+}
+#msMiniCart.not_empty .not_empty {
+	display: block;
+}
 
 #msGallery {text-align: center;}
 #msGallery #mainImage {margin-bottom: 10px; padding: 2px; border: 1px solid #ddd;}
@@ -14,6 +29,9 @@
 
 #msOrder .error {
 	border: 1px solid brown !important;
+}
+#msOrder .control-group.error {
+	border: none !important;
 }
 
 .ms2_product .price {
@@ -49,7 +67,12 @@
 	margin-top:-2px;
 	padding: 0 10px;
 }
-
+#msOrder .required-star {
+	display: none;
+}
+#msOrder .required .required-star {
+	display: inline;
+}
 
 .ms2-message-success  {background-color: green !important;}
 .ms2-message-error  {background-color: brown !important;}

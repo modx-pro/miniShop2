@@ -1,4 +1,4 @@
-<label class="radio delivery">
+<label class="radio delivery input-parent">
 	<input type="radio" name="delivery" value="[[+id]]" id="delivery_[[+id]]" data-payments='[[+payments]]' [[+checked]]>
 	[[+logo:default=`[[+name]]`]] <!--&mdash; <i>[[+price]] [[%ms2_frontend_currency]]</i>-->
 	[[+description]]

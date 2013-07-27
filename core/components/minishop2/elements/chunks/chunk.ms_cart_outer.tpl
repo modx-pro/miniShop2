@@ -1,3 +1,8 @@
+<script>
+	window.miniShop2.Callbacks.Order.add.before = function (response) {
+		// return false;
+	}
+</script>
 <div id="msCart">
 	<table class="table table-striped">
 		<tr class="header">
@@ -17,5 +22,7 @@
 			<th>&nbsp;</th>
 		</tr>
 	</table>
-	<a href="#" data-action="cart/clean" class="ms2_link"><i class="icon-remove-sign"></i> [[%ms2_cart_clean]]</a>
+	<form method="post">
+		<button class="btn" type="submit" name="ms2_action" value="cart/clean" title="[[%ms2_cart_clean]]"><i class="icon-remove"></i> [[%ms2_cart_clean]]</button>
+	</form>
 </div>
