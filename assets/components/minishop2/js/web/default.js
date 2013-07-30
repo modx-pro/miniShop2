@@ -14,12 +14,6 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		this.form		= '.ms2_form';
 		this.$doc		= $(document);
 
-		// Callbacks was or not redefined
-		this.Callbacks = {
-			Cart	: {}
-			,Order	: {}
-		};
-
 		this.sendData = {
 			$form		: null
 			,action		: null
