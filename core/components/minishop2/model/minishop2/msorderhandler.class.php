@@ -103,7 +103,7 @@ class msOrderHandler implements msOrderInterface {
 
 
 	/* @inheritdoc} */
-	public function add($key, $value) {
+	public function add($key, $value, $getcost = false) {
 		$this->modx->invokeEvent('msOnBeforeAddToOrder', array('key' => & $key, 'value' => & $value, 'order' => $this));
 		if (empty($key)) {
 			return $this->error('');
@@ -130,15 +130,7 @@ class msOrderHandler implements msOrderInterface {
 		switch ($key) {
 			case 'email': $value = preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/i', $value) ? $value : @$this->order[$key]; break;
 			case 'receiver':
-				$value	= preg_replace('/[^a-zа-я\s]/iu','',$value);
-				$tmp	= explode(' ',$value);
-				$value	= array();
-				for ($i=0;$i<=2;$i++) {
-					if (!empty($tmp[$i])) {
-						$value[] = $this->ucfirst($tmp[$i]);
-					}
-				}
-				$value = implode(' ', $value);
+				$value = $this->prepareName($value);
 			break;
 			case 'phone': $value = substr(preg_replace('/[^-+0-9]/iu','',$value),0,15); break;
 			case 'delivery':
@@ -164,7 +156,6 @@ class msOrderHandler implements msOrderInterface {
 		if ($value === false) {$value = '';}
 		return $value;
 	}
-
 
 	/* Checks accordance of payment and delivery
 	 * */
@@ -202,10 +193,10 @@ class msOrderHandler implements msOrderInterface {
 	}
 
 	/* @inheritdoc} */
-	public function getDeliveryRequiresFields ($id = false) {
-		$id = ($id) ? $id : $this->order['delivery'];
+	public function getDeliveryRequiresFields ($deliveryId = false) {
+		$deliveryId = ($deliveryId) ? $deliveryId : $this->order['delivery'];
 		/* @var msDelivery $delivery */
-		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $id, 'active' => 1))) {
+		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $deliveryId, 'active' => 1))) {
 			return $this->error('ms2_order_err_delivery', array('delivery'));
 		}
 		$requires = array_map('trim', explode(',',$delivery->get('requires')));
@@ -338,13 +329,28 @@ class msOrderHandler implements msOrderInterface {
 		/* @var msDelivery $delivery */
 		if ($delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
 			$cost = $delivery->getcost($this);
+			if (!$only_cost) {
+				// return $this->success('', array(
+				// 	'messaga' => $this->order['delivery'] .' '. microtime(true)
+				// ));
+			}
 		}
-
 		if ($with_cart) {
 			$cost += $cart['total_cost'];
 		}
 
-		return $only_cost ? $cost : $this->success('', array('cost' => $cost));
+		// return $this->order['delivery'];
+
+		return $only_cost ? $cost : $this->success('', array(
+			'cost' => $cost,
+			'messaga' =>
+'Delivery from order: '. $this->order['delivery'] .';
+Delivery from delivery: '. $delivery->get('id') .';
+Delivery cost: '. $delivery->getcost($this) .';
+session_id: '. session_id() .';
+time: '. microtime(true) .';
+session order: '. print_r($_SESSION['minishop2']['order'], 1)
+		));
 	}
 
 
@@ -403,6 +409,28 @@ class msOrderHandler implements msOrderInterface {
 		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
+	/**
+	 * Prepare string from 'nikolaj -  coster--Waldau jr.' to 'Nikolaj Coster-Waldau Jr'
+	 */
+	public function prepareName ($str = '', $separator = ' ') {
+		$str = preg_replace('/[^-a-zа-я\s]/iu','',$str);
+		$tmp = explode($separator, $str);
+		$str = array();
+		foreach ($tmp as $part) {
+			$part = trim($part);
+			if (!empty($part)) {
+				if (strpos($part, '-') !== false) {
+					$str[] = $this->prepareName($part, '-');
+				} else {
+					$str[] = $this->ucfirst($part);
+				}
+			}
+		}
+		$str = implode($separator, $str);
+		$str = preg_replace('/  /iu', ' ', $str);
+		$str = preg_replace('/--/iu', '-', $str);
+		return $str;
+	}
 
 	public function ucfirst($str = '') {
 		if (function_exists('mb_substr') && preg_match('/[а-я]/iu',$str)) {

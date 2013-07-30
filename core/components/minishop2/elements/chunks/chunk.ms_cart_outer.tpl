@@ -1,6 +1,10 @@
 <script>
-	window.miniShop2.Callbacks.Order.add.before = function (response) {
-		// return false;
+	miniShop2.Callbacks.Order = {
+		add: {
+			before: function (response) {
+				// return false;
+			}
+		}
 	}
 </script>
 <div id="msCart">

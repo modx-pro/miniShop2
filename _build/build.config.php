@@ -1,15 +1,16 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 /* define package */
 define('PKG_NAME', 'miniShop2');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-define('PKG_VERSION', '2.0.1');
-define('PKG_RELEASE', 'pl3');
+define('PKG_VERSION', '2.0.2');
+define('PKG_RELEASE', 'beta');
 
 
 /* define paths */
-define('MODX_BASE_PATH', dirname(dirname(dirname(__FILE__))) . '/');
+define('MODX_BASE_PATH', dirname(dirname(__FILE__)) . '/');
 define('MODX_CORE_PATH', MODX_BASE_PATH . 'core/');
 define('MODX_MANAGER_PATH', MODX_BASE_PATH . 'manager/');
 define('MODX_CONNECTORS_PATH', MODX_BASE_PATH . 'connectors/');

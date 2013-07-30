@@ -1,3 +1,6 @@
+// replace 'no-js' class of the 'html' tag to 'js'
+(function(H){H.className=H.className.replace(/\bno-js\b/, 'js')})(document.documentElement);
+
 window.jQuery || document.write('<script src="' + miniShop2Config.jsUrl + 'lib/jquery.min.js"><\/script>');
 // typeof $.fn.ajaxForm == 'function' || document.write('<script src="'+miniShop2Config.jsUrl+'lib/jquery.form.min.js"><\/script>');
 typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Config.jsUrl + 'lib/jquery.jgrowl.min.js"><\/script>');
@@ -6,16 +9,23 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 
 	miniShop2.setup = function() {
 		// selectors & $objects
-		this.actionName = 'ms2_action';
-		this.action = ':submit[name=' + this.actionName + ']';
-		this.form = '.ms2_form';
-		this.$doc = $(document);
+		this.actionName	= 'ms2_action';
+		this.action		= ':submit[name=' + this.actionName + ']';
+		this.form		= '.ms2_form';
+		this.$doc		= $(document);
+
+		// Callbacks was or not redefined
+		this.Callbacks = {
+			Cart	: {}
+			,Order	: {}
+		};
 
 		this.sendData = {
-			$form: null,
-			action: null,
-			formData: null
+			$form		: null
+			,action		: null
+			,formData	: null
 		};
+		miniShop2.xhrs = {};
 	};
 	miniShop2.initialize = function() {
 		miniShop2.setup();
@@ -38,14 +48,15 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 
 				formData = $form.serializeArray();
 				formData.push({
-					name: miniShop2.actionName,
-					value: action
+					name	: miniShop2.actionName,
+					value	: action
 				});
 				miniShop2.sendData = {
-					$form: $form,
-					action: action,
-					formData: formData
+					$form		: $form
+					,action		: action
+					,formData	: formData
 				};
+
 				miniShop2.controller();
 			})
 
@@ -54,6 +65,13 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		miniShop2.Order.initialize();
 		miniShop2.Gallery.initialize();
 	}
+	miniShop2.clearSendData = function () {
+		miniShop2.sendData = {
+			$form		: null
+			,action		: null
+			,formData	: null
+		};
+	};
 	miniShop2.controller = function() {
 		var self = this;
 		switch (self.sendData.action) {
@@ -79,21 +97,40 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				return;
 		}
 	};
-	miniShop2.send = function(data, callbacks, userCallbacks) {
-		var runCallback = function(callback, bind) {
-			if (typeof callback == 'function')
-				return callback.apply(bind, Array.prototype.slice.call(arguments, 2));
+	miniShop2.send = function(data, controller, method) {
+		// miniShop2.Order.callbacks.getRequired, miniShop2.Callbacks.Order.getRequired
+		if (controller && method) {
+			var ms2Callbacks	= miniShop2[controller].callbacks[method] || {};
+			var userCallbacks	= miniShop2.Callbacks[controller][method] || {};
+			var runCallback		= function(callback, obj) {
+				var func = miniShop2.Utils.checkPropertyRecursive(callback, obj);
+				if (typeof func == 'function') {
+					return func.apply(miniShop2, Array.prototype.slice.call(arguments, 2));
+				}
+			}
+		} else {
+			var ms2Callbacks	= {};
+			var userCallbacks	= {};
+			var runCallback		= function(){};
 		}
+		var action;
 		// set context
 		if ($.isArray(data)) {
+			action = miniShop2.Utils.getValueFromSerializedArray(miniShop2.actionName, data);
 			data.push({
 				name: 'ctx',
 				value: miniShop2Config.ctx
 			});
 		} else if ($.isPlainObject(data)) {
+			action = data[miniShop2.actionName];
 			data.ctx = miniShop2Config.ctx;
 		} else if (typeof data == 'string') {
+			action = miniShop2.Utils.getValueFromQS(miniShop2.actionName, data);
 			data += '&ctx=' + miniShop2Config.ctx;
+		}
+
+		if (miniShop2.xhrs.hasOwnProperty(action)) {
+			miniShop2.xhrs[action].abort();
 		}
 
 		// set action url
@@ -102,57 +139,54 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		// set request method
 		var formMethod = (miniShop2.sendData.$form) ? miniShop2.sendData.$form.attr('method') : false;
 		var method = (formMethod) ? formMethod : 'post';
-
-		// callback before
-		if (runCallback(callbacks.before) === false ||
-			runCallback(userCallbacks.before) === false) {
-			return;
-		}
-		// send
-		var xhr = function(callbacks, userCallbacks) {
-			return $[method](url, data, function(response) {
+		(function(action, url, method, data, ms2Callbacks, userCallbacks) {
+			// callback before
+			if (runCallback('before', ms2Callbacks) === false ||
+				runCallback('before', userCallbacks) === false
+			) {
+				return;
+			}
+			// send
+			miniShop2.xhrs[action] = $[method](url, data, function(response) {
 				if (response.success) {
 					if (response.message) {
 						miniShop2.Message.success(response.message);
 					}
-					runCallback(callbacks.response.success, miniShop2, response);
-					runCallback(userCallbacks.response.success, miniShop2, response);
+					runCallback('response.success', ms2Callbacks, response);
+					runCallback('response.success', userCallbacks, response);
 				} else {
 					miniShop2.Message.error(response.message);
-					runCallback(callbacks.response.error, miniShop2, response);
-					runCallback(userCallbacks.response.error, miniShop2, response);
+					runCallback('response.error', ms2Callbacks, response);
+					runCallback('response.error', userCallbacks, response);
 				}
 			}, 'json')
-				.done(function() {
-					runCallback(callbacks.ajax.done, miniShop2, xhr);
-					runCallback(userCallbacks.ajax.done, miniShop2, xhr);
-				})
-				.fail(function() {
-					runCallback(callbacks.ajax.fail, miniShop2, xhr);
-					runCallback(userCallbacks.ajax.fail, miniShop2, xhr);
-				})
-				.always(function() {
-					runCallback(callbacks.ajax.always, miniShop2, xhr);
-					runCallback(userCallbacks.ajax.always, miniShop2, xhr);
-				});
-		}(callbacks, userCallbacks);
+			.done(function() {
+				runCallback('ajax.done', ms2Callbacks);
+				runCallback('ajax.done', userCallbacks);
+			})
+			.fail(function() {
+				runCallback('ajax.fail', ms2Callbacks);
+				runCallback('ajax.fail', userCallbacks);
+			})
+			.always(function() {
+				delete(miniShop2.xhrs[action]);
+				runCallback('ajax.always', ms2Callbacks);
+				runCallback('ajax.always', userCallbacks);
+			});
+		})(action, url, method, data, ms2Callbacks, userCallbacks);
 	};
 
 	miniShop2.Cart = {
-		callbacks: {
-			add		: miniShop2Config.callbacksObjectTemplate()
-			,remove	: miniShop2Config.callbacksObjectTemplate()
-			,change	: miniShop2Config.callbacksObjectTemplate()
-			,clean	: miniShop2Config.callbacksObjectTemplate()
-		}
-		,setup: function() {
-			miniShop2.Cart.cart = '#msCart';
-			miniShop2.Cart.miniCart = '#msMiniCart';
-			miniShop2.Cart.miniCartNotEmptyClass = 'not_empty';
-			miniShop2.Cart.countInput = 'input[name=count]';
-			miniShop2.Cart.totalWeight = '.ms2_total_weight';
-			miniShop2.Cart.totalCount = '.ms2_total_count';
-			miniShop2.Cart.totalCost = '.ms2_total_cost';
+		setup: function() {
+			miniShop2.Cart.cart						= '#msCart';
+			miniShop2.Cart.miniCart					= '#msMiniCart';
+			miniShop2.Cart.miniCartNotEmptyClass	= 'not_empty';
+			miniShop2.Cart.countInput				= 'input[name=count]';
+			miniShop2.Cart.totalWeight				= '.ms2_total_weight';
+			miniShop2.Cart.totalCount				= '.ms2_total_count';
+			miniShop2.Cart.totalCost				= '.ms2_total_cost';
+
+			miniShop2.Cart.callbacks = {};
 		}
 		,initialize: function() {
 			miniShop2.Cart.setup();
@@ -164,32 +198,41 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				});
 		}
 		,add: function() {
-			var callbacks = miniShop2.Cart.callbacks;
-			callbacks.add.response.success = function(response) {
-				this.Cart.status(response.data);
-			}
-			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.add, miniShop2.Callbacks.Cart.add);
+			miniShop2.Cart.callbacks.add = {
+				response: {
+					success: function(response) {
+						miniShop2.Cart.status(response.data);
+					}
+				}
+			};
+			miniShop2.send(miniShop2.sendData.formData, 'Cart', 'add');
 		}
 		,remove: function() {
-			var callbacks = miniShop2.Cart.callbacks;
-			callbacks.remove.response.success = function(response) {
-				this.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
-				this.Cart.status(response.data);
-			}
+			miniShop2.Cart.callbacks.remove = {
+				response: {
+					success: function(response) {
+						miniShop2.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
+						miniShop2.Cart.status(response.data);
+					}
+				}
+			};
 
-			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.remove, miniShop2.Callbacks.Cart.remove);
+			miniShop2.send(miniShop2.sendData.formData, 'Cart', 'remove');
 		}
 		,change: function() {
-			var callbacks = miniShop2.Cart.callbacks;
-			callbacks.change.response.success = function(response) {
-				if (typeof(response.data.key) == 'undefined') {
-					this.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
-				} else {
-					$('#' + miniShop2.Utils.getValueFromSerializedArray('key')).find('');
+			miniShop2.Cart.callbacks.change = {
+				response: {
+					success: function(response) {
+						if (typeof(response.data.key) == 'undefined') {
+							miniShop2.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
+						} else {
+							$('#' + miniShop2.Utils.getValueFromSerializedArray('key')).find('');
+						}
+						miniShop2.Cart.status(response.data);
+					}
 				}
-				this.Cart.status(response.data);
-			}
-			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.change, miniShop2.Callbacks.Cart.change);
+			};
+			miniShop2.send(miniShop2.sendData.formData, 'Cart', 'change');
 		}
 		,status: function(status) {
 			if (status.total_count < 1) {
@@ -205,16 +248,19 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				$(miniShop2.Cart.totalCount).text(status.total_count);
 				$(miniShop2.Cart.totalCost)
 					.text(miniShop2.Utils.formatPrice(status.total_cost));
-				$(document).trigger('cartstatus', status);
+				miniShop2.Order.getcost();
 			}
 		}
 		,clean: function() {
-			var callbacks = miniShop2.Cart.callbacks;
-			callbacks.clean.response.success = function(response) {
-				this.Cart.status(response.data);
-			}
+			miniShop2.Cart.callbacks.clean = {
+				response: {
+					success: function(response) {
+						miniShop2.Cart.status(response.data);
+					}
+				}
+			};
 
-			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.clean, miniShop2.Callbacks.Cart.clean);
+			miniShop2.send(miniShop2.sendData.formData, 'Cart', 'clean');
 		}
 		,remove_position: function(key) {
 			$('#' + key).remove();
@@ -223,9 +269,9 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 
 	miniShop2.Gallery = {
 		setup: function() {
-			miniShop2.Gallery.gallery = '#msGallery';
-			miniShop2.Gallery.mainImage = '#mainImage';
-			miniShop2.Gallery.thumbnail = '.thumbnail';
+			miniShop2.Gallery.gallery	= '#msGallery';
+			miniShop2.Gallery.mainImage	= '#mainImage';
+			miniShop2.Gallery.thumbnail	= '.thumbnail';
 		}
 		,initialize: function(selector) {
 			miniShop2.Gallery.setup();
@@ -243,44 +289,33 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 	};
 
 	miniShop2.Order = {
-		callbacks: {
-			add				: miniShop2Config.callbacksObjectTemplate()
-			,getcost		: miniShop2Config.callbacksObjectTemplate()
-			,clean			: miniShop2Config.callbacksObjectTemplate()
-			,submit			: miniShop2Config.callbacksObjectTemplate()
-			,getRequired	: miniShop2Config.callbacksObjectTemplate()
-		}
-		,setup: function() {
-			miniShop2.Order.order = '#msOrder';
-			miniShop2.Order.deliveries = '#deliveries';
-			miniShop2.Order.payments = '#payments';
-			miniShop2.Order.deliveryInput = 'input[name="delivery"]';
-			miniShop2.Order.inputParent = '.input-parent';
-			miniShop2.Order.paymentInput = 'input[name="payment"]';
-			miniShop2.Order.paymentInputUniquePrefix = 'input#payment_';
-			miniShop2.Order.deliveryInputUniquePrefix = 'input#delivery_';
-			miniShop2.Order.orderCost = '#ms2_order_cost'
+		setup: function() {
+			miniShop2.Order.order						= '#msOrder';
+			miniShop2.Order.deliveries					= '#deliveries';
+			miniShop2.Order.payments					= '#payments';
+			miniShop2.Order.deliveryInput				= 'input[name="delivery"]';
+			miniShop2.Order.inputParent					= '.input-parent';
+			miniShop2.Order.paymentInput				= 'input[name="payment"]';
+			miniShop2.Order.paymentInputUniquePrefix	= 'input#payment_';
+			miniShop2.Order.deliveryInputUniquePrefix	= 'input#delivery_';
+			miniShop2.Order.orderCost					= '#ms2_order_cost'
+
+			miniShop2.Order.callbacks = {};
 		}
 		,initialize: function() {
 			miniShop2.Order.setup();
 			if (!$(miniShop2.Order.order).length) return;
 
 			miniShop2.$doc
-				.on('cartstatus', '', function(e, status) {
-					miniShop2.Order.getcost();
-				})
 				.on('click', miniShop2.Order.order + ' [name="' + miniShop2.actionName + '"][value="order/clean"]', function(e) {
 					miniShop2.Order.clean();
 					e.preventDefault();
 				})
 				.on('change', miniShop2.Order.order + ' input, textarea', function(e) {
-					var $this = $(this);
-					var key = $this.attr('name');
-					var value = $this.val();
+					var $this	= $(this);
+					var key		= $this.attr('name');
+					var value	= $this.val();
 					miniShop2.Order.add(key, value);
-					if ($this.is(miniShop2.Order.deliveryInput)) {
-						miniShop2.Order.getRequired(value);
-					}
 				});
 
 			var $deliveryInputChecked = $(miniShop2.Order.deliveryInput + ':checked', miniShop2.Order.order);
@@ -291,81 +326,113 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		,updatePayments: function(payments) {
 			var $paymentInputs = $(miniShop2.Order.paymentInput, miniShop2.Order.order);
 
-			$paymentInputs.attr('disabled', true).prop('disabled', true)
+			$paymentInputs.removeAttr('disabled').prop('disabled', true)
 				.closest(miniShop2.Order.inputParent).hide();
 			if (payments.length > 0) {
-				for (i in payments)
-					if (payments.hasOwnProperty(i)) {
-						$paymentInputs.filter(miniShop2.Order.paymentInputUniquePrefix + payments[i]).attr('disabled', false).prop('disabled', false)
-							.closest(miniShop2.Order.inputParent).show();
-					}
+				for (i in payments) if (payments.hasOwnProperty(i)) {
+					$paymentInputs.filter(miniShop2.Order.paymentInputUniquePrefix + payments[i]).attr('disabled', 'disabled').prop('disabled', false)
+						.closest(miniShop2.Order.inputParent).show();
+				}
 			}
 			if ($paymentInputs.filter(':visible:checked').length == 0) {
-				$paymentInputs.filter(':visible:first').trigger('click');
+				$paymentInputs.filter(':visible:first').prop('checked', true).trigger('change');
 			}
 		}
-		,add: function(key, value) {
-			var callbacks = miniShop2.Order.callbacks;
-			var old_value = value;
-			callbacks.add.response.success = function(response) {
-				(function(key, value, old_value) {
-					var $field = $('[name="' + key + '"]', miniShop2.Order.order);
-					switch (key) {
-						case 'delivery':
-							$field = $(miniShop2.Order.deliveryInputUniquePrefix + response.data[key]);
-							if (response.data[key] != old_value) {
-								$field.trigger('click');
-							} else {
-								miniShop2.Order.updatePayments($field.data('payments'));
-								miniShop2.$doc.trigger('cartstatus', response.data);
-							}
-							break;
-						case 'payment':
-							$field = $(miniShop2.Order.paymentInputUniquePrefix + response.data[key]);
-							if (response.data[key] != old_value) {
-								$field.trigger('click');
-							}
-							break;
-						default:
-							$field.val(response.data[key]).removeClass('error')
-								.closest(miniShop2.Order.inputParent).removeClass('error');
+		,getRequired: function(value) {
+			miniShop2.Order.callbacks.getRequired = {
+				response: {
+					success: function(response) {
+						$('[name]', miniShop2.Order.order).removeClass('required')
+							.closest(miniShop2.Order.inputParent).removeClass('required');
+						var requires = response.data.requires;
+						for (var i = 0, length = requires.length; i < length; i++) {
+							$('[name=' + requires[i] + ']', miniShop2.Order.order).addClass('required')
+								.closest(miniShop2.Order.inputParent).addClass('required');
+						}
 					}
-				})(key, value, old_value);
-			}
-			callbacks.add.response.error = function(response) {
-				(function(key) {
-					var $field = $('[name="' + key + '"]', miniShop2.Order.order);
-					$field.val('').removeClass('error')
-						.closest(miniShop2.Order.inputParent).removeClass('error');
+					,error: function(response) {
+						$('[name]', miniShop2.Order.order).removeClass('required')
+							.closest(miniShop2.Order.inputParent).removeClass('required');
+					}
+				}
+			};
 
-				})(key);
-			}
+			var data = {};
+			if (typeof value != 'undefined') data.id = value;
+			data[miniShop2.actionName] = 'order/getrequired';
+			miniShop2.send(data, 'Order', 'getRequired');
+		}
+		,add: function(key, value) {
+			var old_value = value;
+
+			miniShop2.Order.callbacks.add = {
+				response: {
+					success: function(response) {
+						var $field = $('[name="' + key + '"]', miniShop2.Order.order);
+						switch (key) {
+							case 'delivery':
+								$field = $(miniShop2.Order.deliveryInputUniquePrefix + response.data[key]);
+								if (response.data[key] != old_value) {
+									$field.prop('checked', true).trigger('change');
+								} else {
+									miniShop2.Order.updatePayments($field.data('payments'));
+									miniShop2.Order.getcost();
+									miniShop2.Order.getRequired();
+								}
+								break;
+							case 'payment':
+								$field = $(miniShop2.Order.paymentInputUniquePrefix + response.data[key]);
+								if (response.data[key] != old_value) {
+									$field.prop('checked', true).trigger('change');
+								}
+								break;
+							default:
+								$field.val(response.data[key]).removeClass('error')
+									.closest(miniShop2.Order.inputParent).removeClass('error');
+						}
+					}
+					,error: function(response) {
+						var $field = $('[name="' + key + '"]', miniShop2.Order.order);
+						$field.val('').removeClass('error')
+							.closest(miniShop2.Order.inputParent).removeClass('error');
+					}
+				}
+			};
 
 			var data = {
 				key: key,
 				value: value
 			};
 			data[miniShop2.actionName] = 'order/add';
-			miniShop2.send(data, miniShop2.Order.callbacks.add, miniShop2.Callbacks.Order.add);
+			miniShop2.send(data, 'Order', 'add');
 		}
-		,getcost: function() {
-			var callbacks = miniShop2.Order.callbacks;
-			callbacks.getcost.response.success = function(response) {
-				$(miniShop2.Order.orderCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['cost']));
-			}
+		,getcost: function(cost) {
+
+			miniShop2.Order.callbacks.getcost = {
+				response: {
+					success: function(response) {
+						$(miniShop2.Order.orderCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['cost']));
+					}
+				}
+			};
+
+			miniShop2.clearSendData();
 			var data = {};
 			data[miniShop2.actionName] = 'order/getcost';
-			miniShop2.send(data, miniShop2.Order.callbacks.getcost, miniShop2.Callbacks.Order.getcost);
+			miniShop2.send(data, 'Order', 'getcost');
 		}
 		,clean: function() {
-			var callbacks = miniShop2.Order.callbacks;
-			callbacks.clean.response.success = function(response) {
-				document.location = document.location;
-			}
+			miniShop2.Order.callbacks.clean = {
+				response: {
+					success: function(response) {
+						document.location = document.location;
+					}
+				}
+			};
 
 			var data = {};
 			data[miniShop2.actionName] = 'order/clean';
-			miniShop2.send(data, miniShop2.Order.callbacks.clean, miniShop2.Callbacks.Order.clean);
+			miniShop2.send(data, 'Order', 'clean');
 		}
 		,submit: function() {
 			miniShop2.Message.close();
@@ -380,61 +447,39 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				return false;
 			}
 
-			var callbacks = miniShop2.Order.callbacks;
-			callbacks.submit.before = function() {
-				$(':button, a', miniShop2.Order.order).attr('disabled', true).prop('disabled', true);
-			}
-			callbacks.submit.ajax.always = function(xhr) {
-				$(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
-			}
-			callbacks.submit.response.success = function(response) {
-				if (response.data['redirect']) {
-					document.location.href = response.data['redirect'];
-				} else if (response.data['msorder']) {
-					document.location.href = /\?/.test(document.location.href) ? document.location.href + '&msorder=' + response.data['msorder'] : document.location.href + '?msorder=' + response.data['msorder'];
-				} else {
-					document.location = document.location;
+			miniShop2.Order.callbacks.submit = {
+				before: function() {
+					$(':button, a', miniShop2.Order.order).attr('disabled', true).prop('disabled', true);
 				}
-			}
-			callbacks.submit.response.error = function(response) {
-				$('[name]', miniShop2.Order.order).removeClass('error')
-					.closest(miniShop2.Order.inputParent).removeClass('error');
-				for (i in response.data) {
-					var $field = $('[name="' + response.data[i] + '"]', miniShop2.Order.order);
-					$field.addClass('error')
-						.closest(miniShop2.Order.inputParent).addClass('error');
+				,ajax: {
+					always: function() {
+						$(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
+					}
 				}
-			}
-			miniShop2.send(miniShop2.sendData.formData, miniShop2.Order.callbacks.submit, miniShop2.Callbacks.Order.submit);
-		}
-		,getRequired: function(value) {
-			var callbacks = miniShop2.Order.callbacks;
-			callbacks.getRequired.response.success = function(response) {
-				$('[name]', miniShop2.Order.order).removeClass('required')
-					.closest(miniShop2.Order.inputParent).removeClass('required');
-				var requires = response.data.requires;
-				for (var i = 0, length = requires.length; i < length; i++) {
-					$('[name=' + requires[i] + ']', miniShop2.Order.order).addClass('required')
-						.closest(miniShop2.Order.inputParent).addClass('required');
+				,response: {
+					success: function(response) {
+						if (response.data.redirect) {
+							document.location.href = response.data.redirect;
+						} else if (response.data.msorder) {
+							document.location.href = /\?/.test(document.location.href) ? document.location.href + '&msorder=' + response.data.msorder : document.location.href + '?msorder=' + response.data.msorder;
+						} else {
+							document.location = document.location;
+						}
+					}
+					,error: function(response) {
+						$('[name]', miniShop2.Order.order).removeClass('error')
+							.closest(miniShop2.Order.inputParent).removeClass('error');
+						for (i in response.data) {
+							var $field = $('[name="' + response.data[i] + '"]', miniShop2.Order.order);
+							$field.addClass('error')
+								.closest(miniShop2.Order.inputParent).addClass('error');
+						}
+					}
 				}
 			};
-			callbacks.getRequired.response.error = function(response) {
-				$('[name]', miniShop2.Order.order).removeClass('required')
-					.closest(miniShop2.Order.inputParent).removeClass('required');
-			}
-
-			var data = {
-				id: value
-			};
-			data[miniShop2.actionName] = 'order/getrequired';
-			miniShop2.send(data, miniShop2.Order.callbacks.getRequired, miniShop2.Callbacks.Order.getRequired);
+			miniShop2.send(miniShop2.sendData.formData, 'Order', 'submit');
 		}
 	};
-
-	// Callbacks was or not redefined
-	miniShop2.Callbacks = (miniShop2.Callbacks)
-		? $.extend({}, miniShop2Config.Callbacks, miniShop2.Callbacks)
-		: miniShop2.Callbacks;
 
 	miniShop2.Message = {
 		initialize: function() {
@@ -537,7 +582,29 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				var arr = miniShop2.sendData.formData;
 			}
 			for (var i = 0, length = arr.length; i < length; i++) {
-				if (arr[i].name = name) return arr[i].value
+				if (arr[i].name = name) return arr[i].value;
+			}
+		}
+		,getValueFromQS: function (key, str) {
+			if (!key || !str) return null;
+			if (str.indexOf('?') === 0) {
+				str = str.substr(1, str.length-1);
+			}
+			var arr = str.split('&');
+			for(var i=0,length=arr.length;i<length;i++) {
+				var tmp = arr[i].split('=');
+				if (tmp[0] == key) return tmp[1];
+			}
+		}
+		,checkPropertyRecursive: function (str, obj) {
+			var arr		= str.split('.');
+			var prop	= arr.shift();
+			if (typeof obj != 'undefined' && typeof obj[prop] != 'undefined' && !arr.length) {
+				return obj[prop];
+			} else if (arr.length) {
+				return miniShop2.Utils.checkPropertyRecursive(arr.join('.'), obj[prop]);
+			} else {
+				return false;
 			}
 		}
 	};

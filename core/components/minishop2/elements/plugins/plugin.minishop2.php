@@ -6,24 +6,22 @@ switch($modx->event->name) {
 		$modx->regClientCSS($cssFile);
 		break;
 	case 'OnHandleRequest':
-		$action = ((isset($_REQUEST['ms2_action']))
-						? $_REQUEST['ms2_action']
-						// : ((isset($_REQUEST['ms2_default_action']))
-						// 		? $_REQUEST['ms2_default_action']
-								: false
-							// )
-					);
+		if (isset($_REQUEST['ms2_action']) && !empty($_REQUEST['ms2_action'])) {
+			$action = $_REQUEST['ms2_action'];
+			unset($_REQUEST['ms2_action']);
+		} else {
+			return;
+		}
 		$isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
 					$_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
-		if (!$action) return;
+
+		$ctx = !empty($_REQUEST['ctx']) ? $_REQUEST['ctx'] : 'web';
+		if ($ctx != 'web') {$modx->switchContext($ctx);}
 
 		/* @var miniShop2 $miniShop2 */
 		$miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/',array());
 		if (($modx->error->hasError() || !($miniShop2 instanceof miniShop2)) && $isAjax) {die('Error');}
 		
-		$ctx = !empty($_REQUEST['ctx']) ? $_REQUEST['ctx'] : 'web';
-		if ($ctx != 'web') {$modx->switchContext($ctx);}
-
 		$miniShop2->initialize($ctx, array('json_response' => $isAjax));
 
 		switch ($action) {
@@ -32,7 +30,7 @@ switch($modx->event->name) {
 			case 'cart/remove'			: $response = $miniShop2->cart->remove(@$_POST['key']); break;
 			case 'cart/clean'			: $response = $miniShop2->cart->clean(); break;
 			case 'cart/get'				: $response = $miniShop2->cart->get(); break;
-			case 'order/add'			: $response = $miniShop2->order->add(@$_POST['key'], @$_POST['value']); break;
+			case 'order/add'			: $response = $miniShop2->order->add(@$_POST['key'], @$_POST['value'], true); break;
 			case 'order/submit'			: $response = $miniShop2->order->submit($_POST); break;
 			case 'order/getcost'		: $response = $miniShop2->order->getcost(); break;
 			case 'order/getrequired'	: $response = $miniShop2->order->getDeliveryRequiresFields(@$_POST['id']); break;

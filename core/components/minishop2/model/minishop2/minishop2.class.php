@@ -69,54 +69,25 @@ class miniShop2 {
 					if ($css = $this->modx->getOption('ms2_frontend_css')) {
 						$this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
 					}
-					$this->modx->regClientStartupScript(str_replace('					', '', '
+					$this->modx->regClientStartupScript(preg_replace('/^\t\t\t\t\t/im', '', '
 					<script type="text/javascript">
-						miniShop2		= {};
-						miniShop2Config	= {
-							cssUrl: "'.$this->config['cssUrl'].'web/"
-							,jsUrl: "'.$this->config['jsUrl'].'web/"
-							,imagesUrl: "'.$this->config['imagesUrl'].'web/"
-							// ,actionUrl: "'.$this->config['actionUrl'].'"
-							,ctx: "'.$this->modx->context->get('key').'"
-							,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
-							,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
-							,price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
-							,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
-							,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
-						};
-						// \'this\' into callbacks-functions is a \'miniShop2\' object
-						miniShop2Config.callbacksObjectTemplate = function() {
-							var obj = {
-								before: function() {
-									// return false to prevent send data
-								},
-								response: {
-									success: function(response) {},
-									error: function(response) {}
-								},
-								ajax: {
-									done: function(xhr) {},
-									fail: function(xhr) {},
-									always: function(xhr) {}
-								}
-							};
-							return obj;
-						};
-						// Define user Callbacks template
-						miniShop2.Callbacks = miniShop2Config.Callbacks = {
-							Cart: {
-								add		: miniShop2Config.callbacksObjectTemplate(),
-								remove	: miniShop2Config.callbacksObjectTemplate(),
-								change	: miniShop2Config.callbacksObjectTemplate(),
-								clean	: miniShop2Config.callbacksObjectTemplate()
-							},
-							Order: {
-								add			: miniShop2Config.callbacksObjectTemplate(),
-								getcost		: miniShop2Config.callbacksObjectTemplate(),
-								clean		: miniShop2Config.callbacksObjectTemplate(),
-								submit		: miniShop2Config.callbacksObjectTemplate(),
-								getRequired	: miniShop2Config.callbacksObjectTemplate()
+						miniShop2 = {
+							Callbacks: {
+								Cart	: {}
+								,Order	: {}
 							}
+						};
+						miniShop2Config	= {
+							cssUrl					: "'.$this->config['cssUrl'].'web/"
+							,jsUrl					: "'.$this->config['jsUrl'].'web/"
+							,imagesUrl				: "'.$this->config['imagesUrl'].'web/"
+							// ,actionUrl			: "'.$this->config['actionUrl'].'"
+							,ctx					: "'.$this->modx->context->get('key').'"
+							,close_all_message		: "'.$this->modx->lexicon('ms2_message_close_all').'"
+							,price_format			: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
+							,price_format_no_zeros	: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
+							,weight_format			: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
+							,weight_format_no_zeros	: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
 						};
 					</script>
 					'), true);
