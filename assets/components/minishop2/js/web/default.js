@@ -19,7 +19,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 			,action		: null
 			,formData	: null
 		};
-		miniShop2.xhrs = {};
+		this.xhrs = {};
 	};
 	miniShop2.initialize = function() {
 		miniShop2.setup();
