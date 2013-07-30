@@ -118,7 +118,11 @@ class msOrderHandler implements msOrderInterface {
 				$this->modx->invokeEvent('msOnAddToOrder', array('key' => & $key, 'value' => & $validated, 'order' => $this));
 			}
 		}
-		return $this->success('', array($key => $validated));
+		if (!$validated) {
+			return $this->error('', array($key => $value));
+		} else {
+			return $this->success('', array($key => $validated));
+		}
 	}
 
 
@@ -327,30 +331,14 @@ class msOrderHandler implements msOrderInterface {
 		$cost = 0;
 		$cart = $this->ms2->cart->status();
 		/* @var msDelivery $delivery */
-		if ($delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
+		if ($delivery = $this->modx->getObject('msDelivery', @$this->order['delivery'])) {
 			$cost = $delivery->getcost($this);
-			if (!$only_cost) {
-				// return $this->success('', array(
-				// 	'messaga' => $this->order['delivery'] .' '. microtime(true)
-				// ));
-			}
 		}
 		if ($with_cart) {
 			$cost += $cart['total_cost'];
 		}
 
-		// return $this->order['delivery'];
-
-		return $only_cost ? $cost : $this->success('', array(
-			'cost' => $cost,
-			'messaga' =>
-'Delivery from order: '. $this->order['delivery'] .';
-Delivery from delivery: '. $delivery->get('id') .';
-Delivery cost: '. $delivery->getcost($this) .';
-session_id: '. session_id() .';
-time: '. microtime(true) .';
-session order: '. print_r($_SESSION['minishop2']['order'], 1)
-		));
+		return $only_cost ? $cost : $this->success('', array('cost' => $cost));
 	}
 
 

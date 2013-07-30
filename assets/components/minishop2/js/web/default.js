@@ -39,7 +39,6 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 					// action	= $form.find(self.defaultAction).val();
 					action = $form.find(miniShop2.action).val();
 				if (!action) return;
-
 				formData = $form.serializeArray();
 				formData.push({
 					name	: miniShop2.actionName,
@@ -387,8 +386,8 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 					}
 					,error: function(response) {
 						var $field = $('[name="' + key + '"]', miniShop2.Order.order);
-						$field.val('').removeClass('error')
-							.closest(miniShop2.Order.inputParent).removeClass('error');
+						$field.val(response[key]).addClass('error')
+							.closest(miniShop2.Order.inputParent).addClass('error');
 					}
 				}
 			};
@@ -576,7 +575,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				var arr = miniShop2.sendData.formData;
 			}
 			for (var i = 0, length = arr.length; i < length; i++) {
-				if (arr[i].name = name) return arr[i].value;
+				if (arr[i].name == name) return arr[i].value;
 			}
 		}
 		,getValueFromQS: function (key, str) {
