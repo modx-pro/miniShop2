@@ -103,7 +103,7 @@ class msOrderHandler implements msOrderInterface {
 
 
 	/* @inheritdoc} */
-	public function add($key, $value, $getcost = false) {
+	public function add($key, $value) {
 		$this->modx->invokeEvent('msOnBeforeAddToOrder', array('key' => & $key, 'value' => & $value, 'order' => $this));
 		if (empty($key)) {
 			return $this->error('');
