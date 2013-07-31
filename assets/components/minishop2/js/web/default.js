@@ -141,17 +141,12 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 			}
 			// send
 			miniShop2.xhrs[action] = $[method](url, data, function(response) {
-				if (response.success) {
-					if (response.message) {
-						miniShop2.Message.success(response.message);
-					}
-					runCallback('response.success', ms2Callbacks, response);
-					runCallback('response.success', userCallbacks, response);
-				} else {
-					miniShop2.Message.error(response.message);
-					runCallback('response.error', ms2Callbacks, response);
-					runCallback('response.error', userCallbacks, response);
+				var type = (response.success) ? 'success' : 'error';
+				if (response.message) {
+					miniShop2.Message[type](response.message);
 				}
+				runCallback('response.'+ type, ms2Callbacks, response);
+				runCallback('response.'+ type, userCallbacks, response);
 			}, 'json')
 			.done(function() {
 				runCallback('ajax.done', ms2Callbacks);
