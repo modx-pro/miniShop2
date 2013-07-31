@@ -385,7 +385,6 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 						}
 					}
 					,error: function(response) {
-						console.log(response.data[key]);
 						var $field = $('[name="' + key + '"]', miniShop2.Order.order);
 						$field.val(response.data[key]).addClass('error')
 							.closest(miniShop2.Order.inputParent).addClass('error');
