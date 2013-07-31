@@ -233,8 +233,10 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 			} else {
 				var $cart = $(miniShop2.Cart.cart);
 				var $miniCart = $(miniShop2.Cart.miniCart);
-				if (status.total_count > 0 && !$miniCart.hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
+				if (status.total_count > 0) {
 					$miniCart.addClass(miniShop2.Cart.miniCartNotEmptyClass);
+				} else {
+					$miniCart.removeClass(miniShop2.Cart.miniCartNotEmptyClass);
 				}
 				$(miniShop2.Cart.totalWeight)
 					.text(miniShop2.Utils.formatWeight(status.total_weight));
