@@ -4,8 +4,9 @@
 		[[!msGallery]]
 	</div>
 	<div class="span7">
-		<form class="form-horizontal ms2_form" method="post" data-action="cart/add">
+		<form class="form-horizontal ms2_form" method="post">
 			<input type="hidden" name="id" value="[[*id]]" />
+			<input type="hidden" name="options" value="[]">
 			<div class="control-group">
 				<label class="control-label">[[%ms2_product_article]]:</label>
 				<div class="controls">
@@ -46,7 +47,7 @@
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn"><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
+					<button type="submit" class="btn" name="ms2_action" value="cart/add"><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
 				</div>
 			</div>
 		</form>

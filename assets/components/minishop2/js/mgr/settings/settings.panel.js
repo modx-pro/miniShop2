@@ -32,6 +32,17 @@ miniShop2.panel.Settings = function(config) {
 			,stateEvents: ['tabchange']
 			,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
 			,items: [{
+				title: _('ms2_discount')
+				,deferredRender: true
+				,items: [{
+					html: '<p>'+_('ms2_discount_intro')+'</p>'
+					,border: false
+					,bodyCssClass: 'panel-desc'
+					,bodyStyle: 'margin-bottom: 10px'
+				},{
+					xtype: 'minishop2-grid-discount'
+				}]
+			},{
 				title: _('ms2_deliveries')
 				,deferredRender: true
 				,items: [{

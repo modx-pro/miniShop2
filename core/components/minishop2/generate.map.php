@@ -45,6 +45,8 @@ $modx->addPackage($package, $Model);
 //$manager->removeObjectContainer('msOrderProduct');
 //$manager->removeObjectContainer('msLink');
 //$manager->removeObjectContainer('msProductLink');
+// $manager->createObjectContainer('msDiscountCard');
+// $manager->createObjectContainer('msDiscountCardCoOwners');
 
 //$manager->createObjectContainer('msProductData');
 //$manager->createObjectContainer('msVendor');
@@ -61,6 +63,8 @@ $modx->addPackage($package, $Model);
 //$manager->createObjectContainer('msOrderProduct');
 //$manager->createObjectContainer('msLink');
 //$manager->createObjectContainer('msProductLink');
+// $manager->createObjectContainer('msDiscountCard');
+// $manager->createObjectContainer('msDiscountCardCoOwners');
 
 add_plugins_call($Model.$package);
 
