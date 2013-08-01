@@ -71,7 +71,7 @@ $xpdo_meta_map['msOrderAddress']= array (
     array (
       'dbtype' => 'varchar',
       'precision' => '50',
-      'phptype' => 'integer',
+      'phptype' => 'string',
       'null' => true,
     ),
     'region' => 
