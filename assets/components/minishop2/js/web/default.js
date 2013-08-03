@@ -106,6 +106,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 			var userCallbacks	= {};
 			var runCallback		= function(){};
 		}
+
 		var action;
 		// set context
 		if ($.isArray(data)) {
@@ -332,17 +333,23 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 			miniShop2.Order.callbacks.getRequired = {
 				response: {
 					success: function(response) {
-						$('[name]', miniShop2.Order.order).removeClass('required')
-							.closest(miniShop2.Order.inputParent).removeClass('required');
 						var requires = response.data.requires;
-						for (var i = 0, length = requires.length; i < length; i++) {
-							$('[name=' + requires[i] + ']', miniShop2.Order.order).addClass('required')
-								.closest(miniShop2.Order.inputParent).addClass('required');
-						}
+						console.log(requires);
+						$('[name]', miniShop2.Order.order).each(function(i, input){
+							var $input = $(input);
+							// console.log(input.name, $.inArray(input.name, requires));
+							if ($.inArray(input.name, requires) >= 0) {
+								$input.addClass('required')
+									.closest(miniShop2.Order.inputParent).addClass('required');
+							} else {
+								$input.removeClass('required error')
+									.closest(miniShop2.Order.inputParent).removeClass('required error');
+							}
+						});
 					}
 					,error: function(response) {
-						$('[name]', miniShop2.Order.order).removeClass('required')
-							.closest(miniShop2.Order.inputParent).removeClass('required');
+						$('[name]', miniShop2.Order.order).removeClass('required error')
+							.closest(miniShop2.Order.inputParent).removeClass('required error');
 					}
 				}
 			};

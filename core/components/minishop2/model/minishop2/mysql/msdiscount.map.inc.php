@@ -1,38 +1,18 @@
 <?php
-$xpdo_meta_map['msDiscountCard']= array (
+$xpdo_meta_map['msDiscount']= array (
   'package' => 'minishop2',
   'version' => '1.1',
-  'table' => 'ms2_discount_card',
+  'table' => 'ms2_discount',
   'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
-    'uid' => 0,
-    'public' => 0,
-    'discount_id' => 0,
-    'limit' => 0,
+    'discount' => 0,
+    'discount_type' => NULL,
+    'product_id' => 0,
   ),
   'fieldMeta' => 
   array (
-    'uid' => 
-    array (
-      'dbtype' => 'bigint',
-      'precision' => '20',
-      'attributes' => 'unsigned',
-      'phptype' => 'integer',
-      'null' => false,
-      'default' => 0,
-      'index' => 'index',
-    ),
-    'public' => 
-    array (
-      'dbtype' => 'tinyint',
-      'precision' => '1',
-      'attributes' => 'unsigned',
-      'phptype' => 'boolean',
-      'null' => false,
-      'default' => 0,
-    ),
-    'discount_id' => 
+    'discount' => 
     array (
       'dbtype' => 'int',
       'precision' => '10',
@@ -42,7 +22,15 @@ $xpdo_meta_map['msDiscountCard']= array (
       'default' => 0,
       'index' => 'index',
     ),
-    'limit' => 
+    'discount_type' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => false,
+      'index' => 'index',
+    ),
+    'product_id' => 
     array (
       'dbtype' => 'int',
       'precision' => '10',
@@ -55,15 +43,15 @@ $xpdo_meta_map['msDiscountCard']= array (
   ),
   'indexes' => 
   array (
-    'uid' => 
+    'discount' => 
     array (
-      'alias' => 'uid',
+      'alias' => 'discount',
       'primary' => false,
       'unique' => false,
       'type' => 'BTREE',
       'columns' => 
       array (
-        'uid' => 
+        'discount' => 
         array (
           'length' => '',
           'collation' => 'A',
@@ -71,15 +59,15 @@ $xpdo_meta_map['msDiscountCard']= array (
         ),
       ),
     ),
-    'public' => 
+    'discount_type' => 
     array (
-      'alias' => 'public',
+      'alias' => 'discount_type',
       'primary' => false,
       'unique' => false,
       'type' => 'BTREE',
       'columns' => 
       array (
-        'public' => 
+        'discount_type' => 
         array (
           'length' => '',
           'collation' => 'A',
@@ -87,31 +75,15 @@ $xpdo_meta_map['msDiscountCard']= array (
         ),
       ),
     ),
-    'discount_id' => 
+    'product_id' => 
     array (
-      'alias' => 'discount_id',
+      'alias' => 'product_id',
       'primary' => false,
       'unique' => false,
       'type' => 'BTREE',
       'columns' => 
       array (
-        'discount_id' => 
-        array (
-          'length' => '',
-          'collation' => 'A',
-          'null' => false,
-        ),
-      ),
-    ),
-    'limit' => 
-    array (
-      'alias' => 'limit',
-      'primary' => false,
-      'unique' => false,
-      'type' => 'BTREE',
-      'columns' => 
-      array (
-        'limit' => 
+        'product_id' => 
         array (
           'length' => '',
           'collation' => 'A',
@@ -122,23 +94,23 @@ $xpdo_meta_map['msDiscountCard']= array (
   ),
   'composites' => 
   array (
-    'Member' => 
+    'DiscountCard' => 
     array (
       'class' => 'msDiscountCardMembers',
       'local' => 'id',
-      'foreign' => 'discount_card_id',
+      'foreign' => 'discount_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),
   ),
   'aggregates' => 
   array (
-    'Discount' => 
+    'Product' => 
     array (
-      'class' => 'msDiscount',
-      'local' => 'discount_id',
+      'class' => 'msProduct',
+      'local' => 'product_id',
       'foreign' => 'id',
-      'cardinality' => 'many',
+      'cardinality' => 'one',
       'owner' => 'foreign',
     ),
   ),

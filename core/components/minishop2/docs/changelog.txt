@@ -1,15 +1,5 @@
 Changelog for miniShop2.
 
-2.0.1 pl3
-==============
-- Added german lexicon.
-
-2.0.1 pl2
-==============
-- Improved submit of order form.
-- msProducts saves order of ids received through &resources=``. It need for smooth work with mSearch2.
-- [mgr] Fixed search in vendors combo
-
 2.0.1 pl1
 ==============
 - Added loading of lexicons for 3rd party payment methods. They must be named in "msp.%name%.inc.php" format.

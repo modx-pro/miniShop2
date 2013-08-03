@@ -32,6 +32,17 @@ miniShop2.panel.Settings = function(config) {
 			,stateEvents: ['tabchange']
 			,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
 			,items: [{
+				title: _('ms2_deliveries')
+				,deferredRender: true
+				,items: [{
+					html: '<p>'+_('ms2_deliveries_intro')+'</p>'
+					,border: false
+					,bodyCssClass: 'panel-desc'
+					,bodyStyle: 'margin-bottom: 10px'
+				},{
+					xtype: 'minishop2-grid-delivery'
+				}]
+			},{
 				title: _('ms2_discount')
 				,deferredRender: true
 				,items: [{
@@ -43,15 +54,15 @@ miniShop2.panel.Settings = function(config) {
 					xtype: 'minishop2-grid-discount'
 				}]
 			},{
-				title: _('ms2_deliveries')
+				title: _('ms2_discountcard')
 				,deferredRender: true
 				,items: [{
-					html: '<p>'+_('ms2_deliveries_intro')+'</p>'
+					html: '<p>'+_('ms2_discountcard_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
 					,bodyStyle: 'margin-bottom: 10px'
 				},{
-					xtype: 'minishop2-grid-delivery'
+					xtype: 'minishop2-grid-discountcard'
 				}]
 			},{
 				title: _('ms2_payments')

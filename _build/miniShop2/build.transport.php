@@ -14,12 +14,12 @@ set_time_limit(0);
 require_once 'build.config.php';
 
 /* define sources */
-$root = dirname(dirname(__FILE__)).'/';
+$root = dirname(dirname(dirname(__FILE__))).'/';
 $sources = array(
 	'root' => $root,
-	'build' => $root . '_build/',
-	'data' => $root . '_build/data/',
-	'resolvers' => $root . '_build/resolvers/',
+	'build' => $root . '_build/'. PKG_NAME .'/',
+	'data' => $root . '_build/'. PKG_NAME .'/data/',
+	'resolvers' => $root . '_build/'. PKG_NAME .'/resolvers/',
 	'chunks' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/chunks/',
 	'snippets' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/snippets/',
 	'plugins' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/plugins/',

@@ -128,7 +128,7 @@ foreach ($user_fields as $key => $value) {
 	}
 }
 $form = array_merge($order, $form);
-if (isset($_POST['ms2_action']) && !empty($_POST['ms2_action'])) {
+if (isset($_POST)) {
 	$form['errors'] = array();
 	$response = $miniShop2->order->getDeliveryRequiresFields();
 	$requires = $response['data']['requires'];

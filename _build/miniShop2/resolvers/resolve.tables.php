@@ -33,8 +33,9 @@ if ($object->xpdo) {
 			$manager->createObjectContainer('msOrderProduct');
 			$manager->createObjectContainer('msLink');
 			$manager->createObjectContainer('msProductLink');
+			$manager->createObjectContainer('msDiscount');
 			$manager->createObjectContainer('msDiscountCard');
-			$manager->createObjectContainer('msDiscountCardCoOwners');
+			$manager->createObjectContainer('msDiscountCardMember');
 
 			$msProductData = $modx->getTableName('msProductData');
 			$modx->exec("ALTER TABLE {$msProductData} CHANGE `price` `price` DECIMAL(12,2) NOT NULL DEFAULT '0';");

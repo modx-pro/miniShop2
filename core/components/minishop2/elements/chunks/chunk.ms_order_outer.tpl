@@ -52,7 +52,7 @@
 			<div class="control-group input-parent [[+errors.index]]">
 				<label class="control-label" for="index"><span class="required-star">*</span> [[%ms2_frontend_index]]</label>
 				<div class="controls">
-					<input type="text" id="index" placeholder="[[%ms2_frontend_index]]" class="span2" name="index" value="[[+index]]" class="[[+errors.index]]">
+					<input type="text" id="index" placeholder="[[%ms2_frontend_index]]" name="index" value="[[+index]]" class="[[+errors.index]]">
 				</div>
 			</div>
 			<div class="control-group input-parent [[+errors.region]]">
@@ -67,12 +67,22 @@
 					<input type="text" id="city" placeholder="[[%ms2_frontend_city]]" name="city" value="[[+city]]" class="[[+errors.city]]">
 				</div>
 			</div>
-			<div class="control-group input-parent [[+errors.street]] [[+errors.building]] [[+errors.room]]">
+			<div class="control-group input-parent [[+errors.street]]">
 				<label class="control-label" for="street"><span class="required-star">*</span> [[%ms2_frontend_street]]</label>
 				<div class="controls">
-					<input type="text" id="street" placeholder="[[%ms2_frontend_street]]" class="span2" name="street" value="[[+street]]" class="[[+errors.street]]">
-					<input type="text" id="building" placeholder="[[%ms2_frontend_building]]" class="span1" name="building" value="[[+building]]" class="[[+errors.building]]">
-					<input type="text" id="room" placeholder="[[%ms2_frontend_room]]" class="span1" name="room" value="[[+room]]" class="[[+errors.room]]">
+					<input type="text" id="street" placeholder="[[%ms2_frontend_street]]" name="street" value="[[+street]]" class="[[+errors.street]]">
+				</div>
+			</div>
+			<div class="control-group input-parent [[+errors.building]]">
+				<label class="control-label" for="building"><span class="required-star">*</span> [[%ms2_frontend_building]]</label>
+				<div class="controls">
+					<input type="text" id="building" placeholder="[[%ms2_frontend_building]]" name="building" value="[[+building]]" class="span1 [[+errors.building]]">
+				</div>
+			</div>
+			<div class="control-group input-parent [[+errors.room]]">
+				<label class="control-label" for="room"><span class="required-star">*</span> [[%ms2_frontend_room]]</label>
+				<div class="controls">
+					<input type="text" id="room" placeholder="[[%ms2_frontend_room]]" name="room" value="[[+room]]" class="span1 [[+errors.room]]">
 				</div>
 			</div>
 		</div>

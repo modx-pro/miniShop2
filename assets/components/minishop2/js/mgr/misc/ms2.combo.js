@@ -564,3 +564,89 @@ miniShop2.combo.Product = function(config) {
 };
 Ext.extend(miniShop2.combo.Product,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-product',miniShop2.combo.Product);
+
+
+MODx.combo.DiscountType = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		store: new Ext.data.SimpleStore({
+			fields: ['type', 'name', 'description']
+			,data: this.getTypes()
+		})
+		,emptyText: _('ms2_combo_select')
+		,displayField: 'name'
+		,valueField: 'type'
+		,hiddenName: 'discount_type'
+		,mode: 'local'
+		,triggerAction: 'all'
+		,editable: false
+		,selectOnFocus: false
+		,preventRender: true
+		,forceSelection: true
+		,enableKeyEvents: true
+	});
+	MODx.combo.DiscountType.superclass.constructor.call(this,config);
+};
+Ext.extend(MODx.combo.DiscountType,MODx.combo.ComboBox, {
+
+	getTypes: function() {
+		var array = [];
+		var types = ['percent','summ'];
+		for(var i = 0; i < types.length; i++) {
+			var t = types[i];
+			if (t == 'summ') {
+				array.push([t, _('ms2_frontend_currency'), '']);
+				continue;
+			}
+			array.push([t, _('ms2_discount_type_'+t), _('ms2_discount_type_'+t+'_desc')]);
+		}
+		return array;
+	}
+});
+Ext.reg('minishop2-combo-discount-type',MODx.combo.DiscountType);
+
+miniShop2.combo.Users = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		xtype:'superboxselect'
+		,allowBlank: true
+		,msgTarget: 'under'
+		,allowAddNewData: true
+		,addNewDataOnBlur : true
+		,resizable: true
+		,name: 'users'
+		,anchor:'100%'
+		,minChars: 2
+		,store:new Ext.data.JsonStore({
+			id: config.name + '-store'
+			,root:'results'
+			,autoLoad: true
+			,autoSave: false
+			,totalProperty:'total'
+			,fields: ['username','id']
+			,url: MODx.config.connectors_url + 'security/user.php'
+			,baseParams: {
+				action: 'getlist'
+				,username: config.value
+			}
+		})
+		,mode: 'remote'
+		,displayField: 'username'
+		,valueField: 'id'
+		,triggerAction: 'all'
+		,extraItemCls: 'x-tag'
+		,listeners: {
+			newitem: function(bs,v, f){
+				var newObj = {
+					username: v
+				};
+				bs.addItem(newObj);
+			}
+		}
+	});
+	config.name += '[]';
+	miniShop2.combo.Options.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Options,Ext.ux.form.SuperBoxSelect);
+Ext.reg('minishop2-combo-users',miniShop2.combo.Options);
+

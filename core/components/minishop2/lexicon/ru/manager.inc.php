@@ -91,3 +91,16 @@ $_lang['ms2_link_many_to_many'] = 'Многие ко многим';
 $_lang['ms2_link_many_to_many_desc'] = 'Равная связь множества товаров. Все товары группы связаны друг с другом и при добавлении новой связи одному из них - её получают и другие. Типичное применение: связь по какому-то параметру, например цвету, размеру, языковой версии и т.д.';
 $_lang['ms2_link_master'] = 'Главный товар';
 $_lang['ms2_link_slave'] = 'Подчинённый товар';
+
+
+$_lang['ms2_discountcard_uid'] = 'Номер карты';
+$_lang['ms2_discountcard_public'] = 'Публичная';
+$_lang['ms2_discountcard_owner'] = 'Держатель карты';
+$_lang['ms2_discountcard_coowners_count'] = 'Количество совладельцев';
+
+$_lang['ms2_discount_length'] = 'Скидка';
+$_lang['ms2_discount_type'] = 'Тип скидки';
+$_lang['ms2_discount_product'] = 'Связь с товаром';
+
+$_lang['ms2_discount_type_percent'] = '%';
+$_lang['ms2_discount_type_summ'] = 'Точная сумма';

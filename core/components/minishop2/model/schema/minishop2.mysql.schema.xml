@@ -205,6 +205,7 @@
 		<field key="context" dbtype="varchar" precision="100" phptype="string" null="false" default="web" />
 		<field key="comment" dbtype="text" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
+		<field key="discount_card_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" default="0" />
 
 		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
 			<column key="user_id" length="" collation="A" null="false" />
@@ -221,6 +222,7 @@
 		<aggregate alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one" owner="foreign" />
 		<composite alias="Products" class="msOrderProduct" local="id" foreign="order_id" cardinality="many" owner="local" />
 		<composite alias="Log" class="msOrderLog" local="id" foreign="order_id" cardinality="many" owner="local" />
+		<aggregate alias="DiscountCard" class="msDiscountCard" local="discount_card_id" foreign="id" cardinality="many" owner="foreign" />
 	</object>
 
 
@@ -346,47 +348,66 @@
 	</object>
 
 
-	<object class="msDiscountCard" table="ms2_discount_card" extends="xPDOObject">
-		<field key="uid" dbtype="bigint" precision="20" attributes="unsigned" phptype="integer" null="false" default="" index="unique" />
-		<field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="" index="index" />
+	<object class="msDiscount" table="ms2_discount" extends="xPDOSimpleObject">
 		<field key="discount" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
-		<field key="discount_type" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="1" index="index" />
-		<field key="public" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<field key="discount_type" dbtype="varchar" precision="255" phptype="string" null="false" index="index" />
+		<field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="" index="index" />
 
-		<index alias="uid" name="uid" primary="false" unique="false" type="BTREE">
-			<column key="uid" length="" collation="A" null="false" />
-		</index>
-		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
-			<column key="user_id" length="" collation="A" null="true" />
-		</index>
 		<index alias="discount" name="discount" primary="false" unique="false" type="BTREE">
 			<column key="discount" length="" collation="A" null="false" />
 		</index>
 		<index alias="discount_type" name="discount_type" primary="false" unique="false" type="BTREE">
 			<column key="discount_type" length="" collation="A" null="false" />
 		</index>
+		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE">
+			<column key="product_id" length="" collation="A" null="false" />
+		</index>
 
-		<aggregate alias="dcOwner" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
-		<composite alias="dcCoOwner" class="msDiscountCardCoOwners" local="id" foreign="dc_id" cardinality="many" owner="local" />
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign" />
+		<composite alias="DiscountCard" class="msDiscountCardMembers" local="id" foreign="discount_id" cardinality="many" owner="local" />
 	</object>
 
 
-	<object class="msDiscountCardCoOwners" table="ms2_discount_card_coowners" extends="xPDOObject">
-		<field key="dc_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="" index="unique" />
-		<field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="" index="index" />
-		<field key="user_email" dbtype="varchar" precision="100" phptype="string" null="true" default="" index="index" />
+	<object class="msDiscountCard" table="ms2_discount_card" extends="xPDOSimpleObject">
+		<field key="uid" dbtype="bigint" precision="20" attributes="unsigned" phptype="integer" null="false" default="" index="index" />
+		<field key="public" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<field key="discount_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+		<field key="limit" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
 
-		<index alias="dc_id" name="dc_id" primary="false" unique="false" type="BTREE">
-			<column key="dc_id" length="" collation="A" null="false" />
+		<index alias="uid" name="uid" primary="false" unique="false" type="BTREE">
+			<column key="uid" length="" collation="A" null="false" />
+		</index>
+		<index alias="public" name="public" primary="false" unique="false" type="BTREE">
+			<column key="public" length="" collation="A" null="false" />
+		</index>
+		<index alias="discount_id" name="discount_id" primary="false" unique="false" type="BTREE">
+			<column key="discount_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="limit" name="limit" primary="false" unique="false" type="BTREE">
+			<column key="limit" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Discount" class="msDiscount" local="discount_id" foreign="id" cardinality="many" owner="foreign" />
+		<composite alias="Member" class="msDiscountCardMembers" local="id" foreign="discount_card_id" cardinality="many" owner="local" />
+	</object>
+
+
+	<object class="msDiscountCardMember" table="ms2_discount_card_members" extends="xPDOSimpleObject">
+		<field key="discount_card_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="" index="index" />
+		<field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="" index="index" />
+		<field key="owner_type" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+
+		<index alias="discount_card" name="discount_card_id" primary="false" unique="false" type="BTREE">
+			<column key="discount_card_id" length="" collation="A" null="false" />
 		</index>
 		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
-			<column key="user_id" length="" collation="A" null="true" />
+			<column key="user_id" length="" collation="A" null="false" />
 		</index>
-		<index alias="user_email" name="user_email" primary="false" unique="false" type="BTREE">
-			<column key="user_email" length="" collation="A" null="false" />
+		<index alias="owner_type" name="owner_type" primary="false" unique="false" type="BTREE">
+			<column key="owner_type" length="" collation="A" null="false" />
 		</index>
 
-		<aggregate alias="dcCoOwner" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
-		<aggregate alias="dcDiscountCard" class="msDiscountCardCoOwners" local="dc_id" foreign="id" cardinality="many" owner="local" />
+		<aggregate alias="DiscountCard" class="msDiscountCard" local="discount_card_id" foreign="id" cardinality="many" owner="foreign" />
+		<aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="many" owner="foreign" />
 	</object>
 </model>

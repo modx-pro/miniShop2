@@ -1,5 +1,4 @@
 <?php
-/* @var array $scriptProperties */
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
@@ -140,10 +139,6 @@ $default = array(
 if ($returnIds) {
 	unset($scriptProperties['includeTVs'], $default['groupby']);
 }
-if (!empty($in) && (empty($scriptProperties['sortby']) || $scriptProperties['sortby'] == 'id')) {
-	$scriptProperties['sortby'] = "find_in_set(`$class`.`id`,'".implode(',', $in)."')";
-	$scriptProperties['sortdir'] = '';
-}
 
 // Merge all properties and run!
 $pdoFetch->addTime('Query parameters are prepared.');
@@ -160,9 +155,14 @@ if ($returnIds) {
 	$output = implode(',', $ids);
 }
 else {
-	$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
-	$idx = !empty($scriptProperties['offset']) ? $scriptProperties['offset'] : 0;
+	// Initializing chunk for template rows
+	if (!empty($tpl)) {
+		$pdoFetch->getChunk($tpl);
+	}
 
+	$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
+
+	$idx = !empty($scriptProperties['offset']) ? $scriptProperties['offset'] : 0;
 	if (!empty($rows) && is_array($rows)) {
 		foreach ($rows as $k => $row) {
 			// Processing main fields

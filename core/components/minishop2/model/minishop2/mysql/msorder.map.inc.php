@@ -21,6 +21,7 @@ $xpdo_meta_map['msOrder']= array (
     'context' => 'web',
     'comment' => NULL,
     'properties' => NULL,
+    'discount_card_id' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -140,6 +141,14 @@ $xpdo_meta_map['msOrder']= array (
       'phptype' => 'json',
       'null' => true,
     ),
+    'discount_card_id' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'default' => 0,
+    ),
   ),
   'indexes' => 
   array (
@@ -243,6 +252,14 @@ $xpdo_meta_map['msOrder']= array (
       'local' => 'address',
       'foreign' => 'id',
       'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
+    'DiscountCard' => 
+    array (
+      'class' => 'msDiscountCard',
+      'local' => 'discount_card_id',
+      'foreign' => 'id',
+      'cardinality' => 'many',
       'owner' => 'foreign',
     ),
   ),
