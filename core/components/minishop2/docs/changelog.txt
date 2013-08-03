@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.0.1 pl3
 ==============
 - Added german lexicon.
+- Now you can specify version of file in "ms2_frontend_js".
 - [#60] Fixed type of field "index" in "msOrder".
 
 2.0.1 pl2

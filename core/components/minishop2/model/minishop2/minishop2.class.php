@@ -86,7 +86,7 @@ class miniShop2 {
 						};
 						</script>
 					'), true);
-						if (!empty($js) && preg_match('/\.js$/i', $js)) {
+						if (!empty($js) && preg_match('/\.js/i', $js)) {
 							$this->modx->regClientScript(str_replace('							', '', '
 							<script type="text/javascript">
 							if(typeof jQuery == "undefined") {
