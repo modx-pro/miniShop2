@@ -6,40 +6,22 @@ miniShop2.grid.DiscountCard = function(config) {
 		,tpl : new Ext.Template('<p class="desc">{description}</p>')
 		,renderer : function(v, p, record){return record.data.description != '' && record.data.description != null ? '<div class="x-grid3-row-expander">&#160;</div>' : '&#160;';}
 	});
-	// this.dd = function(grid) {
-	// 	new Ext.dd.DropTarget(grid.container, {
-	// 		ddGroup : 'dd',
-	// 		copy:false,
-	// 		notifyDrop : function(dd, e, data) {
-	// 			var store = grid.store.data.items;
-	// 			var target = store[dd.getDragData(e).rowIndex].id;
-	// 			var source = store[data.rowIndex].id;
-	// 			if (target != source) {
-	// 				dd.el.mask(_('loading'),'x-mask-loading');
-	// 				MODx.Ajax.request({
-	// 					url: miniShop2.config.connector_url
-	// 					,params: {
-	// 						action: config.action || 'mgr/settings/discountcard/sort'
-	// 						,source: source
-	// 						,target: target
-	// 					}
-	// 					,listeners: {
-	// 						success: {fn:function(r) {dd.el.unmask();grid.refresh();},scope:grid}
-	// 						,failure: {fn:function(r) {dd.el.unmask();},scope:grid}
-	// 					}
-	// 				});
-	// 			}
-	// 		}
-	// 	});
-	// };
-
+// Ext.Ajax.request({
+// 	url: 'foo.php',
+// 	success: function (){alert('All good!');},
+// 	failure: function (){alert('Fail...');},
+// 	headers: {
+// 		'my-header': 'foo'
+// 	},
+// 	params: { foo: 'bar' }
+// });
 	Ext.applyIf(config,{
 		id: 'minishop2-grid-discountcard'
 		,url: miniShop2.config.connector_url
 		,baseParams: {
 			action: 'mgr/settings/discountcard/getlist'
 		}
-		,fields: ['id','uid','public','owner','coowners_count']
+		,fields: ['id','uid','discount_id','public','amount','amount_used','owner']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -48,19 +30,18 @@ miniShop2.grid.DiscountCard = function(config) {
 		,plugins: this.exp
 		,columns: [this.exp
 			,{header: _('ms2_id'),dataIndex: 'id',width: 30}
-			,{header: _('ms2_discountcard_uid'),dataIndex: 'uid',width: 130, editor: {xtype: 'textfield', allowBlank: false}}
+			,{header: _('ms2_discountcard_uid'),dataIndex: 'uid',width: 130, editor: {xtype: 'numberfield', allowBlank: false}}
+			,{header: _('ms2_discount_length'),dataIndex: 'discount_id',width: 130, editor: {xtype: 'minishop2-combo-discount', allowBlank: false}}
 			,{header: _('ms2_discountcard_public'),dataIndex: 'public',width: 105, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
+			,{header: _('ms2_discountcard_amount'),dataIndex: 'amount',width: 130, editor: {xtype: 'numberfield', allowBlank: false}}
+			,{header: _('ms2_discountcard_amount_used'),dataIndex: 'amount_used',width: 130, editor: {xtype: 'numberfield', allowBlank: false}}
 			,{header: _('ms2_discountcard_owner'),dataIndex: 'owner',width: 190, editor: {xtype: 'minishop2-combo-user'}}
-			,{header: _('ms2_discountcard_coowners_count'),dataIndex: 'coowners_count',width: 185}
 		]
 		,tbar: [{
 			text: _('ms2_btn_create')
 			,handler: this.createDiscountCard
 			,scope: this
 		}]
-		// ,ddGroup: 'dd'
-		// ,enableDragDrop: true
-		// ,listeners: {render: {fn: this.dd, scope: this}}
 	});
 	miniShop2.grid.DiscountCard.superclass.constructor.call(this,config);
 };
@@ -129,7 +110,7 @@ Ext.extend(miniShop2.grid.DiscountCard,MODx.grid.Grid,{
 		this.windows.updateDiscountCard.fp.getForm().reset();
 		this.windows.updateDiscountCard.fp.getForm().setValues(r);
 		this.windows.updateDiscountCard.show(e.target);
-		this.enablePayments(r.payments);
+		// this.enablePayments(r.payments);
 	}
 
 	,removeDiscountCard: function(btn,e) {
@@ -152,28 +133,13 @@ Ext.extend(miniShop2.grid.DiscountCard,MODx.grid.Grid,{
 	,getDiscountCardFields: function(type) {
 		var fields = [];
 		fields.push({xtype: 'hidden',name: 'id', id: 'minishop2-discountcard-id-'+type}
-			,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-discountcard-name-'+type}
-			,{xtype: 'numberfield',fieldLabel: _('ms2_price'), name: 'price', description: _('ms2_price_help') ,allowBlank: false, decimalPrecision: 2, anchor: '50%', id: 'minishop2-discountcard-price-'+type}
-			,{xtype: 'numberfield',fieldLabel: _('ms2_weight_price'), description: _('ms2_weight_price_help'), name: 'weight_price', decimalPrecision: 2, allowBlank: true, anchor: '50%', id: 'minishop2-discountcard-weight_price-'+type}
-			,{xtype: 'numberfield',fieldLabel: _('ms2_distance_price'), description: _('ms2_distance_price_help'), name: 'distance_price', decimalPrecision: 2, allowBlank: true, anchor: '50%', id: 'minishop2-discountcard-distance_price-'+type}
-			,{xtype: 'minishop2-combo-browser',fieldLabel: _('ms2_logo'), name: 'logo', anchor: '99%',  id: 'minishop2-discountcard-logo-'+type}
-			,{xtype: 'textarea', fieldLabel: _('ms2_description'), name: 'description', anchor: '99%', id: 'minishop2-discountcard-description-'+type}
-			,{xtype: 'textfield', fieldLabel: _('ms2_order_requires'), description: _('ms2_order_requires_help'), name: 'requires',anchor: '99%', id: 'minishop2-discountcard-requires-'+type}
-		);
-		var payments = this.getAvailablePayments();
-		if (payments.length > 0) {
-			fields.push(
-				{xtype: 'checkboxgroup'
-					,fieldLabel: _('ms2_payments')
-					,columns: 2
-					,items: payments
-					,id: 'minishop2-discountcard-payments-'+type
-				}
-			);
-		}
-		fields.push(
-			{xtype: 'textfield',fieldLabel: _('ms2_class'), name: 'class', anchor: '99%', id: 'minishop2-discountcard-class-'+type}
-			,{xtype: 'xcheckbox', fieldLabel: '', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-discountcard-active-'+type}
+			,{xtype: 'numberfield',fieldLabel: _('ms2_discountcard_uid'), name: 'uid', allowBlank: false, anchor: '99%', id: 'minishop2-discountcard-uid-'+type}
+			,{xtype: 'minishop2-combo-discount',fieldLabel: _('ms2_discount_length'), name: 'discount_id', allowBlank: false, decimalPrecision: 3, anchor: '50%', id: 'minishop2-discountcard-discount_id-'+type}
+			,{xtype: 'combo-boolean',fieldLabel: _('ms2_discountcard_public'),  name: 'public', allowBlank: true, anchor: '50%', id: 'minishop2-discountcard-public-'+type}
+			,{xtype: 'numberfield',fieldLabel: _('ms2_discountcard_amount'), name: 'amount', decimalPrecision: 10, allowBlank: true, anchor: '50%', id: 'minishop2-discountcard-amount-'+type}
+			,{xtype: 'numberfield',fieldLabel: _('ms2_discountcard_amount_used'), name: 'amount_used', decimalPrecision: 10, allowBlank: true, anchor: '50%', id: 'minishop2-discountcard-amount_used-'+type}
+			,{xtype: 'minishop2-combo-user',fieldLabel: _('ms2_discountcard_owner'), name: 'owner', anchor: '99%',  id: 'minishop2-discountcard-owner-'+type}
+			,{xtype: 'minishop2-combo-users',fieldLabel: _('ms2_discountcard_coowners'), name: 'coowners', anchor: '99%',  id: 'minishop2-discountcard-coowners-'+type}
 		);
 
 		return fields;

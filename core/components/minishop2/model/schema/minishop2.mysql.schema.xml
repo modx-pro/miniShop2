@@ -372,7 +372,8 @@
 		<field key="uid" dbtype="bigint" precision="20" attributes="unsigned" phptype="integer" null="false" default="" index="index" />
 		<field key="public" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
 		<field key="discount_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
-		<field key="limit" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+		<field key="amount" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+		<field key="amount_used" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
 
 		<index alias="uid" name="uid" primary="false" unique="false" type="BTREE">
 			<column key="uid" length="" collation="A" null="false" />
@@ -383,8 +384,11 @@
 		<index alias="discount_id" name="discount_id" primary="false" unique="false" type="BTREE">
 			<column key="discount_id" length="" collation="A" null="false" />
 		</index>
-		<index alias="limit" name="limit" primary="false" unique="false" type="BTREE">
-			<column key="limit" length="" collation="A" null="false" />
+		<index alias="amount" name="amount" primary="false" unique="false" type="BTREE">
+			<column key="amount" length="" collation="A" null="false" />
+		</index>
+		<index alias="amount_used" name="amount_used" primary="false" unique="false" type="BTREE">
+			<column key="amount_used" length="" collation="A" null="false" />
 		</index>
 
 		<aggregate alias="Discount" class="msDiscount" local="discount_id" foreign="id" cardinality="many" owner="foreign" />

@@ -614,12 +614,12 @@ miniShop2.combo.Users = function(config) {
 		,allowAddNewData: true
 		,addNewDataOnBlur : true
 		,resizable: true
-		,name: 'users'
+		,name: 'coowners'
 		,anchor:'100%'
 		,minChars: 2
 		,store:new Ext.data.JsonStore({
 			id: config.name + '-store'
-			,root:'results'
+			// ,root:'results'
 			,autoLoad: true
 			,autoSave: false
 			,totalProperty:'total'
@@ -634,7 +634,7 @@ miniShop2.combo.Users = function(config) {
 		,displayField: 'username'
 		,valueField: 'id'
 		,triggerAction: 'all'
-		,extraItemCls: 'x-tag'
+		// ,extraItemCls: 'x-tag'
 		,listeners: {
 			newitem: function(bs,v, f){
 				var newObj = {
@@ -649,4 +649,31 @@ miniShop2.combo.Users = function(config) {
 };
 Ext.extend(miniShop2.combo.Options,Ext.ux.form.SuperBoxSelect);
 Ext.reg('minishop2-combo-users',miniShop2.combo.Options);
+
+miniShop2.combo.Discount = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		id: 'minishop2-combo-discount'
+		,fieldLabel: _('ms2_discount_length')
+		,fields: ['id','discount']
+		,valueField: 'id'
+		,displayField: 'discount'
+		,name: 'discount_id'
+		,hiddenName: 'discount_id'
+		,allowBlank: false
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/settings/discount/getlisttransform'
+			,combo: 1
+			,id: config.value
+		}
+		,pageSize: 20
+		,emptyText: _('ms2_combo_select')
+		// ,typeAhead: true
+		,editable: false
+	});
+	miniShop2.combo.Discount.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.combo.Discount,MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-discount',miniShop2.combo.Discount);
 

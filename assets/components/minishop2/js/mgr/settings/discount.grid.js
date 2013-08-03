@@ -6,32 +6,6 @@ miniShop2.grid.Discount = function(config) {
 		,tpl : new Ext.Template('<p class="desc">{description}</p>')
 		,renderer : function(v, p, record){return record.data.description != '' && record.data.description != null ? '<div class="x-grid3-row-expander">&#160;</div>' : '&#160;';}
 	});
-	// this.dd = function(grid) {
-	// 	new Ext.dd.DropTarget(grid.container, {
-	// 		ddGroup : 'dd',
-	// 		copy:false,
-	// 		notifyDrop : function(dd, e, data) {
-	// 			var store = grid.store.data.items;
-	// 			var target = store[dd.getDragData(e).rowIndex].id;
-	// 			var source = store[data.rowIndex].id;
-	// 			if (target != source) {
-	// 				dd.el.mask(_('loading'),'x-mask-loading');
-	// 				MODx.Ajax.request({
-	// 					url: miniShop2.config.connector_url
-	// 					,params: {
-	// 						action: config.action || 'mgr/settings/discount/sort'
-	// 						,source: source
-	// 						,target: target
-	// 					}
-	// 					,listeners: {
-	// 						success: {fn:function(r) {dd.el.unmask();grid.refresh();},scope:grid}
-	// 						,failure: {fn:function(r) {dd.el.unmask();},scope:grid}
-	// 					}
-	// 				});
-	// 			}
-	// 		}
-	// 	});
-	// };
 
 	Ext.applyIf(config,{
 		id: 'minishop2-grid-discount'
@@ -59,9 +33,6 @@ miniShop2.grid.Discount = function(config) {
 			,handler: this.createDiscount
 			,scope: this
 		}]
-		// ,ddGroup: 'dd'
-		// ,enableDragDrop: true
-		// ,listeners: {render: {fn: this.dd, scope: this}}
 	});
 	miniShop2.grid.Discount.superclass.constructor.call(this,config);
 };
@@ -82,12 +53,6 @@ Ext.extend(miniShop2.grid.Discount,MODx.grid.Grid,{
 		this.addContextMenuItem(m);
 	}
 
-	// ,renderCrosstick: function (value) {
-	// 	return (parseInt(value, 10)) 
-	// 		? '<span class="glyphicon glyphicon-ok"></span>'
-	// 		: '<span class="glyphicon glyphicon-remove"></span>';
-	// }
-	
 	,renderDiscountType: function (value) {
 		if (value == 'summ') {
 			return _('ms2_frontend_currency');
@@ -159,21 +124,6 @@ Ext.extend(miniShop2.grid.Discount,MODx.grid.Grid,{
 			,{xtype: 'minishop2-combo-discount-type',fieldLabel: _('ms2_discount_type'), name: 'discount_type', description: '' ,allowBlank: false, anchor: '99%', id: 'minishop2-discount_type-'+type}
 			,{xtype: 'minishop2-combo-product',fieldLabel: _('ms2_discount_product'), description: '', name: 'product', decimalPrecision: 2, allowBlank: true, anchor: '99%', id: 'minishop2-discount_product-'+type}
 		);
-		// var payments = this.getAvailablePayments();
-		// if (payments.length > 0) {
-		// 	fields.push(
-		// 		{xtype: 'checkboxgroup'
-		// 			,fieldLabel: _('ms2_payments')
-		// 			,columns: 2
-		// 			,items: payments
-		// 			,id: 'minishop2-discount-payments-'+type
-		// 		}
-		// 	);
-		// }
-		// fields.push(
-		// 	{xtype: 'textfield',fieldLabel: _('ms2_class'), name: 'class', anchor: '99%', id: 'minishop2-discount-class-'+type}
-		// 	,{xtype: 'xcheckbox', fieldLabel: '', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-discount-active-'+type}
-		// );
 
 		return fields;
 	}
