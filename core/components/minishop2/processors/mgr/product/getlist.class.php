@@ -64,13 +64,16 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 					$parents[] = $v;
 				}
 			}
-			$c->orCondition(array('parent:IN' => $parents, 'Member.category_id' => $parent), '', 1);
-
+			$c->orCondition(array('parent:IN' => $parents, 'Member.category_id:IN' => $parents), '', 1);
 		}
 
 		return $c;
 	}
 
+	public function prepareQueryAfterCount(xPDOQuery $c) {
+		$c->groupby($this->classKey.'.id');
+		return $c;
+	}
 
 	public function getData() {
 		$data = array();
