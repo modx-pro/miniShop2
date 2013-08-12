@@ -1,4 +1,5 @@
 <?php
+/* @var array $scriptProperties */
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
@@ -10,6 +11,7 @@ $pdoFetch->addTime('pdoTools loaded.');
 if (!empty($_GET['msorder'])) {
 	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
 		if ((!empty($_SESSION['minishop2']['orders']) && in_array($_GET['msorder'], $_SESSION['minishop2']['orders'])) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
+			if (empty($tplSuccess)) {$tplSuccess = 'tpl.msOrder.success';}
 			return $pdoFetch->getChunk($tplSuccess, array('id' => $_GET['msorder']));
 		}
 	}
@@ -37,17 +39,13 @@ $default = array(
 );
 
 // Merge all properties and run!
-$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
 $pdoFetch->addTime('Query parameters are prepared.');
+$pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $deliveries = $pdoFetch->run();
 $pdoFetch->addTime('Fetched deliveries.');
 
 $arrays = array('deliveries' => array(),'payments' => array());
 if (!empty($deliveries)) {
-	// Initializing chunk for template rows
-	if (!empty($tplDelivery)) {$pdoFetch->getChunk($tplDelivery);}
-	if (!empty($tplPayment)) {$pdoFetch->getChunk($tplPayment);}
-
 	foreach ($deliveries as $di => $delivery) {
 		$did = $delivery['id'];
 		if (empty($order['delivery']) && $di == 0) {
@@ -73,7 +71,9 @@ if (!empty($deliveries)) {
 				}
 				if (!array_key_exists($pid, $arrays['payments'])) {
 					$payment['checked'] = !empty($order['payment']) && $order['payment'] == $pid ? 'checked' : '';
-					$arrays['payments'][$pid] = $pdoFetch->getChunk($tplPayment, $payment);
+					$arrays['payments'][$pid] = empty($tplPayment)
+						? $pdoFetch->getChunk('', $payment)
+						: $pdoFetch->getChunk($tplPayment, $payment);
 				}
 				$delivery['payments'][] = $pid;
 			}
@@ -82,7 +82,9 @@ if (!empty($deliveries)) {
 		$pdoFetch->addTime('Processing delivery '.$delivery['name'].'.');
 		$delivery['checked'] = !empty($order['delivery']) && $order['delivery'] == $did ? 'checked' : '';
 		$delivery['payments'] = json_encode($delivery['payments']);
-		$arrays['deliveries'][$did] = $pdoFetch->getChunk($tplDelivery, $delivery);
+		$arrays['deliveries'][$did] = empty($tplDelivery)
+			? $pdoFetch->getChunk('', $delivery)
+			: $pdoFetch->getChunk($tplDelivery, $delivery);
 	}
 }
 
@@ -92,9 +94,9 @@ $order_cost = $miniShop2->order->getcost();
 $deliveries = implode('', $arrays['deliveries']);
 $payments = implode('', $arrays['payments']);
 $form = array(
-	'deliveries' => !empty($pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) ? str_replace('[[+value]]', $deliveries, $pdoFetch->elements[$tplOuter]['placeholders']['deliveries']) : $deliveries
-	,'payments' => !empty($pdoFetch->elements[$tplOuter]['placeholders']['payments']) ? str_replace('[[+value]]', $payments, @$pdoFetch->elements[$tplOuter]['placeholders']['payments']) : $payments
-	,'order_cost' => $miniShop2->formatPrice(@$order_cost['data']['cost'])
+	'deliveries' => $deliveries
+	,'payments' => $payments
+	,'order_cost' => $miniShop2->formatPrice($order_cost['data']['cost'])
 );
 
 // Setting user fields
@@ -120,7 +122,6 @@ foreach ($user_fields as $key => $value) {
 		unset($order[$key]);
 	}
 	else if (!empty($profile) && !empty($value)) {
-		//$form[$key] = $profile[$value];
 		$tmp = $miniShop2->order->add($key, $profile[$value]);
 		if ($tmp['success'] && !empty($tmp['data'][$key])) {
 			$form[$key] = $tmp['data'][$key];
@@ -129,11 +130,9 @@ foreach ($user_fields as $key => $value) {
 }
 $form = array_merge($order, $form);
 
-if (!empty($tplOuter)) {
-	$pdoFetch->getChunk($tplOuter);
-	$output = $pdoFetch->getChunk($tplOuter, $form);
-}
-else {return 'no outer chunk';}
+$output = empty($tplOuter)
+	? $pdoFetch->getChunk('', $form)
+	: $pdoFetch->getChunk($tplOuter, $form);
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 	$output .= '<pre class="msOrderLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';

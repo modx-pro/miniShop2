@@ -1,4 +1,5 @@
 <?php
+/* @var array $scriptProperties */
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
@@ -13,7 +14,7 @@ else {
 	$product = $modx->resource;
 }
 
-if (!($product instanceof msProduct)) {return false;}
+if (!($product instanceof msProduct)) {return 'This resource is not instance of msProduct class.';}
 $limit = !empty($scriptProperties['limit']) ? $scriptProperties['limit'] : 0;
 $where = array(
 	'product_id' => $product->get('id')
@@ -70,21 +71,14 @@ foreach ($rows as $k => $row) {
 $pdoFetch->addTime('Processing chunks');
 $rows = array();
 foreach ($images as $row) {
-	if (empty($tplRow)) {
-		$rows[] = '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>';
-	}
-	else {
-		$rows[] = $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
-	}
+	$rows[] = empty($tplRow)
+		? $pdoFetch->getChunk('', $row)
+		: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
 }
 
 $pdoFetch->addTime('Returning processed chunks');
 if (!empty($rows)) {
 	$output = implode($pdoFetch->config['outputSeparator'], $rows);
-}
-
-if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
-	$output .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
 // Return output
@@ -95,6 +89,10 @@ if (!empty($output)) {
 }
 else {
 	$output = !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
+}
+
+if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
+	$output .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
 if (!empty($toPlaceholder)) {

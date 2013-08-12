@@ -13,6 +13,7 @@ $_lang['ms2_prop_sortdir'] = 'The direction to sort by';
 $_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from';
 $_lang['ms2_prop_tpl'] = 'The chunk tpl to use for each row.';
 $_lang['ms2_prop_toPlaceholder'] = 'If not empty, the snippet will save output to placeholder with that name, instead of return it to screen.';
+$_lang['ms2_prop_toSeparatePlaceholders'] = 'If set, will assign EACH result to a separate placeholder named by this param suffixed with a sequential number (starting from 0).';
 $_lang['ms2_prop_showLog'] = 'Display additional information about snippet work. Only for authenticated in context "mgr".';
 $_lang['ms2_prop_parents'] = 'Container list, separated by commas, to search results. By default, the query is limited to the current parent. If set to 0, query not limited.';
 $_lang['ms2_prop_resources'] = 'Comma-delimited list of ids to include in the results. Prefix an id with a dash to exclude the resource from the result.';

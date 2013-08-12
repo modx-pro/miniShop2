@@ -1,4 +1,5 @@
 <?php
+/* @var array $scriptProperties */
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
@@ -42,8 +43,8 @@ $select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor"
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
 $pdoFetch->addTime('Query parameters are prepared.');
 
-// Initializing chunk for template rows
-if (!empty($tplRow)) {$pdoFetch->getChunk($tplRow);}
+$scriptProperties['tpl'] = $scriptProperties['tplRow'];
+$pdoFetch->setConfig($scriptProperties);
 
 // Working
 $outer = array('goods' => '', 'total_count' => 0, 'total_weight' => 0, 'total_cost' => 0);
@@ -82,7 +83,12 @@ foreach ($cart as $k => $v) {
 		}
 		unset($v['options']);
 
-		$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
+		$row['idx'] = $pdoFetch->idx++;
+		$tplRow = $pdoFetch->defineChunk($row);
+		$outer['goods'] .= empty($tplRow)
+			? $pdoFetch->getChunk('', $row)
+			: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
+
 		$outer['total_count'] += $v['count'];
 		$outer['total_cost'] +=  $v['count'] * $v['price'];
 		$outer['total_weight'] += $v['count'] * $v['weight'];
@@ -92,4 +98,6 @@ foreach ($cart as $k => $v) {
 $outer['total_cost'] = $miniShop2->formatPrice($outer['total_cost']);
 $outer['total_weight'] = $miniShop2->formatWeight($outer['total_weight']);
 
-return !empty($tplOuter) ? $pdoFetch->getChunk($tplOuter, $outer) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($outer,1));
+return empty($tplOuter)
+	? $pdoFetch->getChunk('', $outer)
+	: $pdoFetch->getChunk($tplOuter, $outer, $pdoFetch->config['fastMode']);

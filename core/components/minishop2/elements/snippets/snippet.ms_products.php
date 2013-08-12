@@ -5,22 +5,10 @@ $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->addTime('pdoTools loaded.');
 
-$class = !empty($class) ? trim($class) : 'msProduct';
-$returnIds = !empty($scriptProperties['returnIds']);
-if (!$tmp = $modx->newObject($class)) {
-	$modx->log(modX::LOG_LEVEL_ERROR, '[msProducts] Error: could not load class "'.$class.'". Cannot continue.');
-	return;
-}
-else if (!($tmp instanceof modResource)) {
-	$modx->log(modX::LOG_LEVEL_ERROR, '[msProducts] Error: class "'.$class.'" is not instance of modResource. Cannot continue.');
-	return;
-}
-unset($tmp, $scriptProperties['class']);
-
+$class = 'msProduct';
 // Start building "Where" expression
-$where = !empty($class) && $class == 'msProduct' ? array('class_key' => 'msProduct') : array();
+$where = array('class_key' => 'msProduct');
 if (empty($showUnpublished)) {$where['published'] = 1;}
 if (empty($showHidden)) {$where['hidemenu'] = 0;}
 if (empty($showDeleted)) {$where['deleted'] = 0;}
@@ -40,7 +28,7 @@ if (!empty($resources)){
 }
 // Filter by parents
 if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
-if (!empty($parents) && $parents > 0){
+if (!empty($parents) && $parents > 0) {
 	$pids = array_map('trim', explode(',', $parents));
 	$parents = $pids;
 	if (!empty($depth) && $depth > 0) {
@@ -65,142 +53,135 @@ if (!empty($parents) && $parents > 0){
 	}
 }
 
-// Adding custom where parameters
-if (!empty($scriptProperties['where'])) {
-	$tmp = $modx->fromJSON($scriptProperties['where']);
-	if (is_array($tmp)) {
-		$where = array_merge($where, $tmp);
-	}
-}
-unset($scriptProperties['where']);
-$pdoFetch->addTime('"Where" expression built.');
-// End of building "Where" expression
-
 // Joining tables
-$leftJoin = ($class == 'msProduct' && !$returnIds)
-	? array('{"class":"msProductData","alias":"Data","on":"`msProduct`.`id`=`Data`.`id`"}','{"class":"msVendor","alias":"Vendor","on":"`Data`.`vendor`=`Vendor`.`id`"}')
-	: array();
+$leftJoin = array(
+	array('class' => 'msProductData', 'alias' => 'Data', 'on' => '`msProduct`.`id`=`Data`.`id`'),
+	array('class' => 'msVendor', 'alias' => 'Vendor', 'on' => '`Data`.`vendor`=`Vendor`.`id`'),
+);
 $innerJoin = array();
 
-if ($class == 'msProduct' && !$returnIds) {
-	// Include Thumbnails
-	$thumbsLeftJoin = '';
-	$thumbsSelect = array();
-	if (!empty($includeThumbs)) {
-		$thumbs = array_map('trim',explode(',',$includeThumbs));
-		if(!empty($thumbs[0])){
-			foreach ($thumbs as $thumb) {
-				$leftJoin[] = '{"class":"msProductFile","alias":"'.$thumb.'","on":"`'.$thumb.'`.`product_id` = `msProduct`.`id` AND `'.$thumb.'`.`parent` != 0 AND `'.$thumb.'`.`path` LIKE \'%/'.$thumb.'/\'"}';
-				$thumbsSelect[] = ' "'.$thumb.'":"`'.$thumb.'`.`url` as `'.$thumb.'`" ';
-			}
-			$pdoFetch->addTime('Included list of thumbnails: <b>'.implode(', ',$thumbs).'</b>.');
+// Include Thumbnails
+$thumbsSelect = array();
+if (!empty($includeThumbs)) {
+	$thumbs = array_map('trim',explode(',',$includeThumbs));
+	if(!empty($thumbs[0])){
+		foreach ($thumbs as $thumb) {
+			$leftJoin[] = array(
+				'class' => 'msProductFile',
+				'alias' => $thumb,
+				'on' => "`$thumb`.`product_id` = `msProduct`.`id` AND `$thumb`.`parent` != 0 AND `$thumb`.`path` LIKE '%/$thumb/'"
+			);
+			$thumbsSelect[$thumb] = "`$thumb`.`url` as `$thumb`";
 		}
 	}
+}
 
-	// include Linked products
-	if (!empty($link) && !empty($master)) {
-		$innerJoin[] = '{"class":"msProductLink","alias":"Link","on":"`msProduct`.`id` = `Link`.`slave` AND `Link`.`link` = '.$link.'"}';
-		$where['Link.master'] = $master;
-	}
-	else if (!empty($link) && !empty($slave)) {
-		$innerJoin[] = '{"class":"msProductLink","alias":"Link","on":"`msProduct`.`id` = `Link`.`master` AND `Link`.`link` = '.$link.'"}';
-		$where['Link.slave'] = $slave;
-	}
+// include Linked products
+if (!empty($link) && !empty($master)) {
+	$innerJoin[] = array('class' => 'msProductLink', 'alias' => 'Link', 'on' => '`msProduct`.`id` = `Link`.`slave` AND `Link`.`link` = '.$link);
+	$where['Link.master'] = $master;
+}
+else if (!empty($link) && !empty($slave)) {
+	$innerJoin[] = array('class' => 'msProductLink', 'alias' => 'Link', 'on' => '`msProduct`.`id` = `Link`.`master` AND `Link`.`link` = '.$link);
+	$where['Link.slave'] = $slave;
 }
 
 // Fields to select
-if ($returnIds) {
-	$resourceColumns = "`$class`.`id`";
-}
-else {
-	$resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns($class, $class) : $modx->getSelectColumns($class, $class, '', array('content'), true);
-}
-$select = array('"'.$class.'":"'.$resourceColumns.'"');
-if ($class == 'msProduct' && !$returnIds) {
-	$select[] = '"Data":"'.$modx->getSelectColumns('msProductData', 'Data', '', array('id'), true).'"';
-	$select[] = '"Vendor":"'.$modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true).'"';
-	if (!empty($thumbsSelect)) {$select = array_merge($select, $thumbsSelect);}
+$select = array(
+	$class => !empty($includeContent) ?  $modx->getSelectColumns($class, $class) : $modx->getSelectColumns($class, $class, '', array('content'), true),
+	'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true),
+	'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
+);
+if (!empty($thumbsSelect)) {$select = array_merge($select, $thumbsSelect);}
+
+// Add custom parameters
+foreach (array('where','leftJoin','innerJoin','select') as $v) {
+	if (!empty($scriptProperties[$v])) {
+		$tmp = $modx->fromJSON($scriptProperties[$v]);
+		if (is_array($tmp)) {
+			$$v = array_merge($$v, $tmp);
+		}
+	}
+	unset($scriptProperties[$v]);
 }
 
 // Default parameters
 $default = array(
-	'class' => $class
-	,'where' => $modx->toJSON($where)
-	,'leftJoin' => '['.implode(',',$leftJoin).']'
-	,'innerJoin' => '['.implode(',',$innerJoin).']'
-	,'select' => '{'.implode(',',$select).'}'
-	,'sortby' => 'id'
-	,'sortdir' => 'ASC'
-	,'groupby' => $class.'.id'
-	,'fastMode' => false
-	,'return' => 'data'
-	,'nestedChunkPrefix' => 'minishop2_'
+	'class' => $class,
+	'where' => $modx->toJSON($where),
+	'leftJoin' => $modx->toJSON($leftJoin),
+	'innerJoin' => $modx->toJSON($innerJoin),
+	'select' => $modx->toJSON($select),
+	'sortby' => $class.'id',
+	'sortdir' => 'ASC',
+	'groupby' => $class.'.id',
+	'fastMode' => false,
+	'return' => !empty($returnIds) ? 'ids' : 'data',
+	'nestedChunkPrefix' => 'minishop2_',
 );
 
-if ($returnIds) {
-	unset($scriptProperties['includeTVs'], $default['groupby']);
-}
 if (!empty($in) && (empty($scriptProperties['sortby']) || $scriptProperties['sortby'] == 'id')) {
 	$scriptProperties['sortby'] = "find_in_set(`$class`.`id`,'".implode(',', $in)."')";
 	$scriptProperties['sortdir'] = '';
 }
 
 // Merge all properties and run!
-$pdoFetch->addTime('Query parameters are prepared.');
 $pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
 
+if (!empty($returnIds)) {return $rows;}
+
 // Processing rows
-$output = null;
-if ($returnIds) {
-	$ids = array();
-	foreach ($rows as $row) {
-		$ids[] = $row['id'];
-	}
-	$output = implode(',', $ids);
-}
-else {
+$output = array();
+if (!empty($rows) && is_array($rows)) {
 	$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
-	$idx = !empty($scriptProperties['offset']) ? $scriptProperties['offset'] : 0;
 
-	if (!empty($rows) && is_array($rows)) {
-		foreach ($rows as $k => $row) {
-			// Processing main fields
-			if ($class == 'msProduct') {
-				if ($modificators) {
-					/* @var msProduct $product */
-					$product = $modx->getObject('msProduct', $row['id']);
-					$row['price'] = $product->getPrice($scriptProperties);
-					$row['weight'] = $product->getWeight($scriptProperties);
-				}
-				$row['price'] = $miniShop2->formatPrice($row['price']);
-				$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
-				$row['weight'] = $miniShop2->formatWeight($row['weight']);
+	foreach ($rows as $k => $row) {
+		// Processing main fields
+		if ($class == 'msProduct') {
+			if ($modificators) {
+				/* @var msProduct $product */
+				$product = $modx->getObject('msProduct', $row['id']);
+				$row['price'] = $product->getPrice($scriptProperties);
+				$row['weight'] = $product->getWeight($scriptProperties);
 			}
-			$idx++;
-			$row['idx'] = $idx;
+			$row['price'] = $miniShop2->formatPrice($row['price']);
+			$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
+			$row['weight'] = $miniShop2->formatWeight($row['weight']);
+		}
 
-			// Processing chunk
-			$output[] = empty($tpl)
-				? '<pre>'.str_replace(array('[',']','`'), array('&#91;','&#93;','&#96;'), htmlentities(print_r($row, true), ENT_QUOTES, 'UTF-8')).'</pre>'
-				: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
-		}
-		$pdoFetch->addTime('Returning processed chunks');
-		if (empty($outputSeparator)) {$outputSeparator = "\n";}
-		if (!empty($output)) {
-			$output = implode($outputSeparator, $output);
-		}
+		$row['idx'] = $pdoFetch->idx++;
+		$tplRow = $pdoFetch->defineChunk($row);
+		$output[] .= empty($tplRow)
+			? $pdoFetch->getChunk('', $row)
+			: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
 	}
+	$pdoFetch->addTime('Returning processed chunks');
 }
 
+$log = '';
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
-	$output .= '<pre class="msProductsLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
+	$log .= '<pre class="msProductsLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
 // Return output
-if (!empty($toPlaceholder)) {
-	$modx->setPlaceholder($toPlaceholder, $output);
+if (!empty($toSeparatePlaceholders)) {
+	$modx->setPlaceholders($output, $toSeparatePlaceholders);
+	$modx->setPlaceholder($log, $toSeparatePlaceholders.'log');
 }
 else {
-	return $output;
+	if (empty($outputSeparator)) {$outputSeparator = "\n";}
+	$output = is_array($output) ? implode($outputSeparator, $output) : $output;
+	$output .= $log;
+
+	if (!empty($tplWrapper) && (!empty($wrapIfEmpty) || !empty($output))) {
+		$output = $pdoFetch->getChunk($tplWrapper, array('output' => $output), $pdoFetch->config['fastMode']);
+	}
+
+	if (!empty($toPlaceholder)) {
+		$modx->setPlaceholder($toPlaceholder, $output);
+	}
+	else {
+		return $output;
+	}
 }

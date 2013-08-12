@@ -1,15 +1,12 @@
 <?php
 if (empty($id)) {return $modx->lexicon('ms2_err_order_nf');}
+/* @var array $scriptProperties */
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
 $pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
-
-// Initializing chunk for template rows
-if (!empty($tplRow)) {$pdoFetch->getChunk($tplRow);}
 
 /* @var msOrder $order */
 if (!$order = $modx->getObject('msOrder', $id)) {return $modx->lexicon('ms2_err_order_nf');}
@@ -73,7 +70,8 @@ $default = array(
 	,'nestedChunkPrefix' => 'minishop2_'
 );
 // Merge all properties and run!
-$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
+$scriptProperties['tpl'] = $scriptProperties['tplRow'];
+$pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
 
 /* @var msOrderProduct $row */
@@ -92,12 +90,25 @@ foreach ($rows as $row) {
 		}
 	}
 
-	$outer['goods'] .= !empty($tplRow) ? $pdoFetch->getChunk($tplRow, $row) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($row,1));
+	$row['idx'] = $pdoFetch->idx++;
+	$tplRow = $pdoFetch->defineChunk($row);
+	$outer['goods'] .= empty($tplRow)
+		? $pdoFetch->getChunk('', $row)
+		: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
 }
 
-if (empty($tplOuter)) {
-	$modx->setPlaceholders($outer);
+if (!empty($toPlaceholders)) {
+	$modx->setPlaceholders($outer, $toPlaceholders);
 }
 else {
-	return !empty($tplOuter) ? $pdoFetch->getChunk($tplOuter, $outer) : str_replace(array('[[',']]'),array('&091;&091;','&093;&093;'), print_r($outer,1));
+	$outer = empty($tplOuter)
+		? $pdoFetch->getChunk('', $outer)
+		: $pdoFetch->getChunk($tplOuter, $outer, $pdoFetch->config['fastMode']);
+
+	if (!empty($toPlaceholder)) {
+		$modx->toPlaceholder($order, $toPlaceholder);
+	}
+	else {
+		return $outer;
+	}
 }

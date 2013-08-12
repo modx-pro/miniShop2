@@ -1,5 +1,10 @@
 Changelog for miniShop2.
 
+2.1.0 beta
+==============
+- In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
+- Improved other snippets.
+
 2.0.1 pl3
 ==============
 - Added german lexicon.
