@@ -1,10 +1,5 @@
 <?php
-/**
- * Loads system settings into build
- *
- * @package minishop2
- * @subpackage build
- */
+
 $settings = array();
 
 $tmp = array(

@@ -1,46 +1,37 @@
 <?php
-/**
- * Properties for the msGetProducts snippet.
- *
- * @package minishop2
- * @subpackage build
- */
-$properties = array(
-	array(
-		'name' => 'tplRow'
-		,'desc' => 'ms2_prop_tplRow'
-		,'type' => 'textfield'
-		,'value' => 'tpl.msCart.row'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'tplOuter'
-		,'desc' => 'ms2_prop_tplOuter'
-		,'type' => 'textfield'
-		,'value' => 'tpl.msCart.outer'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'tplEmpty'
-		,'desc' => 'ms2_prop_tplEmpty'
-		,'type' => 'textfield'
-		,'value' => 'tpl.msCart.empty'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'includeTVs',
-		'desc' => 'ms2_prop_includeTVs',
+
+$properties = array();
+
+$tmp = array(
+	'tplRow' => array(
+		'type' => 'textfield',
+		'value' => 'tpl.msCart.row',
+	),
+	'tplOuter' => array(
+		'type' => 'textfield',
+		'value' => 'tpl.msCart.outer',
+	),
+	'tplEmpty' => array(
+		'type' => 'textfield',
+		'value' => 'tpl.msCart.empty',
+	),
+	'includeTVs' => array(
 		'type' => 'textfield',
 		'value' => '',
-		'lexicon' => 'minishop2:properties',
-	)
-	,array(
-		'name' => 'includeThumbs',
-		'desc' => 'ms2_prop_includeThumbs',
+	),
+	'includeThumbs' => array(
 		'type' => 'textfield',
 		'value' => '',
-		'lexicon' => 'minishop2:properties',
 	)
 );
+
+foreach ($tmp as $k => $v) {
+	$properties[] = array_merge(array(
+			'name' => $k,
+			'desc' => 'ms2_prop_' . $k,
+			'lexicon' => 'minishop2:properties',
+		), $v
+	);
+}
 
 return $properties;

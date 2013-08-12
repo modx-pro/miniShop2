@@ -1,10 +1,5 @@
 <?php
-/**
- * Add snippets to build
- * 
- * @package minishop2
- * @subpackage build
- */
+
 $snippets = array();
 
 $tmp = array(
@@ -27,7 +22,7 @@ foreach ($tmp as $k => $v) {
 		,'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.'.$v.'.php')
 		,'static' => BUILD_SNIPPET_STATIC
 		,'source' => 1
-		,'static_file' => 'core/components/minishop2/elements/snippets/snippet.'.$v.'.php'
+		,'static_file' => 'core/components/'.PKG_NAME_LOWER.'/elements/snippets/snippet.'.$v.'.php'
 	),'',true,true);
 
 	$properties = include $sources['build'].'properties/properties.'.$v.'.php';

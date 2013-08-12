@@ -1,8 +1,5 @@
 <?php
-/**
- * Add miniShop2 events for plugins to build
- *
- */
+
 $events = array();
 
 $tmp = array(
@@ -42,7 +39,7 @@ foreach ($tmp as $k => $v) {
 	$event->fromArray(array_merge(array(
 		'name' => $k
 		,'service' => 6
-		,'groupname' => 'miniShop2'
+		,'groupname' => PKG_NAME
 	), $v)
 	,'', true, true);
 

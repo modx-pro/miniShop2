@@ -1,10 +1,5 @@
 <?php
-/**
- * Package in plugins
- *
- * @package miniShop2
- * @subpackage build
- */
+
 $plugins = array();
 
 $tmp = array(
@@ -28,7 +23,7 @@ foreach ($tmp as $k => $v) {
 		,'plugincode' => getSnippetContent($sources['source_core'].'/elements/plugins/plugin.'.$v['file'].'.php')
 		,'static' => BUILD_PLUGIN_STATIC
 		,'source' => 1
-		,'static_file' => 'core/components/minishop2/elements/plugins/plugin.'.$v['file'].'.php'
+		,'static_file' => 'core/components/'.PKG_NAME_LOWER.'/elements/plugins/plugin.'.$v['file'].'.php'
 	),'',true,true);
 
 	$events = array();

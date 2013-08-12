@@ -1,83 +1,64 @@
 <?php
-/**
- * Adds modActions and modMenus into package
- *
- * @package minishop2
- * @subpackage build
- */
 
-// Available actions
-$actions = array();
-
-$actions['main'] = $modx->newObject('modAction');
-$actions['main']->fromArray(array(
-	'id' => 1,
-	'namespace' => 'minishop2',
-	'controller' => 'index',
-	'haslayout' => 1,
-	'lang_topics' => 'minishop2:default',
-	'assets' => '',
-),'',true,true);
-
-$actions['orders'] = $modx->newObject('modAction');
-$actions['orders']->fromArray(array(
-	'id' => 1,
-	'namespace' => 'minishop2',
-	'controller' => 'controllers/mgr/orders',
-	'haslayout' => 1,
-	'lang_topics' => 'minishop2:default',
-	'assets' => '',
-),'',true,true);
-
-$actions['settings'] = $modx->newObject('modAction');
-$actions['settings']->fromArray(array(
-	'id' => 1,
-	'namespace' => 'minishop2',
-	'controller' => 'controllers/mgr/settings',
-	'haslayout' => 1,
-	'lang_topics' => 'minishop2:default',
-	'assets' => '',
-),'',true,true);
-
-
-
-
-// Menus
 $menus = array();
 
-$menus['main']= $modx->newObject('modMenu');
-$menus['main']->fromArray(array(
-	'text' => 'minishop2',
-	'parent' => '',
-	'description' => 'ms2_menu_desc',
-	'menuindex' => 2,
-	'params' => '',
-	'handler' => 'return false;',
-),'',true,true);
-$menus['main']->addOne($actions['main']);
+$tmp = array(
+	'main' => array(
+		'description' => 'ms2_menu_desc',
+		'handler' => 'return false;',
+		'action' => array(
+			'controller' => 'index'
+		)
+	),
+	'orders' => array(
+		'description' => 'ms2_orders_desc',
+		'action' => array(
+			'controller' => 'controllers/mgr/orders'
+		)
+	),
+	'settings' => array(
+		'description' => 'ms2_settings_desc',
+		'action' => array(
+			'controller' => 'controllers/mgr/settings'
+		)
+	),
+);
 
-$menus['orders']= $modx->newObject('modMenu');
-$menus['orders']->fromArray(array(
-	'text' => 'ms2_orders',
-	'parent' => 'minishop2',
-	'description' => 'ms2_orders_desc',
-	'menuindex' => 0,
-	'params' => '',
-	'handler' => '',
-),'',true,true);
-$menus['orders']->addOne($actions['orders']);
+$i = 0;
+foreach ($tmp as $k => $v) {
+	$action = null;
+	if (!empty($v['action'])) {
+		/* @var modAction $action */
+		$action = $modx->newObject('modAction');
+		$action->fromArray(array_merge(array(
+			'id' => 1,
+			'namespace' => PKG_NAME_LOWER,
+			'parent' => 0,
+			'haslayout' => 1,
+			'lang_topics' => PKG_NAME_LOWER . ':default',
+			'assets' => '',
+		), $v['action']), '', true, true);
+		unset($v['action']);
+	}
 
-$menus['settings']= $modx->newObject('modMenu');
-$menus['settings']->fromArray(array(
-	'text' => 'ms2_settings',
-	'parent' => 'minishop2',
-	'description' => 'ms2_settings_desc',
-	'menuindex' => 1,
-	'params' => '',
-	'handler' => '',
-),'',true,true);
-$menus['settings']->addOne($actions['settings']);
+	/* @var modMenu $menu */
+	$menu = $modx->newObject('modMenu');
+	$menu->fromArray(array_merge(array(
+		'text' => $k,
+		'parent' => 'components',
+		'icon' => 'images/icons/plugin.gif',
+		'menuindex' => $i,
+		'params' => '',
+		'handler' => '',
+	), $v), '', true, true);
 
-// Return menus
-unset($actions);
+	if (!empty($action) && $action instanceof modAction) {
+		//$menu->addOne($action);
+	}
+
+	$menus[] = $menu;
+	$i++;
+}
+
+unset($action, $menu, $i);
 return $menus;

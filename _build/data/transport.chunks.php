@@ -1,10 +1,5 @@
 <?php
-/**
- * Add chunks to build
- * 
- * @package minishop2
- * @subpackage build
- */
+
 $chunks = array();
 
 $tmp = array(
@@ -42,7 +37,7 @@ foreach ($tmp as $k => $v) {
 		,'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/chunk.'.$v.'.tpl')
 		,'static' => BUILD_CHUNK_STATIC
 		,'source' => 1
-		,'static_file' => 'core/components/minishop2/elements/chunks/chunk.'.$v.'.tpl'
+		,'static_file' => 'core/components/'.PKG_NAME_LOWER.'/elements/chunks/chunk.'.$v.'.tpl'
 	),'',true,true);
 
 	$chunks[] = $chunk;

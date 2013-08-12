@@ -1,60 +1,45 @@
 <?php
-/**
- * Properties for the msGetProducts snippet.
- *
- * @package minishop2
- * @subpackage build
- */
-$properties = array(
-	array(
-		'name' => 'product'
-		,'desc' => 'ms2_prop_product'
-		,'type' => 'numberfield'
-		,'value' => ''
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'tplRow'
-		,'desc' => 'ms2_prop_tplRow'
-		,'type' => 'textfield'
-		,'value' => 'tpl.msOptions.row'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'tplOuter'
-		,'desc' => 'ms2_prop_tplOuter'
-		,'type' => 'textfield'
-		,'value' => 'tpl.msOptions.outer'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'tplEmpty'
-		,'desc' => 'ms2_prop_tplEmpty'
-		,'type' => 'textfield'
-		,'value' => 'tpl.msOptions.empty'
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'name'
-		,'desc' => 'ms2_prop_optionName'
-		,'type' => 'textfield'
-		,'value' => ''
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'selected'
-		,'desc' => 'ms2_prop_optionSelected'
-		,'type' => 'textfield'
-		,'value' => ''
-		,'lexicon' => 'minishop2:properties'
-	)
-	,array(
-		'name' => 'outputSeparator'
-		,'desc' => 'ms2_prop_outputSeparator'
-		,'type' => 'textfield'
-		,'value' => "\n"
-		,'lexicon' => 'minishop2:properties'
+
+$properties = array();
+
+$tmp = array(
+	'product' => array(
+		'type' => 'numberfield',
+		'value' => '',
+	),
+	'tplRow' => array(
+		'type' => 'textfield',
+		'value' => 'tpl.msOptions.row',
+	),
+	'tplOuter' => array(
+		'type' => 'textfield',
+		'value' => 'tpl.msOptions.outer',
+	),
+	'tplEmpty' => array(
+		'type' => 'textfield',
+		'value' => 'tpl.msOptions.empty',
+	),
+	'name' => array(
+		'type' => 'textfield',
+		'value' => '',
+	),
+	'selected' => array(
+		'type' => 'textfield',
+		'value' => '',
+	),
+	'outputSeparator' => array(
+		'type' => 'textfield',
+		'value' => "\n",
 	)
 );
+
+foreach ($tmp as $k => $v) {
+	$properties[] = array_merge(array(
+			'name' => $k,
+			'desc' => 'ms2_prop_' . $k,
+			'lexicon' => 'minishop2:properties',
+		), $v
+	);
+}
 
 return $properties;
