@@ -104,18 +104,28 @@ class msOrderHandler implements msOrderInterface {
 
 	/* @inheritdoc} */
 	public function add($key, $value) {
-		$this->modx->invokeEvent('msOnBeforeAddToOrder', array('key' => & $key, 'value' => & $value, 'order' => $this));
-		if (empty($key)) {
-			return $this->error('');
-		}
-		else if (empty($value)) {
+		$response = $this->ms2->invokeEvent('msOnBeforeAddToOrder', array(
+			'key' => $key,
+			'value' => $value,
+			'order' => $this
+		));
+		if (!$response['success']) {return $this->error($response['message']);}
+		$value = $response['data']['value'];
+
+		if (empty($value)) {
 			$this->order[$key] = $validated  = '';
 		}
 		else {
 			$validated = $this->validate($key, $value);
 			if ($validated !== false) {
 				$this->order[$key] = $validated;
-				$this->modx->invokeEvent('msOnAddToOrder', array('key' => & $key, 'value' => & $validated, 'order' => $this));
+				$response = $this->ms2->invokeEvent('msOnAddToOrder', array(
+					'key' => $key,
+					'value' => $validated,
+					'order' => $this
+				));
+				if (!$response['success']) {return $this->error($response['message']);}
+				$validated = $response['data']['value'];
 			}
 		}
 		return $this->success('', array($key => $validated));
@@ -127,8 +137,10 @@ class msOrderHandler implements msOrderInterface {
 		if ($key != 'comment') {
 			$value = preg_replace('/\s+/',' ', trim($value));
 		}
+
+		$old_value = isset($this->order[$key]) ? $this->order[$key] : '';
 		switch ($key) {
-			case 'email': $value = preg_match('/.+@.+..+/i', $value) ? $value : @$this->order[$key]; break;
+			case 'email': $value = preg_match('/.+@.+..+/i', $value) ? $value : $old_value; break;
 			case 'receiver':
 				$value = preg_replace('/[^a-zа-я\s]/iu','',$value);
 				$tmp = explode(' ',$value);
@@ -144,7 +156,7 @@ class msOrderHandler implements msOrderInterface {
 			case 'delivery':
 				/* @var msDelivery $delivery */
 				if (!$delivery = $this->modx->getObject('msDelivery',array('id' => $value, 'active' => 1))) {
-					$value = @$this->order['delivery'];
+					$value = $old_value;
 				}
 				else if (!empty($this->order['payment'])) {
 					if (!$this->hasPayment($value, $this->order['payment'])) {
@@ -154,7 +166,7 @@ class msOrderHandler implements msOrderInterface {
 			break;
 			case 'payment':
 				if (!empty($this->order['delivery'])) {
-					$value = $this->hasPayment($this->order['delivery'], $value) ? $value : @$this->order['payment'];
+					$value = $this->hasPayment($this->order['delivery'], $value) ? $value : $old_value;
 				}
 			break;
 			case 'index': $value = substr(preg_replace('/[^-0-9]/iu', '',$value),0,10); break;
@@ -179,9 +191,18 @@ class msOrderHandler implements msOrderInterface {
 	/* @inheritdoc} */
 	public function remove($key) {
 		if ($exists = array_key_exists($key, $this->order)) {
-			$this->modx->invokeEvent('msOnBeforeRemoveFromOrder', array('key' => $key, 'order' => $this));
+			$response = $this->ms2->invokeEvent('msOnBeforeRemoveFromOrder', array(
+				'key' => $key,
+				'order' => $this
+			));
+			if (!$response['success']) {return $this->error($response['message']);}
+
 			unset($this->order[$key]);
-			$this->modx->invokeEvent('msOnRemoveFromOrder', array('key' => $key, 'order' => $this));
+			$response = $this->ms2->invokeEvent('msOnRemoveFromOrder', array(
+				'key' => $key,
+				'order' => $this
+			));
+			if (!$response['success']) {return $this->error($response['message']);}
 		}
 		return $exists;
 	}
@@ -203,10 +224,12 @@ class msOrderHandler implements msOrderInterface {
 
 	/* @inheritdoc} */
 	public function submit($data = array()) {
-		$this->modx->invokeEvent('msOnSubmitOrder', array('data' => & $data, 'order' => $this));
-		if (!empty($data)) {
-			$this->set($data);
-		}
+		$response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
+			'data' => $data,
+			'order' => $this
+		));
+		if (!$response['success']) {return $this->error($response['message']);}
+		if (!empty($response['data']['data'])) {$this->set($response['data']['data']);}
 
 		/* @var msDelivery $delivery */
 		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $this->order['delivery'], 'active' => 1))) {
@@ -267,9 +290,18 @@ class msOrderHandler implements msOrderInterface {
 		}
 		$order->addMany($products);
 
-		$this->modx->invokeEvent('msOnBeforeCreateOrder', array('msOrder' => & $order, 'order' => $this));
+		$response = $this->ms2->invokeEvent('msOnBeforeCreateOrder', array(
+			'msOrder' => $order,
+			'order' => $this
+		));
+		if (!$response['success']) {return $this->error($response['message']);}
+
 		if ($order->save()) {
-			$this->modx->invokeEvent('msOnCreateOrder', array('msOrder' => & $order, 'order' => $this));
+			$response = $this->ms2->invokeEvent('msOnCreateOrder', array(
+				'msOrder' => $order,
+				'order' => $this
+			));
+			if (!$response['success']) {return $this->error($response['message']);}
 
 			$this->ms2->cart->clean();
 			$this->clean();
@@ -294,9 +326,12 @@ class msOrderHandler implements msOrderInterface {
 
 	/* @inheritdoc} */
 	public function clean() {
-		$this->modx->invokeEvent('msOnBeforeEmptyOrder', array('order' => $this));
+		$response = $this->ms2->invokeEvent('msOnBeforeEmptyOrder', array('order' => $this));
+		if (!$response['success']) {return $this->error($response['message']);}
+
 		$this->order = array();
-		$this->modx->invokeEvent('msOnEmptyOrder', array('order' => $this));
+		$response = $this->ms2->invokeEvent('msOnEmptyOrder', array('order' => $this));
+		if (!$response['success']) {return $this->error($response['message']);}
 
 		return $this->success('', array());
 	}

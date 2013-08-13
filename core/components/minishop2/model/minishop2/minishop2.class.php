@@ -248,11 +248,17 @@ class miniShop2 {
 			return $this->modx->lexicon($error);
 		}
 
-		$this->modx->invokeEvent('msOnBeforeChangeOrderStatus', array('order' => $order, 'status' => $order->get('status')));
+		$this->modx->invokeEvent('msOnBeforeChangeOrderStatus', array(
+			'order' => $order,
+			'status' => $order->get('status')
+		));
 		$order->set('status', $status_id);
 
 		if ($order->save()) {
-			$this->modx->invokeEvent('msOnChangeOrderStatus', array('order' => $order, 'status' => $status_id));
+			$this->modx->invokeEvent('msOnChangeOrderStatus', array(
+				'order' => $order,
+				'status' => $status_id
+			));
 			$this->orderLog($order->get('id'), 'status', $status_id);
 
 			/* @var modContext $context */
@@ -514,6 +520,42 @@ class miniShop2 {
 		}
 
 		return $data;
+	}
+
+
+	/**
+	 * Shorthand for original modX::invokeEvent() method with some useful additions.
+	 *
+	 * @param $eventName
+	 * @param array $params
+	 * @param $glue
+	 *
+	 * @return array
+	 */
+	public function invokeEvent($eventName, array $params = array (), $glue = '<br/>') {
+		if (isset($this->modx->event->returnedValues)) {
+			$this->modx->event->returnedValues = null;
+		}
+
+		$response = $this->modx->invokeEvent($eventName, $params);
+		if (is_array($response) && count($response) > 1) {
+			foreach($response as $k => $v) {
+				if (empty($v)) {
+					unset($response[$k]);
+				}
+			}
+		}
+
+		$message = is_array($response) ? implode($glue, $response) : trim((string) $response);
+		if (isset($this->modx->event->returnedValues) && is_array($this->modx->event->returnedValues)) {
+			$params = array_merge($params, $this->modx->event->returnedValues);
+		}
+
+		return array(
+			'success' => empty($message)
+			,'message' => $message
+			,'data' => $params
+		);
 	}
 
 }

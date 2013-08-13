@@ -120,11 +120,37 @@ class msCartHandler implements msCartInterface {
 				return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
 			}
 
-			$this->modx->invokeEvent('msOnBeforeAddToCart', array('product' => & $product, 'count' => & $count, 'options' => & $options, 'cart' => $this));
+			/* You can prevent add of product to cart by adding some text to $modx->event->_output
+			  <?php
+			  		if ($modx->event->name = 'msOnBeforeAddToCart') {
+			 			$modx->event->output('Error');
+					}
 
-			$price = $product->getPrice($this);
-			$weight = $product->getWeight($this);
-			$key = md5($id.$price.$weight.(json_encode($options)));
+			 * Also you can modify $count and $options variables by add values to $this->modx->event->returnedValues
+				<?php
+			  		if ($modx->event->name = 'msOnBeforeAddToCart') {
+						$values = & $modx->event->returnedValues;
+						$values['count'] = $count + 10;
+						$values['options'] = array('size' => '99');
+					}
+			 *
+			 * */
+
+			$response = $this->ms2->invokeEvent('msOnBeforeAddToCart', array(
+				'product' => $product,
+				'count' => $count,
+				'options' => $options,
+				'cart' => $this
+			));
+			if (!($response['success'])) {
+				return $this->error($response['message']);
+			}
+			$price = $product->getPrice($response['data']); // We can modify price by snippet specified in system setting "ms2_price_snippet"
+			$weight = $product->getWeight($response['data']); // And weight by "ms2_weight_snippet"
+			$count = $response['data']['count'];
+			$options = $response['data']['options'];
+
+			$key = md5($id.$price.$weight.($this->modx->toJSON($options)));
 			if (array_key_exists($key, $this->cart)) {
 				return $this->change($key, $this->cart[$key]['count'] + $count);
 			}
@@ -136,7 +162,9 @@ class msCartHandler implements msCartInterface {
 					,'count' => $count
 					,'options' => $options
 				);
-				$this->modx->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
+				$response = $this->ms2->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
+				if (!$response['success']) {return $this->error($response['message']);}
+
 				return $this->success('ms2_cart_add_success', $this->status(array('key' => $key)), array('count' => $count));
 			}
 		}
@@ -148,9 +176,12 @@ class msCartHandler implements msCartInterface {
 	/* @inheritdoc} */
 	public function remove($key) {
 		if (array_key_exists($key, $this->cart)) {
-			$this->modx->invokeEvent('msOnBeforeRemoveFromCart', array('key' => $key, 'cart' => $this));
+			$response = $this->ms2->invokeEvent('msOnBeforeRemoveFromCart', array('key' => $key, 'cart' => $this));
+			if (!$response['success']) {return $this->error($response['message']);}
 			unset($this->cart[$key]);
-			$this->modx->invokeEvent('msOnRemoveFromCart', array('key' => $key, 'cart' => $this));
+
+			$response = $this->ms2->invokeEvent('msOnRemoveFromCart', array('key' => $key, 'cart' => $this));
+			if (!$response['success']) {return $this->error($response['message']);}
 
 			return $this->success('ms2_cart_remove_success', $this->status());
 		}
@@ -170,9 +201,13 @@ class msCartHandler implements msCartInterface {
 				return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
 			}
 			else {
-				$this->modx->invokeEvent('msOnBeforeChangeInCart', array('key' => $key, 'count' => $count, 'cart' => $this));
+				$response = $this->ms2->invokeEvent('msOnBeforeChangeInCart', array('key' => $key, 'count' => $count, 'cart' => $this));
+				if (!$response['success']) {return $this->error($response['message']);}
+
+				$count = $response['data']['count'];
 				$this->cart[$key]['count'] = $count;
-				$this->modx->invokeEvent('msOnChangeInCart', array('key' => $key, 'count' => $count, 'cart' => $this));
+				$response = $this->ms2->invokeEvent('msOnChangeInCart', array('key' => $key, 'count' => $count, 'cart' => $this));
+				if (!$response['success']) {return $this->error($response['message']);}
 			}
 			return $this->success('ms2_cart_change_success', $this->status(array('key' => $key)), array('count' => $count));
 		}
@@ -184,9 +219,12 @@ class msCartHandler implements msCartInterface {
 
 	/* @inheritdoc} */
 	public function clean() {
-		$this->modx->invokeEvent('msOnBeforeEmptyCart', array('cart' => $this));
+		$response = $this->ms2->invokeEvent('msOnBeforeEmptyCart', array('cart' => $this));
+		if (!$response['success']) {return $this->error($response['message']);}
+
 		$this->cart = array();
-		$this->modx->invokeEvent('msOnEmptyCart', array('cart' => $this));
+		$response = $this->ms2->invokeEvent('msOnEmptyCart', array('cart' => $this));
+		if (!$response['success']) {return $this->error($response['message']);}
 
 		return $this->success('ms2_cart_clean_success', $this->status());
 	}

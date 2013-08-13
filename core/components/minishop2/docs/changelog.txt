@@ -25,6 +25,7 @@ Changelog for miniShop2.
 - Added loading of lexicons for 3rd party payment methods. They must be named in "msp.%name%.inc.php" format.
 - Added placeholder [[+payment_link]] in the new user email. It will work only if payment method has function getPaymentLink(msOrder $order);
 - Removed placeholder [[+id]] from product page because of issues.
+- [#53] Completely refactored call and processing plugin events.
 - [#45] Added system setting for specify default content of category.
 
 2.0.1 pl
