@@ -50,10 +50,9 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		}
 		$product_extra_fields = array_map('trim', explode(',',$product_extra_fields));
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
-
 		//---
 
-		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_product_show_comments')? 1 : 0;
+		$showComments = class_exists('Ticket') && $this->modx->getOption('ms2_product_show_comments') ? 1 : 0;
 
 		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');

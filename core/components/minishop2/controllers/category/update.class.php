@@ -44,7 +44,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$category_grid_fields = array_map('trim', explode(',',$category_grid_fields));
 		$grid_fields = array_values(array_intersect($category_grid_fields, $product_fields));
 
-		$showComments = $this->modx->getCount('transport.modTransportPackage', array('package_name' => 'Tickets')) && $this->modx->getOption('ms2_category_show_comments')? 1 : 0;
+		$showComments = class_exists('TicketsSection') && $this->modx->getOption('ms2_category_show_comments') ? 1 : 0;
 
 		if ($this->resource instanceof msCategory) {
 			$neighborhood = $this->resource->getNeighborhood();
