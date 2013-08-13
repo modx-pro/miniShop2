@@ -74,6 +74,7 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 				'METHOD' => 'DoExpressCheckoutPayment'
 				,'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale'
 				,'PAYMENTREQUEST_0_AMT' => $params['PAYMENTREQUEST_0_AMT']
+				,'PAYMENTREQUEST_0_CURRENCYCODE' => $this->config['currency']
 				,'PAYERID' => $params['PAYERID']
 				,'TOKEN' => $params['TOKEN']
 			);

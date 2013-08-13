@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
 - Improved other snippets.
+- [#58] Fixed PayPal non-USD currency.
 - [#50] Fixed checking of the existence of the Tickets component.
 
 2.0.1 pl3
