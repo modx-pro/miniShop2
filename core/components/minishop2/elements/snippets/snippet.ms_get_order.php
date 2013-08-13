@@ -97,18 +97,9 @@ foreach ($rows as $row) {
 		: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
 }
 
-if (!empty($toPlaceholders)) {
-	$modx->setPlaceholders($outer, $toPlaceholders);
+if (empty($tplOuter)) {
+	$modx->setPlaceholders($outer);
 }
 else {
-	$outer = empty($tplOuter)
-		? $pdoFetch->getChunk('', $outer)
-		: $pdoFetch->getChunk($tplOuter, $outer, $pdoFetch->config['fastMode']);
-
-	if (!empty($toPlaceholder)) {
-		$modx->toPlaceholder($order, $toPlaceholder);
-	}
-	else {
-		return $outer;
-	}
+	return $pdoFetch->getChunk($tplOuter, $outer);
 }
