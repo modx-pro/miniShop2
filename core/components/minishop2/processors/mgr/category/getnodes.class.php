@@ -139,27 +139,6 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 
 		return $itemArray;
 	}
-	/*
-	public function getNodes($id) {
-		$c = $this->modx->newQuery('msCategory', array(array('parent' => $id, 'class_key' => 'msCategory')));
-		$c->select('id,pagetitle as text,parent');
-		$c->sortby($this->sort,$this->dir);
-
-		if ($c->prepare() && $c->stmt->execute()) {
-			$items = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
-
-			foreach ($items as $item) {
-				$item['leaf'] = true;
-				$item['checked'] = false;
-				$item['cls'] = '';
-				$item['classKey'] = 'msCategory';
-				$item['draggable'] = false;
-
-				$this->nodes[] = $item;
-			}
-		}
-	}
-	*/
 
 }
 
