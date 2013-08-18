@@ -26,5 +26,6 @@ $xpdo_meta_map = array (
     1 => 'msProductOption',
     2 => 'msDeliveryMember',
     3 => 'msProductLink',
+    4 => 'msCustomerProfile',
   ),
 );

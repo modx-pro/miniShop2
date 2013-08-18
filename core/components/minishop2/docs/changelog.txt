@@ -1,7 +1,9 @@
 Changelog for miniShop2.
 
-2.1.0 beta
+2.1.0 beta1
 ==============
+- New object "msCustomerProfile". It can be extended by plugins like "msProductData".
+- Plugin "miniShop2" can automatic save referrers.
 - In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
 - Improved other snippets.
 - [#58] Fixed PayPal non-USD currency.

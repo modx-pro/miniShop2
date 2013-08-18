@@ -17,22 +17,27 @@ if ($object->xpdo) {
 			$modx->addPackage('minishop2',$modelPath);
 
 			$manager = $modx->getManager();
-
-			$manager->createObjectContainer('msProductData');
-			$manager->createObjectContainer('msVendor');
-			$manager->createObjectContainer('msCategoryMember');
-			$manager->createObjectContainer('msProductOption');
-			$manager->createObjectContainer('msProductFile');
-			$manager->createObjectContainer('msOrder');
-			$manager->createObjectContainer('msOrderStatus');
-			$manager->createObjectContainer('msOrderLog');
-			$manager->createObjectContainer('msPayment');
-			$manager->createObjectContainer('msDelivery');
-			$manager->createObjectContainer('msDeliveryMember');
-			$manager->createObjectContainer('msOrderAddress');
-			$manager->createObjectContainer('msOrderProduct');
-			$manager->createObjectContainer('msLink');
-			$manager->createObjectContainer('msProductLink');
+			$objects = array(
+				'msProductData',
+				'msVendor',
+				'msCategoryMember',
+				'msProductOption',
+				'msProductFile',
+				'msOrder',
+				'msOrderStatus',
+				'msOrderLog',
+				'msPayment',
+				'msDelivery',
+				'msDeliveryMember',
+				'msOrderAddress',
+				'msOrderProduct',
+				'msLink',
+				'msProductLink',
+				'msCustomerProfile',
+			);
+			foreach ($objects as $object) {
+				$manager->createObjectContainer($object);
+			}
 
 			$msProductData = $modx->getTableName('msProductData');
 			$modx->exec("ALTER TABLE {$msProductData} CHANGE `price` `price` DECIMAL(12,2) NOT NULL DEFAULT '0';");

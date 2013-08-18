@@ -215,6 +215,7 @@
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+		<aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
 		<aggregate alias="Status" class="msOrderStatus" local="status" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Delivery" class="msDelivery" local="delivery" foreign="id" cardinality="one" owner="foreign" />
 		<aggregate alias="Payment" class="msPayment" local="payment" foreign="id" cardinality="one" owner="foreign" />
@@ -265,6 +266,7 @@
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
 		<aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+		<aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
 		<aggregate alias="Order" class="msOrder" local="order_id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
 
@@ -292,6 +294,7 @@
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
 		<aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+		<aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
 	</object>
 
 
@@ -344,4 +347,26 @@
 		<aggregate alias="Master" class="msProduct" local="master" foreign="id" owner="foreign" cardinality="one" />
 		<aggregate alias="Slave" class="msProduct" local="slave" foreign="id" owner="foreign" cardinality="one" />
 	</object>
+
+
+	<object class="msCustomerProfile" table="ms2_customer_profiles" extends="xPDOObject">
+		<field key="id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" index="pk" />
+		<field key="account" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="createdon" dbtype="timestamp" phptype="datetime" null="true" default="CURRENT_TIMESTAMP" />
+		<field key="referrer_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="0" index="index" />
+		<field key="referrer_code" dbtype="varchar" precision="50" phptype="string" null="true" default="" index="index" />
+
+		<index alias="id" name="id" primary="true" unique="true" type="BTREE">
+			<column key="id" length="" collation="A" null="false" />
+		</index>
+		<index alias="referrer_id" name="referrer_id" primary="false" unique="false" type="BTREE" >
+			<column key="referrer_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="referrer_code" name="referrer_code" primary="false" unique="true" type="BTREE" >
+			<column key="referrer_code" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="User" class="modUser" local="internalKey" foreign="id" owner="foreign" cardinality="one" />
+	</object>
+
 </model>

@@ -5,11 +5,17 @@ define('PKG_NAME', 'miniShop2');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
 define('PKG_VERSION', '2.1.0');
-define('PKG_RELEASE', 'beta');
+define('PKG_RELEASE', 'beta1');
 
 
 /* define paths */
-define('MODX_BASE_PATH', dirname(dirname(dirname(__FILE__))) . '/');
+if (is_file(dirname(dirname(dirname(__FILE__))) . '/index.php' )) {
+	define('MODX_BASE_PATH', dirname(dirname(dirname(__FILE__))) . '/');
+}
+else {
+	define('MODX_BASE_PATH', dirname(dirname(dirname(dirname(__FILE__)))) . '/');
+}
+
 define('MODX_CORE_PATH', MODX_BASE_PATH . 'core/');
 define('MODX_MANAGER_PATH', MODX_BASE_PATH . 'manager/');
 define('MODX_CONNECTORS_PATH', MODX_BASE_PATH . 'connectors/');

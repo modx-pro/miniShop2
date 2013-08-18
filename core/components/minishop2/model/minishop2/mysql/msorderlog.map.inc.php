@@ -116,6 +116,14 @@ $xpdo_meta_map['msOrderLog']= array (
       'owner' => 'foreign',
       'cardinality' => 'one',
     ),
+    'CustomerProfile' => 
+    array (
+      'class' => 'msCustomerProfile',
+      'local' => 'user_id',
+      'foreign' => 'internalKey',
+      'owner' => 'foreign',
+      'cardinality' => 'one',
+    ),
     'Order' => 
     array (
       'class' => 'msOrder',

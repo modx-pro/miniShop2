@@ -7,7 +7,8 @@ $tmp = array(
 		'file' => 'minishop2'
 		,'description' => ''
 		,'events' => array(
-			'OnManagerPageInit'
+			'OnManagerPageBeforeRender',
+			'OnWebPageInit'
 		)
 	)
 );
@@ -29,12 +30,14 @@ foreach ($tmp as $k => $v) {
 	$events = array();
 	if (!empty($v['events'])) {
 		foreach ($v['events'] as $k2 => $v2) {
-			$events[$k2] = $modx->newObject('modPluginEvent');
-			$events[$k2]->fromArray(array(
+			/* @var modPluginEvent $event */
+			$event = $modx->newObject('modPluginEvent');
+			$event->fromArray(array(
 				'event' => $v2,
 				'priority' => 0,
 				'propertyset' => 0,
 			),'',true,true);
+			$events[] = $event;
 		}
 		unset($v['events']);
 	}
