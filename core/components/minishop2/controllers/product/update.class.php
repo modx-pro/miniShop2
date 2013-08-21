@@ -64,7 +64,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$this->addJavascript($minishopJsUrl.'minishop2.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.combo.js');
 		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
-		$this->addJavascript($minishopJsUrl.'misc/ext.awesome_uploader.js');
+		$this->addJavascript($minishopJsUrl.'misc/plupload/plupload.full.js');
 		$this->addJavascript($minishopJsUrl.'misc/ext.ddview.js');
 		$this->addLastJavascript($minishopJsUrl.'product/category.tree.js');
 		$this->addLastJavascript($minishopJsUrl.'product/gallery.panel.js');
@@ -92,6 +92,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
 			,data_fields: '.json_encode($product_data_fields).'
 			,additional_fields: []
+			,media_source: '.json_encode($this->getSourceProperties()).'
 		}
 		MODx.config.publish_document = "'.$this->canPublish.'";
 		MODx.onDocFormRender = "'.$this->onDocFormRender.'";
@@ -201,5 +202,23 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 				$this->addJavascript($plugin['manager']['msProductData']);
 			}
 		}
+	}
+
+
+	/**
+	 * Loads media source properties
+	 *
+	 * @return array
+	 */
+	function getSourceProperties() {
+		/* @var $source modMediaSource */
+		$source = $this->resource->initializeMediaSource();
+		$tmp = $source->getProperties();
+		$properties = array();
+		foreach ($tmp as $v) {
+			$properties[$v['name']] = $v['value'];
+		}
+
+		return $properties;
 	}
 }

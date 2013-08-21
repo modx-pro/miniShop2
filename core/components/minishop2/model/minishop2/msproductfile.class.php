@@ -35,12 +35,11 @@ class msProductFile extends xPDOSimpleObject {
 
 		$this->file = $this->mediaSource->getObjectContents($this->get('path').$this->get('file'));
 		if (!empty($this->mediaSource->errors['file'])) {
-			return 'Could not retrieve file "'.$this->get('path').$this->get('file').'" from media source. '.$this->mediaSource->errors['file'];
+			return 'Could not retrieve file "'.$this->path.$this->file.'" from media source. '.$this->mediaSource->errors['file'];
 		}
 
 		require_once  MODX_CORE_PATH . 'model/phpthumb/modphpthumb.class.php';
-
-		$properties = $this->mediaSource->get('properties');
+		$properties = $this->mediaSource->getProperties();
 		$thumbnails = array();
 		if (array_key_exists('thumbnails', $properties) && !empty($properties['thumbnails']['value'])) {
 			$thumbnails = $this->xpdo->fromJSON($properties['thumbnails']['value']);
@@ -96,8 +95,7 @@ class msProductFile extends xPDOSimpleObject {
 
 
 	public function saveThumbnail($raw_image, $options = array()) {
-		$tmp = explode('.', $this->get('file'));
-		$file = $tmp[0] . '.' . $options['f'];
+		$filename = preg_replace('/\..*$/', '', $this->get('file')) . '.' . $options['f'];
 		$path = $this->get('path') . $options['w'] .'x'.$options['h'] .'/';
 
 		/* @var msProductFile $product_file */
@@ -105,7 +103,7 @@ class msProductFile extends xPDOSimpleObject {
 			'product_id' => $this->get('product_id')
 			,'parent' => $this->get('id')
 			,'name' => $this->get('name')
-			,'file' => $file
+			,'file' => $filename
 			,'path' => $path
 			,'source' => $this->mediaSource->get('id')
 			,'type' => $this->get('type')
@@ -113,9 +111,28 @@ class msProductFile extends xPDOSimpleObject {
 			,'createdon' => date('Y-m-d H:i:s')
 			,'createdby' => $this->xpdo->user->id
 			,'active' => 1
+			,'hash' => sha1($raw_image)
+			,'properties' => array(
+				'size' => strlen($raw_image),
+			)
 		));
 
-		$dir = $this->mediaSource->createContainer($product_file->get('path'), '/');
+		$tf = tempnam(sys_get_temp_dir(), '.upload');
+		file_put_contents($tf, $raw_image);
+		$tmp = getimagesize($tf);
+		if (is_array($tmp)) {
+			$product_file->set('properties', array_merge($product_file->get('properties'),
+				array(
+					'width' => $tmp[0],
+					'height' => $tmp[1],
+					'bits' => $tmp['bits'],
+					'mime' => $tmp['mime'],
+				)
+			));
+		}
+		unlink($tf);
+
+		$this->mediaSource->createContainer($product_file->get('path'), '/');
 		$file = $this->mediaSource->createObject(
 			$product_file->get('path')
 			,$product_file->get('file')

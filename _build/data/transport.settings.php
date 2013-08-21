@@ -61,7 +61,7 @@ $tmp = array(
 		,'area' => 'ms2_product'
 	)
 	,'ms2_product_source_default' => array(
-		'value' => 1
+		'value' => 0
 		,'xtype' => 'modx-combo-source'
 		,'area' => 'ms2_product'
 	)

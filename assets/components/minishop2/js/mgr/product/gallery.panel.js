@@ -20,6 +20,14 @@ miniShop2.panel.ProductGallery = function(config) {
 				title: ''
 				,border: false
 				,items: [{
+					xtype: 'minishop2-product-plupload-panel'
+					,id: 'minishop2-product-plupload-panel'
+					,record: config.record
+					,gridHeight: 150
+					,anchor: '100%'
+				}
+				/*
+				{
 					xtype: 'awesomeuploader'
 					,border: false
 					,frame: false
@@ -73,7 +81,8 @@ miniShop2.panel.ProductGallery = function(config) {
 							}
 						},scope: this}
 					}
-				},{
+				},*/
+				,{
 					xtype: 'minishop2-product-images-panel'
 					,id: 'minishop2-product-images-panel'
 					,cls: 'modx-pb-view-ct main-wrapper'
@@ -87,33 +96,13 @@ miniShop2.panel.ProductGallery = function(config) {
 };
 Ext.extend(miniShop2.panel.ProductGallery,MODx.Panel, {
 
-	sourceWarning: function(combo,option) {
-		var source = Ext.getCmp('modx-resource-source-hidden');
-		var select = Ext.getCmp('minishop2-product-source');
-		var source_id = source.getValue();
-		var sel_id = select.getValue();
-
-		if(source_id != sel_id) {
-			Ext.Msg.confirm(_('warning'), _('ms2_product_change_source_confirm'), function(e) {
-				if (e == 'yes') {
-					source.setValue(sel_id);
-
-					var f = Ext.getCmp('modx-page-update-resource');
-					//f.config.action = 'update';
-					MODx.activePage.submitForm();
-				} else {
-					select.setValue(source_id);
-				}
-			},this);
-		}
-	}
-
-	,updateTabImage: function(thumb) {
+	updateTabImage: function(thumb) {
 		if (thumb === null || thumb == '' || typeof(thumb) == 'undefined') {
 			thumb = miniShop2.config.logo_small;
 		}
 		document.getElementById('minishop2-product-header-image').src = thumb;
 	}
+
 });
 Ext.reg('minishop2-product-gallery',miniShop2.panel.ProductGallery);
 
@@ -467,8 +456,6 @@ Ext.extend(miniShop2.view.ProductImages,MODx.DataView,{
 		this.templates.details.compile();
 	}
 
-
-
 	,_showContextMenu: function(v,i,n,e) {
 		e.preventDefault();
 		var data = this.lookup[n.id];
@@ -563,3 +550,258 @@ miniShop2.window.UpdateImage = function(config) {
 };
 Ext.extend(miniShop2.window.UpdateImage,MODx.Window);
 Ext.reg('minishop2-gallery-image-update',miniShop2.window.UpdateImage);
+
+
+
+miniShop2.panel.Plupload = function(config) {
+	config = config || {};
+
+	Ext.applyIf(config,{
+		id: 'ms2-plupload-panel'
+		,width: '100%'
+		,height: (config.gridHeight || 200) + 50
+		,autoScroll: true
+		,border:false
+		,frame:false
+		,cls: ''
+		,layout:'absolute'
+		,uploadListData: {}
+		,tbar: {
+			width: '90%'
+			,items:[
+				{xtype: 'button', id: 'ms2_gallery-upload-button-'+config.record.id, text: _('ms2_gallery_button_upload')}
+				,{xtype: 'tbspacer',width: 30}
+				,{xtype: 'displayfield', html: '<b>' + _('ms2_product_source') + '</b>:&nbsp;&nbsp;'}
+				,{xtype: 'minishop2-combo-source', id: 'minishop2-product-source', description: '<b>[[+source]]</b><br />'+_('ms2_product_source_help')
+					,value: config.record.source
+					,listeners: {
+						select: {fn: this.sourceWarning, scope: this}
+					}
+				}
+				,{xtype: 'tbspacer',width: 30}
+				,{xtype: 'button',text: _('ms2_gallery_uploads_clear'), handler: function() {
+					var store = Ext.getCmp('plupload-files-grid-'+config.record.id).getStore();
+					store.removeAll();
+					this.resetUploader();
+					}, scope: this
+				}
+			]
+		}
+		,items:[{
+			xtype:'panel'
+			,width: '90%'
+		},{
+			xtype:'grid'
+			,id: 'plupload-files-grid-'+config.record.id
+			,width: '90%'
+			,height: config.gridHeight || 200
+			,enableHdMenu:false
+			,store:new Ext.data.ArrayStore({
+				fields: ['id', 'name', 'size', 'status', 'progress']
+				,reader: new Ext.data.ArrayReader({idIndex: 0}, this.fileRecord)
+			})
+			,autoExpandColumn: 'plupload-column-filename'
+			,viewConfig: {
+				forceFit: true
+				,enableRowBody: true
+				,autoFill: true
+				,showPreview: true
+				,scrollOffset: 0
+				,emptyText: _('ms2_emptymsg')
+			}
+			,columns:[
+				{header: _('ms2_gallery_filename'), dataIndex:'name', width:250, id: 'plupload-column-filename'}
+				,{header: _('ms2_gallery_size'), dataIndex:'size', width:100, renderer:Ext.util.Format.fileSize}
+				,{header: _('ms2_gallery_status'), dataIndex:'status', width: 100, renderer:this.statusRenderer}
+				,{header: _('ms2_gallery_progress'), dataIndex:'percent', width: 200, scope:this, renderer:this.progressBarColumnRenderer}
+			]
+			,listeners:{
+				render:{fn: function() {
+					this.fileGrid = this.items.items[1];
+					this._initUploader();
+				}, scope:this}
+			}
+		}]
+	});
+	miniShop2.panel.Plupload.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
+
+	sourceWarning: function(combo,option) {
+		var source = Ext.getCmp('modx-resource-source-hidden');
+		var select = Ext.getCmp('minishop2-product-source');
+		var source_id = source.getValue();
+		var sel_id = select.getValue();
+
+		if(source_id != sel_id) {
+			Ext.Msg.confirm(_('warning'), _('ms2_product_change_source_confirm'), function(e) {
+				if (e == 'yes') {
+					source.setValue(sel_id);
+					var f = Ext.getCmp('modx-page-update-resource');
+					MODx.activePage.submitForm({
+						success: {fn:function(r) {
+							var page = MODx.action ? MODx.action['resource/update'] : 'resource/update';
+							MODx.loadPage(page, '&id='+r.result.object.id);
+						},scope:this}
+					});
+				} else {
+					select.setValue(source_id);
+				}
+			},this);
+		}
+	}
+
+	,progressBarColumnTemplate: new Ext.XTemplate(
+		'<div class="ux-progress-cell-inner ux-progress-cell-inner-center ux-progress-cell-foreground">',
+		'<div>{value} %</div>',
+		'</div>',
+		'<div class="ux-progress-cell-inner ux-progress-cell-inner-center ux-progress-cell-background" style="left:{value}%">',
+		'<div style="left:-{value}%">{value} %</div>',
+		'</div>'
+	)
+
+	,progressBarColumnRenderer:function(value, meta, record, rowIndex, colIndex, store) {
+		meta.css += ' x-grid3-td-progress-cell';
+		return this.progressBarColumnTemplate.apply({
+			value: value
+		});
+	}
+
+	,statusRenderer:function(value, meta, record, rowIndex, colIndex, store) {
+		return _('ms2_gallery_status_code_' + value);
+	}
+
+	,updateFile:function(file) {
+		var store = this.fileGrid.getStore();
+		var storeId = store.find('id',file.id);
+		var fileRec = store.getAt(storeId);
+
+		fileRec.set('percent', file.percent);
+		fileRec.set('status', file.status);
+		fileRec.set('size', file.size);
+		fileRec.commit();
+	}
+
+	,uploader: null
+
+	,_initUploader: function() {
+		var fields = ['id', 'name', 'size', 'status', 'progress'];
+		this.fileRecord = Ext.data.Record.create(fields);
+		this.fileGrid = Ext.getCmp('plupload-files-grid-'+this.record.id);
+		this.fileGrid.getView().refresh();
+
+		var params = {
+			action: 'mgr/gallery/upload'
+			,id: this.record.id
+			,source: this.record.source
+			,ctx: 'mgr'
+			,HTTP_MODAUTH:MODx.siteId
+		};
+
+		// All parameters at http://www.plupload.com/documentation.php
+		this.uploader = new plupload.Uploader({
+			url: miniShop2.config.connector_url + '?' + Ext.urlEncode(params)
+			,runtimes: 'html5,flash,html4'
+			,browse_button: 'ms2_gallery-upload-button-' + this.record.id
+			,container: this.id
+			,drop_element: 'plupload-files-grid-' + this.record.id
+			,multipart: false
+			,max_file_size : miniShop2.config.maxUploadSize || 10485760
+			,flash_swf_url : miniShop2.config.assets_url + 'js/mgr/misc/plupload/plupload.flash.swf'
+			,filters : [{
+				title : "Image files"
+				,extensions : miniShop2.config.media_source.allowedFileTypes || 'jpg,jpeg,png,gif'
+			}]
+			,resize : {
+				width : miniShop2.config.media_source.maxUploadWidth || 1920
+				,height : miniShop2.config.media_source.maxUploadHeight || 1080
+				,quality : 100
+			}
+		});
+
+		var uploaderEvents = ['FilesAdded', 'FileUploaded', 'QueueChanged', 'UploadFile', 'UploadProgress', 'UploadComplete' ];
+		Ext.each(uploaderEvents, function (v) {
+			var fn = 'on' + v;
+			this.uploader.bind(v, this[fn], this);
+		},this);
+
+		this.uploader.init();
+	}
+
+	,onFilesAdded: function(up, files) {
+		this.uploadListData.files = up.files;
+		this.updateList = true;
+	}
+
+	,removeFile: function(id) {
+		this.updateList = true;
+		var f = this.uploader.getFile(id);
+		this.uploader.removeFile(f);
+	}
+
+	,onQueueChanged: function(up) {
+		if(this.updateList){
+			if(this.uploadListData.files.length > 0){
+				var ms2g = this;
+				Ext.each(this.uploadListData.files, function(file, i){
+					var fileRec = new ms2g.fileRecord(file);
+					ms2g.fileGrid.store.add(fileRec);
+				});
+				ms2g.uploader.start();
+			} else {
+				var store = this.fileGrid.getStore();
+				store.removeAll();
+			}
+			up.refresh();
+		}
+	}
+
+	,onUploadFile: function(uploader, file) {
+		this.updateFile(file);
+	}
+
+	,onUploadProgress: function(uploader, file) {
+		this.updateFile(file);
+	}
+
+	,onUploadComplete: function(uploader, files) {
+		if (this.errors.length > 0) {
+			this.fireAlert();
+		}
+		Ext.getCmp('minishop2-product-images-panel').view.getStore().reload();
+		this.resetUploader();
+	}
+
+	,onFileUploaded: function(uploader, file, xhr) {
+		var r = Ext.util.JSON.decode( xhr.response );
+		if (!r.success) {
+			this.addError(file.name, r.message);
+		}
+		this.updateFile(file);
+	}
+
+	,resetUploader: function() {
+		this.uploader.destroy();
+		this.uploadListData.files = {};
+		this.errors = '';
+		this._initUploader();
+	}
+
+	,errors: ''
+
+	,addError: function(file, message) {
+		this.errors += file + ': ' + message + '<br/>';
+	}
+
+	,fireAlert: function() {
+		Ext.MessageBox.show({
+			title: _('ms2_gallery_errors')
+			,msg: this.errors
+			,buttons: Ext.Msg.OK
+			,modal: false
+			,minWidth: 400
+		});
+	}
+
+});
+Ext.reg('minishop2-product-plupload-panel',miniShop2.panel.Plupload);

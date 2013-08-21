@@ -127,7 +127,7 @@
 		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
-		<field key="hash" dbtype="char" precision="40" phptype="string" null="false" index="unique" />
+		<field key="hash" dbtype="char" precision="40" phptype="string" null="false" index="index" default="" />
 
 		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
 			<column key="product_id" length="" collation="A" null="false" />

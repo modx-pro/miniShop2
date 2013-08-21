@@ -152,3 +152,10 @@ $_lang['ms2_gallery_image_delete'] = 'Удалить изображение';
 $_lang['ms2_gallery_image_delete_confirm'] = 'Вы действительно хотите удалить это изображение вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
 $_lang['ms2_gallery_image_delete_multiple'] = 'Удалить изображения';
 $_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти изображения со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
+
+$_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> В очереди';
+$_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> В процессе';
+$_lang['ms2_gallery_status_code_4'] = '<i class="bicon-remove"></i> Ошибка';
+$_lang['ms2_gallery_status_code_5'] = '<i class="bicon-ok"></i> Готово';
+
+$_lang['ms2_gallery_errors'] = 'Ошибки при загрузке';

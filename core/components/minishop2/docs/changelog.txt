@@ -7,7 +7,14 @@ Changelog for miniShop2.
 - In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
 - Improved other snippets.
 - Added new fields in "msProductFile": "hash" for sha1 of file and json field "properties".
+- Changed uploader in product gallery to "Plupload" (Thanks to Alex Rahimov).
+- Added check for duplicate images in product gallery by checking hash of the content of file.
+- Added new parameters for media source: "maxUploadWidth" and "maxUploadHeight" for frontend image resize.
+- Gallery upload processor now can receive parameters "id" and "file" for external images upload.
+- [#63] Added new parameters for media source: "imageNameType". Switching to "friendly" will generate names for uploaded files by FURLs algorithm.
+- [#62] Fixed work with "*.gif" files in products gallery.
 - [#58] Fixed PayPal non-USD currency.
+- [#56] Added JSON field "properties" to "msProductFile".
 - [#50] Fixed checking of the existence of the Tickets component.
 
 2.0.1 pl3

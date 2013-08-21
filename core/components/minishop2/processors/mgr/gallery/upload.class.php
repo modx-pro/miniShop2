@@ -1,7 +1,6 @@
 <?php
 
 class msProductFileUploadProcessor extends modObjectProcessor {
-	private $pid = 0;
 	/* @var msProduct $product */
 	private $product = 0;
 	public $languageTopics = array('minishop2:default','minishop2:product');
@@ -10,14 +9,14 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 
 	public function initialize() {
 		/* @var msProduct $product */
-		if (!$product = $this->modx->getObject('msProduct', $_GET['id'])) {
+		$id = $this->getProperty('id', @$_GET['id']);
+		if (!$product = $this->modx->getObject('msProduct', $id)) {
 			return $this->modx->lexicon('ms2_gallery_err_no_product');
 		}
 		if (!$this->mediaSource = $product->initializeMediaSource()) {
 			return $this->modx->lexicon('ms2_gallery_err_no_source');
 		}
 
-		$this->pid = $product->get('id');
 		$this->product = $product;
 		return true;
 	}
@@ -27,7 +26,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			return $this->failure($this->modx->lexicon('ms2_err_gallery_ns'));
 		}
 
-		$properties = $this->mediaSource->get('properties');
+		$properties = $this->mediaSource->getProperties();
 		$tmp = explode('.',$data['name']);
 		$extension = strtolower(end($tmp));
 
@@ -43,23 +42,34 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		}
 		else if (in_array($extension, $image_extensions)) {$type = 'image';}
 		else {$type = $extension;}
+		$hash = sha1($data['stream']);
+
+		if ($this->modx->getCount('msProductFile', array('product_id' => $this->product->id, 'hash' => $hash, 'parent' => 0))) {
+			return $this->failure($this->modx->lexicon('ms2_err_gallery_exists'));
+		}
+
+		$filename = !empty($properties['imageNameType']) && $properties['imageNameType']['value'] == 'friendly'
+			? $this->product->cleanAlias($data['name'])
+			: $hash . '.' . $extension;
 
 		/* @var msProductFile $product_file */
 		$product_file = $this->modx->newObject('msProductFile', array(
-			'product_id' => $this->pid
+			'product_id' => $this->product->id
 			,'parent' => 0
 			,'name' => $data['name']
-			,'file' => md5($data['name'] . time() . $this->pid) . '.' . $extension
-			,'path' => $this->pid.'/'
+			,'file' => $filename
+			,'path' => $this->product->id.'/'
 			,'source' => $this->mediaSource->get('id')
 			,'type' => $type
-			,'rank' => $this->modx->getCount('msProductFile', array('parent' => 0, 'product_id' => $this->pid))
+			,'rank' => $this->modx->getCount('msProductFile', array('parent' => 0, 'product_id' => $this->product->id))
 			,'createdon' => date('Y-m-d H:i:s')
 			,'createdby' => $this->modx->user->id
 			,'active' => 1
+			,'hash' => $hash
+			,'properties' => $data['properties']
 		));
 
-		$this->mediaSource->createContainer($product_file->get('path'), '/');
+		$this->mediaSource->createContainer($product_file->path, '/');
 		$file = $this->mediaSource->createObject(
 			$product_file->get('path')
 			,$product_file->get('file')
@@ -70,10 +80,12 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			$product_file->set('url', $this->mediaSource->getObjectUrl($product_file->get('path').$product_file->get('file')));
 			$product_file->save();
 			$generate = $product_file->generateThumbnails($this->mediaSource);
-			$thumb = $this->product->updateProductImage();
 			if ($generate !== true) {
 				$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate thumbnails for image with id = '.$product_file->get('id').'. '.$generate);
 				return $this->failure($this->modx->lexicon('ms2_err_gallery_thumb'));
+			}
+			else {
+				$thumb = $this->product->updateProductImage();
 			}
 		}
 		else {
@@ -85,22 +97,51 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 
 
 	public function handleFile() {
-		$stream = $name = $size = null;
-		if (!empty($_SERVER['HTTP_X_FILE_NAME'])) {
-			$name = $_SERVER['HTTP_X_FILE_NAME'];
-			$stream = file_get_contents('php://input');
+		$stream = $name = null;
+
+		$contentType = isset($_SERVER["HTTP_CONTENT_TYPE"]) ? $_SERVER["HTTP_CONTENT_TYPE"] : $_SERVER["CONTENT_TYPE"];
+
+		$file = $this->getProperty('file');
+		if (!empty($file) && file_exists($file)) {
+			$tmp = explode('/', $file);
+			$name = end($tmp);
+			$stream = file_get_contents($file);
 		}
-		else if (!empty($_FILES['Filedata']) && @is_uploaded_file($_FILES['Filedata']['tmp_name'])) {
-			$name = $_FILES['Filedata']['name'];
-			$stream = file_get_contents($_FILES['Filedata']['tmp_name']);
+		elseif (strpos($contentType, "multipart") !== false) {
+			if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
+				$name = $_FILES['file']['name'];
+				$stream = file_get_contents($_FILES['file']['tmp_name']);
+			}
+		}
+		else {
+			$name = $_REQUEST['name'];
+			$stream = file_get_contents('php://input');
 		}
 
 		if (!empty($stream)) {
-			return array(
-				'name' => $name
-				,'stream' => $stream
-				,'size' => $_SERVER['HTTP_CONTENT_LENGTH']
+			$data = array(
+				'name' => $name,
+				'stream' => $stream,
+				'properties' => array(
+					'size' => strlen($stream),
+				)
 			);
+
+			$tf = tempnam(sys_get_temp_dir(), '.upload');
+			file_put_contents($tf, $stream);
+			$tmp = getimagesize($tf);
+			if (is_array($tmp)) {
+				$data['properties'] = array_merge($data['properties'],
+					array(
+						'width' => $tmp[0],
+						'height' => $tmp[1],
+						'bits' => $tmp['bits'],
+						'mime' => $tmp['mime'],
+					)
+				);
+			}
+			unlink($tf);
+			return $data;
 		}
 		else {
 			return false;

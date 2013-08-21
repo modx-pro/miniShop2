@@ -46,7 +46,6 @@ $_lang['setting_ms2_product_thumbnail_size'] = 'Default thumbnail size';
 $_lang['setting_ms2_product_id_as_alias'] = 'Use id of product as alias';
 $_lang['setting_ms2_product_id_as_alias_desc'] = 'If true, aliases for friendly urls of products will don be generated. Id will be set as alias.';
 $_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
-$_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';
@@ -86,3 +85,10 @@ $_lang['setting_ms2_payment_paypal_success_id'] = 'PayPal successful page id';
 $_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal cancel page id';
 $_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal cancel order';
 $_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'If true, order will be cancelled if customer cancel payment.';
+
+
+$_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
+$_lang['ms2_source_maxUploadWidth_desc'] = 'Maximum width of image for upload. All images, that exceeds this parameter, will be resized to fit..';
+$_lang['ms2_source_maxUploadHeight_desc'] = 'Maximum height of image for upload. All images, that exceeds this parameter, will be resized to fit.';
+$_lang['ms2_source_maxUploadSize_desc'] = 'Maximum size of file for upload (in bytes).';
+$_lang['ms2_source_imageNameType_desc'] = 'This setting specifies how to rename a file after upload. Hash is the generation of a unique name depending on the contents of the file. Friendly - generation behalf of the algorithm friendly URLs of pages of the site (they are managed by system settings).';

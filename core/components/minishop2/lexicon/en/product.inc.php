@@ -152,3 +152,10 @@ $_lang['ms2_gallery_image_delete'] = 'Delete image';
 $_lang['ms2_gallery_image_delete_confirm'] = 'Are you shure you want to delete this image with all of it thumbnails? <br/> This operation is irreversible.';
 $_lang['ms2_gallery_image_delete_multiple'] = 'Delete images';
 $_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Are you shure you want to delete this images with all of its thumbnails? <br/> This operation is irreversible.';
+
+$_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> Queued';
+$_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> Uploading';
+$_lang['ms2_gallery_status_code_4'] = '<i class="bicon-remove"></i> Error';
+$_lang['ms2_gallery_status_code_5'] = '<i class="bicon-ok"></i> Done';
+
+$_lang['ms2_gallery_errors'] = 'Errors on upload';
