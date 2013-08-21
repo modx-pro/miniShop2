@@ -26,10 +26,8 @@ $tmp = array(
 	'sortdir' => array(
 		'type' => 'list',
 		'options' => array(
-			array(
-				'text' => 'ASC',
-				'value' => 'ASC'
-			),
+			array('text' => 'ASC','value' => 'ASC'),
+			array('text' => 'DESC','value' => 'DESC'),
 		),
 		'value' => 'ASC',
 	),
