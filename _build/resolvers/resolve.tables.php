@@ -39,6 +39,7 @@ if ($object->xpdo) {
 				$manager->createObjectContainer($v);
 			}
 
+			/*
 			$msProductData = $modx->getTableName('msProductData');
 			$modx->exec("ALTER TABLE {$msProductData} CHANGE `price` `price` DECIMAL(12,2) NOT NULL DEFAULT '0';");
 			$modx->exec("ALTER TABLE {$msProductData} CHANGE `old_price` `old_price` DECIMAL(12,2) NOT NULL DEFAULT '0';");
@@ -65,6 +66,16 @@ if ($object->xpdo) {
 
 			$msProductFile = $modx->getTableName('msProductFile');
 			$modx->exec("ALTER TABLE {$msProductFile} ORDER BY `rank`");
+			*/
+
+			$level = $modx->getLogLevel();
+			$modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
+
+			$manager->addField('msProductFile', 'properties');
+			$manager->addField('msProductFile', 'hash');
+			$manager->addIndex('msProductFile', 'hash');
+
+			$modx->setLogLevel($level);
 
 			break;
 

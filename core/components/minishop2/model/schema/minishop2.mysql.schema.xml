@@ -126,6 +126,8 @@
 		<field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
 		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="properties" dbtype="text" phptype="json" null="true" />
+		<field key="hash" dbtype="char" precision="40" phptype="string" null="false" index="unique" />
 
 		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
 			<column key="product_id" length="" collation="A" null="false" />
@@ -135,6 +137,9 @@
 		</index>
 		<index alias="parent" name="parent" primary="false" unique="false" type="BTREE" >
 			<column key="parent" length="" collation="A" null="false" />
+		</index>
+		<index alias="hash" name="hash" primary="false" unique="false" type="BTREE" >
+			<column key="hash" length="" collation="A" null="false" />
 		</index>
 
 		<composite alias="Children" class="msProductFile" local="id" foreign="parent" cardinality="many" owner="local" />

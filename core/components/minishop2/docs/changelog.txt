@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - Plugin "miniShop2" can automatic save referrers.
 - In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
 - Improved other snippets.
+- Added new fields in "msProductFile": "hash" for sha1 of file and json field "properties".
 - [#58] Fixed PayPal non-USD currency.
 - [#50] Fixed checking of the existence of the Tickets component.
 
