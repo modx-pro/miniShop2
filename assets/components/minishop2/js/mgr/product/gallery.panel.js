@@ -25,64 +25,7 @@ miniShop2.panel.ProductGallery = function(config) {
 					,record: config.record
 					,gridHeight: 150
 					,anchor: '100%'
-				}
-				/*
-				{
-					xtype: 'awesomeuploader'
-					,border: false
-					,frame: false
-					,anchor: '100%'
-					,width: '100%'
-					,height: 200
-					,gridWidth: '99%'
-					,gridHeight: 130
-					,awesomeUploaderRoot: miniShop2.config.assets_url + 'js/mgr/misc/awesome_uploader/'
-					,flashButtonSprite: miniShop2.config.assets_url + 'img/mgr/ms2_gallery_upload.png'
-					,flashUploadUrl: miniShop2.config.connector_url + '?action=mgr/gallery/upload&id='+config.record.id+'&HTTP_MODAUTH='+MODx.siteId
-					,xhrUploadUrl: miniShop2.config.connector_url + '?action=mgr/gallery/upload&id='+config.record.id+'&HTTP_MODAUTH='+MODx.siteId
-					,standardUploadUrl: miniShop2.config.connector_url + '?action=mgr/gallery/upload&id='+config.record.id+'&HTTP_MODAUTH='+MODx.siteId
-					,flashButtonWidth:'134'
-					,flashButtonHeight:'32'
-					,flashSwfUploadFileTypes: '*.png;*.jpg;*.jpeg'
-					,tbar: [{
-						//swfupload and upload button container
-						xtype: 'button'
-					},'->',{
-						xtype: 'displayfield'
-						,html: '<b>' + _('ms2_product_source') + '</b>:&nbsp;&nbsp;'
-					},{
-						xtype: 'minishop2-combo-source'
-						,id: 'minishop2-product-source'
-						,description: '<b>[[+source]]</b><br />'+_('ms2_product_source_help')
-						,value: config.record.source
-						,listeners: {
-							select: {fn: this.sourceWarning,scope: this}}
-					},{
-						xtype: 'tbspacer',
-						width: 30
-					},{
-						xtype: 'button'
-						,text: _('ms2_gallery_uploads_clear')
-						,handler: function() {
-							var store = Ext.getCmp('awesomeuploader-files-grid').getStore();
-							store.removeAll();
-						}
-						,scope: this
-					}]
-					,listeners: {
-						fileupload: {fn: function(uploader,status,response) {
-							if (status == true) {
-								var grid = Ext.getCmp('minishop2-product-images-panel').view;
-								grid.getStore().reload();
-
-								if (response.message != '') {
-									Ext.getCmp('minishop2-product-gallery').updateTabImage(response.message);
-								}
-							}
-						},scope: this}
-					}
-				},*/
-				,{
+				},{
 					xtype: 'minishop2-product-images-panel'
 					,id: 'minishop2-product-images-panel'
 					,cls: 'modx-pb-view-ct main-wrapper'
@@ -769,6 +712,20 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 			this.fireAlert();
 		}
 		Ext.getCmp('minishop2-product-images-panel').view.getStore().reload();
+
+		MODx.Ajax.request({
+			url: miniShop2.config.connector_url
+			,params: {
+				action: 'mgr/product/get'
+				,id: this.record.id
+			}
+			,listeners: {
+				success: {fn:function(response) {
+					Ext.getCmp('minishop2-product-gallery').updateTabImage(response.object.thumb);
+				},scope: this}
+			}
+		});
+
 		this.resetUploader();
 	}
 

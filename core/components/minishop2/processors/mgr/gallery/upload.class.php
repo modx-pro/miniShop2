@@ -77,7 +77,8 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		);
 
 		if ($file) {
-			$product_file->set('url', $this->mediaSource->getObjectUrl($product_file->get('path').$product_file->get('file')));
+			$url = $this->mediaSource->getObjectUrl($product_file->get('path').$product_file->get('file'));
+			$product_file->set('url', $url);
 			$product_file->save();
 			$generate = $product_file->generateThumbnails($this->mediaSource);
 			if ($generate !== true) {
@@ -85,14 +86,13 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 				return $this->failure($this->modx->lexicon('ms2_err_gallery_thumb'));
 			}
 			else {
-				$thumb = $this->product->updateProductImage();
+				$this->product->updateProductImage();
+				return $this->success($url);
 			}
 		}
 		else {
 			return $this->failure($this->modx->lexicon('ms2_err_gallery_save') . ': '.print_r($this->mediaSource->getErrors(), 1));
 		}
-
-		return $this->success($thumb);
 	}
 
 
