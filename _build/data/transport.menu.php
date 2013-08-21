@@ -3,28 +3,33 @@
 $menus = array();
 
 $tmp = array(
-	'main' => array(
+	'minishop2' => array(
 		'description' => 'ms2_menu_desc',
+		'parent' => '',
 		'handler' => 'return false;',
+		'menuindex' => 2,
 		'action' => array(
 			'controller' => 'index'
 		)
 	),
-	'orders' => array(
+	'ms2_orders' => array(
 		'description' => 'ms2_orders_desc',
+		'parent' => 'minishop2',
+		'menuindex' => 0,
 		'action' => array(
 			'controller' => 'controllers/mgr/orders'
 		)
 	),
-	'settings' => array(
+	'ms2_settings' => array(
 		'description' => 'ms2_settings_desc',
+		'parent' => 'minishop2',
+		'menuindex' => 1,
 		'action' => array(
 			'controller' => 'controllers/mgr/settings'
 		)
 	),
 );
 
-$i = 0;
 foreach ($tmp as $k => $v) {
 	$action = null;
 	if (!empty($v['action'])) {
@@ -47,17 +52,16 @@ foreach ($tmp as $k => $v) {
 		'text' => $k,
 		'parent' => 'components',
 		'icon' => 'images/icons/plugin.gif',
-		'menuindex' => $i,
+		'menuindex' => 0,
 		'params' => '',
 		'handler' => '',
 	), $v), '', true, true);
 
 	if (!empty($action) && $action instanceof modAction) {
-		//$menu->addOne($action);
+		$menu->addOne($action);
 	}
 
 	$menus[] = $menu;
-	$i++;
 }
 
 unset($action, $menu, $i);
