@@ -17,7 +17,7 @@ if ($object->xpdo) {
 			$modx->addPackage('minishop2',$modelPath);
 
 			$manager = $modx->getManager();
-			$objects = array(
+			$tmp = array(
 				'msProductData',
 				'msVendor',
 				'msCategoryMember',
@@ -35,8 +35,8 @@ if ($object->xpdo) {
 				'msProductLink',
 				'msCustomerProfile',
 			);
-			foreach ($objects as $object) {
-				$manager->createObjectContainer($object);
+			foreach ($tmp as $v) {
+				$manager->createObjectContainer($v);
 			}
 
 			$msProductData = $modx->getTableName('msProductData');

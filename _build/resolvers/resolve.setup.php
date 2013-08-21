@@ -17,9 +17,11 @@ if ($object->xpdo) {
 		/* Checking and installing required packages */
 			$packages = array(
 				'pdoTools' => array(
-					'version_major' => 1,
-					'version_minor' => 4,
-					'version_patch' => 1,
+					'version_major = 1 AND (
+						version_minor > 4 OR (
+							version_minor = 4 AND version_patch >= 1
+						)
+					)'
 				)
 			);
 			foreach ($packages as $package => $options) {
