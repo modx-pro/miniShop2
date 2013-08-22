@@ -153,6 +153,10 @@ $_lang['ms2_gallery_image_delete_confirm'] = 'Вы действительно х
 $_lang['ms2_gallery_image_delete_multiple'] = 'Удалить изображения';
 $_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти изображения со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
 
+$_lang['ms2_gallery_file_name'] = 'Имя файла';
+$_lang['ms2_gallery_file_title'] = 'Название';
+$_lang['ms2_gallery_file_description'] = 'Описание';
+
 $_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> В очереди';
 $_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> В процессе';
 $_lang['ms2_gallery_status_code_4'] = '<i class="bicon-remove"></i> Ошибка';

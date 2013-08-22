@@ -7,8 +7,12 @@ class msProductFile extends xPDOSimpleObject {
 	public $mediaSource;
 
 	public function prepareSource(modMediaSource $mediaSource = null) {
-		if ($mediaSource) {
+		if (is_object($this->mediaSource) && $this->mediaSource instanceof modMediaSource) {
+			return true;
+		}
+		elseif ($mediaSource) {
 			$this->mediaSource = $mediaSource;
+			return true;
 		}
 		else {
 			/* @var msProduct $product */
@@ -17,13 +21,12 @@ class msProductFile extends xPDOSimpleObject {
 				if (!$this->mediaSource || !($this->mediaSource instanceof modMediaSource)) {
 					return 'Could not initialize media source for product with id = '.$this->get('product_id');
 				}
+				return true;
 			}
 			else {
 				return 'Could not find product with id = '.$this->get('product_id');
 			}
 		}
-
-		return true;
 	}
 
 
@@ -182,4 +185,40 @@ class msProductFile extends xPDOSimpleObject {
 		return parent::remove($ancestors);
 	}
 
+
+	/**
+	 * Recursive file rename
+	 *
+	 * @param string $new_name
+	 * @param string $old_name
+	 */
+	public function rename($new_name, $old_name = '') {
+		if (empty($old_name)) {
+			$old_name = $this->get('file');
+		}
+
+		$path = $this->get('path');
+		$tmp = explode('.', $old_name);
+		$extension = end($tmp);
+		$name = preg_replace('/\..*$/', '', $new_name) . '.' . $extension;
+
+		// Processing children
+		$children = $this->getMany('Children');
+		if (!empty($children)) {
+			/* @var msProductFile $child */
+			foreach ($children as $child) {
+				$child->rename($new_name, $child->get('file'));
+			}
+		}
+
+		$this->prepareSource();
+		if ($this->mediaSource->renameObject($path.$old_name, $name)) {
+			$this->set('file', $name);
+			$this->set('url', $this->mediaSource->getObjectUrl($path.$name));
+			return $this->save();
+		}
+		else {
+			return false;
+		}
+	}
 }

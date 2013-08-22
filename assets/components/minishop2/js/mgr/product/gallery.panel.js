@@ -459,23 +459,12 @@ miniShop2.window.UpdateImage = function(config) {
 		,action: 'mgr/gallery/update'
 		,layout: 'anchor'
 		,autoHeight: false
-		,fields: [{
-				xtype: 'hidden'
-				,name: 'id'
-				,id: this.ident+'-id'
-			},{
-				xtype: 'textfield'
-				,fieldLabel: _('name')
-				,name: 'name'
-				,id: this.ident+'-name'
-				,anchor: '100%'
-			},{
-				xtype: 'textarea'
-				,fieldLabel: _('description')
-				,name: 'description'
-				,id: this.ident+'-description'
-				,anchor: '100% -60'
-		}]
+		,fields: [
+			{xtype: 'hidden',name: 'id',id: this.ident+'-id'}
+			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_file_name'),name: 'file',id: this.ident+'-file',anchor: '100%'}
+			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_file_title'),name: 'name',id: this.ident+'-name',anchor: '100%'}
+			,{xtype: 'textarea',fieldLabel: _('ms2_gallery_file_description'),name: 'description',id: this.ident+'-description',anchor: '100% -120'}
+		]
 		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: this.submit,scope: this}]
 	});
 	miniShop2.window.UpdateImage.superclass.constructor.call(this,config);
@@ -523,11 +512,9 @@ miniShop2.panel.Plupload = function(config) {
 				}
 				,{xtype: 'tbspacer',width: 30}
 				,{xtype: 'button',text: _('ms2_gallery_uploads_clear'), handler: function() {
-					var store = Ext.getCmp('plupload-files-grid-'+config.record.id).getStore();
-					store.removeAll();
+					this.fileGrid.getStore().removeAll();
 					this.resetUploader();
-					}, scope: this
-				}
+				}, scope: this}
 			]
 		}
 		,items:[{
@@ -550,7 +537,7 @@ miniShop2.panel.Plupload = function(config) {
 				,autoFill: true
 				,showPreview: true
 				,scrollOffset: 0
-				,emptyText: _('ms2_emptymsg')
+				,emptyText: _('ms2_gallery_emptymsg')
 			}
 			,columns:[
 				{header: _('ms2_gallery_filename'), dataIndex:'name', width:250, id: 'plupload-column-filename'}
@@ -560,13 +547,16 @@ miniShop2.panel.Plupload = function(config) {
 			]
 			,listeners:{
 				render:{fn: function() {
-					this.fileGrid = this.items.items[1];
 					this._initUploader();
+				}, scope:this}
+				,viewready:{fn: function() {
+					this.fileGrid.getStore().removeAll();
 				}, scope:this}
 			}
 		}]
 	});
 	miniShop2.panel.Plupload.superclass.constructor.call(this,config);
+
 };
 Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 
@@ -631,7 +621,6 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 		var fields = ['id', 'name', 'size', 'status', 'progress'];
 		this.fileRecord = Ext.data.Record.create(fields);
 		this.fileGrid = Ext.getCmp('plupload-files-grid-'+this.record.id);
-		this.fileGrid.getView().refresh();
 
 		var params = {
 			action: 'mgr/gallery/upload'
