@@ -2,77 +2,80 @@
 
 interface msPaymentInterface {
 
-	/* Send user to payment service
+	/**
+	 * Send user to payment service
 	 *
-	 * @param msOrderInterface $order Object with an order
+	 * @param msOrder $order Object with an order
+	 *
 	 * @return array|boolean $response
-	 * */
+	 */
 	public function send(msOrder $order);
 
-	/* Receives payment
+
+	/**
+	 * Receives payment
 	 *
-	 * @param msOrderInterface $order Object with an order
+	 * @param msOrder $order Object with an order
+	 *
 	 * @return array|boolean $response
-	 * */
+	 */
 	public function receive(msOrder $order);
 }
+
 
 class msPaymentHandler implements msPaymentInterface {
 	/* @var modX $modx */
 	public $modx;
-	protected $config = array(
-		'json_response' => false
-	);
+	/* @var miniShop2 $ms2 */
+	public $ms2;
 
+
+	/**
+	 * @param xPDOObject $object
+	 * @param array $config
+	 */
 	function __construct(xPDOObject $object, $config = array()) {
 		$this->modx = & $object->xpdo;
+		$this->ms2 = & $object->xpdo->getService('minishop2');
 	}
 
-	/* @inheritdoc} */
+
+	/** @inheritdoc} */
 	public function send(msOrder $order) {
 		return $this->success('', array('msorder' => $order->get('id')));
 	}
 
-	/* @inheritdoc} */
+
+	/** @inheritdoc} */
 	public function receive(msOrder $order) {
 		return $this->success('');
 	}
 
-	/* This method returns an error of the cart
-	 *
-	 * @param string $message A lexicon key for error message
-	 * @param array $data.Additional data, for example cart status
-	 * @param array $placeholders Array with placeholders for lexicon entry
-	 *
-	 * @return array|string $response
-	 * */
-	protected function error($message = '', $data = array(), $placeholders = array()) {
-		$response = array(
-			'success' => false
-			,'message' => $this->modx->lexicon($message, $placeholders)
-			,'data' => $data
-		);
 
-		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+	/**
+	 * Shorthand for MS2 error method
+	 *
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 *
+	 * @return array|string
+	 */
+	public function error($message = '', $data = array(), $placeholders = array()) {
+		return $this->ms2->error($message, $data, $placeholders);
 	}
 
 
-	/* This method returns an success of the cart
+	/**
+	 * Shorthand for MS2 success method
 	 *
-	 * @param string $message A lexicon key for success message
-	 * @param array $data.Additional data, for example cart status
-	 * @param array $placeholders Array with placeholders for lexicon entry
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
 	 *
-	 * @return array|string $response
-	 * */
-	protected function success($message = '', $data = array(), $placeholders = array()) {
-		$response = array(
-			'success' => true
-			,'message' => $this->modx->lexicon($message, $placeholders)
-			,'data' => $data
-		);
-
-		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+	 * @return array|string
+	 */
+	public function success($message = '', $data = array(), $placeholders = array()) {
+		return $this->ms2->success($message, $data, $placeholders);
 	}
-
 }

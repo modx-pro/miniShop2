@@ -2,65 +2,83 @@
 
 interface msCartInterface {
 
-	/* Initializes cart to context
+	/**
+	 * Initializes cart to context
 	 * Here you can load custom javascript or styles
 	 *
 	 * @param string $ctx Context for initialization
 	 *
 	 * @return boolean
-	 * */
+	 */
 	public function initialize($ctx = 'web');
 
-	/* Adds product to cart
+
+	/**
+	 * Adds product to cart
 	 *
 	 * @param integer $id Id of MODX resource. It must be an msProduct descendant
 	 * @param integer $count.A number of product exemplars
 	 * @param array $options Additional options of the product: color, size etc.
 	 *
 	 * @return array|string $response
-	 * */
+	 */
 	public function add($id, $count = 1, $options = array());
 
-	/* Removes product from cart
+
+	/**
+	 * Removes product from cart
 	 *
 	 * @param string $key The unique key of cart item
 	 *
 	 * @return array|string $response
-	 * */
+	 */
 	public function remove($key);
 
-	/* Changes products count in cart
+
+	/**
+	 * Changes products count in cart
 	 *
 	 * @param string $key The unique key of cart item
 	 * @param integer $count.A number of product exemplars
 	 *
 	 * @return array|string $response
-	 * */
+	 */
 	public function change($key, $count);
 
-	/* Cleans the cart
+
+	/**
+	 * Cleans the cart
 	 *
 	 * @return array|string $response
-	 * */
+	 */
 	public function clean();
 
-	/* Returns the cart status: number of items, weight, price.
+
+	/**
+	 * Returns the cart status: number of items, weight, price.
 	 *
 	 * @param array $data Additional data to return with status
+	 *
 	 * @return array $status
-	 * */
+	 */
 	public function status($data = array());
 
-	/* Returns the cart items
+
+	/**
+	 * Returns the cart items
 	 *
 	 * @return array $cart
-	 * */
+	 */
 	public function get();
 
-	/* Set all the cart items by one array
+
+	/**
+	 * Set all the cart items by one array
+	 *
+	 * @param array $cart
 	 *
 	 * @return void
-	 * */
+	 */
 	public function set($cart = array());
 
 }
@@ -69,18 +87,16 @@ interface msCartInterface {
 class msCartHandler implements msCartInterface {
 	/* @var modX $modx */
 	public $modx;
-	protected $config = array(
-		'json_response' => false
-	);
+	/* @var array $cart */
 	protected $cart;
 
+	/* @inheritdoc} */
 	function __construct(miniShop2 & $ms2, array $config = array()) {
 		$this->ms2 = & $ms2;
 		$this->modx = & $ms2->modx;
 
 		$this->config = array_merge(array(
 			'cart' => & $_SESSION['minishop2']['cart']
-			,'json_response' => false
 			,'max_count' => $this->modx->getOption('ms2_cart_max_count', null, 1000, true)
 			,'allow_deleted' => false
 			,'allow_unpublished' => false
@@ -258,41 +274,31 @@ class msCartHandler implements msCartInterface {
 	}
 
 
-	/* This method returns an error of the cart
+	/**
+	 * Shorthand for MS2 error method
 	 *
-	 * @param string $message A lexicon key for error message
-	 * @param array $data.Additional data, for example cart status
-	 * @param array $placeholders Array with placeholders for lexicon entry
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
 	 *
-	 * @return array|string $response
-	 * */
+	 * @return array|string
+	 */
 	public function error($message = '', $data = array(), $placeholders = array()) {
-		$response = array(
-			'success' => false
-			,'message' => $this->modx->lexicon($message, $placeholders)
-			,'data' => $data
-		);
-
-		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+		return $this->ms2->error($message, $data, $placeholders);
 	}
 
 
-	/* This method returns an success of the cart
+	/**
+	 * Shorthand for MS2 success method
 	 *
-	 * @param string $message A lexicon key for success message
-	 * @param array $data.Additional data, for example cart status
-	 * @param array $placeholders Array with placeholders for lexicon entry
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
 	 *
-	 * @return array|string $response
-	 * */
+	 * @return array|string
+	 */
 	public function success($message = '', $data = array(), $placeholders = array()) {
-		$response = array(
-			'success' => true
-			,'message' => $this->modx->lexicon($message, $placeholders)
-			,'data' => $data
-		);
-
-		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+		return $this->ms2->success($message, $data, $placeholders);
 	}
 
 }

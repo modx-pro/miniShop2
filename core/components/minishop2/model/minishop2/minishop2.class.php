@@ -5,16 +5,20 @@
  * @package minishop2
  */
 class miniShop2 {
-	/* @var modX $modx */
+	/** @var modX $modx */
 	public $modx;
-	/* @var msCartHandler $cart */
+	/** @var msCartHandler $cart */
 	public $cart;
-	/* @var msOrderHandler $order */
+	/** @var msOrderHandler $order */
 	public $order;
-
+	/** @var array $initialized */
 	public $initialized = array();
 
 
+	/**
+	 * @param modX $modx
+	 * @param array $config
+	 */
 	function __construct(modX &$modx,array $config = array()) {
 		$this->modx =& $modx;
 
@@ -36,11 +40,9 @@ class miniShop2 {
 			,'corePath' => $corePath
 			,'modelPath' => $corePath.'model/'
 			,'ctx' => 'web'
+			,'json_response' => false
 
-			//,'chunksPath' => $corePath.'elements/chunks/'
 			,'templatesPath' => $corePath.'elements/templates/'
-			//,'snippetsPath' => $corePath.'elements/snippets/'
-			//,'processorsPath' => $corePath.'processors/'
 		),$config);
 
 		$this->modx->addPackage('minishop2',$this->config['modelPath']);
@@ -128,11 +130,12 @@ class miniShop2 {
 	}
 
 
-	/* Method for transform array to placeholders
+	/**
+	 * Method for transform array to placeholders
 	 *
 	 * @var array $array With keys and values
 	 * @return array $array Two nested arrays With placeholders and values
-	 * */
+	 */
 	public function makePlaceholders(array $array = array(), $prefix = '') {
 		$result = array(
 			'pl' => array()
@@ -151,11 +154,12 @@ class miniShop2 {
 	}
 
 
-	/* Method loads custom classes from specified directory
+	/**
+	 * Method loads custom classes from specified directory
 	 *
 	 * @var string $dir Directory for load classes
 	 * @return void
-	 * */
+	 */
 	public function loadCustomClasses($dir) {
 		$files = scandir($this->config['customPath'] . $dir);
 		foreach ($files as $file) {
@@ -166,10 +170,11 @@ class miniShop2 {
 	}
 
 
-	/* Returns id of current customer. If no exists - register him and returns id.
+	/**
+	 * Returns id of current customer. If no exists - register him and returns id.
 	 *
 	 * @return integer $id
-	 * */
+	 */
 	public function getCustomerId() {
 		$order = $this->order->get();
 		if (empty($order['email'])) {return false;}
@@ -208,12 +213,14 @@ class miniShop2 {
 	}
 
 
-	/* Switch order status
+	/**
+	 * Switch order status
 	 *
 	 * @param integer $order_id The id of msOrder
 	 * @param integer $status_id The id of msOrderStatus
-	 * @return boolean
-	 * */
+	 *
+	 * @return boolean|string
+	 */
 	public function changeOrderStatus($order_id, $status_id) {
 
 		// This method can be overriden by order class
@@ -248,17 +255,25 @@ class miniShop2 {
 			return $this->modx->lexicon($error);
 		}
 
-		$this->modx->invokeEvent('msOnBeforeChangeOrderStatus', array(
+		$response = $this->invokeEvent('msOnBeforeChangeOrderStatus', array(
 			'order' => $order,
 			'status' => $order->get('status')
 		));
+		if (!$response['success']) {
+			return $response['message'];
+		}
+
 		$order->set('status', $status_id);
 
 		if ($order->save()) {
-			$this->modx->invokeEvent('msOnChangeOrderStatus', array(
+			$response = $this->invokeEvent('msOnChangeOrderStatus', array(
 				'order' => $order,
 				'status' => $status_id
 			));
+			if (!$response['success']) {
+				return $response['message'];
+			}
+
 			$this->orderLog($order->get('id'), 'status', $status_id);
 
 			/* @var modContext $context */
@@ -334,12 +349,13 @@ class miniShop2 {
 	}
 
 
-	/* Collects and processes any set of tags
+	/**
+	 * Collects and processes any set of tags
 	 *
 	 * @param mixed $html Source code for parse
 	 * @param integer $maxIterations
 	 * @return mixed $html Parsed html
-	 * */
+	 */
 	public function processTags($html, $maxIterations = 10) {
 		$this->modx->getParser()->processElementTags('', $html, false, false, '[[', ']]', array(), $maxIterations);
 		$this->modx->getParser()->processElementTags('', $html, true, true, '[[', ']]', array(), $maxIterations);
@@ -347,14 +363,15 @@ class miniShop2 {
 	}
 
 
-	/* Function for sending email
+	/**
+	 * Function for sending email
 	 *
 	 * @param string $email
 	 * @param string $subject
 	 * @param string $body
 	 *
 	 * @return void
-	 * */
+	 */
 	public function sendEmail($email, $subject, $body = 'no body set') {
 		if (!isset($this->modx->mail) || !is_object($this->modx->mail)) {
 			$this->modx->getService('mail', 'mail.modPHPMailer');
@@ -372,14 +389,15 @@ class miniShop2 {
 	}
 
 
-	/* Function for logging changes of the order
+	/**
+	 * Function for logging changes of the order
 	 *
 	 * @param integer $order_id The id of the order
 	 * @param string $action The name of action made with order
 	 * @param string $entry The value of action
 	 *
-	 * @return void
-	 * */
+	 * @return boolean
+	 */
 	public function orderLog($order_id, $action = 'status', $entry) {
 		/* @var msOrder $order */
 		if (!$order = $this->modx->getObject('msOrder', $order_id)) {
@@ -404,22 +422,24 @@ class miniShop2 {
 	}
 
 
-	/* Function for formatting dates
+	/**
+	 * Function for formatting dates
 	 *
 	 * @param string $date Source date
 	 * @return string $date Formatted date
-	 * */
+	 */
 	public function formatDate($date = '') {
 		$df = $this->modx->getOption('ms2_date_format', null, '%d.%m.%Y %H:%M');
 		return (!empty($date) && $date !== '0000-00-00 00:00:00') ? strftime($df, strtotime($date)) : '&nbsp;';
 	}
 
 
-	/* Function for formatting price
+	/**
+	 * Function for formatting price
 	 *
 	 * @param string $price Source price
 	 * @return string $price Formatted price
-	 * */
+	 */
 	public function formatPrice($price = 0) {
 		$pf = json_decode($this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'), true);
 		$price = number_format($price, $pf[0], $pf[1], $pf[2]);
@@ -433,11 +453,12 @@ class miniShop2 {
 	}
 
 
-	/* Function for formatting weight
+	/**
+	 * Function for formatting weight
 	 *
 	 * @param string $weight Source weight
 	 * @return string $weight Formatted weight
-	 * */
+	 */
 	public function formatWeight($weight = 0) {
 		$wf = json_decode($this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'), true);
 		$weight = number_format($weight, $wf[0], $wf[1], $wf[2]);
@@ -451,8 +472,9 @@ class miniShop2 {
 	}
 
 
-	/*
+	/**
 	 * Gets matching resources by tags. This is adapted function from miniShop1 for backward compatibility
+	 * @deprecated
 	 *
 	 * @param array $tags Tags for search
 	 * @param int $only_ids Return only ids of matched resources
@@ -460,7 +482,7 @@ class miniShop2 {
 	 *					  1 - goods must have all specified tags, but can have more
 	 * 					  2 - goods must have exactly the same tags.
 	 * @return array $ids Or array with resources with data and tags
-	 * */
+	 */
 	function getTagged($tags = array(), $strict = 0, $only_ids = 0) {
 		if (!is_array($tags)) {$tags = explode(',', $tags);}
 
@@ -558,4 +580,43 @@ class miniShop2 {
 		);
 	}
 
+
+	/**
+	 * This method returns an error of the order
+	 *
+	 * @param string $message A lexicon key for error message
+	 * @param array $data.Additional data, for example cart status
+	 * @param array $placeholders Array with placeholders for lexicon entry
+	 *
+	 * @return array|string $response
+	 */
+	public function error($message = '', $data = array(), $placeholders = array()) {
+		$response = array(
+			'success' => false,
+			'message' => $this->modx->lexicon($message, $placeholders),
+			'data' => $data,
+		);
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+	}
+
+
+	/**
+	 * This method returns an success of the order
+	 *
+	 * @param string $message A lexicon key for success message
+	 * @param array $data.Additional data, for example cart status
+	 * @param array $placeholders Array with placeholders for lexicon entry
+	 *
+	 * @return array|string $response
+	 */
+	public function success($message = '', $data = array(), $placeholders = array()) {
+		$response = array(
+			'success' => true,
+			'message' => $this->modx->lexicon($message, $placeholders),
+			'data' => $data,
+		);
+
+		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+	}
 }
