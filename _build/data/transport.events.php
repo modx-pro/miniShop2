@@ -3,45 +3,47 @@
 $events = array();
 
 $tmp = array(
-	'msOnBeforeAddToCart' => array()
-	,'msOnAddToCart' => array()
-	,'msOnBeforeChangeInCart' => array()
-	,'msOnChangeInCart' => array()
-	,'msOnBeforeRemoveFromCart' => array()
-	,'msOnRemoveFromCart' => array()
-	,'msOnBeforeEmptyCart' => array()
-	,'msOnEmptyCart' => array()
+	'msOnBeforeAddToCart',
+	'msOnAddToCart',
+	'msOnBeforeChangeInCart',
+	'msOnChangeInCart',
+	'msOnBeforeRemoveFromCart',
+	'msOnRemoveFromCart',
+	'msOnBeforeEmptyCart',
+	'msOnEmptyCart',
 
-	,'msOnBeforeAddToOrder' => array()
-	,'msOnAddToOrder' => array()
-	,'msOnBeforeRemoveFromOrder' => array()
-	,'msOnRemoveFromOrder' => array()
-	,'msOnBeforeEmptyOrder' => array()
-	,'msOnEmptyOrder' => array()
+	'msOnBeforeAddToOrder',
+	'msOnAddToOrder',
+	'msOnBeforeRemoveFromOrder',
+	'msOnRemoveFromOrder',
+	'msOnBeforeEmptyOrder',
+	'msOnEmptyOrder',
 
-	,'msOnBeforeChangeOrderStatus' => array()
-	,'msOnChangeOrderStatus' => array()
+	'msOnBeforeChangeOrderStatus',
+	'msOnChangeOrderStatus',
 
-	,'msOnBeforeUpdateOrder' => array()
-	,'msOnUpdateOrder' => array()
-	,'msOnBeforeCreateOrder' => array()
-	,'msOnCreateOrder' => array()
-	,'msOnBeforeRemoveOrder' => array()
-	,'msOnRemoveOrder' => array()
+	'msOnBeforeUpdateOrder',
+	'msOnUpdateOrder',
+	'msOnBeforeCreateOrder',
+	'msOnCreateOrder',
+	'msOnBeforeRemoveOrder',
+	'msOnRemoveOrder',
 
-	,'msOnSubmitOrder' => array()
-	,'msOnManagerCustomCssJs' => array()
+	'msOnSubmitOrder',
+	'msOnManagerCustomCssJs',
+
+	'msOnBeforeValidateOrderValue',
+	'msOnValidateOrderValue',
 );
 
 foreach ($tmp as $k => $v) {
 	/* @var modEvent $event */
 	$event = $modx->newObject('modEvent');
-	$event->fromArray(array_merge(array(
+	$event->fromArray(array(
 		'name' => $k
 		,'service' => 6
 		,'groupname' => PKG_NAME
-	), $v)
-	,'', true, true);
+	),'', true, true);
 
 	$events[] = $event;
 }

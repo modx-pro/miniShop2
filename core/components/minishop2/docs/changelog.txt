@@ -12,6 +12,7 @@ Changelog for miniShop2.
 - Added new parameters for media source: "maxUploadWidth" and "maxUploadHeight" for frontend image resize.
 - Gallery upload processor now can receive parameters "id" and "file" for external images upload.
 - Added renaming files of product gallery together with thumbnails.
+- [#65] Added new system events: "msOnBeforeValidateOrderValue" and "msOnValidateOrderValue".
 - [#63] Added new parameters for media source: "imageNameType". Switching to "friendly" will generate names for uploaded files by FURLs algorithm.
 - [#62] Fixed work with "*.gif" files in products gallery.
 - [#58] Fixed PayPal non-USD currency.

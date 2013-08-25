@@ -138,6 +138,12 @@ class msOrderHandler implements msOrderInterface {
 			$value = preg_replace('/\s+/',' ', trim($value));
 		}
 
+		$response = $this->ms2->invokeEvent('msOnBeforeValidateOrderValue', array(
+			'key' => $key,
+			'value' => $value,
+		));
+		$value = $response['data']['value'];
+
 		$old_value = isset($this->order[$key]) ? $this->order[$key] : '';
 		switch ($key) {
 			case 'email': $value = preg_match('/.+@.+..+/i', $value) ? $value : $old_value; break;
@@ -172,6 +178,12 @@ class msOrderHandler implements msOrderInterface {
 			case 'index': $value = substr(preg_replace('/[^-0-9]/iu', '',$value),0,10); break;
 			default: break;
 		}
+
+		$response = $this->ms2->invokeEvent('msOnValidateOrderValue', array(
+			'key' => $key,
+			'value' => $value,
+		));
+		$value = $response['data']['value'];
 
 		if ($value === false) {$value = '';}
 		return $value;
