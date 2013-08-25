@@ -34,53 +34,43 @@ miniShop2.grid.Category = function(config) {
 		,stateEvents: ['columnresize']
 		,tbar: [{
 			text: '<i class="bicon-list"></i> ' + _('ms2_bulk_actions')
-			,menu: [{
-				text: _('ms2_product_selected_publish')
-				,handler: this.publishSelected
-				,scope: this
-			},{
-				text: _('ms2_product_selected_unpublish')
-				,handler: this.unpublishSelected
-				,scope: this
-			},'-',{
-				text: _('ms2_product_selected_delete')
-				,handler: this.deleteSelected
-				,scope: this
-			},{
-				text: _('ms2_product_selected_undelete')
-				,handler: this.undeleteSelected
-				,scope: this
-			}]
+			,menu: [
+				{text: _('ms2_product_selected_publish'),handler: this.publishSelected,scope: this}
+				,{text: _('ms2_product_selected_unpublish'),handler: this.unpublishSelected,scope: this}
+				,'-'
+				,{text: _('ms2_product_selected_delete'),handler: this.deleteSelected,scope: this}
+				,{text: _('ms2_product_selected_undelete'),handler: this.undeleteSelected,scope: this}
+			]
 		},'-',{
 			text: '<i class="bicon-plus-sign"></i> ' + _('ms2_product_create')
 			,handler: this.createProduct
 			,scope: this
-		},
-			'->'
-			,{
-				xtype: 'textfield'
-				,name: 'query'
-				,width: 200
-				,id: 'minishop2-product-search'
-				,emptyText: _('ms2_search')
-				,listeners: {render: {fn: function(tf) {
-					tf.getEl().addKeyListener(Ext.EventObject.ENTER, function() {this.search(tf);}, this);
-					tf.setValue(baseParams.query);
-				},scope: this}}
-			},{
-				xtype: 'button'
-				,id: 'minishop2-product-clear'
-				,text: '<i class="bicon-remove-sign"></i>'/* + _('ms2_search_clear')*/
-				,listeners: {
-					'click': {fn: this.clearFilter, scope: this}
-				}
+		},'->',{
+			xtype: 'textfield'
+			,name: 'query'
+			,width: 200
+			,id: 'minishop2-product-search'
+			,emptyText: _('ms2_search')
+			,listeners: {render: {fn: function(tf) {
+				tf.getEl().addKeyListener(Ext.EventObject.ENTER, function() {this.search(tf);}, this);
+				tf.setValue(baseParams.query);
+			},scope: this}}
+		},{
+			xtype: 'button'
+			,id: 'minishop2-product-clear'
+			,text: '<i class="bicon-remove-sign"></i>' // + _('ms2_search_clear')
+			,listeners: {
+				click: {fn: this.clearFilter, scope: this}
 			}
-		]
+		}]
+		,ddGroup: 'dd'
+		,enableDragDrop: true
+		,listeners: {
+			render: {fn: this._initDD, scope: this}
+		}
 	});
 	miniShop2.grid.Category.superclass.constructor.call(this,config);
 	this._makeTemplates();
-	this.on('rowclick',MODx.fireResourceFormChange);
-	this.on('click', this.onClick, this);
 
 	this.getStore().on('load', function(grid, records, options) {
 		var params = Ext.util.JSON.encode(options.params);
@@ -89,7 +79,34 @@ miniShop2.grid.Category = function(config) {
 };
 Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 
-	_makeTemplates: function() {
+	_initDD: function(grid) {
+		new Ext.dd.DropTarget(grid.el, {
+			ddGroup : 'dd',
+			copy:false,
+			notifyDrop : function(dd, e, data) {
+				var store = grid.store.data.items;
+				var target = store[dd.getDragData(e).rowIndex].data;
+				var source = store[data.rowIndex].data;
+				if ((target.parent == source.parent) && (target.id != source.id)) {
+					dd.el.mask(_('loading'),'x-mask-loading');
+					MODx.Ajax.request({
+						url: miniShop2.config.connector_url
+						,params: {
+							action: 'mgr/product/sort'
+							,source: source.id
+							,target: target.id
+						}
+						,listeners: {
+							success: {fn:function(r) {dd.el.unmask();grid.refresh();},scope:grid}
+							,failure: {fn:function(r) {dd.el.unmask();},scope:grid}
+						}
+					});
+				}
+			}
+		});
+	}
+
+	,_makeTemplates: function() {
 		var updatePage = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 		this.tplPageTitle = new Ext.XTemplate(''
 			+'<tpl for="."><div class="product-title-column {cls}">'

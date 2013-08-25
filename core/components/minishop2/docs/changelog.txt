@@ -16,6 +16,7 @@ Changelog for miniShop2.
 - [#65] Added new system events: "msOnBeforeValidateOrderValue" and "msOnValidateOrderValue".
 - [#64] Added ability to stop switching order status from system plugin.
 - [#63] Added new parameters for media source: "imageNameType". Switching to "friendly" will generate names for uploaded files by FURLs algorithm.
+- [#61] Added ability to sort products in category by drag and drop.
 - [#62] Fixed work with "*.gif" files in products gallery.
 - [#58] Fixed PayPal non-USD currency.
 - [#56] Added JSON field "properties" to "msProductFile".
