@@ -35,7 +35,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		}
 		else {
 			$c->select($this->modx->getSelectColumns('msProduct','msProduct'));
-			$c->select($this->modx->getSelectColumns('msProductData','Data'));
+			$c->select($this->modx->getSelectColumns('msProductData','Data', '', array('id'), true));
 			$c->select($this->modx->getSelectColumns('msVendor','Vendor', 'vendor_', array('name')));
 			$c->select($this->modx->getSelectColumns('msCategory','Category', 'category_', array('pagetitle')));
 		}

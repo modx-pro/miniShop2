@@ -42,7 +42,7 @@ $xpdo_meta_map['msPayment']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'active' => 
@@ -51,7 +51,7 @@ $xpdo_meta_map['msPayment']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 1,
     ),
     'class' => 

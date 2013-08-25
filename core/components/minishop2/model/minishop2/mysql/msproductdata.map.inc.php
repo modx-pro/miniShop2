@@ -20,7 +20,7 @@ $xpdo_meta_map['msProductData']= array (
     'tags' => NULL,
     'color' => NULL,
     'size' => NULL,
-    'source' => 1,
+    'source' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -36,7 +36,7 @@ $xpdo_meta_map['msProductData']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'old_price' => 
@@ -44,7 +44,7 @@ $xpdo_meta_map['msProductData']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'weight' => 
@@ -52,7 +52,7 @@ $xpdo_meta_map['msProductData']= array (
       'dbtype' => 'decimal',
       'precision' => '13,3',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'image' => 
@@ -75,7 +75,7 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'made_in' => 
@@ -83,7 +83,7 @@ $xpdo_meta_map['msProductData']= array (
       'dbtype' => 'varchar',
       'precision' => '100',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
       'default' => '',
     ),
     'new' => 
@@ -92,7 +92,7 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'boolean',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'popular' => 
@@ -101,7 +101,7 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'boolean',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'favorite' => 
@@ -110,7 +110,7 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'boolean',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'tags' => 
@@ -137,8 +137,8 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
-      'default' => 1,
+      'null' => true,
+      'default' => 0,
     ),
   ),
   'indexes' => 

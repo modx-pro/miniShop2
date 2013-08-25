@@ -211,12 +211,14 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 	 * @return array
 	 */
 	function getSourceProperties() {
-		/* @var $source modMediaSource */
-		$source = $this->resource->initializeMediaSource();
-		$tmp = $source->getProperties();
 		$properties = array();
-		foreach ($tmp as $v) {
-			$properties[$v['name']] = $v['value'];
+		/* @var $source modMediaSource */
+		if ($source = $this->resource->initializeMediaSource()) {
+			$tmp = $source->getProperties();
+			$properties = array();
+			foreach ($tmp as $v) {
+				$properties[$v['name']] = $v['value'];
+			}
 		}
 
 		return $properties;

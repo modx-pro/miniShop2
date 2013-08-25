@@ -20,20 +20,20 @@
 
 	<object class="msProductData" table="ms2_products" extends="xPDOSimpleObject">
 		<field key="article" dbtype="varchar" precision="50" phptype="varchar" null="true" />
-		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="old_price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="old_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0" />
 		<field key="image" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true" />
-		<field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="false" default="" />
-		<field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
-		<field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
-		<field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
+		<field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="true" default="" />
+		<field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
+		<field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
+		<field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
 		<field key="tags" dbtype="text" phptype="json" null="true" />
 		<field key="color" dbtype="text" phptype="json" null="true" />
 		<field key="size" dbtype="text" phptype="json" null="true" />
-		<field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="1" />
+		<field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="1" />
 
 		<index alias="article" name="article" primary="false" unique="false" type="BTREE">
 			<column key="article" length="" collation="A" null="false" />
@@ -102,7 +102,7 @@
 	<object class="msProductOption" table="ms2_product_options" extends="xPDOObject">
 		<field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
 		<field key="key" dbtype="varchar" precision="255" phptype="string" null="false" />
-		<field key="value" dbtype="text" phptype="string" null="false" />
+		<field key="value" dbtype="text" phptype="string" null="true" default="" />
 
 		<index alias="product" name="product" primary="false" unique="false" type="BTREE" >
 			<column key="product_id" length="" collation="A" null="false" />
@@ -115,19 +115,19 @@
 
 	<object class="msProductFile" table="ms2_product_files" extends="xPDOSimpleObject">
 		<field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
-		<field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="parent" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="1" />
+		<field key="parent" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
-		<field key="path" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="path" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
 		<field key="file" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="type" dbtype="varchar" precision="50" phptype="string" null="true" />
 		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
-		<field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="url" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
-		<field key="hash" dbtype="char" precision="40" phptype="string" null="false" index="index" default="" />
+		<field key="hash" dbtype="char" precision="40" phptype="string" null="true" default="" index="index" />
 
 		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
 			<column key="product_id" length="" collation="A" null="false" />
@@ -151,12 +151,12 @@
 	<object class="msDelivery" table="ms2_deliveries" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
-		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="weight_price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="distance_price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="weight_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="distance_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
-		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="active" dbtype="tinyint" precision="1" phptype="integer" null="false" default="1" />
+		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1" />
 		<field key="class" dbtype="varchar" precision="50" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
 		<field key="requires" dbtype="varchar" precision="255" phptype="string" null="true" default="email,receiver" />
@@ -170,8 +170,8 @@
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
 		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
-		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="1" />
+		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="1" />
 		<field key="class" dbtype="varchar" precision="50" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
 
@@ -198,16 +198,16 @@
 		<field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
 		<field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
 		<field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00" />
-		<field key="num" dbtype="varchar" precision="20" phptype="string" null="true" />
-		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="delivery_cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
-		<field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" default="0" />
-		<field key="context" dbtype="varchar" precision="100" phptype="string" null="false" default="web" />
+		<field key="num" dbtype="varchar" precision="20" phptype="string" null="true" default="" />
+		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="delivery_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0" />
+		<field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="context" dbtype="varchar" precision="100" phptype="string" null="true" default="web" />
 		<field key="comment" dbtype="text" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
 
@@ -233,18 +233,18 @@
 	<object class="msOrderStatus" table="ms2_order_statuses" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="100" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
-		<field key="color" dbtype="char" precision="6" phptype="string" null="false" default="000000" />
-		<field key="email_user" dbtype="tinyint" precision="1" phptype="integer" null="false" default="0" />
-		<field key="email_manager" dbtype="tinyint" precision="1" phptype="integer" null="false" default="0" />
-		<field key="subject_user" dbtype="varchar" precision="255" phptype="string" null="false" />
-		<field key="subject_manager" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="color" dbtype="char" precision="6" phptype="string" null="true" default="000000" />
+		<field key="email_user" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0" />
+		<field key="email_manager" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0" />
+		<field key="subject_user" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
+		<field key="subject_manager" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
 		<field key="body_user" dbtype="int" precision="10" phptype="integer" null="true" default="0" />
 		<field key="body_manager" dbtype="int" precision="10" phptype="integer" null="true" default="0" />
-		<field key="active" dbtype="tinyint" precision="1" phptype="integer" null="false" default="1" />
-		<field key="final" dbtype="tinyint" precision="1" phptype="integer" null="false" default="0" />
-		<field key="fixed" dbtype="tinyint" precision="1" phptype="integer" null="false" default="0" />
-		<field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="false" default="0" />
-		<field key="editable" dbtype="tinyint" precision="1" phptype="integer" null="false" default="1" />
+		<field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1" />
+		<field key="final" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0" />
+		<field key="fixed" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0" />
+		<field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true" default="0" />
+		<field key="editable" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1" />
 
 		<index alias="active" name="active" primary="false" unique="false" type="BTREE" >
 			<column key="active" length="" collation="A" null="false" />
@@ -306,10 +306,10 @@
 	<object class="msOrderProduct" table="ms2_order_products" extends="xPDOSimpleObject">
 		<field key="product_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
 		<field key="order_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
-		<field key="count" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="1" />
-		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
-		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="false" default="0" />
-		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="count" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="1" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0" />
+		<field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="options" dbtype="text" phptype="json" null="true" />
 
 		<index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE" >
@@ -355,10 +355,10 @@
 
 
 	<object class="msCustomerProfile" table="ms2_customer_profiles" extends="xPDOObject">
-		<field key="id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" index="pk" />
-		<field key="account" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+		<field key="id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk" />
+		<field key="account" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="createdon" dbtype="timestamp" phptype="datetime" null="true" default="CURRENT_TIMESTAMP" />
-		<field key="referrer_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" default="0" index="index" />
+		<field key="referrer_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="0" index="index" />
 		<field key="referrer_code" dbtype="varchar" precision="50" phptype="string" null="true" default="" index="index" />
 
 		<index alias="id" name="id" primary="true" unique="true" type="BTREE">

@@ -38,7 +38,7 @@ $xpdo_meta_map['msDelivery']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'weight_price' => 
@@ -46,7 +46,7 @@ $xpdo_meta_map['msDelivery']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'distance_price' => 
@@ -54,7 +54,7 @@ $xpdo_meta_map['msDelivery']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'logo' => 
@@ -70,7 +70,7 @@ $xpdo_meta_map['msDelivery']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'active' => 
@@ -78,7 +78,7 @@ $xpdo_meta_map['msDelivery']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 1,
     ),
     'class' => 

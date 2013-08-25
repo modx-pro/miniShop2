@@ -148,7 +148,7 @@ class msProduct extends modResource {
 		$array = parent::toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated);
 
 		if (!is_object($this->data)) {$this->loadData();}
-		return array_merge($array, $this->data->toArray());
+		return array_merge($this->data->toArray(), $array);
 	}
 
 

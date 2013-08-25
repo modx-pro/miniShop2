@@ -9,7 +9,7 @@ $xpdo_meta_map['msOrder']= array (
     'user_id' => NULL,
     'createdon' => '0000-00-00 00:00:00',
     'updatedon' => '0000-00-00 00:00:00',
-    'num' => NULL,
+    'num' => '',
     'cost' => 0,
     'cart_cost' => 0,
     'delivery_cost' => 0,
@@ -52,13 +52,14 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '20',
       'phptype' => 'string',
       'null' => true,
+      'default' => '',
     ),
     'cost' => 
     array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'cart_cost' => 
@@ -66,7 +67,7 @@ $xpdo_meta_map['msOrder']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'delivery_cost' => 
@@ -74,7 +75,7 @@ $xpdo_meta_map['msOrder']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'weight' => 
@@ -82,7 +83,7 @@ $xpdo_meta_map['msOrder']= array (
       'dbtype' => 'decimal',
       'precision' => '13,3',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'status' => 
@@ -91,7 +92,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'delivery' => 
@@ -100,7 +101,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'payment' => 
@@ -109,7 +110,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'address' => 
@@ -118,6 +119,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
+      'null' => true,
       'default' => 0,
     ),
     'context' => 
@@ -125,7 +127,7 @@ $xpdo_meta_map['msOrder']= array (
       'dbtype' => 'varchar',
       'precision' => '100',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
       'default' => 'web',
     ),
     'comment' => 

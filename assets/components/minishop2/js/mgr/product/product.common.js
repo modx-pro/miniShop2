@@ -31,7 +31,7 @@ var methods = {
 			}]
 		},{
 			html: MODx.onDocFormRender, border: false
-		},{xtype: 'hidden',name: 'id',id: 'modx-resource-id',value: config.resource || config.record.id,submitValue: true}
+		},{xtype: 'hidden',name: 'id', id: 'modx-resource-id',value: config.record.id, submitValue: true}
 			,{xtype: 'hidden',name: 'type',value: 'document'}
 			,{xtype: 'hidden',name: 'context_key',id: 'modx-resource-context-key',value: config.record.context_key || 'web'}
 			,{xtype: 'hidden',name: 'content_type',id: 'modx-resource-content-type', value: MODx.config.default_content_type || 1}

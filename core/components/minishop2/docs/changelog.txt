@@ -20,6 +20,7 @@ Changelog for miniShop2.
 - [#58] Fixed PayPal non-USD currency.
 - [#56] Added JSON field "properties" to "msProductFile".
 - [#50] Fixed checking of the existence of the Tickets component.
+- Some fixes for MySql STRICT_TRANS_TABLES mode.
 
 2.0.1 pl3
 ==============

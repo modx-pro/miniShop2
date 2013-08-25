@@ -9,7 +9,7 @@ $xpdo_meta_map['msProductFile']= array (
     'product_id' => NULL,
     'source' => 0,
     'parent' => 0,
-    'name' => NULL,
+    'name' => '',
     'description' => NULL,
     'path' => '',
     'file' => NULL,
@@ -17,7 +17,7 @@ $xpdo_meta_map['msProductFile']= array (
     'createdon' => '0000-00-00 00:00:00',
     'createdby' => 0,
     'rank' => 0,
-    'url' => NULL,
+    'url' => '',
     'properties' => NULL,
     'hash' => '',
   ),
@@ -37,7 +37,7 @@ $xpdo_meta_map['msProductFile']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'parent' => 
@@ -46,7 +46,7 @@ $xpdo_meta_map['msProductFile']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'name' => 
@@ -54,7 +54,8 @@ $xpdo_meta_map['msProductFile']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
+      'default' => '',
     ),
     'description' => 
     array (
@@ -67,7 +68,7 @@ $xpdo_meta_map['msProductFile']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
       'default' => '',
     ),
     'file' => 
@@ -97,7 +98,7 @@ $xpdo_meta_map['msProductFile']= array (
       'precision' => '10',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'rank' => 
@@ -106,7 +107,7 @@ $xpdo_meta_map['msProductFile']= array (
       'precision' => '1',
       'attributes' => 'unsigned',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'url' => 
@@ -114,7 +115,8 @@ $xpdo_meta_map['msProductFile']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
+      'default' => '',
     ),
     'properties' => 
     array (
@@ -127,9 +129,9 @@ $xpdo_meta_map['msProductFile']= array (
       'dbtype' => 'char',
       'precision' => '40',
       'phptype' => 'string',
-      'null' => false,
-      'index' => 'index',
+      'null' => true,
       'default' => '',
+      'index' => 'index',
     ),
   ),
   'indexes' => 

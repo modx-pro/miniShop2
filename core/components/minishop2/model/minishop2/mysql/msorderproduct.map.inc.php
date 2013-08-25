@@ -38,7 +38,7 @@ $xpdo_meta_map['msOrderProduct']= array (
       'precision' => '10',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
+      'null' => true,
       'default' => 1,
     ),
     'price' => 
@@ -46,7 +46,7 @@ $xpdo_meta_map['msOrderProduct']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'weight' => 
@@ -54,7 +54,7 @@ $xpdo_meta_map['msOrderProduct']= array (
       'dbtype' => 'decimal',
       'precision' => '13,3',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'cost' => 
@@ -62,7 +62,7 @@ $xpdo_meta_map['msOrderProduct']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'options' => 

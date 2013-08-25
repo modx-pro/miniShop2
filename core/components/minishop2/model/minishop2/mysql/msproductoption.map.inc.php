@@ -8,7 +8,7 @@ $xpdo_meta_map['msProductOption']= array (
   array (
     'product_id' => NULL,
     'key' => NULL,
-    'value' => NULL,
+    'value' => '',
   ),
   'fieldMeta' => 
   array (
@@ -31,7 +31,8 @@ $xpdo_meta_map['msProductOption']= array (
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
+      'default' => '',
     ),
   ),
   'indexes' => 

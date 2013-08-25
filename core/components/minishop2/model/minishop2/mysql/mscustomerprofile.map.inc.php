@@ -20,6 +20,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
       'precision' => '10',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
+      'null' => false,
       'index' => 'pk',
     ),
     'account' => 
@@ -27,7 +28,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
       'phptype' => 'float',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'createdon' => 
@@ -43,7 +44,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
       'precision' => '10',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
+      'null' => true,
       'default' => 0,
       'index' => 'index',
     ),

@@ -11,8 +11,8 @@ $xpdo_meta_map['msOrderStatus']= array (
     'color' => '000000',
     'email_user' => 0,
     'email_manager' => 0,
-    'subject_user' => NULL,
-    'subject_manager' => NULL,
+    'subject_user' => '',
+    'subject_manager' => '',
     'body_user' => 0,
     'body_manager' => 0,
     'active' => 1,
@@ -41,7 +41,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'char',
       'precision' => '6',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
       'default' => '000000',
     ),
     'email_user' => 
@@ -49,7 +49,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'email_manager' => 
@@ -57,7 +57,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'subject_user' => 
@@ -65,14 +65,16 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
+      'default' => '',
     ),
     'subject_manager' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
+      'null' => true,
+      'default' => '',
     ),
     'body_user' => 
     array (
@@ -95,7 +97,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 1,
     ),
     'final' => 
@@ -103,7 +105,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'fixed' => 
@@ -111,7 +113,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'rank' => 
@@ -120,7 +122,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'precision' => '1',
       'phptype' => 'integer',
       'attributes' => 'unsigned',
-      'null' => false,
+      'null' => true,
       'default' => 0,
     ),
     'editable' => 
@@ -128,7 +130,7 @@ $xpdo_meta_map['msOrderStatus']= array (
       'dbtype' => 'tinyint',
       'precision' => '1',
       'phptype' => 'integer',
-      'null' => false,
+      'null' => true,
       'default' => 1,
     ),
   ),

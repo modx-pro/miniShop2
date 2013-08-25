@@ -108,7 +108,11 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 				}
 			});
 		//}
-		this.windows.createDelivery.fp.getForm().reset();
+		this.windows.createDelivery.fp.getForm().reset().setValues({
+			price: 0
+			,weight_price: 0
+			,distance_price: 0
+		});
 		this.windows.createDelivery.show(e.target);
 	}
 	,updateDelivery: function(btn,e) {
