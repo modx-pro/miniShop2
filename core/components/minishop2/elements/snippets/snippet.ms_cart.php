@@ -4,9 +4,8 @@
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
-$pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->setConfig($scriptProperties);
-$pdoFetch->addTime('pdoTools loaded.');
+if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
+$pdoFetch = new pdoFetch($modx, $scriptProperties);
 
 $cart = $miniShop2->cart->get();
 if (!empty($_GET['msorder'])) {

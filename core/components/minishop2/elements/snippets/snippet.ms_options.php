@@ -1,9 +1,8 @@
 <?php
 /* @var array $scriptProperties */
 /* @var pdoFetch $pdoFetch */
-$pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->setConfig($scriptProperties);
-$pdoFetch->addTime('pdoTools loaded.');
+if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
+$pdoFetch = new pdoFetch($modx, $scriptProperties);
 
 if (empty($product) && !empty($input)) {$product = $input;}
 if (empty($selected)) {$selected = '';}

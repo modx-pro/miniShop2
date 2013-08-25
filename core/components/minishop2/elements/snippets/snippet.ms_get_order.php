@@ -5,8 +5,8 @@ if (empty($id)) {return $modx->lexicon('ms2_err_order_nf');}
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
 /* @var pdoFetch $pdoFetch */
-$pdoFetch = $modx->getService('pdofetch','pdoFetch', MODX_CORE_PATH.'components/pdotools/model/pdotools/',$scriptProperties);
-$pdoFetch->addTime('pdoTools loaded.');
+if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
+$pdoFetch = new pdoFetch($modx, $scriptProperties);
 
 /* @var msOrder $order */
 if (!$order = $modx->getObject('msOrder', $id)) {return $modx->lexicon('ms2_err_order_nf');}
@@ -54,7 +54,6 @@ $leftJoin = '{"class":"msProduct","alias":"msProduct","on":"msProduct.id=msOrder
 if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
 $select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","OrderProduct":"'.$orderProductColumns.'","Vendor":"'.$vendorColumns.'"';
 if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
-$pdoFetch->addTime('Query parameters are prepared.');
 
 $default = array(
 	'class' => 'msOrderProduct'
