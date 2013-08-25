@@ -26,7 +26,7 @@
 		<field key="image" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0" />
-		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="false" />
+		<field key="made_in" dbtype="varchar" precision="100" phptype="string" null="false" default="" />
 		<field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
 		<field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />
 		<field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" />

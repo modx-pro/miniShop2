@@ -13,7 +13,7 @@ $xpdo_meta_map['msProductData']= array (
     'image' => NULL,
     'thumb' => NULL,
     'vendor' => 0,
-    'made_in' => NULL,
+    'made_in' => '',
     'new' => 0,
     'popular' => 0,
     'favorite' => 0,
@@ -84,6 +84,7 @@ $xpdo_meta_map['msProductData']= array (
       'precision' => '100',
       'phptype' => 'string',
       'null' => false,
+      'default' => '',
     ),
     'new' => 
     array (
