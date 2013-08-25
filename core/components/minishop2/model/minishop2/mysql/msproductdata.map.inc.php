@@ -20,7 +20,7 @@ $xpdo_meta_map['msProductData']= array (
     'tags' => NULL,
     'color' => NULL,
     'size' => NULL,
-    'source' => 0,
+    'source' => 1,
   ),
   'fieldMeta' => 
   array (
@@ -138,7 +138,7 @@ $xpdo_meta_map['msProductData']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => true,
-      'default' => 0,
+      'default' => 1,
     ),
   ),
   'indexes' => 

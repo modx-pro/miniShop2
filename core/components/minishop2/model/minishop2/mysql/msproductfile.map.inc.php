@@ -7,7 +7,7 @@ $xpdo_meta_map['msProductFile']= array (
   'fields' => 
   array (
     'product_id' => NULL,
-    'source' => 0,
+    'source' => 1,
     'parent' => 0,
     'name' => '',
     'description' => NULL,
@@ -38,7 +38,7 @@ $xpdo_meta_map['msProductFile']= array (
       'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => true,
-      'default' => 0,
+      'default' => 1,
     ),
     'parent' => 
     array (
