@@ -19,6 +19,26 @@ class msDeliveryCreateProcessor extends modObjectCreateProcessor {
 		return parent::beforeSave();
 	}
 
+	public function afterSave() {
+		$delivery_id = $this->object->get('id');
+		/* @var msDeliveryMember $entry */
+		$payments = $this->getProperty('payments');
+		if (!empty($payments) && is_array($payments)) {
+			foreach ($payments as $payment => $v) {
+				if ($v == 1) {
+					$entry = $this->modx->newObject('msDeliveryMember');
+					$entry->fromArray(array(
+						'delivery_id' => $delivery_id,
+						'payment_id' => $payment,
+					), '', true);
+					$entry->save();
+				}
+			}
+		}
+
+		return parent::afterSave();
+	}
+
 }
 
 return 'msDeliveryCreateProcessor';
