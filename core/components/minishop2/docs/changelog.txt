@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.1.0 beta1
+2.1.0 beta2
 ==============
 - New object "msCustomerProfile". It can be extended by plugins like "msProductData".
 - Plugin "miniShop2" can automatic save referrers.
