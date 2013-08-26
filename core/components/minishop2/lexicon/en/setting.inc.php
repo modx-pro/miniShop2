@@ -86,6 +86,12 @@ $_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal cancel page id';
 $_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal cancel order';
 $_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'If true, order will be cancelled if customer cancel payment.';
 
+$_lang['setting_ms2_order_grid_fields'] = 'Fields of the orders table';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
+$_lang['setting_ms2_order_address_fields'] = 'Fields of order address';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Comma separated list of address of order, which will be shown on the third tab. Available: "receiver,phone,index,country,region,metro,building,city,street,room". If empty, this tab will be hidden.';
+$_lang['setting_ms2_order_product_fields'] = 'Field of the purchased products';
+$_lang['setting_ms2_order_product_fields_desc'] = 'which will be shown list of ordered products. Available: "count,price,weight,cost,options". Product fields specified with the prefix "product_", for example "product_pagetitle,product_article". Additionaly, you can specify a values from the options field with the prefix "option_", for example: "option_color,option_size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Maximum width of image for upload. All images, that exceeds this parameter, will be resized to fit..';

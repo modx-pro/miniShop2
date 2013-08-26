@@ -86,6 +86,12 @@ $_lang['setting_ms2_payment_paypal_cancel_id'] = 'Страница отказа 
 $_lang['setting_ms2_payment_paypal_cancel_order'] = 'Отмена заказа PayPal';
 $_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'Если включено, заказ будет отменён при отказе от оплааты.';
 
+$_lang['setting_ms2_order_grid_fields'] = 'Поля таблицы заказов';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Список полей, которые будут показаны в таблице заказов. Доступны: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
+$_lang['setting_ms2_order_address_fields'] = 'Поля адреса доставки';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Список полей доставки, которые будут показаны на третьей вкладке карточки заказа. Доступны: "receiver,phone,index,country,region,metro,building,city,street,room". Если параметр пуст, вкладка будет скрыта.';
+$_lang['setting_ms2_order_product_fields'] = 'Поля таблицы покупок';
+$_lang['setting_ms2_order_product_fields_desc'] = 'Список полей таблицы заказанных товаров. Доступны: "count,price,weight,cost,options". Поля товара указываются с префиксом "product_", например "product_pagetitle,product_article". Дополнительно можно указывать значения из поля options с префиксом "option_", например: "option_color,option_size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'Закодированный в JSON массив с параметрами генерации уменьшенных копий изображений.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Максимальная ширина изображения для загрузки. Всё, что больше, будет ужато до этого значения.';

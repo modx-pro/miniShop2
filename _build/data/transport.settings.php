@@ -124,6 +124,22 @@ $tmp = array(
 	)
 
 
+	,'ms2_order_grid_fields' => array(
+		'value' => 'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment'
+		,'xtype' => 'textarea'
+		,'area' => 'ms2_order'
+	)
+	,'ms2_order_address_fields' => array(
+		'xtype' => 'textarea'
+		,'value' => 'receiver,phone,index,country,region,city,metro,street,building,room,comment'
+		,'area' => 'ms2_order'
+	)
+	,'ms2_order_product_fields' => array(
+		'xtype' => 'textarea'
+		,'value' => 'product_pagetitle,product_article,weight,price,count,cost'
+		,'area' => 'ms2_order'
+	)
+
 	,'ms2_order_handler_class' => array(
 		'value' => 'msOrderHandler'
 		,'xtype' => 'textfield'

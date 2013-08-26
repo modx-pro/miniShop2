@@ -26,12 +26,11 @@ abstract class miniShop2MainController extends modExtraManagerController {
 		
 		$this->modx->regClientCSS($this->miniShop2->config['cssUrl'].'mgr/main.css');
 		$this->addJavaScript($this->miniShop2->config['jsUrl'].'mgr/minishop2.js');
-		$this->addHtml('<script type="text/javascript">
-		Ext.onReady(function() {
+		$this->addHtml(str_replace('		', '', '
+		<script type="text/javascript">
 			miniShop2.config = '.$this->modx->toJSON($this->miniShop2->config).';
 			miniShop2.config.connector_url = "'.$this->miniShop2->config['connectorUrl'].'";
-		});
-		</script>');
+		</script>'));
 		
 		parent::initialize();
 	}
