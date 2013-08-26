@@ -55,6 +55,9 @@ class msDeliveryHandler implements msDeliveryInterface {
 	 * @return array|string
 	 */
 	public function error($message = '', $data = array(), $placeholders = array()) {
+		if (!is_object($this->ms2)) {
+			$this->ms2 = $this->modx->getService('minishop2');
+		}
 		return $this->ms2->error($message, $data, $placeholders);
 	}
 
@@ -69,6 +72,9 @@ class msDeliveryHandler implements msDeliveryInterface {
 	 * @return array|string
 	 */
 	public function success($message = '', $data = array(), $placeholders = array()) {
+		if (!is_object($this->ms2)) {
+			$this->ms2 = $this->modx->getService('minishop2');
+		}
 		return $this->ms2->success($message, $data, $placeholders);
 	}
 }
