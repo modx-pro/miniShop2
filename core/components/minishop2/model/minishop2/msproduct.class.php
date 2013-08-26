@@ -92,10 +92,32 @@ class msProduct extends modResource {
 	public function set($k, $v= null, $vType= '') {
 		if (in_array($k, $this->dataFields)) {
 			if (!is_object($this->data)) {$this->loadData();}
-			return $this->data->set($k, $v, $vType);
+
+			$fieldType= $this->data->_getPHPType($k);
+			if ($fieldType == 'float') {
+				return $this->data->_setRaw($k, $v);
+			}
+			else {
+				return $this->data->set($k, $v, $vType);
+			}
 		}
 		else {
 			return parent::set($k, $v, $vType);
+		}
+	}
+
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function _setRaw($key, $val) {
+		if (in_array($key, $this->dataFields)) {
+			if (!is_object($this->data)) {$this->loadData();}
+
+			return $this->data->_setRaw($key, $val);
+		}
+		else {
+			return parent::_setRaw($key, $val);
 		}
 	}
 
