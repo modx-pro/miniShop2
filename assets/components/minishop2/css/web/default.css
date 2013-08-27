@@ -6,6 +6,10 @@
 
 #msMiniCart {font-size: .8em;}
 #msMiniCart h5 {margin: 0;}
+#msMiniCart .empty {display:block;}
+#msMiniCart .not_empty {display: none;}
+#msMiniCart.full .empty {display:none;}
+#msMiniCart.full .not_empty {display: block;}
 
 #msGallery {text-align: center;}
 #msGallery #mainImage {margin-bottom: 10px; padding: 2px; border: 1px solid #ddd;}

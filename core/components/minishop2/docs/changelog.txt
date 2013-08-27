@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - Improved validation of customer name and email when create order.
 - msOrderHandler::add() now can return an error.
 - Improved registration of javascript on frontend.
+- Improved show\hide of msMiniCart with css.
 
 2.1.0 beta2
 ==============
