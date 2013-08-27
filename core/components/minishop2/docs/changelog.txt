@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.0 rc
 ==============
 - Improved regular expression for email verification.
+- Improved validation of customer name and email when create order.
 
 2.1.0 beta2
 ==============

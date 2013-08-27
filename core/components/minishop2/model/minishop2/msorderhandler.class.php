@@ -168,19 +168,21 @@ class msOrderHandler implements msOrderInterface {
 
 		$old_value = isset($this->order[$key]) ? $this->order[$key] : '';
 		switch ($key) {
-			case 'email': $value = preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $value) ? $value : $old_value; break;
+			case 'email':
+				$value = preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $value)
+					? $value
+					: $old_value;
+				break;
 			case 'receiver':
-				$value = preg_replace('/[^a-zа-я\s]/iu','',$value);
-				$tmp = explode(' ',$value);
-				$value = array();
-				for ($i=0;$i<=2;$i++) {
-					if (!empty($tmp[$i])) {
-						$value[] = $this->ucfirst($tmp[$i]);
-					}
-				}
-				$value = implode(' ', $value);
-			break;
-			case 'phone': $value = substr(preg_replace('/[^-+0-9]/iu','',$value),0,15); break;
+				// Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
+				$str = preg_replace(array('/[^-a-zа-я\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'), array('', ' ', '-', '.'), $value);
+				$tmp = preg_split('/\s/', $str, -1, PREG_SPLIT_NO_EMPTY);
+				$tmp = array_map(array($this, 'ucfirst'), $tmp);
+				$value = preg_replace('/\s+/', ' ', implode(' ', $tmp));
+				break;
+			case 'phone':
+				$value = substr(preg_replace('/[^-+0-9]/iu','',$value),0,15);
+				break;
 			case 'delivery':
 				/* @var msDelivery $delivery */
 				if (!$delivery = $this->modx->getObject('msDelivery',array('id' => $value, 'active' => 1))) {
@@ -191,14 +193,15 @@ class msOrderHandler implements msOrderInterface {
 						$this->order['payment'] = $delivery->getFirstPayment();
 					};
 				}
-			break;
+				break;
 			case 'payment':
 				if (!empty($this->order['delivery'])) {
 					$value = $this->hasPayment($this->order['delivery'], $value) ? $value : $old_value;
 				}
-			break;
-			case 'index': $value = substr(preg_replace('/[^-0-9]/iu', '',$value),0,10); break;
-			default: break;
+				break;
+			case 'index':
+				$value = substr(preg_replace('/[^-0-9]/iu', '',$value),0,10);
+				break;
 		}
 
 		$response = $this->ms2->invokeEvent('msOnValidateOrderValue', array(
@@ -455,6 +458,14 @@ class msOrderHandler implements msOrderInterface {
 	 * @return string
 	 */
 	public function ucfirst($str = '') {
+		if (!preg_match('/[a-zа-я]/iu', $str)) {
+			return '';
+		}
+		elseif (strpos($str, '-') !== false) {
+			$tmp = array_map(array($this, __FUNCTION__), explode('-', $str));
+			return implode('-', $tmp);
+		}
+
 		if (function_exists('mb_substr') && preg_match('/[а-я]/iu',$str)) {
 			$tmp = mb_strtolower($str, 'utf-8');
 			$str = mb_substr(mb_strtoupper($tmp, 'utf-8'), 0, 1, 'utf-8') . mb_substr($tmp, 1, mb_strlen($tmp)-1, 'utf-8');
