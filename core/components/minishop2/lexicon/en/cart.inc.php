@@ -9,14 +9,14 @@
 $_lang['ms2_cart'] = 'Cart';
 $_lang['ms2_minicart'] = 'Cart';
 
-$_lang['ms2_minicart_goods'] = 'All goods:';
-$_lang['ms2_minicart_cost'] = 'for the sum:';
+$_lang['ms2_minicart_goods'] = 'Total items:';
+$_lang['ms2_minicart_cost'] = 'Total cost:';
 $_lang['ms2_minicart_is_empty'] = 'Your cart is empty';
 
 $_lang['ms2_cart_title'] = 'Title';
 $_lang['ms2_cart_price'] = 'Price';
 $_lang['ms2_cart_weight'] = 'Weight';
-$_lang['ms2_cart_count'] = 'Count';
+$_lang['ms2_cart_count'] = 'Quantity';
 $_lang['ms2_cart_cost'] = 'Cost';
 $_lang['ms2_cart_remove'] = 'Remove';
 $_lang['ms2_cart_total'] = 'Total';
@@ -36,7 +36,7 @@ $_lang['ms2_cart_change_error'] = 'Error when changing product count in cart';
 
 $_lang['ms2_cart_clean_success'] = 'Cart was successfully cleared';
 $_lang['ms2_cart_is_empty'] = 'Your cart is empty';
-$_lang['ms2_cart_clean'] = 'Clean shopping cart';
+$_lang['ms2_cart_clean'] = 'Clear shopping cart';
 
-$_lang['ms2_order_err_delivery'] = 'You must to select the delivery method';
-$_lang['ms2_order_err_requires'] = 'You must to fill needed fields';
+$_lang['ms2_order_err_delivery'] = 'You must select a delivery method';
+$_lang['ms2_order_err_requires'] = 'You must fill in the highlighted fields';
