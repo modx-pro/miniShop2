@@ -181,7 +181,7 @@ Ext.extend(miniShop2.panel.Category,MODx.panel.Resource,{
 					MODx.activePage.submitForm({
 						success: {fn:function(r) {
 							var page = MODx.action ? MODx.action[r.result.object.action] : r.result.object.action;
-							MODx.loadPage(page, '&id='+r.result.object.id+'&reload='+r.result.object.reload+'&class_key='+this.config.record.class_key);
+							MODx.loadPage(page, 'id='+r.result.object.id+'&reload='+r.result.object.reload+'&class_key='+this.config.record.class_key);
 						},scope:this}
 					},{
 						bypassValidCheck: true

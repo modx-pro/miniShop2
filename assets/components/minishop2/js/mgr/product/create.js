@@ -197,7 +197,7 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 		var page = MODx.action ? MODx.action[action] : action;
 
 		if ((o.result.object.class_key != this.defaultClassKey) || (o.result.object.parent != this.defaultValues.parent) || (o.result.object.richtext != this.defaultValues.richtext)) {
-			MODx.loadPage(page, '&id='+o.result.object.id);
+			MODx.loadPage(page, 'id='+o.result.object.id);
 		} else {
 			this.getForm().setValues(o.result.object);
 			Ext.getCmp('modx-page-update-resource').config.preview_url = o.result.object.preview_url;

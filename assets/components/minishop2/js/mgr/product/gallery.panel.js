@@ -574,7 +574,7 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 					MODx.activePage.submitForm({
 						success: {fn:function(r) {
 							var page = MODx.action ? MODx.action['resource/update'] : 'resource/update';
-							MODx.loadPage(page, '&id='+r.result.object.id);
+							MODx.loadPage(page, 'id='+r.result.object.id);
 						},scope:this}
 					});
 				} else {
