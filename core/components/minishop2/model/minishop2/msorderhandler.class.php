@@ -149,8 +149,14 @@ class msOrderHandler implements msOrderInterface {
 				if (!$response['success']) {return $this->error($response['message']);}
 				$validated = $response['data']['value'];
 			}
+			else {
+				$this->order[$key] = '';
+			}
 		}
-		return $this->success('', array($key => $validated));
+
+		return !$validated
+			? $this->error('', array($key => $value))
+			: $this->success('', array($key => $validated));
 	}
 
 
@@ -171,14 +177,15 @@ class msOrderHandler implements msOrderInterface {
 			case 'email':
 				$value = preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $value)
 					? $value
-					: $old_value;
+					: false;
 				break;
 			case 'receiver':
 				// Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
-				$str = preg_replace(array('/[^-a-zа-я\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'), array('', ' ', '-', '.'), $value);
-				$tmp = preg_split('/\s/', $str, -1, PREG_SPLIT_NO_EMPTY);
+				$tmp = preg_replace(array('/[^-a-zа-я\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'), array('', ' ', '-', '.'), $value);
+				$tmp = preg_split('/\s/', $tmp, -1, PREG_SPLIT_NO_EMPTY);
 				$tmp = array_map(array($this, 'ucfirst'), $tmp);
 				$value = preg_replace('/\s+/', ' ', implode(' ', $tmp));
+				if (empty($value)) {$value = false;}
 				break;
 			case 'phone':
 				$value = substr(preg_replace('/[^-+0-9]/iu','',$value),0,15);
@@ -210,7 +217,6 @@ class msOrderHandler implements msOrderInterface {
 		));
 		$value = $response['data']['value'];
 
-		if ($value === false) {$value = '';}
 		return $value;
 	}
 

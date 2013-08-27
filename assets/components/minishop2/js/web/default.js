@@ -285,11 +285,11 @@ miniShop2.Order = {
 	,add: function(key, value) {
 		var old_value = value;
 		$.post(miniShop2Config.actionUrl, {action:"order/add", key: key, value: value, ctx: miniShop2Config.ctx}, function(response) {
+			var field = $('[name="'+key+'"]');
 			if (response.success) {
 				if (response.message) {
 					miniShop2.Message.success(response.message);
 				}
-				var field = $('[name="'+key+'"]');
 				switch (key) {
 					case 'delivery':
 						field = $('#delivery_'+response.data[key]);
@@ -307,12 +307,12 @@ miniShop2.Order = {
 							field.trigger('click');
 						}
 					break;
-					default: field.val(response.data[key]);
+					default: field.val(response.data[key]).removeClass('error');
 				}
 			}
 			else {
 				miniShop2.Message.error(response.message);
-				field.val('');
+				field.addClass('error');
 			}
 		}, 'json');
 	}
