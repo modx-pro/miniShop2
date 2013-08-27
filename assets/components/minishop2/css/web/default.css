@@ -16,9 +16,8 @@
 #msGallery .thumbnails {width: 405px; margin:auto;}
 #msGallery .span2 {margin-left: 10px; width: 120px; padding: 2px;}
 
-#msOrder .error {
-	border: 1px solid brown !important;
-}
+#msOrder .error {border: 1px solid brown !important;}
+#msOrder .required-star {color: brown;}
 
 .ms2_product .price {
 	padding-left: 50px;
@@ -44,15 +43,10 @@
 }
 
 #msOrder {margin-top:50px;}
-#msOrder .radio {
-	min-height: 30px;
-	margin-bottom: 10px;
-}
-#msOrder .radio img {
-	max-height:30px;
-	margin-top:-2px;
-	padding: 0 10px;
-}
+#msOrder .radio {min-height: 30px;margin-bottom: 10px;}
+#msOrder .radio img {max-height:30px;margin-top:-2px;padding: 0 10px;}
+#msOrder .required-star {display: none;}
+#msOrder .required .required-star {display: inline;}
 
 
 .ms2-message-success  {background-color: green !important;}

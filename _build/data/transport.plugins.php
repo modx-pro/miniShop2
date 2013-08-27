@@ -8,7 +8,8 @@ $tmp = array(
 		,'description' => ''
 		,'events' => array(
 			'OnManagerPageBeforeRender',
-			'OnWebPageInit'
+			'OnWebPageInit',
+			'OnHandleRequest',
 		)
 	)
 );

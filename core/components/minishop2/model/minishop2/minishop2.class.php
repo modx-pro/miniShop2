@@ -76,17 +76,12 @@ class miniShop2 {
 					}
 
 					$config_js = preg_replace(array('/^\n/', '/\t{5}/'), '', '
-					miniShop2 = {
-						Callbacks: {
-							Cart: {}
-							,Order: {}
-						}
-					};
+					miniShop2 = {};
 					miniShop2Config = {
 						cssUrl: "'.$this->config['cssUrl'].'web/"
 						,jsUrl: "'.$this->config['jsUrl'].'web/"
 						,imagesUrl: "'.$this->config['imagesUrl'].'web/"
-						,actionUrl: "'.$this->config['actionUrl'].'"
+						//,actionUrl: "'.$this->config['actionUrl'].'"
 						,ctx: "'.$this->modx->context->get('key').'"
 						,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
 						,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
@@ -100,6 +95,7 @@ class miniShop2 {
 					else {
 						$this->modx->regClientStartupScript("<script type=\"text/javascript\">\n".$config_js."\n</script>", true);
 					}
+					$this->modx->regClientStartupScript($this->config['jsUrl'] . 'web/templates.js');
 
 					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
 						if (!empty($js) && preg_match('/\.js/i', $js)) {

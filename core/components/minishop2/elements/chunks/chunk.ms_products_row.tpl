@@ -1,12 +1,16 @@
 <div class="row ms2_product">
 	<div class="span2"><img src="[[+thumb:default=`[[++assets_url]]components/minishop2/img/web/ms2_small.png`]]" width="120" height="90" /></div>
 	<div class="row span10">
-		<p><a href="[[~[[+id]]]]">[[+pagetitle]]</a>
+		<form method="post" class="ms2_form">
+			<a href="[[~[[+id]]]]">[[+pagetitle]]</a>
 			<span class="flags">[[+new]] [[+popular]] [[+favorite]]</span>
 			<span class="price">[[+price]] [[%ms2_frontend_currency]]</span>
 			[[+old_price]]
-			<a href="#" class="ms2_link" data-action="cart/add" data-id="[[+id]]" data-count="1" data-options='[]'><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</a>
-		</p>
+			<button class="btn" type="submit" name="ms2_action" value="cart/add"><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
+			<input type="hidden" name="id" value="[[+id]]">
+			<input type="hidden" name="count" value="1">
+			<input type="hidden" name="options" value="[]">
+		</form>
 		<p><small>[[+introtext]]</small></p>
 	</div>
 </div>

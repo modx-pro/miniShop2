@@ -1,393 +1,566 @@
-miniShop2 = {
-	initialize: function() {
+// typeof $.fn.ajaxForm == 'function' || document.write('<script src="'+miniShop2Config.jsUrl+'lib/jquery.form.min.js"><\/script>');
+typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Config.jsUrl + 'lib/jquery.jgrowl.min.js"><\/script>');
 
-		// Indicator of active ajax request
-		ajaxProgress = false;
-		$(document)
-			.ajaxStart(function() {ajaxProgress = true;})
-			.ajaxStop(function() {ajaxProgress = false;});
+(function(window, document, $, undefined) {
+	miniShop2.ajaxProgress = false;
+	miniShop2.setup = function() {
+		// selectors & $objects
+		this.actionName = 'ms2_action';
+		this.action = ':submit[name=' + this.actionName + ']';
+		this.form = '.ms2_form';
+		this.$doc = $(document);
 
-		if(!jQuery().ajaxForm) {
-			document.write('<script src="'+miniShop2Config.jsUrl+'lib/jquery.form.min.js"><\/script>');
-		}
-		if(!jQuery().jGrowl) {
-			document.write('<script src="'+miniShop2Config.jsUrl+'lib/jquery.jgrowl.min.js"><\/script>');
-		}
-
-		$(document).on('click', 'a.ms2_link,button.ms2_link', function(e) {
-			var action = $(this).data('action');
-			switch (action) {
-				case 'cart/add': miniShop2.Cart.add($(this).data('id'), $(this).data('count'), $(this).data('options')); break;
-				case 'cart/remove': miniShop2.Cart.remove($(this).data('key')); break;
-				case 'cart/clean': miniShop2.Cart.clean(); break;
-				case 'order/submit': miniShop2.Order.submit(); break;
-				case 'order/clean': miniShop2.Order.clean(); break;
-				default: return;
-			}
-			return false;
-		});
-
-		$(document).on('change', '#msCart input[name="count"]', function(e) {
-			miniShop2.Cart.change($(this).data('key'), $(this).val());
-			return false;
-		});
-
-		$(document).on('submit', 'form.ms2_form', function(e) {
-			var action = $(this).data('action');
-			switch (action) {
-				case 'cart/add':
-					var json = {};
-					$.map($(this).serializeArray(), function(n, i) {
-						json[n['name']] = n['value'];
-					});
-					var id = json['id']; delete(json['id']);
-					var count = json['count']; delete(json['count']);
-					miniShop2.Cart.add(id, count, json);
-				break;
-				case 'order/submit':
-					miniShop2.Order.submit();
-				break;
-			}
-			return false;
-		});
-
-		$(document).ready(function() {
-			$.jGrowl.defaults.closerTemplate = '<div>[ '+miniShop2Config.close_all_message+' ]</div>';
-			miniShop2.Order.initialize('#msOrder');
-			miniShop2.Gallery.initialize('#msGallery');
-		});
-	}
-};
-
-miniShop2.Cart = {
-	add: function(id, count, options) {
-		var params = {
-			action: 'cart/add'
-			,ctx: miniShop2Config.ctx
-			,id: id
-			,count: count || 1
-			,options: options || []
+		this.sendData = {
+			$form: null,
+			action: null,
+			formData: null
 		};
+	};
+	miniShop2.initialize = function() {
+		miniShop2.setup();
+		// Indicator of active ajax request
 
-		$.post(miniShop2Config.actionUrl, params, function(response) {
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
+		miniShop2.$doc
+			.ajaxStart(function() {
+				miniShop2.ajaxProgress = true;
+			})
+			.ajaxStop(function() {
+				miniShop2.ajaxProgress = false;
+			})
+			.on('submit', miniShop2.form, function(e) {
+				e.preventDefault();
+				var $form = $(this);
+				var action = $form.find(miniShop2.action).val();
+
+				if (action) {
+					var formData = $form.serializeArray();
+					formData.push({
+						name: miniShop2.actionName,
+						value: action
+					});
+					miniShop2.sendData = {
+						$form: $form,
+						action: action,
+						formData: formData
+					};
+					miniShop2.controller();
 				}
-				miniShop2.Cart.status(response.data);
+			})
+		miniShop2.Cart.initialize();
+		miniShop2.Message.initialize();
+		miniShop2.Order.initialize();
+		miniShop2.Gallery.initialize();
+	}
+	miniShop2.controller = function() {
+		var self = this;
+		switch (self.sendData.action) {
+			case 'cart/add':
+				miniShop2.Cart.add();
+				break;
+			case 'cart/remove':
+				miniShop2.Cart.remove();
+				break;
+			case 'cart/change':
+				miniShop2.Cart.change();
+				break;
+			case 'cart/clean':
+				miniShop2.Cart.clean();
+				break;
+			case 'order/submit':
+				miniShop2.Order.submit();
+				break;
+			case 'order/clean':
+				miniShop2.Order.clean();
+				break;
+			default:
+				return;
+		}
+	};
+	miniShop2.send = function(data, callbacks, userCallbacks) {
+		var runCallback = function(callback, bind) {
+			if (typeof callback == 'function') {
+				return callback.apply(bind, Array.prototype.slice.call(arguments, 2));
 			}
 			else {
-				miniShop2.Message.error(response.message);
+				return true;
 			}
-		}, 'json');
-	}
-	,remove: function(key) {
-		$.post(miniShop2Config.actionUrl, {action:"cart/remove", key: key, ctx: miniShop2Config.ctx}, function(response) {
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
-				}
-				miniShop2.Cart.remove_position(key);
-				miniShop2.Cart.status(response.data);
-			}
-			else {
-				miniShop2.Message.error(response.message);
-			}
-		}, 'json');
-	}
-	,change: function(key, count) {
-		$.post(miniShop2Config.actionUrl, {action:"cart/change", key: key, count: count, ctx: miniShop2Config.ctx}, function(response) {
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
-				}
-				if (typeof(response.data.key) == 'undefined') {
-					miniShop2.Cart.remove_position(key);
+		}
+		// set context
+		if ($.isArray(data)) {
+			data.push({
+				name: 'ctx',
+				value: miniShop2Config.ctx
+			});
+		}
+		else if ($.isPlainObject(data)) {
+			data.ctx = miniShop2Config.ctx;
+		}
+		else if (typeof data == 'string') {
+			data += '&ctx=' + miniShop2Config.ctx;
+		}
+
+		// set action url
+		var formActionUrl = (miniShop2.sendData.$form)
+			? miniShop2.sendData.$form.attr('action')
+			: false;
+		var url = (formActionUrl)
+			? formActionUrl
+			: (miniShop2Config.actionUrl)
+			? miniShop2Config.actionUrl
+			: document.location.href;
+		// set request method
+		var formMethod = (miniShop2.sendData.$form)
+			? miniShop2.sendData.$form.attr('method')
+			: false;
+		var method = (formMethod)
+			? formMethod
+			: 'post';
+
+		// callback before
+		if (runCallback(callbacks.before) === false || runCallback(userCallbacks.before) === false) {
+			return;
+		}
+		// send
+		var xhr = function(callbacks, userCallbacks) {
+			return $[method](url, data, function(response) {
+				if (response.success) {
+					if (response.message) {
+						miniShop2.Message.success(response.message);
+					}
+					runCallback(callbacks.response.success, miniShop2, response);
+					runCallback(userCallbacks.response.success, miniShop2, response);
 				}
 				else {
-					$('#'+key).find('')
+					miniShop2.Message.error(response.message);
+					runCallback(callbacks.response.error, miniShop2, response);
+					runCallback(userCallbacks.response.error, miniShop2, response);
 				}
-				miniShop2.Cart.status(response.data);
-			}
-			else {
-				miniShop2.Message.error(response.message);
-			}
-		}, 'json');
-	}
-	,status: function(status) {
-		if (status.total_count < 1) {
-			document.location = document.location;
+			}, 'json').done(function() {
+					runCallback(callbacks.ajax.done, miniShop2, xhr);
+					runCallback(userCallbacks.ajax.done, miniShop2, xhr);
+				}).fail(function() {
+					runCallback(callbacks.ajax.fail, miniShop2, xhr);
+					runCallback(userCallbacks.ajax.fail, miniShop2, xhr);
+				}).always(function() {
+					runCallback(callbacks.ajax.always, miniShop2, xhr);
+					runCallback(userCallbacks.ajax.always, miniShop2, xhr);
+				});
+		}(callbacks, userCallbacks);
+	};
+
+	miniShop2.Cart = {
+		callbacks: {
+			add: miniShop2Config.callbacksObjectTemplate(), remove: miniShop2Config.callbacksObjectTemplate(), change: miniShop2Config.callbacksObjectTemplate(), clean: miniShop2Config.callbacksObjectTemplate()
 		}
-		else {
-			var cart = $('#msMiniCart');
-			if (status.total_count > 0 && $('.empty', cart).is(':visible')) {
-				$('.empty', cart).hide();
-				$('.not_empty', cart).show();
-			}
-			$('.ms2_total_weight').text(miniShop2.Utils.formatWeight(status.total_weight));
-			$('.ms2_total_count').text(status.total_count);
-			$('.ms2_total_cost').text(miniShop2.Utils.formatPrice(status.total_cost));
-			$(document).trigger('cartstatus', status);
+		,setup: function() {
+			miniShop2.Cart.cart = '#msCart';
+			miniShop2.Cart.miniCart = '#msMiniCart';
+			miniShop2.Cart.miniCartNotEmptyClass = 'not_empty';
+			miniShop2.Cart.countInput = 'input[name=count]';
+			miniShop2.Cart.totalWeight = '.ms2_total_weight';
+			miniShop2.Cart.totalCount = '.ms2_total_count';
+			miniShop2.Cart.totalCost = '.ms2_total_cost';
 		}
-	}
-	,clean: function() {
-		$.post(miniShop2Config.actionUrl, {action:"cart/clean", ctx: miniShop2Config.ctx}, function(response) {
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
+		,initialize: function() {
+			miniShop2.Cart.setup();
+			if (!$(miniShop2.Cart.cart).length) return;
+			miniShop2.$doc.on('change', miniShop2.Cart.cart + ' ' + miniShop2.Cart.countInput, function() {
+					$(this).closest(miniShop2.form).submit();
+				});
+		}
+		,add: function() {
+			var callbacks = miniShop2.Cart.callbacks;
+			callbacks.add.response.success = function(response) {
+				this.Cart.status(response.data);
+			}
+			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.add, miniShop2.Callbacks.Cart.add);
+		}
+		,remove: function() {
+			var callbacks = miniShop2.Cart.callbacks;
+			callbacks.remove.response.success = function(response) {
+				this.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
+				this.Cart.status(response.data);
+			}
+			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.remove, miniShop2.Callbacks.Cart.remove);
+		}
+		,change: function() {
+			var callbacks = miniShop2.Cart.callbacks;
+			callbacks.change.response.success = function(response) {
+				if (typeof(response.data.key) == 'undefined') {
+					this.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
 				}
-				miniShop2.Cart.status(response.data);
-			}
-			else {
-				miniShop2.Message.error(response.message);
-			}
-		}, 'json');
-	}
-	,remove_position: function(key) {
-		$('#'+key).remove();
-	}
-};
-
-miniShop2.Message = {
-	success: function(message) {
-		if (message) {
-			$.jGrowl(message, {theme: 'ms2-message-success'});
-		}
-	}
-	,error: function(message) {
-		if (message) {
-			$.jGrowl(message, {theme: 'ms2-message-error', sticky: true});
-		}
-	}
-	,info: function(message) {
-		if (message) {
-			$.jGrowl(message, {theme: 'ms2-message-info'});
-		}
-	}
-	,close: function() {
-		$.jGrowl('close');
-	}
-};
-
-miniShop2.Utils = {
-	empty: function(val) {
-		return (typeof(val) == 'undefined' || val == 0 || val === null || val === false
-			|| (typeof(val) == 'string' && val.replace(/\s+/g, '') == '')
-			|| (typeof(val) == 'array' && val.length == 0)
-		);
-	}
-	,formatPrice: function(price) {
-		var pf = miniShop2Config.price_format;
-		price = this.number_format(price, pf[0], pf[1], pf[2]);
-
-		if (miniShop2Config.price_format_no_zeros) {
-			price = price.replace(/(0+)$/, '');
-			price = price.replace(/[^0-9]$/, '');
-		}
-
-		return price;
-	}
-	,formatWeight: function(weight) {
-		var wf = miniShop2Config.weight_format;
-		weight = this.number_format(weight, wf[0], wf[1], wf[2]);
-
-		if (miniShop2Config.weight_format_no_zeros) {
-			weight = weight.replace(/(0+)$/, '');
-			weight = weight.replace(/[^0-9]$/, '');
-		}
-
-		return weight;
-	}
-	// Format a number with grouped thousands
-	,number_format: function(number, decimals, dec_point, thousands_sep ) {
-		// original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
-		// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-		// bugfix by: Michael White (http://crestidg.com)
-		var i, j, kw, kd, km;
-
-		// input sanitation & defaults
-		if( isNaN(decimals = Math.abs(decimals)) ){
-			decimals = 2;
-		}
-		if( dec_point == undefined ){
-			dec_point = ",";
-		}
-		if( thousands_sep == undefined ){
-			thousands_sep = ".";
-		}
-
-		i = parseInt(number = (+number || 0).toFixed(decimals)) + "";
-
-		if( (j = i.length) > 3 ){
-			j = j % 3;
-		} else{
-			j = 0;
-		}
-
-		km = (j ? i.substr(0, j) + thousands_sep : "");
-		kw = i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep);
-		kd = (decimals ? dec_point + Math.abs(number - i).toFixed(decimals).replace(/-/, 0).slice(2) : "");
-
-		return km + kw + kd;
-	}
-};
-
-miniShop2.Gallery = {
-	initialize: function(selector) {
-		var gallery = $(selector);
-		if (!gallery.length) {return false;}
-
-		$(document).on('click', selector + ' .thumbnail', function(e) {
-			var src = $(this).attr('href');
-			var href = $(this).data('image');
-			$('#mainImage', gallery).attr('src', src).parent().attr('href', href);
-			return false;
-		});
-
-		$('.thumbnail:first', gallery).trigger('click');
-		return true;
-	}
-};
-
-miniShop2.Order = {
-	element: null
-	,initialize: function(selector) {
-		var order = this.element = $(selector);
-		if (!order.length) {return false;}
-
-		var deliveries = $('#deliveries', order);
-		var payments = $('#payments', order);
-
-		order.on('change', 'input,textarea', function(e) {
-			var key = $(this).attr('name');
-			var value = $(this).val();
-			miniShop2.Order.add(key,value);
-		});
-
-		$(document).on('cartstatus', '', function(e,status) {
-			miniShop2.Order.getcost();
-		});
-
-		this.updatePayments($('input[name="delivery"]:checked', this.element).data('payments'));
-		return true;
-	}
-	,updatePayments: function(payments) {
-		$('input[name="payment"]', this.element).attr('disabled',true).parent().hide();
-		if (payments.length > 0) {
-			for (i in payments) {
-				$('input#payment_'+payments[i]).attr('disabled',false).parent().show();
-			}
-		}
-		if ($('input[name="payment"]:visible:checked', this.element).length == 0) {
-			$('input[name="payment"]:visible:first', this.element).trigger('click');
-		}
-	}
-	,add: function(key, value) {
-		var old_value = value;
-		$.post(miniShop2Config.actionUrl, {action:"order/add", key: key, value: value, ctx: miniShop2Config.ctx}, function(response) {
-			var field = $('[name="'+key+'"]');
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
+				else {
+					$('#' + miniShop2.Utils.getValueFromSerializedArray('key')).find('');
 				}
-				switch (key) {
-					case 'delivery':
-						field = $('#delivery_'+response.data[key]);
-						if (response.data[key] != old_value) {
-							field.trigger('click');
-						}
-						else {
-							miniShop2.Order.updatePayments(field.data('payments'));
-							$(document).trigger('cartstatus', response.data);
-						}
-					break;
-					case 'payment':
-						field = $('#payment_'+response.data[key]);
-						if (response.data[key] != old_value) {
-							field.trigger('click');
-						}
-					break;
-					default: field.val(response.data[key]).removeClass('error');
-				}
+				this.Cart.status(response.data);
 			}
-			else {
-				miniShop2.Message.error(response.message);
-				field.addClass('error');
-			}
-		}, 'json');
-	}
-	,getcost: function() {
-		$.post(miniShop2Config.actionUrl, {action:"order/getcost", ctx: miniShop2Config.ctx}, function(response) {
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
-				}
-				$('#ms2_order_cost').text(miniShop2.Utils.formatPrice(response.data['cost']));
-			}
-			else {
-				miniShop2.Message.error(response.message);
-			}
-		}, 'json');
-	}
-	,clean: function() {
-		$.post(miniShop2Config.actionUrl, {action:"order/clean", ctx: miniShop2Config.ctx}, function(response) {
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
-				}
+			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.change, miniShop2.Callbacks.Cart.change);
+		}
+		,status: function(status) {
+			if (status['total_count'] < 1) {
 				document.location = document.location;
 			}
 			else {
-				miniShop2.Message.error(response.message);
-			}
-		}, 'json');
-	}
-	,submit: function() {
-		miniShop2.Message.close();
-
-		// Checking for active ajax request
-		if (ajaxProgress) {
-			$(document).ajaxComplete(function() {
-				ajaxProgress = false;
-				$(document).unbind('ajaxComplete');
-				miniShop2.Order.submit();
-			});
-			return false;
-		}
-
-		$('button,a', this.element).attr('disabled',true);
-		$.post(miniShop2Config.actionUrl, {action:"order/submit", ctx: miniShop2Config.ctx}, function(response) {
-			$('button,a', miniShop2.Order.element).attr('disabled',false);
-			if (response.success) {
-				if (response.message) {
-					miniShop2.Message.success(response.message);
+				var $cart = $(miniShop2.Cart.cart);
+				var $miniCart = $(miniShop2.Cart.miniCart);
+				if (status['total_count'] > 0 && !$miniCart.hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
+					$miniCart.addClass(miniShop2.Cart.miniCartNotEmptyClass);
 				}
+				$(miniShop2.Cart.totalWeight).text(miniShop2.Utils.formatWeight(status['total_weight']));
+				$(miniShop2.Cart.totalCount).text(status['total_count']);
+				$(miniShop2.Cart.totalCost).text(miniShop2.Utils.formatPrice(status['total_cost']));
+				$(document).trigger('cartstatus', status);
+			}
+		}
+		,clean: function() {
+			var callbacks = miniShop2.Cart.callbacks;
+			callbacks.clean.response.success = function(response) {
+				this.Cart.status(response.data);
+			}
+
+			miniShop2.send(miniShop2.sendData.formData, miniShop2.Cart.callbacks.clean, miniShop2.Callbacks.Cart.clean);
+		}
+		,remove_position: function(key) {
+			$('#' + key).remove();
+		}
+	};
+
+	miniShop2.Gallery = {
+		setup: function() {
+			miniShop2.Gallery.gallery = '#msGallery';
+			miniShop2.Gallery.mainImage = '#mainImage';
+			miniShop2.Gallery.thumbnail = '.thumbnail';
+		}
+		,initialize: function() {
+			miniShop2.Gallery.setup();
+			if (!$(miniShop2.Gallery.gallery).length) {
+				miniShop2.$doc.on('click', miniShop2.Gallery.gallery + ' ' + miniShop2.Gallery.thumbnail, function(e) {
+					var src = $(this).attr('href');
+					var href = $(this).data('image');
+					$(miniShop2.Gallery.mainImage, miniShop2.Gallery.gallery).attr('src', src).parent().attr('href', href);
+					e.preventDefault();
+				});
+
+				$(miniShop2.Gallery.thumbnail + ':first', miniShop2.Gallery.gallery).trigger('click');
+			}
+		}
+	};
+
+	miniShop2.Order = {
+		callbacks: {
+			add: miniShop2Config.callbacksObjectTemplate(), getcost: miniShop2Config.callbacksObjectTemplate(), clean: miniShop2Config.callbacksObjectTemplate(), submit: miniShop2Config.callbacksObjectTemplate(), getRequired: miniShop2Config.callbacksObjectTemplate()
+		}
+		,setup: function() {
+			miniShop2.Order.order = '#msOrder';
+			miniShop2.Order.deliveries = '#deliveries';
+			miniShop2.Order.payments = '#payments';
+			miniShop2.Order.deliveryInput = 'input[name="delivery"]';
+			miniShop2.Order.inputParent = '.input-parent';
+			miniShop2.Order.paymentInput = 'input[name="payment"]';
+			miniShop2.Order.paymentInputUniquePrefix = 'input#payment_';
+			miniShop2.Order.deliveryInputUniquePrefix = 'input#delivery_';
+			miniShop2.Order.orderCost = '#ms2_order_cost'
+		}
+		,initialize: function() {
+			miniShop2.Order.setup();
+			if ($(miniShop2.Order.order).length) {
+				miniShop2.$doc
+					.on('cartstatus', '', function(e, status) {
+						miniShop2.Order.getcost();
+					})
+					.on('click', miniShop2.Order.order + ' [name="' + miniShop2.actionName + '"][value="order/clean"]', function(e) {
+						miniShop2.Order.clean();
+						e.preventDefault();
+					})
+					.on('change', miniShop2.Order.order + ' input, textarea', function(e) {
+						var $this = $(this);
+						var key = $this.attr('name');
+						var value = $this.val();
+						miniShop2.Order.add(key, value);
+						if ($this.is(miniShop2.Order.deliveryInput)) {
+							miniShop2.Order.getRequired(value);
+						}
+					});
+				var $deliveryInputChecked = $(miniShop2.Order.deliveryInput + ':checked', miniShop2.Order.order);
+				$deliveryInputChecked.trigger('change');
+				miniShop2.Order.updatePayments($deliveryInputChecked.data('payments'));
+			}
+		}
+		,updatePayments: function(payments) {
+			var $paymentInputs = $(miniShop2.Order.paymentInput, miniShop2.Order.order);
+			$paymentInputs.attr('disabled', true).prop('disabled', true).closest(miniShop2.Order.inputParent).hide();
+			if (payments.length > 0) {
+				for (var i in payments) {
+					if (payments.hasOwnProperty(i)) {
+						$paymentInputs.filter(miniShop2.Order.paymentInputUniquePrefix + payments[i]).attr('disabled', false).prop('disabled', false).closest(miniShop2.Order.inputParent).show();
+					}
+				}
+			}
+			if ($paymentInputs.filter(':visible:checked').length == 0) {
+				$paymentInputs.filter(':visible:first').trigger('click');
+			}
+		}
+		,add: function(key, value) {
+			var callbacks = miniShop2.Order.callbacks;
+			var old_value = value;
+			callbacks.add.response.success = function(response) {
+				(function(key, value, old_value) {
+					var $field = $('[name="' + key + '"]', miniShop2.Order.order);
+					switch (key) {
+						case 'delivery':
+							$field = $(miniShop2.Order.deliveryInputUniquePrefix + response.data[key]);
+							if (response.data[key] != old_value) {
+								$field.trigger('click');
+							}
+							else {
+								miniShop2.Order.updatePayments($field.data('payments'));
+								miniShop2.$doc.trigger('cartstatus', response.data);
+							}
+							break;
+						case 'payment':
+							$field = $(miniShop2.Order.paymentInputUniquePrefix + response.data[key]);
+							if (response.data[key] != old_value) {
+								$field.trigger('click');
+							}
+							break;
+						//default:
+					}
+					$field.val(response.data[key]).removeClass('error').closest(miniShop2.Order.inputParent).removeClass('error');
+				})(key, value, old_value);
+			}
+			callbacks.add.response.error = function(response) {
+				(function(key) {
+					var $field = $('[name="' + key + '"]', miniShop2.Order.order);
+					if ($field.attr('type') == 'checkbox' || $field.attr('type') == 'radio') {
+						$field.closest(miniShop2.Order.inputParent).addClass('error');
+					}
+					else {
+						$field.addClass('error');
+					}
+				})(key);
+			}
+
+			var data = {
+				key: key,
+				value: value
+			};
+			data[miniShop2.actionName] = 'order/add';
+			miniShop2.send(data, miniShop2.Order.callbacks.add, miniShop2.Callbacks.Order.add);
+		}
+		,getcost: function() {
+			var callbacks = miniShop2.Order.callbacks;
+			callbacks.getcost.response.success = function(response) {
+				$(miniShop2.Order.orderCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['cost']));
+			}
+			var data = {};
+			data[miniShop2.actionName] = 'order/getcost';
+			miniShop2.send(data, miniShop2.Order.callbacks.getcost, miniShop2.Callbacks.Order.getcost);
+		}
+		,clean: function() {
+			var callbacks = miniShop2.Order.callbacks;
+			callbacks.clean.response.success = function(response) {
+				document.location = document.location;
+			}
+
+			var data = {};
+			data[miniShop2.actionName] = 'order/clean';
+			miniShop2.send(data, miniShop2.Order.callbacks.clean, miniShop2.Callbacks.Order.clean);
+		}
+		,submit: function() {
+			miniShop2.Message.close();
+
+			// Checking for active ajax request
+			if (miniShop2.ajaxProgress) {
+				miniShop2.$doc.ajaxComplete(function() {
+					miniShop2.ajaxProgress = false;
+					miniShop2.$doc.unbind('ajaxComplete');
+					miniShop2.Order.submit();
+				});
+				return false;
+			}
+
+			var callbacks = miniShop2.Order.callbacks;
+			callbacks.submit.before = function() {
+				$(':button, a', miniShop2.Order.order).attr('disabled', true).prop('disabled', true);
+			}
+			callbacks.submit.ajax.always = function(xhr) {
+				$(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
+			}
+			callbacks.submit.response.success = function(response) {
 				if (response.data['redirect']) {
 					document.location.href = response.data['redirect'];
 				}
 				else if (response.data['msorder']) {
-					document.location.href = /\?/.test(document.location.href) ? document.location.href + '&msorder=' + response.data['msorder'] : document.location.href + '?msorder=' +  response.data['msorder'];
+					document.location.href = /\?/.test(document.location.href)
+						? document.location.href + '&msorder=' + response.data['msorder']
+						: document.location.href + '?msorder=' + response.data['msorder'];
 				}
 				else {
 					document.location = document.location;
 				}
 			}
-			else {
-				miniShop2.Message.error(response.message);
-				$('[name]', miniShop2.Order.element).removeClass('error');
-				for (i in response.data) {
-					var field = $('[name="'+response.data[i]+'"]', miniShop2.Order.element);
-					if (field.attr('type') == 'checkbox' || field.attr('type') == 'radio') {
-						field.parent().addClass('error');
-					}
-					else {
-						field.addClass('error');
+			callbacks.submit.response.error = function(response) {
+				$('[name]', miniShop2.Order.order).removeClass('error').closest(miniShop2.Order.inputParent).removeClass('error');
+				for (var i in response.data) {
+					if (response.data.hasOwnProperty(i)) {
+						var key = response.data[i];
+						//var $field = $('[name="' + response.data[i] + '"]', miniShop2.Order.order);
+						//$field.addClass('error').closest(miniShop2.Order.inputParent).addClass('error');
+						var $field = $('[name="' + key + '"]', miniShop2.Order.order);
+						if ($field.attr('type') == 'checkbox' || $field.attr('type') == 'radio') {
+							$field.closest(miniShop2.Order.inputParent).addClass('error');
+						}
+						else {
+							$field.addClass('error');
+						}
 					}
 				}
 			}
-		}, 'json');
-	}
-};
+			return miniShop2.send(miniShop2.sendData.formData, miniShop2.Order.callbacks.submit, miniShop2.Callbacks.Order.submit);
+		}
+		,getRequired: function(value) {
+			var callbacks = miniShop2.Order.callbacks;
+			callbacks.getRequired.response.success = function(response) {
+				$('[name]', miniShop2.Order.order).removeClass('required').closest(miniShop2.Order.inputParent).removeClass('required');
+				var requires = response.data['requires'];
+				for (var i = 0, length = requires.length; i < length; i++) {
+					$('[name=' + requires[i] + ']', miniShop2.Order.order).addClass('required').closest(miniShop2.Order.inputParent).addClass('required');
+				}
+			};
+			callbacks.getRequired.response.error = function(response) {
+				$('[name]', miniShop2.Order.order).removeClass('required').closest(miniShop2.Order.inputParent).removeClass('required');
+			}
 
+			var data = {
+				id: value
+			};
+			data[miniShop2.actionName] = 'order/getrequired';
+			miniShop2.send(data, miniShop2.Order.callbacks.getRequired, miniShop2.Callbacks.Order.getRequired);
+		}
+	};
 
-miniShop2.initialize();
+	// Callbacks was or not redefined
+	miniShop2.Callbacks = (miniShop2.Callbacks)
+		? $.extend({}, miniShop2Config.Callbacks, miniShop2.Callbacks)
+		: miniShop2.Callbacks;
+
+	miniShop2.Message = {
+		initialize: function() {
+			if (typeof $.fn.jGrowl != 'undefined') {
+				$.jGrowl.defaults.closerTemplate = '<div>[ ' + miniShop2Config.close_all_message + ' ]</div>';
+				miniShop2.Message.close = function() {
+					$.jGrowl('close');
+				}
+				miniShop2.Message.show = function(message, options) {
+					if (!message) return;
+					$.jGrowl(message, options);
+				}
+			}
+			else {
+				miniShop2.Message.close = function() {};
+				miniShop2.Message.show = function(message) {
+					if (message) {
+						alert(message);
+					}
+				};
+			}
+		}
+		,success: function(message) {
+			miniShop2.Message.show(message, {
+				theme: 'ms2-message-success',
+				sticky: false
+			});
+		}
+		,error: function(message) {
+			miniShop2.Message.show(message, {
+				theme: 'ms2-message-error',
+				sticky: false
+			});
+		}
+		,info: function(message) {
+			miniShop2.Message.show(message, {
+				theme: 'ms2-message-info',
+				sticky: false
+			});
+		}
+	};
+
+	miniShop2.Utils = {
+		empty: function(val) {
+			return (typeof(val) == 'undefined' || val == 0 || val === null || val === false || (typeof(val) == 'string' && val.replace(/\s+/g, '') == '') || (typeof(val) == 'array' && val.length == 0));
+		}, formatPrice: function(price) {
+			var pf = miniShop2Config.price_format;
+			price = this.number_format(price, pf[0], pf[1], pf[2]);
+
+			if (miniShop2Config.price_format_no_zeros) {
+				price = price.replace(/(0+)$/, '');
+				price = price.replace(/[^0-9]$/, '');
+			}
+
+			return price;
+		}, formatWeight: function(weight) {
+			var wf = miniShop2Config.weight_format;
+			weight = this.number_format(weight, wf[0], wf[1], wf[2]);
+
+			if (miniShop2Config.weight_format_no_zeros) {
+				weight = weight.replace(/(0+)$/, '');
+				weight = weight.replace(/[^0-9]$/, '');
+			}
+
+			return weight;
+		}
+		// Format a number with grouped thousands
+		, number_format: function(number, decimals, dec_point, thousands_sep) {
+			// original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+			// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+			// bugfix by: Michael White (http://crestidg.com)
+			var i, j, kw, kd, km;
+
+			// input sanitation & defaults
+			if (isNaN(decimals = Math.abs(decimals))) {
+				decimals = 2;
+			}
+			if (dec_point == undefined) {
+				dec_point = ",";
+			}
+			if (thousands_sep == undefined) {
+				thousands_sep = ".";
+			}
+
+			i = parseInt(number = (+number || 0).toFixed(decimals)) + "";
+
+			if ((j = i.length) > 3) {
+				j = j % 3;
+			}
+			else {
+				j = 0;
+			}
+
+			km = (j
+				? i.substr(0, j) + thousands_sep
+				: "");
+			kw = i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep);
+			kd = (decimals
+				? dec_point + Math.abs(number - i).toFixed(decimals).replace(/-/, '0').slice(2)
+				: '');
+
+			return km + kw + kd;
+		}
+		,getValueFromSerializedArray: function(name, arr) {
+			if (!$.isArray(arr)) {
+				arr = miniShop2.sendData.formData;
+			}
+			for (var i = 0, length = arr.length; i < length; i++) {
+				if (arr[i].name = name) {
+					return arr[i].value;
+				}
+			}
+			return null;
+		}
+	};
+
+	$(document).ready(function($) {
+		miniShop2.initialize();
+		$('button[value="cart/change"]').hide();
+	});
+})(this, document, jQuery);

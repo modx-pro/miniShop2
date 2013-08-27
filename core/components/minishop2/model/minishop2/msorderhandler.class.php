@@ -154,7 +154,7 @@ class msOrderHandler implements msOrderInterface {
 			}
 		}
 
-		return !$validated
+		return ($validated === false)
 			? $this->error('', array($key => $value))
 			: $this->success('', array($key => $validated));
 	}
@@ -272,6 +272,26 @@ class msOrderHandler implements msOrderInterface {
 	}
 
 
+	/**
+	 * Returns required fields for delivery
+	 *
+	 * @param $id
+	 *
+	 * @return array|string
+	 */
+	public function getDeliveryRequiresFields($id = 0) {
+		if (empty($id)) {$id = $this->order['delivery'];}
+		/* @var msDelivery $delivery */
+		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $id, 'active' => 1))) {
+			return $this->error('ms2_order_err_delivery', array('delivery'));
+		}
+		$requires = $delivery->get('requires');
+		$requires = empty($requires) ? array() : array_map('trim', explode(',', $requires));
+		if (!in_array('email', $requires)) {$requires[] = 'email';}
+		return $this->success('', array('requires' => $requires));
+	}
+
+
 	/** @inheritdoc} */
 	public function submit($data = array()) {
 		$response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
@@ -281,12 +301,12 @@ class msOrderHandler implements msOrderInterface {
 		if (!$response['success']) {return $this->error($response['message']);}
 		if (!empty($response['data']['data'])) {$this->set($response['data']['data']);}
 
-		/* @var msDelivery $delivery */
-		if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $this->order['delivery'], 'active' => 1))) {
-			return $this->error('ms2_order_err_delivery', array('delivery'));
+		$response = $this->getDeliveryRequiresFields();
+		if ($this->ms2->config['json_response']) {
+			$response = $this->modx->fromJSON($response);
 		}
-		$requires = array_map('trim', explode(',',$delivery->get('requires')));
-		$requires[] = 'email';
+		$requires = $response['data']['requires'];
+
 		$errors = array();
 		foreach ($requires as $v) {
 			if (!empty($v) && empty($this->order[$v])) {
@@ -368,10 +388,32 @@ class msOrderHandler implements msOrderInterface {
 			/* @var msPayment $payment*/
 			elseif ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
 				$response = $payment->send($order);
-				exit(is_array($response) ? $this->modx->toJSON($response) : $response);
+				if ($this->config['json_response']) {
+					exit(is_array($response) ? $this->modx->toJSON($response) : $response);
+				}
+				else {
+					if (!empty($response['data']['redirect'])) {
+						$this->modx->sendRedirect($response['data']['redirect']);
+						exit();
+					}
+					elseif (!empty($response['data']['msorder'])) {
+						$this->modx->sendRedirect($this->modx->makeUrl($this->modx->resource->id), array('msorder' => $response['data']['msorder']));
+						exit();
+					}
+					else {
+						$this->modx->sendRedirect($this->modx->makeUrl($this->modx->resource->id));
+						exit();
+					}
+				}
 			}
 			else {
-				return $this->success('', array('msorder' => $order->get('id')));
+				if ($this->ms2->config['json_response']) {
+					return $this->success('', array('msorder' => $order->get('id')));
+				}
+				else {
+					$this->modx->sendRedirect($this->modx->makeUrl($this->modx->resource->id), array('msorder' => $response['data']['msorder']));
+					exit();
+				}
 			}
 		}
 		return $this->error();
