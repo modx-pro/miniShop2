@@ -25,7 +25,6 @@ class miniShop2 {
 		$corePath = $this->modx->getOption('minishop2.core_path', $config, $this->modx->getOption('core_path').'components/minishop2/');
 		$assetsPath = $this->modx->getOption('minishop2.assets_path', $config, $this->modx->getOption('assets_path').'components/minishop2/');
 		$assetsUrl = $this->modx->getOption('minishop2.assets_url', $config, $this->modx->getOption('assets_url').'components/minishop2/');
-		$actionUrl = $this->modx->getOption('minishop2.action_url', $config, $assetsUrl.'action.php');
 		$connectorUrl = $assetsUrl.'connector.php';
 
 		$this->config = array_merge(array(
@@ -37,7 +36,6 @@ class miniShop2 {
 			,'customPath' => $corePath.'custom/'
 
 			,'connectorUrl' => $connectorUrl
-			,'actionUrl' => $actionUrl
 
 			,'corePath' => $corePath
 			,'assetsPath' => $assetsPath
@@ -81,7 +79,6 @@ class miniShop2 {
 						cssUrl: "'.$this->config['cssUrl'].'web/"
 						,jsUrl: "'.$this->config['jsUrl'].'web/"
 						,imagesUrl: "'.$this->config['imagesUrl'].'web/"
-						//,actionUrl: "'.$this->config['actionUrl'].'"
 						,ctx: "'.$this->modx->context->get('key').'"
 						,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
 						,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'

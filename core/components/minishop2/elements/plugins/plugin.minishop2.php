@@ -7,23 +7,16 @@ switch ($modx->event->name) {
 		break;
 
 	case 'OnHandleRequest':
-		if (!empty($_REQUEST['ms2_action'])) {
-			$action = trim($_REQUEST['ms2_action']);
-		}
-		else {
-			return;
-		}
+		if (empty($_REQUEST['ms2_action'])) {return;}
 
+		$action = trim($_REQUEST['ms2_action']);
 		$isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
-
-		/* @var miniShop2 $miniShop2 */
-		$miniShop2 = $modx->getService('minishop2');
-		if (($modx->error->hasError() || !($miniShop2 instanceof miniShop2)) && $isAjax) {die('Error');}
-
 		$ctx = !empty($_REQUEST['ctx']) ? $_REQUEST['ctx'] : 'web';
 		if ($ctx != 'web') {$modx->switchContext($ctx);}
-
+		/* @var miniShop2 $miniShop2 */
+		$miniShop2 = $modx->getService('minishop2');
 		$miniShop2->initialize($ctx, array('json_response' => $isAjax));
+		if (($modx->error->hasError() || !($miniShop2 instanceof miniShop2)) && $isAjax) {exit('Could not initialize miniShop2');}
 
 		switch ($action) {
 			case 'cart/add': $response = $miniShop2->cart->add(@$_POST['id'], @$_POST['count'], @$_POST['options']); break;
@@ -38,11 +31,14 @@ switch ($modx->event->name) {
 			case 'order/clean': $response = $miniShop2->order->clean(); break;
 			case 'order/get': $response = $miniShop2->order->get(); break;
 			default:
-				$message = $_REQUEST['ms2_action'] != $action ? 'ms2_err_register_globals' : 'ms2_err_unknown';
-				$response = $modx->toJSON(array('success' => false, 'message' => $modx->lexicon($message)));
+				$message = ($_REQUEST['ms2_action'] != $action)
+					? 'ms2_err_register_globals'
+					: 'ms2_err_unknown';
+				$response = $miniShop2->error($message);
 		}
 
 		if ($isAjax) {
+			@session_write_close();
 			exit($response);
 		}
 		break;
