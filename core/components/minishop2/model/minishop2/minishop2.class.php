@@ -23,6 +23,7 @@ class miniShop2 {
 		$this->modx =& $modx;
 
 		$corePath = $this->modx->getOption('minishop2.core_path', $config, $this->modx->getOption('core_path').'components/minishop2/');
+		$assetsPath = $this->modx->getOption('minishop2.assets_path', $config, $this->modx->getOption('assets_path').'components/minishop2/');
 		$assetsUrl = $this->modx->getOption('minishop2.assets_url', $config, $this->modx->getOption('assets_url').'components/minishop2/');
 		$actionUrl = $this->modx->getOption('minishop2.action_url', $config, $assetsUrl.'action.php');
 		$connectorUrl = $assetsUrl.'connector.php';
@@ -31,6 +32,7 @@ class miniShop2 {
 			'assetsUrl' => $assetsUrl
 			,'cssUrl' => $assetsUrl.'css/'
 			,'jsUrl' => $assetsUrl.'js/'
+			,'jsPath' => $assetsPath.'js/'
 			,'imagesUrl' => $assetsUrl.'images/'
 			,'customPath' => $corePath.'custom/'
 
@@ -38,6 +40,7 @@ class miniShop2 {
 			,'actionUrl' => $actionUrl
 
 			,'corePath' => $corePath
+			,'assetsPath' => $assetsPath
 			,'modelPath' => $corePath.'model/'
 			,'ctx' => 'web'
 			,'json_response' => false
@@ -71,29 +74,40 @@ class miniShop2 {
 					if ($css = $this->modx->getOption('ms2_frontend_css')) {
 						$this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
 					}
+
+					$config_js = preg_replace(array('/^\n/', '/\t{5}/'), '', '
+					miniShop2 = {
+						Callbacks: {
+							Cart: {}
+							,Order: {}
+						}
+					};
+					miniShop2Config = {
+						cssUrl: "'.$this->config['cssUrl'].'web/"
+						,jsUrl: "'.$this->config['jsUrl'].'web/"
+						,imagesUrl: "'.$this->config['imagesUrl'].'web/"
+						,actionUrl: "'.$this->config['actionUrl'].'"
+						,ctx: "'.$this->modx->context->get('key').'"
+						,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
+						,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
+						,price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
+						,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
+						,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
+					};');
+					if (file_put_contents($this->config['jsPath'] . 'web/config.js', $config_js)) {
+						$this->modx->regClientStartupScript($this->config['jsUrl'] . 'web/config.js');
+					}
+					else {
+						$this->modx->regClientStartupScript("<script type=\"text/javascript\">\n".$config_js."\n</script>", true);
+					}
+
 					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
-						$this->modx->regClientStartupScript(str_replace('					', '', '
-						<script type="text/javascript">
-						miniShop2Config = {
-							cssUrl: "'.$this->config['cssUrl'].'web/"
-							,jsUrl: "'.$this->config['jsUrl'].'web/"
-							,imagesUrl: "'.$this->config['imagesUrl'].'web/"
-							,actionUrl: "'.$this->config['actionUrl'].'"
-							,ctx: "'.$this->modx->context->get('key').'"
-							,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
-							,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
-							,price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
-							,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
-							,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
-						};
-						</script>
-					'), true);
 						if (!empty($js) && preg_match('/\.js/i', $js)) {
-							$this->modx->regClientScript(str_replace('							', '', '
+							$this->modx->regClientScript(preg_replace(array('/^\n/', '/\t{7}/'), '', '
 							<script type="text/javascript">
-							if(typeof jQuery == "undefined") {
-								document.write("<script src=\"'.$this->config['jsUrl'].'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
-							}
+								if(typeof jQuery == "undefined") {
+									document.write("<script src=\"'.$this->config['jsUrl'].'web/lib/jquery.min.js\" type=\"text/javascript\"><\/script>");
+								}
 							</script>
 							'), true);
 							$this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
