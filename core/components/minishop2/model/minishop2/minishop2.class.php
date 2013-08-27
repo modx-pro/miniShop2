@@ -319,7 +319,7 @@ class miniShop2 {
 				$emails = array_map('trim', explode(',', $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))));
 				if (!empty($subject)) {
 					foreach ($emails as $email) {
-						if (preg_match('/.+@.+..+/i', $email)) {
+						if (preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $email)) {
 							$this->sendEmail($email, $subject, $body);
 						}
 					}
@@ -340,7 +340,7 @@ class miniShop2 {
 						$body = $this->processTags($chunk->process($pls));
 					}
 					$email = $profile->get('email');
-					if (!empty($subject) && preg_match('/.+@.+..+/i', $email)) {
+					if (!empty($subject) && preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $email)) {
 						$this->sendEmail($email, $subject, $body);
 					}
 				}

@@ -168,7 +168,7 @@ class msOrderHandler implements msOrderInterface {
 
 		$old_value = isset($this->order[$key]) ? $this->order[$key] : '';
 		switch ($key) {
-			case 'email': $value = preg_match('/.+@.+..+/i', $value) ? $value : $old_value; break;
+			case 'email': $value = preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $value) ? $value : $old_value; break;
 			case 'receiver':
 				$value = preg_replace('/[^a-zа-я\s]/iu','',$value);
 				$tmp = explode(' ',$value);
