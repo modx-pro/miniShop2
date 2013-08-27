@@ -9,17 +9,34 @@ $modx->setLogLevel(modX::LOG_LEVEL_INFO);
 $modx->setLogTarget('FILE');
 
 /* @var miniShop2 $miniShop2 */
-$miniShop2 = $modx->getService('minishop2','miniShop2',$modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/minishop2/', array());
+$miniShop2 = $modx->getService('minishop2');
 $miniShop2->loadCustomClasses('payment');
 
 if (!class_exists('PayPal')) {exit( 'Error: could not load payment class "PayPal".');}
-if (empty($_GET['token'])) {return 'Access denied';}
-
 /* @var msPaymentInterface|PayPal $handler */
 $handler = new PayPal($modx->newObject('msOrder'));
+
+if (isset($_GET['action']) && $_GET['action'] == 'continue' && !empty($_GET['msorder']) && !empty($_GET['mscode'])) {
+	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
+		if ($_GET['mscode'] == $handler->getOrderHash($order)) {
+			$response = $handler->send($order);
+			if ($response['success'] && !empty($response['data']['redirect'])) {
+				$modx->sendRedirect($response['data']['redirect']);
+			}
+			else {
+				exit($response['message']);
+			}
+		}
+	}
+	exit('Error when continuing order');
+}
+elseif (empty($_GET['token'])) {
+	exit('Access denied');
+}
+
 $response = $handler->request(array(
-	'METHOD' => 'GetExpressCheckoutDetails'
-	,'TOKEN' => $_GET['token']
+	'METHOD' => 'GetExpressCheckoutDetails',
+	'TOKEN' => $_GET['token'],
 ));
 
 $context = '';
@@ -43,7 +60,7 @@ else {
 
 
 
-$success = $cancel = MODX_SITE_URL;
+$success = $cancel = $modx->getOption('site_url');
 if ($id = $modx->getOption('ms2_payment_paypal_success_id', null, 0)) {
 	$success = $modx->makeUrl($id, $context, $params, 'full');
 }
@@ -52,4 +69,4 @@ if ($id = $modx->getOption('ms2_payment_paypal_cancel_id', null, 0)) {
 }
 
 $redirect = !empty($_GET['action']) && $_GET['action'] == 'success' ? $success : $cancel;
-header('Location: ' . $redirect);
+$modx->sendRedirect($redirect);

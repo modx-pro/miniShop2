@@ -24,6 +24,7 @@ Changelog for miniShop2.
 - [#50] Fixed checking of the existence of the Tickets component.
 - Some fixes for MySql STRICT_TRANS_TABLES mode.
 - Updated jQuery to version 1.10.2
+- Added method PayPal::getPaymentLink for continuing interrupted payment process. You will see [[+payment_link]] in emails.
 
 2.0.1 pl3
 ==============

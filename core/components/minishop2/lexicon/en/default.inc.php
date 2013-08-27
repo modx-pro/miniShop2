@@ -125,6 +125,7 @@ $_lang['ms2_err_delivery_nf'] = 'The delivery with this id not found.';
 $_lang['ms2_err_payment_nf'] = 'The payment with this id not found.';
 $_lang['ms2_err_status_final'] = 'Final status is set, you can not change it.';
 $_lang['ms2_err_status_fixed'] = 'Fixed status is set. You can not change it to previous status.';
+$_lang['ms2_err_status_wrong'] = 'Wrong status of order.';
 $_lang['ms2_err_status_same'] = 'This status is already set.';
 $_lang['ms2_err_register_globals'] = 'Error: php parameter <b>register_globals</b> must be off.';
 $_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';

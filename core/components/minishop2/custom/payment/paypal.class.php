@@ -9,7 +9,7 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 		$this->modx = & $object->xpdo;
 
 		$siteUrl = $this->modx->getOption('site_url');
-		$assetsUrl = $this->modx->getOption('minishop2.assets_url', $config, $this->modx->getOption('assets_url').'components/minishop2/');
+		$assetsUrl = $this->modx->getOption('assets_url').'components/minishop2/';
 		$paymentUrl = $siteUrl . substr($assetsUrl, 1) . 'payment/paypal.php';
 
 		$this->config = array_merge(array(
@@ -27,6 +27,9 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 
 	/* @inheritdoc} */
 	public function send(msOrder $order) {
+		if ($order->get('status') > 1) {
+			return $this->error('ms2_err_status_wrong');
+		}
 		$params = array(
 			'METHOD' => 'SetExpressCheckout'
 			,'PAYMENTREQUEST_0_CURRENCYCODE' => $this->config['currency']
@@ -136,4 +139,22 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 		curl_close($ch);
 		return $result;
 	}
+
+
+	/**
+	 * Returns a direct link for continue payment process of existing order
+	 *
+	 * @param msOrder $order
+	 *
+	 * @return string
+	 */
+	public function getPaymentLink(msOrder $order) {
+		return $this->config['paymentUrl'] . '?' .
+			http_build_query(array(
+				'action' => 'continue',
+				'msorder' => $order->get('id'),
+				'mscode' => $this->getOrderHash($order),
+			));
+	}
+
 }

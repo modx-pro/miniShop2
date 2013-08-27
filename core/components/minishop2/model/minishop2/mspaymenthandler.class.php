@@ -53,6 +53,23 @@ class msPaymentHandler implements msPaymentInterface {
 
 
 	/**
+	 * Returns hash of order for various checks
+	 *
+	 * @param msOrder $order
+	 *
+	 * @return string
+	 */
+	public function getOrderHash(msOrder $order) {
+		return md5(
+			$order->get('id') .
+			$order->get('cart_cost') .
+			$order->get('delivery_cost') .
+			$order->get('createdon')
+		);
+	}
+
+
+	/**
 	 * Shorthand for MS2 error method
 	 *
 	 * @param string $message
