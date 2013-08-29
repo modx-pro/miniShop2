@@ -85,6 +85,28 @@ class miniShop2 {
 						,price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
 						,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
 						,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
+						,callbacksObjectTemplate: function() {
+							return {
+								before: function() {/*return false to prevent send data*/}
+								,response: {success: function(response) {},error: function(response) {}}
+								,ajax: {done: function(xhr) {},fail: function(xhr) {},always: function(xhr) {}}
+							};
+						}
+					};
+					miniShop2.Callbacks = miniShop2Config.Callbacks = {
+						Cart: {
+							add: miniShop2Config.callbacksObjectTemplate()
+							,remove: miniShop2Config.callbacksObjectTemplate()
+							,change: miniShop2Config.callbacksObjectTemplate()
+							,clean: miniShop2Config.callbacksObjectTemplate()
+						}
+						,Order: {
+							add: miniShop2Config.callbacksObjectTemplate()
+							,getcost: miniShop2Config.callbacksObjectTemplate()
+							,clean: miniShop2Config.callbacksObjectTemplate()
+							,submit: miniShop2Config.callbacksObjectTemplate()
+							,getRequired: miniShop2Config.callbacksObjectTemplate()
+						}
 					};');
 					if (file_put_contents($this->config['jsPath'] . 'web/config.js', $config_js)) {
 						$this->modx->regClientStartupScript($this->config['jsUrl'] . 'web/config.js');
@@ -92,7 +114,6 @@ class miniShop2 {
 					else {
 						$this->modx->regClientStartupScript("<script type=\"text/javascript\">\n".$config_js."\n</script>", true);
 					}
-					$this->modx->regClientStartupScript($this->config['jsUrl'] . 'web/templates.js');
 
 					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
 						if (!empty($js) && preg_match('/\.js/i', $js)) {
