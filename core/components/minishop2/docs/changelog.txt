@@ -1,14 +1,14 @@
 Changelog for miniShop2.
 
-2.1.0 rc
+2.1.0 rc (Thanks to Alexey Kartashov)
 ==============
-- Improved regular expression for email verification.
-- Improved validation of customer name and email when create order.
-- msOrderHandler::add() now can return an error.
-- Improved registration of javascript on frontend.
-- Improved show\hide of msMiniCart with css.
-- Refactored default frontend javascript.
-- Works with no javascript.
+- [#59] Improved regular expression for email verification.
+- [#59] Improved validation of customer name and email when create order.
+- [#59] msOrderHandler::add() now can return an error.
+- [#59] Improved registration of javascript on frontend.
+- [#59] Improved show\hide of msMiniCart with css.
+- [#59] Refactored default frontend javascript.
+- [#59] Works with no javascript.
 - Small improvements of product gallery ui.
 
 2.1.0 beta2
