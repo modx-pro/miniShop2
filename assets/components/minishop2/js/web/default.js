@@ -436,11 +436,6 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		}
 	};
 
-	// Callbacks was or not redefined
-	miniShop2.Callbacks = (miniShop2.Callbacks)
-		? $.extend({}, miniShop2Config.Callbacks, miniShop2.Callbacks)
-		: miniShop2.Callbacks;
-
 	miniShop2.Message = {
 		initialize: function() {
 			if (typeof $.fn.jGrowl != 'undefined') {
