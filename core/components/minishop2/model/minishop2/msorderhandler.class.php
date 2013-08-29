@@ -181,7 +181,7 @@ class msOrderHandler implements msOrderInterface {
 				break;
 			case 'receiver':
 				// Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
-				$tmp = preg_replace(array('/[^-a-zа-я\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'), array('', ' ', '-', '.'), $value);
+				$tmp = preg_replace(array('/[^-a-zа-яёЁ\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'), array('', ' ', '-', '.'), $value);
 				$tmp = preg_split('/\s/', $tmp, -1, PREG_SPLIT_NO_EMPTY);
 				$tmp = array_map(array($this, 'ucfirst'), $tmp);
 				$value = preg_replace('/\s+/', ' ', implode(' ', $tmp));
