@@ -233,7 +233,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		}
 		,initialize: function() {
 			miniShop2.Gallery.setup();
-			if (!$(miniShop2.Gallery.gallery).length) {
+			if ($(miniShop2.Gallery.gallery).length) {
 				miniShop2.$doc.on('click', miniShop2.Gallery.gallery + ' ' + miniShop2.Gallery.thumbnail, function(e) {
 					var src = $(this).attr('href');
 					var href = $(this).data('image');
