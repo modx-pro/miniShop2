@@ -364,7 +364,7 @@ Ext.extend(miniShop2.view.ProductImages,MODx.DataView,{
 			}
 		};
 		data.shortName = Ext.util.Format.ellipsis(data.name, 16);
-		data.createdon = new Date(data.createdon).format(MODx.config.manager_date_format + ' ' + MODx.config.manager_time_format);
+		data.createdon = miniShop2.utils.formatDate(data.createdon);
 		this.lookup['ms2-product-image-'+data.id] = data;
 		return data;
 	}
@@ -385,13 +385,14 @@ Ext.extend(miniShop2.view.ProductImages,MODx.DataView,{
 		this.templates.details = new Ext.XTemplate(
 			'<div class="details">'
 				,'<tpl for=".">'
-					,'<div class="modx-pb-detail-thumb"><img src="{url}" width="300" alt="{name}" onclick="window.open(\'{url}\')" /></div>'
-						,'<div class="modx-pb-details-info">'
-						,_('ms2_gallery_name') + ': <strong>{name}</strong><br/><br/>'
+					,'<div class="modx-gallery-detail-thumb"><a href="{url}" target="_blank"><img src="{url}" alt="{name}" /></a></div>'
+						,'<div class="modx-gallery-details-info">'
+						,_('ms2_gallery_filename') + ': <strong>{file}</strong><br/><br/>'
+						,_('ms2_gallery_title') + ': <strong>{name}</strong><br/><br/>'
 						,_('ms2_gallery_createdon') + ': <strong>{createdon}</strong><br/><br/>'
 						,_('ms2_product_source') + ': <strong>{source}</strong><br/><br/>'
 						,_('ms2_gallery_url') + ': <a href="{url}" target="_blank" class="link">{url}</a>'
-						,'<tpl if="description"><br/><hr/><p>{description}</p></tpl>'
+						,'<tpl if="description"><p class="description">{description}</p></tpl>'
 					,'</div>'
 				,'</tpl>'
 			,'</div>'
@@ -461,9 +462,9 @@ miniShop2.window.UpdateImage = function(config) {
 		,autoHeight: false
 		,fields: [
 			{xtype: 'hidden',name: 'id',id: this.ident+'-id'}
-			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_file_name'),name: 'file',id: this.ident+'-file',anchor: '100%'}
-			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_file_title'),name: 'name',id: this.ident+'-name',anchor: '100%'}
-			,{xtype: 'textarea',fieldLabel: _('ms2_gallery_file_description'),name: 'description',id: this.ident+'-description',anchor: '100% -120'}
+			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_filename'),name: 'file',id: this.ident+'-file',anchor: '100%'}
+			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_title'),name: 'name',id: this.ident+'-name',anchor: '100%'}
+			,{xtype: 'textarea',fieldLabel: _('ms2_gallery_description'),name: 'description',id: this.ident+'-description',anchor: '100% -120'}
 		]
 		,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: this.submit,scope: this}]
 	});

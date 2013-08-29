@@ -9,6 +9,7 @@ Changelog for miniShop2.
 - Improved show\hide of msMiniCart with css.
 - Refactored default frontend javascript.
 - Works with no javascript.
+- Small improvements of product gallery ui.
 
 2.1.0 beta2
 ==============

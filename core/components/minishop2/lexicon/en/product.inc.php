@@ -129,6 +129,8 @@ $_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creat
 $_lang['ms2_gallery_emptymsg'] = 'Drag and drop files to this table for upload, or select them by clicking on the button at the top.';
 $_lang['ms2_gallery_introtext'] = 'Here you can manage the product gallery. Upload new images simply by dragging them to the table. The first image in the gallery is main for the product.';
 $_lang['ms2_gallery_filename'] = 'Filename';
+$_lang['ms2_gallery_title'] = 'Title';
+$_lang['ms2_gallery_description'] = 'Description';
 $_lang['ms2_gallery_size'] = 'Size';
 $_lang['ms2_gallery_status'] = 'Status';
 $_lang['ms2_gallery_progress'] = 'Progress';
@@ -152,10 +154,6 @@ $_lang['ms2_gallery_image_delete'] = 'Delete image';
 $_lang['ms2_gallery_image_delete_confirm'] = 'Are you shure you want to delete this image with all of it thumbnails? <br/> This operation is irreversible.';
 $_lang['ms2_gallery_image_delete_multiple'] = 'Delete images';
 $_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Are you shure you want to delete this images with all of its thumbnails? <br/> This operation is irreversible.';
-
-$_lang['ms2_gallery_file_name'] = 'File name';
-$_lang['ms2_gallery_file_title'] = 'Title';
-$_lang['ms2_gallery_file_description'] = 'Description';
 
 $_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> Queued';
 $_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> Uploading';

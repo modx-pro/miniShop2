@@ -129,6 +129,8 @@ $_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключе
 $_lang['ms2_gallery_emptymsg'] = 'Перетяните в эту таблицу файлы для загрузки, или выберите их кнопкой вверху.';
 $_lang['ms2_gallery_introtext'] = 'Здесь вы управляете галереей товара. Вы можете загрузить новые изображения просто перетянув их в таблицу. Первое изображение в галерее является основным для товара.';
 $_lang['ms2_gallery_filename'] = 'Имя файла';
+$_lang['ms2_gallery_title'] = 'Название';
+$_lang['ms2_gallery_description'] = 'Описание';
 $_lang['ms2_gallery_size'] = 'Размер';
 $_lang['ms2_gallery_status'] = 'Статус';
 $_lang['ms2_gallery_progress'] = 'Прогресс';
@@ -152,10 +154,6 @@ $_lang['ms2_gallery_image_delete'] = 'Удалить изображение';
 $_lang['ms2_gallery_image_delete_confirm'] = 'Вы действительно хотите удалить это изображение вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
 $_lang['ms2_gallery_image_delete_multiple'] = 'Удалить изображения';
 $_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти изображения со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
-
-$_lang['ms2_gallery_file_name'] = 'Имя файла';
-$_lang['ms2_gallery_file_title'] = 'Название';
-$_lang['ms2_gallery_file_description'] = 'Описание';
 
 $_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> В очереди';
 $_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> В процессе';
