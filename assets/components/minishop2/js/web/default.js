@@ -209,7 +209,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				$(miniShop2.Cart.totalWeight).text(miniShop2.Utils.formatWeight(status['total_weight']));
 				$(miniShop2.Cart.totalCount).text(status['total_count']);
 				$(miniShop2.Cart.totalCost).text(miniShop2.Utils.formatPrice(status['total_cost']));
-				$(document).trigger('cartstatus', status);
+				miniShop2.Order.getcost();
 			}
 		}
 		,clean: function() {
@@ -265,9 +265,6 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 			miniShop2.Order.setup();
 			if ($(miniShop2.Order.order).length) {
 				miniShop2.$doc
-					.on('cartstatus', '', function(e, status) {
-						miniShop2.Order.getcost();
-					})
 					.on('click', miniShop2.Order.order + ' [name="' + miniShop2.actionName + '"][value="order/clean"]', function(e) {
 						miniShop2.Order.clean();
 						e.preventDefault();
@@ -314,7 +311,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 							}
 							else {
 								miniShop2.Order.updatePayments($field.data('payments'));
-								miniShop2.$doc.trigger('cartstatus', response.data);
+								miniShop2.Order.getcost();
 							}
 							break;
 						case 'payment':
