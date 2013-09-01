@@ -3,6 +3,7 @@
 #msCart th, #msCart td {text-align:center; line-height: 30px;}
 #msCart .title {text-align:left;}
 #msCart th.total {text-align:right; padding-right:5px;}
+.js #msCart [type="submit"][value="cart/change"] {display: none;}
 
 #msMiniCart {font-size: .8em;}
 #msMiniCart h5 {margin: 0;}
@@ -47,7 +48,6 @@
 #msOrder .radio img {max-height:30px;margin-top:-2px;padding: 0 10px;}
 #msOrder .required-star {display: none;}
 #msOrder .required .required-star {display: inline;}
-
 
 .ms2-message-success  {background-color: green !important;}
 .ms2-message-error  {background-color: brown !important;}

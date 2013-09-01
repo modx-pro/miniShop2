@@ -556,6 +556,8 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 
 	$(document).ready(function($) {
 		miniShop2.initialize();
-		$('button[value="cart/change"]').hide();
+		var html = $('html');
+		html.removeClass('no-js');
+		if (!html.hasClass('js')) {html.addClass('js');}
 	});
 })(this, document, jQuery);
