@@ -6,6 +6,11 @@ class msPayment extends xPDOSimpleObject {
 	var $ms2;
 
 
+	/**
+	 * Loads payment handler class
+	 *
+	 * @return bool
+	 */
 	public function loadHandler() {
 		require_once dirname(__FILE__).'/mspaymenthandler.class.php';
 
@@ -36,6 +41,13 @@ class msPayment extends xPDOSimpleObject {
 	}
 
 
+	/**
+	 * Send user to payment service
+	 *
+	 * @param msOrder $order Object with an order
+	 *
+	 * @return array|boolean $response
+	 */
 	public function send(msOrder $order) {
 		if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
 			if (!$this->loadHandler()) {
@@ -46,19 +58,45 @@ class msPayment extends xPDOSimpleObject {
 	}
 
 
-	public function receive(msOrder $order, $params = array()) {
+	/**
+	 * Receives payment
+	 *
+	 * @param msOrder $order Object with an order
+	 *
+	 * @return array|boolean $response
+	 */
+	public function receive(msOrder $order) {
 		if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
 			if (!$this->loadHandler()) {
 				return false;
 			}
 		}
-		return $this->handler->receive($order, $params);
+		return $this->handler->receive($order);
 	}
 
+
 	/**
-	 * {@inheritdoc}
+	 * Returns an additional cost depending on the method of payment
 	 *
+	 * @param msOrderInterface|msOrderHandler $order
+	 * @param float $cost Current cost of order
+	 *
+	 * @return float|integer
 	 */
+	public function getCost(msOrderInterface $order, $cost = 0) {
+		if (is_object($order->ms2) && $order->ms2 instanceof miniShop2) {
+			$this->ms2 = & $order->ms2;
+		}
+		if (!is_object($this->handler) || !($this->handler instanceof msDeliveryInterface)) {
+			if (!$this->loadHandler()) {
+				return false;
+			}
+		}
+		return $this->handler->getCost($order, $this, $cost);
+	}
+
+
+	/** {@inheritdoc} */
 	public function remove(array $ancestors= array ()) {
 		$id = $this->get('id');
 		$table = $this->xpdo->getTableName('msDeliveryMember');
@@ -67,5 +105,4 @@ class msPayment extends xPDOSimpleObject {
 
 		return parent::remove();
 	}
-
 }

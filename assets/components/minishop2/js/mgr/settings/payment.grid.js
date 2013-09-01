@@ -39,7 +39,7 @@ miniShop2.grid.Payment = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/payment/getlist'
 		}
-		,fields: ['id','name','description','logo','rank','active','class']
+		,fields: ['id','name','description','price','logo','rank','active','class']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -49,6 +49,7 @@ miniShop2.grid.Payment = function(config) {
 		,columns: [this.exp
 			,{header: _('ms2_id'),dataIndex: 'id',width: 50}
 			,{header: _('ms2_name'),dataIndex: 'name',width: 100, editor: {xtype: 'textfield', allowBlank: false}}
+			,{header: _('ms2_add_cost'),dataIndex: 'price',width: 50, editor: {xtype: 'textfield'}}
 			,{header: _('ms2_logo'),dataIndex: 'logo',width: 75, renderer: this.renderLogo}
 			,{header: _('ms2_active'),dataIndex: 'active',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
 			,{header: _('ms2_class'),dataIndex: 'class',width: 75, editor: {xtype: 'textfield'}}
@@ -154,6 +155,7 @@ Ext.extend(miniShop2.grid.Payment,MODx.grid.Grid,{
 		return [
 			{xtype: 'hidden',name: 'id', id: 'minishop2-payment-id-'+type}
 			,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-payment-name-'+type}
+			,{xtype: 'textfield',fieldLabel: _('ms2_add_cost'), name: 'price', description: _('ms2_add_cost_help') ,allowBlank: true, anchor: '50%', id: 'minishop2-payment-price-'+type}
 			,{xtype: 'minishop2-combo-browser',fieldLabel: _('ms2_logo'), name: 'logo', anchor: '99%',  id: 'minishop2-payment-logo-'+type}
 			,{xtype: 'textarea', fieldLabel: _('ms2_description'), name: 'description', anchor: '99%', id: 'minishop2-payment-description-'+type}
 			,{xtype: 'textfield',fieldLabel: _('ms2_class'), name: 'class', anchor: '99%', id: 'minishop2-payment-class-'+type}

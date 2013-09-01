@@ -3,14 +3,39 @@
 interface msDeliveryInterface {
 
 	/**
-	 * Get the cost of delivery
+	 * Returns an additional cost depending on the method of delivery
 	 *
 	 * @param msOrderInterface $order
 	 * @param msDelivery $delivery
+	 * @param float $cost
 	 *
-	 * @return integer
+	 * @return float|integer
 	 */
-	public function getcost(msOrderInterface $order, msDelivery $delivery);
+	public function getCost(msOrderInterface $order, msDelivery $delivery, $cost = 0);
+
+
+	/**
+	 * Returns failure response
+	 *
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 *
+	 * @return array|string
+	 */
+	public function error($message = '', $data = array(), $placeholders = array());
+
+
+	/**
+	 * Returns success response
+	 *
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 *
+	 * @return array|string
+	 */
+	public function success($message = '', $data = array(), $placeholders = array());
 }
 
 
@@ -32,28 +57,25 @@ class msDeliveryHandler implements msDeliveryInterface {
 
 
 	/** @inheritdoc} */
-	public function getcost(msOrderInterface $order, msDelivery $delivery) {
+	public function getCost(msOrderInterface $order, msDelivery $delivery, $cost = 0) {
 		$cart = $this->ms2->cart->status();
-		$min_price = $delivery->get('price');
 		$weight_price = $delivery->get('weight_price');
 		//$distance_price = $delivery->get('distance_price');
 
 		$cart_weight = $cart['total_weight'];
-		$cost = $min_price + ($weight_price * $cart_weight);
+		$cost += $weight_price * $cart_weight;
 
+		$add_price = $delivery->get('price');
+		if (preg_match('/%$/', $add_price)) {
+			$add_price = str_replace('%', '', $add_price);
+			$add_price = $cost / 100 * $add_price;
+		}
+		$cost += $add_price;
 		return $cost;
 	}
 
 
-	/**
-	 * Shorthand for MS2 error method
-	 *
-	 * @param string $message
-	 * @param array $data
-	 * @param array $placeholders
-	 *
-	 * @return array|string
-	 */
+	/** @inheritdoc} */
 	public function error($message = '', $data = array(), $placeholders = array()) {
 		if (!is_object($this->ms2)) {
 			$this->ms2 = $this->modx->getService('minishop2');
@@ -62,15 +84,7 @@ class msDeliveryHandler implements msDeliveryInterface {
 	}
 
 
-	/**
-	 * Shorthand for MS2 success method
-	 *
-	 * @param string $message
-	 * @param array $data
-	 * @param array $placeholders
-	 *
-	 * @return array|string
-	 */
+	/** @inheritdoc} */
 	public function success($message = '', $data = array(), $placeholders = array()) {
 		if (!is_object($this->ms2)) {
 			$this->ms2 = $this->modx->getService('minishop2');

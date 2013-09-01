@@ -75,6 +75,9 @@ if ($object->xpdo) {
 			$manager->addField('msProductFile', 'hash');
 			$manager->addIndex('msProductFile', 'hash');
 
+			$manager->alterField('msDelivery', 'price');
+			$manager->addField('msPayment', 'price', array('after' => 'description'));
+
 			$modx->setLogLevel($level);
 
 			break;

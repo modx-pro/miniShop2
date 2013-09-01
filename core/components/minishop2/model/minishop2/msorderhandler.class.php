@@ -84,7 +84,7 @@ interface msOrderInterface {
 	 *
 	 * @return array $response
 	 */
-	public function getcost();
+	public function getCost();
 }
 
 
@@ -319,7 +319,7 @@ class msOrderHandler implements msOrderInterface {
 
 		$user_id = $this->ms2->getCustomerId();
 		$cart_status = $this->ms2->cart->status();
-		$delivery_cost = $this->getcost(false, true);
+		$delivery_cost = $this->getCost(false, true);
 		$createdon = date('Y-m-d H:i:s');
 		/* @var msOrder $order */
 		$order = $this->modx->newObject('msOrder');
@@ -434,19 +434,25 @@ class msOrderHandler implements msOrderInterface {
 
 
 	/** @inheritdoc} */
-	public function getcost($with_cart = true, $only_cost = false) {
-		$cost = 0;
+	public function getCost($with_cart = true, $only_cost = false) {
 		$cart = $this->ms2->cart->status();
+		$cost = $with_cart
+			? $cart['total_cost']
+			: 0;
+
 		/* @var msDelivery $delivery */
 		if ($delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
-			$cost = $delivery->getcost($this);
+			$cost = $delivery->getCost($this, $cost);
 		}
 
-		if ($with_cart) {
-			$cost += $cart['total_cost'];
+		/* @var msPayment $payment */
+		if ($payment = $this->modx->getObject('msPayment', $this->order['payment'])) {
+			$cost = $payment->getCost($this, $cost);
 		}
 
-		return $only_cost ? $cost : $this->success('', array('cost' => $cost));
+		return $only_cost
+			? $cost
+			: $this->success('', array('cost' => $cost));
 	}
 
 

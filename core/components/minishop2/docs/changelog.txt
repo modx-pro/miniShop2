@@ -1,7 +1,10 @@
 Changelog for miniShop2.
 
-2.1.0 rc (Thanks to Alexey Kartashov)
+2.1.0 rc1 (Thanks to Alexey Kartashov)
 ==============
+- Improved method msDelivery::getCost().
+- Added method msPayment::getCost().
+- Improved method msOrder::getCost(). Now you can specify additional percent for delivery and payment in manager.
 - [#59] Improved regular expression for email verification.
 - [#59] Improved validation of customer name and email when create order.
 - [#59] msOrderHandler::add() now can return an error.

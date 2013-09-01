@@ -319,6 +319,9 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 							if (response.data[key] != old_value) {
 								$field.trigger('click');
 							}
+							else {
+								miniShop2.Order.getcost();
+							}
 							break;
 						//default:
 					}

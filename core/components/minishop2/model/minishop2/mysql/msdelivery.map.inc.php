@@ -8,7 +8,7 @@ $xpdo_meta_map['msDelivery']= array (
   array (
     'name' => NULL,
     'description' => NULL,
-    'price' => 0,
+    'price' => '0',
     'weight_price' => 0,
     'distance_price' => 0,
     'logo' => NULL,
@@ -35,11 +35,11 @@ $xpdo_meta_map['msDelivery']= array (
     ),
     'price' => 
     array (
-      'dbtype' => 'decimal',
-      'precision' => '12,2',
-      'phptype' => 'float',
+      'dbtype' => 'varchar',
+      'precision' => '11',
+      'phptype' => 'string',
       'null' => true,
-      'default' => 0,
+      'default' => '0',
     ),
     'weight_price' => 
     array (

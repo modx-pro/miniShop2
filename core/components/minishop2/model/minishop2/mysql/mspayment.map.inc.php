@@ -8,6 +8,7 @@ $xpdo_meta_map['msPayment']= array (
   array (
     'name' => NULL,
     'description' => NULL,
+    'price' => '0',
     'logo' => NULL,
     'rank' => 0,
     'active' => 1,
@@ -28,6 +29,14 @@ $xpdo_meta_map['msPayment']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
+    ),
+    'price' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '11',
+      'phptype' => 'string',
+      'null' => true,
+      'default' => '0',
     ),
     'logo' => 
     array (

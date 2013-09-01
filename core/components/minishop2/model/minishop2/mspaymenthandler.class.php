@@ -20,6 +20,42 @@ interface msPaymentInterface {
 	 * @return array|boolean $response
 	 */
 	public function receive(msOrder $order);
+
+
+	/**
+	 * Returns an additional cost depending on the method of payment
+	 *
+	 * @param msOrderInterface $order
+	 * @param msPayment $delivery
+	 * @param float $cost
+	 *
+	 * @return integer
+	 */
+	public function getCost(msOrderInterface $order, msPayment $payment, $cost = 0);
+
+
+	/**
+	 * Returns failure response
+	 *
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 *
+	 * @return array|string
+	 */
+	public function error($message = '', $data = array(), $placeholders = array());
+
+
+	/**
+	 * Returns success response
+	 *
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 *
+	 * @return array|string
+	 */
+	public function success($message = '', $data = array(), $placeholders = array());
 }
 
 
@@ -52,6 +88,36 @@ class msPaymentHandler implements msPaymentInterface {
 	}
 
 
+	/** @inheritdoc} */
+	public function getCost(msOrderInterface $order, msPayment $payment, $cost = 0) {
+		$add_price = $payment->get('price');
+		if (preg_match('/%$/', $add_price)) {
+			$add_price = str_replace('%', '', $add_price);
+			$add_price = $cost / 100 * $add_price;
+		}
+		$cost += $add_price;
+		return $cost;
+	}
+
+
+	/** @inheritdoc} */
+	public function error($message = '', $data = array(), $placeholders = array()) {
+		if (!is_object($this->ms2)) {
+			$this->ms2 = $this->modx->getService('minishop2');
+		}
+		return $this->ms2->error($message, $data, $placeholders);
+	}
+
+
+	/** @inheritdoc} */
+	public function success($message = '', $data = array(), $placeholders = array()) {
+		if (!is_object($this->ms2)) {
+			$this->ms2 = $this->modx->getService('minishop2');
+		}
+		return $this->ms2->success($message, $data, $placeholders);
+	}
+
+
 	/**
 	 * Returns hash of order for various checks
 	 *
@@ -66,39 +132,5 @@ class msPaymentHandler implements msPaymentInterface {
 			$order->get('delivery_cost') .
 			$order->get('createdon')
 		);
-	}
-
-
-	/**
-	 * Shorthand for MS2 error method
-	 *
-	 * @param string $message
-	 * @param array $data
-	 * @param array $placeholders
-	 *
-	 * @return array|string
-	 */
-	public function error($message = '', $data = array(), $placeholders = array()) {
-		if (!is_object($this->ms2)) {
-			$this->ms2 = $this->modx->getService('minishop2');
-		}
-		return $this->ms2->error($message, $data, $placeholders);
-	}
-
-
-	/**
-	 * Shorthand for MS2 success method
-	 *
-	 * @param string $message
-	 * @param array $data
-	 * @param array $placeholders
-	 *
-	 * @return array|string
-	 */
-	public function success($message = '', $data = array(), $placeholders = array()) {
-		if (!is_object($this->ms2)) {
-			$this->ms2 = $this->modx->getService('minishop2');
-		}
-		return $this->ms2->success($message, $data, $placeholders);
 	}
 }

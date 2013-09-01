@@ -151,7 +151,7 @@
 	<object class="msDelivery" table="ms2_deliveries" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
-		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="price" dbtype="varchar" precision="11" phptype="string" null="true" default="0" />
 		<field key="weight_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="distance_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
@@ -169,6 +169,7 @@
 	<object class="msPayment" table="ms2_payments" extends="xPDOSimpleObject">
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
 		<field key="description" dbtype="text" phptype="string" null="true" />
+		<field key="price" dbtype="varchar" precision="11" phptype="string" null="true" default="0" />
 		<field key="logo" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0" />
 		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="1" />
