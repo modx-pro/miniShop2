@@ -10,7 +10,7 @@ class msDeliveryCreateProcessor extends modObjectCreateProcessor {
 			$this->modx->error->addField('name', $this->modx->lexicon('ms2_err_ae'));
 		}
 		if ($price = $this->getProperty('price')) {
-			$price = preg_replace(array('/[^0-9%-]/','/,/'), array('', '.'), $price);
+			$price = preg_replace(array('/[^0-9%-,\.]/','/,/'), array('', '.'), $price);
 			if (strpos($price, '%') !== false) {
 				$price = str_replace('%', '', $price) . '%';
 			}
