@@ -198,7 +198,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		}
 		,status: function(status) {
 			if (status['total_count'] < 1) {
-				document.location = document.location;
+				location.reload();
 			}
 			else {
 				var $cart = $(miniShop2.Cart.cart);
@@ -356,7 +356,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		,clean: function() {
 			var callbacks = miniShop2.Order.callbacks;
 			callbacks.clean.response.success = function(response) {
-				document.location = document.location;
+				location.reload();
 			}
 
 			var data = {};
@@ -393,7 +393,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 						: document.location.href + '?msorder=' + response.data['msorder'];
 				}
 				else {
-					document.location = document.location;
+					location.reload();
 				}
 			}
 			callbacks.submit.response.error = function(response) {
