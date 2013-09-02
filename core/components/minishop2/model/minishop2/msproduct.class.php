@@ -418,7 +418,7 @@ class msProduct extends modResource {
 		$arr = array();
 
 		$q = $this->xpdo->newQuery('msProduct', array('parent' => $this->parent, 'class_key' => 'msProduct'));
-		$q->sortby('id','ASC');
+		$q->sortby('menuindex','ASC');
 		$q->select('id');
 		if ($q->prepare() && $q->stmt->execute()) {
 			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);

@@ -2,6 +2,7 @@ Changelog for miniShop2.
 
 2.1.0 rc1 (Thanks to Alexey Kartashov)
 ==============
+- Changed default sort in goods grid on "menuindex, ASC".
 - Improved method msDelivery::getCost().
 - Added method msPayment::getCost().
 - Improved method msOrderHandler::getCost(). Now you can specify additional percent for delivery and payment in manager.

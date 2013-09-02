@@ -169,7 +169,7 @@ class msCategory extends modResource {
 		$arr = array();
 
 		$q = $this->xpdo->newQuery('msCategory', array('parent' => $this->parent, 'class_key' => 'msCategory'));
-		$q->sortby('id','ASC');
+		$q->sortby('menuindex','ASC');
 		$q->select('id');
 		if ($q->prepare() && $q->stmt->execute()) {
 			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);

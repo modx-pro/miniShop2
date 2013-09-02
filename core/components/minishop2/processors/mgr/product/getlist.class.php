@@ -7,8 +7,8 @@
  */
 class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msProduct';
-	public $defaultSortField = 'id';
-	public $defaultSortDirection  = 'DESC';
+	public $defaultSortField = 'menuindex';
+	public $defaultSortDirection  = 'ASC';
 	public $languageTopics = array('default','minishop2:product');
 	public $renderers = '';
 	/** @var modAction $editAction */
