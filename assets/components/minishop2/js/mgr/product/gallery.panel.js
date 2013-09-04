@@ -648,7 +648,7 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 			,resize : {
 				width : miniShop2.config.media_source.maxUploadWidth || 1920
 				,height : miniShop2.config.media_source.maxUploadHeight || 1080
-				,quality : 100
+				//,quality : 100
 			}
 		});
 
