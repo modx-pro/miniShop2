@@ -25,7 +25,7 @@ class Minishop2OrdersManagerController extends miniShop2MainController {
 		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/orders/orders.panel.js');
 
 		$grid_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_grid_fields', null, 'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment', true)));
-		$grid_fields = array_unique(array_merge($grid_fields, array('id')));
+		$grid_fields = array_values(array_unique(array_merge($grid_fields, array('id','user_id'))));
 
 		$address_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_address_fields')));
 		$product_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));
