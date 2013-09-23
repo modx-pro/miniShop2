@@ -11,10 +11,22 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor {
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
 
-	/**
-	 * {@inheritDoc}
-	 * @return string|mixed
-	 */
+
+	/** {inheritDoc} */
+	public function initialize() {
+		$primaryKey = $this->getProperty($this->primaryKeyField,false);
+		if (empty($primaryKey)) return $this->modx->lexicon($this->objectType.'_err_ns');
+
+		if (!$this->modx->getCount($this->classKey, array('id' => $primaryKey, 'class_key' => $this->classKey)) && $res = $this->modx->getObject('modResource', $primaryKey)) {
+			$res->set('class_key', $this->classKey);
+			$res->save();
+		}
+
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function checkFriendlyAlias() {
 		if ($this->workingContext->getOption('ms2_category_id_as_alias')) {
 			$alias = $this->object->id;
@@ -26,6 +38,8 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor {
 		return $alias;
 	}
 
+
+	/** {inheritDoc} */
 	public function beforeSet() {
 		$this->setProperties(array(
 			'isfolder' => 1

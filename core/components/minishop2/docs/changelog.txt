@@ -1,22 +1,12 @@
 Changelog for miniShop2.
 
-2.1.0 rc1 (Thanks to Alexey Kartashov)
+2.1.0 rc1
 ==============
 - Changed default sort in goods grid on "menuindex, ASC".
 - Improved method msDelivery::getCost().
 - Added method msPayment::getCost().
 - Improved method msOrderHandler::getCost(). Now you can specify additional percent for delivery and payment in manager.
-- [#59] Improved regular expression for email verification.
-- [#59] Improved validation of customer name and email when create order.
-- [#59] msOrderHandler::add() now can return an error.
-- [#59] Improved registration of javascript on frontend.
-- [#59] Improved show\hide of msMiniCart with css.
-- [#59] Refactored default frontend javascript.
-- [#59] Works with no javascript.
 - Small improvements of product gallery ui.
-
-2.1.0 beta2
-==============
 - New object "msCustomerProfile". It can be extended by plugins like "msProductData".
 - Plugin "miniShop2" can automatic save referrers.
 - In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
@@ -27,19 +17,27 @@ Changelog for miniShop2.
 - Added new parameters for media source: "maxUploadWidth" and "maxUploadHeight" for frontend image resize.
 - Gallery upload processor now can receive parameters "id" and "file" for external images upload.
 - Added renaming files of product gallery together with thumbnails.
+- [#77] Fixed changing type of existing resource to "msCategory".
 - [#66] Fixed saving payments methods when create a new delivery.
 - [#65] Added new system events: "msOnBeforeValidateOrderValue" and "msOnValidateOrderValue".
 - [#64] Added ability to stop switching order status from system plugin.
 - [#63] Added new parameters for media source: "imageNameType". Switching to "friendly" will generate names for uploaded files by FURLs algorithm.
 - [#61] Added ability to sort products in category by drag and drop.
 - [#62] Fixed work with "*.gif" files in products gallery.
+- [#59] Improved regular expression for email verification.
+- [#59] Improved validation of customer name and email when create order.
+- [#59] msOrderHandler::add() now can return an error.
+- [#59] Improved registration of javascript on frontend.
+- [#59] Improved show\hide of msMiniCart with css.
+- [#59] Refactored default frontend javascript.
+- [#59] Works with no javascript. (Thanks to Alexey Kartashov)
 - [#58] Fixed PayPal non-USD currency.
 - [#56] Added JSON field "properties" to "msProductFile".
 - [#52] Added ability to customize orders in manager by 3 system setting: "ms2_order_grid_fields", "ms2_order_address_fields" and "ms2_order_product_fields".
 - [#50] Fixed checking of the existence of the Tickets component.
 - Some fixes for MySql STRICT_TRANS_TABLES mode.
 - Updated jQuery to version 1.10.2
-- Added method PayPal::getPaymentLink for continuing interrupted payment process. You will see [[+payment_link]] in emails.
+- Added method PayPal::getPaymentLink() for continuing interrupted payment process. You will see [[+payment_link]] in emails.
 
 2.0.1 pl3
 ==============
