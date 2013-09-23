@@ -17,7 +17,7 @@ $tmp = array(
 	),
 	'tplEmpty' => array(
 		'type' => 'textfield',
-		'value' => 'tpl.msOptions.empty',
+		'value' => '',
 	),
 	'name' => array(
 		'type' => 'textfield',

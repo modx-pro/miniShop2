@@ -16,7 +16,9 @@ if (!($product instanceof msProduct)) {
 }
 elseif (!empty($name) && $options = $product->get($name)) {
 	if (!is_array($options) || $options[0] == '') {
-		$output = !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty, $scriptProperties) : '';
+		$output = !empty($tplEmpty)
+			? $pdoFetch->getChunk($tplEmpty, $scriptProperties)
+			: '';
 	}
 	else {
 		$rows = array();
