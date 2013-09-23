@@ -6,7 +6,6 @@ Changelog for miniShop2.
 - Improved method msDelivery::getCost().
 - Added method msPayment::getCost().
 - Improved method msOrderHandler::getCost(). Now you can specify additional percent for delivery and payment in manager.
-- Small improvements of product gallery ui.
 - New object "msCustomerProfile". It can be extended by plugins like "msProductData".
 - Plugin "miniShop2" can automatic save referrers.
 - In snippet "msProducts" you can override "where", "select", "leftJoin", "innerJoin" and "rightJoin" properties. Added pdoFetch 1.4.1 support.
@@ -45,6 +44,7 @@ Changelog for miniShop2.
 - Added method PayPal::getPaymentLink() for continuing interrupted payment process. You will see [[+payment_link]] in emails.
 - Added parameters "&tplSingle" and "&toSeparatePlaceholders" to snippet msGallery.
 - Gallery UI improvements for MODX 2.2.9
+- Returned action.php for backward compatibility with the old javascript
 
 2.0.1 pl3
 ==============
