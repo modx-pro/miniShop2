@@ -19,6 +19,7 @@ Changelog for miniShop2.
 - Added renaming files of product gallery together with thumbnails.
 - [#77] Fixed changing type of existing resource to "msCategory".
 - [#75] Remove multi-category links when category removed.
+- [#74] Refresh data in order from users profile if he is authenticated.
 - [#73] Added virtual vendor fields. You can get it by $res->get('vendor_name');
 - [#66] Fixed saving payments methods when create a new delivery.
 - [#65] Added new system events: "msOnBeforeValidateOrderValue" and "msOnValidateOrderValue".

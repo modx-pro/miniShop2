@@ -117,15 +117,15 @@ $user_fields = array(
 	,'room' => ''
 );
 foreach ($user_fields as $key => $value) {
-	if (!empty($order[$key])) {
-		$form[$key] = $order[$key];
-		unset($order[$key]);
-	}
-	else if (!empty($profile) && !empty($value)) {
+	if (!empty($profile) && !empty($value)) {
 		$tmp = $miniShop2->order->add($key, $profile[$value]);
 		if ($tmp['success'] && !empty($tmp['data'][$key])) {
 			$form[$key] = $tmp['data'][$key];
 		}
+	}
+	if (empty($form[$key]) && !empty($order[$key])) {
+		$form[$key] = $order[$key];
+		unset($order[$key]);
 	}
 }
 $form = array_merge($order, $form);
