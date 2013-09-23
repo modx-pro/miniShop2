@@ -24,7 +24,7 @@ miniShop2.panel.ProductGallery = function(config) {
 					,id: 'minishop2-product-plupload-panel'
 					,record: config.record
 					,gridHeight: 150
-					,anchor: '100%'
+					,anchor: '50%'
 				},{
 					xtype: 'minishop2-product-images-panel'
 					,id: 'minishop2-product-images-panel'
@@ -493,7 +493,7 @@ miniShop2.panel.Plupload = function(config) {
 		id: 'ms2-plupload-panel'
 		,width: '100%'
 		,height: (config.gridHeight || 200) + 50
-		,autoScroll: true
+		,autoScroll: false
 		,border:false
 		,frame:false
 		,cls: ''
@@ -558,6 +558,10 @@ miniShop2.panel.Plupload = function(config) {
 	});
 	miniShop2.panel.Plupload.superclass.constructor.call(this,config);
 
+	var fields = ['id', 'name', 'size', 'status', 'progress'];
+	this.fileRecord = Ext.data.Record.create(fields);
+	this.fileGrid = Ext.getCmp('plupload-files-grid-'+this.record.id);
+
 };
 Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 
@@ -619,10 +623,6 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 	,uploader: null
 
 	,_initUploader: function() {
-		var fields = ['id', 'name', 'size', 'status', 'progress'];
-		this.fileRecord = Ext.data.Record.create(fields);
-		this.fileGrid = Ext.getCmp('plupload-files-grid-'+this.record.id);
-
 		var params = {
 			action: 'mgr/gallery/upload'
 			,id: this.record.id
