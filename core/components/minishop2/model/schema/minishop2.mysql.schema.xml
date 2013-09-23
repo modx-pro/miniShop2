@@ -6,7 +6,7 @@
 		<field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msCategory" />
 
 		<aggregate alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local" />
-		<aggregate alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many" owner="local" />
+		<composite alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many" owner="local" />
 	</object>
 
 

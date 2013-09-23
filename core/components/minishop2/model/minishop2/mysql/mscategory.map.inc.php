@@ -18,6 +18,17 @@ $xpdo_meta_map['msCategory']= array (
       'default' => 'msCategory',
     ),
   ),
+  'composites' => 
+  array (
+    'AlienProducts' => 
+    array (
+      'class' => 'msCategoryMember',
+      'local' => 'id',
+      'foreign' => 'category_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+  ),
   'aggregates' => 
   array (
     'OwnProducts' => 
@@ -25,14 +36,6 @@ $xpdo_meta_map['msCategory']= array (
       'class' => 'msProduct',
       'local' => 'id',
       'foreign' => 'parent',
-      'cardinality' => 'many',
-      'owner' => 'local',
-    ),
-    'AlienProducts' => 
-    array (
-      'class' => 'msCategoryMember',
-      'local' => 'id',
-      'foreign' => 'category_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),

@@ -18,6 +18,7 @@ Changelog for miniShop2.
 - Gallery upload processor now can receive parameters "id" and "file" for external images upload.
 - Added renaming files of product gallery together with thumbnails.
 - [#77] Fixed changing type of existing resource to "msCategory".
+- [#75] Remove multi-category links when category removed.
 - [#66] Fixed saving payments methods when create a new delivery.
 - [#65] Added new system events: "msOnBeforeValidateOrderValue" and "msOnValidateOrderValue".
 - [#64] Added ability to stop switching order status from system plugin.
