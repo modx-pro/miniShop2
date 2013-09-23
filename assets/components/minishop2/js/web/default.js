@@ -155,7 +155,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 		,setup: function() {
 			miniShop2.Cart.cart = '#msCart';
 			miniShop2.Cart.miniCart = '#msMiniCart';
-			miniShop2.Cart.miniCartNotEmptyClass = 'not_empty';
+			miniShop2.Cart.miniCartNotEmptyClass = 'full';
 			miniShop2.Cart.countInput = 'input[name=count]';
 			miniShop2.Cart.totalWeight = '.ms2_total_weight';
 			miniShop2.Cart.totalCount = '.ms2_total_count';
