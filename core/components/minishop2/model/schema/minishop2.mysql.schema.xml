@@ -15,6 +15,8 @@
 
 		<aggregate alias="Category" class="msCategory" local="parent" foreign="id" cardinality="one" owner="foreign" />
 		<composite alias="Data" class="msProductData" local="id" foreign="id" cardinality="one" owner="local" />
+		<composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many" owner="local" />
+		<composite alias="Options" class="msProductOption" local="id" foreign="product_id" cardinality="many" owner="local" />
 	</object>
 
 

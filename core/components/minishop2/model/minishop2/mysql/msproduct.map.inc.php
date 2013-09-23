@@ -28,6 +28,22 @@ $xpdo_meta_map['msProduct']= array (
       'cardinality' => 'one',
       'owner' => 'local',
     ),
+    'Categories' => 
+    array (
+      'class' => 'msCategoryMember',
+      'local' => 'id',
+      'foreign' => 'product_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
+    'Options' => 
+    array (
+      'class' => 'msProductOption',
+      'local' => 'id',
+      'foreign' => 'product_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
   ),
   'aggregates' => 
   array (

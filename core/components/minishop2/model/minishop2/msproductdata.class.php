@@ -4,6 +4,7 @@ class msProductData extends xPDOSimpleObject {
 	/* @var modMediaSource $mediaSource */
 	public $mediaSource;
 
+
 	/**
 	 * {@inheritdoc}
 	 *
@@ -12,8 +13,6 @@ class msProductData extends xPDOSimpleObject {
 	 */
 	public function save($cacheFlag= null) {
 		$save = parent::save();
-		$id = $this->get('id');
-		$table = $this->xpdo->getTableName('msProductOption');
 
 		$arrays = array();
 		foreach ($this->_fieldMeta as $name => $field) {
@@ -25,22 +24,28 @@ class msProductData extends xPDOSimpleObject {
 			}
 		}
 
-		$sql1 = "DELETE FROM {$table} WHERE `product_id` = '{$id}';";
-		$sql2 = "INSERT INTO {$table} (`product_id`,`key`,`value`) VALUES ";
-		$values = array();
-		foreach ($arrays as $key => $v) {
-			foreach ($v as $value) {
-				if (!empty($value)) {
-					$values[] = "('{$id}','{$key}','{$value}')";
+		$id = $this->get('id');
+		$table = $this->xpdo->getTableName('msProductOption');
+		$sql = 'DELETE FROM '.$table.' WHERE `product_id` = '.$id;
+		$stmt = $this->xpdo->prepare($sql);
+		$stmt->execute();
+		$stmt->closeCursor();
+
+		if (!empty($arrays)) {
+			$values = array();
+			foreach ($arrays as $key => $tmp) {
+				foreach ($tmp as $value) {
+					if (!empty($value)) {
+						$values[] = '('.$id.',"'.$key.'","'.$value.'")';
+					}
 				}
 			}
-		}
-		if (!empty($values)) {
-			$sql2 .= implode(', ', $values);
-			$this->xpdo->exec($sql1.$sql2);
-		}
-		else {
-			$this->xpdo->exec($sql1);
+			if (!empty($values)) {
+				$sql = 'INSERT INTO '.$table.' (`product_id`,`key`,`value`) VALUES ' . implode(',', $values);
+				$stmt = $this->xpdo->prepare($sql);
+				$stmt->execute();
+				$stmt->closeCursor();
+			}
 		}
 
 		return $save;
@@ -53,11 +58,10 @@ class msProductData extends xPDOSimpleObject {
 	 */
 	public function remove(array $ancestors= array ()) {
 		$id = $this->get('id');
-		$table = $this->xpdo->getTableName('msCategoryMember');
-		$sql = "DELETE FROM {$table} WHERE `product_id` = '$id';";
-		$table = $this->xpdo->getTableName('msProductOption');
-		$sql .= "DELETE FROM {$table} WHERE `product_id` = '$id';";
-		$this->xpdo->exec($sql);
+		$sql = 'DELETE FROM '.$this->xpdo->getTableName('msProductOption').' WHERE `product_id` = '.$id.';';
+		$stmt = $this->xpdo->prepare($sql);
+		$stmt->execute();
+		$stmt->closeCursor();
 
 		return parent::remove();
 	}
@@ -106,10 +110,13 @@ class msProductData extends xPDOSimpleObject {
 			$sql = '';
 			$table = $this->xpdo->getTableName('msProductFile');
 			foreach ($ids as $k => $id) {
-				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `type` = 'image' AND (`id` = '{$id}' OR `parent` = '{$id}');";
+				$sql .= 'UPDATE '.$table.' SET `rank` = '.$k.' WHERE `type` = "image" AND (`id` = '.$id.' OR `parent` = '.$id.');';
 			}
-			$sql .= "ALTER TABLE {$table} ORDER BY `rank` ASC;";
-			$this->xpdo->exec($sql);
+			$sql .= 'ALTER TABLE '.$table.' ORDER BY `rank` ASC;';
+
+			$stmt = $this->xpdo->prepare($sql);
+			$stmt->execute();
+			$stmt->closeCursor();
 		}
 	}
 

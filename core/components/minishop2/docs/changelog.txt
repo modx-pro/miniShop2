@@ -38,6 +38,7 @@ Changelog for miniShop2.
 - [#56] Added JSON field "properties" to "msProductFile".
 - [#52] Added ability to customize orders in manager by 3 system setting: "ms2_order_grid_fields", "ms2_order_address_fields" and "ms2_order_product_fields".
 - [#50] Fixed checking of the existence of the Tickets component.
+- [#5] Possible fixed "Cannot execute queries while other unbuffered queries are active" on php < 5.3.
 - Some fixes for MySql STRICT_TRANS_TABLES mode.
 - Updated jQuery to version 1.10.2
 - Added method PayPal::getPaymentLink() for continuing interrupted payment process. You will see [[+payment_link]] in emails.
