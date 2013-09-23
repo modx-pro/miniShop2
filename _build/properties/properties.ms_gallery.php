@@ -19,9 +19,13 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => 'tpl.msGallery.empty',
 	),
+	'tplSingle' => array(
+		'type' => 'textfield',
+		'value' => '',
+	),
 	'limit' => array(
 		'type' => 'numberfield',
-		'value' => 0,
+		'value' => 100,
 	),
 	'offset' => array(
 		'type' => 'numberfield',
@@ -40,6 +44,10 @@ $tmp = array(
 		'value' => 'ASC',
 	),
 	'toPlaceholder' => array(
+		'type' => 'textfield',
+		'value' => '',
+	),
+	'toSeparatePlaceholders' => array(
 		'type' => 'textfield',
 		'value' => '',
 	),

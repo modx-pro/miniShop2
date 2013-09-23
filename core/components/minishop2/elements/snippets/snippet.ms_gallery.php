@@ -7,15 +7,12 @@ $miniShop2->initialize($modx->context->key);
 if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
-if (!empty($product)) {
-	$product = $modx->getObject('msProduct', $product);
-}
-else {
-	$product = $modx->resource;
-}
+$product = (!empty($product) && $product != $modx->resource->id)
+	? $modx->getObject('msProduct', $product)
+	: $modx->resource;
+if (!$product || !($product instanceof msProduct)) {return 'This resource is not instance of msProduct class.';}
 
-if (!($product instanceof msProduct)) {return 'This resource is not instance of msProduct class.';}
-$limit = !empty($scriptProperties['limit']) ? $scriptProperties['limit'] : 0;
+if (empty($limit)) {$limit = 100;}
 $where = array(
 	'product_id' => $product->get('id')
 	,'parent' => 0
@@ -44,16 +41,16 @@ $default = array(
 );
 
 // Merge all properties and run!
+$scriptProperties['tpl'] = $tplRow;
 $pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
 
 // Processing rows
 $output = null; $images = array();
-$idx = !empty($scriptProperties['offset']) ? $scriptProperties['offset'] : 0;
+
 $pdoFetch->addTime('Fetching thumbnails');
 foreach ($rows as $k => $row) {
-	$idx++;
-	$row['idx'] = $idx;
+	$row['idx'] = $pdoFetch->idx++;
 	$images[$row['id']] = $row;
 	$q = $modx->newQuery('msProductFile', array('parent' => $row['id']));
 	$q->select('url');
@@ -68,35 +65,48 @@ foreach ($rows as $k => $row) {
 
 // Processing chunks
 $pdoFetch->addTime('Processing chunks');
-$rows = array();
+$output = array();
 foreach ($images as $row) {
-	$rows[] = empty($tplRow)
+	$tpl = $pdoFetch->defineChunk($row);
+	$output[] = empty($tpl)
 		? $pdoFetch->getChunk('', $row)
-		: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
+		: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
 }
-
 $pdoFetch->addTime('Returning processed chunks');
-if (!empty($rows)) {
-	$output = implode($pdoFetch->config['outputSeparator'], $rows);
-}
 
 // Return output
-if (!empty($output)) {
-	if (!empty($tplOuter)) {
-		$output = $pdoFetch->getChunk($tplOuter, array('rows' => $output));
-	}
-}
-else {
-	$output = !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
-}
-
+$log = '';
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
-	$output .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
+	$log .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
 }
 
-if (!empty($toPlaceholder)) {
-	$modx->setPlaceholder($toPlaceholder, $output);
+if (!empty($toSeparatePlaceholders)) {
+	$output['log'] = $log;
+	$modx->setPlaceholders($output, $toSeparatePlaceholders);
 }
 else {
-	return $output;
+	if (count($output) === 1 && !empty($tplSingle)) {
+		$output = $pdoFetch->getChunk($tplSingle, array_pop($images));
+	}
+	else {
+		if (empty($outputSeparator)) {$outputSeparator = "\n";}
+		$output = implode($outputSeparator, $output);
+
+		if (!empty($tplOuter) && !empty($output)) {
+			$output = $pdoFetch->getChunk($tplOuter, array('rows' => $output));
+		}
+		elseif (empty($output)) {
+			$output = !empty($tplEmpty)
+				? $pdoFetch->getChunk($tplEmpty)
+				: '';
+		}
+	}
+
+	$output .= $log;
+	if (!empty($toPlaceholder)) {
+		$modx->setPlaceholder($toPlaceholder, $output);
+	}
+	else {
+		return $output;
+	}
 }

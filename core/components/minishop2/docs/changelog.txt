@@ -18,6 +18,7 @@ Changelog for miniShop2.
 - Gallery upload processor now can receive parameters "id" and "file" for external images upload.
 - Added renaming files of product gallery together with thumbnails.
 - [#77] Fixed changing type of existing resource to "msCategory".
+- [#76] Fixed parameter "offset" in msGallery.
 - [#75] Remove multi-category links when category removed.
 - [#74] Refresh data in order from users profile if he is authenticated.
 - [#73] Added virtual vendor fields. You can get it by $res->get('vendor_name');
@@ -42,6 +43,7 @@ Changelog for miniShop2.
 - Some fixes for MySql STRICT_TRANS_TABLES mode.
 - Updated jQuery to version 1.10.2
 - Added method PayPal::getPaymentLink() for continuing interrupted payment process. You will see [[+payment_link]] in emails.
+- Added parameters "&tplSingle" and "&toSeparatePlaceholders" to snippet msGallery.
 
 2.0.1 pl3
 ==============

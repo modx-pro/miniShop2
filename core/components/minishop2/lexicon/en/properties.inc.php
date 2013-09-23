@@ -36,6 +36,7 @@ $_lang['ms2_prop_showHidden'] = 'Show goods, that hidden in menu.';
 $_lang['ms2_prop_showZeroPrice'] = 'Show goods with zero price.';
 
 $_lang['ms2_prop_tplRow'] = 'Chunk for template one row of query.';
+$_lang['ms2_prop_tplSingle'] = 'Chunk for template single row of query.';
 $_lang['ms2_prop_tplOuter'] = 'Wrapper for template results of snippet work.';
 $_lang['ms2_prop_tplEmpty'] = 'Chunk that returns when no results.';
 $_lang['ms2_prop_tplSuccess'] = 'Chunk with successfull message about snippet work.';
