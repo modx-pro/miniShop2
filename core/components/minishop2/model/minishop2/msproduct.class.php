@@ -8,9 +8,11 @@ class msProduct extends modResource {
 	public $showInContextMenu = false;
 	public $allowChildrenResources = false;
 	/* @var msProductData $data */
-	protected $data;
+	protected $data = null;
 	protected $dataFields = array();
 	protected $dataRelated = array();
+	/* @var msVendor $vendor */
+	protected $vendor = null;
 
 
 	/**
@@ -113,7 +115,6 @@ class msProduct extends modResource {
 	public function _setRaw($key, $val) {
 		if (in_array($key, $this->dataFields)) {
 			if (!is_object($this->data)) {$this->loadData();}
-
 			return $this->data->_setRaw($key, $val);
 		}
 		else {
@@ -140,22 +141,25 @@ class msProduct extends modResource {
 	 * {@inheritdoc}
 	 */
 	public function get($k, $format = null, $formatTemplate= null) {
-		$data = array();
 		if (is_array($k)) {
-			$k = array_merge($k, $this->dataFields);
-			if (!is_object($this->data)) {$this->loadData();}
-			$arr = array_intersect($k, $this->dataFields);
-			foreach ($arr as $v) {
-				$key = array_search($v, $k);
-				unset($k[$key]);
-				$data[$v] = $this->data->get($v);
+			$tmp = array();
+			foreach ($k as $v) {
+				if (strpos($v, 'vendor_') !== false || in_array($v, $this->dataFields)) {
+					$tmp[$v] = $this->get($v, $format, $formatTemplate);
+				}
+				elseif (array_key_exists($v, $this->_fields)) {
+					$tmp[$v] = parent::get($v, $format, $formatTemplate);
+				}
 			}
-			$res = parent::get($k, $format, $formatTemplate);
-			return array_merge($res, $data);
+			return $tmp;
 		}
-		else if (in_array($k, $this->dataFields)) {
-			if (!is_object($this->data)) {$this->loadData();}
-			return $this->data->get($k);
+		elseif (strpos($k, 'vendor_') !== false) {
+			if ($this->vendor === null) {$this->loadVendor();}
+			return $this->vendor->get(substr($k, 7), $format, $formatTemplate);
+		}
+		elseif (in_array($k, $this->dataFields)) {
+			if ($this->data === null) {$this->loadData();}
+			return $this->data->get($k, $format, $formatTemplate);
 		}
 		else {
 			return parent::get($k, $format, $formatTemplate);
@@ -169,23 +173,33 @@ class msProduct extends modResource {
 	public function toArray($keyPrefix= '', $rawValues= false, $excludeLazy= false, $includeRelated= false) {
 		$array = parent::toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated);
 
-		if (!is_object($this->data)) {$this->loadData();}
-		return array_merge($this->data->toArray(), $array);
+		if ($this->data === null) {$this->loadData();}
+		if ($this->vendor === null) {$this->loadVendor();}
+
+		return array_merge($this->data->toArray(), $array, $this->vendor->toArray('vendor_'));
 	}
 
 
-	/*
-	 * Load product data
-	 *
-	 * @return boolean
-	 * */
+	/**
+	 * Loads product data
+	 */
 	public function loadData() {
 		if (!is_object($this->data) || !($this->data instanceof msProductData)) {
-			$this->set('data', null);
-			if (!$data = $this->xpdo->getObject('msProductData', parent::get('id'))) {
-				$data = $this->xpdo->newObject('msProductData');
+			if (!$this->data = $this->getOne('Data')) {
+				$this->data = $this->xpdo->newObject('msProductData');
 			}
-			$this->data = $data;
+		}
+	}
+
+
+	/**
+	 * Loads product vendor
+	 */
+	public function loadVendor() {
+		if (!is_object($this->vendor) || !($this->vendor instanceof msVendor)) {
+			if (!$this->vendor = $this->getOne('Vendor')) {
+				$this->vendor = $this->xpdo->newObject('msVendor');
+			}
 		}
 	}
 
