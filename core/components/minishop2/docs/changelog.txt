@@ -5,6 +5,7 @@ Changelog for miniShop2.
 - Added new events: "msOnGetProductPrice" and "msOnGetProductWeight".
 - Fixed wrong events in database from previous release.
 - Changed "vendor_" to "vendor." in msProduct::toArray() for sameness with the snippet msProducts.
+- Moved all logic from old action.php to new plugin. File leaved for compatibility with users modified javascript.
 
 2.1.0 pl
 ==============
