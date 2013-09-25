@@ -146,17 +146,20 @@ if (!empty($rows) && is_array($rows)) {
 	$pdoFetch->addTime('Check for modificators exists');
 
 	foreach ($rows as $k => $row) {
-		// Processing main fields
 		if ($modificators) {
 			$product->fromArray($row, '', true, true);
+			$tmp = $row['price'];
 			$row['price'] = $product->getPrice($scriptProperties, $row);
 			$row['weight'] = $product->getWeight($scriptProperties, $row);
+			if ($row['price'] != $tmp) {
+				$row['old_price'] = $tmp;
+			}
 		}
 		$row['price'] = $miniShop2->formatPrice($row['price']);
 		$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
 		$row['weight'] = $miniShop2->formatWeight($row['weight']);
-
 		$row['idx'] = $pdoFetch->idx++;
+
 		$tpl = $pdoFetch->defineChunk($row);
 		$output[] .= empty($tpl)
 			? $pdoFetch->getChunk('', $row)
