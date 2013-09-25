@@ -34,13 +34,16 @@ $tmp = array(
 
 	'msOnBeforeValidateOrderValue',
 	'msOnValidateOrderValue',
+
+	'msOnGetProductPrice',
+	'msOnGetProductWeight',
 );
 
 foreach ($tmp as $k => $v) {
 	/* @var modEvent $event */
 	$event = $modx->newObject('modEvent');
 	$event->fromArray(array(
-		'name' => $k
+		'name' => $v
 		,'service' => 6
 		,'groupname' => PKG_NAME
 	),'', true, true);

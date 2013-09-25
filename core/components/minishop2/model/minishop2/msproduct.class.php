@@ -189,6 +189,7 @@ class msProduct extends modResource {
 				$this->data = $this->xpdo->newObject('msProductData');
 			}
 		}
+		return $this->data;
 	}
 
 
@@ -201,6 +202,7 @@ class msProduct extends modResource {
 				$this->vendor = $this->xpdo->newObject('msVendor');
 			}
 		}
+		return $this->vendor;
 	}
 
 
@@ -462,7 +464,7 @@ class msProduct extends modResource {
 	 */
 	public function process() {
 		/* @var msProductData $data */
-		if ($data = $this->getOne('Data')) {
+		if ($data = $this->loadData()) {
 			/* @var miniShop2 $miniShop2 */
 			$miniShop2 = $this->xpdo->getService('minishop2');
 			$pls = $data->toArray();
@@ -473,7 +475,7 @@ class msProduct extends modResource {
 			$this->xpdo->setPlaceholders($pls);
 		}
 		/* @var msVendor $vendor */
-		if ($vendor = $this->getOne('Vendor')) {
+		if ($vendor = $this->loadVendor()) {
 			$this->xpdo->setPlaceholders($vendor->toArray('vendor.'));
 		}
 		$this->xpdo->lexicon->load('minishop2:default');

@@ -135,27 +135,32 @@ if (!empty($returnIds)) {return $rows;}
 // Processing rows
 $output = array();
 if (!empty($rows) && is_array($rows)) {
-	$modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $setting = $modx->getOption('ms2_weight_snippet', null, false, true);
+	$q = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice','msOnGetProductWeight')));
+	$q->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
+	$q->where('modPlugin.disabled = 0');
+
+	if ($modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $modx->getOption('ms2_weight_snippet', null, false, true) || $modx->getCount('modPluginEvent', $q)) {
+		/* @var msProduct $product */
+		$product = $modx->newObject('msProduct');
+	}
+	$pdoFetch->addTime('Check for modificators exists');
 
 	foreach ($rows as $k => $row) {
 		// Processing main fields
-		if ($class == 'msProduct') {
-			if ($modificators) {
-				/* @var msProduct $product */
-				$product = $modx->getObject('msProduct', $row['id']);
-				$row['price'] = $product->getPrice($scriptProperties);
-				$row['weight'] = $product->getWeight($scriptProperties);
-			}
-			$row['price'] = $miniShop2->formatPrice($row['price']);
-			$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
-			$row['weight'] = $miniShop2->formatWeight($row['weight']);
+		if ($modificators) {
+			$product->fromArray($row, '', true, true);
+			$row['price'] = $product->getPrice($scriptProperties, $row);
+			$row['weight'] = $product->getWeight($scriptProperties, $row);
 		}
+		$row['price'] = $miniShop2->formatPrice($row['price']);
+		$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
+		$row['weight'] = $miniShop2->formatWeight($row['weight']);
 
 		$row['idx'] = $pdoFetch->idx++;
-		$tplRow = $pdoFetch->defineChunk($row);
-		$output[] .= empty($tplRow)
+		$tpl = $pdoFetch->defineChunk($row);
+		$output[] .= empty($tpl)
 			? $pdoFetch->getChunk('', $row)
-			: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
+			: $pdoFetch->getChunk($tpl, $row, $pdoFetch->config['fastMode']);
 	}
 	$pdoFetch->addTime('Returning processed chunks');
 }

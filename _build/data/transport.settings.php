@@ -95,21 +95,25 @@ $tmp = array(
 		,'xtype' => 'textfield'
 		,'area' => 'ms2_product'
 	)
+	/*
 	,'ms2_price_snippet' => array(
 		'value' => ''
 		,'xtype' => 'textfield'
 		,'area' => 'ms2_product'
 	)
+	*/
 	,'ms2_price_format_no_zeros' => array(
 		'value' => true
 		,'xtype' => 'combo-boolean'
 		,'area' => 'ms2_product'
 	)
+	/*
 	,'ms2_weight_snippet' => array(
 		'value' => ''
 		,'xtype' => 'textfield'
 		,'area' => 'ms2_product'
 	)
+	*/
 	,'ms2_weight_format_no_zeros' => array(
 		'value' => true
 		,'xtype' => 'combo-boolean'

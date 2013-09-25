@@ -1,6 +1,11 @@
 Changelog for miniShop2.
 
-2.1.0 rc1
+2.1.1 rc
+==============
+- Added new events: "msOnGetProductPrice" and "msOnGetProductWeight".
+- Fixed wrong events in database from previous release.
+
+2.1.0 pl
 ==============
 - Changed default sort in goods grid on "menuindex, ASC".
 - Improved method msDelivery::getCost().

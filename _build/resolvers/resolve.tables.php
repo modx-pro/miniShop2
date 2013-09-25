@@ -39,35 +39,6 @@ if ($object->xpdo) {
 				$manager->createObjectContainer($v);
 			}
 
-			/*
-			$msProductData = $modx->getTableName('msProductData');
-			$modx->exec("ALTER TABLE {$msProductData} CHANGE `price` `price` DECIMAL(12,2) NOT NULL DEFAULT '0';");
-			$modx->exec("ALTER TABLE {$msProductData} CHANGE `old_price` `old_price` DECIMAL(12,2) NOT NULL DEFAULT '0';");
-			$modx->exec("ALTER TABLE {$msProductData} CHANGE `weight` `weight` DECIMAL(13,3) NOT NULL DEFAULT '0';");
-
-			$msVendor = $modx->getTableName('msVendor');
-			$modx->exec("ALTER TABLE {$msVendor} CHANGE `image` `logo` VARCHAR(255) NULL DEFAULT NULL;");
-			$modx->exec("ALTER TABLE {$msVendor} ADD `email` VARCHAR(255) NULL DEFAULT NULL AFTER `country`;");
-
-			$msPayment = $modx->getTableName('msPayment');
-			$modx->exec("ALTER TABLE {$msPayment} ADD `logo` VARCHAR(255) NULL DEFAULT NULL AFTER `description`;");
-			$modx->exec("ALTER TABLE {$msPayment} ADD `rank` TINYINT(1) NOT NULL DEFAULT '0' AFTER `logo`;");
-			$modx->exec("ALTER TABLE {$msPayment} ADD `properties` TEXT NULL DEFAULT NULL AFTER `class`;");
-
-			$msDelivery = $modx->getTableName('msDelivery');
-			$modx->exec("ALTER TABLE {$msDelivery} CHANGE `add_price` `weight_price` VARCHAR(10) NOT NULL DEFAULT '0';");
-			$modx->exec("ALTER TABLE {$msDelivery} ADD `distance_price` VARCHAR(10) NOT NULL DEFAULT '0' AFTER `weight_price`;");
-			$modx->exec("ALTER TABLE {$msDelivery} ADD `logo` VARCHAR(255) NULL DEFAULT NULL AFTER `distance_price`;");
-			$modx->exec("ALTER TABLE {$msDelivery} ADD `rank` TINYINT(1) NOT NULL DEFAULT '0' AFTER `logo`;");
-			$modx->exec("ALTER TABLE {$msDelivery} ADD `properties` TEXT NULL DEFAULT NULL AFTER `class`;");
-
-			$msVendor = $modx->getTableName('msVendor');
-			$modx->exec("ALTER TABLE {$msVendor} ADD `resource` INT(10) UNSIGNED NULL DEFAULT '0' AFTER `name`;");
-
-			$msProductFile = $modx->getTableName('msProductFile');
-			$modx->exec("ALTER TABLE {$msProductFile} ORDER BY `rank`");
-			*/
-
 			$level = $modx->getLogLevel();
 			$modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
 
@@ -77,6 +48,14 @@ if ($object->xpdo) {
 
 			$manager->alterField('msDelivery', 'price');
 			$manager->addField('msPayment', 'price', array('after' => 'description'));
+
+			// Fix for wrong events
+			if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
+				$modx->removeCollection('modEvent', array(
+					'groupname' => 'miniShop2',
+					'name:IN' => array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
+				));
+			}
 
 			$modx->setLogLevel($level);
 

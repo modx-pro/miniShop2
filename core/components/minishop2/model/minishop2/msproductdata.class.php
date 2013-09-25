@@ -152,23 +152,53 @@ class msProductData extends xPDOSimpleObject {
 	}
 
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get($k, $format = null, $formatTemplate= null) {
+		if (!is_array($k) && $k == 'price') {
+			return $this->getPrice();
+		}
+		else if (!is_array($k) && $k == 'weight') {
+			return $this->getWeight();
+		}
+		else {
+			return parent::get($k, $format, $formatTemplate);
+		}
+	}
+
+
 	/* Returns product price.
 	 *
 	 * @param mixed $data Any additional data for price modification
 	 * @return integer $price Product price
 	 * */
 	public function getPrice($data = array()) {
-		$price = 0;
+		$price = parent::get('price');
+
+		/** @var miniShop2 $miniShop2 */
+		$miniShop2 = $this->xpdo->getService('minishop2');
+		$params = array(
+			//'product' => $this->getOne('Product'),
+			'product' => $this,
+			'data' => $data,
+			'price' => $price
+		);
+		$response = $miniShop2->invokeEvent('msOnGetProductPrice', $params);
+		if ($response['success']) {
+			$price = $params['price'] = $response['data']['price'];
+		}
+
+		/* @var modSnippet $snippet */
+		// Deprecated. Leaved for backward compatibility.
 		if ($setting = $this->xpdo->getOption('ms2_price_snippet', null, false, true)) {
-			/* @var modSnippet $snippet */
 			if ($snippet = $this->xpdo->getObject('modSnippet', array('name' => $setting))) {
 				$snippet->setCacheable(false);
-				$price = $snippet->process(array('product' => $this->getOne('Product'), 'data' => $data));
+				$price = $snippet->process($params);
 			}
 		}
-		else {
-			$price = $this->get('price');
-		}
+		//--
+
 		return $price;
 	}
 
@@ -179,17 +209,31 @@ class msProductData extends xPDOSimpleObject {
 	 * @return integer $weight Product weight
 	 * */
 	public function getWeight($data = array()) {
-		$weight = 0;
+		$weight = parent::get('weight');
+
+		/** @var miniShop2 $miniShop2 */
+		$miniShop2 = $this->xpdo->getService('minishop2');
+		$params = array(
+			//'product' => $this->getOne('Product'),
+			'product' => $this,
+			'data' => $data,
+			'weight' => $weight
+		);
+		$response = $miniShop2->invokeEvent('msOnGetProductWeight', $params);
+		if ($response['success']) {
+			$weight = $params['weight'] = $response['data']['weight'];
+		}
+
+		/* @var modSnippet $snippet */
+		// Deprecated. Leaved for backward compatibility.
 		if ($setting = $this->xpdo->getOption('ms2_weight_snippet', null, false, true)) {
-			/* @var modSnippet $snippet */
 			if ($snippet = $this->xpdo->getObject('modSnippet', array('name' => $setting))) {
 				$snippet->setCacheable(false);
-				$weight = $snippet->process(array('product' => $this->getOne('Product'), 'data' => $data));
+				$weight = $snippet->process($params);
 			}
 		}
-		else {
-			$weight = $this->get('weight');
-		}
+		//--
+
 		return $weight;
 	}
 
