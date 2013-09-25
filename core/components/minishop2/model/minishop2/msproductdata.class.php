@@ -155,10 +155,14 @@ class msProductData extends xPDOSimpleObject {
 	/**
 	 * {@inheritdoc}
 	 */
-	/*
 	public function get($k, $format = null, $formatTemplate= null) {
 		if (!is_array($k) && $k == 'price') {
 			return $this->getPrice();
+		}
+		if (!is_array($k) && $k == 'old_price') {
+			$tmp = parent::get('price');
+			$price = $this->getPrice();
+			return ($tmp != $price) ? $tmp : parent::get('old_price');
 		}
 		else if (!is_array($k) && $k == 'weight') {
 			return $this->getWeight();
@@ -167,7 +171,6 @@ class msProductData extends xPDOSimpleObject {
 			return parent::get($k, $format, $formatTemplate);
 		}
 	}
-	*/
 
 
 	/* Returns product price.
@@ -177,6 +180,9 @@ class msProductData extends xPDOSimpleObject {
 	 * */
 	public function getPrice($data = array()) {
 		$price = parent::get('price');
+
+		if ($this->xpdo->getPrice) {return $price;}
+		$this->xpdo->getPrice = true;
 
 		/** @var miniShop2 $miniShop2 */
 		$miniShop2 = $this->xpdo->getService('minishop2');
@@ -201,6 +207,7 @@ class msProductData extends xPDOSimpleObject {
 		}
 		//--
 
+		$this->xpdo->getPrice = false;
 		return $price;
 	}
 
@@ -212,6 +219,9 @@ class msProductData extends xPDOSimpleObject {
 	 * */
 	public function getWeight($data = array()) {
 		$weight = parent::get('weight');
+
+		if (!empty($this->xpdo->getWeight)) {return $weight;}
+		$this->xpdo->getWeight = true;
 
 		/** @var miniShop2 $miniShop2 */
 		$miniShop2 = $this->xpdo->getService('minishop2');
@@ -236,6 +246,7 @@ class msProductData extends xPDOSimpleObject {
 		}
 		//--
 
+		$this->xpdo->getWeight = false;
 		return $weight;
 	}
 

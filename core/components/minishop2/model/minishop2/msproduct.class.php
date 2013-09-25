@@ -468,7 +468,11 @@ class msProduct extends modResource {
 		/* @var miniShop2 $miniShop2 */
 		$miniShop2 = $this->xpdo->getService('minishop2');
 
-		$pls['price'] = $miniShop2->formatPrice($this->getPrice($pls));
+		$tmp = $pls['price'];
+		$pls['price'] = $this->getPrice($pls);
+		if ($pls['price'] != $tmp) {
+			$pls['old_price'] = $tmp;
+		}
 		$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
 		$pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
 		unset($pls['id']);
