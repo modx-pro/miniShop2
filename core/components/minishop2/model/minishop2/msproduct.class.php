@@ -144,7 +144,7 @@ class msProduct extends modResource {
 		if (is_array($k)) {
 			$tmp = array();
 			foreach ($k as $v) {
-				if (strpos($v, 'vendor_') !== false || in_array($v, $this->dataFields)) {
+				if (strpos($v, 'vendor_') !== false || strpos($v, 'vendor.') !== false || in_array($v, $this->dataFields)) {
 					$tmp[$v] = $this->get($v, $format, $formatTemplate);
 				}
 				elseif (array_key_exists($v, $this->_fields)) {
@@ -153,7 +153,7 @@ class msProduct extends modResource {
 			}
 			return $tmp;
 		}
-		elseif (strpos($k, 'vendor_') !== false) {
+		elseif (strpos($k, 'vendor_') !== false || strpos($k, 'vendor.') !== false) {
 			if ($this->vendor === null) {$this->loadVendor();}
 			return $this->vendor->get(substr($k, 7), $format, $formatTemplate);
 		}
@@ -176,7 +176,7 @@ class msProduct extends modResource {
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
 
-		return array_merge($this->data->toArray(), $array, $this->vendor->toArray('vendor_'));
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'));
 	}
 
 
@@ -464,23 +464,20 @@ class msProduct extends modResource {
 	 */
 	public function process() {
 		/* @var msProductData $data */
-		if ($data = $this->loadData()) {
-			/* @var miniShop2 $miniShop2 */
-			$miniShop2 = $this->xpdo->getService('minishop2');
-			$pls = $data->toArray();
-			$pls['price'] = $miniShop2->formatPrice($data->getPrice());
-			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
-			$pls['weight'] = $miniShop2->formatWeight($data->getWeight());
-			unset($pls['id']);
-			$this->xpdo->setPlaceholders($pls);
-		}
-		/* @var msVendor $vendor */
-		if ($vendor = $this->loadVendor()) {
-			$this->xpdo->setPlaceholders($vendor->toArray('vendor.'));
-		}
+		$pls = $this->toArray();
+		/* @var miniShop2 $miniShop2 */
+		$miniShop2 = $this->xpdo->getService('minishop2');
+
+		$pls['price'] = $miniShop2->formatPrice($this->getPrice($pls));
+		$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
+		$pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
+		unset($pls['id']);
+
+		$this->xpdo->setPlaceholders($pls);
 		$this->xpdo->lexicon->load('minishop2:default');
 		$this->xpdo->lexicon->load('minishop2:cart');
 		$this->xpdo->lexicon->load('minishop2:product');
+
 		return parent::process();
 	}
 
@@ -488,26 +485,22 @@ class msProduct extends modResource {
 
 
 	public function generateAllThumbnails() {
-		$this->data->generateAllThumbnails();
+		$this->loadData()->generateAllThumbnails();
 	}
 
 	public function initializeMediaSource() {
-		if (!is_object($this->data)) {$this->loadData();}
-		return $this->data->initializeMediaSource($this->get('context_key'));
+		return $this->loadData()->initializeMediaSource($this->get('context_key'));
 	}
 
 	public function updateProductImage() {
-		if (!is_object($this->data)) {$this->loadData();}
-		return $this->data->updateProductImage();
+		return $this->loadData()->updateProductImage();
 	}
 
 	public function getPrice($data = array()) {
-		if (!is_object($this->data)) {$this->loadData();}
-		return $this->data->getPrice($data);
+		return $this->loadData()->getPrice($data);
 	}
 
 	public function getWeight($data = array()) {
-		if (!is_object($this->data)) {$this->loadData();}
-		return $this->data->getWeight($data);
+		return $this->loadData()->getWeight($data);
 	}
 }
