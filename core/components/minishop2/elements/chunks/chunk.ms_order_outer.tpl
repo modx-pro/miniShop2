@@ -77,10 +77,10 @@
 			</div>
 		</div>
 	</div>
-	<button type="button" name="ms2_action" value="order/clean" class="btn ms2_link" id="orderSubmit"><i class="icon-remove-sign"></i> [[%ms2_frontend_order_cancel]]</button>
+	<button type="button" name="ms2_action" value="order/clean" class="btn ms2_link"><i class="icon-remove-sign"></i> [[%ms2_frontend_order_cancel]]</button>
 	<hr/>
 	<div class="form-actions">
 		<h3>[[%ms2_frontend_order_cost]]: <span id="ms2_order_cost">[[+order_cost:default=`0`]]</span> [[%ms2_frontend_currency]]</h3>
-		<button type="submit" name="ms2_action" value="order/submit" class="btn btn-primary ms2_link" id="orderSubmit">[[%ms2_frontend_order_submit]]</button>
+		<button type="submit" name="ms2_action" value="order/submit" class="btn btn-primary ms2_link">[[%ms2_frontend_order_submit]]</button>
 	</div>
 </form>
