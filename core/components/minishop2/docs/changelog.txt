@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.0 pl2
+==============
+- Fixed placeholders on msProduct page due to issues with @INLINE chunks.
+
 2.1.0 pl1
 ==============
 - Added new events: "msOnGetProductPrice" and "msOnGetProductWeight".

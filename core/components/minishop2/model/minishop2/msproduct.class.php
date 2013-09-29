@@ -464,24 +464,28 @@ class msProduct extends modResource {
 	 */
 	public function process() {
 		/* @var msProductData $data */
-		$pls = $this->toArray();
-		/* @var miniShop2 $miniShop2 */
-		$miniShop2 = $this->xpdo->getService('minishop2');
-
-		$tmp = $pls['price'];
-		$pls['price'] = $this->getPrice($pls);
-		if ($pls['price'] != $tmp) {
-			$pls['old_price'] = $tmp;
+		if ($data = $this->getOne('Data')) {
+			/* @var miniShop2 $miniShop2 */
+			$miniShop2 = $this->xpdo->getService('minishop2');
+			$pls = $data->toArray();
+			$tmp = $pls['price'];
+			$pls['price'] = $this->getPrice($pls);
+			if ($pls['price'] != $tmp) {
+				$pls['old_price'] = $tmp;
+			}
+			$pls['price'] = $miniShop2->formatPrice($pls['price']);
+			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
+			$pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
+			unset($pls['id']);
+			$this->xpdo->setPlaceholders($pls);
 		}
-		$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
-		$pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
-		unset($pls['id']);
-
-		$this->xpdo->setPlaceholders($pls);
+		/* @var msVendor $vendor */
+		if ($vendor = $this->getOne('Vendor')) {
+			$this->xpdo->setPlaceholders($vendor->toArray('vendor.'));
+		}
 		$this->xpdo->lexicon->load('minishop2:default');
 		$this->xpdo->lexicon->load('minishop2:cart');
 		$this->xpdo->lexicon->load('minishop2:product');
-
 		return parent::process();
 	}
 
