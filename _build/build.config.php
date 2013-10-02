@@ -9,7 +9,10 @@ define('PKG_RELEASE', 'pl2');
 define('PKG_AUTO_INSTALL', true);
 
 /* define paths */
-if (is_file(dirname(dirname(dirname(__FILE__))) . '/index.php' )) {
+if (isset($_SERVER['MODX_BASE_PATH'])) {
+	define('MODX_BASE_PATH', $_SERVER['MODX_BASE_PATH']);
+}
+elseif (file_exists(dirname(dirname(dirname(__FILE__))) . '/core')) {
 	define('MODX_BASE_PATH', dirname(dirname(dirname(__FILE__))) . '/');
 }
 else {
