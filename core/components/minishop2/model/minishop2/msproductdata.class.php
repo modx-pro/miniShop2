@@ -181,7 +181,7 @@ class msProductData extends xPDOSimpleObject {
 	public function getPrice($data = array()) {
 		$price = parent::get('price');
 
-		if ($this->xpdo->getPrice) {return $price;}
+		if (!empty($this->xpdo->getPrice)) {return $price;}
 		$this->xpdo->getPrice = true;
 
 		/** @var miniShop2 $miniShop2 */
