@@ -173,8 +173,9 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 	 * @return void
 	 * */
 	function prepareFields() {
+		$data = array_keys($this->modx->getFieldMeta('msProductData'));
 		foreach ($this->resourceArray as $k => $v) {
-			if (is_array($v)) {
+			if (is_array($v) && in_array($k, $data)) {
 				$tmp = $this->resourceArray[$k];
 				$this->resourceArray[$k] = array();
 				foreach ($tmp as $v2) {
