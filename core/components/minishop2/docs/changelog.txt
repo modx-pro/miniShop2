@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.1 pl
 ==============
 - Fixed access permissions tab on product update.
+- Fixed getProce and getWeight calls in snippet msProducts.
 
 2.1.0 pl2
 ==============
