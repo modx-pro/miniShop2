@@ -133,7 +133,7 @@ input.disabled {color: #AAA !important;}
 	background:linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%);
 }
 
-.minishop2-category-list-item, .minishop2-product-list-item {
+.minishop2-category-list-item, .minishop2-product-list-item, .minishop2-user-list-item {
 	font:normal 11px tahoma, arial, helvetica, sans-serif;
 	padding:3px 10px 3px 10px;
 	border:1px solid #fff;
@@ -142,11 +142,11 @@ input.disabled {color: #AAA !important;}
 	color:#555;
 	cursor: pointer;
 }
-.minishop2-category-list-item:hover, .minishop2-product-list-item:hover {
+.minishop2-category-list-item:hover, .minishop2-product-list-item:hover, .minishop2-user-list-item:hover {
 	background: #efefef;
 }
 
-.minishop2-category-list-item h3, .minishop2-product-list-item h3 {
+.minishop2-category-list-item h3, .minishop2-product-list-item h3, .minishop2-user-list-item h3 {
 	display:block;
 	font:inherit;
 	font-weight:bold;

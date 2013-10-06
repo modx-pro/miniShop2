@@ -9,7 +9,7 @@ miniShop2.combo.User = function(config) {
 		,displayField: 'username'
 		,valueField: 'id'
 		,anchor: '99%'
-		,fields: ['username','id']
+		,fields: ['username','id','fullname']
 		,pageSize: 20
 		,url: MODx.config.connectors_url + 'security/user.php'
 		,typeAhead: true
@@ -22,6 +22,13 @@ miniShop2.combo.User = function(config) {
 			,id: config.value
 			//,limit: 0
 		}
+		,tpl: new Ext.XTemplate(''
+			+'<tpl for="."><div class="minishop2-user-list-item">'
+				+'<span><small>({id})</small> <b>{username}</b> ({fullname})</span>'
+			+'</div></tpl>',{
+			compiled: true
+		})
+		,itemSelector: 'div.minishop2-user-list-item'
 	});
 	miniShop2.combo.User.superclass.constructor.call(this,config);
 };
