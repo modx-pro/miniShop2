@@ -184,6 +184,7 @@ class msProductData extends xPDOSimpleObject {
 		if (!empty($this->xpdo->getPrice)) {return $price;}
 		$this->xpdo->getPrice = true;
 
+		if (empty($data)) {$data = $this->toArray();}
 		/** @var miniShop2 $miniShop2 */
 		$miniShop2 = $this->xpdo->getService('minishop2');
 		$params = array(
@@ -223,6 +224,7 @@ class msProductData extends xPDOSimpleObject {
 		if (!empty($this->xpdo->getWeight)) {return $weight;}
 		$this->xpdo->getWeight = true;
 
+		if (empty($data)) {$data = $this->toArray();}
 		/** @var miniShop2 $miniShop2 */
 		$miniShop2 = $this->xpdo->getService('minishop2');
 		$params = array(

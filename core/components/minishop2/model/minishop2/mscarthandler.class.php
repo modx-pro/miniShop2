@@ -161,8 +161,8 @@ class msCartHandler implements msCartInterface {
 			if (!($response['success'])) {
 				return $this->error($response['message']);
 			}
-			$price = $product->getPrice($response['data']); // We can modify price by snippet specified in system setting "ms2_price_snippet"
-			$weight = $product->getWeight($response['data']); // And weight by "ms2_weight_snippet"
+			$price = $product->getPrice(); // We can modify price by snippet specified in system setting "ms2_price_snippet"
+			$weight = $product->getWeight(); // And weight by "ms2_weight_snippet"
 			$count = $response['data']['count'];
 			$options = $response['data']['options'];
 
