@@ -49,6 +49,9 @@ if ($object->xpdo) {
 			$manager->alterField('msDelivery', 'price');
 			$manager->addField('msPayment', 'price', array('after' => 'description'));
 
+			$manager->addField('msCustomerProfile', 'spent', array('after' => 'account'));
+			$manager->addIndex('msCustomerProfile', 'spent');
+
 			// Fix for wrong events
 			if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
 				$modx->removeCollection('modEvent', array(

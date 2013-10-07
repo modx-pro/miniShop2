@@ -360,6 +360,7 @@
 	<object class="msCustomerProfile" table="ms2_customer_profiles" extends="xPDOObject">
 		<field key="id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk" />
 		<field key="account" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
+		<field key="spent" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="createdon" dbtype="timestamp" phptype="datetime" null="true" default="CURRENT_TIMESTAMP" />
 		<field key="referrer_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="0" index="index" />
 		<field key="referrer_code" dbtype="varchar" precision="50" phptype="string" null="true" default="" index="index" />
@@ -372,6 +373,9 @@
 		</index>
 		<index alias="referrer_code" name="referrer_code" primary="false" unique="true" type="BTREE" >
 			<column key="referrer_code" length="" collation="A" null="false" />
+		</index>
+		<index alias="spent" name="spent" primary="false" unique="true" type="BTREE" >
+			<column key="spent" length="" collation="A" null="false" />
 		</index>
 
 		<aggregate alias="User" class="modUser" local="internalKey" foreign="id" owner="foreign" cardinality="one" />

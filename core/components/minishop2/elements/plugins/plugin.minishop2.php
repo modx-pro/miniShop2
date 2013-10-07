@@ -66,4 +66,30 @@ switch ($modx->event->name) {
 			setcookie($cookieVar, '', time() - $cookieTime);
 		}
 		break;
+
+	case 'msOnChangeOrderStatus':
+		if ($status != 2) {return;}
+
+		/** @var modUser $user */
+		if ($user = $order->getOne('User')) {
+			$q = $modx->newQuery('msOrder');
+			$q->innerJoin('modUser', 'modUser', array('`modUser`.`id` = `msOrder`.`user_id`'));
+			$q->innerJoin('msOrderLog', 'msOrderLog', array(
+				'`msOrderLog`.`order_id` = `msOrder`.`id`',
+				'msOrderLog.action' => 'status',
+				'msOrderLog.entry' => $status,
+			));
+			$q->where(array('msOrder.user_id' => $user->id));
+			$q->groupby('msOrder.user_id');
+			$q->select('SUM(`msOrder`.`cost`)');
+			if ($q->prepare() && $q->stmt->execute()) {
+				$spent = $q->stmt->fetch(PDO::FETCH_COLUMN);
+				/** @var msCustomerProfile $profile */
+				if ($profile = $modx->getObject('msCustomerProfile', $user->id)) {
+					$profile->set('spent', $spent);
+					$profile->save();
+				}
+			}
+		}
+		break;
 }
