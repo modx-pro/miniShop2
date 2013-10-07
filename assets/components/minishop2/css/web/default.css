@@ -30,7 +30,7 @@
 	font-size: 0.9em;
 }
 
-.ms2_product .old_price, #msProduct .old_price {
+.ms2_product .old_price, #msProduct .old_price, #msCart .old_price {
 	color: brown;
 	font-style: italic;
 	text-decoration: line-through;

@@ -11,7 +11,7 @@
 		</form>
 	</td>
 	<td class="weight"><span>[[+weight]]</span> [[%ms2_frontend_weight_unit]]</td>
-	<td class="price"><span>[[+price]]</span> [[%ms2_frontend_currency]]</td>
+	<td class="price"><span>[[+price]]</span> [[%ms2_frontend_currency]][[+old_price]]</td>
 	<td class="remove">
 		<form method="post" class="ms2_form">
 			<input type="hidden" name="key" value="[[+key]]">
@@ -21,3 +21,4 @@
 </tr>
 <!--minishop2_option.color [[%ms2_frontend_color]]: [[+option.color]];-->
 <!--minishop2_option.size [[%ms2_frontend_size]]: [[+option.size]];-->
+<!--minishop2_old_price <br/><span class="old_price">[[+old_price]] [[%ms2_frontend_currency]]</span>-->

@@ -18,8 +18,8 @@
 				<label class="control-label">[[%ms2_product_price]]:</label>
 				<div class="controls">
 					<label class="checkbox">
-						[[+price]] [[%ms2_frontend_currency]]
-						[[+old_price:gt=`0`:then=`<span class="old_price">[[+old_price]] [[%ms2_frontend_currency]]</span>`:else=``]]
+						[[!+price]] [[%ms2_frontend_currency]]
+						[[!+old_price:gt=`0`:then=`<span class="old_price">[[+old_price]] [[%ms2_frontend_currency]]</span>`:else=``]]
 					</label>
 				</div>
 			</div>

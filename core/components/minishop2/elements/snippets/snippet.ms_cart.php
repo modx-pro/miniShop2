@@ -70,6 +70,11 @@ foreach ($cart as $k => $v) {
 		$row = $rows[0];
 		$row['key'] = $k;
 		$row['count'] = $v['count'];
+		$row['old_price'] = $miniShop2->formatPrice(
+			$row['price'] != $v['price']
+				? $row['price']
+				: $row['old_price']
+		);
 		$row['price'] = $miniShop2->formatPrice($v['price']);
 		$row['weight'] = $miniShop2->formatWeight($v['weight']);
 		$row['cost'] = $v['count'] * $v['price'];

@@ -45,7 +45,7 @@ if (!empty($includeThumbs)) {
 
 // Fields to select
 $resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
-$dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
+$dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true) . ',`Data`.`price` as `original_price`';
 $vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true);
 $orderProductColumns = $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true);
 
@@ -76,8 +76,13 @@ $rows = $pdoFetch->run();
 /* @var msOrderProduct $row */
 foreach ($rows as $row) {
 	$outer['cart_count'] += $row['count'];
+	$row['old_price'] = $miniShop2->formatPrice(
+		$row['original_price'] != $row['price']
+			? $row['original_price']
+			: $row['old_price']
+	);
 	$row['price'] = $miniShop2->formatPrice($row['price']);
-	$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
+
 	$row['cost'] = $miniShop2->formatPrice($row['cost']);
 	$row['weight'] = $miniShop2->formatWeight($row['weight']);
 

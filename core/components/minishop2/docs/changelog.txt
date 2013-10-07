@@ -5,6 +5,7 @@ Changelog for miniShop2.
 - Fixed access permissions tab on product update.
 - Fixed getPrice and getWeight calls in snippet msProducts.
 - Improved xtype "minishop2-combo-user".
+- Added support of component "msDiscount".
 
 2.1.0 pl2
 ==============
