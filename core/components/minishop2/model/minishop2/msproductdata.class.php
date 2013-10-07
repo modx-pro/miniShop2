@@ -155,6 +155,7 @@ class msProductData extends xPDOSimpleObject {
 	/**
 	 * {@inheritdoc}
 	 */
+	/*
 	public function get($k, $format = null, $formatTemplate= null) {
 		if (!is_array($k) && $k == 'price') {
 			return $this->getPrice();
@@ -171,6 +172,7 @@ class msProductData extends xPDOSimpleObject {
 			return parent::get($k, $format, $formatTemplate);
 		}
 	}
+	*/
 
 
 	/* Returns product price.
