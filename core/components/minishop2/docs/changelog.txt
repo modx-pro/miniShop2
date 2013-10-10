@@ -7,6 +7,7 @@ Changelog for miniShop2.
 - Improved xtype "minishop2-combo-user".
 - Added support of component "msDiscount".
 - Added counting of total spent sum by every customer in msCustomerProfile.
+- Snippet msProducts supports pdoTools 1.8.0. Parameter "&showHidden" enabled by default.
 
 2.1.0 pl2
 ==============

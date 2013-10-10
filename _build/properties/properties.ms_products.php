@@ -109,17 +109,16 @@ $tmp = array(
 	),
 	'showHidden' => array(
 		'type' => 'combo-boolean',
-		'value' => false,
+		'value' => true,
 	),
 	'showZeroPrice' => array(
 		'type' => 'combo-boolean',
 		'value' => true,
-	)
-,
+	),
 	'wrapIfEmpty' => array(
 		'type' => 'combo-boolean',
 		'value' => true,
-	)
+	),
 );
 
 foreach ($tmp as $k => $v) {

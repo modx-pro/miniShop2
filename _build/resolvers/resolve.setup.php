@@ -18,7 +18,7 @@ if ($object->xpdo) {
 			$packages = array(
 				'pdoTools' => array(
 					'version_major' => 1,
-					'version_minor:>=' =>  7,
+					'version_minor:>=' =>  8,
 				)
 			);
 			foreach ($packages as $package => $options) {

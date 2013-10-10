@@ -3,60 +3,21 @@
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2');
 $miniShop2->initialize($modx->context->key);
+
+// You can set modResource instead of msProduct
+if (empty($class)) {$scriptProperties['class'] = 'msProduct';}
+
 /* @var pdoFetch $pdoFetch */
 if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
-$class = 'msProduct';
 // Start building "Where" expression
 $where = array('class_key' => 'msProduct');
-if (empty($showUnpublished)) {$where['published'] = 1;}
-if (empty($showHidden)) {$where['hidemenu'] = 0;}
-if (empty($showDeleted)) {$where['deleted'] = 0;}
 if (empty($showZeroPrice)) {$where['Data.price:>'] = 0;}
-
-// Filter by ids
-if (!empty($resources)){
-	$resources = array_map('trim', explode(',', $resources));
-	$in = $out = array();
-	foreach ($resources as $v) {
-		if (!is_numeric($v)) {continue;}
-		if ($v < 0) {$out[] = abs($v);}
-		else {$in[] = $v;}
-	}
-	if (!empty($in)) {$where['id:IN'] = $in;}
-	if (!empty($out)) {$where['id:NOT IN'] = $out;}
-}
-// Filter by parents
-if (empty($parents) && $parents != '0') {$parents = $modx->resource->id;}
-if (!empty($parents) && $parents > 0) {
-	$pids = array_map('trim', explode(',', $parents));
-	$parents = $pids;
-	if (!empty($depth) && $depth > 0) {
-		foreach ($pids as $v) {
-			if (!is_numeric($v)) {continue;}
-			$parents = array_merge($parents, $modx->getChildIds($v, $depth));
-		}
-	}
-
-	// Add product categories
-	$q = $modx->newQuery('msCategoryMember', array('category_id:IN' => $parents));
-	$q->select('product_id');
-	if ($q->prepare() && $q->stmt->execute()) {
-		$members = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-	}
-
-	if (!empty($members)) {
-		$where[] = '(`msProduct`.`parent` IN ('.implode(',',$parents).') OR `msProduct`.`id` IN ('.implode(',',$members).'))';
-	}
-	else {
-		$where['parent:IN'] = $parents;
-	}
-}
 
 // Joining tables
 $leftJoin = array(
-	array('class' => 'msProductData', 'alias' => 'Data', 'on' => '`msProduct`.`id`=`Data`.`id`'),
+	array('class' => 'msProductData', 'alias' => 'Data', 'on' => '`'.$class.'`.`id`=`Data`.`id`'),
 	array('class' => 'msVendor', 'alias' => 'Vendor', 'on' => '`Data`.`vendor`=`Vendor`.`id`'),
 );
 $innerJoin = array();
@@ -70,7 +31,7 @@ if (!empty($includeThumbs)) {
 			$leftJoin[] = array(
 				'class' => 'msProductFile',
 				'alias' => $thumb,
-				'on' => "`$thumb`.`product_id` = `msProduct`.`id` AND `$thumb`.`parent` != 0 AND `$thumb`.`path` LIKE '%/$thumb/'"
+				'on' => "`$thumb`.`product_id` = `$class`.`id` AND `$thumb`.`parent` != 0 AND `$thumb`.`path` LIKE '%/$thumb/'"
 			);
 			$thumbsSelect[$thumb] = "`$thumb`.`url` as `$thumb`";
 		}
@@ -79,11 +40,11 @@ if (!empty($includeThumbs)) {
 
 // include Linked products
 if (!empty($link) && !empty($master)) {
-	$innerJoin[] = array('class' => 'msProductLink', 'alias' => 'Link', 'on' => '`msProduct`.`id` = `Link`.`slave` AND `Link`.`link` = '.$link);
+	$innerJoin[] = array('class' => 'msProductLink', 'alias' => 'Link', 'on' => '`'.$class.'`.`id` = `Link`.`slave` AND `Link`.`link` = '.$link);
 	$where['Link.master'] = $master;
 }
 else if (!empty($link) && !empty($slave)) {
-	$innerJoin[] = array('class' => 'msProductLink', 'alias' => 'Link', 'on' => '`msProduct`.`id` = `Link`.`master` AND `Link`.`link` = '.$link);
+	$innerJoin[] = array('class' => 'msProductLink', 'alias' => 'Link', 'on' => '`'.$class.'`.`id` = `Link`.`master` AND `Link`.`link` = '.$link);
 	$where['Link.slave'] = $slave;
 }
 
@@ -121,11 +82,6 @@ $default = array(
 	'nestedChunkPrefix' => 'minishop2_',
 );
 
-if (!empty($in) && (empty($scriptProperties['sortby']) || $scriptProperties['sortby'] == 'id')) {
-	$scriptProperties['sortby'] = "find_in_set(`$class`.`id`,'".implode(',', $in)."')";
-	$scriptProperties['sortdir'] = '';
-}
-
 // Merge all properties and run!
 $pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
@@ -140,10 +96,10 @@ if (!empty($rows) && is_array($rows)) {
 	$q->where('modPlugin.disabled = 0');
 
 	if ($modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $modx->getOption('ms2_weight_snippet', null, false, true) || $modx->getCount('modPluginEvent', $q)) {
-		/* @var msProduct $product */
-		$product = $modx->newObject('msProduct');
+		/* @var msProductData $product */
+		$product = $modx->newObject('msProductData');
 	}
-	$pdoFetch->addTime('Check for modificators exists');
+	$pdoFetch->addTime('Checked the active modifiers');
 
 	foreach ($rows as $k => $row) {
 		if ($modificators) {
