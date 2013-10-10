@@ -2,13 +2,16 @@ Changelog for miniShop2.
 
 2.1.1 pl
 ==============
+- Snippet msProducts supports pdoTools 1.8.0. Parameter "&showHidden" enabled by default.
+- Fixed fatal error with "clearCache" when msProduct created trough processor and it`s parent is not msCategory.
+
+2.1.1 pl
+==============
 - Fixed access permissions tab on product update.
 - Fixed getPrice and getWeight calls in snippet msProducts.
 - Improved xtype "minishop2-combo-user".
 - Added support of component "msDiscount".
 - Added counting of total spent sum by every customer in msCustomerProfile.
-- Snippet msProducts supports pdoTools 1.8.0. Parameter "&showHidden" enabled by default.
-- Fixed fatal error with "clearCache" when msProduct created trough processor and it`s parent is not msCategory.
 
 2.1.0 pl2
 ==============
