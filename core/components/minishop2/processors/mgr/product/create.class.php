@@ -77,8 +77,9 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 	public function clearCache() {
 		$clear = parent::clearCache();
 		/* @var msCategory $category */
-		$category = $this->object->getOne('Category');
-		$category->clearCache();
+		if ($category = $this->object->getOne('Category')) {
+			$category->clearCache();
+		}
 
 		return $clear;
 	}
