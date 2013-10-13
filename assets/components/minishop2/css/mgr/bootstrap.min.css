@@ -11,7 +11,7 @@
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
 .input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
-[class^="bicon-"],[class*=" bicon-"]{display:inline-block;width:14px;height:14px;*margin-right:.3em;line-height:14px;vertical-align:text-top;background-image:url("../../img/mgr/glyphicons-halflings.png");background-position:14px 14px;background-repeat:no-repeat;margin-top:1px;}
+[class^="bicon-"],[class*=" bicon-"]{display:inline-block;width:14px;height:14px;*margin-right:.3em;line-height:14px;vertical-align:text-top;background-image:url("/assets/components/minishop2/img/mgr/glyphicons-halflings.png");background-position:14px 14px;background-repeat:no-repeat;margin-top:1px;}
 .bicon-white,.nav-pills>.active>a>[class^="bicon-"],.nav-pills>.active>a>[class*=" bicon-"],.nav-list>.active>a>[class^="bicon-"],.nav-list>.active>a>[class*=" bicon-"],.navbar-inverse .nav>.active>a>[class^="bicon-"],.navbar-inverse .nav>.active>a>[class*=" bicon-"],.dropdown-menu>li>a:hover>[class^="bicon-"],.dropdown-menu>li>a:hover>[class*=" bicon-"],.dropdown-menu>.active>a>[class^="bicon-"],.dropdown-menu>.active>a>[class*=" bicon-"],.dropdown-submenu:hover>a>[class^="bicon-"],.dropdown-submenu:hover>a>[class*=" bicon-"]{background-image:url("../../img/mgr/glyphicons-halflings-white.png");}
 .bicon-glass{background-position:0 0;}
 .bicon-music{background-position:-24px 0;}
