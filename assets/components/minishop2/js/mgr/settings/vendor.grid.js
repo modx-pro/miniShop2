@@ -13,7 +13,7 @@ miniShop2.grid.Vendor = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/vendor/getlist'
 		}
-		,fields: ['id','name','resource','country','logo','address','phone','fax','description']
+		,fields: ['id','name','resource','country','email','logo','address','phone','fax','description']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
