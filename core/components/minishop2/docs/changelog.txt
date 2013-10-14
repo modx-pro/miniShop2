@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - Snippet msProducts supports pdoTools 1.8.0. Parameter "&showHidden" enabled by default.
 - Fixed fatal error with "clearCache" when msProduct created trough processor and it`s parent is not msCategory.
+- Improved generation of thumbnails.
 
 2.1.1 pl
 ==============

@@ -120,7 +120,7 @@ class msProductFile extends xPDOSimpleObject {
 			)
 		));
 
-		$tf = tempnam(sys_get_temp_dir(), '.upload');
+		$tf = tempnam(ini_get('upload_tmp_dir'), '.upload');
 		file_put_contents($tf, $raw_image);
 		$tmp = getimagesize($tf);
 		if (is_array($tmp)) {
@@ -180,7 +180,11 @@ class msProductFile extends xPDOSimpleObject {
 
 	public function remove(array $ancestors= array ()) {
 		$this->prepareSource();
-		$this->mediaSource->removeObject($this->get('path').$this->get('file'));
+		if (!$this->mediaSource->removeObject($this->get('path').$this->get('file'))) {
+			$this->xpdo->log(xPDO::LOG_LEVEL_ERROR,
+				'Could not remove file at "'.$this->get('path').$this->get('file').'": '.$this->mediaSource->errors['file']
+			);
+		}
 
 		return parent::remove($ancestors);
 	}
