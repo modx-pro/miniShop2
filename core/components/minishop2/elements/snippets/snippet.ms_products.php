@@ -6,6 +6,9 @@ $miniShop2->initialize($modx->context->key);
 
 // You can set modResource instead of msProduct
 if (empty($class)) {$scriptProperties['class'] = 'msProduct';}
+if (isset($parents) && $parents === '') {
+	$scriptProperties['parents'] = $modx->resource->id;
+}
 
 /* @var pdoFetch $pdoFetch */
 if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}

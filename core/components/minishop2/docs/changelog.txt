@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.1 pl2
+==============
+- Fixed parameter "&parents" in msProducts.
+
 2.1.1 pl
 ==============
 - Snippet msProducts supports pdoTools 1.8.0. Parameter "&showHidden" enabled by default.
