@@ -19,10 +19,10 @@ miniShop2.panel.CategoryTemplateSettings = function(config) {
 Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 	getItems: function(config) {
 		return [{
-			columnWidth: .5
+			columnWidth: .7
 			,items: this.getContentField(config)
 		},{
-			columnWidth: .5
+			columnWidth: .3
 			,items: this.getSettingRightFields(config)
 		}];
 	}
