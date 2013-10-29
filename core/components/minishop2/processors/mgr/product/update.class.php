@@ -12,6 +12,22 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	public $afterSaveEvent = 'OnDocFormSave';
 	/** @var msProduct $object */
 	public $object;
+
+
+	/** {inheritDoc} */
+	public function initialize() {
+		$primaryKey = $this->getProperty($this->primaryKeyField,false);
+		if (empty($primaryKey)) return $this->modx->lexicon($this->objectType.'_err_ns');
+
+		if (!$this->modx->getCount($this->classKey, array('id' => $primaryKey, 'class_key' => $this->classKey)) && $res = $this->modx->getObject('modResource', $primaryKey)) {
+			$res->set('class_key', $this->classKey);
+			$res->save();
+		}
+
+		return parent::initialize();
+	}
+
+
 	/**
 	 * Handle formatting of various checkbox fields
 	 * @return void

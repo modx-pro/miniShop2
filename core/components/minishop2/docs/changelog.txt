@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.2 pl
+==============
+- [#77] Fixed change type of existing resource to "msProduct".
+
 2.1.1 pl2
 ==============
 - Fixed parameter "&parents" in msProducts.
