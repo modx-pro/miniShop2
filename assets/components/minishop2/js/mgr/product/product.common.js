@@ -475,6 +475,7 @@ miniShop2.panel.ProductSettingsHorizontal = function(config) {
 			,xtype: 'modx-tabs'
 			,defaults: { border: false ,autoHeight: true }
 			,border: true
+			,bodyCssClass: 'tab-panel-wrapper main-wrapper'
 			,deferredRender: false
 			,forceLayout: true
 			,anchor: '97%'
