@@ -93,6 +93,9 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
 			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
+			,product_tab_extra: '.$this->modx->getOption('ms2_product_tab_extra', null, true).'
+			,product_tab_gallery: '.$this->modx->getOption('ms2_product_tab_gallery', null, true).'
+			,product_tab_links: '.$this->modx->getOption('ms2_product_tab_links', null, true).'
 			,data_fields: '.json_encode($product_data_fields).'
 			,additional_fields: []
 		}

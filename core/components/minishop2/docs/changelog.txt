@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.2 pl
 ==============
 - [#77] Fixed change type of existing resource to "msProduct".
+- Added ability to hide tabs of product page in manager. See new system settings.
 
 2.1.1 pl2
 ==============

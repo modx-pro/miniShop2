@@ -162,8 +162,18 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 	}
 
 	,getTabSettings: function(config) {
+		var xtype;
+		if (!miniShop2.config.product_tab_extra && !miniShop2.config.product_tab_gallery && !miniShop2.config.product_tab_links) {
+			xtype = 'minishop2-product-settings-simple';
+		}
+		else {
+			xtype = miniShop2.config.vertical_tabs
+				? 'minishop2-product-settings'
+				: 'minishop2-product-settings-horizontal';
+		}
+
 		return [{
-			xtype: miniShop2.config.vertical_tabs ? 'minishop2-product-settings' : 'minishop2-product-settings-horizontal'
+			xtype: xtype
 			,record: config.record
 			,mode: config.mode
 		}];

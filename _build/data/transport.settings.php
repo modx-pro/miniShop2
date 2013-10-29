@@ -119,6 +119,21 @@ $tmp = array(
 		,'xtype' => 'combo-boolean'
 		,'area' => 'ms2_product'
 	)
+	,'ms2_product_tab_extra' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_tab_gallery' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
+	,'ms2_product_tab_links' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_product'
+	)
 
 
 	,'ms2_cart_handler_class' => array(

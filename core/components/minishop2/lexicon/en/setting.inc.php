@@ -20,6 +20,13 @@ $_lang['setting_ms2_product_main_fields_desc'] = 'Comma separated list of fields
 $_lang['setting_ms2_product_extra_fields'] = 'Extra fields of the panel of the product';
 $_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of fields in the panel of the product, that needed in your shop. For example: "price,old_price,weight".';
 
+$_lang['setting_ms2_product_tab_extra'] = 'Product properties tab';
+$_lang['setting_ms2_product_tab_extra_desc'] = 'Display tab with product properties?';
+$_lang['setting_ms2_product_tab_gallery'] = 'Product gallery tab';
+$_lang['setting_ms2_product_tab_gallery_desc'] = 'Display tab with product gallery?';
+$_lang['setting_ms2_product_tab_links'] = 'Product links tab';
+$_lang['setting_ms2_product_tab_links_desc'] = 'Display tab with product links?';
+
 $_lang['setting_ms2_category_show_comments'] = 'Display comments of the category';
 $_lang['setting_ms2_category_show_comments_desc'] = 'Display comments of all goods from category if component "Tickets" is installed.';
 $_lang['setting_ms2_category_show_nested_products'] = 'Show nested product of category';
