@@ -45,6 +45,11 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
 			}
 		}
 
+		/** @var msProduct $product */
+		if ($product = $this->object->getOne('Product')) {
+			$product->updateProductImage();
+		}
+
 		return parent::beforeSave();
 	}
 

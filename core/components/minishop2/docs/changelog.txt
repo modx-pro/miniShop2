@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - Added ability to hide tabs of product page in manager. See new system settings.
 - Improved style of horizontal product tabs.
 - Improved proportions in settings tab of category.
+- Improved rename of product images.
 
 2.1.1 pl2
 ==============
