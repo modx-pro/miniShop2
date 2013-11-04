@@ -21,7 +21,6 @@ class msProductFileSortProcessor extends modObjectProcessor {
 			$this->modx->exec("UPDATE {$this->modx->getTableName('msProductFile')}
 				SET rank = rank - 1 WHERE
 					product_id = ".$product_id."
-					AND type = 'image'
 					AND rank <= {$target->get('rank')}
 					AND rank > {$source->get('rank')}
 					AND rank > 0
@@ -31,7 +30,6 @@ class msProductFileSortProcessor extends modObjectProcessor {
 			$this->modx->exec("UPDATE {$this->modx->getTableName('msProductFile')}
 				SET rank = rank + 1 WHERE
 					product_id = ".$product_id."
-					AND type = 'image'
 					AND rank >= {$target->get('rank')}
 					AND rank < {$source->get('rank')}
 			");

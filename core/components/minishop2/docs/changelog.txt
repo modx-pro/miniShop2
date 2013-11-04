@@ -9,6 +9,8 @@ Changelog for miniShop2.
 - Improved rename of product images.
 - Improved retrieving of first thumbnail of image in gallery.
 - If you specified wrong "ms2_product_thumbnail_size" parameter, gallery will still work.
+- Added support of non-image files in gallery.
+- Improved snippet "msGallery" for display non-image files.
 
 2.1.1 pl2
 ==============

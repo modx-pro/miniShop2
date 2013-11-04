@@ -45,3 +45,4 @@ $_lang['ms2_prop_tplDeliveriesRow'] = '"Chunk" pour traiter un mode de livraison
 $_lang['ms2_prop_product'] = 'ID de l\'article. Si vide, l\'ID du document courant sera utilisé.';
 $_lang['ms2_prop_optionSelected'] = 'Nom de l\'option activé pour définir l\'attribut de paramètrage "sélectionné".';
 $_lang['ms2_prop_optionName'] = 'Nom d\'affichage de l\'option.';
+$_lang['ms2_prop_filetype'] = 'Type de fichier pour l\'échantillonnage. Vous pouvez utiliser "image" pour spécifier les images et les extensions pour les fichiers restants. Par exemple: "image,pdf,xls,doc".';

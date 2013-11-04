@@ -45,3 +45,4 @@ $_lang['ms2_prop_tplDeliveriesRow'] = 'Chunk to process a way of delivery.';
 $_lang['ms2_prop_product'] = 'ID des Produkts. Falls leer, wird die ID des aktuellen Dokuments verwendet.';
 $_lang['ms2_prop_optionSelected'] = 'Name of the active option, for setting attribute "selected"';
 $_lang['ms2_prop_optionName'] = 'Name of the option for displaying.';
+$_lang['ms2_prop_filetype'] = 'Typ der Dateien, die für eine Stichprobe. Sie können das "image", um die Bilder und Erweiterungen für den Rest der Dateien. Zum Beispiel: "image,pdf,xls,doc".';

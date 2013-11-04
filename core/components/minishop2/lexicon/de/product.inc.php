@@ -144,8 +144,8 @@ $_lang['ms2_gallery_uploads_clear'] = 'Löschen';
 $_lang['ms2_gallery_generate_thumbs'] = 'Alle Thumbnails neu erstellen';
 
 $_lang['ms2_gallery_image_generate_thumbs'] = 'Thumbnails neu erstellen';
-$_lang['ms2_gallery_image_update'] = 'Name & Beschreibung bearbeiten';
-$_lang['ms2_gallery_image_delete'] = 'Bild löschen';
-$_lang['ms2_gallery_image_delete_confirm'] = 'Dieses Bild inklusive Thumbnail löschen? <br/> Diese Aktion kann nicht rückgängig gemacht werden.';
-$_lang['ms2_gallery_image_delete_multiple'] = 'Bilder löschen';
-$_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Diese Bilder inklusive Thumbnails löschen? <br/> Diese Aktion kann nicht rückgängig gemacht werden.';
+$_lang['ms2_gallery_file_update'] = 'Name & Beschreibung bearbeiten';
+$_lang['ms2_gallery_file_delete'] = 'Datei löschen';
+$_lang['ms2_gallery_file_delete_confirm'] = 'Dieses Datei inklusive Thumbnail löschen? <br/> Diese Aktion kann nicht rückgängig gemacht werden.';
+$_lang['ms2_gallery_file_delete_multiple'] = 'Dateien löschen';
+$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Diese Datei inklusive Thumbnails löschen? <br/> Diese Aktion kann nicht rückgängig gemacht werden.';

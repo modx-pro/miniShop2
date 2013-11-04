@@ -149,11 +149,11 @@ $_lang['ms2_gallery_uploads_clear'] = 'Clear';
 $_lang['ms2_gallery_generate_thumbs'] = 'Regenerate all thumbnails';
 
 $_lang['ms2_gallery_image_generate_thumbs'] = 'Regenerate thumbnails';
-$_lang['ms2_gallery_image_update'] = 'Update properties';
-$_lang['ms2_gallery_image_delete'] = 'Delete image';
-$_lang['ms2_gallery_image_delete_confirm'] = 'Are you shure you want to delete this image with all of it thumbnails? <br/> This operation is irreversible.';
-$_lang['ms2_gallery_image_delete_multiple'] = 'Delete images';
-$_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Are you shure you want to delete this images with all of its thumbnails? <br/> This operation is irreversible.';
+$_lang['ms2_gallery_file_update'] = 'Update properties';
+$_lang['ms2_gallery_file_delete'] = 'Delete file';
+$_lang['ms2_gallery_file_delete_confirm'] = 'Are you shure you want to delete this file with all of it thumbnails? <br/> This operation is irreversible.';
+$_lang['ms2_gallery_file_delete_multiple'] = 'Delete files';
+$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Are you shure you want to delete this files with all of its thumbnails? <br/> This operation is irreversible.';
 
 $_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> Queued';
 $_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> Uploading';

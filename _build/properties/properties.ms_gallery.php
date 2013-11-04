@@ -58,7 +58,12 @@ $tmp = array(
 	'where' => array(
 		'type' => 'textfield',
 		'value' => '',
-	)
+	),
+	'filetype' => array(
+		'type' => 'textfield',
+		'value' => '',
+		'desc' => 'ms2_prop_filetype',
+	),
 );
 
 foreach ($tmp as $k => $v) {

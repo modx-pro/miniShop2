@@ -254,7 +254,9 @@ td.x-grid3-td-progress-cell div.x-grid3-cell-inner {
 	position: relative;
 }
 
-.modx-gallery-detail-thumb img {width: 300px; display: block; margin: auto;}
+.modx-gallery-detail-thumb img {max-width: 300px; display: block; margin: auto;}
 .modx-gallery-details-info,
 .modx-gallery-details-info .description {margin-top: 20px; padding-top: 20px; border-top: 1px solid #efefef;}
+.modx-gal-item-thumb {width: 120px; height: 90px; border:1px solid #efefef;}
+.modx-gal-item-thumb img {max-width: 120px; max-height: 90px; display: block; margin: auto;}
 

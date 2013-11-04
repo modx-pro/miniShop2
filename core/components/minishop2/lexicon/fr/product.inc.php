@@ -144,8 +144,8 @@ $_lang['ms2_gallery_uploads_clear'] = 'Effacer';
 $_lang['ms2_gallery_generate_thumbs'] = 'Re-créer toutes les vignettes';
 
 $_lang['ms2_gallery_image_generate_thumbs'] = 'Re-créer les vignettes';
-$_lang['ms2_gallery_image_update'] = 'Mise a jour des propriétés';
-$_lang['ms2_gallery_image_delete'] = 'Supprimer l\'image';
-$_lang['ms2_gallery_image_delete_confirm'] = 'Êtes vous sûr de vouloir supprimer cette image et toutes ses vignettes ? <br/> Cette opération est irréversible.';
-$_lang['ms2_gallery_image_delete_multiple'] = 'Supprimer les images';
-$_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Êtes vous de vouloir supprimer ces images et toutes leurs vignettes ? <br/> Cette opération est irréversible.';
+$_lang['ms2_gallery_file_update'] = 'Mise a jour des propriétés';
+$_lang['ms2_gallery_file_delete'] = 'Supprimer l\'fichier';
+$_lang['ms2_gallery_file_delete_confirm'] = 'Êtes vous sûr de vouloir supprimer cette fichier et toutes ses vignettes ? <br/> Cette opération est irréversible.';
+$_lang['ms2_gallery_file_delete_multiple'] = 'Supprimer les fichiers';
+$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Êtes vous de vouloir supprimer ces fichier et toutes leurs vignettes ? <br/> Cette opération est irréversible.';

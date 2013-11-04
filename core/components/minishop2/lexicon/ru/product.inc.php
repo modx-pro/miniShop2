@@ -149,11 +149,11 @@ $_lang['ms2_gallery_uploads_clear'] = 'Очистить';
 $_lang['ms2_gallery_generate_thumbs'] = 'Обновить все превьюшки';
 
 $_lang['ms2_gallery_image_generate_thumbs'] = 'Обновить превьюшки';
-$_lang['ms2_gallery_image_update'] = 'Изменить свойства';
-$_lang['ms2_gallery_image_delete'] = 'Удалить изображение';
-$_lang['ms2_gallery_image_delete_confirm'] = 'Вы действительно хотите удалить это изображение вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
-$_lang['ms2_gallery_image_delete_multiple'] = 'Удалить изображения';
-$_lang['ms2_gallery_image_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти изображения со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
+$_lang['ms2_gallery_file_update'] = 'Изменить свойства';
+$_lang['ms2_gallery_file_delete'] = 'Удалить файл';
+$_lang['ms2_gallery_file_delete_confirm'] = 'Вы действительно хотите удалить этот файл вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
+$_lang['ms2_gallery_file_delete_multiple'] = 'Удалить файлы';
+$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти файлы со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
 
 $_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> В очереди';
 $_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> В процессе';
