@@ -31,7 +31,9 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor {
 		/* @var msProductFile $object */
 		$row = $object->toArray();
 		$tmp = $object->getFirstThumbnail();
-		$row['thumbnail'] = !empty($tmp['url']) ? $tmp['url'] : MODX_ASSETS_URL . 'components/minishop2/img/mgr/ms2_small.png';
+		$row['thumbnail'] = !empty($tmp['url'])
+			? $tmp['url']
+			: MODX_ASSETS_URL . 'components/minishop2/img/mgr/ms2_small.png';
 /*
 		$row['menu'] = array();
 

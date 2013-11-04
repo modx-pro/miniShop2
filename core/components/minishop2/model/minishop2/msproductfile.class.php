@@ -157,11 +157,12 @@ class msProductFile extends xPDOSimpleObject {
 		$c = array(
 			'product_id' => $this->get('product_id')
 			,'parent' => $this->get('id')
-			,'path:LIKE' => '%'.$this->xpdo->getOption('ms2_product_thumbnail_size', null, '120x90').'/'
+			,'path:LIKE' => '%'.$this->xpdo->getOption('ms2_product_thumbnail_size', null, '120x90', true).'/'
+			,'type' => 'image'
 		);
 
 		if (!$this->xpdo->getCount('msProductFile', $c)) {
-			unset($c['path']);
+			unset($c['path:LIKE']);
 		}
 
 		$q = $this->xpdo->newQuery('msProductFile', $c);

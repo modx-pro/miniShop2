@@ -7,6 +7,8 @@ Changelog for miniShop2.
 - Improved style of horizontal product tabs.
 - Improved proportions in settings tab of category.
 - Improved rename of product images.
+- Improved retrieving of first thumbnail of image in gallery.
+- If you specified wrong "ms2_product_thumbnail_size" parameter, gallery will still work.
 
 2.1.1 pl2
 ==============
