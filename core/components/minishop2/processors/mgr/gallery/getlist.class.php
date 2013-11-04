@@ -29,7 +29,7 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor {
 		$row = $object->toArray();
 
 		if ($row['type'] != 'image') {
-			$row['thumbnail'] = $row['url'] =  (file_exists(MODX_ASSETS_PATH . 'components/minishop2/img/mgr/extensions/'.$row['type'].'.png'))
+			$row['thumbnail'] = (file_exists(MODX_ASSETS_PATH . 'components/minishop2/img/mgr/extensions/'.$row['type'].'.png'))
 				? MODX_ASSETS_URL . 'components/minishop2/img/mgr/extensions/'.$row['type'].'.png'
 				: MODX_ASSETS_URL . 'components/minishop2/img/mgr/extensions/other.png';
 		}

@@ -390,7 +390,7 @@ Ext.extend(miniShop2.view.ProductImages,MODx.DataView,{
 							,'<a href="{url}" target="_blank"><img src="{url}" alt="{name}" /></a>'
 						,'</tpl>'
 						,'<tpl if="type != \'image\'">'
-							,'<img src="{url}" alt="{name}" />'
+							,'<a href="{url}" target="_blank"><img src="{thumbnail}" alt="{name}" /></a>'
 						,'</tpl>'
 						,'</div><div class="modx-gallery-details-info">'
 						,_('ms2_gallery_filename') + ': <strong>{file}</strong><br/><br/>'
