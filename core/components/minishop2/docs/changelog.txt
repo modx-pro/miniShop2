@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.2 pl1
+==============
+- Fixed possibly E_NOTICE in snippets.
+
 2.1.2 pl
 ==============
 - [#77] Fixed change type of existing resource to "msProduct".

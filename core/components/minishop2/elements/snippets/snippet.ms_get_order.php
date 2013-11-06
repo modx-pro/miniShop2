@@ -87,7 +87,9 @@ foreach ($rows as $row) {
 	$row['weight'] = $miniShop2->formatWeight($row['weight']);
 
 	// Additional properties of product
-	$options = json_decode($row['options'],1);
+	$options = !is_array($row['options'])
+		? $modx->fromJSON($row['options'])
+		: $row['options'];
 	if (!empty($options) && is_array($options)) {
 		foreach ($options as $key => $value) {
 			$row['option.'.$key] = $value;
