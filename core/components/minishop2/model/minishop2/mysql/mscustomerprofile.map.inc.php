@@ -121,7 +121,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
     array (
       'alias' => 'spent',
       'primary' => false,
-      'unique' => true,
+      'unique' => false,
       'type' => 'BTREE',
       'columns' => 
       array (

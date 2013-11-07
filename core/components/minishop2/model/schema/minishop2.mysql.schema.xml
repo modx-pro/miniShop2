@@ -374,7 +374,7 @@
 		<index alias="referrer_code" name="referrer_code" primary="false" unique="true" type="BTREE" >
 			<column key="referrer_code" length="" collation="A" null="false" />
 		</index>
-		<index alias="spent" name="spent" primary="false" unique="true" type="BTREE" >
+		<index alias="spent" name="spent" primary="false" unique="false" type="BTREE" >
 			<column key="spent" length="" collation="A" null="false" />
 		</index>
 
