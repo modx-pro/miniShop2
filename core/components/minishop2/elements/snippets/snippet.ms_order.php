@@ -81,9 +81,7 @@ if (!empty($deliveries)) {
 
 		$pdoFetch->addTime('Processing delivery '.$delivery['name'].'.');
 		$delivery['checked'] = !empty($order['delivery']) && $order['delivery'] == $did ? 'checked' : '';
-		$delivery['payments'] = !is_array($delivery['payments'])
-			? $modx->fromJSON($delivery['payments'])
-			: $delivery['payments'];
+		$delivery['payments'] = $modx->toJSON($delivery['payments']);
 		$arrays['deliveries'][$did] = empty($tplDelivery)
 			? $pdoFetch->getChunk('', $delivery)
 			: $pdoFetch->getChunk($tplDelivery, $delivery);
