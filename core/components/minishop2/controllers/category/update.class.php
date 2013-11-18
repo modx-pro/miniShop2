@@ -31,7 +31,6 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$minishopAssetsUrl = $this->modx->getOption('minishop2.assets_url',null,$this->modx->getOption('assets_url',null,MODX_ASSETS_URL).'components/minishop2/');
 		$connectorUrl = $minishopAssetsUrl.'connector.php';
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
-		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
 
 		/* @var msProduct $product*/
 		$product = $this->modx->newObject('msProduct');
@@ -50,7 +49,6 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 			$neighborhood = $this->resource->getNeighborhood();
 		}
 
-		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');

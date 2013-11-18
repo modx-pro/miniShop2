@@ -24,7 +24,8 @@ abstract class miniShop2MainController extends modExtraManagerController {
 	public function initialize() {
 		$this->miniShop2 = new miniShop2($this->modx);
 		
-		$this->modx->regClientCSS($this->miniShop2->config['cssUrl'].'mgr/main.css');
+		$this->addCss($this->miniShop2->config['cssUrl'].'mgr/bootstrap.min.css');
+		$this->addCss($this->miniShop2->config['cssUrl'].'mgr/main.css');
 		$this->addJavaScript($this->miniShop2->config['jsUrl'].'mgr/minishop2.js');
 		$this->addHtml(str_replace('		', '', '
 		<script type="text/javascript">

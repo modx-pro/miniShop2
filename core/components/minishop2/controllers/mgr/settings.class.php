@@ -12,8 +12,6 @@ class Minishop2SettingsManagerController extends miniShop2MainController {
 	public function getPageTitle() { return 'miniShop2 :: ' . $this->modx->lexicon('ms2_settings'); }
 
 	public function loadCustomCssJs() {
-		$this->addCss($this->miniShop2->config['cssUrl']. 'mgr/bootstrap.min.css');
-
 		$this->addJavascript(MODX_MANAGER_URL.'assets/modext/util/datetime.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.utils.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'].'mgr/misc/ms2.combo.js');
