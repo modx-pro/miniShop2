@@ -32,7 +32,6 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$minishopAssetsUrl = $this->modx->getOption('minishop2.assets_url',null,$this->modx->getOption('assets_url',null,MODX_ASSETS_URL).'components/minishop2/');
 		$connectorUrl = $minishopAssetsUrl.'connector.php';
 		$minishopJsUrl = $minishopAssetsUrl.'js/mgr/';
-		$minishopCssUrl = $minishopAssetsUrl.'css/mgr/';
 		$minishopImgUrl = $minishopAssetsUrl.'img/mgr/';
 
 		// Customizable product fields feature
@@ -54,7 +53,6 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 
 		$showComments = class_exists('Ticket') && $this->modx->getOption('ms2_product_show_comments') ? 1 : 0;
 
-		$this->addCss($minishopCssUrl. 'bootstrap.min.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');

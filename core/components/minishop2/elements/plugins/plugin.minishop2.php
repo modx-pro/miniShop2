@@ -2,8 +2,8 @@
 switch ($modx->event->name) {
 
 	case 'OnManagerPageBeforeRender':
-		$cssFile = MODX_ASSETS_URL . 'components/minishop2/css/mgr/main.css';
-		$modx->controller->addCss($cssFile);
+		$modx->controller->addCss(MODX_ASSETS_URL . 'components/minishop2/css/mgr/bootstrap.min.css');
+		$modx->controller->addCss(MODX_ASSETS_URL . 'components/minishop2/css/mgr/main.css');
 		break;
 
 	case 'OnHandleRequest':
