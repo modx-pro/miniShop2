@@ -1,8 +1,8 @@
 /* boostrap icons fix */
 [class^="bicon-"],[class*=" bicon-"] {background-image:url("../../img/mgr/glyphicons-halflings.png");}
 .bicon-white,.nav-pills>.active>a>[class^="bicon-"],.nav-pills>.active>a>[class*=" bicon-"],.nav-list>.active>a>[class^="bicon-"],.nav-list>.active>a>[class*=" bicon-"],.navbar-inverse .nav>.active>a>[class^="bicon-"],.navbar-inverse .nav>.active>a>[class*=" bicon-"],.dropdown-menu>li>a:hover>[class^="bicon-"],.dropdown-menu>li>a:hover>[class*=" bicon-"],.dropdown-menu>.active>a>[class^="bicon-"],.dropdown-menu>.active>a>[class*=" bicon-"],.dropdown-submenu:hover>a>[class^="bicon-"],.dropdown-submenu:hover>a>[class*=" bicon-"]{background-image:url("../../img/mgr/glyphicons-halflings-white.png");}
-/* end fix */
 
+/* main styles */
 a.link, a.ms2-link {color: #005580;}
 .ms2-image-inactive {opacity: .8;}
 .x-color-palette {width:80%;height:auto;cursor:pointer}
