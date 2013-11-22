@@ -5,11 +5,11 @@
 <div id="msCart">
 	<table class="table table-striped">
 		<tr class="header">
-			<th class="image span2">&nbsp;</th>
-			<th class="title span4">[[%ms2_cart_title]]</th>
-			<th class="count span2">[[%ms2_cart_count]]</th>
-			<th class="weight span1">[[%ms2_cart_weight]]</th>
-			<th class="price span1">[[%ms2_cart_cost]]</th>
+			<th class="image span2 col-md-2">&nbsp;</th>
+			<th class="title span4 col-md-4">[[%ms2_cart_title]]</th>
+			<th class="count span2 col-md-2">[[%ms2_cart_count]]</th>
+			<th class="weight span1 col-md-1">[[%ms2_cart_weight]]</th>
+			<th class="price span1 col-md-1">[[%ms2_cart_cost]]</th>
 		</tr>
 		[[+goods]]
 		<tr class="footer">

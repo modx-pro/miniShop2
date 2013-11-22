@@ -52,3 +52,5 @@
 .ms2-message-success  {background-color: green !important;}
 .ms2-message-error  {background-color: brown !important;}
 .ms2-message-info  {background-color: black !important;}
+
+.form-group .input-sm {width: 50%;}

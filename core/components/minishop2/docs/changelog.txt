@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.3 pl
+==============
+- Support Bootstrap3.
+
 2.1.2 pl2
 ==============
 - Fixed possibly E_NOTICE in snippets.
