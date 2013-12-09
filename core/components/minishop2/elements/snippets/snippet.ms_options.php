@@ -32,7 +32,7 @@ elseif (!empty($name) && $options = $product->get($name)) {
 
 		$rows = implode($outputSeparator, $rows);
 		$output = empty($tplOuter)
-			? $pdoFetch->getChunk('', $rows)
+			? $pdoFetch->getChunk('', array('name' => $name, 'rows' => $rows))
 			: $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, array('name' => $name, 'rows' => $rows)));
 	}
 }

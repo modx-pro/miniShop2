@@ -1,8 +1,9 @@
 Changelog for miniShop2.
 
-2.1.3 pl
+2.1.3 pl1
 ==============
 - Support Bootstrap3.
+- Fixed E_WARNING in snippet msOptions.
 
 2.1.2 pl2
 ==============
