@@ -36,9 +36,6 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor {
 		$select .= $add_select;
 
 		$c->select($select);
-
-		//$c->prepare(); echo $c->toSql();die;
-
 		return $c;
 	}
 
