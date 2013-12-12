@@ -389,6 +389,7 @@ class msOrderHandler implements msOrderInterface {
 			elseif ($payment = $this->modx->getObject('msPayment', array('id' => $order->get('payment'), 'active' => 1))) {
 				$response = $payment->send($order);
 				if ($this->config['json_response']) {
+					@session_write_close();
 					exit(is_array($response) ? $this->modx->toJSON($response) : $response);
 				}
 				else {
