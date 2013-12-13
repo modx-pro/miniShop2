@@ -114,7 +114,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			}
 		}
 		else {
-			$name = $_REQUEST['name'];
+			$name = $this->getProperty('name', @$_REQUEST['name']);
 			$stream = file_get_contents('php://input');
 		}
 
