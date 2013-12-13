@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.4 pl
+==============
+- Added script for import products in core/.../import/csv.php
+
 2.1.3 pl2
 ==============
 - Support Bootstrap3.
