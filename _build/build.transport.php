@@ -39,6 +39,7 @@ $modx->initialize('mgr');
 echo '<pre>'; /* used for nice formatting of log messages */
 $modx->setLogLevel(modX::LOG_LEVEL_INFO);
 $modx->setLogTarget('ECHO');
+$modx->getService('error','error.modError');
 
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
@@ -295,6 +296,10 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
 		$package->save();
 	}
 	$package->install();
+
+	if (!empty($_GET['download'])) {
+		echo '<script>document.location.href = "/core/packages/' . $signature.'.transport.zip' . '";</script>';
+	}
 }
 
 $modx->log(modX::LOG_LEVEL_INFO,"\n<br />Execution time: {$totalTime}\n");
