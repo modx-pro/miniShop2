@@ -6,7 +6,7 @@
 			<span class="flags">[[+new]] [[+popular]] [[+favorite]]</span>
 			<span class="price">[[+price]] [[%ms2_frontend_currency]]</span>
 			[[+old_price]]
-			<button class="btn btn-default" type="submit" name="ms2_action" value="cart/add"><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
+			<button class="btn btn-default" type="submit" name="ms2_action" value="cart/add"><i class="glyphicon glyphicon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
 			<input type="hidden" name="id" value="[[+id]]">
 			<input type="hidden" name="count" value="1">
 			<input type="hidden" name="options" value="[]">
@@ -15,7 +15,7 @@
 	</div>
 </div>
 <br/><br/>
-<!--minishop2_popular <i class="icon-star" title="[[%ms2_frontend_popular]]"></i>-->
-<!--minishop2_new <i class="icon-flag" title="[[%ms2_frontend_new]]"></i>-->
-<!--minishop2_favorite <i class="icon-bookmark" title="[[%ms2_frontend_favorite]]"></i>-->
+<!--minishop2_popular <i class="glyphicon glyphicon-star" title="[[%ms2_frontend_popular]]"></i>-->
+<!--minishop2_new <i class="glyphicon glyphicon-flag" title="[[%ms2_frontend_new]]"></i>-->
+<!--minishop2_favorite <i class="glyphicon glyphicon-bookmark" title="[[%ms2_frontend_favorite]]"></i>-->
 <!--minishop2_old_price <span class="old_price">[[+old_price]] [[%ms2_frontend_currency]]</span>-->

@@ -18,6 +18,6 @@
 		</tr>
 	</table>
 	<form method="post">
-		<button class="btn btn-default" type="submit" name="ms2_action" value="cart/clean" title="[[%ms2_cart_clean]]"><i class="icon-remove"></i> [[%ms2_cart_clean]]</button>
+		<button class="btn btn-default" type="submit" name="ms2_action" value="cart/clean" title="[[%ms2_cart_clean]]"><i class="glyphicon glyphicon-remove"></i> [[%ms2_cart_clean]]</button>
 	</form>
 </div>

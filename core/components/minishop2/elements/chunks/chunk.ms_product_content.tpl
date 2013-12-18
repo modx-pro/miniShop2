@@ -47,7 +47,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-3">
-					<button type="submit" class="btn btn-default" name="ms2_action" value="cart/add"><i class="icon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
+					<button type="submit" class="btn btn-default" name="ms2_action" value="cart/add"><i class="glyphicon glyphicon-barcode"></i> [[%ms2_frontend_add_to_cart]]</button>
 				</div>
 			</div>
 		</form>
