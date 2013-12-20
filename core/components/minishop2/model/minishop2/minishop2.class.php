@@ -56,9 +56,10 @@ class miniShop2 {
 	/**
 	 * Initializes component into different contexts.
 	 *
-	 * @access public
 	 * @param string $ctx The context to load. Defaults to web.
 	 * @param array $scriptProperties Properties for initialization.
+	 *
+	 * @return bool
 	 */
 	public function initialize($ctx = 'web', $scriptProperties = array()) {
 		$this->config = array_merge($this->config, $scriptProperties);
@@ -165,13 +166,12 @@ class miniShop2 {
 	 * Method for transform array to placeholders
 	 *
 	 * @var array $array With keys and values
+	 * @var string $prefix Placeholders prefix
+	 *
 	 * @return array $array Two nested arrays With placeholders and values
 	 */
 	public function makePlaceholders(array $array = array(), $prefix = '') {
-		$result = array(
-			'pl' => array()
-			,'vl' => array()
-		);
+		$result = array('pl' => array(), 'vl' => array());
 		foreach ($array as $k => $v) {
 			if (is_array($v)) {
 				$result = array_merge_recursive($result, $this->makePlaceholders($v, $k.'.'));
@@ -189,6 +189,7 @@ class miniShop2 {
 	 * Method loads custom classes from specified directory
 	 *
 	 * @var string $dir Directory for load classes
+	 *
 	 * @return void
 	 */
 	public function loadCustomClasses($dir) {
@@ -386,6 +387,7 @@ class miniShop2 {
 	 *
 	 * @param mixed $html Source code for parse
 	 * @param integer $maxIterations
+	 *
 	 * @return mixed $html Parsed html
 	 */
 	public function processTags($html, $maxIterations = 10) {
