@@ -1,9 +1,10 @@
 Changelog for miniShop2.
 
-2.1.4 pl1
+2.1.4 pl2
 ==============
 - Added script for import products in core/components/minishop2/import/csv.php
 - Fixed icons in chunks.
+- [#95] Fixed price and weight format.
 
 2.1.3 pl2
 ==============

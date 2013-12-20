@@ -469,16 +469,21 @@ class miniShop2 {
 	/**
 	 * Function for formatting price
 	 *
-	 * @param string $price Source price
-	 * @return string $price Formatted price
+	 * @param string $price
+	 *
+	 * @return string $price
 	 */
-	public function formatPrice($price = 0) {
-		$pf = json_decode($this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'), true);
-		$price = number_format($price, $pf[0], $pf[1], $pf[2]);
+	public function formatPrice($price = '0') {
+		$pf = $this->modx->fromJSON($this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'));
+		if (is_array($pf)) {
+			$price = number_format($price, $pf[0], $pf[1], $pf[2]);
+		}
 
 		if ($this->modx->getOption('ms2_price_format_no_zeros', null, true)) {
-			$price = preg_replace('/(0+)$/', '', $price);
-			$price = preg_replace('/[^0-9]$/', '', $price);
+			if (preg_match('/\..*$/', $price, $matches)) {
+				$tmp = rtrim($matches[0], '.0');
+				$price = str_replace($matches[0], $tmp, $price);
+			}
 		}
 
 		return $price;
@@ -488,16 +493,21 @@ class miniShop2 {
 	/**
 	 * Function for formatting weight
 	 *
-	 * @param string $weight Source weight
-	 * @return string $weight Formatted weight
+	 * @param string $weight
+	 *
+	 * @return string
 	 */
-	public function formatWeight($weight = 0) {
+	public function formatWeight($weight = '0') {
 		$wf = json_decode($this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'), true);
-		$weight = number_format($weight, $wf[0], $wf[1], $wf[2]);
+		if (is_array($wf)) {
+			$weight = number_format($weight, $wf[0], $wf[1], $wf[2]);
+		}
 
 		if ($this->modx->getOption('ms2_weight_format_no_zeros', null, true)) {
-			$weight = preg_replace('/(0+)$/', '', $weight);
-			$weight = preg_replace('/[^0-9]$/', '', $weight);
+			if (preg_match('/\..*$/', $weight, $matches)) {
+				$tmp = rtrim($matches[0], '.0');
+				$weight = str_replace($matches[0], $tmp, $weight);
+			}
 		}
 
 		return $weight;
