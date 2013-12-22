@@ -36,7 +36,11 @@ $modx->log(modX::LOG_LEVEL_INFO,  $tmp);
 
 // Check required options
 if (empty($fields)) {
-	$modx->log(modX::LOG_LEVEL_ERROR, 'You must specify the parameter "fields", so that I know how to import your file.');
+	$modx->log(modX::LOG_LEVEL_ERROR, 'You must specify the parameter "fields". It needed for parse of your file.');
+	exit;
+}
+if (empty($key)) {
+	$modx->log(modX::LOG_LEVEL_ERROR, 'You must specify the parameter "key". It needed for check for duplicates.');
 	exit;
 }
 $keys = array_map('trim', explode(',', strtolower($fields)));
@@ -46,10 +50,6 @@ foreach ($keys as $v) {
 		$tv_enabled = true;
 		break;
 	}
-}
-if ($update && empty($key)) {
-	$modx->log(modX::LOG_LEVEL_ERROR, 'You must set parameter "key" if you want to update resources.');
-	exit;
 }
 if (empty($delimeter)) {$delimeter = ';';}
 
