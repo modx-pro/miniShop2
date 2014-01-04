@@ -29,7 +29,7 @@ $tmp = array(
 		,'area' => 'ms2_category'
 	)
 	,'ms2_category_content_default' => array(
-		'value' => "[[!getPage?\n	&element=`msProducts`\n]]\n\n<div class=\"pagination\">\n	<ul>[[!+page.nav]]</ul>\n</div>"
+		'value' => "[[!pdoPage?\n	&element=`msProducts`\n]]\n\n[[!+page.nav]]"
 		,'xtype' => 'textarea'
 		,'area' => 'ms2_category'
 	)

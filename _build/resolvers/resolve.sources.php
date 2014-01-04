@@ -67,7 +67,7 @@ if ($object->xpdo) {
 							array('text' => 'Hash','value' => 'hash'),
 							array('text' => 'Friendly','value' => 'friendly'),
 						),
-						'value' => 'hash',
+						'value' => 'friendly',
 					),
 				)
 				,'is_stream' => 1
