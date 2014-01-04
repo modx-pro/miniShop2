@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.1.4 pl3
+2.1.4 pl4
 ==============
 - Added script for import products in core/components/minishop2/import/csv.php
 - Fixed icons in chunks.

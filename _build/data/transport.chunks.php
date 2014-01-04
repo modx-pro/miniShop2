@@ -44,11 +44,7 @@ foreach ($tmp as $k => $v) {
 	),'',true,true);
 	$chunks[] = $chunk;
 
-	$BUILD_CHUNKS[$k] = array(
-		'static' => BUILD_CHUNK_STATIC,
-		'source' => 1,
-		'static_file' => 'core/components/'.PKG_NAME_LOWER.'/elements/chunks/chunk.'.$v.'.tpl',
-	);
+	$BUILD_CHUNKS[$k] = file_get_contents($sources['source_core'].'/elements/chunks/chunk.'.$v.'.tpl');
 }
 
 ksort($BUILD_CHUNKS);
