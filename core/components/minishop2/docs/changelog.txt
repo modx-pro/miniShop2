@@ -6,6 +6,8 @@ Changelog for miniShop2.
 - Fixed icons in chunks.
 - [#95] Fixed price and weight format.
 - Improved installator. Now you can update chunks on install.
+- Fixed possible errors on thumbnail generation.
+- Progressive thumbnails in gallery.
 
 2.1.3 pl2
 ==============

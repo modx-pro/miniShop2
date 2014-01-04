@@ -7,6 +7,10 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 	/* @var modMediaSource $mediaSource */
 	public $mediaSource;
 
+
+	/**
+	 * @return bool|null|string
+	 */
 	public function initialize() {
 		/* @var msProduct $product */
 		$id = $this->getProperty('id', @$_GET['id']);
@@ -21,6 +25,10 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		return true;
 	}
 
+
+	/**
+	 * @return array|string
+	 */
 	public function process() {
 		if (!$data = $this->handleFile ()) {
 			return $this->failure($this->modx->lexicon('ms2_err_gallery_ns'));
@@ -54,19 +62,19 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 
 		/* @var msProductFile $product_file */
 		$product_file = $this->modx->newObject('msProductFile', array(
-			'product_id' => $this->product->id
-			,'parent' => 0
-			,'name' => $data['name']
-			,'file' => $filename
-			,'path' => $this->product->id.'/'
-			,'source' => $this->mediaSource->get('id')
-			,'type' => $type
-			,'rank' => $this->modx->getCount('msProductFile', array('parent' => 0, 'product_id' => $this->product->id))
-			,'createdon' => date('Y-m-d H:i:s')
-			,'createdby' => $this->modx->user->id
-			,'active' => 1
-			,'hash' => $hash
-			,'properties' => $data['properties']
+			'product_id' => $this->product->id,
+			'parent' => 0,
+			'name' => $data['name'],
+			'file' => $filename,
+			'path' => $this->product->id.'/',
+			'source' => $this->mediaSource->get('id'),
+			'type' => $type,
+			'rank' => $this->modx->getCount('msProductFile', array('parent' => 0, 'product_id' => $this->product->id)),
+			'createdon' => date('Y-m-d H:i:s'),
+			'createdby' => $this->modx->user->id,
+			'active' => 1,
+			'hash' => $hash,
+			'properties' => $data['properties'],
 		));
 
 		$this->mediaSource->createContainer($product_file->path, '/');
@@ -96,6 +104,9 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 	}
 
 
+	/**
+	 * @return array|bool
+	 */
 	public function handleFile() {
 		$stream = $name = null;
 
@@ -127,7 +138,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 				)
 			);
 
-			$tf = tempnam(sys_get_temp_dir(), '.upload');
+			$tf = tempnam(MODX_BASE_PATH, 'ms_');
 			file_put_contents($tf, $stream);
 			$tmp = getimagesize($tf);
 			if (is_array($tmp)) {

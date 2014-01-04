@@ -6,6 +6,12 @@ class msProductFile extends xPDOSimpleObject {
 	/* @var modMediaSource $mediaSource */
 	public $mediaSource;
 
+
+	/**
+	 * @param modMediaSource $mediaSource
+	 *
+	 * @return bool|string
+	 */
 	public function prepareSource(modMediaSource $mediaSource = null) {
 		if (is_object($this->mediaSource) && $this->mediaSource instanceof modMediaSource) {
 			return true;
@@ -30,6 +36,11 @@ class msProductFile extends xPDOSimpleObject {
 	}
 
 
+	/**
+	 * @param modMediaSource $mediaSource
+	 *
+	 * @return bool|string
+	 */
 	public function generateThumbnails(modMediaSource $mediaSource = null) {
 		if ($this->get('type') != 'image' || $this->get('parent') != 0) {return true;}
 
@@ -50,12 +61,12 @@ class msProductFile extends xPDOSimpleObject {
 
 		if (empty($thumbnails)) {
 			$thumbnails = array(array(
-				'w' => 120
-				,'h' => 90
-				,'q' => 90
-				,'zc' => 'T'
-				,'bg' => '000000'
-				,'f' => !empty($properties['thumbnailType']['value']) ? $properties['thumbnailType']['value'] : 'jpg'
+				'w' => 120,
+				'h' => 90,
+				'q' => 90,
+				'zc' => 'T',
+				'bg' => '000000',
+				'f' => !empty($properties['thumbnailType']['value']) ? $properties['thumbnailType']['value'] : 'jpg',
 			));
 		}
 
@@ -72,55 +83,68 @@ class msProductFile extends xPDOSimpleObject {
 	}
 
 
-
+	/**
+	 * @param array $options
+	 *
+	 * @return bool|null
+	 */
 	public function makeThumbnail($options = array()) {
 		$phpThumb = new modPhpThumb($this->xpdo);
 		$phpThumb->initialize();
 
-		$tmp = tempnam(MODX_BASE_PATH, 'ms_');
-		file_put_contents($tmp, $this->file['content']);
-		$phpThumb->setSourceFilename($tmp);
+		$tf = tempnam(MODX_BASE_PATH, 'ms_');
+		file_put_contents($tf, $this->file['content']);
+		$phpThumb->setSourceFilename($tf);
 
 		foreach ($options as $k => $v) {
 			$phpThumb->setParameter($k, $v);
 		}
 
-		if ($phpThumb->GenerateThumbnail() && $phpThumb->RenderOutput()) {
-			@unlink($phpThumb->sourceFilename);
-			@unlink($tmp);
-			return $phpThumb->outputImageData;
+		if ($phpThumb->GenerateThumbnail()) {
+			ImageInterlace($phpThumb->gdimg_output, true);
+			if ($phpThumb->RenderOutput()) {
+				@unlink($phpThumb->sourceFilename);
+				@unlink($tf);
+				return $phpThumb->outputImageData;
+			}
 		}
 		else {
 			$this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Could not generate thumbnail for "'.$this->get('url').'". '.print_r($phpThumb->debugmessages,1));
-			return false;
 		}
+		return false;
 	}
 
 
+	/**
+	 * @param $raw_image
+	 * @param array $options
+	 *
+	 * @return bool
+	 */
 	public function saveThumbnail($raw_image, $options = array()) {
 		$filename = preg_replace('/\..*$/', '', $this->get('file')) . '.' . $options['f'];
 		$path = $this->get('path') . $options['w'] .'x'.$options['h'] .'/';
 
 		/* @var msProductFile $product_file */
 		$product_file = $this->xpdo->newObject('msProductFile', array(
-			'product_id' => $this->get('product_id')
-			,'parent' => $this->get('id')
-			,'name' => $this->get('name')
-			,'file' => $filename
-			,'path' => $path
-			,'source' => $this->mediaSource->get('id')
-			,'type' => $this->get('type')
-			,'rank' => $this->get('rank')
-			,'createdon' => date('Y-m-d H:i:s')
-			,'createdby' => $this->xpdo->user->id
-			,'active' => 1
-			,'hash' => sha1($raw_image)
-			,'properties' => array(
+			'product_id' => $this->get('product_id'),
+			'parent' => $this->get('id'),
+			'name' => $this->get('name'),
+			'file' => $filename,
+			'path' => $path,
+			'source' => $this->mediaSource->get('id'),
+			'type' => $this->get('type'),
+			'rank' => $this->get('rank'),
+			'createdon' => date('Y-m-d H:i:s'),
+			'createdby' => $this->xpdo->user->id,
+			'active' => 1,
+			'hash' => sha1($raw_image),
+			'properties' => array(
 				'size' => strlen($raw_image),
 			)
 		));
 
-		$tf = tempnam(ini_get('upload_tmp_dir'), '.upload');
+		$tf = tempnam(MODX_BASE_PATH, 'ms_');
 		file_put_contents($tf, $raw_image);
 		$tmp = getimagesize($tf);
 		if (is_array($tmp)) {
@@ -153,6 +177,9 @@ class msProductFile extends xPDOSimpleObject {
 	}
 
 
+	/**
+	 * @return array|mixed
+	 */
 	public function getFirstThumbnail() {
 		$c = array(
 			'product_id' => $this->get('product_id')
@@ -179,6 +206,11 @@ class msProductFile extends xPDOSimpleObject {
 	}
 
 
+	/**
+	 * @param array $ancestors
+	 *
+	 * @return bool
+	 */
 	public function remove(array $ancestors= array ()) {
 		$this->prepareSource();
 		if (!$this->mediaSource->removeObject($this->get('path').$this->get('file'))) {
@@ -196,6 +228,8 @@ class msProductFile extends xPDOSimpleObject {
 	 *
 	 * @param string $new_name
 	 * @param string $old_name
+	 *
+	 * @return bool
 	 */
 	public function rename($new_name, $old_name = '') {
 		if (empty($old_name)) {
