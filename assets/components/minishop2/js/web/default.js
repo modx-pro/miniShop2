@@ -274,9 +274,6 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 						var key = $this.attr('name');
 						var value = $this.val();
 						miniShop2.Order.add(key, value);
-						if ($this.is(miniShop2.Order.deliveryInput)) {
-							miniShop2.Order.getRequired(value);
-						}
 					});
 				var $deliveryInputChecked = $(miniShop2.Order.deliveryInput + ':checked', miniShop2.Order.order);
 				$deliveryInputChecked.trigger('change');
@@ -310,6 +307,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 								$field.trigger('click');
 							}
 							else {
+								miniShop2.Order.getRequired(value);
 								miniShop2.Order.updatePayments($field.data('payments'));
 								miniShop2.Order.getcost();
 							}
