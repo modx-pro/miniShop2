@@ -23,7 +23,7 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 	 * @return * @return string|mixed
 	 */
 	public function prepareAlias() {
-		if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
+		if ($this->workingContext->getOption('ms2_category_id_as_alias')) {
 			$alias = 'empty-resource-alias';
 			$this->setProperty('alias', $alias);
 		}
