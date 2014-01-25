@@ -239,25 +239,23 @@ class msProductFile extends xPDOSimpleObject {
 		$path = $this->get('path');
 		$tmp = explode('.', $old_name);
 		$extension = end($tmp);
-		$name = preg_replace('/\..*$/', '', $new_name) . '.' . $extension;
-
-		// Processing children
-		$children = $this->getMany('Children');
-		if (!empty($children)) {
-			/* @var msProductFile $child */
-			foreach ($children as $child) {
-				$child->rename($new_name, $child->get('file'));
-			}
-		}
+		$file = preg_replace('/\..*$/', '', $new_name) . '.' . $extension;
 
 		$this->prepareSource();
-		if ($this->mediaSource->renameObject($path.$old_name, $name)) {
-			$this->set('file', $name);
-			$this->set('url', $this->mediaSource->getObjectUrl($path.$name));
-			return $this->save();
+		if ($this->mediaSource->renameObject($path . $old_name, $file)) {
+			$this->set('file', $file);
+			$this->set('url', $this->mediaSource->getObjectUrl($path . $file));
+			$this->save();
+			// Processing children
+			$children = $this->getMany('Children');
+			if (!empty($children)) {
+				/* @var msProductFile $child */
+				foreach ($children as $child) {
+					$child->rename($new_name, $child->get('file'));
+				}
+			}
+			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 }

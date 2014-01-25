@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.5 beta
+==============
+- Improved rename of files in gallery.
+
 2.1.4 pl5
 ==============
 - Added script for import products in core/components/minishop2/import/csv.php

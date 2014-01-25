@@ -13,17 +13,23 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
 			return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
 		}
 
+		$this->old_name = $this->object->get('file');
+
 		foreach (array('file', 'name') as $v) {
 			$tmp = trim($this->getProperty($v));
 			if (empty($tmp)) {
 				$this->addFieldError($v, $this->modx->lexicon('field_required'));
 			}
 			else {
+				if ($v == 'file') {
+					$tmp2 = explode('.', $this->old_name);
+					$extension = end($tmp2);
+					$tmp = preg_replace('/\..*$/', '', $tmp) . '.' . $extension;
+				}
 				$this->setProperty($v, $tmp);
 			}
 		}
 
-		$this->old_name = $this->object->get('file');
 		return parent::beforeSet();
 	}
 
@@ -50,7 +56,7 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
 			$product->updateProductImage();
 		}
 
-		return parent::beforeSave();
+		return parent::afterSave();
 	}
 
 }
