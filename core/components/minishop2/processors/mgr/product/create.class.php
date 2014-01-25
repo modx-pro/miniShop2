@@ -36,6 +36,7 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 		$this->setDefaultProperties(array(
 			'show_in_tree' => $this->modx->getOption('ms2_product_show_in_tree_default', null, false)
 			,'hidemenu' => $this->modx->getOption('hidemenu_default', null, true)
+			,'source' => $this->modx->getOption('ms2_product_source_default', null, 1)
 		));
 
 		return parent::beforeSet();
