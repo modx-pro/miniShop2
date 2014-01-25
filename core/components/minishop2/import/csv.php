@@ -75,9 +75,11 @@ if (!file_exists($file)) {
 // Import!
 $handle = fopen($file, "r");
 $rows = $created = $updated = 0;
-while (($csv = fgetcsv($handle, 1000, $delimeter)) !== false) {
+while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
 	$rows ++;
 	$data = $gallery = array();
+	$modx->error->reset();
+	$modx->log(modX::LOG_LEVEL_INFO, "Raw data for import: \n".print_r($csv,1));
 	foreach ($keys as $k => $v) {
 		if (!isset($csv[$k])) {
 			exit('Field "' . $v . '" not exists in file. Please fix import file or parameter "fields".');
@@ -165,7 +167,9 @@ while (($csv = fgetcsv($handle, 1000, $delimeter)) !== false) {
 
 	// Process gallery images, if exists
 	if (!empty($gallery)) {
+		$modx->log(modX::LOG_LEVEL_INFO, "Importing images: \n". print_r($gallery, 1));
 		foreach ($gallery as $v) {
+			if (empty($v)) {continue;}
 			$image = str_replace('//', '/', MODX_BASE_PATH . $v);
 			if (!file_exists($image)) {
 				$modx->log(modX::LOG_LEVEL_ERROR, "Could not import image \"$v\" to gallery. File \"$image\" not found on server.");
