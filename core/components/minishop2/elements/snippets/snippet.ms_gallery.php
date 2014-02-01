@@ -76,8 +76,10 @@ foreach ($rows as $k => $row) {
 		$q->select('url');
 		if ($q->prepare() && $q->stmt->execute()) {
 			while ($tmp = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
-				if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $tmp, $size)) {
-					$images[$row['id']][$size[0]] = $tmp;
+				$url = $tmp;
+				$tmp = parse_url($tmp);
+				if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $tmp['path'], $size)) {
+					$images[$row['id']][$size[0]] = $url;
 				}
 			}
 		}
