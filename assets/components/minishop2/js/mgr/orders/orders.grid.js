@@ -18,7 +18,9 @@ miniShop2.grid.Orders = function(config) {
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
+		,bodyCssClass: 'grid-with-buttons'
 		,sm: this.sm
+		,cls: 'minishop2-grid'
 		,plugins: this.exp
 		,columns: this.getColumns()
 		,tbar: [{
@@ -70,6 +72,7 @@ miniShop2.grid.Orders = function(config) {
 	});
 	miniShop2.grid.Orders.superclass.constructor.call(this,config);
 	this.changed = false;
+	this._makeTemplates();
 };
 Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 	windows: {}
@@ -109,14 +112,55 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 		this.refresh();
 	}
 
+	,_makeTemplates: function() {
+		var userPage = MODx.action ? MODx.action['security/user/update'] : 'security/user/update';
+		this.tplCustomer = new Ext.XTemplate(''
+			+'<tpl for="."><div class="order-title-column {cls}">'
+				+'<h3 class="main-column"><span class="title">' + _('ms2_order') + ' #{num}</span></h3>'
+				+'<tpl if="actions">'
+					+'<ul class="actions">'
+						+'<tpl for="actions">'
+							+'<li><a href="#" class="controlBtn {className}">{text}</a></li>'
+						+'</tpl>'
+					+'</ul>'
+				+'</tpl>'
+			+'</div></tpl>',{
+			compiled: true
+		});
+	}
+
+	,_renderCustomer:function(v,md,rec) {
+		return this.tplCustomer.apply(rec.data);
+	}
+
+	,onClick: function(e){
+		var t = e.getTarget();
+		var elm = t.className.split(' ')[0];
+		if(elm == 'controlBtn') {
+			var action = t.className.split(' ')[1];
+			this.menu.record = this.getSelectionModel().getSelected().data;
+			switch (action) {
+				case 'update':
+					this.updateOrder(this,e);
+					break;
+				case 'delete':
+					this.removeOrder(this,e);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+
 	,getColumns: function() {
 		var all = {
 			id: {width: 35}
 			,customer: {width: 100, sortable: true, renderer: miniShop2.utils.userLink}
+			,num: {width: 100, sortable: true, renderer: {fn:this._renderCustomer,scope:this}, id: 'main'}
 			,receiver: {width: 100, sortable: true}
 			,createdon: {width: 75, sortable: true, renderer: miniShop2.utils.formatDate}
 			,updatedon: {width: 75, sortable: true, renderer: miniShop2.utils.formatDate}
-			,num: {width: 50, sortable: true}
 			,cost: {width: 75, sortable: true}
 			,cart_cost: {width: 75, sortable: true}
 			,delivery_cost: {width: 75, sortable: true}
@@ -183,7 +227,7 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 	}
 
 	,removeOrder: function(btn,e) {
-		if (!this.menu.record) return false;
+		if (!this.menu.record) return;
 
 		MODx.msg.confirm({
 			title: _('ms2_menu_remove') + ' ' + _('ms2_order') + ' #' + this.menu.record.num

@@ -76,6 +76,18 @@ class msOrderGetListProcessor extends modObjectGetListProcessor {
 
 	public function prepareArray(array $data) {
 		$data['status'] = '<span style="color:#'.$data['color'].';">'.$data['status'].'</span>';
+
+		$data['actions'] = array(
+			array(
+				'className' => 'update',
+				'text' => $this->modx->lexicon('ms2_menu_update'),
+			),
+			array(
+				'className' => 'delete',
+				'text' => $this->modx->lexicon('ms2_menu_remove'),
+			),
+		);
+
 		return $data;
 	}
 

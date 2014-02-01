@@ -1,10 +1,11 @@
 Changelog for miniShop2.
 
-2.1.5 beta
+2.1.5 pl
 ==============
 - Improved rename of files in gallery.
 - Added default media source in product "create" processor.
 - Added default template in product "create" processor.
+- Added buttons in orders management page.
 
 2.1.4 pl5
 ==============

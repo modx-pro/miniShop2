@@ -144,7 +144,7 @@ $tmp = array(
 
 
 	,'ms2_order_grid_fields' => array(
-		'value' => 'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment'
+		'value' => 'id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment'
 		,'xtype' => 'textarea'
 		,'area' => 'ms2_order'
 	)
