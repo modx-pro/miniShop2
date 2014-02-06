@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.6
+==============
+- Fixed counting money spent in new customers.
+
 2.1.5 pl
 ==============
 - Improved rename of files in gallery.

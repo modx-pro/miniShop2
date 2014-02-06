@@ -68,7 +68,7 @@ switch ($modx->event->name) {
 		break;
 
 	case 'msOnChangeOrderStatus':
-		if ($status != 2) {return;}
+		if (empty($status) || $status != 2) {return;}
 
 		/** @var modUser $user */
 		if ($user = $order->getOne('User')) {

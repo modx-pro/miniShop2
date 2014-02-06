@@ -298,6 +298,7 @@ class miniShop2 {
 		$order->set('status', $status_id);
 
 		if ($order->save()) {
+			$this->orderLog($order->get('id'), 'status', $status_id);
 			$response = $this->invokeEvent('msOnChangeOrderStatus', array(
 				'order' => $order,
 				'status' => $status_id
@@ -305,8 +306,6 @@ class miniShop2 {
 			if (!$response['success']) {
 				return $response['message'];
 			}
-
-			$this->orderLog($order->get('id'), 'status', $status_id);
 
 			/* @var modContext $context */
 			if ($context = $this->modx->getObject('modContext', array('key' => $order->get('context')))) {
