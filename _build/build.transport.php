@@ -12,6 +12,10 @@ $tstart = $mtime;
 set_time_limit(0);
 
 require_once 'build.config.php';
+// Refresh model
+if (file_exists('build.model.php')) {
+	require_once 'build.model.php';
+}
 
 /* define sources */
 $root = dirname(dirname(__FILE__)).'/';
