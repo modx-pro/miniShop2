@@ -77,7 +77,7 @@ foreach ($cart as $k => $v) {
 		);
 		$row['price'] = $miniShop2->formatPrice($v['price']);
 		$row['weight'] = $miniShop2->formatWeight($v['weight']);
-		$row['cost'] = $v['count'] * $v['price'];
+		$row['cost'] = $miniShop2->formatPrice($v['count'] * $v['price']);
 
 		// Additional properties of product
 		if (!empty($v['options']) && is_array($v['options'])) {
