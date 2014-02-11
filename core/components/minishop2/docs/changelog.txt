@@ -5,6 +5,7 @@ Changelog for miniShop2.
 - Fixed counting money spent in new customers.
 - [#104] Fixed placeholder [[+cart_weight]] in emails.
 - [#102] Improved checking of thumbnails url.
+- [#94] Formatted placeholder [[+cost]] in snippet msCart
 
 2.1.5 pl
 ==============
