@@ -15,7 +15,7 @@
 		<tr class="footer">
 			<th class="total" colspan="2">[[%ms2_cart_total]]:</th>
 			<th class="total_count"><span class="ms2_total_count">[[+cart_count]]</span> [[%ms2_frontend_count_unit]]</th>
-			<th class="total_weight"><span class="ms2_total_weight">[[+weight]]</span> [[%ms2_frontend_weight_unit]]</th>
+			<th class="total_weight"><span class="ms2_total_weight">[[+cart_weight]]</span> [[%ms2_frontend_weight_unit]]</th>
 			<th class="total_cost"><span class="ms2_total_cost">[[+cart_cost]]</span> [[%ms2_frontend_currency]]</th>
 		</tr>
 	</table>

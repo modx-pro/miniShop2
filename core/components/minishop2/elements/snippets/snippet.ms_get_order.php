@@ -26,7 +26,7 @@ $outer['cart_count'] = 0;
 $outer['cost'] = $miniShop2->formatPrice($outer['cost']);
 $outer['cart_cost'] = $miniShop2->formatPrice($outer['cart_cost']);
 $outer['delivery_cost'] = $miniShop2->formatPrice($outer['delivery_cost']);
-$outer['weight'] = $miniShop2->formatWeight($outer['weight']);
+$outer['weight'] = $outer['cart_weight'] = $miniShop2->formatWeight($outer['weight']);
 
 // Include Thumbnails
 $thumbsLeftJoin = '';

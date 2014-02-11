@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.6
 ==============
 - Fixed counting money spent in new customers.
+- [#104] Fixed placeholder [[+cart_weight]] in emails.
 
 2.1.5 pl
 ==============
@@ -13,7 +14,7 @@ Changelog for miniShop2.
 
 2.1.4 pl5
 ==============
-- Added script for import products in core/components/minishop2/import/csv.php
+- Added script for import products in core/components/minishop2/import/csv.php.
 - Fixed icons in chunks.
 - [#95] Fixed price and weight format.
 - Improved installator. Now you can update chunks on install.
