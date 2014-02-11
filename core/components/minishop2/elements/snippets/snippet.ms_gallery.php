@@ -75,9 +75,8 @@ foreach ($rows as $k => $row) {
 		$q = $modx->newQuery('msProductFile', array('parent' => $row['id']));
 		$q->select('url');
 		if ($q->prepare() && $q->stmt->execute()) {
-			while ($tmp = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
-				$url = $tmp;
-				$tmp = parse_url($tmp);
+			while ($url = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
+				$tmp = parse_url($url);
 				if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $tmp['path'], $size)) {
 					$images[$row['id']][$size[0]] = $url;
 				}
