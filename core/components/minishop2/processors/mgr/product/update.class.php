@@ -81,6 +81,22 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 
 
 	/** {inheritDoc} */
+	public function fixParents() {
+		if (!empty($this->oldParent) && !($this->oldParent instanceof msCategory)) {
+			$oldParentChildrenCount = $this->modx->getCount('modResource', array('parent' => $this->oldParent->get('id')));
+			if ($oldParentChildrenCount <= 0 || $oldParentChildrenCount == null) {
+				$this->oldParent->set('isfolder', false);
+				$this->oldParent->save();
+			}
+		}
+
+		if (!empty($this->newParent)) {
+			$this->newParent->set('isfolder', true);
+		}
+	}
+
+
+	/** {inheritDoc} */
 	public function clearCache() {
 		parent::clearCache();
 		$this->object->clearCache();

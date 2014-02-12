@@ -7,6 +7,7 @@ Changelog for miniShop2.
 - [#102] Improved checking of thumbnails url.
 - [#98] Refactored permissions in processors.
 - [#94] Formatted placeholder [[+cost]] in snippet msCart
+- [#78] Fixed setting flag isfolder to false for old category of the product.
 
 2.1.5 pl
 ==============
