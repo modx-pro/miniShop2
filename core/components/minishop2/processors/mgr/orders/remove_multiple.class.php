@@ -1,7 +1,19 @@
 <?php
 
 class msOrderDeleteMultipleProcessor extends modObjectProcessor {
+	public $permission = 'msorder_save';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function process() {
 		$ids = $this->getProperty('ids',null);
 		if (empty($ids)) {
@@ -18,5 +30,6 @@ class msOrderDeleteMultipleProcessor extends modObjectProcessor {
 		}
 		return $this->success();
 	}
+
 }
 return 'msOrderDeleteMultipleProcessor';

@@ -2,8 +2,19 @@
 
 class msLinkCreateProcessor extends modObjectCreateProcessor {
 	public $classKey = 'msLink';
+	public $objectType = 'msLink';
 	public $languageTopics = array('minishop2');
-	public $permission = 'new_document';
+	public $permission = 'mssetting_save';
+
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
 
 	public function beforeSet() {
 		if ($this->modx->getObject('msLink',array('name' => $this->getProperty('name')))) {

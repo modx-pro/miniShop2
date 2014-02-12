@@ -2,11 +2,23 @@
 
 class msOrderProductUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msOrderProduct';
+	public $objectType = 'msOrderProduct';
 	public $languageTopics = array('minishop2:default');
 	public $permission = 'msorder_save';
 	/* @var msOrder $order */
 	protected $order;
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function beforeSet() {
 		$count = $this->getProperty('count');
 		if ($count <= 0) {
@@ -39,6 +51,8 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor {
 		return !$this->hasErrors();
 	}
 
+
+	/** {@inheritDoc} */
 	public function afterSave() {
 		$this->order->updateProducts();
 	}

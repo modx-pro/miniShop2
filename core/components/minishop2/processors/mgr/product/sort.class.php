@@ -1,9 +1,12 @@
 <?php
 
 class msProductSortProcessor extends modObjectProcessor {
+	public $classKey = 'msProduct';
 	public $objectType = 'msProduct';
 	private $parent;
 
+
+	/** {@inheritDoc} */
 	public function process() {
 		/* @var msProduct $source */
 		$source = $this->modx->getObject($this->objectType, $this->getProperty('source'));
@@ -40,6 +43,8 @@ class msProductSortProcessor extends modObjectProcessor {
 		return $this->modx->error->success();
 	}
 
+
+	/** {@inheritDoc} */
 	public function setIndex() {
 		$q = $this->modx->newQuery($this->objectType, array('parent' => $this->parent));
 		$q->select('id');
@@ -55,6 +60,7 @@ class msProductSortProcessor extends modObjectProcessor {
 			$this->modx->exec($sql);
 		}
 	}
+
 }
 
 return 'msProductSortProcessor';

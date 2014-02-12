@@ -4,6 +4,8 @@ class modChunkGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'modChunk';
 	public $languageTopics = array('chunk');
 
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$query = $this->getProperty('query');
 		if (!empty($query)) {
@@ -11,5 +13,6 @@ class modChunkGetListProcessor extends modObjectGetListProcessor {
 		}
 		return $c;
 	}
+
 }
 return 'modChunkGetListProcessor';

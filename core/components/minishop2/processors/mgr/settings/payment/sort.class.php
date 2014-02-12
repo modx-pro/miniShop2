@@ -3,8 +3,21 @@
 // It is adapted code from https://github.com/splittingred/Gallery/blob/a51442648fde1066cf04d46550a04265b1ad67da/core/components/gallery/processors/mgr/item/sort.php
 
 class msPaymentSortProcessor extends modObjectProcessor {
+	public $classKey = 'msPayment';
 	public $objectType = 'msPayment';
+	public $permission = 'mssetting_save';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function process() {
 		/* @var msPayment $source */
 		$source = $this->modx->getObject($this->objectType, $this->getProperty('source'));
@@ -40,6 +53,8 @@ class msPaymentSortProcessor extends modObjectProcessor {
 		return $this->modx->error->success();
 	}
 
+
+	/** {@inheritDoc} */
 	public function setRanks() {
 		$q = $this->modx->newQuery($this->objectType);
 		$q->select('id');

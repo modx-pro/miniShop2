@@ -2,9 +2,22 @@
 
 class msOrderStatusGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderStatus';
+	public $objectType = 'msOrderStatus';
 	public $defaultSortField = 'rank';
 	public $defaultSortDirection  = 'asc';
+	public $permission = 'mssetting_list';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		if ($this->getProperty('combo')) {
 			$c->select('id,name');
@@ -26,6 +39,8 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor {
 		return $c;
 	}
 
+
+	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
 		if ($this->getProperty('combo')) {
 			$array = array(
@@ -36,10 +51,11 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor {
 		else {
 			$array = $object->toArray();
 		}
-
 		return $array;
 	}
 
+
+	/** {@inheritDoc} */
 	public function outputArray(array $array,$count = false) {
 		if ($this->getProperty('addall')) {
 			$array = array_merge_recursive(array(array(

@@ -2,9 +2,21 @@
 
 class msOrderGetProcessor extends modObjectGetProcessor {
 	public $classKey = 'msOrder';
+	public $objectType = 'msOrder';
 	public $languageTopics = array('minishop2:default');
 	public $permission = 'msorder_view';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function cleanup() {
 		$order = $this->object->toArray();
 		$address = $this->object->getOne('Address')->toArray('addr_');

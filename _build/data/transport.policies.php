@@ -15,6 +15,13 @@ $policy->fromArray(array (
 		'msproduct_save' => true,
 		'msorder_save' => true,
 		'msorder_view' => true,
+		'msorder_list' => true,
+		'mssetting_save' => true,
+		'mssetting_view' => true,
+		'mssetting_list' => true,
+		'msproductfile_save' => true,
+		'msproductfile_generate' => true,
+		'msproductfile_list' => true,
 	))
 ), '', true, true);
 

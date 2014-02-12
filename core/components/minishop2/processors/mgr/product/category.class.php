@@ -1,12 +1,22 @@
 <?php
 
 class msProductCategoryMemberProcessor extends modObjectCreateProcessor {
-	public $permission = 'new_document';
+	public $classKey = 'msCategoryMember';
+	public $objectType = 'msCategoryMember';
+	public $permission = 'msproduct_save';
 
-	public function process() {
-		if (!$this->checkPermissions()) {
-			return $this->failure($this->modx->lexicon('permission_denied'));
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
 		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
+	public function process() {
 		$pid = $this->getProperty('product_id');
 		$cid = $this->getProperty('category_id');
 		if ($pid > 0 && $cid > 0) {
@@ -25,6 +35,7 @@ class msProductCategoryMemberProcessor extends modObjectCreateProcessor {
 
 		return $this->success('');
 	}
+
 }
 
 return 'msProductCategoryMemberProcessor';

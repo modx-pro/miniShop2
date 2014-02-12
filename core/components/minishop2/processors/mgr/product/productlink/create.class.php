@@ -2,17 +2,22 @@
 
 class msProductLinkCreateProcessor extends modObjectCreateProcessor {
 	public $classKey = 'msProductLink';
+	public $objectType = 'msProductLink';
 	public $languageTopics = array('minishop2:default');
-	public $permission = 'new_document';
+	public $permission = 'msproduct_save';
 
+
+	/** {@inheritDoc} */
 	public function initialize() {
-		return true;
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
 	}
 
+
+	/** {@inheritDoc} */
 	public function process() {
-		if (!$this->checkPermissions()) {
-			return $this->failure($this->modx->lexicon('permission_denied'));
-		}
 		if (!$master = $this->getProperty('master')) {
 			$this->addFieldError('master', $this->modx->lexicon('ms2_err_ns'));
 		}
@@ -81,6 +86,7 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function addLink($link = 0, $master = 0, $slave = 0) {
 		if ($link && $master && $slave) {
 			$sql = "INSERT INTO {$this->modx->getTableName('msProductLink')} (`link`,`master`,`slave`) VALUES ('$link','$master','$slave') ON DUPLICATE KEY UPDATE `link` = '$link';";

@@ -2,8 +2,19 @@
 
 class msPaymentGetProcessor extends modObjectGetProcessor {
 	public $classKey = 'msPayment';
+	public $objectType = 'msPayment';
 	public $languageTopics = array('minishop2');
-	public $objectType = 'ms2_payment';
+	public $permission = 'mssetting_view';
+
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
 }
 
 return 'msPaymentGetProcessor';

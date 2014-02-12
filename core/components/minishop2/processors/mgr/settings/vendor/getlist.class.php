@@ -2,16 +2,20 @@
 
 class msVendorGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msVendor';
+	public $objectType = 'msVendor';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
-	public $checkListPermission = true;
 	public $item_id = 0;
+	public $permission = 'mssetting_list';
 
 	/**
 	 * {@inheritDoc}
 	 * @return boolean
 	 */
 	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
 		if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = $this->getProperty('id')) {
 			$this->item_id = $id;
 		}
@@ -108,7 +112,7 @@ class msVendorGetListProcessor extends modObjectGetListProcessor {
 		if ($query = $this->getProperty('query')) {
 			$c->where(array('name:LIKE' => "%$query%"));
 		}
-		else if ($this->item_id) {
+		elseif ($this->item_id) {
 			$c->where(array('id' => $this->item_id));
 		}
 

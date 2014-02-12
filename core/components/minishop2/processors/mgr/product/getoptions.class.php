@@ -1,7 +1,11 @@
 <?php
 
 class msProductGetOptionsProcessor extends modObjectProcessor {
+	public $classKey = 'msProductOption';
+	public $objectType = 'msProductOption';
 
+
+	/** {@inheritDoc} */
 	public function process() {
 		$query = $this->getProperty('query');
 		$key = $this->getProperty('key');

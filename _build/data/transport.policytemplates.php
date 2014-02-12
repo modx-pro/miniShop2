@@ -11,6 +11,13 @@ $tmp = array(
 			'msproduct_save' => array(),
 			'msorder_save' => array(),
 			'msorder_view' => array(),
+			'msorder_list' => array(),
+			'mssetting_save' => array(),
+			'mssetting_view' => array(),
+			'mssetting_list' => array(),
+			'msproductfile_save' => array(),
+			'msproductfile_generate' => array(),
+			'msproductfile_list' => array(),
 		)
 	),
 );

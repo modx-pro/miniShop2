@@ -4,11 +4,19 @@ class msLinkRemoveProcessor extends modObjectRemoveProcessor  {
 	public $checkRemovePermission = true;
 	public $classKey = 'msLink';
 	public $languageTopics = array('minishop2');
+	public $permission = 'msproduct_save';
 
+
+	/** {@inheritDoc} */
 	public function initialize() {
-		return true;
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
 	}
 
+
+	/** {@inheritDoc} */
 	public function process() {
 		$canRemove = $this->beforeRemove();
 		if ($canRemove !== true) {

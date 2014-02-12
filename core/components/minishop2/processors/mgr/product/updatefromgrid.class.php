@@ -2,7 +2,11 @@
 require_once (dirname(__FILE__).'/update.class.php');
 
 class msProductUpdateFromGridProcessor extends msProductUpdateProcessor {
+	public $classKey = 'msProduct';
+	public $objectType = 'msProduct';
 
+
+	/** {@inheritDoc} */
 	public static function getInstance(modX &$modx,$className,$properties = array()) {
 
 		/** @var modProcessor $processor */
@@ -11,6 +15,7 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function initialize() {
 		$data = $this->getProperty('data');
 		if (empty($data)) {
@@ -29,10 +34,7 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor {
 	}
 
 
-	/**
-	 * Handle formatting of various checkbox fields
-	 * @return void
-	 */
+	/** {@inheritDoc} */
 	public function handleCheckBoxes() {
 		$this->setCheckbox('hidemenu');
 		$this->setCheckbox('isfolder');
@@ -47,11 +49,7 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor {
 	}
 
 
-	/**
-	 * Cleanup the processor and return the resulting object
-	 *
-	 * @return array
-	 */
+	/** {@inheritDoc} */
 	public function cleanup() {
 		$this->object->removeLock();
 		$this->clearCache();

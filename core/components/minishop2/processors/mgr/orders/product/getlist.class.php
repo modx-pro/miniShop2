@@ -2,10 +2,23 @@
 
 class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderProduct';
+	public $objectType = 'msOrderProduct';
+	public $languageTopics = array('minishop2:product');
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
-	public $languageTopics = array('minishop2:product');
+	public $permission = 'msorder_list';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$c->innerJoin('msOrder','msOrder', '`msOrderProduct`.`order_id` = `msOrder`.`id`');
 		$c->leftJoin('msProduct','msProduct', '`msOrderProduct`.`product_id` = `msProduct`.`id`');
@@ -33,6 +46,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
 		$fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));
 		$fields = array_values(array_unique(array_merge($fields, array('id','product_id','product_pagetitle'))));

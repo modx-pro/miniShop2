@@ -5,18 +5,16 @@ require_once MODX_CORE_PATH.'model/modx/processors/resource/create.class.php';
 
 class msProductCreateProcessor extends modResourceCreateProcessor {
 	public $classKey = 'msProduct';
+	public $objectType = 'msProduct';
 	public $languageTopics = array('resource','minishop2:default');
 	public $permission = 'msproduct_save';
-	public $objectType = 'resource';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
 	/* @var msProduct $object */
 	public $object;
 
-	/**
-	 * {@inheritDoc}
-	 * @return * @return string|mixed
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareAlias() {
 		if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
 			$alias = 'empty-resource-alias';
@@ -28,10 +26,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 		return $alias;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+
+	/** {@inheritDoc} */
 	public function beforeSet() {
 		$this->setDefaultProperties(array(
 			'show_in_tree' => $this->modx->getOption('ms2_product_show_in_tree_default', null, false)
@@ -44,10 +40,7 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+	/** {@inheritDoc} */
 	public function beforeSave() {
 		$this->object->set('isfolder', 0);
 
@@ -55,10 +48,7 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+	/** {@inheritDoc} */
 	public function afterSave() {
 		if ($this->object->alias == 'empty-resource-alias') {
 			$this->object->set('alias', $this->object->id);
@@ -73,9 +63,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 		return parent::afterSave();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+
+	/** {@inheritDoc} */
 	public function clearCache() {
 		$clear = parent::clearCache();
 		/* @var msCategory $category */

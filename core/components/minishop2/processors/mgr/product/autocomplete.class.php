@@ -2,6 +2,8 @@
 
 class msProductAutocompleteProcessor extends modObjectProcessor {
 
+
+	/** {@inheritDoc} */
 	public function process() {
 		$name = $this->getProperty('name');
 		$query = $this->getProperty('query');

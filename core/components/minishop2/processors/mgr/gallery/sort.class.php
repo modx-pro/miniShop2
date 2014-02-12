@@ -1,9 +1,21 @@
 <?php
-
 // It is adapted code from https://github.com/splittingred/Gallery/blob/a51442648fde1066cf04d46550a04265b1ad67da/core/components/gallery/processors/mgr/item/sort.php
-
 class msProductFileSortProcessor extends modObjectProcessor {
+	public $classKey = 'msProductFile';
+	public $objectKey = 'msProductFile';
+	public $permission = 'msproductfile_save';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function process() {
 		/* @var msProductFile $source */
 		$source = $this->modx->getObject('msProductFile', $this->getProperty('source'));
@@ -41,6 +53,7 @@ class msProductFileSortProcessor extends modObjectProcessor {
 		$thumb = $product->updateProductImage();
 		return $this->modx->error->success($thumb);
 	}
+
 }
 
 return 'msProductFileSortProcessor';

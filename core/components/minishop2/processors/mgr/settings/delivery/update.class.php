@@ -2,9 +2,21 @@
 
 class msDeliveryUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msDelivery';
+	public $objectType = 'msDelivery';
 	public $languageTopics = array('minishop2');
-	public $permission = 'edit_document';
+	public $permission = 'mssetting_save';
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function beforeSet() {
 		if ($this->modx->getObject('msDelivery',array('name' => $this->getProperty('name'), 'id:!=' => $this->getProperty('id') ))) {
 			$this->modx->error->addField('name', $this->modx->lexicon('ms2_err_ae'));
@@ -23,6 +35,8 @@ class msDeliveryUpdateProcessor extends modObjectUpdateProcessor {
 		return !$this->hasErrors();
 	}
 
+
+	/** {@inheritDoc} */
 	public function afterSave() {
 		$delivery_id = $this->object->get('id');
 		$this->modx->exec("DELETE FROM {$this->modx->getTableName('msDeliveryMember')} WHERE `delivery_id` = {$delivery_id};");

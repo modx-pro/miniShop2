@@ -5,12 +5,14 @@ require_once MODX_CORE_PATH.'model/modx/processors/resource/create.class.php';
 
 class msCategoryCreateProcessor extends modResourceCreateProcessor {
 	public $classKey = 'msCategory';
+	public $objectType = 'msCategory';
 	public $languageTopics = array('resource','minishop2:default');
 	public $permission = 'mscategory_save';
-	public $objectType = 'resource';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
 
+
+	/** {@inheritDoc} */
 	public function beforeSet() {
 		$this->setProperties(array(
 			'isfolder' => 1
@@ -18,10 +20,8 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 		return parent::beforeSet();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return * @return string|mixed
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareAlias() {
 		if ($this->workingContext->getOption('ms2_category_id_as_alias')) {
 			$alias = 'empty-resource-alias';
@@ -33,10 +33,8 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 		return $alias;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+
+	/** {@inheritDoc} */
 	public function afterSave() {
 		if ($this->object->alias == 'empty-resource-alias') {
 			$this->object->set('alias', $this->object->id);
@@ -50,4 +48,5 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 
 		return parent::afterSave();
 	}
+
 }

@@ -2,14 +2,12 @@
 
 class msCategoryGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msCategory';
+	public $objectType = 'msCategory';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
-	public $checkListPermission = true;
 
-	/**
-	 * {@inheritDoc}
-	 * @return xPDOQuery
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$c->where(array(
 			'class_key' => 'msCategory'
@@ -18,17 +16,15 @@ class msCategoryGetListProcessor extends modObjectGetListProcessor {
 		if ($query = $this->getProperty('query')) {
 			$c->where(array('pagetitle:LIKE' => "%$query%"));
 		}
-
 		return $c;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return array
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
 		return $object->toArray();
 	}
+
 }
 
 return 'msCategoryGetListProcessor';

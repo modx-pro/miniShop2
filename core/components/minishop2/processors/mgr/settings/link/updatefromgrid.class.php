@@ -3,6 +3,8 @@ require_once (dirname(__FILE__).'/update.class.php');
 
 class msLinkFromGridProcessor extends msLinkUpdateProcessor {
 
+
+	/** {@inheritDoc} */
 	public static function getInstance(modX &$modx,$className,$properties = array()) {
 		/** @var modProcessor $processor */
 		$processor = new msLinkFromGridProcessor($modx,$properties);
@@ -10,6 +12,7 @@ class msLinkFromGridProcessor extends msLinkUpdateProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function initialize() {
 		$data = $this->getProperty('data');
 		if (empty($data)) {
@@ -26,7 +29,6 @@ class msLinkFromGridProcessor extends msLinkUpdateProcessor {
 
 		return parent::initialize();
 	}
-
 
 }
 return 'msLinkFromGridProcessor';

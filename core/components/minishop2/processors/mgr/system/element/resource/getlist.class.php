@@ -1,11 +1,12 @@
 <?php
 
 class modResourceGetListProcessor extends modObjectGetListProcessor {
-	/** @var string $defaultSortField The default field to sort by */
-	public $defaultSortField = 'pagetitle';
 	public $classKey = 'modResource';
 	public $languageTopics = array('resource');
+	public $defaultSortField = 'pagetitle';
 
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		if ($this->getProperty('combo')) {
 			$c->select('id,pagetitle');
@@ -17,6 +18,8 @@ class modResourceGetListProcessor extends modObjectGetListProcessor {
 		return $c;
 	}
 
+
+	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
 		if ($this->getProperty('combo')) {
 			$array = array(

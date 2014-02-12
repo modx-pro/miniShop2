@@ -2,30 +2,22 @@
 
 class msLinkGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msLink';
+	public $objectType = 'msLink';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
-	public $checkListPermission = true;
+	public $permission = 'mssetting_list';
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+
+	/** {@inheritDoc} */
 	public function initialize() {
-		$this->setDefaultProperties(array(
-			'start' => 0,
-			'limit' => 20,
-			'sort' => $this->defaultSortField,
-			'dir' => $this->defaultSortDirection,
-			'combo' => false,
-			'query' => '',
-		));
-		return true;
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return mixed
-	 */
+
+	/** {@inheritDoc} */
 	public function process() {
 		$beforeQuery = $this->beforeQuery();
 		if ($beforeQuery !== true) {
@@ -37,10 +29,7 @@ class msLinkGetListProcessor extends modObjectGetListProcessor {
 	}
 
 
-	/**
-	 * Get the data of the query
-	 * @return array
-	 */
+	/** {@inheritDoc} */
 	public function getData() {
 		$data = array();
 		$limit = intval($this->getProperty('limit'));
@@ -68,12 +57,7 @@ class msLinkGetListProcessor extends modObjectGetListProcessor {
 	}
 
 
-	/**
-	 * Iterate across the data
-	 *
-	 * @param array $data
-	 * @return array
-	 */
+	/** {@inheritDoc} */
 	public function iterate(array $data) {
 		$list = array();
 		$list = $this->beforeIteration($list);
@@ -90,10 +74,8 @@ class msLinkGetListProcessor extends modObjectGetListProcessor {
 		return $list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return xPDOQuery
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		if ($this->getProperty('combo')) {
 			$c->select('id,name');
@@ -108,13 +90,12 @@ class msLinkGetListProcessor extends modObjectGetListProcessor {
 		return $c;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return array
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareResult(array $array) {
 		return $array;
 	}
+
 }
 
 return 'msLinkGetListProcessor';

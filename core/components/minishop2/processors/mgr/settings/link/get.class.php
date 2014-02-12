@@ -2,8 +2,19 @@
 
 class msLinkGetProcessor extends modObjectGetProcessor {
 	public $classKey = 'msLink';
+	public $objectType = 'msLink';
 	public $languageTopics = array('minishop2');
-	public $objectType = 'ms2_link';
+	public $permission = 'mssetting_view';
+
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
 }
 
 return 'msLinkGetProcessor';

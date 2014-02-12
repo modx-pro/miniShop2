@@ -1,17 +1,24 @@
 <?php
-/**
- * Get a list of Orders
- *
- * @package minishop2
- * @subpackage processors
- */
+
 class msOrderLogGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderLog';
+	public $objectType = 'msOrderLog';
+	public $languageTopics = array('default','minishop2:manager');
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'DESC';
-	public $languageTopics = array('default','minishop2:manager');
+	public $permission = 'msorder_view';
 
 
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$type = $this->getProperty('type');
 		if (!empty($type)) {
@@ -39,6 +46,8 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor {
 		return $c;
 	}
 
+
+	/** {@inheritDoc} */
 	public function getData() {
 		$data = array();
 		$limit = intval($this->getProperty('limit'));
@@ -65,6 +74,8 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor {
 		return $data;
 	}
 
+
+	/** {@inheritDoc} */
 	public function iterate(array $data) {
 		$list = array();
 		$list = $this->beforeIteration($list);
@@ -78,6 +89,8 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor {
 		return $list;
 	}
 
+
+	/** {@inheritDoc} */
 	public function prepareArray(array $data) {
 		if (!empty($data['color'])) {
 			$data['entry'] = '<span style="color:#'.$data['color'].';">'.$data['entry'].'</span>';

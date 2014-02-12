@@ -7,14 +7,16 @@
  */
 class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msProduct';
+	public $objectType = 'msProduct';
+	public $languageTopics = array('default','minishop2:product');
 	public $defaultSortField = 'menuindex';
 	public $defaultSortDirection  = 'ASC';
-	public $languageTopics = array('default','minishop2:product');
-	public $renderers = '';
 	/** @var modAction $editAction */
 	public $editAction;
 	public $parent = 0;
 
+
+	/** {@inheritDoc} */
 	public function initialize() {
 		$this->editAction = $this->modx->getObject('modAction',array(
 			'namespace' => 'core',
@@ -24,6 +26,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		return parent::initialize();
 	}
 
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$c->where(array('class_key' => 'msProduct'));
 		$c->leftJoin('msProductData','Data', 'msProduct.id = Data.id');
@@ -70,11 +74,15 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		return $c;
 	}
 
+
+	/** {@inheritDoc} */
 	public function prepareQueryAfterCount(xPDOQuery $c) {
 		$c->groupby($this->classKey.'.id');
 		return $c;
 	}
 
+
+	/** {@inheritDoc} */
 	public function getData() {
 		$data = array();
 		$limit = intval($this->getProperty('limit'));
@@ -101,6 +109,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		return $data;
 	}
 
+
+	/** {@inheritDoc} */
 	public function iterate(array $data) {
 		$list = array();
 		$list = $this->beforeIteration($list);
@@ -114,6 +124,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 		return $list;
 	}
 
+
+	/** {@inheritDoc} */
 	public function prepareArray(array $resourceArray) {
 		if ($this->getProperty('combo')) {
 			$resourceArray['parents'] = array();

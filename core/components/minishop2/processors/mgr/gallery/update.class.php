@@ -1,13 +1,25 @@
 <?php
 
 class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
+	public $classKey = 'msProductFile';
+	public $ObjectKey = 'msProductFile';
+	public $languageTopics = array('core:default','minishop2:product');
+	public $permission = 'msproductfile_save';
 	/* @var msProductFile $object */
 	public $object;
-	public $classKey = 'msProductFile';
-	public $languageTopics = array('core:default','minishop2:product');
 	protected $old_name = null;
 
 
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function beforeSet() {
 		if (!$this->getProperty('id')) {
 			return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
@@ -34,6 +46,7 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function afterSave() {
 		if ($this->old_name != $this->object->get('file')) {
 			$this->object->rename($this->object->get('file'), $this->old_name);

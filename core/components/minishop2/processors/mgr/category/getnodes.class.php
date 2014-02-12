@@ -3,12 +3,11 @@
 require_once MODX_CORE_PATH.'model/modx/processors/resource/getnodes.class.php';
 
 class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
-	public $nodes = array();
-	public $sort = 'id';
-	public $dir = 'ASC';
-	public $pid;
-	public $parent_id;
+	protected $pid;
+	protected $parent_id;
 
+
+	/** {@inheritDoc} */
 	public function initialize() {
 		$initialize = parent::initialize();
 		$this->pid = $this->getProperty('currentResource');
@@ -18,10 +17,8 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 		return $initialize;
 	}
 
-	/**
-	 * Get the query object for grabbing Resources in the tree
-	 * @return xPDOQuery
-	 */
+
+	/** {@inheritDoc} */
 	public function getResourceQuery() {
 		$resourceColumns = array(
 			'id'
@@ -70,6 +67,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function prepareContextNode(modContext $context) {
 		$context->prepare();
 		return array(
@@ -85,6 +83,7 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function prepareResourceNode(modResource $resource) {
 		$qtipField = $this->getProperty('qtipField');
 		$nodeField = $this->getProperty('nodeField');

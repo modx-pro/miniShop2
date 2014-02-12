@@ -1,17 +1,21 @@
 <?php
 
 class msProductFileUploadProcessor extends modObjectProcessor {
-	/* @var msProduct $product */
-	private $product = 0;
+	public $classKey = 'msProductFile';
+	public $ObjectKey = 'msProductFile';
 	public $languageTopics = array('minishop2:default','minishop2:product');
+	public $permission = 'msproductfile_save';
 	/* @var modMediaSource $mediaSource */
 	public $mediaSource;
+	/* @var msProduct $product */
+	private $product = 0;
 
 
-	/**
-	 * @return bool|null|string
-	 */
+	/** {@inheritDoc} */
 	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
 		/* @var msProduct $product */
 		$id = $this->getProperty('id', @$_GET['id']);
 		if (!$product = $this->modx->getObject('msProduct', $id)) {
@@ -26,9 +30,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 	}
 
 
-	/**
-	 * @return array|string
-	 */
+	/** {@inheritDoc} */
 	public function process() {
 		if (!$data = $this->handleFile ()) {
 			return $this->failure($this->modx->lexicon('ms2_err_gallery_ns'));

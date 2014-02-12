@@ -1,17 +1,23 @@
 <?php
-/**
- * Get a list of Products Files
- *
- * @package minishop2
- * @subpackage processors
- */
 class msProductFileGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msProductFile';
+	public $objectType = 'msProductFile';
+	public $languageTopics = array('default','minishop2:product');
 	public $defaultSortField = 'rank';
 	public $defaultSortDirection  = 'ASC';
-	public $languageTopics = array('default','minishop2:product');
+	public $permission = 'msproductfile_list';
 
 
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$c->where(array('product_id' => $this->getProperty('product_id')));
 
@@ -24,6 +30,7 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor {
 	}
 
 
+	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
 		/* @var msProductFile $object */
 		$row = $object->toArray();

@@ -5,9 +5,9 @@ require_once MODX_CORE_PATH.'model/modx/processors/resource/update.class.php';
 
 class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	public $classKey = 'msProduct';
+	public $objectType = 'msProduct';
 	public $languageTopics = array('resource','minishop2:default');
 	public $permission = 'msproduct_save';
-	public $objectType = 'resource';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
 	public $afterSaveEvent = 'OnDocFormSave';
 	/** @var msProduct $object */
@@ -28,10 +28,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	}
 
 
-	/**
-	 * Handle formatting of various checkbox fields
-	 * @return void
-	 */
+	/** {inheritDoc} */
 	public function handleCheckBoxes() {
 		parent::handleCheckBoxes();
 		$this->setCheckbox('new');
@@ -39,10 +36,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 		$this->setCheckbox('favorite');
 	}
 
-	/**
-	 * Set publishedon date if publish change is different
-	 * @return int
-	 */
+
+	/** {inheritDoc} */
 	public function checkPublishedOn() {
 		$published = $this->getProperty('published',null);
 		if ($published !== null && $published != $this->object->get('published')) {
@@ -63,10 +58,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 		return $this->getProperty('publishedon');
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return string|mixed
-	 */
+
+	/** {inheritDoc} */
 	public function checkFriendlyAlias() {
 		if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
 			$alias = $this->object->id;
@@ -78,10 +71,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 		return $alias;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+
+	/** {inheritDoc} */
 	public function beforeSave() {
 		$this->object->set('isfolder', 0);
 
@@ -89,9 +80,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {inheritDoc} */
 	public function clearCache() {
 		parent::clearCache();
 		$this->object->clearCache();

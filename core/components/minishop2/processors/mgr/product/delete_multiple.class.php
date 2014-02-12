@@ -1,7 +1,11 @@
 <?php
 
 class msProductDeleteMultipleProcessor extends modObjectProcessor {
+	public $classKey = 'msProduct';
+	public $objectType = 'msProduct';
 
+
+	/** {@inheritDoc} */
 	public function process() {
 		$ids = $this->getProperty('ids',null);
 		if (empty($ids)) {

@@ -104,7 +104,7 @@ Ext.extend(miniShop2.grid.Vendor,MODx.grid.Grid,{
 
 		MODx.msg.confirm({
 			title: _('ms2_menu_remove') + '"' + this.menu.record.name + '"'
-			,text: _('ms2_menu_remove_remove_confirm')
+			,text: _('ms2_menu_remove_confirm')
 			,url: this.config.url
 			,params: {
 				action: 'mgr/settings/vendor/remove'

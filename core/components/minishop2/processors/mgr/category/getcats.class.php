@@ -2,15 +2,13 @@
 
 class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msCategory';
+	public $objectType = 'msCategory';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
-	public $checkListPermission = true;
-	public $item_id = 0;
+	protected $item_id = 0;
 
-	/**
-	 * {@inheritDoc}
-	 * @return boolean
-	 */
+
+	/** {@inheritDoc} */
 	public function initialize() {
 		if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = $this->getProperty('id')) {
 			$this->item_id = $id;
@@ -26,10 +24,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return mixed
-	 */
+
+	/** {@inheritDoc} */
 	public function process() {
 		$beforeQuery = $this->beforeQuery();
 		if ($beforeQuery !== true) {
@@ -41,10 +37,7 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 	}
 
 
-	/**
-	 * Get the data of the query
-	 * @return array
-	 */
+	/** {@inheritDoc} */
 	public function getData() {
 		$data = array();
 		$limit = intval($this->getProperty('limit'));
@@ -72,12 +65,7 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 	}
 
 
-	/**
-	 * Iterate across the data
-	 *
-	 * @param array $data
-	 * @return array
-	 */
+	/** {@inheritDoc} */
 	public function iterate(array $data) {
 		$list = array();
 		$list = $this->beforeIteration($list);
@@ -94,10 +82,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 		return $list;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return xPDOQuery
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
 		$c->select('id,parent,pagetitle,context_key');
 		$c->where(array(
@@ -114,10 +100,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 		return $c;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @return array
-	 */
+
+	/** {@inheritDoc} */
 	public function prepareResult(array $resourceArray) {
 		$resourceArray['parents'] = array();
 		$parents = $this->modx->getParentIds($resourceArray['id'], 2, array('context' => $resourceArray['context_key']));
@@ -137,9 +121,9 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor {
 			}
 			$resourceArray['parents'] = array_reverse($parents);
 		}
-
 		return $resourceArray;
 	}
+
 }
 
 return 'msCategoryGetCatsProcessor';

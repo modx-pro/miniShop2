@@ -3,13 +3,24 @@
 class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msOrder';
 	public $languageTopics = array('minishop2:default');
-	public $permission = 'msorder_save';
 	public $beforeSaveEvent = 'msOnBeforeUpdateOrder';
 	public $afterSaveEvent = 'msOnUpdateOrder';
+	public $permission = 'msorder_save';
 	protected $status;
 	protected $delivery;
 	protected $payment;
 
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		if (!$this->modx->hasPermission($this->permission)) {
+			return $this->modx->lexicon('access_denied');
+		}
+		return parent::initialize();
+	}
+
+
+	/** {@inheritDoc} */
 	public function beforeSet() {
 		foreach (array('status','delivery','payment') as $v) {
 			$this->$v = $this->object->get($v);
@@ -27,6 +38,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 		return parent::beforeSet();
 	}
 
+
+	/** {@inheritDoc} */
 	public function beforeSave() {
 		if ($this->object->get('status') != $this->status) {
 			$change_status = $this->modx->miniShop2->changeOrderStatus($this->object->get('id'), $this->object->get('status'));
@@ -38,6 +51,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor {
 		return parent::beforeSave();
 	}
 
+
+	/** {@inheritDoc} */
 	public function afterSave() {
 		if ($address = $this->object->getOne('Address')) {
 			foreach ($this->getProperties() as $k => $v) {
