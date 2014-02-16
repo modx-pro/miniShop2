@@ -5,7 +5,6 @@ require_once MODX_CORE_PATH.'model/modx/processors/resource/update.class.php';
 
 class msCategoryUpdateProcessor extends modResourceUpdateProcessor {
 	public $classKey = 'msCategory';
-	public $objectType = 'msCategory';
 	public $languageTopics = array('resource','minishop2:default');
 	public $permission = 'mscategory_save';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';
@@ -15,7 +14,7 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor {
 	/** {inheritDoc} */
 	public function initialize() {
 		$primaryKey = $this->getProperty($this->primaryKeyField,false);
-		if (empty($primaryKey)) return $this->modx->lexicon($this->objectType.'_err_ns');
+		if (empty($primaryKey)) return $this->modx->lexicon($this->classKey.'_err_ns');
 
 		if (!$this->modx->getCount($this->classKey, array('id' => $primaryKey, 'class_key' => $this->classKey)) && $res = $this->modx->getObject('modResource', $primaryKey)) {
 			$res->set('class_key', $this->classKey);

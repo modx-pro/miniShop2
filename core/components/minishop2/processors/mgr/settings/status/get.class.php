@@ -2,7 +2,6 @@
 
 class msOrderStatusGetProcessor extends modObjectGetProcessor {
 	public $classKey = 'msOrderStatus';
-	public $objectType = 'msOrderStatus';
 	public $languageTopics = array('minishop2');
 	public $permission = 'mssetting_view';
 

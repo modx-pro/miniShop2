@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.1.6 pl
+2.1.6 pl2
 ==============
 - Fixed counting money spent in new customers.
 - [#104] Fixed placeholder [[+cart_weight]] in emails.

@@ -5,7 +5,6 @@ require_once MODX_CORE_PATH.'model/modx/processors/resource/create.class.php';
 
 class msCategoryCreateProcessor extends modResourceCreateProcessor {
 	public $classKey = 'msCategory';
-	public $objectType = 'msCategory';
 	public $languageTopics = array('resource','minishop2:default');
 	public $permission = 'mscategory_save';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';

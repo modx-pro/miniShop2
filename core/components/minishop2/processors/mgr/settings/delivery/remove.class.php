@@ -2,7 +2,6 @@
 
 class msDeliveryRemoveProcessor extends modObjectRemoveProcessor  {
 	public $classKey = 'msDelivery';
-	public $objectType = 'msDelivery';
 	public $languageTopics = array('minishop2');
 	public $permission = 'mssetting_save';
 

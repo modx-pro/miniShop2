@@ -2,7 +2,6 @@
 
 class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderProduct';
-	public $objectType = 'msOrderProduct';
 	public $languageTopics = array('minishop2:product');
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';

@@ -2,7 +2,6 @@
 
 class msOrderStatusGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderStatus';
-	public $objectType = 'msOrderStatus';
 	public $defaultSortField = 'rank';
 	public $defaultSortDirection  = 'asc';
 	public $permission = 'mssetting_list';

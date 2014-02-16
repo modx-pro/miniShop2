@@ -2,7 +2,6 @@
 
 class msPaymentGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msPayment';
-	public $objectType = 'msPayment';
 	public $defaultSortField = 'rank';
 	public $defaultSortDirection  = 'asc';
 	public $permission = 'mssetting_list';

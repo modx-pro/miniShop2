@@ -1,7 +1,6 @@
 <?php
 class msProductFileRemoveMultipleProcessor extends modObjectProcessor {
 	public $classKey = 'msProductFile';
-	public $objectType = 'msProductFile';
 	public $languageTopics = array('minishop2:default');
 	public $permission = 'msproductfile_save';
 

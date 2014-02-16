@@ -2,7 +2,6 @@
 
 class msOrderStatusRemoveProcessor extends modObjectRemoveProcessor  {
 	public $classKey = 'msOrderStatus';
-	public $objectType = 'msOrderStatus';
 	public $languageTopics = array('minishop2');
 	public $permission = 'mssetting_save';
 

@@ -2,7 +2,6 @@
 
 class msCategoryGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msCategory';
-	public $objectType = 'msCategory';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
 

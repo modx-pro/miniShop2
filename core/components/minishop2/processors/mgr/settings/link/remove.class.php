@@ -2,7 +2,6 @@
 
 class msLinkRemoveProcessor extends modObjectRemoveProcessor  {
 	public $classKey = 'msLink';
-	public $objectType = 'msLink';
 	public $languageTopics = array('minishop2');
 	public $permission = 'mssetting_save';
 

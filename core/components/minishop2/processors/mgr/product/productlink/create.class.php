@@ -2,7 +2,6 @@
 
 class msProductLinkCreateProcessor extends modObjectCreateProcessor {
 	public $classKey = 'msProductLink';
-	public $objectType = 'msProductLink';
 	public $languageTopics = array('minishop2:default');
 	public $permission = 'msproduct_save';
 

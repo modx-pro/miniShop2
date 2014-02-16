@@ -1,7 +1,6 @@
 <?php
 class msProductFileGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msProductFile';
-	public $objectType = 'msProductFile';
 	public $languageTopics = array('default','minishop2:product');
 	public $defaultSortField = 'rank';
 	public $defaultSortDirection  = 'ASC';

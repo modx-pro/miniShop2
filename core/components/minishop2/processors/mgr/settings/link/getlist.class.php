@@ -2,7 +2,6 @@
 
 class msLinkGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msLink';
-	public $objectType = 'msLink';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
 	public $permission = 'mssetting_list';

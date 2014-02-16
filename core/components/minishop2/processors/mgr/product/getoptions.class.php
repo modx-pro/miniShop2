@@ -2,7 +2,6 @@
 
 class msProductGetOptionsProcessor extends modObjectProcessor {
 	public $classKey = 'msProductOption';
-	public $objectType = 'msProductOption';
 
 
 	/** {@inheritDoc} */

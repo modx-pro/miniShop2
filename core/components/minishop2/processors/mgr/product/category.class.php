@@ -2,7 +2,6 @@
 
 class msProductCategoryMemberProcessor extends modObjectCreateProcessor {
 	public $classKey = 'msCategoryMember';
-	public $objectType = 'msCategoryMember';
 	public $permission = 'msproduct_save';
 
 

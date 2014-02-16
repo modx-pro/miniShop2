@@ -2,7 +2,6 @@
 
 class msOrderLogGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrderLog';
-	public $objectType = 'msOrderLog';
 	public $languageTopics = array('default','minishop2:manager');
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'DESC';

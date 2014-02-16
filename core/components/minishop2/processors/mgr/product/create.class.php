@@ -5,7 +5,6 @@ require_once MODX_CORE_PATH.'model/modx/processors/resource/create.class.php';
 
 class msProductCreateProcessor extends modResourceCreateProcessor {
 	public $classKey = 'msProduct';
-	public $objectType = 'msProduct';
 	public $languageTopics = array('resource','minishop2:default');
 	public $permission = 'msproduct_save';
 	public $beforeSaveEvent = 'OnBeforeDocFormSave';

@@ -2,7 +2,6 @@
 
 class msVendorGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msVendor';
-	public $objectType = 'msVendor';
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'ASC';
 	public $item_id = 0;

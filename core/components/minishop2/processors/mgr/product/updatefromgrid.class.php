@@ -3,7 +3,6 @@ require_once (dirname(__FILE__).'/update.class.php');
 
 class msProductUpdateFromGridProcessor extends msProductUpdateProcessor {
 	public $classKey = 'msProduct';
-	public $objectType = 'msProduct';
 
 
 	/** {@inheritDoc} */

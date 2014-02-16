@@ -2,7 +2,6 @@
 
 class msOrderStatusUpdateProcessor extends modObjectUpdateProcessor {
 	public $classKey = 'msOrderStatus';
-	public $objectType = 'msOrderStatus';
 	public $languageTopics = array('minishop2');
 	public $permission = 'mssetting_save';
 

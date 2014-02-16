@@ -2,7 +2,6 @@
 
 class msProductUnPublishMultipleProcessor extends modObjectProcessor {
 	public $classKey = 'msProduct';
-	public $objectType = 'msProduct';
 
 
 	/** {@inheritDoc} */

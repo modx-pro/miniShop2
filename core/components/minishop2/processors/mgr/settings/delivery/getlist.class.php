@@ -2,7 +2,6 @@
 
 class msDeliveryGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msDelivery';
-	public $objectType = 'msDelivery';
 	public $defaultSortField = 'rank';
 	public $defaultSortDirection  = 'asc';
 	public $permission = 'mssetting_list';

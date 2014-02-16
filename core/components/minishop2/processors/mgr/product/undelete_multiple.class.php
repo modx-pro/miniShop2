@@ -2,7 +2,6 @@
 
 class msProductUnDeleteMultipleProcessor extends modObjectProcessor {
 	public $classKey = 'msProduct';
-	public $objectType = 'msProduct';
 
 
 	/** {@inheritDoc} */

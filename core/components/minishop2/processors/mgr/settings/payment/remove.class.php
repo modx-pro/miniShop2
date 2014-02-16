@@ -2,7 +2,6 @@
 
 class msPaymentRemoveProcessor extends modObjectRemoveProcessor  {
 	public $classKey = 'msPayment';
-	public $objectType = 'msPayment';
 	public $languageTopics = array('minishop2');
 	public $permission = 'mssetting_save';
 

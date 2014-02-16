@@ -2,7 +2,6 @@
 
 class msOrderGetListProcessor extends modObjectGetListProcessor {
 	public $classKey = 'msOrder';
-	public $objectType = 'msOrder';
 	public $languageTopics = array('default','minishop2:manager');
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'DESC';
