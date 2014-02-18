@@ -7,16 +7,21 @@ switch ($modx->event->name) {
 		break;
 
 	case 'OnHandleRequest':
-		if (empty($_REQUEST['ms2_action'])) {return;}
+	case 'OnLoadWebDocument':
+		$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 
+		if (empty($_REQUEST['ms2_action']) || ($isAjax && $modx->event->name != 'OnHandleRequest') || (!$isAjax && $modx->event->name != 'OnLoadWebDocument')) {return;}
 		$action = trim($_REQUEST['ms2_action']);
-		$isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
-		$ctx = !empty($_REQUEST['ctx']) ? $_REQUEST['ctx'] : 'web';
+		$ctx = !empty($_REQUEST['ctx']) ? (string) $_REQUEST['ctx'] : 'web';
 		if ($ctx != 'web') {$modx->switchContext($ctx);}
+
 		/* @var miniShop2 $miniShop2 */
 		$miniShop2 = $modx->getService('minishop2');
 		$miniShop2->initialize($ctx, array('json_response' => $isAjax));
-		if (($modx->error->hasError() || !($miniShop2 instanceof miniShop2)) && $isAjax) {exit('Could not initialize miniShop2');}
+		if (!($miniShop2 instanceof miniShop2)) {
+			@session_write_close();
+			exit('Could not initialize miniShop2');
+		}
 
 		switch ($action) {
 			case 'cart/add': $response = $miniShop2->cart->add(@$_POST['id'], @$_POST['count'], @$_POST['options']); break;

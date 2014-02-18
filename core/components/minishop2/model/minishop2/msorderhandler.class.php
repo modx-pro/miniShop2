@@ -398,11 +398,11 @@ class msOrderHandler implements msOrderInterface {
 						exit();
 					}
 					elseif (!empty($response['data']['msorder'])) {
-						$this->modx->sendRedirect($this->modx->makeUrl($this->modx->resource->id), array('msorder' => $response['data']['msorder']));
+						$this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id, array('msorder' => $response['data']['msorder'])));
 						exit();
 					}
 					else {
-						$this->modx->sendRedirect($this->modx->makeUrl($this->modx->resource->id));
+						$this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id));
 						exit();
 					}
 				}
@@ -412,7 +412,7 @@ class msOrderHandler implements msOrderInterface {
 					return $this->success('', array('msorder' => $order->get('id')));
 				}
 				else {
-					$this->modx->sendRedirect($this->modx->makeUrl($this->modx->resource->id), array('msorder' => $response['data']['msorder']));
+					$this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id, array('msorder' => $response['data']['msorder'])));
 					exit();
 				}
 			}
@@ -442,12 +442,12 @@ class msOrderHandler implements msOrderInterface {
 			: 0;
 
 		/* @var msDelivery $delivery */
-		if ($delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
+		if (!empty($this->order['delivery']) && $delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
 			$cost = $delivery->getCost($this, $cost);
 		}
 
 		/* @var msPayment $payment */
-		if ($payment = $this->modx->getObject('msPayment', $this->order['payment'])) {
+		if (!empty($this->order['payment']) && $payment = $this->modx->getObject('msPayment', $this->order['payment'])) {
 			$cost = $payment->getCost($this, $cost);
 		}
 

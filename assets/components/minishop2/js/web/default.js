@@ -209,7 +209,9 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 				$(miniShop2.Cart.totalWeight).text(miniShop2.Utils.formatWeight(status['total_weight']));
 				$(miniShop2.Cart.totalCount).text(status['total_count']);
 				$(miniShop2.Cart.totalCost).text(miniShop2.Utils.formatPrice(status['total_cost']));
-				miniShop2.Order.getcost();
+				if ($(miniShop2.Order.orderCost, miniShop2.Order.order).length) {
+					miniShop2.Order.getcost();
+				}
 			}
 		}
 		,clean: function() {
