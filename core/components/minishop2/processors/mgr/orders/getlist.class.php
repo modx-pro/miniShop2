@@ -19,13 +19,14 @@ class msOrderGetListProcessor extends modObjectGetListProcessor {
 
 	/** {@inheritDoc} */
 	public function prepareQueryBeforeCount(xPDOQuery $c) {
+		$c->leftJoin('modUser','modUser', '`msOrder`.`user_id` = `modUser`.`id`');
 		$c->leftJoin('modUserProfile','modUserProfile', '`msOrder`.`user_id` = `modUserProfile`.`internalKey`');
 		$c->leftJoin('msOrderStatus','msOrderStatus', '`msOrder`.`status` = `msOrderStatus`.`id`');
 		$c->leftJoin('msDelivery','msDelivery', '`msOrder`.`delivery` = `msDelivery`.`id`');
 		$c->leftJoin('msPayment','msPayment', '`msOrder`.`payment` = `msPayment`.`id`');
 
 		$orderColumns = $this->modx->getSelectColumns('msOrder', 'msOrder', '', array('status','delivery','payment'), true);
-		$c->select($orderColumns . ', `modUserProfile`.`fullname` as `customer`, `msOrderStatus`.`name` as `status`, `msOrderStatus`.`color`, `msDelivery`.`name` as `delivery`, `msPayment`.`name` as `payment`');
+		$c->select($orderColumns . ', `modUserProfile`.`fullname` as `customer`, `modUser`.`username` as `customer_username`, `msOrderStatus`.`name` as `status`, `msOrderStatus`.`color`, `msDelivery`.`name` as `delivery`, `msPayment`.`name` as `payment`');
 
 		if ($query = $this->getProperty('query')) {
 			$c->where(array(
@@ -87,6 +88,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor {
 
 	/** {@inheritDoc} */
 	public function prepareArray(array $data) {
+		if (empty($data['customer'])) $data['customer'] = $data['customer_username'];
+		
 		$data['status'] = '<span style="color:#'.$data['color'].';">'.$data['status'].'</span>';
 
 		$data['actions'] = array(
