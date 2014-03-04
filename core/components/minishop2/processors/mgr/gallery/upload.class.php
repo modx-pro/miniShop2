@@ -80,6 +80,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		));
 
 		$this->mediaSource->createContainer($product_file->path, '/');
+		unset($this->mediaSource->errors['file']);
 		$file = $this->mediaSource->createObject(
 			$product_file->get('path')
 			,$product_file->get('file')

@@ -160,6 +160,7 @@ class msProductFile extends xPDOSimpleObject {
 		unlink($tf);
 
 		$this->mediaSource->createContainer($product_file->get('path'), '/');
+		unset($this->mediaSource->errors['file']);
 		$file = $this->mediaSource->createObject(
 			$product_file->get('path')
 			,$product_file->get('file')

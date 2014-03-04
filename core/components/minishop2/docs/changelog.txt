@@ -1,7 +1,8 @@
 Changelog for miniShop2.
 
-2.1.6 pl3
+2.1.6 pl4
 ==============
+- [#110] Fix generate thumbs on upload for Amazon S3.
 - Fixed counting money spent in new customers.
 - [#104] Fixed placeholder [[+cart_weight]] in emails.
 - [#102] Improved checking of thumbnails url.
