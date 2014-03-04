@@ -90,7 +90,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			$url = $this->mediaSource->getObjectUrl($product_file->get('path').$product_file->get('file'));
 			$product_file->set('url', $url);
 			$product_file->save();
-			$generate = $product_file->generateThumbnails($this->mediaSource);
+			$generate = $product_file->generateThumbnails();
 			if ($generate !== true) {
 				$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate thumbnails for image with id = '.$product_file->get('id').'. '.$generate);
 				return $this->failure($this->modx->lexicon('ms2_err_gallery_thumb'));
