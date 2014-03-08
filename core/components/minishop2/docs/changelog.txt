@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.7 pl
 ==============
 - [#107] Fixed empty customer field if fullname is not specified.
+- [#106] Additional check of friendly filename in gallery.
 - New system setting "ms2_category_remember_grid".
 
 2.1.6 pl4

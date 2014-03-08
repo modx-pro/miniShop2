@@ -61,6 +61,9 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		$filename = !empty($properties['imageNameType']) && $properties['imageNameType']['value'] == 'friendly'
 			? $this->product->cleanAlias($data['name'])
 			: $hash . '.' . $extension;
+		if (strpos($filename, '.'.$extension) === false) {
+			$filename .= '.'.$extension;
+		}
 
 		/* @var msProductFile $product_file */
 		$product_file = $this->modx->newObject('msProductFile', array(
