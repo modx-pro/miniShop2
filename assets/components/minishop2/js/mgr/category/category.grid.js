@@ -1,15 +1,19 @@
 miniShop2.grid.Category = function(config) {
 	config = config || {};
 
-	var params = Ext.util.Cookies.get('minishop2-category-grid-' + config.resource);
-	params = Ext.util.JSON.decode(params);
 	var baseParams = {
 		action: 'mgr/product/getlist'
 		,parent: config.resource
 	};
-	if (params.query) {baseParams.query = params.query;}
-	if (params.sort) {baseParams.sort = params.sort;}
-	if (params.dir) {baseParams.dir = params.dir;}
+	var params = {};
+	if (MODx.config.ms2_category_remember_grid) {
+		params = Ext.util.JSON.decode(
+			Ext.util.Cookies.get('minishop2-category-grid-' + config.resource)
+		);
+		if (params.query) {baseParams.query = params.query;}
+		if (params.sort) {baseParams.sort = params.sort;}
+		if (params.dir) {baseParams.dir = params.dir;}
+	}
 
 	this.sm = new Ext.grid.CheckboxSelectionModel();
 	Ext.applyIf(config,{
@@ -72,10 +76,12 @@ miniShop2.grid.Category = function(config) {
 	miniShop2.grid.Category.superclass.constructor.call(this,config);
 	this._makeTemplates();
 
-	this.getStore().on('load', function(grid, records, options) {
-		var params = Ext.util.JSON.encode(options.params);
-		Ext.util.Cookies.set('minishop2-category-grid-' + config.resource, params);
-	});
+	if (MODx.config.ms2_category_remember_grid) {
+		this.getStore().on('load', function(grid, records, options) {
+			var params = Ext.util.JSON.encode(options.params);
+			Ext.util.Cookies.set('minishop2-category-grid-' + config.resource, params);
+		});
+	}
 };
 Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 

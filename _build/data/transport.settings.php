@@ -23,6 +23,11 @@ $tmp = array(
 		,'xtype' => 'combo-boolean'
 		,'area' => 'ms2_category'
 	)
+	,'ms2_category_remember_grid' => array(
+		'value' => true
+		,'xtype' => 'combo-boolean'
+		,'area' => 'ms2_category'
+	)
 	,'ms2_category_id_as_alias' => array(
 		'value' => false
 		,'xtype' => 'combo-boolean'
