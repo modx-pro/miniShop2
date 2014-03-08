@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.7 pl
+==============
+- [#107] Fixed empty customer field if fullname is not specified.
+
 2.1.6 pl4
 ==============
 - [#110] Fix generate thumbs on upload for Amazon S3.
