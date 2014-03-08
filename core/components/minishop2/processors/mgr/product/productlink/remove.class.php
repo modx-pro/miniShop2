@@ -12,7 +12,7 @@ class msLinkRemoveProcessor extends modObjectRemoveProcessor  {
 		if (!$this->modx->hasPermission($this->permission)) {
 			return $this->modx->lexicon('access_denied');
 		}
-		return parent::initialize();
+		return true;
 	}
 
 
@@ -37,22 +37,22 @@ class msLinkRemoveProcessor extends modObjectRemoveProcessor  {
 		}
 		$type = $msLink->get('type');
 
-		$sql = "DELETE FROM {$this->modx->getTableName('msProductLink')} WHERE `link` = {$link} AND ";
+		$q = $this->modx->newQuery('msProductLink');
+		$q->command('DELETE');
+		$q->where(array('link' => $link));
 		switch ($type) {
 			case 'many_to_many':
 			case 'one_to_one':
-				$sql .= "`master` = {$slave} OR `slave` = {$slave}";
-			break;
-
-			case 'one_to_many':
-				$sql .= "`master` = {$master}";
+				$q->where(array('master' => $slave, 'OR:slave:=' => $slave));
 			break;
 
 			case 'many_to_one':
-				$sql .= "`slave` = {$slave}";
+			case 'one_to_many':
+				$q->where(array('master' => $master, 'slave' => $slave));
 			break;
 		}
-		$this->modx->exec($sql);
+		$q->prepare();
+		$q->stmt->execute();
 
 		return $this->success('');
 	}
