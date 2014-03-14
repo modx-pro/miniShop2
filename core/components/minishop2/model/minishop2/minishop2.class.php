@@ -112,12 +112,7 @@ class miniShop2 {
 							,getRequired: miniShop2Config.callbacksObjectTemplate()
 						}
 					};');
-					if (file_put_contents($this->config['jsPath'] . 'web/config.js', $config_js)) {
-						$this->modx->regClientStartupScript($this->config['jsUrl'] . 'web/config.js');
-					}
-					else {
-						$this->modx->regClientStartupScript("<script type=\"text/javascript\">\n".$config_js."\n</script>", true);
-					}
+					$this->modx->regClientStartupScript("<script type=\"text/javascript\">\n".$config_js."\n</script>", true);
 
 					if ($js = trim($this->modx->getOption('ms2_frontend_js'))) {
 						if (!empty($js) && preg_match('/\.js/i', $js)) {

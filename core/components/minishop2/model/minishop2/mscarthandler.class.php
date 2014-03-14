@@ -177,6 +177,7 @@ class msCartHandler implements msCartInterface {
 					,'weight' => $weight
 					,'count' => $count
 					,'options' => $options
+					,'ctx' => $this->modx->context->get('key')
 				);
 				$response = $this->ms2->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
 				if (!$response['success']) {return $this->error($response['message']);}
@@ -238,7 +239,12 @@ class msCartHandler implements msCartInterface {
 		$response = $this->ms2->invokeEvent('msOnBeforeEmptyCart', array('cart' => $this));
 		if (!$response['success']) {return $this->error($response['message']);}
 
-		$this->cart = array();
+		foreach ($this->cart as $key => $item) {
+			if (empty($item['ctx']) || $item['ctx'] == $this->modx->context->key) {
+				unset($this->cart[$key]);
+			}
+		}
+
 		$response = $this->ms2->invokeEvent('msOnEmptyCart', array('cart' => $this));
 		if (!$response['success']) {return $this->error($response['message']);}
 
@@ -254,9 +260,11 @@ class msCartHandler implements msCartInterface {
 			,'total_weight' => 0
 		);
 		foreach ($this->cart as $item) {
-			$status['total_count'] += $item['count'];
-			$status['total_cost'] += $item['price'] * $item['count'];
-			$status['total_weight'] += $item['weight'] * $item['count'];
+			if (empty($item['ctx']) || $item['ctx'] == $this->modx->context->key){
+				$status['total_count'] += $item['count'];
+				$status['total_cost'] += $item['price'] * $item['count'];
+				$status['total_weight'] += $item['weight'] * $item['count'];
+			}
 		}
 		return array_merge($data, $status);
 	}
@@ -264,7 +272,13 @@ class msCartHandler implements msCartInterface {
 
 	/* @inheritdoc} */
 	public function get() {
-		return $this->cart;
+		$cart = array();
+		foreach ($this->cart as $key => $item) {
+			if (empty($item['ctx']) || $item['ctx'] == $this->modx->context->key) {
+				$cart[$key] = $item;
+			}
+		}
+		return $cart;
 	}
 
 

@@ -18,8 +18,9 @@ if (!empty($_GET['msorder'])) {
 }
 
 $cart = $miniShop2->cart->get();
+$status = $miniShop2->cart->status();
 $order = $miniShop2->order->get();
-if (empty($cart)) {
+if (empty($status['total_count'])) {
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
 
