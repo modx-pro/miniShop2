@@ -2,7 +2,7 @@ miniShop2.page.UpdateCategory = function(config) {
 	config = config || {record:{}};
 	config.record = config.record || {};
 	Ext.applyIf(config,{
-		panelXType: 'minishop2-panel-category'
+		panelXType: 'minishop2-panel-category-update'
 		,actions: {
 			'new': MODx.action ? MODx.action['resource/create'] : 'resource/create'
 			,edit: MODx.action ? MODx.action['resource/update'] : 'resource/update'
@@ -297,11 +297,11 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 Ext.reg('minishop2-page-category-update',miniShop2.page.UpdateCategory);
 
 
-miniShop2.panel.Category = function(config) {
+miniShop2.panel.UpdateCategory = function(config) {
 	config = config || {};
-	miniShop2.panel.Category.superclass.constructor.call(this,config);
+	miniShop2.panel.UpdateCategory.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.panel.Category,MODx.panel.Resource,{
+Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 
 	getFields: function(config) {
 		var it = [];
@@ -439,4 +439,4 @@ Ext.extend(miniShop2.panel.Category,MODx.panel.Resource,{
 	}
 
 });
-Ext.reg('minishop2-panel-category',miniShop2.panel.Category);
+Ext.reg('minishop2-panel-category-update',miniShop2.panel.UpdateCategory);
