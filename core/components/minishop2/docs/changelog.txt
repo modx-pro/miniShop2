@@ -1,7 +1,9 @@
 Changelog for miniShop2.
 
-2.1.7 pl
+2.1.7 pl1
 ==============
+- [#119] Improved compatibility with AjaxManager.
+- [#118] Fixed negative cost in payment and delivery methods.
 - [#113] Added Lithuanian lexicons.
 - [#112] Restrict cart items to specific contexts.
 - [#111] Fixed remove of products links.
