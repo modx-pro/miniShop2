@@ -10,12 +10,6 @@ miniShop2.page.UpdateCategory = function(config) {
 		}
 	});
 	miniShop2.page.UpdateCategory.superclass.constructor.call(this,config);
-
-	new Ext.KeyMap(Ext.getBody(), [
-		{key: 37,alt: true,fn: this.prevPage,scope: this}
-		,{key: 38,alt: true,fn: this.upPage,scope: this}
-		,{key: 39,alt: true,fn: this.nextPage,scope: this}
-	]);
 };
 Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 
@@ -104,12 +98,14 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 			,disabled: !cfg.prev_page ? 1 : 0
 			,scope: this
 			,tooltip: _('ms2_btn_prev')
+			,keys: [{key: 37,alt: true, scope: this, fn: this.prevPage}]
 		});
 		btns.push({
 			text: '<i class="bicon-arrow-up"></i>'
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
+			,keys: [{key: 38,alt: true, scope: this, fn: this.upPage}]
 		});
 		btns.push({
 			text: '<i class="bicon-arrow-right"></i>'
@@ -117,7 +113,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 			,disabled: !cfg.next_page ? 1 : 0
 			,scope: this
 			,tooltip: _('ms2_btn_next')
-
+			,keys: [{key: 39,alt: true, scope: this, fn: this.nextPage}]
 		});
 		btns.push('-');
 

@@ -5,13 +5,6 @@ miniShop2.page.CreateProduct = function(config) {
 		panelXType: 'minishop2-panel-product'
 	});
 	miniShop2.page.CreateProduct.superclass.constructor.call(this,config);
-
-	if (!miniShop2.keymap.product_navigation) {
-		new Ext.KeyMap(Ext.getBody(), [
-			{key: 38,alt: true,fn: this.upPage,scope: this}
-		]);
-		miniShop2.keymap.product_navigation = 1;
-	}
 };
 
 Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
@@ -38,6 +31,7 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
+			,keys: [{key: 38,alt: true,fn: this.upPage,scope: this}]
 		});
 
 		/*
