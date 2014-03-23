@@ -2,7 +2,7 @@ miniShop2.page.CreateCategory = function(config) {
 	config = config || {record:{}};
 	config.record = config.record || {};
 	Ext.applyIf(config,{
-		panelXType: 'minishop2-panel-category'
+		panelXType: 'minishop2-panel-category-create'
 		,mode: "create"
 	});
 	miniShop2.page.CreateCategory.superclass.constructor.call(this,config);
@@ -31,6 +31,7 @@ Ext.extend(miniShop2.page.CreateCategory,MODx.page.CreateResource,{
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
+			,keys: [{key: 38,alt: true, scope: this, fn: this.upPage}]
 		});
 
 		/*
@@ -81,11 +82,11 @@ Ext.extend(miniShop2.page.CreateCategory,MODx.page.CreateResource,{
 Ext.reg('minishop2-page-category-create',miniShop2.page.CreateCategory);
 
 
-miniShop2.panel.Category = function(config) {
+miniShop2.panel.CreateCategory = function(config) {
 	config = config || {};
-	miniShop2.panel.Category.superclass.constructor.call(this,config);
+	miniShop2.panel.CreateCategory.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.panel.Category,MODx.panel.Resource,{
+Ext.extend(miniShop2.panel.CreateCategory,MODx.panel.Resource,{
 
 	getFields: function(config) {
 		var it = [];
@@ -195,4 +196,4 @@ Ext.extend(miniShop2.panel.Category,MODx.panel.Resource,{
 		}
 	}
 });
-Ext.reg('minishop2-panel-category',miniShop2.panel.Category);
+Ext.reg('minishop2-panel-category-create',miniShop2.panel.CreateCategory);

@@ -5,15 +5,6 @@ miniShop2.page.UpdateProduct = function(config) {
 		panelXType: 'minishop2-panel-product'
 	});
 	miniShop2.page.UpdateProduct.superclass.constructor.call(this,config);
-
-	if (!miniShop2.keymap.product_navigation) {
-		new Ext.KeyMap(Ext.getBody(), [
-			{key: 37,alt: true,fn: this.prevPage,scope: this}
-			,{key: 38,alt: true,fn: this.upPage,scope: this}
-			,{key: 39,alt: true,fn: this.nextPage,scope: this}
-		]);
-		miniShop2.keymap.product_navigation = 1;
-	}
 };
 
 Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
@@ -102,12 +93,14 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			,disabled: !cfg.prev_page ? 1 : 0
 			,scope: this
 			,tooltip: _('ms2_btn_prev')
+			,keys: [{key: 37,alt: true,fn: this.prevPage,scope: this}]
 		});
 		btns.push({
 			text: '<i class="bicon-arrow-up"></i>'
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
+			,keys: [{key: 38,alt: true,fn: this.upPage,scope: this}]
 		});
 		btns.push({
 			text: '<i class="bicon-arrow-right"></i>'
@@ -115,7 +108,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			,disabled: !cfg.next_page ? 1 : 0
 			,scope: this
 			,tooltip: _('ms2_btn_next')
-
+			,keys: [{key: 39,alt: true,fn: this.nextPage,scope: this}]
 		});
 		btns.push('-');
 

@@ -7,7 +7,7 @@ miniShop2.grid.Delivery = function(config) {
 		,renderer : function(v, p, record){return record.data.description != '' && record.data.description != null ? '<div class="x-grid3-row-expander">&#160;</div>' : '&#160;';}
 	});
 	this.dd = function(grid) {
-		new Ext.dd.DropTarget(grid.container, {
+		this.dropTarget = new Ext.dd.DropTarget(grid.container, {
 			ddGroup : 'dd',
 			copy:false,
 			notifyDrop : function(dd, e, data) {
@@ -214,6 +214,13 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 				item.setValue(false);
 			}
 		});
+	}
+
+	,beforeDestroy: function() {
+		if (this.rendered) {
+			this.dropTarget.destroy();
+		}
+		miniShop2.grid.Delivery.superclass.beforeDestroy.call(this);
 	}
 });
 Ext.reg('minishop2-grid-delivery',miniShop2.grid.Delivery);
