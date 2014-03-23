@@ -31,6 +31,7 @@ Ext.extend(miniShop2.page.CreateCategory,MODx.page.CreateResource,{
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
+			,keys: [{key: 38,alt: true, scope: this, fn: this.upPage}]
 		});
 
 		/*
