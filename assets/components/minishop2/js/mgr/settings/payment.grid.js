@@ -7,7 +7,7 @@ miniShop2.grid.Payment = function(config) {
 		,renderer : function(v, p, record){return record.data.description != '' && record.data.description != null ? '<div class="x-grid3-row-expander">&#160;</div>' : '&#160;';}
 	});
 	this.dd = function(grid) {
-		new Ext.dd.DropTarget(grid.container, {
+		this.dropTarget = new Ext.dd.DropTarget(grid.container, {
 			ddGroup : 'dd',
 			copy:false,
 			notifyDrop : function(dd, e, data) {
@@ -161,6 +161,13 @@ Ext.extend(miniShop2.grid.Payment,MODx.grid.Grid,{
 			,{xtype: 'textfield',fieldLabel: _('ms2_class'), name: 'class', anchor: '99%', id: 'minishop2-payment-class-'+type}
 			,{xtype: 'xcheckbox', fieldLabel: '', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-payment-active-'+type}
 		];
+	}
+
+	,beforeDestroy: function() {
+		if (this.rendered) {
+			this.dropTarget.destroy();
+		}
+		miniShop2.grid.Payment.superclass.beforeDestroy.call(this);
 	}
 });
 Ext.reg('minishop2-grid-payment',miniShop2.grid.Payment);
