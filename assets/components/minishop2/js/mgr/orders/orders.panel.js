@@ -3,7 +3,6 @@ miniShop2.page.Orders = function(config) {
 	Ext.applyIf(config,{
 		components: [{
 			xtype: 'minishop2-panel-orders'
-			,renderTo: 'minishop2-panel-orders-div'
 		}]
 	});
 	miniShop2.page.Orders.superclass.constructor.call(this,config);
@@ -17,14 +16,14 @@ miniShop2.panel.Orders = function(config) {
 		border: false
 		,deferredRender: true
 		,baseCls: 'modx-formpanel'
+        ,cls: 'container'
 		,items: [{
 			html: '<h2>'+_('minishop2') + ' :: ' + _('ms2_orders')+'</h2>'
 			,border: false
-			,cls: 'modx-page-header container'
+			,cls: 'modx-page-header'
 		},{
 			xtype: 'modx-tabs'
 			,id: 'minishop2-orders-tabs'
-			,bodyStyle: 'padding: 10px'
 			,defaults: { border: false ,autoHeight: true }
 			,border: true
 			,hideMode: 'offsets'
@@ -34,14 +33,15 @@ miniShop2.panel.Orders = function(config) {
 			//,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
 			,items: [{
 				title: _('ms2_orders')
+                ,layout: 'anchor'
 				,items: [{
 					html: '<p>'+_('ms2_orders_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
-					,bodyStyle: 'margin-bottom: 10px'
 				},{
 					xtype: 'minishop2-grid-orders'
 					,id: 'minishop2-grid-orders'
+                    ,cls: 'main-wrapper'
 				}]
 				,listeners: {/*
 					afterrender : function() {
