@@ -389,10 +389,6 @@ miniShop2.panel.ProductSettings = function(config) {
 
 	Ext.applyIf(config,{
 		id: 'minishop2-product-settings-panel'
-		,border: false
-		,deferredRender: false
-		,forceLayout: true
-		,anchor: '97%'
 		,stateful: MODx.config.ms2_product_remember_tabs == true
 		,stateEvents: ['tabchange']
 		,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
