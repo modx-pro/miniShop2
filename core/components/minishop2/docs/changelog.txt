@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.7 pl2
+==============
+- Fixed work with comments on product panel.
+
 2.1.7 pl1
 ==============
 - [#119] Improved compatibility with AjaxManager.

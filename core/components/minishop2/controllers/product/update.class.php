@@ -139,8 +139,9 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$ticketsJsUrl = $ticketsAssetsUrl.'js/mgr/';
 
 		$this->addJavascript($ticketsJsUrl.'tickets.js');
-		$this->addJavascript($ticketsJsUrl.'comment/comments.common.js');
-		$this->addJavascript($ticketsJsUrl.'comment/comments.grid.js');
+		$this->addLastJavascript($ticketsJsUrl.'misc/utils.js');
+		$this->addLastJavascript($ticketsJsUrl.'comment/comments.common.js');
+		$this->addLastJavascript($ticketsJsUrl.'comment/comments.grid.js');
 		$this->addHtml('
 		<script type="text/javascript">
 		// <![CDATA[
