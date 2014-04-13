@@ -1,8 +1,9 @@
 Changelog for miniShop2.
 
-2.1.7 pl2
+2.1.7 pl3
 ==============
 - Fixed work with comments on product panel.
+- [msOrder] Now snippet loads "building", "room" and "comment" from extended field of users profile.
 
 2.1.7 pl1
 ==============

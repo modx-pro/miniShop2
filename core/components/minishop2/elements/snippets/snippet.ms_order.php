@@ -89,8 +89,6 @@ if (!empty($deliveries)) {
 	}
 }
 
-if (!empty($tplOuter)) {$pdoFetch->getChunk($tplOuter);}
-//$cart_status = $miniShop2->cart->status();
 $order_cost = $miniShop2->order->getcost();
 $deliveries = implode('', $arrays['deliveries']);
 $payments = implode('', $arrays['payments']);
@@ -105,21 +103,30 @@ if ($isAuthenticated = $modx->user->isAuthenticated()) {
 	$profile = $modx->user->Profile->toArray();
 }
 $user_fields = array(
-	'receiver' => 'fullname'
-	,'phone' => 'phone'
-	,'email' => 'email'
-	,'comment' => ''
-	,'index' => 'zip'
-	,'country' => 'country'
-	,'region' => 'state'
-	,'city' => 'city'
-	,'street' => 'address'
-	,'building' => ''
-	,'room' => ''
+	'receiver' => 'fullname',
+	'phone' => 'phone',
+	'email' => 'email',
+	'comment' => 'extended[comment]',
+	'index' => 'zip',
+	'country' => 'country',
+	'region' => 'state',
+	'city' => 'city',
+	'street' => 'address',
+	'building' => 'extended[building]',
+	'room' => 'extended[room]',
 );
 foreach ($user_fields as $key => $value) {
 	if (!empty($profile) && !empty($value)) {
-		$tmp = $miniShop2->order->add($key, $profile[$value]);
+		if (strpos($value, 'extended') !== false) {
+			$tmp = substr($value, 9, -1);
+			$value = !empty($profile['extended'][$tmp])
+				? $profile['extended'][$tmp]
+				: '';
+		}
+		else {
+			$value = $profile[$value];
+		}
+		$tmp = $miniShop2->order->add($key, $value);
 		if ($tmp['success'] && !empty($tmp['data'][$key])) {
 			$form[$key] = $tmp['data'][$key];
 		}
