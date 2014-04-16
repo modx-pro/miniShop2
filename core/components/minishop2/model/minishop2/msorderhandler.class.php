@@ -437,9 +437,7 @@ class msOrderHandler implements msOrderInterface {
 	/** @inheritdoc} */
 	public function getCost($with_cart = true, $only_cost = false) {
 		$cart = $this->ms2->cart->status();
-		$cost = $with_cart
-			? $cart['total_cost']
-			: 0;
+		$cost = $cart['total_cost'];
 
 		/* @var msDelivery $delivery */
 		if (!empty($this->order['delivery']) && $delivery = $this->modx->getObject('msDelivery', $this->order['delivery'])) {
@@ -450,7 +448,9 @@ class msOrderHandler implements msOrderInterface {
 		if (!empty($this->order['payment']) && $payment = $this->modx->getObject('msPayment', $this->order['payment'])) {
 			$cost = $payment->getCost($this, $cost);
 		}
-
+		if (!$with_cart) {
+			$cost -= $cart['total_cost'];
+		}
 		return $only_cost
 			? $cost
 			: $this->success('', array('cost' => $cost));
