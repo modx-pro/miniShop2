@@ -99,19 +99,28 @@ class msProductFile extends xPDOSimpleObject {
 		foreach ($options as $k => $v) {
 			$phpThumb->setParameter($k, $v);
 		}
+		
+		$output = false;
 
 		if ($phpThumb->GenerateThumbnail()) {
 			ImageInterlace($phpThumb->gdimg_output, true);
 			if ($phpThumb->RenderOutput()) {
-				@unlink($phpThumb->sourceFilename);
-				@unlink($tf);
-				return $phpThumb->outputImageData;
+				$output = $phpThumb->outputImageData;
 			}
 		}
-		else {
-			$this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Could not generate thumbnail for "'.$this->get('url').'". '.print_r($phpThumb->debugmessages,1));
+		
+		if (!$output) {
+			$this->xpdo->log(xpdo::LOG_LEVEL_ERROR, 'Could not generate thumbnail for "'.$this->get('url').'". '.print_r($phpThumb->debugmessages,1));
 		}
-		return false;
+		
+		if (file_exists($phpThumb->sourceFilename)) {
+			unlink($phpThumb->sourceFilename);
+		}
+		if (file_exists($tf)) {
+			unlink($tf);
+		}
+		
+		return $output;
 	}
 
 
