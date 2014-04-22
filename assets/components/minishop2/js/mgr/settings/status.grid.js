@@ -105,8 +105,8 @@ Ext.extend(miniShop2.grid.Status,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.createStatus.fp.getForm().reset();
-		this.windows.createStatus.fp.getForm().setValues({color:'000000'});
+		this.windows.createStatus.reset();
+		this.windows.createStatus.setValues({color:'000000'});
 		this.windows.createStatus.show(e.target);
 	}
 
@@ -124,9 +124,9 @@ Ext.extend(miniShop2.grid.Status,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.updateStatus.fp.getForm().reset();
+		this.windows.updateStatus.reset();
 		this.windows.updateStatus.show(e.target);
-		this.windows.updateStatus.fp.getForm().setValues(r);
+		this.windows.updateStatus.setValues(r);
 	}
 
 	,removeStatus: function(btn,e) {

@@ -108,7 +108,8 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 				}
 			});
 		//}
-		this.windows.createDelivery.fp.getForm().reset().setValues({
+		this.windows.createDelivery.reset();
+		this.windows.createDelivery.setValues({
 			price: 0
 			,weight_price: 0
 			,distance_price: 0
@@ -133,8 +134,8 @@ Ext.extend(miniShop2.grid.Delivery,MODx.grid.Grid,{
 				}
 			});
 		//}
-		this.windows.updateDelivery.fp.getForm().reset();
-		this.windows.updateDelivery.fp.getForm().setValues(r);
+		this.windows.updateDelivery.reset();
+		this.windows.updateDelivery.setValues(r);
 		this.windows.updateDelivery.show(e.target);
 		this.enablePayments(r.payments);
 	}

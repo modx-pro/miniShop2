@@ -76,7 +76,7 @@ Ext.extend(miniShop2.grid.Vendor,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.createVendor.fp.getForm().reset();
+		this.windows.createVendor.reset();
 		this.windows.createVendor.show(e.target);
 	}
 
@@ -94,8 +94,8 @@ Ext.extend(miniShop2.grid.Vendor,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.updateVendor.fp.getForm().reset();
-		this.windows.updateVendor.fp.getForm().setValues(r);
+		this.windows.updateVendor.reset();
+		this.windows.updateVendor.setValues(r);
 		this.windows.updateVendor.show(e.target);
 	}
 

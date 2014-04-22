@@ -74,7 +74,7 @@ Ext.extend(miniShop2.grid.Link,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.createLink.fp.getForm().reset();
+		this.windows.createLink.reset();
 		this.windows.createLink.show(e.target);
 		Ext.getCmp('minishop2-link-type_desc-create').getEl().dom.innerText = '';
 	}
@@ -93,8 +93,8 @@ Ext.extend(miniShop2.grid.Link,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.updateLink.fp.getForm().reset();
-		this.windows.updateLink.fp.getForm().setValues(r);
+		this.windows.updateLink.reset();
+		this.windows.updateLink.setValues(r);
 		this.windows.updateLink.show(e.target);
 		Ext.getCmp('minishop2-link-type_desc-update').getEl().dom.innerText = r.type ? _('ms2_link_'+r.type+'_desc') : '';
 	}

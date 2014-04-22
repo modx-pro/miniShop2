@@ -112,7 +112,7 @@ Ext.extend(miniShop2.grid.Payment,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.createPayment.fp.getForm().reset();
+		this.windows.createPayment.reset();
 		this.windows.createPayment.show(e.target);
 	}
 	,updatePayment: function(btn,e) {
@@ -129,8 +129,8 @@ Ext.extend(miniShop2.grid.Payment,MODx.grid.Grid,{
 				}
 			});
 		}
-		this.windows.updatePayment.fp.getForm().reset();
-		this.windows.updatePayment.fp.getForm().setValues(r);
+		this.windows.updatePayment.reset();
+		this.windows.updatePayment.setValues(r);
 		this.windows.updatePayment.show(e.target);
 	}
 
