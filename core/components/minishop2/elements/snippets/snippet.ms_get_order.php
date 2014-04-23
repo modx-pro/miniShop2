@@ -14,12 +14,19 @@ if ((empty($_SESSION['minishop2']['orders']) || !in_array($id, $_SESSION['minish
 	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
 }
 
-$pls_order = $order->toArray();
-$pls_user = $order->getOne('User')->getOne('Profile')->toArray('user.');
-$pls_address = $order->getOne('Address')->toArray('address.');
-$pls_delivery = $order->getOne('Delivery')->toArray('delivery.');
-$pls_payment = $order->getOne('Payment')->toArray('payment.');
-$outer = array_merge($pls_order, $pls_user, $pls_address, $pls_delivery, $pls_payment);
+$user = $order->getOne('User');
+if ($user) {
+	$user = $user->getOne('Profile');
+}
+$address = $order->getOne('Address');
+$delivery = $order->getOne('Delivery');
+$payment = $order->getOne('Payment');
+$outer = array_merge($order->toArray(), array(
+	'user' => $user ? $user->toArray() : array(),
+	'address' => $address ? $address->toArray() : array(),
+	'delivery' => $delivery ? $delivery->toArray() : array(),
+	'payment' => $payment ? $payment->toArray() : array(),
+));
 
 $outer['goods'] = '';
 $outer['cart_count'] = 0;
@@ -104,7 +111,7 @@ foreach ($rows as $row) {
 }
 
 if (empty($tplOuter)) {
-	$modx->setPlaceholders($outer);
+	$modx->toPlaceholders($outer);
 }
 else {
 	return $pdoFetch->getChunk($tplOuter, $outer);
