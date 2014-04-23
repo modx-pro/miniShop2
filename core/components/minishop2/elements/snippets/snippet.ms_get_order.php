@@ -25,7 +25,7 @@ $outer = array_merge($order->toArray(), array(
 	'user' => $user ? $user->toArray() : array(),
 	'address' => $address ? $address->toArray() : array(),
 	'delivery' => $delivery ? $delivery->toArray() : array(),
-	'payment' => $payment ? $payment->toArrray() : array(),
+	'payment' => $payment ? $payment->toArray() : array(),
 ));
 
 $outer['goods'] = '';
