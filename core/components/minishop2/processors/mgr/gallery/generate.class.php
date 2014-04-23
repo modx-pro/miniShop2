@@ -1,4 +1,5 @@
 <?php
+
 class msProductFileGenerateProcessor extends modObjectProcessor {
 	public $classKey = 'msProductFile';
 	public $languageTopics = array('minishop2:default');
@@ -10,6 +11,7 @@ class msProductFileGenerateProcessor extends modObjectProcessor {
 		if (!$this->modx->hasPermission($this->permission)) {
 			return $this->modx->lexicon('access_denied');
 		}
+
 		return parent::initialize();
 	}
 
@@ -17,7 +19,9 @@ class msProductFileGenerateProcessor extends modObjectProcessor {
 	/** {@inheritDoc} */
 	public function process() {
 		$id = $this->getProperty('id');
-		if (empty($id)) return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
+		if (empty($id)) {
+			return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
+		}
 
 		/* @var msProductFile $file */
 		if ($file = $this->modx->getObject('msProductFile', $id)) {
@@ -27,15 +31,18 @@ class msProductFileGenerateProcessor extends modObjectProcessor {
 				$child->remove();
 			}
 			$file->generateThumbnails();
-			
+
 			$thumb = $file->getFirstThumbnail();
-			$product = $this->modx->getObject('msProductData',array('id' => $file->product_id));
+			$product = $this->modx->getObject('msProductData', array('id' => $file->product_id));
 			$product->thumb = $thumb['url'];
-			if($product->save())
+			if ($product->save()) {
 				return $this->success();
+			}
 		}
+
 		return $this->success();
 	}
 
 }
+
 return 'msProductFileGenerateProcessor';
