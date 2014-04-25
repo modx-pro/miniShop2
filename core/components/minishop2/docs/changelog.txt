@@ -1,11 +1,12 @@
 Changelog for miniShop2.
 
-2.1.7 pl4
+2.1.7 pl5
 ==============
 - [#131] Fixed update of product thumb when you update thumbnails.
 - [#129] [msGetOrder] Fixed setting of placeholders.
 - Fixed work with comments on product panel.
 - [msOrder] Now snippet loads "building", "room" and "comment" from extended field of users profile.
+- [mgr] Fixed parameter "maxUploadSize" in gallery.
 
 2.1.7 pl1
 ==============

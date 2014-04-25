@@ -649,7 +649,7 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 			,container: this.id
 			,drop_element: 'plupload-files-grid-' + this.record.id
 			,multipart: false
-			,max_file_size : miniShop2.config.maxUploadSize || 10485760
+			,max_file_size : miniShop2.config.media_source.maxUploadSize || 10485760
 			,flash_swf_url : miniShop2.config.assets_url + 'js/mgr/misc/plupload/plupload.flash.swf'
 			,filters : [{
 				title : "Image files"
