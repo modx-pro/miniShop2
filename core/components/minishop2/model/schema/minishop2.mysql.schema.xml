@@ -378,7 +378,7 @@
 			<column key="spent" length="" collation="A" null="false" />
 		</index>
 
-		<aggregate alias="User" class="modUser" local="internalKey" foreign="id" owner="foreign" cardinality="one" />
+		<aggregate alias="User" class="modUser" local="id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
 
 </model>

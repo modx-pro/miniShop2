@@ -139,7 +139,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
     'User' => 
     array (
       'class' => 'modUser',
-      'local' => 'internalKey',
+      'local' => 'id',
       'foreign' => 'id',
       'owner' => 'foreign',
       'cardinality' => 'one',
