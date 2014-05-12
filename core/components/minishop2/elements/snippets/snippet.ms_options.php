@@ -24,8 +24,10 @@ elseif (!empty($name) && $options = $product->get($name)) {
 		$rows = array();
 		foreach ($options as $value) {
 			$pls = array(
-				'value' => $value
+				'name' => $name
+				,'value' => $value
 				,'selected' => $value == $selected ? 'selected' : ''
+				,'checked' => $value == $selected ? 'checked' : ''
 			);
 			$rows[] = empty($tplRow) ? $value : $pdoFetch->getChunk($tplRow, $pls);
 		}
