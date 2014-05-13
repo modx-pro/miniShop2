@@ -553,12 +553,12 @@ Ext.extend(miniShop2.grid.Products,MODx.grid.Grid, {
 		var fields = {
 			id: {hidden: true, sortable: true, width: 40}
 			,product_id: {hidden: true, sortable: true, width: 40}
-			,product_pagetitle: {header: _('ms2_product'), width: 100, renderer: miniShop2.utils.productLink}
+			,name: {header: _('ms2_name'), width: 100, renderer: miniShop2.utils.productLink}
 			,product_weight: {header: _('ms2_product_weight'), width: 50}
 			,product_price: {header: _('ms2_product_price'), width: 50}
 			,product_article: {width: 50}
-			,weight: { sortable: true, width: 50}
-			,price: {sortable: true, width: 50}
+			,weight: {sortable: true, width: 50}
+			,price: {sortable: true, header: _('ms2_product_price'), width: 50}
 			,count: {sortable: true, width: 50}
 			,cost: {width: 50}
 			,options: {width: 100}
@@ -706,7 +706,7 @@ miniShop2.window.OrderProduct = function(config) {
 						{xtype: 'numberfield', fieldLabel: _('ms2_product_count'), name: 'count', anchor: '100%', allowNegative: false, allowBlank: false}
 					]}
 					,{columnWidth: .7,layout: 'form',defaults: { msgTarget: 'under' }, border:false, items: [
-						{xtype: 'textfield', fieldLabel: _('ms2_product_pagetitle'), name: 'pagetitle', anchor: '100%', disabled: true }
+						{xtype: 'textfield', fieldLabel: _('ms2_name'), name: 'name', anchor: '100%' }
 					]}
 				]
 			}

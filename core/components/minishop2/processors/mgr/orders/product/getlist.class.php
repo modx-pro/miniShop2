@@ -48,7 +48,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
 		$fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));
-		$fields = array_values(array_unique(array_merge($fields, array('id','product_id','product_pagetitle'))));
+		$fields = array_values(array_unique(array_merge($fields, array('id','product_id','name','product_pagetitle'))));
 
 		$data = array();
 		foreach ($fields as $v) {
@@ -56,6 +56,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 			if ($v == 'product_price' || $v == 'product_old_price') {$data[$v] = round($data[$v],2);}
 			else if ($v == 'product_weight') {$data[$v] = round($data[$v],3);}
 		}
+
+		$data['name'] = !$object->get('name')
+			? $object->get('product_pagetitle')
+			: $object->get('name');
 
 		$options = $object->get('options');
 		if (!empty($options) && is_array($options)) {

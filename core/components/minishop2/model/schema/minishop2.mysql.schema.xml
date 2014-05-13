@@ -309,6 +309,7 @@
 	<object class="msOrderProduct" table="ms2_order_products" extends="xPDOSimpleObject">
 		<field key="product_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
 		<field key="order_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" />
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="true" />
 		<field key="count" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="1" />
 		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0" />

@@ -139,6 +139,15 @@ if ($object->xpdo) {
 				$member->save();
 			}
 
+			if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_order_product_fields'))) {
+				$value = $setting->get('value');
+				if (strpos($value, 'product_pagetitle') !== false) {
+					$value = str_replace('product_pagetitle', 'name', $value);
+					$setting->set('value', $value);
+					$setting->save();
+				}
+			}
+
 			break;
 
 		case xPDOTransport::ACTION_UNINSTALL:

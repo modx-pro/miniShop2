@@ -350,10 +350,17 @@ class msOrderHandler implements msOrderInterface {
 		$cart = $this->ms2->cart->get();
 		$products = array();
 		foreach ($cart as $v) {
+			if ($tmp = $this->modx->getObject('msProduct', $v['id'])) {
+				$name = $tmp->get('pagetitle');
+			}
+			else {
+				$name = '';
+			}
 			/* @var msOrderProduct $product */
 			$product = $this->modx->newObject('msOrderProduct');
 			$product->fromArray(array_merge($v, array(
 				'product_id' => $v['id']
+				,'name' => $name
 				,'cost' => $v['price'] * $v['count']
 			)));
 			$products[] = $product;

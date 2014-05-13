@@ -80,7 +80,7 @@ $scriptProperties['tpl'] = $scriptProperties['tplRow'];
 $pdoFetch->setConfig(array_merge($default, $scriptProperties));
 $rows = $pdoFetch->run();
 
-/* @var msOrderProduct $row */
+/** @var msOrderProduct $row */
 foreach ($rows as $row) {
 	$outer['cart_count'] += $row['count'];
 	$row['old_price'] = $miniShop2->formatPrice(
@@ -89,9 +89,19 @@ foreach ($rows as $row) {
 			: $row['old_price']
 	);
 	$row['price'] = $miniShop2->formatPrice($row['price']);
-
 	$row['cost'] = $miniShop2->formatPrice($row['cost']);
 	$row['weight'] = $miniShop2->formatWeight($row['weight']);
+
+	$row['id'] = (integer) $row['id'];
+	if (empty($row['name'])) {
+		$row['name'] = $row['pagetitle'];
+	}
+	else {
+		$row['pagetitle'] = $row['name'];
+	}
+	$row['link'] = !empty($row['id'])
+		? $row['link'] = $modx->makeUrl($row['id'], '', '', 'full')
+		: '';
 
 	// Additional properties of product
 	$options = !is_array($row['options'])

@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.8 beta
+==============
+- Added field "name" in object msOrderProduct for storing pagetitle of the product.
+
 2.1.7 pl5
 ==============
 - [#131] Fixed update of product thumb when you update thumbnails.

@@ -27,7 +27,7 @@ class Minishop2OrdersManagerController extends miniShop2MainController {
 
 		$address_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_address_fields')));
 		$product_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));
-		$product_fields = array_values(array_unique(array_merge($product_fields, array('id','product_id','product_pagetitle'))));
+		$product_fields = array_values(array_unique(array_merge($product_fields, array('id','product_id','name'))));
 
 		$this->addHtml(str_replace('			', '', '
 			<script type="text/javascript">

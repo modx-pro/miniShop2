@@ -1,6 +1,6 @@
 <tr>
 	<td class="image"><img src="[[++site_url]][[+thumb:default=`[[++assets_url]]components/minishop2/img/web/ms2_small.png`]]" /></td>
-	<td class="title"><a href="[[~[[+id]]]]">[[+pagetitle]]</a><br/>
+	<td class="title">[[+link:isnot=``:then=`<a href="[[+link]]">[[+name]]</a>`:else=`[[+name]]`]]<br/>
 		<small><i>[[+option.color]] [[+option.size]]</i></small>
 	</td>
 	<td class="count">[[+count]] [[%ms2_frontend_count_unit]]</td>

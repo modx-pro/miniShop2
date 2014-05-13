@@ -26,6 +26,8 @@ miniShop2.utils.userLink = function(val,cell,row) {
 
 miniShop2.utils.productLink = function(val,cell,row) {
 	if (!val) {return '';}
+	else if (!row.data['product_id']) {return val;}
+
 	var action = MODx.action ? MODx.action['resource/update'] : 'resource/update';
 	var url = 'index.php?a='+action+'&id='+row.data['product_id'];
 

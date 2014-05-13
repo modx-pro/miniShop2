@@ -31,6 +31,9 @@ class msOrderProductGetProcessor extends modObjectGetProcessor {
 
 		if ($product = $this->object->getOne('Product')) {
 			$array = array_merge($product->toArray(), $array);
+			if (empty($array['name'])) {
+				$array['name'] = $array['pagetitle'];
+			}
 		}
 
 		return $this->success('', $array);

@@ -17,11 +17,16 @@ class msOrderGetProcessor extends modObjectGetProcessor {
 
 	/** {@inheritDoc} */
 	public function cleanup() {
-		$order = $this->object->toArray();
-		$address = $this->object->getOne('Address')->toArray('addr_');
-		$profile = $this->object->getOne('UserProfile');
-
-		$array = array_merge($order, $address, array('fullname' => $profile->get('fullname')));
+		$array = $this->object->toArray();
+		if ($address = $this->object->getOne('Address')) {
+			$array = array_merge($array, $address->toArray('addr_'));
+		}
+		if ($profile = $this->object->getOne('UserProfile')) {
+			$array['fullname'] = $profile->get('fullname');
+		}
+		else {
+			$array['fullname'] = $this->modx->lexicon('no');
+		}
 
 		$array['createdon'] = $this->modx->miniShop2->formatDate($array['createdon']);
 		$array['updatedon'] = $this->modx->miniShop2->formatDate($array['updatedon']);

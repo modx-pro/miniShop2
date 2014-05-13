@@ -88,7 +88,9 @@ class msOrderGetListProcessor extends modObjectGetListProcessor {
 
 	/** {@inheritDoc} */
 	public function prepareArray(array $data) {
-		if (empty($data['customer'])) $data['customer'] = $data['customer_username'];
+		if (empty($data['customer'])) {
+			$data['customer'] = $data['customer_username'];
+		}
 		
 		$data['status'] = '<span style="color:#'.$data['color'].';">'.$data['status'].'</span>';
 
