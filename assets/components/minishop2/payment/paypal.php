@@ -5,7 +5,7 @@ require dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/index.php';
 
 // Включаем обработку ошибок
 $modx->getService('error','error.modError');
-$modx->setLogLevel(modX::LOG_LEVEL_INFO);
+$modx->setLogLevel(modX::LOG_LEVEL_ERROR);
 $modx->setLogTarget('FILE');
 
 /* @var miniShop2 $miniShop2 */

@@ -47,12 +47,14 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 			$products = $order->getMany('Products');
 			foreach ($products as $item) {
 				/* @var msProduct $product */
-				if ($product = $item->getOne('Product')) {
-					$params['L_PAYMENTREQUEST_0_NAME'.$i] = $product->get('pagetitle');
-					$params['L_PAYMENTREQUEST_0_AMT'.$i] = $item->get('price');
-					$params['L_PAYMENTREQUEST_0_QTY'.$i] = $item->get('count');
-					$i++;
+				$name = $item->get('name');
+				if (empty($name) && $product = $item->getOne('Product')) {
+					$name = $product->get('pagetitle');
 				}
+				$params['L_PAYMENTREQUEST_0_NAME'.$i] = $name;
+				$params['L_PAYMENTREQUEST_0_AMT'.$i] = $item->get('price');
+				$params['L_PAYMENTREQUEST_0_QTY'.$i] = $item->get('count');
+				$i++;
 			}
 		}
 

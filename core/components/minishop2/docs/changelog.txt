@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.8 beta
 ==============
 - Added field "name" in object msOrderProduct for storing pagetitle of the product.
+- Fixed log level in PayPal method.
 
 2.1.7 pl5
 ==============
