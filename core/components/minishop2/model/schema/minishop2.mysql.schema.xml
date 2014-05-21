@@ -213,12 +213,16 @@
 		<field key="context" dbtype="varchar" precision="100" phptype="string" null="true" default="web" />
 		<field key="comment" dbtype="text" phptype="string" null="true" />
 		<field key="properties" dbtype="text" phptype="json" null="true" />
+		<field key="type" dbtype="tinyint" precision="3" phptype="integer" attributes="unsigned" null="true" default="0" />
 
 		<index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE" >
 			<column key="user_id" length="" collation="A" null="false" />
 		</index>
 		<index alias="status" name="status" primary="false" unique="false" type="BTREE" >
 			<column key="status" length="" collation="A" null="false" />
+		</index>
+		<index alias="type" name="type" primary="false" unique="false" type="BTREE" >
+			<column key="type" length="" collation="A" null="false" />
 		</index>
 
 		<aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />

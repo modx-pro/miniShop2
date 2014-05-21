@@ -77,7 +77,7 @@ switch ($modx->event->name) {
 
 		/** @var modUser $user */
 		if ($user = $order->getOne('User')) {
-			$q = $modx->newQuery('msOrder');
+			$q = $modx->newQuery('msOrder', array('type' => 0));
 			$q->innerJoin('modUser', 'modUser', array('`modUser`.`id` = `msOrder`.`user_id`'));
 			$q->innerJoin('msOrderLog', 'msOrderLog', array(
 				'`msOrderLog`.`order_id` = `msOrder`.`id`',

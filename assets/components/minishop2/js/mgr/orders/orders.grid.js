@@ -133,6 +133,12 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 		return this.tplCustomer.apply(rec.data);
 	}
 
+	,_renderCost:function(v,md,rec) {
+		return rec.data.type && rec.data.type == 1
+			? '-'+v
+			: v;
+	}
+
 	,onClick: function(e){
 		var t = e.getTarget();
 		var elm = t.className.split(' ')[0];
@@ -161,7 +167,7 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 			,receiver: {width: 100, sortable: true}
 			,createdon: {width: 75, sortable: true, renderer: miniShop2.utils.formatDate}
 			,updatedon: {width: 75, sortable: true, renderer: miniShop2.utils.formatDate}
-			,cost: {width: 75, sortable: true}
+			,cost: {width: 75, sortable: true, renderer: this._renderCost}
 			,cart_cost: {width: 75, sortable: true}
 			,delivery_cost: {width: 75, sortable: true}
 			,weight: {width: 50, sortable: true}

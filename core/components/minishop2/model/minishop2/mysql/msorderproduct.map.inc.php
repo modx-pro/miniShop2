@@ -8,6 +8,7 @@ $xpdo_meta_map['msOrderProduct']= array (
   array (
     'product_id' => NULL,
     'order_id' => NULL,
+    'name' => NULL,
     'count' => 1,
     'price' => 0,
     'weight' => 0,
@@ -31,6 +32,13 @@ $xpdo_meta_map['msOrderProduct']= array (
       'phptype' => 'integer',
       'attributes' => 'unsigned',
       'null' => false,
+    ),
+    'name' => 
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => true,
     ),
     'count' => 
     array (

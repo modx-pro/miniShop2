@@ -21,6 +21,7 @@ $xpdo_meta_map['msOrder']= array (
     'context' => 'web',
     'comment' => NULL,
     'properties' => NULL,
+    'type' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -142,6 +143,15 @@ $xpdo_meta_map['msOrder']= array (
       'phptype' => 'json',
       'null' => true,
     ),
+    'type' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '3',
+      'phptype' => 'integer',
+      'attributes' => 'unsigned',
+      'null' => true,
+      'default' => 0,
+    ),
   ),
   'indexes' => 
   array (
@@ -170,6 +180,22 @@ $xpdo_meta_map['msOrder']= array (
       'columns' => 
       array (
         'status' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'type' => 
+    array (
+      'alias' => 'type',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'type' => 
         array (
           'length' => '',
           'collation' => 'A',
