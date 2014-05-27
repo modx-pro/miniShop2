@@ -245,7 +245,7 @@ $xpdo_meta_map['msOrder']= array (
     array (
       'class' => 'msCustomerProfile',
       'local' => 'user_id',
-      'foreign' => 'internalKey',
+      'foreign' => 'id',
       'owner' => 'foreign',
       'cardinality' => 'one',
     ),

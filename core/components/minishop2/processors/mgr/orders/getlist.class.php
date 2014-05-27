@@ -6,10 +6,13 @@ class msOrderGetListProcessor extends modObjectGetListProcessor {
 	public $defaultSortField = 'id';
 	public $defaultSortDirection  = 'DESC';
 	public $permission = 'msorder_list';
-
+	/** @var  miniShop2 $ms2 */
+	protected $ms2;
 
 	/** {@inheritDoc} */
 	public function initialize() {
+		$this->ms2 = $this->modx->getService('miniShop2');
+
 		if (!$this->modx->hasPermission($this->permission)) {
 			return $this->modx->lexicon('access_denied');
 		}
@@ -104,6 +107,11 @@ class msOrderGetListProcessor extends modObjectGetListProcessor {
 				'text' => $this->modx->lexicon('ms2_menu_remove'),
 			),
 		);
+
+		if (isset($data['cost'])) {$data['cost'] = $this->ms2->formatPrice($data['cost']);}
+		if (isset($data['cart_cost'])) {$data['cart_cost'] = $this->ms2->formatPrice($data['cart_cost']);}
+		if (isset($data['delivery_cost'])) {$data['delivery_cost'] = $this->ms2->formatPrice($data['delivery_cost']);}
+		if (isset($data['weight'])) {$data['weight'] = $this->ms2->formatWeight($data['weight']);}
 
 		return $data;
 	}
