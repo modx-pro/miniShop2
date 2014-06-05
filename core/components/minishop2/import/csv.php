@@ -157,33 +157,34 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
 	$response = $modx->runProcessor('resource/'.$action, $data);
 	if ($response->isError()) {
 		$modx->log(modX::LOG_LEVEL_ERROR, "Error on $action: \n". print_r($response->getAllErrors(), 1));
-		continue;
 	}
-	if ($action == 'update') {$updated ++;}
-	else {$created ++;}
+	else {
+		if ($action == 'update') {$updated ++;}
+		else {$created ++;}
 
-	$resource = $response->getObject();
-	$modx->log(modX::LOG_LEVEL_INFO, "Successful $action: \n". print_r($resource, 1));
+		$resource = $response->getObject();
+		$modx->log(modX::LOG_LEVEL_INFO, "Successful $action: \n". print_r($resource, 1));
 
-	// Process gallery images, if exists
-	if (!empty($gallery)) {
-		$modx->log(modX::LOG_LEVEL_INFO, "Importing images: \n". print_r($gallery, 1));
-		foreach ($gallery as $v) {
-			if (empty($v)) {continue;}
-			$image = str_replace('//', '/', MODX_BASE_PATH . $v);
-			if (!file_exists($image)) {
-				$modx->log(modX::LOG_LEVEL_ERROR, "Could not import image \"$v\" to gallery. File \"$image\" not found on server.");
-			}
-			else {
-				$response = $modx->runProcessor('gallery/upload',
-					array('id' => $resource['id'], 'name' => $v, 'file' => $image),
-					array('processors_path' => MODX_CORE_PATH.'components/minishop2/processors/mgr/')
-				);
-				if ($response->isError()) {
-					$modx->log(modX::LOG_LEVEL_ERROR, "Error on upload \"$v\": \n". print_r($response->getAllErrors(), 1));
+		// Process gallery images, if exists
+		if (!empty($gallery)) {
+			$modx->log(modX::LOG_LEVEL_INFO, "Importing images: \n". print_r($gallery, 1));
+			foreach ($gallery as $v) {
+				if (empty($v)) {continue;}
+				$image = str_replace('//', '/', MODX_BASE_PATH . $v);
+				if (!file_exists($image)) {
+					$modx->log(modX::LOG_LEVEL_ERROR, "Could not import image \"$v\" to gallery. File \"$image\" not found on server.");
 				}
 				else {
-					$modx->log(modX::LOG_LEVEL_INFO, "Successful upload  \"$v\": \n". print_r($response->getObject(), 1));
+					$response = $modx->runProcessor('gallery/upload',
+						array('id' => $resource['id'], 'name' => $v, 'file' => $image),
+						array('processors_path' => MODX_CORE_PATH.'components/minishop2/processors/mgr/')
+					);
+					if ($response->isError()) {
+						$modx->log(modX::LOG_LEVEL_ERROR, "Error on upload \"$v\": \n". print_r($response->getAllErrors(), 1));
+					}
+					else {
+						$modx->log(modX::LOG_LEVEL_INFO, "Successful upload  \"$v\": \n". print_r($response->getObject(), 1));
+					}
 				}
 			}
 		}
