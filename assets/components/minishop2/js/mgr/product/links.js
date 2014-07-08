@@ -5,7 +5,7 @@ miniShop2.grid.ProductLinks = function(config) {
 		id: this.ident
 		,url: miniShop2.config.connector_url
 		,baseParams: {
-			action: 'mgr/product/prodictlink/getlist'
+			action: 'mgr/product/productlink/getlist'
 		}
 		,fields: ['id','master','slave','master_pagetitle','slave_pagetitle','type']
 		,autoHeight: true
