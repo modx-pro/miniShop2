@@ -18,7 +18,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 
 		if (cfg.canSave == 1) {
 			btns.push({
-				process: 'update'
+				process: action: miniShop2.utils.version_compare(MODx.config.version, '2.3.0-dev', '>=') ? 'resource/update' : 'update'
 				,text: '<i class="bicon-ok"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true

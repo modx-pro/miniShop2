@@ -252,7 +252,7 @@ var methods = {
 			,pub_date: {xtype: MODx.config.publish_document ? 'minishop2-xdatetime' : 'hidden', description: '<b>[[*pub_date]]</b><br />'+_('resource_publishdate_help'),id: 'modx-resource-pub-date', value: config.record.pub_date}
 			,unpub_date: {xtype: MODx.config.publish_document ? 'minishop2-xdatetime' : 'hidden', description: '<b>[[*unpub_date]]</b><br />'+_('resource_unpublishdate_help'),id: 'modx-resource-unpub-date',value: config.record.unpub_date}
 
-			,template: {xtype: 'modx-combo-template',editable: false,baseParams: {action: 'getList',combo: '1'},listeners: {select: {fn: this.templateWarning,scope: this}}}
+			,template: {xtype: 'modx-combo-template',editable: false,baseParams: {action: miniShop2.utils.version_compare(MODx.config.version, '2.3.0-dev', '>=') ? 'element/template/getlist' : 'getlist', combo: '1'},listeners: {select: {fn: this.templateWarning,scope: this}}}
 			,parent: {xtype: 'minishop2-combo-category',value: config.record.parent,listeners: {select: {fn:function(data) {Ext.getCmp('modx-resource-parent-hidden').setValue(data.value);MODx.fireResourceFormChange();}}}}
 			,alias: {xtype: 'textfield', value: config.record.alias || ''}
 			,menutitle: {xtype: 'textfield', value: config.record.menutitle || ''}
