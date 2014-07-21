@@ -215,7 +215,7 @@ class msProductData extends xPDOSimpleObject {
 	}
 
 
-	/* Returns product weight.
+    /* Returns product weight.
 	 *
 	 * @param mixed $data Any additional data for weight modification
 	 * @return integer $weight Product weight
@@ -253,7 +253,43 @@ class msProductData extends xPDOSimpleObject {
 		$this->xpdo->getWeight = false;
 		return $weight;
 	}
+	
+	
+		/* Returns product old_price.
+	 * */
+	public function getOldPrice($data = array()) {
+		$old_price = parent::get('old_price');
 
+		if (!empty($this->xpdo->getOldPrice)) {return $old_price;}
+		$this->xpdo->getOldPrice = true;
+
+		if (empty($data)) {$data = $this->toArray();}
+		/** @var miniShop2 $miniShop2 */
+		$miniShop2 = $this->xpdo->getService('minishop2');
+		$params = array(
+			//'product' => $this->getOne('Product'),
+			'product' => $this,
+			'data' => $data,
+			'old_price' => $old_price
+		);
+		$response = $miniShop2->invokeEvent('msOnGetProductPrice', $params);
+		if ($response['success']) {
+			$weight = $params['old_price'] = $response['data']['old_price'];
+		}
+
+		/* @var modSnippet $snippet */
+		// Deprecated. Leaved for backward compatibility.
+		if ($setting = $this->xpdo->getOption('ms2_old_price_snippet', null, false, true)) {
+			if ($snippet = $this->xpdo->getObject('modSnippet', array('name' => $setting))) {
+				$snippet->setCacheable(false);
+				$weight = $snippet->process($params);
+			}
+		}
+		//--
+
+		$this->xpdo->getOldPrice = false;
+		return $old_price;
+	}
 
 
 }
