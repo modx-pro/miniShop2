@@ -108,9 +108,11 @@ if (!empty($rows) && is_array($rows)) {
 		if ($modificators) {
 			$product->fromArray($row, '', true, true);
 			$tmp = $row['price'];
+			$tmp_op = $row['old_price'];
 			$row['price'] = $product->getPrice($row);
 			$row['weight'] = $product->getWeight($row);
-			if ($row['price'] != $tmp) {
+			$row['old_price'] = $product->getOldPrice($row);
+			if ( $row['price'] != $tmp && $row['old_price'] == $tmp_op) {
 				$row['old_price'] = $tmp;
 			}
 		}
