@@ -2,7 +2,8 @@ Changelog for miniShop2.
 
 2.1.8 rc
 ==============
-- Fixed controllers for work with MODX 2.3.
+- Fixed controllers for MODX 2.3.
+- Fixed routes to processors for MODX 2.3.
 
 2.1.8 beta
 ==============
