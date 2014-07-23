@@ -282,6 +282,7 @@ miniShop2.window.UpdateOrder = function(config) {
 		title: _('ms2_menu_update')
 		,id: this.ident
 		,width: 750
+		,autoHeight: true
 		,labelAlign: 'top'
 		,url: miniShop2.config.connector_url
 		,action: 'mgr/orders/update'
@@ -697,6 +698,7 @@ miniShop2.window.OrderProduct = function(config) {
 		title: _('ms2_menu_update')
 		,autoHeight: true
 		,width: 600
+		,autoHeight: true
 		,url: miniShop2.config.connector_url
 		,action: config.action || 'mgr/orders/product/update'
 		,fields: [

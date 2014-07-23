@@ -16,6 +16,7 @@ Changelog for miniShop2.
 - Added integer field "type" to msOrder.
 - Fixed CustomerProfile connection in schema.
 - Improved price and weight formatting in orders table.
+- Some UI improvements and fixes.
 
 2.1.7 pl5
 ==============

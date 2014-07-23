@@ -144,6 +144,7 @@ miniShop2.window.CreateVendor = function(config) {
 		title: _('ms2_menu_create')
 		,id: this.ident
 		,width: 600
+		,autoHeight: true
 		,labelAlign: 'left'
 		,labelWidth: 180
 		,url: miniShop2.config.connector_url
@@ -164,6 +165,7 @@ miniShop2.window.UpdateVendor = function(config) {
 		title: _('ms2_menu_update')
 		,id: this.ident
 		,width: 600
+		,autoHeight: true
 		,labelAlign: 'left'
 		,labelWidth: 180
 		,url: miniShop2.config.connector_url

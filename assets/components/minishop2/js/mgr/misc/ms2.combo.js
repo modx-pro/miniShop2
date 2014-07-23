@@ -23,7 +23,7 @@ miniShop2.combo.User = function(config) {
 			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="minishop2-user-list-item">'
+			+'<tpl for="."><div class="x-combo-list-item minishop2-user-list-item">'
 				+'<span><small>({id})</small> <b>{username}</b> ({fullname})</span>'
 			+'</div></tpl>',{
 			compiled: true
@@ -56,7 +56,7 @@ miniShop2.combo.Category = function(config) {
 			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="minishop2-category-list-item">'
+			+'<tpl for="."><div class="x-combo-list-item minishop2-category-list-item">'
 			+'<tpl if="parents">'
 					+'<span class="parents">'
 						+'<tpl for="parents">'
@@ -209,13 +209,14 @@ miniShop2.combo.Options = function(config) {
 		,valueField: 'value'
 		,triggerAction: 'all'
 		,extraItemCls: 'x-tag'
+		,expandBtnCls: 'x-form-trigger'
+		,clearBtnCls: 'x-form-trigger'
 		,listeners: {
-			newitem: function(bs,v, f){
-				var newObj = {
-					tag: v
-				};
-				bs.addItem(newObj);
-			}
+			newitem: function(bs,v, f) {bs.addItem({tag: v});}
+			,select: {fn:MODx.fireResourceFormChange, scope:this}
+			,beforeadditem: {fn:MODx.fireResourceFormChange, scope:this}
+			,beforeremoveitem: {fn:MODx.fireResourceFormChange, scope:this}
+			,clear: {fn:MODx.fireResourceFormChange, scope:this}
 		}
 	});
 	config.name += '[]';
@@ -549,7 +550,7 @@ miniShop2.combo.Product = function(config) {
 			,id: config.value
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="minishop2-product-list-item">'
+			+'<tpl for="."><div class="x-combo-list-item minishop2-product-list-item">'
 				+'<tpl if="parents">'
 					+'<span class="parents">'
 						+'<tpl for="parents">'

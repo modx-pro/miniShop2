@@ -148,6 +148,7 @@ miniShop2.window.CreateLink = function(config) {
 		title: _('ms2_menu_create')
 		,id: this.ident
 		,width: 600
+		,autoHeight: true
 		,labelAlign: 'left'
 		,labelWidth: 180
 		,url: miniShop2.config.connector_url
@@ -168,6 +169,7 @@ miniShop2.window.UpdateLink = function(config) {
 		title: _('ms2_menu_update')
 		,id: this.ident
 		,width: 600
+		,autoHeight: true
 		,labelAlign: 'left'
 		,labelWidth: 180
 		,url: miniShop2.config.connector_url

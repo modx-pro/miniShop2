@@ -110,36 +110,7 @@ input.disabled {color: #AAA !important;}
 	color:darkgoldenrod;
 	text-shadow:0 1px 0 #fff;
 }
-
-.minishop2-category-list-item, .minishop2-product-list-item, .minishop2-user-list-item {
-	font:normal 11px tahoma, arial, helvetica, sans-serif;
-	padding:3px 10px 3px 10px;
-	border:1px solid #fff;
-	border-bottom:1px solid #eeeeee;
-	white-space:normal;
-	color:#555;
-	cursor: pointer;
-}
-.minishop2-category-list-item:hover, .minishop2-product-list-item:hover, .minishop2-user-list-item:hover {
-	background: #efefef;
-}
-
-.minishop2-category-list-item h3, .minishop2-product-list-item h3, .minishop2-user-list-item h3 {
-	display:block;
-	font:inherit;
-	font-weight:bold;
-	font-size: 1.1em;
-	line-height: 1.1em;
-}
-
-.minishop2-category-list-item .parents, .minishop2-product-list-item .parents {
-	display:block;
-	font:inherit;
-	font-weight:normal;
-	color:#555;
-	font-size: 1em;
-	line-height: 1em;
-}
+.minishop2-category-list-item .parents, .minishop2-product-list-item .parents {display:block;}
 
 #minishop2-product-header-image {
 	margin: auto;
@@ -158,83 +129,24 @@ input.disabled {color: #AAA !important;}
 
 
 
-
-
-/*
-For progress bar:
-*/
-
-td.x-grid3-td-progress-cell {
-	padding: 0;
-}
-
-td.x-grid3-td-progress-cell div.x-grid3-cell-inner {
-	padding: 0;
-	position: relative;
-	line-height: 36px;
-	height: 41px;
-}
-
-.ux-progress-cell-inner {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
-}
-
-.ux-progress-cell-background {
-	background: #E0E8F3;
-	white-space: nowrap;
-}
-.x-grid3-td-progress-cell .low {
-	background: #11aa11;
-}
-.x-grid3-td-progress-cell .medium {
-	background: #f1fa1a;
-}
-.x-grid3-td-progress-cell .high {
-	background: #ee1111;
-}
-
-.ux-progress-cell-foreground {
-	color: #000;
-	background-color: #cadaba;
-	white-space: nowrap;
-	overflow: hidden
-}
-
-.ux-progress-cell-inner-right {
-	text-align: right;
-}
-
-.ux-progress-cell-inner-center {
-	text-align: center;
-}
-
-.ux-progress-cell .ux-progress-cell-inner div {
-	padding: 3px 0 0 4px;
-}
-
-.ux-progress-cell-inner-right div {
-	padding: 3px 4px 0 0;
-	position: relative;
-}
-
-.ux-progress-cell-inner-center div {
-	padding: 3px 0 0 0;
-	position: relative;
-}
-
-.ux-progress-cell-inner-left div {
-	padding: 3px 0 0 4px;
-	position: relative;
-}
-
+/* Upload progress bar in product gallery */
+td.x-grid3-td-progress-cell {padding: 0;}
+td.x-grid3-td-progress-cell div.x-grid3-cell-inner {padding: 0;position: relative;line-height: 36px;height: 41px;}
+.ux-progress-cell-inner {position: absolute;top: 0;left: 0;height: 100%;width: 100%;overflow: hidden;}
+.ux-progress-cell-background {background: #E0E8F3;white-space: nowrap;}
+.x-grid3-td-progress-cell .low {background: #11aa11;}
+.x-grid3-td-progress-cell .medium {background: #f1fa1a;}
+.x-grid3-td-progress-cell .high {background: #ee1111;}
+.ux-progress-cell-foreground {color: #000;background-color: #cadaba;white-space: nowrap;overflow: hidden}
+.ux-progress-cell-inner-right {text-align: right;}
+.ux-progress-cell-inner-center {text-align: center;}
+.ux-progress-cell .ux-progress-cell-inner div {padding: 3px 0 0 4px;}
+.ux-progress-cell-inner-right div {padding: 3px 4px 0 0;position: relative;}
+.ux-progress-cell-inner-center div {padding: 3px 0 0 0;position: relative;}
+.ux-progress-cell-inner-left div {padding: 3px 0 0 4px;position: relative;}
+/* Gallery styles */
 .modx-gallery-detail-thumb img {max-width: 300px; display: block; margin: auto;}
 .modx-gallery-details-info,
 .modx-gallery-details-info .description {margin-top: 20px; padding-top: 20px; border-top: 1px solid #efefef;}
 .modx-gal-item-thumb {width: 120px; height: 90px; border:1px solid #efefef;}
 .modx-gal-item-thumb img {max-width: 120px; max-height: 90px; display: block; margin: auto;}
-
