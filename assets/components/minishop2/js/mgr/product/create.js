@@ -15,7 +15,7 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 		if (cfg.canSave == 1) {
 			btns.push({
 				process: MODx.action['welcome'] == 'welcome' ? 'resource/create' : 'create'
-				,text: '<i class="bicon-ok"></i> ' + _('ms2_btn_save')
+				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-check' : 'bicon-ok') + '"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
 				,keys: [{
@@ -27,20 +27,12 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 		}
 
 		btns.push({
-			text: '<i class="bicon-ban-circle"></i>' + _('ms2_btn_cancel')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-ban' : 'bicon-ban-circle') + '"></i> ' + _('ms2_btn_cancel')
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
-			,keys: [{key: 38,alt: true,fn: this.upPage,scope: this}]
+			,keys: [{key: 38,alt: true, scope: this, fn: this.upPage}]
 		});
-
-		/*
-		 btns.push({
-		 text: '<i class="bicon-question-sign"></i>'
-		 ,handler: this.loadHelpPane
-		 ,tooltip: _('ms2_product_help')
-		 });
-		 */
 
 		return btns;
 	}

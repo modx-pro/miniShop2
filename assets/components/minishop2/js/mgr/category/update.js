@@ -19,7 +19,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 		if (cfg.canSave == 1) {
 			btns.push({
 				process: MODx.action['welcome'] == 'welcome' ? 'resource/update' : 'update'
-				,text: '<i class="bicon-ok"></i> ' + _('ms2_btn_save')
+				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-check' : 'bicon-ok') + '"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
 				,keys: [{
@@ -38,7 +38,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 		}
 
 		btns.push({
-			text: '<i class="bicon-off"></i> ' + _('ms2_btn_publish')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-power-off' : 'bicon-off') + '"></i> ' + _('ms2_btn_publish')
 			,id: 'minishop2-panel-btn-publish'
 			,handler: this.publishProduct
 			,hidden: !cfg.canPublish || cfg.record.published
@@ -47,7 +47,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 			,cls: 'btn-orange'
 		});
 		btns.push({
-			text: '<i class="bicon-off"></i> ' + _('ms2_btn_unpublish')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-power-off' : 'bicon-off') + '"></i> ' + _('ms2_btn_unpublish')
 			,id: 'minishop2-panel-btn-unpublish'
 			,handler: this.unpublishProduct
 			,hidden: !cfg.canPublish || !cfg.record.published
@@ -58,7 +58,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="bicon-trash"></i> ' + _('ms2_btn_delete')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-trash-o' : 'bicon-trash') + '"></i> ' + _('ms2_btn_delete')
 			,id: 'minishop2-panel-btn-delete'
 			,handler: this.deleteProduct
 			,hidden: !cfg.canDelete || cfg.record.deleted
@@ -67,7 +67,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 			,cls: 'btn-brown'
 		});
 		btns.push({
-			text: '<i class="bicon-trash"></i> ' + _('ms2_btn_undelete')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-trash-o' : 'bicon-trash') + '"></i> ' + _('ms2_btn_undelete')
 			,id: 'minishop2-panel-btn-undelete'
 			,handler: this.undeleteProduct
 			,hidden: !cfg.canDelete || !cfg.record.deleted
@@ -78,14 +78,14 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="bicon-eye-open"></i> ' + _('ms2_btn_view')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-eye' : 'bicon-eye-open') + '"></i> ' + _('ms2_btn_view')
 			,handler: this.preview
 			,scope: this
 		});
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="bicon-file"></i>'
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-copy' : 'bicon-file') + '"></i>'
 			,handler: this.duplicateResource
 			,scope: this
 			,tooltip: _('ms2_btn_duplicate')
@@ -93,7 +93,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="bicon-arrow-left"></i>'
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-arrow-left' : 'bicon-arrow-left') + '"></i>'
 			,handler: this.prevPage
 			,disabled: !cfg.prev_page ? 1 : 0
 			,scope: this
@@ -101,29 +101,20 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 			,keys: [{key: 37,alt: true, scope: this, fn: this.prevPage}]
 		});
 		btns.push({
-			text: '<i class="bicon-arrow-up"></i>'
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-arrow-up' : 'bicon-arrow-up') + '"></i>'
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
 			,keys: [{key: 38,alt: true, scope: this, fn: this.upPage}]
 		});
 		btns.push({
-			text: '<i class="bicon-arrow-right"></i>'
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-arrow-right' : 'bicon-arrow-right') + '"></i>'
 			,handler: this.nextPage
 			,disabled: !cfg.next_page ? 1 : 0
 			,scope: this
 			,tooltip: _('ms2_btn_next')
 			,keys: [{key: 39,alt: true, scope: this, fn: this.nextPage}]
 		});
-		btns.push('-');
-
-		/*
-		 btns.push({
-		 text: '<i class="bicon-question-sign"></i>'
-		 ,handler: this.loadHelpPane
-		 ,tooltip: _('ms2_btn_help')
-		 });
-		 */
 
 		return btns;
 	}

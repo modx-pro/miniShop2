@@ -37,7 +37,7 @@ miniShop2.grid.Category = function(config) {
 		,stateId: 'minishop2-category-grid'
 		,stateEvents: ['columnresize']
 		,tbar: [{
-			text: '<i class="bicon-list"></i> ' + _('ms2_bulk_actions')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_bulk_actions')
 			,menu: [
 				{text: _('ms2_product_selected_publish'),handler: this.publishSelected,scope: this}
 				,{text: _('ms2_product_selected_unpublish'),handler: this.unpublishSelected,scope: this}
@@ -46,7 +46,7 @@ miniShop2.grid.Category = function(config) {
 				,{text: _('ms2_product_selected_undelete'),handler: this.undeleteSelected,scope: this}
 			]
 		},'-',{
-			text: '<i class="bicon-plus-sign"></i> ' + _('ms2_product_create')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-plus' : 'bicon-plus-sign') + '"></i> ' + _('ms2_product_create')
 			,handler: this.createProduct
 			,scope: this
 		},'->',{
@@ -62,7 +62,7 @@ miniShop2.grid.Category = function(config) {
 		},{
 			xtype: 'button'
 			,id: 'minishop2-product-clear'
-			,text: '<i class="bicon-remove-sign"></i>' // + _('ms2_search_clear')
+			,text: '<i class="'+ (MODx.modx23 ? 'icon icon-times' : 'bicon-remove-sign') + '"></i>' // + _('ms2_search_clear')
 			,listeners: {
 				click: {fn: this.clearFilter, scope: this}
 			}

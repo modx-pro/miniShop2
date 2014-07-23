@@ -14,6 +14,7 @@ input.disabled {color: #AAA !important;}
 .btn-green button {color: green;}
 .btn-red button {color: red;}
 .btn-brown button {color: brown;}
+.btn-orange button {color: darkgoldenrod;}
 
 .icon-mscategory .x-tree-node-icon, .icon-msproduct .x-tree-node-icon {background-image: url(../../img/mgr/ms2_icons.png) !important;}
 .icon-mscategory .x-tree-node-icon {background-position: -1px 0;}
@@ -108,18 +109,6 @@ input.disabled {color: #AAA !important;}
 .actions a.unpublish:hover {
 	color:darkgoldenrod;
 	text-shadow:0 1px 0 #fff;
-}
-
-.actions a.orange, .btn-orange button {
-	background:#febb4a;
-	background:linear-gradient(center bottom,#febb4a 0%,#feda71 100%);
-	border-color:#f5b74e #e7a93f #dfa138;
-	color:#996633;
-	text-shadow:0 1px 0 #fee1a0;
-}
-.actions a.orange:hover {
-	background:#fec95b;
-	background:linear-gradient(center bottom,#fec95b 0%,#fee1a0 100%);
 }
 
 .minishop2-category-list-item, .minishop2-product-list-item, .minishop2-user-list-item {

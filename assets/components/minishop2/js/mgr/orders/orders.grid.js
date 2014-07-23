@@ -24,7 +24,7 @@ miniShop2.grid.Orders = function(config) {
 		,plugins: this.exp
 		,columns: this.getColumns()
 		,tbar: [{
-				text: '<i class="bicon-list"></i> ' + _('ms2_bulk_actions')
+				text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_bulk_actions')
 				,menu: [
 				/*{
 					text: _('ms2_product_selected_status')
@@ -57,7 +57,7 @@ miniShop2.grid.Orders = function(config) {
 			},{
 				xtype: 'button'
 				,id: 'minishop2-orders-clear'
-				,text: '<i class="bicon-remove-sign"></i>'/* + _('ms2_search_clear')*/
+				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-times' : 'bicon-remove-sign') + '"></i>'/* + _('ms2_search_clear')*/
 				,listeners: {
 					click: {fn: this.clearFilter, scope: this}
 				}
@@ -152,10 +152,9 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 				case 'delete':
 					this.removeOrder(this,e);
 					break;
-				default:
-					break;
 			}
 		}
+		this.processEvent('click', e);
 	}
 
 
