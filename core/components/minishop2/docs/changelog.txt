@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.8 rc
+==============
+- Fixed controllers for work with MODX 2.3.
+
 2.1.8 beta
 ==============
 - Added field "name" in object msOrderProduct for storing pagetitle of the product.

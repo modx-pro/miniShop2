@@ -5,9 +5,9 @@ $menus = array();
 $tmp = array(
 	'minishop2' => array(
 		'description' => 'ms2_menu_desc',
-		'parent' => '',
-		'handler' => 'return false;',
-		'menuindex' => 2,
+		'parent' => 'components',
+		//'handler' => 'return false;',
+		'icon' => '<i class="icon-shopping-cart icon icon-large"></i>',
 		'action' => array(
 			'controller' => 'index'
 		)
@@ -51,7 +51,8 @@ foreach ($tmp as $k => $v) {
 	$menu->fromArray(array_merge(array(
 		'text' => $k,
 		'parent' => 'components',
-		'icon' => 'images/icons/plugin.gif',
+		'namespace' => PKG_NAME_LOWER,
+		'icon' => '',
 		'menuindex' => 0,
 		'params' => '',
 		'handler' => '',
