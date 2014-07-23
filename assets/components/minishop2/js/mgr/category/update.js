@@ -22,6 +22,7 @@ Ext.extend(miniShop2.page.UpdateCategory,MODx.page.UpdateResource, {
 				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-check' : 'bicon-ok') + '"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
+				,cls: 'primary-button'
 				,keys: [{
 					key: MODx.config.keymap_save || 's'
 					,ctrl: true
