@@ -173,10 +173,14 @@ miniShop2.view.ProductImages = function(config) {
 			,limit: config.pageSize || 10
 		}
 		,loadingText: _('loading')
-		,tpl: this.templates.thumb
 		,enableDD: true
 		,multiSelect: true
-		,listeners: {}
+		,tpl: this.templates.thumb
+		,itemSelector: 'div.modx-browser-thumb-wrap'
+		,listeners: {
+			selectionchange: {fn:this.showDetails, scope:this, buffer:100}
+			,dblclick: config.onSelect || {fn:Ext.emptyFn,scope:this}
+		}
 		,prepareData: this.formatData.createDelegate(this)
 	});
 	miniShop2.view.ProductImages.superclass.constructor.call(this,config);
@@ -372,8 +376,8 @@ Ext.extend(miniShop2.view.ProductImages,MODx.DataView,{
 	,_initTemplates: function() {
 		this.templates.thumb = new Ext.XTemplate(
 			'<tpl for=".">'
-				,'<div class="modx-pb-thumb-wrap" id="ms2-product-image-{id}">'
-					,'<div class="modx-gal-item-thumb">'
+				,'<div class="modx-browser-thumb-wrap modx-pb-thumb-wrap" id="ms2-product-image-{id}">'
+					,'<div class="modx-browser-thumb modx-gal-item-thumb">'
 						,'<img src="{thumbnail}" title="{name}" />'
 					,'</div>'
 					,'<span>{shortName}</span>'
@@ -465,11 +469,10 @@ miniShop2.window.UpdateImage = function(config) {
 		,id: this.ident
 		,closeAction: 'close'
 		,width: 450
-		,height: 350
+		,autoHeight: true
 		,url: miniShop2.config.connector_url
 		,action: 'mgr/gallery/update'
 		,layout: 'anchor'
-		,autoHeight: false
 		,fields: [
 			{xtype: 'hidden',name: 'id',id: this.ident+'-id'}
 			,{xtype: 'textfield',fieldLabel: _('ms2_gallery_filename'),name: 'file',id: this.ident+'-file',anchor: '100%'}
@@ -751,13 +754,7 @@ Ext.extend(miniShop2.panel.Plupload,MODx.Panel, {
 	}
 
 	,fireAlert: function() {
-		Ext.MessageBox.show({
-			title: _('ms2_gallery_errors')
-			,msg: this.errors
-			,buttons: Ext.Msg.OK
-			,modal: false
-			,minWidth: 400
-		});
+		MODx.msg.alert(_('ms2_gallery_errors'), this.errors);
 	}
 
 });
