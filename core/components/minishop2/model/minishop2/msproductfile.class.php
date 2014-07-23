@@ -219,6 +219,11 @@ class msProductFile extends xPDOSimpleObject {
 				'Could not remove file at "'.$this->get('path').$this->get('file').'": '.$this->mediaSource->errors['file']
 			);
 		}
+		$children = $this->xpdo->getIterator('msProductFile', array('parent' => $this->get('id')));
+		/** @var msProductFile $child */
+		foreach ($children as $child) {
+			$child->remove();
+		}
 
 		return parent::remove($ancestors);
 	}

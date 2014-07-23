@@ -8,6 +8,7 @@ Changelog for miniShop2.
 - Fixed sorting products in category grid by clicking on column header.
 - Disabled Bootstrap icons for MODX 2.3.
 - Fixed product gallery for MODX 2.3.
+- Fixed issue with deleting product files children in MODX 2.3.
 
 2.1.8 beta
 ==============
