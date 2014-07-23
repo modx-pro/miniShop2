@@ -14,7 +14,7 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 
 		if (cfg.canSave == 1) {
 			btns.push({
-				process: MODx.action['welcome'] == 'welcome' ? 'resource/create' : 'create'
+				process: MODx.modx23 ? 'resource/create' : 'create'
 				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-check' : 'bicon-ok') + '"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
