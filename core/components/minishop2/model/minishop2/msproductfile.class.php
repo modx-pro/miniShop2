@@ -122,7 +122,7 @@ class msProductFile extends xPDOSimpleObject {
 	 * @return bool
 	 */
 	public function saveThumbnail($raw_image, $options = array()) {
-		$filename = preg_replace('/\..*$/', '', $this->get('file')) . '.' . $options['f'];
+		$filename = pathinfo($this->get('file'),PATHINFO_FILENAME) . '.' . $options['f'];
 		$path = $this->get('path') . $options['w'] .'x'.$options['h'] .'/';
 
 		/* @var msProductFile $product_file */
