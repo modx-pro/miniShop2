@@ -34,7 +34,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 
 		/* @var msProduct $product*/
 		$product = $this->modx->newObject('msProduct');
-		$product_fields = array_merge($product->getAllFieldsNames(), array('actions','action_edit','className','preview_url','cls','vendor_name','category_name'));
+		$product_fields = array_merge($product->getAllFieldsNames(), array('actions','className','preview_url','cls','vendor_name','category_name'));
 
 		if (!$category_grid_fields = $this->modx->getOption('ms2_category_grid_fields')) {
 			$category_grid_fields = 'id,pagetitle,article,price,weight,image';

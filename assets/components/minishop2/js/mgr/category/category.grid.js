@@ -138,8 +138,7 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 		var elm = t.className.split(' ')[0];
 		if(elm == 'controlBtn') {
 			var action = t.className.split(' ')[1];
-			var record = this.getSelectionModel().getSelected();
-			this.menu.record = record;
+			this.menu.record = this.getSelectionModel().getSelected();
 			switch (action) {
 				case 'delete':
 					this.deleteProduct();
@@ -159,11 +158,9 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 				case 'view':
 					this.viewProduct();
 					break;
-				default:
-					window.location = record.data.edit_action;
-					break;
 			}
 		}
+		this.processEvent('click', e);
 	}
 
 	,search: function(tf, nv, ov) {

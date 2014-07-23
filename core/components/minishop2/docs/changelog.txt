@@ -4,6 +4,8 @@ Changelog for miniShop2.
 ==============
 - Fixed controllers for MODX 2.3.
 - Fixed routes to processors for MODX 2.3.
+- Fixed product getlist processor for MODX 2.3.
+- Fixed sorting products in category grid by clicking on column header.
 
 2.1.8 beta
 ==============

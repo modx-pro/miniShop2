@@ -10,18 +10,13 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 	public $languageTopics = array('default','minishop2:product');
 	public $defaultSortField = 'menuindex';
 	public $defaultSortDirection  = 'ASC';
-	/** @var modAction $editAction */
-	public $editAction;
 	public $parent = 0;
 
 
 	/** {@inheritDoc} */
 	public function initialize() {
-		$this->editAction = $this->modx->getObject('modAction',array(
-			'namespace' => 'core',
-			'controller' => 'resource/update',
-		));
 		if (!$this->getProperty('limit')) {$this->setProperty('limit', 20);}
+
 		return parent::initialize();
 	}
 
@@ -158,7 +153,6 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 			$resourceArray['price'] = round($resourceArray['price'],2);
 			$resourceArray['old_price'] = round($resourceArray['old_price'],2);
 			$resourceArray['weight'] = round($resourceArray['weight'],3);
-			$resourceArray['action_edit'] = '?a='.$this->editAction->get('id').'&action=post/update&id='.$resourceArray['id'];
 
 			$this->modx->getContext($resourceArray['context_key']);
 			$resourceArray['preview_url'] = $this->modx->makeUrl($resourceArray['id'],$resourceArray['context_key']);
