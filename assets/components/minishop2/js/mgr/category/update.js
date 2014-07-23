@@ -412,7 +412,7 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 				if (e == 'yes') {
 					var nt = t.getValue();
 					var f = Ext.getCmp('modx-page-update-resource');
-					f.config.action = 'reload';
+					f.config.action = MODx.modx23 ? 'resource/reload' : 'reload';
 					MODx.activePage.submitForm({
 						success: {fn:function(r) {
 							var page = MODx.action ? MODx.action[r.result.object.action] : r.result.object.action;
@@ -428,6 +428,7 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 				}
 			},this);
 		}
+		return true;
 	}
 
 });
