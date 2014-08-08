@@ -226,10 +226,10 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 	,duplicateProduct: function(btn,e) {
 		MODx.msg.confirm({
-			url: MODx.config.connectors_url+'resource/index.php'
+			url: MODx.modx23 ? MODx.config.connector_url : MODx.config.connectors_url + 'resource/index.php'
 			,text: _('ms2_product_duplicate_confirm')
 			,params: {
-				action: 'duplicate'
+				action: MODx.modx23 ? 'resource/duplicate' : 'duplicate'
 				,id: this.record.id
 			}
 			,listeners: {
