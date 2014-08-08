@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.1.8 rc2
+2.1.8 pl
 ==============
 - Fixed controllers for MODX 2.3.
 - Fixed routes to processors for MODX 2.3.
@@ -9,6 +9,7 @@ Changelog for miniShop2.
 - Disabled Bootstrap icons for MODX 2.3.
 - Fixed product gallery for MODX 2.3.
 - Fixed issue with deleting product files children in MODX 2.3.
+- Fixed "autocomplete_err_noquery" error in MODX 2.3.
 
 2.1.8 beta
 ==============
