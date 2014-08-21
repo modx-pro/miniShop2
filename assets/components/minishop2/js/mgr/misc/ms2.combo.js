@@ -209,8 +209,8 @@ miniShop2.combo.Options = function(config) {
 		,valueField: 'value'
 		,triggerAction: 'all'
 		,extraItemCls: 'x-tag'
-		,expandBtnCls: 'x-form-trigger'
-		,clearBtnCls: 'x-form-trigger'
+		,expandBtnCls: MODx.modx23 ? 'x-form-trigger' : 'x-superboxselect-btn-expand'
+		,clearBtnCls: MODx.modx23 ? 'x-form-trigger' : 'x-superboxselect-btn-clear'
 		,listeners: {
 			newitem: function(bs,v, f) {bs.addItem({tag: v});}
 			,select: {fn:MODx.fireResourceFormChange, scope:this}

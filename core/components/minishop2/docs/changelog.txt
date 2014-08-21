@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.1.8 pl1
+2.1.8 pl2
 ==============
 - Fixed controllers for MODX 2.3.
 - Fixed routes to processors for MODX 2.3.
