@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.1.8 pl2
+2.1.8 pl3
 ==============
 - Fixed controllers for MODX 2.3.
 - Fixed routes to processors for MODX 2.3.
@@ -11,6 +11,7 @@ Changelog for miniShop2.
 - Fixed issue with deleting product files children in MODX 2.3.
 - Fixed "autocomplete_err_noquery" error in MODX 2.3.
 - [#148] Fixed duplicate connector.
+- Fixed work of "minishop2-combo-user" in MODX 2.3.
 
 2.1.8 beta
 ==============

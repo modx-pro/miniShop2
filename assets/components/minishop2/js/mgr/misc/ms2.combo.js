@@ -11,24 +11,27 @@ miniShop2.combo.User = function(config) {
 		,anchor: '99%'
 		,fields: ['username','id','fullname']
 		,pageSize: 20
-		,url: MODx.config.connectors_url + 'security/user.php'
+		,url: MODx.modx23
+			? MODx.config.connector_url
+			: MODx.config.connectors_url + 'security/user.php'
 		,typeAhead: true
 		,editable: true
 		,action: 'getList'
 		,allowBlank: true
 		,baseParams: {
-			action: 'getlist'
+			action: MODx.modx23
+				? 'security/user/getlist'
+				: 'getlist'
 			,combo: 1
 			,id: config.value
 			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="x-combo-list-item minishop2-user-list-item">'
-				+'<span><small>({id})</small> <b>{username}</b> ({fullname})</span>'
+			+'<tpl for="."><div class="x-combo-list-item">'
+				+'<small>({id})</small> <b>{username}</b><br/>{fullname}</span>'
 			+'</div></tpl>',{
 			compiled: true
 		})
-		,itemSelector: 'div.minishop2-user-list-item'
 	});
 	miniShop2.combo.User.superclass.constructor.call(this,config);
 };
