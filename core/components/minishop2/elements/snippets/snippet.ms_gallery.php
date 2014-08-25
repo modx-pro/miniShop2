@@ -74,7 +74,7 @@ foreach ($rows as $k => $row) {
 	if (isset($row['type']) && $row['type'] == 'image') {
 		$q = $modx->newQuery('msProductFile', array('parent' => $row['id']));
 		$q->select('url');
-		if(count($resolution)>0 && $q->prepare() && $q->stmt->execute() && !$q->stmt->rowCount()){
+		if(count($resolution)>0 && $q->prepare() && $q->stmt->execute() && $q->stmt->rowCount()<count($resolution)){
 			$modx->getObject('msProductFile', $row['id'])->generateThumbnails();
 	    	}
 		if ($q->prepare() && $q->stmt->execute()) {
