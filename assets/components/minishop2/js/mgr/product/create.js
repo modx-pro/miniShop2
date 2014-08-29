@@ -141,10 +141,18 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 		});
 
 		if (MODx.config.tvs_below_content == 1) {
-			var tvs = this.getTemplateVariablesPanel(config);
-			tvs.style = 'margin-top: 10px';
-			its.push(tvs);
-		}
+            var tvs = this.getTemplateVariablesPanel(config);
+            tvs.style = 'margin-top: 0;' + tvs.style;
+            its.push({
+                title: _('tmplvars')
+                ,id: 'modx-resource-content'
+                ,autoHeight: true
+                ,layout: 'form'
+                ,collapsible: true
+                ,animCollapse: false
+                ,items: tvs
+            });
+        }
 		return its;
 	}
 
