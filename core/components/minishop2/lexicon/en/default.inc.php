@@ -78,6 +78,7 @@ $_lang['ms2_product'] = 'Product of the shop';
 $_lang['ms2_product_type'] = 'Product of the shop';
 $_lang['ms2_product_create_here'] = 'Product of the category';
 $_lang['ms2_product_create'] = 'Add product';
+$_lang['ms2_products'] = 'Products';
 
 $_lang['ms2_frontend_currency'] = 'USD';
 $_lang['ms2_frontend_weight_unit'] = 'pt.';

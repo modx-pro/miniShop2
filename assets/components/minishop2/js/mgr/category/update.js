@@ -297,6 +297,13 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 
 	getFields: function(config) {
 		var it = [];
+        it.push({
+            title: _('ms2_products')
+            ,cls: 'modx-resource-tab'
+            ,layout: 'anchor'
+            ,bodyCssClass: 'tab-panel-wrapper main-wrapper'
+            ,items: this.getProducts(config)
+        });
 		it.push({
 			title: _('ms2_category')
 			,id: 'modx-resource-settings'
@@ -365,12 +372,6 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 			,items: it
 		});
 
-		var ct = this.getProducts(config);
-		if (ct) {
-			its.push(miniShop2.PanelSpacer);
-			its.push(ct);
-			its.push(miniShop2.PanelSpacer);
-		}
 		if (MODx.config.tvs_below_content == 1) {
 			var tvs = this.getTemplateVariablesPanel(config);
 			tvs.style = 'margin-top: 10px';
