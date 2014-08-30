@@ -296,95 +296,107 @@ miniShop2.panel.UpdateCategory = function(config) {
 Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 
 	getFields: function(config) {
-		var it = [];
-		it.push({
-			title: _('ms2_category')
-			,id: 'modx-resource-settings'
-			,cls: 'modx-resource-tab'
-			,layout: 'form'
-			,labelAlign: 'top'
-			,labelSeparator: ''
-			,bodyCssClass: 'tab-panel-wrapper main-wrapper'
-			,autoHeight: true
-			,defaults: {
-				border: false
-				,msgTarget: 'side'
-				,width: 400
-			}
-			,items: this.getMainFields(config)
-		});
-		it.push({
-			title: _('settings')
-			,id: 'modx-minishop2-template'
-			,cls: 'modx-resource-tab'
-			,layout: 'form'
-			,labelAlign: 'top'
-			,labelSeparator: ''
-			,bodyCssClass: 'tab-panel-wrapper main-wrapper'
-			,autoHeight: true
-			,defaults: {
-				border: false
-				,msgTarget: 'side'
-				,width: 400
-			}
-			,items: this.getTemplateSettings(config)
-		});
-
-		if (miniShop2.config.show_comments) {
-			it.push({
-				title: _('comments')
-				,id: 'modx-tickets-comments'
-				,cls: 'modx-resource-tab'
-				,layout: 'form'
-				,labelAlign: 'top'
-				,labelSeparator: ''
-				,bodyCssClass: 'tab-panel-wrapper main-wrapper'
-				,autoHeight: true
-				,items: this.getComments(config)
-			});
-		}
-
-		if (config.show_tvs && MODx.config.tvs_below_content != 1) {
-			it.push(this.getTemplateVariablesPanel(config));
-		}
-		if (MODx.perm.resourcegroup_resource_list == 1) {
-			it.push(this.getAccessPermissionsTab(config));
-		}
+		var fields = miniShop2.panel.UpdateCategory.superclass.getFields.call(this,config);
+		var tabs = fields.filter(function (row) {
+            if(row.id == 'modx-resource-tabs') {
+                return row;
+            } else {
+                return false;
+            }
+        });
 		var its = [];
-		its.push(this.getPageHeader(config),{
-			id:'modx-resource-tabs'
-			,xtype: 'modx-tabs'
-			,forceLayout: true
-			,deferredRender: false
-			,collapsible: true
-			,itemId: 'tabs'
-			,stateful: MODx.config.ms2_category_remember_tabs == true
-			,stateId: 'minishop2-category-upd-tabpanel'
-			,stateEvents: ['tabchange']
-			,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
-			,items: it
-		});
-
-		var ct = this.getProducts(config);
-		if (ct) {
-			its.push(miniShop2.PanelSpacer);
-			its.push(ct);
-			its.push(miniShop2.PanelSpacer);
-		}
-		if (MODx.config.tvs_below_content == 1) {
-            var tvs = this.getTemplateVariablesPanel(config);
-            tvs.style = 'margin-top: 0;' + tvs.style;
-            its.push({
-                title: _('tmplvars')
-                ,id: 'modx-resource-content'
-                ,autoHeight: true
+        if (tabs != false && tabs[0]) {
+            if (miniShop2.config.show_comments) {
+                tabs[0].items.unshift({
+                    title: _('comments')
+                    ,id: 'modx-tickets-comments'
+                    ,cls: 'modx-resource-tab'
+                    ,layout: 'form'
+                    ,labelAlign: 'top'
+                    ,labelSeparator: ''
+                    ,bodyCssClass: 'tab-panel-wrapper main-wrapper'
+                    ,autoHeight: true
+                    ,items: this.getComments(config)
+                });
+            }
+            tabs[0].items.unshift({
+                title: _('settings')
+                ,id: 'modx-minishop2-template'
+                ,cls: 'modx-resource-tab'
                 ,layout: 'form'
-                ,collapsible: true
-                ,animCollapse: false
-                ,items: tvs
+                ,labelAlign: 'top'
+                ,labelSeparator: ''
+                ,bodyCssClass: 'tab-panel-wrapper main-wrapper'
+                ,autoHeight: true
+                ,defaults: {
+                    border: false
+                    ,msgTarget: 'side'
+                    ,width: 400
+                }
+                ,items: this.getTemplateSettings(config)
             });
+            tabs[0].items.unshift({
+                title: _('ms2_category')
+                ,id: 'modx-resource-settings'
+                ,cls: 'modx-resource-tab'
+                ,layout: 'form'
+                ,labelAlign: 'top'
+                ,labelSeparator: ''
+                ,bodyCssClass: 'tab-panel-wrapper main-wrapper'
+                ,autoHeight: true
+                ,defaults: {
+                    border: false
+                    ,msgTarget: 'side'
+                    ,width: 400
+                }
+                ,items: this.getMainFields(config)
+            });
+			Ext.each(tabs[0].items, function(tab, index) {
+		        console.log(tab);
+		        if(typeof tab !== 'undefined' && tab.id == 'modx-page-settings'){
+		            tabs[0].items.splice(index, 1);
+		        }
+            });
+            if (config.show_tvs && MODx.config.tvs_below_content != 1) {
+                tabs[0].items.push(this.getTemplateVariablesPanel(config));
+            }
+            if (MODx.perm.resourcegroup_resource_list == 1) {
+                tabs[0].items.push(this.getAccessPermissionsTab(config));
+            }
+            its.push(this.getPageHeader(config),{
+                id:'modx-resource-tabs'
+                ,xtype: 'modx-tabs'
+                ,forceLayout: true
+                ,deferredRender: false
+                ,collapsible: true
+                ,itemId: 'tabs'
+                ,stateful: MODx.config.ms2_category_remember_tabs == true
+                ,stateId: 'minishop2-category-upd-tabpanel'
+                ,stateEvents: ['tabchange']
+                ,getState:function() {return { activeTab:this.items.indexOf(this.getActiveTab())};}
+                ,items: tabs[0].items
+            });
+            if (MODx.config.tvs_below_content == 1) {
+                var tvs = this.getTemplateVariablesPanel(config);
+                tvs.style = 'margin-top: 0;' + tvs.style;
+                its.push({
+                    title: _('tmplvars')
+                    ,id: 'modx-resource-content'
+                    ,autoHeight: true
+                    ,layout: 'form'
+                    ,collapsible: true
+                    ,animCollapse: false
+                    ,items: tvs
+                });
+            }
+            var ct = this.getProducts(config);
+            if (ct) {
+                its.push(miniShop2.PanelSpacer);
+                its.push(ct);
+                its.push(miniShop2.PanelSpacer);
+            }
         }
-		return its;
+        return its;
 	}
 
 	,getProducts: function(config) {
