@@ -3,7 +3,6 @@ miniShop2.page.Settings = function(config) {
 	Ext.applyIf(config,{
 		components: [{
 			xtype: 'minishop2-panel-settings'
-			,renderTo: 'minishop2-panel-settings-div'
 		}]
 	});
 	miniShop2.page.Settings.superclass.constructor.call(this,config);
@@ -17,14 +16,14 @@ miniShop2.panel.Settings = function(config) {
 		border: false
 		,deferredRender: true
 		,baseCls: 'modx-formpanel'
+        ,cls: 'container'
 		,items: [{
 			html: '<h2>'+_('minishop2') + ' :: ' + _('ms2_settings')+'</h2>'
 			,border: false
-			,cls: 'modx-page-header container'
+			,cls: 'modx-page-header'
 		},{
 			xtype: 'modx-tabs'
-			,bodyStyle: 'padding: 5px'
-			,defaults: { border: false ,autoHeight: true }
+			,defaults: { border: false ,autoHeight: true, layout: 'anchor' }
 			,border: true
 			,hideMode: 'offsets'
 			,stateful: true
@@ -38,9 +37,9 @@ miniShop2.panel.Settings = function(config) {
 					html: '<p>'+_('ms2_deliveries_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
-					,bodyStyle: 'margin-bottom: 10px'
 				},{
 					xtype: 'minishop2-grid-delivery'
+                    ,cls: 'main-wrapper'
 				}]
 			},{
 				title: _('ms2_payments')
@@ -49,9 +48,9 @@ miniShop2.panel.Settings = function(config) {
 					html: '<p>'+_('ms2_payments_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
-					,bodyStyle: 'margin-bottom: 10px'
 				},{
 					xtype: 'minishop2-grid-payment'
+                    ,cls: 'main-wrapper'
 				}]
 			},{
 				title: _('ms2_statuses')
@@ -60,9 +59,9 @@ miniShop2.panel.Settings = function(config) {
 					html: '<p>'+_('ms2_statuses_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
-					,bodyStyle: 'margin-bottom: 10px'
 				},{
 					xtype: 'minishop2-grid-status'
+                    ,cls: 'main-wrapper'
 				}]
 			},{
 				title: _('ms2_vendors')
@@ -71,9 +70,9 @@ miniShop2.panel.Settings = function(config) {
 					html: '<p>'+_('ms2_vendors_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
-					,bodyStyle: 'margin-bottom: 10px'
 				},{
 					xtype: 'minishop2-grid-vendor'
+                    ,cls: 'main-wrapper'
 				}]
 			},{
 				title: _('ms2_links')
@@ -82,9 +81,9 @@ miniShop2.panel.Settings = function(config) {
 					html: '<p>'+_('ms2_links_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
-					,bodyStyle: 'margin-bottom: 10px'
 				},{
 					xtype: 'minishop2-grid-link'
+                    ,cls: 'main-wrapper'
 				}]
 			}]
 		}]
