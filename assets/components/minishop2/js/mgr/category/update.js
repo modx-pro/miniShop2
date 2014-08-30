@@ -305,6 +305,7 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
             }
         });
 		var its = [];
+		var exclude_id_arr = ['modx-page-settings'];
         if (tabs != false && tabs[0]) {
             if (miniShop2.config.show_comments) {
                 tabs[0].items.unshift({
@@ -351,11 +352,12 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
                 }
                 ,items: this.getMainFields(config)
             });
-			Ext.each(tabs[0].items, function(tab, index) {
-		        console.log(tab);
-		        if(typeof tab !== 'undefined' && tab.id == 'modx-page-settings'){
-		            tabs[0].items.splice(index, 1);
-		        }
+			Ext.each(exclude_id_arr, function(id, idx) {
+    			Ext.each(tabs[0].items, function(tab, index) {
+    		        if(typeof tab !== 'undefined' && tab.id == id){
+        		        tabs[0].items.splice(index, 1);
+    		        }
+                });
             });
             if (config.show_tvs && MODx.config.tvs_below_content != 1) {
                 tabs[0].items.push(this.getTemplateVariablesPanel(config));
