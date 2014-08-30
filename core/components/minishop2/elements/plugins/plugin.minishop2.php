@@ -51,6 +51,7 @@ switch ($modx->event->name) {
 		}
 
 		if ($isAjax) {
+            header('Content-Type: application/json; charset=UTF-8');
 			@session_write_close();
 			exit($response);
 		}
