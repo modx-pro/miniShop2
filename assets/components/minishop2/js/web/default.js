@@ -271,7 +271,7 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 						miniShop2.Order.clean();
 						e.preventDefault();
 					})
-					.on('change', miniShop2.Order.order + ' input, textarea', function(e) {
+					.on('change', miniShop2.Order.order + ' input,' + miniShop2.Order.order + ' textarea', function(e) {
 						var $this = $(this);
 						var key = $this.attr('name');
 						var value = $this.val();
