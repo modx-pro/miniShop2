@@ -238,7 +238,7 @@ var methods = {
 			,longtitle: {xtype: 'textfield'}
 			,description: {xtype: 'textarea'}
 			,introtext: {xtype: 'textarea', description: '<b>[[*introtext]]</b><br />'+_('resource_summary_help')}
-			,content: {xtype: 'textarea',name: 'ta',id: 'ta',description:'', height: 400,grow: false,value: (config.record.content || config.record.ta) || ''}
+			,content: {xtype: 'textarea',name: 'ta',id: 'ta',description:'', height: 400,grow: false,value: (config.record.content || config.record.ta) || '',itemCls: 'contentblocks_replacement'}
 
 			,createdby: {xtype: 'minishop2-combo-user',value: config.record.createdby, description: '<b>[[*createdby]]</b><br/>' + _('ms2_product_createdby_help')}
 			,publishedby: {xtype: 'minishop2-combo-user',value: config.record.publishedby, description: '<b>[[*publishedby]]</b><br/>' + _('ms2_product_publishedby_help')}
