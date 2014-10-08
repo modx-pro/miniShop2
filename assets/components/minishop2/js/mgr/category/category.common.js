@@ -41,6 +41,7 @@ Ext.extend(miniShop2.panel.CategoryTemplateSettings,MODx.Panel,{
 			,height: 300
 			,grow: false
 			,value: config.record.content
+			,itemCls: 'contentblocks_replacement'
 		},{
 			id: 'modx-content-below'
 			,border: false
