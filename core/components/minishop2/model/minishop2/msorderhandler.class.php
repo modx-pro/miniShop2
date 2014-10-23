@@ -320,6 +320,7 @@ class msOrderHandler implements msOrderInterface {
 		$user_id = $this->ms2->getCustomerId();
 		$cart_status = $this->ms2->cart->status();
 		$delivery_cost = $this->getCost(false, true);
+		$cart_cost = $this->getCost(true, true) - $delivery_cost;
 		$createdon = date('Y-m-d H:i:s');
 		/* @var msOrder $order */
 		$order = $this->modx->newObject('msOrder');
@@ -329,10 +330,10 @@ class msOrderHandler implements msOrderInterface {
 			,'num' => $this->getnum()
 			,'delivery' => $this->order['delivery']
 			,'payment' => $this->order['payment']
-			,'cart_cost' => $cart_status['total_cost']
+			,'cart_cost' => $cart_cost
 			,'weight' => $cart_status['total_weight']
 			,'delivery_cost' => $delivery_cost
-			,'cost' => $cart_status['total_cost'] + $delivery_cost
+			,'cost' => $cart_cost + $delivery_cost
 			,'status' => 0
 			,'context' => $this->ms2->config['ctx']
 		));
