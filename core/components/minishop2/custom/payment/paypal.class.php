@@ -33,9 +33,9 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 		$params = array(
 			'METHOD' => 'SetExpressCheckout'
 			,'PAYMENTREQUEST_0_CURRENCYCODE' => $this->config['currency']
-			,'PAYMENTREQUEST_0_ITEMAMT' => $order->get('cart_cost')
-			,'PAYMENTREQUEST_0_SHIPPINGAMT' => $order->get('delivery_cost')
-			,'PAYMENTREQUEST_0_AMT' => $order->get('cost')
+			,'PAYMENTREQUEST_0_ITEMAMT' => str_replace(',', '.', $order->get('cart_cost'))
+			,'PAYMENTREQUEST_0_SHIPPINGAMT' => str_replace(',', '.', $order->get('delivery_cost'))
+			,'PAYMENTREQUEST_0_AMT' => str_replace(',', '.', $order->get('cost'))
 			,'RETURNURL' => $this->config['paymentUrl'] . '?action=success'
 			,'CANCELURL' => $this->config['paymentUrl'] . '?action=cancel'
 			,'PAYMENTREQUEST_0_INVNUM' => $order->get('id')
@@ -52,7 +52,7 @@ class PayPal extends msPaymentHandler implements msPaymentInterface {
 					$name = $product->get('pagetitle');
 				}
 				$params['L_PAYMENTREQUEST_0_NAME'.$i] = $name;
-				$params['L_PAYMENTREQUEST_0_AMT'.$i] = $item->get('price');
+				$params['L_PAYMENTREQUEST_0_AMT'.$i] = str_replace(',', '.', $item->get('price'));
 				$params['L_PAYMENTREQUEST_0_QTY'.$i] = $item->get('count');
 				$i++;
 			}

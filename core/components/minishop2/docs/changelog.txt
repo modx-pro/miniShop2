@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.1.9 beta
 ==============
 - Fixed modification of order price by delivery and payment in default order handler.
+- Fixed processing of decimal prices in PayPal payment class.
 
 2.1.8 pl3
 ==============
