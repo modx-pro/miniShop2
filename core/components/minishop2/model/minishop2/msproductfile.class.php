@@ -49,7 +49,7 @@ class msProductFile extends xPDOSimpleObject {
 
 		$this->file = $this->mediaSource->getObjectContents($this->get('path').$this->get('file'));
 		if (!empty($this->mediaSource->errors['file'])) {
-			return 'Could not retrieve file "'.$this->path.$this->file.'" from media source. '.$this->mediaSource->errors['file'];
+			return 'Could not retrieve file "'.$this->get('path').$this->get('file').'" from media source. '.$this->mediaSource->errors['file'];
 		}
 
 		require_once  MODX_CORE_PATH . 'model/phpthumb/modphpthumb.class.php';
