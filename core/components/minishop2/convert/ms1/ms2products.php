@@ -52,8 +52,17 @@ $pdoFetch->addTime('Retrieved <b>'.$i.'</b> vendors');
 
 
 // Converting products
-$sql = "UPDATE {$modx->getTableName('modResource')} SET `class_key` = 'msProduct' WHERE `template` IN (".implode(',',$goods_tpl).") AND `class_key` = 'modResource'";
-$modx->exec($sql);
+$c = $modx->newQuery('modResource');
+$c->command('update');
+$c->set(array(
+    'class_key' => 'msProduct'   
+));
+$c->where(array(
+    'template:IN' => $goods_tpl,
+    'class_key:IN' => array('modResource', 'modDocument'),
+));
+$c->prepare();
+$c->stmt->execute();
 
 $c = array('class_key' => 'msProduct');
 $count = $modx->getCount('msProduct', $c);
