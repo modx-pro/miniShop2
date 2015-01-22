@@ -116,12 +116,11 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 	public function handleFile() {
 		$stream = $name = null;
 
-		$contentType = isset($_SERVER["HTTP_CONTENT_TYPE"]) ? $_SERVER["HTTP_CONTENT_TYPE"] : $_SERVER["CONTENT_TYPE"];
+		$contentType = isset($_SERVER["HTTP_CONTENT_TYPE"]) ? $_SERVER["HTTP_CONTENT_TYPE"] : (isset($_SERVER["CONTENT_TYPE"]) ? $_SERVER["CONTENT_TYPE"] : '');
 
 		$file = $this->getProperty('file');
 		if (!empty($file) && file_exists($file)) {
-			$tmp = explode('/', $file);
-			$name = end($tmp);
+			$name = $this->getProperty('name', basename($file));
 			$stream = file_get_contents($file);
 		}
 		elseif (strpos($contentType, "multipart") !== false) {
