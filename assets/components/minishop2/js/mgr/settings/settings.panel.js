@@ -86,6 +86,24 @@ miniShop2.panel.Settings = function(config) {
 				},{
 					xtype: 'minishop2-grid-link'
 				}]
+			},{
+				title: _('ms2_features')
+				,deferredRender: true
+				,items: [{
+					html: '<p>'+_('ms2_features_intro')+'</p>'
+					,border: false
+					,bodyCssClass: 'panel-desc'
+					,bodyStyle: 'margin-bottom: 10px'
+				}, {
+					layout:'column',
+					items: [{
+						xtype: 'minishop2-tree-categories',
+						columnWidth: .20
+					},{
+						xtype: 'minishop2-grid-feature',
+						columnWidth: .80
+					}]
+				}]
 			}]
 		}]
 	});
