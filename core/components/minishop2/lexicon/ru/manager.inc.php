@@ -6,6 +6,7 @@
  * @subpackage lexicon
  */
 $_lang['ms2_menu_create'] = 'Создать';
+$_lang['ms2_menu_copy'] = 'Копировать';
 $_lang['ms2_menu_add'] = 'Добавить';
 $_lang['ms2_menu_update'] = 'Изменить';
 $_lang['ms2_menu_remove'] = 'Удалить';
@@ -17,6 +18,7 @@ $_lang['ms2_combo_select'] = 'Нажмите для выбора';
 $_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
 
 $_lang['ms2_id'] = 'Id';
+$_lang['ms2_key'] = 'Ключ';
 $_lang['ms2_name'] = 'Имя';
 $_lang['ms2_color'] = 'Цвет';
 $_lang['ms2_country'] = 'Страна';
@@ -26,6 +28,7 @@ $_lang['ms2_phone'] = 'Телефон';
 $_lang['ms2_fax'] = 'Факс';
 $_lang['ms2_email'] = 'Email';
 $_lang['ms2_active'] = 'Включен';
+$_lang['ms2_required'] = 'Обязательный';
 $_lang['ms2_class'] = 'Класс-обработчик';
 $_lang['ms2_description'] = 'Описание';
 $_lang['ms2_num'] = 'Номер';

@@ -23,6 +23,8 @@ class Minishop2SettingsManagerController extends miniShop2MainController {
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/status.grid.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/vendor.grid.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/link.grid.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/category.tree.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/feature.grid.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/settings.panel.js');
 		$this->addHtml('<script type="text/javascript">
 			Ext.onReady(function() {
