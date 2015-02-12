@@ -7,6 +7,7 @@
 
 		<aggregate alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local" />
 		<composite alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many" owner="local" />
+		<composite alias="CategoryFeatures" class="msCategoryFeature" local="id" foreign="feature_id" cardinality="many" owner="local" />
 	</object>
 
 
@@ -17,6 +18,7 @@
 		<composite alias="Data" class="msProductData" local="id" foreign="id" cardinality="one" owner="local" />
 		<composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many" owner="local" />
 		<composite alias="Options" class="msProductOption" local="id" foreign="product_id" cardinality="many" owner="local" />
+		<composite alias="Features" class="msProductFeature" local="id" foreign="product_id" cardinality="many" owner="local" />
 	</object>
 
 
@@ -386,4 +388,70 @@
 		<aggregate alias="User" class="modUser" local="id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
 
+	<object class="msFeature" table="ms3_features" extends="xPDOSimpleObject">
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+		<field key="caption" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="fulltext"/>
+		<field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+
+		<index alias="name" name="name" primary="false" unique="true" type="BTREE" >
+			<column key="name" length="" collation="A" null="false" />
+		</index>
+		<index alias="caption_ft" name="caption_ft" primary="false" unique="false" type="FULLTEXT">
+			<column key="caption" length="" collation="A" null="false" />
+		</index>
+		<index alias="type" name="name" primary="false" unique="false" type="BTREE" >
+			<column key="type" length="" collation="A" null="false" />
+		</index>
+
+
+		<composite alias="FeatureCategories" class="msCategoryFeature" local="id" foreign="feature_id" cardinality="many" owner="local" />
+		<composite alias="FeatureProducts" class="msProductFeature" local="id" foreign="product_id" cardinality="many" owner="local" />
+	</object>
+
+	<object class="msCategoryFeature" table="ms3_category_features" extends="xPDOSimpleObject">
+		<field key="feature_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="index" />
+		<field key="category_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="index" />
+		<field key="rank" dbtype="int" precision="10" phptype="integer" null="false" default="0" index="index" />
+		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" index="index" />
+		<field key="required" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" index="index" />
+
+		<index alias="category_feature" name="category_feature" primary="false" unique="true" type="BTREE" >
+			<column key="feature_id" length="" collation="A" null="false" />
+			<column key="category_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="rank" name="rank" primary="false" unique="false" type="BTREE">
+			<column key="rank" length="" collation="A" null="false" />
+		</index>
+		<index alias="rank" name="rank" primary="false" unique="false" type="BTREE">
+			<column key="rank" length="" collation="A" null="false" />
+		</index>
+		<index alias="active" name="active" primary="false" unique="false" type="BTREE">
+			<column key="active" length="" collation="A" null="false" />
+		</index>
+		<index alias="required" name="required" primary="false" unique="false" type="BTREE">
+			<column key="required" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Feature" class="msFeature" local="feature_id" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one" owner="foreign" />
+	</object>
+
+	<object class="msProductFeature" table="ms3_product_features" extends="xPDOSimpleObject">
+		<field key="feature_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="index" />
+		<field key="product_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="index" />
+		<field key="value" dbtype="text" phptype="string" null="false" index="fulltext" />
+
+		<index alias="product_feature" name="category_feature" primary="false" unique="false" type="BTREE" >
+			<column key="feature_id" length="" collation="A" null="false" />
+			<column key="product_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="value_ft" name="value_ft" primary="false" unique="false" type="FULLTEXT">
+			<column key="value" length="" collation="A" null="false" />
+		</index>
+
+		<aggregate alias="Feature" class="msFeature" local="feature_id" foreign="id" cardinality="one" owner="foreign" />
+		<aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign" />
+	</object>
+
 </model>
+
