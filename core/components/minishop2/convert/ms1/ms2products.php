@@ -70,8 +70,9 @@ if ($count) {
 	$i = 0;
 	/* @var modResource $row */
 	foreach ($goods as $row) {
+		$old_row = $row->toArray();
 		// Getting tags
-		$c = $modx->newQuery('ModTags', array('rid' => $row->id));
+		$c = $modx->newQuery('ModTags', array('rid' => $old_row['id']));
 		$c->select('tag');
 		if ($c->prepare() && $c->stmt->execute()) {
 			$tags = $c->stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -79,16 +80,16 @@ if ($count) {
 
 		$row->fromArray(array(
 			'class_key' => 'msProduct'
-			,'article' => $row->article
-			,'price' => $row->price
-			,'weight' => $row->weight
+			,'article' => $old_row['article']
+			,'price' => $old_row['price']
+			,'weight' => $old_row['weight']
 			,'tags' => !empty($tags) ? $tags : null
 			,'source' => 3																				// miniShop2 default media source id
 			,'show_in_tree' => 0
 			// You can comment these three items, if not needed
-			,'old_price' => $row->add1																	// Old price from add1
-			,'vendor' => array_key_exists(trim($row->add2), $vendors) ? $vendors[trim($row->add2)] : 0	// Vendor from add2
-			,'size' => array_map('trim', explode('||', $row->add3))										// Sizes from add3
+			,'old_price' => $old_row['add1']																// Old price from add1
+			,'vendor' => array_key_exists(trim($old_row['add2']), $vendors) ? $vendors[trim($old_row['add2'])] : 0	// Vendor from add2
+			,'size' => array_map('trim', explode('||', $old_row['add3']))										// Sizes from add3
 			// There howe you can import TV values
 			,'new' => $row->getTVValue('new')
 			,'popular' => $row->getTVValue('popular')
