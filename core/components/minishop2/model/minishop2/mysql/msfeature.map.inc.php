@@ -89,7 +89,7 @@ $xpdo_meta_map['msFeature']= array (
     array (
       'class' => 'msProductFeature',
       'local' => 'id',
-      'foreign' => 'product_id',
+      'foreign' => 'feature_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),

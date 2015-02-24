@@ -405,7 +405,7 @@
 
 
 		<composite alias="FeatureCategories" class="msCategoryFeature" local="id" foreign="feature_id" cardinality="many" owner="local" />
-		<composite alias="FeatureProducts" class="msProductFeature" local="id" foreign="product_id" cardinality="many" owner="local" />
+		<composite alias="FeatureProducts" class="msProductFeature" local="id" foreign="feature_id" cardinality="many" owner="local" />
 	</object>
 
 	<object class="msCategoryFeature" table="ms3_category_features" extends="xPDOSimpleObject">
