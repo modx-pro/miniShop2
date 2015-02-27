@@ -9,6 +9,7 @@ $xpdo_meta_map['msFeature']= array (
     'name' => '',
     'caption' => '',
     'type' => '',
+    'properties' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -38,6 +39,12 @@ $xpdo_meta_map['msFeature']= array (
       'null' => false,
       'default' => '',
       'index' => 'index',
+    ),
+    'properties' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'json',
+      'null' => true,
     ),
   ),
   'indexes' => 

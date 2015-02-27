@@ -392,6 +392,7 @@
 		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
 		<field key="caption" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="fulltext"/>
 		<field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
+        <field key="properties" dbtype="text" phptype="json" null="true" />
 
 		<index alias="name" name="name" primary="false" unique="true" type="BTREE" >
 			<column key="name" length="" collation="A" null="false" />
