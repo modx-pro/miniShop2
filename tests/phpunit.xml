@@ -1,0 +1,37 @@
+<phpunit colors="true"
+         convertErrorsToExceptions="false"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         verbose="true"
+         bootstrap="MODxTestHarness.php"
+         >
+    <testsuites>
+        <testsuite name="getlist">
+            <file>processors/msFeatureGetListProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="create">
+            <file>processors/msFeatureCreateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="update">
+            <file>processors/msFeatureUpdateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="updatefromgrid">
+            <file>processors/msFeatureUpdateFromGridProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="remove">
+            <file>processors/msFeatureRemoveProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="duplicate">
+            <file>processors/msFeatureDuplicateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="get">
+            <file>processors/msFeatureGetProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="gettypes">
+            <file>processors/msFeatureGetTypesProcessorTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
