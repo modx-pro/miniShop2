@@ -55,6 +55,22 @@ class msFeatureUpdateFromGridProcessorTest extends MODxProcessorTestCase {
             'name' => 'UnitTestFeature5',
             'caption' => 'UnitTestFeature5',
             'type' => '',
+            'properties' => null,
+        ), $response['object']);
+
+
+        $response = $this->getResponse(array('data' => $this->modx->toJSON(array(
+            'id' =>  $feature->get('id'),
+            'name' => 'UnitTestFeature5',
+            'caption' => 'UnitTestFeature6'
+        ))));
+        $this->assertEquals(true, $response['success']);
+        $this->assertEquals(array(
+            'id' => $feature->get('id'),
+            'name' => 'UnitTestFeature5',
+            'caption' => 'UnitTestFeature6',
+            'type' => '',
+            'properties' => null,
         ), $response['object']);
     }
 

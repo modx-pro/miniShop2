@@ -56,6 +56,7 @@ class msFeatureDuplicateProcessorTest extends MODxProcessorTestCase {
             'name' => 'Копия UnitTestFeature1',
             'caption' => 'UnitTestFeature1 Caption',
             'type' => 'number',
+            'properties' => null,
         ), $response['object']);
 
         $cats = $this->modx->getCollection('msCategoryFeature', array('feature_id' => $newId));

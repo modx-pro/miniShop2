@@ -1,6 +1,6 @@
 <?php
 
-class msFeatureGetListProcessorTest extends MODxProcessorTestCase {
+class msFeatureGetTypesProcessorTest extends MODxProcessorTestCase {
 
     public $processor = 'mgr/settings/feature/gettypes';
 

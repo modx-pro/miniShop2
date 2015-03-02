@@ -330,6 +330,26 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 			,items: this.getTemplateSettings(config)
 		});
 
+        it.push({
+            title: _('ms2_features')
+            ,deferredRender: true
+            ,items: [{
+                html: '<p>'+_('ms2_features_intro')+'</p>'
+                ,border: false
+                ,bodyCssClass: 'panel-desc'
+                ,bodyStyle: 'margin-bottom: 10px'
+            }, {
+                layout:'column',
+                items: [{
+                    xtype: 'minishop2-tree-categories',
+                    columnWidth: .20
+                },{
+                    xtype: 'minishop2-grid-feature',
+                    columnWidth: .80
+                }]
+            }]
+        });
+
 		if (miniShop2.config.show_comments) {
 			it.push({
 				title: _('comments')

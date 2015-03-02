@@ -39,7 +39,10 @@ class msFeatureGetListProcessor extends modObjectGetListProcessor {
         $data['categories'] = array();
         /** @var msCategoryFeature $cat */
         foreach ($categories as $cat) {
-            $data['categories'][] = $cat->getOne('Category')->get(array('id', 'pagetitle'));
+            $category = $cat->getOne('Category');
+            if ($category) {
+                $data['categories'][] = $category->get(array('id', 'pagetitle'));
+            }
         }
         return $data;
     }

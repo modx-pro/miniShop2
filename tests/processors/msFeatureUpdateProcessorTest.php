@@ -70,6 +70,7 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
             'name' => 'UnitTestFeature5',
             'caption' => 'UnitTestFeature5',
             'type' => '',
+            'properties' => null
         ), $response['object']);
 
     }

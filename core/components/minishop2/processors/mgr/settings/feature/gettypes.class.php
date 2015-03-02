@@ -1,6 +1,8 @@
 <?php
 
 class msFeatureGetTypesProcessor extends modObjectGetListProcessor {
+
+    public $languageTopics = array('minishop2:manager');
     /**
      * Get the data of the query
      * @return array
@@ -19,7 +21,7 @@ class msFeatureGetTypesProcessor extends modObjectGetListProcessor {
                 $name = str_replace('.class.php', '', $file);
                 $data['results'][] = array(
                     'name' => $name,
-                    'caption' => $this->modx->lexicon('ms_ft_'.$name),
+                    'caption' => $this->modx->lexicon('ms2_ft_'.$name),
                 );
             }
         }

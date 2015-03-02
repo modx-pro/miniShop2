@@ -40,7 +40,7 @@ miniShop2.grid.Feature = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/feature/getlist'
 		}
-		,fields: ['id','key','name','type','rank','active','allowblank']
+		,fields: ['id','name','caption','type','rank','active','required']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -48,12 +48,12 @@ miniShop2.grid.Feature = function(config) {
 		,autosave: true
 		,plugins: this.exp
 		,columns: [this.exp
-			,{header: _('ms2_id'),dataIndex: 'id',width: 50, sortable: true}
-			,{header: _('ms2_key'),dataIndex: 'key',width: 75, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
-			,{header: _('ms2_name'),dataIndex: 'name',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
-			,{header: _('ms2_type'),dataIndex: 'type',width: 100, renderer: this.renderType}
-			,{header: _('ms2_active'),dataIndex: 'active',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
-			,{header: _('ms2_required'),dataIndex: 'required',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
+			,{header: _('id'),dataIndex: 'id',width: 50, sortable: true}
+            ,{header: _('ms2_ft_name'),dataIndex: 'name',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
+			,{header: _('ms2_ft_caption'),dataIndex: 'caption',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
+			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 100, editor: {xtype: 'minishop2-combo-feature-types'}}
+			,{header: _('ms2_ft_active'),dataIndex: 'active',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
+			,{header: _('ms2_ft_required'),dataIndex: 'required',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
 
 		]
 		,tbar: [{
@@ -255,3 +255,24 @@ miniShop2.window.UpdateFeature = function(config) {
 };
 Ext.extend(miniShop2.window.UpdateFeature,MODx.Window);
 Ext.reg('minishop2-window-feature-update',miniShop2.window.UpdateFeature);
+
+miniShop2.combo.FeatureTypes = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        name: 'type'
+        ,hiddenName: 'type'
+        ,displayField: 'caption'
+        ,valueField: 'name'
+        ,pageSize: 20
+        ,fields: ['name','caption']
+        ,url: miniShop2.config.connector_url
+        ,baseParams: {
+            action: 'mgr/settings/feature/gettypes'
+        }
+        ,allowBlank: false
+    });
+    MODx.combo.Template.superclass.constructor.call(this,config);
+}
+
+Ext.extend(miniShop2.combo.FeatureTypes, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-feature-types',miniShop2.combo.FeatureTypes);

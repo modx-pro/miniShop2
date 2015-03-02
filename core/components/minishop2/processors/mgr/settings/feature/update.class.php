@@ -11,7 +11,7 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
             $this->addFieldError('name',$this->modx->lexicon($this->objectType.'_err_name_ns'));
         }
 
-        if ($this->doesAlreadyExist(array('name' => $name))) {
+        if (($this->object->get('name') != $name) && $this->doesAlreadyExist(array('name' => $name))) {
             $this->addFieldError('name',$this->modx->lexicon($this->objectType.'_err_ae',array('name' => $name)));
         }
 
