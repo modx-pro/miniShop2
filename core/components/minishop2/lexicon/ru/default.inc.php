@@ -43,7 +43,6 @@ $_lang['ms2_customer'] = 'Покупатель';
 $_lang['ms2_all'] = 'Все';
 $_lang['ms2_type'] = 'Тип';
 
-
 $_lang['ms2_btn_create'] = 'Создать';
 $_lang['ms2_btn_copy'] = 'Скопировать';
 $_lang['ms2_btn_save'] = 'Сохранить';
@@ -82,6 +81,8 @@ $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';
 $_lang['ms2_product_create_here'] = 'Товар категории';
 $_lang['ms2_product_create'] = 'Добавить товар';
+
+$_lang['ms2_feature_type'] = 'Тип свойства';
 
 $_lang['ms2_frontend_currency'] = 'руб.';
 $_lang['ms2_frontend_weight_unit'] = 'кг.';
