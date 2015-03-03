@@ -17,6 +17,31 @@ class msFeatureCreateProcessor extends modObjectCreateProcessor {
 
         return parent::beforeSet();
     }
+
+    public function getCategories() {
+        $categories = $this->getProperty('categories', false);
+        if ($categories) {
+            $categories = explode(',', $categories);
+        }
+        $categories = array_map('trim', $categories);
+
+        return $categories;
+    }
+
+    public function afterSave() {
+        $categories = $this->getCategories();
+        foreach ($categories as $category) {
+            $catObj = $this->modx->getObject('msCategory', $category);
+            if ($catObj) {
+                $catFtObj = $this->modx->newObject('msCategoryFeature');
+                $catFtObj->set('category_id', $category);
+                $this->object->addMany($catFtObj);
+            }
+        }
+        $this->object->save();
+
+        return parent::afterSave();
+    }
 }
 
 return 'msFeatureCreateProcessor';
