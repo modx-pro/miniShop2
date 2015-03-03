@@ -98,6 +98,7 @@ miniShop2.panel.Settings = function(config) {
 					layout:'column',
 					items: [{
 						xtype: 'minishop2-tree-categories',
+						id: 'minishop2-tree-categories-panel',
 						columnWidth: .20
 					},{
 						xtype: 'minishop2-grid-feature',

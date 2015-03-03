@@ -27,9 +27,9 @@ miniShop2.combo.User = function(config) {
 			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="x-combo-list-item">'
-				+'<small>({id})</small> <b>{username}</b><br/>{fullname}</span>'
-			+'</div></tpl>',{
+		+'<tpl for="."><div class="x-combo-list-item">'
+		+'<small>({id})</small> <b>{username}</b><br/>{fullname}</span>'
+		+'</div></tpl>',{
 			compiled: true
 		})
 	});
@@ -59,16 +59,16 @@ miniShop2.combo.Category = function(config) {
 			//,limit: 0
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="x-combo-list-item minishop2-category-list-item">'
-			+'<tpl if="parents">'
-					+'<span class="parents">'
-						+'<tpl for="parents">'
-							+'<nobr><small>{pagetitle} / </small></nobr>'
-						+'</tpl>'
-					+'</span>'
-			+'</tpl>'
-			+'<span><small>({id})</small> <b>{pagetitle}</b></span>'
-			+'</div></tpl>',{
+		+'<tpl for="."><div class="x-combo-list-item minishop2-category-list-item">'
+		+'<tpl if="parents">'
+		+'<span class="parents">'
+		+'<tpl for="parents">'
+		+'<nobr><small>{pagetitle} / </small></nobr>'
+		+'</tpl>'
+		+'</span>'
+		+'</tpl>'
+		+'<span><small>({id})</small> <b>{pagetitle}</b></span>'
+		+'</div></tpl>',{
 			compiled: true
 		})
 		,itemSelector: 'div.minishop2-category-list-item'
@@ -553,16 +553,16 @@ miniShop2.combo.Product = function(config) {
 			,id: config.value
 		}
 		,tpl: new Ext.XTemplate(''
-			+'<tpl for="."><div class="x-combo-list-item minishop2-product-list-item">'
-				+'<tpl if="parents">'
-					+'<span class="parents">'
-						+'<tpl for="parents">'
-							+'<nobr><small>{pagetitle} / </small></nobr>'
-						+'</tpl>'
-					+'</span>'
-			+'</tpl>'
-				+'<span><small>({id})</small> <b>{pagetitle}</b></span>'
-			+'</div></tpl>',{
+		+'<tpl for="."><div class="x-combo-list-item minishop2-product-list-item">'
+		+'<tpl if="parents">'
+		+'<span class="parents">'
+		+'<tpl for="parents">'
+		+'<nobr><small>{pagetitle} / </small></nobr>'
+		+'</tpl>'
+		+'</span>'
+		+'</tpl>'
+		+'<span><small>({id})</small> <b>{pagetitle}</b></span>'
+		+'</div></tpl>',{
 			compiled: true
 		})
 		,itemSelector: 'div.minishop2-product-list-item'
@@ -575,3 +575,28 @@ miniShop2.combo.Product = function(config) {
 };
 Ext.extend(miniShop2.combo.Product,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-product',miniShop2.combo.Product);
+
+
+miniShop2.combo.FeatureTypes = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		id: 'minishop2-combo-feature-type'
+		,fieldLabel: _('ms2_feature_type')
+		,name: 'type'
+		,hiddenName: 'type'
+		,displayField: 'caption'
+		,valueField: 'name'
+		,pageSize: 20
+		,fields: ['name','caption']
+		,url: miniShop2.config.connector_url
+		,baseParams: {
+			action: 'mgr/settings/feature/gettypes'
+		}
+		,allowBlank: false
+		,editable: true
+	});
+	miniShop2.combo.FeatureTypes.superclass.constructor.call(this,config);
+};
+
+Ext.extend(miniShop2.combo.FeatureTypes, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-feature-types',miniShop2.combo.FeatureTypes);

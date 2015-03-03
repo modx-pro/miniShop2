@@ -20,6 +20,7 @@ $_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
 $_lang['ms2_id'] = 'Id';
 $_lang['ms2_key'] = 'Ключ';
 $_lang['ms2_name'] = 'Имя';
+$_lang['ms2_caption'] = 'Заголовок';
 $_lang['ms2_color'] = 'Цвет';
 $_lang['ms2_country'] = 'Страна';
 $_lang['ms2_logo'] = 'Логотип';

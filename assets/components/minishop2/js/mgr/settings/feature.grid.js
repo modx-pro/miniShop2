@@ -20,7 +20,7 @@ miniShop2.grid.Feature = function(config) {
 					MODx.Ajax.request({
 						url: miniShop2.config.connector_url
 						,params: {
-							action: config.action || 'mgr/settings/status/sort'
+							action: config.action || 'mgr/settings/feature/sort'
 							,source: source
 							,target: target
 						}
@@ -40,7 +40,7 @@ miniShop2.grid.Feature = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/feature/getlist'
 		}
-		,fields: ['id','name','caption','type','rank','active','required']
+		,fields: ['id','name','caption','type','rank']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -49,12 +49,9 @@ miniShop2.grid.Feature = function(config) {
 		,plugins: this.exp
 		,columns: [this.exp
 			,{header: _('id'),dataIndex: 'id',width: 50, sortable: true}
-            ,{header: _('ms2_ft_name'),dataIndex: 'name',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
+			,{header: _('ms2_ft_name'),dataIndex: 'name',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
 			,{header: _('ms2_ft_caption'),dataIndex: 'caption',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
 			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 100, editor: {xtype: 'minishop2-combo-feature-types'}}
-			,{header: _('ms2_ft_active'),dataIndex: 'active',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
-			,{header: _('ms2_ft_required'),dataIndex: 'required',width: 50, editor: {xtype: 'combo-boolean', renderer: 'boolean'}}
-
 		]
 		,tbar: [{
 			text: _('ms2_btn_create')
@@ -127,10 +124,13 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 					success: {fn:function() { this.refresh(); },scope:this}
 				}
 			});
+		}else{
+			var tree = Ext.getCmp('minishop2-tree-modal-categories-window-create');
+			tree.getLoader().load(tree.root);
 		}
+
 		this.windows.createFeature.fp.getForm().reset();
 		this.windows.createFeature.show(e.target);
-		Ext.getCmp('minishop2-feature-type_desc-create').getEl().dom.innerText = '';
 	}
 
 	,copyFeature: function(btn,e){
@@ -151,11 +151,14 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 					success: {fn:function() { this.refresh(); },scope:this}
 				}
 			});
+		}else{
+			var tree = Ext.getCmp('minishop2-tree-modal-categories-window-update');
+			tree.getLoader().load(tree.root);
 		}
+
 		this.windows.updateFeature.fp.getForm().reset();
 		this.windows.updateFeature.fp.getForm().setValues(r);
 		this.windows.updateFeature.show(e.target);
-		Ext.getCmp('minishop2-feature-type_desc-update').getEl().dom.innerText = r.type ? _('ms2_feature_'+r.type+'_desc') : '';
 	}
 
 	,removeFeature: function(btn,e) {
@@ -176,22 +179,39 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 	}
 
 	,getFeatureFields: function(type) {
-		return [
-			{xtype: 'hidden',name: 'id', id: 'minishop2-feature-id-'+type}
-			,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-feature-name-'+type}
-			,{xtype: 'minishop2-combo-feature-type',fieldLabel: _('ms2_type'), name: 'type', allowBlank: false, anchor: '99%', id: 'minishop2-feature-type-'+type
-				,listeners: {
-					select: function(combo,row,value) {
-						Ext.getCmp('minishop2-feature-type_desc-'+type).getEl().dom.innerText = row.data.description;
+		return [{
+			layout:'column',
+			items: [{
+				xtype: 'minishop2-tree-modal-categories',
+				id: 'minishop2-tree-modal-categories-window-'+type,
+				baseParams: {
+					action: 'mgr/category/getnodes'
+					,type: type
+					,currentResource: MODx.request.id || 0
+					,currentAction: MODx.request.a || 0
+				},
+				columnWidth: .40
+			},{
+				layout: 'form',
+				columnWidth: .60,
+				labelWidth: 120,
+				items: [
+					{xtype: 'hidden',name: 'id', id: 'minishop2-feature-id-'+type}
+					,{xtype: 'hidden',name: 'categories', id: 'minishop2-feature-categories-'+type}
+					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-feature-name-'+type}
+					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-feature-caption-'+type}
+					,{xtype: 'minishop2-combo-feature-types', anchor: '99%', id: 'minishop2-combo-feature-types'+type}
+					,{xtype: 'checkboxgroup'
+						,fieldLabel: _('ms2_options')
+						,columns: 1
+						,items: [
+							{xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-feature-active-'+type}
+							,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-feature-required-'+type}
+						]
 					}
-				}
-				,disabled: type == 'update' ? 1 : 0
-			}
-			,{html: '',id: 'minishop2-feature-type_desc-'+type,
-				style: 'font-style: italic; padding: 10px; color: #555555;'
-			}
-			,{xtype: 'textarea', fieldLabel: _('ms2_description'), name: 'description', anchor: '99%', id: 'minishop2-feature-description-'+type}
-		];
+				]
+			}]
+		}];
 	}
 
 	,FilterByQuery: function(tf, nv, ov) {
@@ -222,6 +242,7 @@ miniShop2.window.CreateFeature = function(config) {
 		title: _('ms2_menu_create')
 		,id: this.ident
 		,width: 600
+		,minHeight: 500
 		,autoHeight: true
 		,labelAlign: 'left'
 		,labelWidth: 180
@@ -256,23 +277,68 @@ miniShop2.window.UpdateFeature = function(config) {
 Ext.extend(miniShop2.window.UpdateFeature,MODx.Window);
 Ext.reg('minishop2-window-feature-update',miniShop2.window.UpdateFeature);
 
-miniShop2.combo.FeatureTypes = function(config) {
-    config = config || {};
-    Ext.applyIf(config,{
-        name: 'type'
-        ,hiddenName: 'type'
-        ,displayField: 'caption'
-        ,valueField: 'name'
-        ,pageSize: 20
-        ,fields: ['name','caption']
-        ,url: miniShop2.config.connector_url
-        ,baseParams: {
-            action: 'mgr/settings/feature/gettypes'
-        }
-        ,allowBlank: false
-    });
-    MODx.combo.Template.superclass.constructor.call(this,config);
-}
+miniShop2.tree.ModalCategories = function(config) {
+	config = config || {};
+	Ext.applyIf(config,{
+		url: miniShop2.config.connector_url
+		,id: 'minishop2-modal-categories-tree'
+		,title: ''
+		,anchor: '100%'
+		,rootVisible: false
+		,expandFirst: true
+		,enableDD: false
+		,ddGroup: 'modx-treedrop-dd'
+		,remoteToolbar: false
+		,action: 'mgr/settings/feature/getcategorynodes'
+		,tbarCfg: {id: config.id ? config.id+'-tbar' : 'modx-tree-resource-tbar'}
+		,baseParams: {
+			action: 'mgr/settings/feature/getcategorynodes'
+			,currentResource: MODx.request.id || 0
+			,currentAction: MODx.request.a || 0
+		}
+		//,tbar: []
+		,listeners: {
+			checkchange: function(node, checked) {
+				this.mask.show();
+				var type = this.baseParams.type;
+				var categories = Ext.getCmp('minishop2-feature-categories-'+type);
+				if(categories.getValue() == ''){
+					var categoriesList = [];
+				}else{
+					var categoriesList = Ext.decode(categories.getValue());
+				}
 
-Ext.extend(miniShop2.combo.FeatureTypes, MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-feature-types',miniShop2.combo.FeatureTypes);
+				var index = categoriesList.indexOf(node.attributes.pk);
+
+				if(index > -1){
+					categoriesList.splice(index, 1);
+				}else{
+					categoriesList.push(node.attributes.pk);
+				}
+
+				categories.setValue(Ext.encode(categoriesList));
+				console.log(categories.getValue());
+				this.mask.hide();
+			}
+			,afterrender: function() {
+				this.mask = new Ext.LoadMask(this.getEl());
+			}
+		}
+	});
+	miniShop2.tree.ModalCategories.superclass.constructor.call(this,config);
+};
+Ext.extend(miniShop2.tree.ModalCategories, MODx.tree.Tree,{
+
+	_showContextMenu: function(n,e) {
+		n.select();
+		this.cm.activeNode = n;
+		this.cm.removeAll();
+		var m = [];
+		m.push({text: _('directory_refresh'),handler: function() {this.refreshNode(this.cm.activeNode.id,true);}});
+		this.addContextMenuItem(m);
+		this.cm.showAt(e.xy);
+		e.stopEvent();
+	}
+
+});
+Ext.reg('minishop2-tree-modal-categories',miniShop2.tree.ModalCategories);
