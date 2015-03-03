@@ -10,7 +10,7 @@ class msFeatureGetTypesProcessorTest extends MODxProcessorTestCase {
 
     public function testGetAllTypes() {
         $response = $this->getResponse(array());
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue($response['success']);
         $data = $response['results'];
         $this->assertGreaterThan(0, count($data));
         $this->assertTrue(isset($data[0]['name']));

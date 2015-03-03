@@ -26,13 +26,13 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
 
     public function testUpdateNotSpecifiedFeature() {
         $response = $this->getResponse(array());
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_ns'), $response['message']);
     }
 
     public function testUpdateNotExistedFeature() {
         $response = $this->getResponse(array('id' => 100500));
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_nfs'), $response['message']);
     }
 
@@ -42,7 +42,7 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
             'id' =>  $feature->get('id'),
             'name' => 'UnitTestFeature2',
         ));
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_ae'), $response['errors'][0]['msg']);
     }
 
@@ -52,7 +52,7 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
             'id' =>  $feature->get('id'),
             'name' => '',
         ));
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_name_ns'), $response['errors'][0]['msg']);
     }
 
@@ -64,7 +64,7 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
             'name' => 'UnitTestFeature5',
             'caption' => 'UnitTestFeature5'
         ));
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue($response['success']);
         $this->assertEquals(array(
             'id' => $id,
             'name' => 'UnitTestFeature5',

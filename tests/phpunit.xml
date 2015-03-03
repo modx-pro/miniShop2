@@ -33,5 +33,8 @@
         <testsuite name="gettypes">
             <file>processors/msFeatureGetTypesProcessorTest.php</file>
         </testsuite>
+        <testsuite name="category_duplicate">
+            <file>processors/msFeatureCategoryDuplicateProcessorTest.php</file>
+        </testsuite>
     </testsuites>
 </phpunit>

@@ -7,7 +7,7 @@
 
 		<aggregate alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local" />
 		<composite alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many" owner="local" />
-		<composite alias="CategoryFeatures" class="msCategoryFeature" local="id" foreign="feature_id" cardinality="many" owner="local" />
+		<composite alias="CategoryFeatures" class="msCategoryFeature" local="id" foreign="category_id" cardinality="many" owner="local" />
 	</object>
 
 

@@ -26,13 +26,13 @@ class msFeatureRemoveProcessorTest extends MODxProcessorTestCase {
 
     public function testRemoveNotSpecifiedFeature() {
         $response = $this->getResponse(array());
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_ns'), $response['message']);
     }
 
     public function testRemoveNotExistedFeature() {
         $response = $this->getResponse(array('id' => 100500));
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_nfs'), $response['message']);
     }
 
@@ -45,7 +45,7 @@ class msFeatureRemoveProcessorTest extends MODxProcessorTestCase {
         $response = $this->getResponse(array(
             'id' =>  $id,
         ));
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue($response['success']);
         $this->assertEquals(array(
             'id' => $id,
         ), $response['object']);

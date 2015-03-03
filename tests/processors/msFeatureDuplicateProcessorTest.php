@@ -29,13 +29,13 @@ class msFeatureDuplicateProcessorTest extends MODxProcessorTestCase {
 
     public function testDuplicateNotSpecifiedFeature() {
         $response = $this->getResponse(array());
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_ns'), $response['message']);
     }
 
     public function testDuplicateNotExistedFeature() {
         $response = $this->getResponse(array('id' => 100500));
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_nfs'), $response['message']);
     }
 

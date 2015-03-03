@@ -28,25 +28,25 @@ class msFeatureCreateProcessorTest extends MODxProcessorTestCase {
         $response = $this->getResponse(array(
             'name' => 'UnitTestUniqueFeature'
         ));
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue($response['success']);
         $data = $response['object'];
-        $this->assertEquals(true, isset($data['id']));
+        $this->assertTrue( isset($data['id']));
         $this->assertEquals('UnitTestUniqueFeature', $data['name']);
-        $this->assertEquals(true, isset($data['caption']));
-        $this->assertEquals(true, isset($data['type']));
+        $this->assertTrue( isset($data['caption']));
+        $this->assertTrue( isset($data['type']));
     }
 
     public function testCreateNonUniqueFeature() {
         $response = $this->getResponse(array(
             'name' => 'UnitTestFeature1'
         ));
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_ae'), $response['errors'][0]['msg']);
     }
 
     public function testCreateEmptyNameFeature() {
         $response = $this->getResponse(array());
-        $this->assertEquals(false, $response['success']);
+        $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_name_ns'), $response['errors'][0]['msg']);
     }
 

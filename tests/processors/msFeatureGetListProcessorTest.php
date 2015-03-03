@@ -26,25 +26,25 @@ class msFeatureGetListProcessorTest extends MODxProcessorTestCase {
 
     public function testGetAllFeatures() {
         $response = $this->getResponse(array());
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue( $response['success']);
         $data = $response['results'][0];
-        $this->assertEquals(true, isset($data['id']));
-        $this->assertEquals(true, isset($data['name']));
-        $this->assertEquals(true, isset($data['caption']));
-        $this->assertEquals(true, isset($data['type']));
+        $this->assertTrue( isset($data['id']));
+        $this->assertTrue( isset($data['name']));
+        $this->assertTrue( isset($data['caption']));
+        $this->assertTrue( isset($data['type']));
     }
 
     public function testEmptyCategoryFeatures() {
         $category = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestEmptyCategory'));
         $response = $this->getResponse(array('category' => $category->get('id')));
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue( $response['success']);
         $this->assertEquals(0, $response['total']);
     }
 
     public function testRankedCategoryFeatures() {
         $category = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $response = $this->getResponse(array('category' => $category->get('id'), 'sort' => 'rank'));
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue( $response['success']);
         $this->assertEquals(3, $response['total']);
         $this->assertEquals('UnitTestFeature3', $response['results'][0]['name']);
         $this->assertEquals('UnitTestFeature1', $response['results'][1]['name']);
@@ -57,7 +57,7 @@ class msFeatureGetListProcessorTest extends MODxProcessorTestCase {
     public function testRankByNameCategoryFeatures() {
         $category = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $response = $this->getResponse(array('category' => $category->get('id')));
-        $this->assertEquals(true, $response['success']);
+        $this->assertTrue( $response['success']);
         $this->assertEquals(3, $response['total']);
         $this->assertEquals('UnitTestFeature1', $response['results'][0]['name']);
         $this->assertEquals('UnitTestFeature2', $response['results'][1]['name']);
