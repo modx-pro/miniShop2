@@ -2,7 +2,7 @@
 
 require_once MODX_CORE_PATH.'model/modx/processors/resource/getnodes.class.php';
 
-class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
+class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
     protected $pid;
     protected $parent_id;
 
@@ -72,14 +72,14 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         $context->prepare();
         return array(
             'text' => $context->get('key')
-        ,'id' => $context->get('key') . '_0'
-        ,'pk' => $context->get('key')
-        ,'ctx' => $context->get('key')
-        ,'leaf' => false
-        ,'cls' => 'icon-context'
-        ,'iconCls' => $this->modx->getOption('mgr_tree_icon_context', null, 'tree-context')
-        ,'qtip' => $context->get('description') != '' ? strip_tags($context->get('description')) : ''
-        ,'type' => 'modContext'
+            ,'id' => $context->get('key') . '_0'
+            ,'pk' => $context->get('key')
+            ,'ctx' => $context->get('key')
+            ,'leaf' => false
+            ,'cls' => 'icon-context'
+            ,'iconCls' => $this->modx->getOption('mgr_tree_icon_context', null, 'tree-context')
+            ,'qtip' => $context->get('description') != '' ? strip_tags($context->get('description')) : ''
+            ,'type' => 'modContext'
         );
     }
 
@@ -157,4 +157,4 @@ class msCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 
 }
 
-return 'msCategoryGetNodesProcessor';
+return 'msFeatureCategoryGetNodesProcessor';
