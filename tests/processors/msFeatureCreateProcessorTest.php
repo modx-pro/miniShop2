@@ -50,5 +50,30 @@ class msFeatureCreateProcessorTest extends MODxProcessorTestCase {
         $this->assertEquals($this->modx->lexicon('ms2_feature_err_name_ns'), $response['errors'][0]['msg']);
     }
 
+    public function testCreateWithCategories() {
+        $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
+
+        $response = $this->getResponse(array(
+            'name' => 'UnitTestUniqueFeature',
+            'categories' => $this->modx->toJSON(array_keys($categories))
+        ));
+
+        $this->assertTrue($response['success']);
+        $this->assertEquals($response['object']['categories'], array_keys($categories));
+    }
+
+    public function testCreateWithNotExistedCategories() {
+        $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
+        $categories[100500] = array();
+        $response = $this->getResponse(array(
+            'name' => 'UnitTestUniqueFeature',
+            'categories' => $this->modx->toJSON(array_keys($categories))
+        ));
+
+        unset($categories[100500]);
+        $this->assertTrue($response['success']);
+        $this->assertEquals($response['object']['categories'], array_keys($categories));
+    }
+
 
 }

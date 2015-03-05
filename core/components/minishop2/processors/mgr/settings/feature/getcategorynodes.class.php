@@ -6,6 +6,9 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
     protected $pid;
     protected $parent_id;
 
+    /** @var null|msFeature  */
+    public $feature = null;
+    public $featureCategories = null;
 
     /** {@inheritDoc} */
     public function initialize() {
@@ -15,6 +18,12 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
             $this->parent_id = $res->get('parent');
         }
         return $initialize;
+    }
+
+    public function prepare() {
+        $this->feature = $this->modx->getObject('msFeature', $this->getProperty('feature', 0));
+        $this->featureCategories = $this->feature ? $this->feature->getMany('FeatureCategories') : array();
+        parent::prepare();
     }
 
 
@@ -89,7 +98,12 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         $qtipField = $this->getProperty('qtipField');
         $nodeField = $this->getProperty('nodeField');
 
-        $hasChildren = (int)$resource->get('childrenCount') > 0 && $resource->get('hide_children_in_tree') == 0 ? true : false;
+        //$hasChildren = (int)$resource->get('childrenCount') > 0 && $resource->get('hide_children_in_tree') == 0 ? true : false;
+        $hasChildren = (int)$resource->get('childrenCount') > 0;
+        //show only categories or not empty folders
+        if (!$hasChildren && !($resource instanceof msCategory)) {
+            return false;
+        }
 
         // Assign an icon class based on the class_key
         $class = $iconCls = array();
@@ -137,7 +151,7 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
             'ctx' => $resource->context_key,
             'hide_children_in_tree' => $resource->hide_children_in_tree,
             'qtip' => $qtip,
-            'checked' => !empty($resource->member) || $resource->id == $this->parent_id ? true : false,
+            'checked' => $this->getChecked($resource),//!empty($resource->member) || $resource->id == $this->parent_id ? true : false,
             'disabled' =>  $resource->id == $this->parent_id ? true : false
         );
         if (!$hasChildren) {
@@ -153,6 +167,15 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         }
 
         return $itemArray;
+    }
+
+    public function getChecked($resource) {
+        foreach ($this->featureCategories as $key => $cat) {
+            if ($resource->get('id') == $cat->get('category_id')) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

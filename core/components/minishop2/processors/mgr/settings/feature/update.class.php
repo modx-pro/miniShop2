@@ -21,7 +21,7 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
     public function getCategories() {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
-            $categories = explode(',', $categories);
+            $categories = $this->modx->fromJSON($categories);
         }
         $categories = array_map('trim', $categories);
 
@@ -29,16 +29,10 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
     }
 
     public function afterSave() {
+        $this->modx->exec("DELETE FROM {$this->modx->getTableName('msCategoryFeature')} WHERE `feature_id` = {$this->object->get('id')};");
         $categories = $this->getCategories();
-        foreach ($categories as $category) {
-            $catObj = $this->modx->getObject('msCategory', $category);
-            if ($catObj) {
-                $catFtObj = $this->modx->newObject('msCategoryFeature');
-                $catFtObj->set('category_id', $category);
-                $this->object->addMany($catFtObj);
-            }
-        }
-        $this->object->save();
+        $categories = $this->object->setCategories($categories);
+        $this->object->set('categories', $categories);
 
         return parent::afterSave();
     }

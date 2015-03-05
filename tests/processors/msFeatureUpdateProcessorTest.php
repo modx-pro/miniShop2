@@ -65,7 +65,7 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
             'caption' => 'UnitTestFeature5'
         ));
         $this->assertTrue($response['success']);
-        $this->assertEquals(array(
+        $this->assertArraySubset(array(
             'id' => $id,
             'name' => 'UnitTestFeature5',
             'caption' => 'UnitTestFeature5',
@@ -73,5 +73,38 @@ class msFeatureUpdateProcessorTest extends MODxProcessorTestCase {
             'properties' => null
         ), $response['object']);
 
+    }
+
+    public function testUpdateWithCategories() {
+        $feature = $this->modx->getObject('msFeature', array('name' => 'UnitTestFeature1'));
+        $id = $feature->get('id');
+        $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
+
+        $response = $this->getResponse(array(
+            'id' =>  $id,
+            'name' => 'UnitTestFeature5',
+            'caption' => 'UnitTestFeature5',
+            'categories' => $this->modx->toJSON(array_keys($categories))
+        ));
+
+        $this->assertTrue($response['success']);
+        $this->assertEquals($response['object']['categories'], array_keys($categories));
+    }
+
+    public function testUpdateWithNotExistedCategories() {
+        $feature = $this->modx->getObject('msFeature', array('name' => 'UnitTestFeature1'));
+        $id = $feature->get('id');
+        $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
+        $categories[100500] = array();
+        $response = $this->getResponse(array(
+            'id' =>  $id,
+            'name' => 'UnitTestFeature5',
+            'caption' => 'UnitTestFeature5',
+            'categories' => $this->modx->toJSON(array_keys($categories))
+        ));
+
+        unset($categories[100500]);
+        $this->assertTrue($response['success']);
+        $this->assertEquals($response['object']['categories'], array_keys($categories));
     }
 }
