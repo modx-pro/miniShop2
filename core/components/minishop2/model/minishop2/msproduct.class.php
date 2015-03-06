@@ -511,4 +511,8 @@ class msProduct extends modResource {
 	public function getWeight($data = array()) {
 		return $this->loadData()->getWeight($data);
 	}
+	
+	public function prepareFields($data = array()) {
+		return $this->loadData()->prepareFields($data);
+	}
 }
