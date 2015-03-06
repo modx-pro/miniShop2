@@ -108,12 +108,6 @@ if (!empty($rows) && is_array($rows)) {
 		if ($modificators) {
 			$product->fromArray($row, '', true, true);
 			$row = $product->prepareFields($row);
-			/*$tmp = $row['price'];
-			$row['price'] = $product->getPrice($row);
-			$row['weight'] = $product->getWeight($row);
-			if ($row['price'] != $tmp) {
-				$row['old_price'] = $tmp;
-			}*/
 		}
 		$row['price'] = $miniShop2->formatPrice($row['price']);
 		$row['old_price'] = $miniShop2->formatPrice($row['old_price']);
