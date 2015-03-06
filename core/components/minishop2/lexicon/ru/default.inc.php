@@ -58,6 +58,7 @@ $_lang['ms2_btn_prev'] = 'Предыдущий товар (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Следующий товар (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Помощь';
 $_lang['ms2_btn_duplicate'] = 'Сделать копию товара';
+$_lang['ms2_btn_addfeature'] = 'Добавить';
 
 $_lang['ms2_bulk_actions'] = 'Действия';
 $_lang['ms2_search'] = 'Поиск';
@@ -76,6 +77,8 @@ $_lang['ms2_category_delete'] = 'Удалить категорию';
 $_lang['ms2_category_undelete'] = 'Восстановить категорию';
 $_lang['ms2_category_view'] = 'Просмотреть на сайте';
 $_lang['ms2_category_new'] = 'Новая категория';
+$_lang['ms2_category_feature_add'] = 'Добавить характеристику';
+$_lang['ms2_category_feature_rank'] = 'Порядок сортировки';
 
 $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';
@@ -146,3 +149,8 @@ $_lang['ms2_email_subject_sent_user'] = 'Ваш заказ #[[+num]] был от
 $_lang['ms2_email_subject_cancelled_user'] = 'Ваш заказ #[[+num]] был отменён';
 
 $_lang['ms2_payment_link'] = 'Если вы случайно прервали процедуру оплаты, вы всегда можете <a href="[[+link]]">продолжить её по этой ссылке</a>.';
+
+$_lang['ms2_category_err_ns'] = 'Категория не выбрана';
+$_lang['ms2_feature_err_ns'] = 'Свойство не выбрано';
+$_lang['ms2_feature_err_nf'] = 'Свойство не найдено';
+$_lang['ms2_feature_err_ae'] = 'Свойство уже существует';

@@ -576,6 +576,32 @@ miniShop2.combo.Product = function(config) {
 Ext.extend(miniShop2.combo.Product,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-product',miniShop2.combo.Product);
 
+miniShop2.combo.Features = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        id: 'minishop2-combo-features'
+        ,fieldLabel: _('ms2_feature')
+        ,name: 'feature'
+        ,hiddenName: 'feature'
+        ,displayField: 'name'
+        ,valueField: 'id'
+        ,pageSize: 20
+        ,fields: ['id','name','caption','type']
+        ,url: miniShop2.config.connector_url
+        ,baseParams: {
+            action: 'mgr/settings/feature/getlist'
+        }
+        ,tpl: new Ext.XTemplate('<tpl for="."><div class="x-combo-list-item"><span style="font-weight: bold">{caption}</span>'
+            ,' - <span style="font-style:italic">{name}</span></tpl>'
+            ,'<br />{type}</div></tpl>')
+        ,allowBlank: false
+        ,editable: true
+    });
+    miniShop2.combo.Features.superclass.constructor.call(this,config);
+};
+
+Ext.extend(miniShop2.combo.Features, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-features',miniShop2.combo.Features);
 
 miniShop2.combo.FeatureTypes = function(config) {
 	config = config || {};

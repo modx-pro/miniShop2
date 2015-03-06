@@ -341,9 +341,6 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
             }, {
                 layout:'column',
                 items: [{
-                    xtype: 'minishop2-tree-categories',
-                    columnWidth: .20
-                },{
                     xtype: 'minishop2-grid-feature',
                     columnWidth: .80
                 }]
