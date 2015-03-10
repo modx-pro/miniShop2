@@ -23,6 +23,7 @@ class msFeatureCategoryDuplicateProcessor extends modObjectProcessor {
     public function cleanup() {
         $cat_fts = $this->to_object->getMany('CategoryFeatures');
         $fts = array();
+        /** @var msCategoryFeature $cat_ft */
         foreach ($cat_fts as $cat_ft) {
             $fts[] = $cat_ft->get('feature_id');
         }
@@ -32,7 +33,14 @@ class msFeatureCategoryDuplicateProcessor extends modObjectProcessor {
 
     public function process() {
         $cat_fts = $this->object->getMany('CategoryFeatures');
-        $this->to_object->addMany($cat_fts);
+        /** @var msCategoryFeature $cat_ft */
+        foreach ($cat_fts as $cat_ft) {
+            /** @var msCategoryFeature $newCat_ft */
+            $newCat_ft = $this->modx->newObject('msCategoryFeature');
+            $newCat_ft->fromArray($cat_ft->toArray());
+            $this->to_object->addMany($newCat_ft);
+        }
+
         if ($this->to_object->save() == false) {
             return $this->failure($this->modx->lexicon($this->objectType.'_err_save'));
         }

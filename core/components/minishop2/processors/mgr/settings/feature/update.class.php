@@ -29,10 +29,30 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
     }
 
     public function afterSave() {
-        $this->modx->exec("DELETE FROM {$this->modx->getTableName('msCategoryFeature')} WHERE `feature_id` = {$this->object->get('id')};");
         $categories = $this->getCategories();
-        $categories = $this->object->setCategories($categories);
-        $this->object->set('categories', $categories);
+
+        if (!empty($categories)) {
+            $this->modx->exec("DELETE FROM {$this->modx->getTableName('msCategoryFeature')} WHERE `feature_id` = {$this->object->get('id')};");
+            $categories = $this->object->setCategories($categories);
+            $this->object->set('categories', $categories);
+        }
+
+        $categoryId = $this->getProperty('category_id');
+        $this->modx->log(1, $categoryId);
+        if ($categoryId) {
+            $ftCat = $this->modx->getObject('msCategoryFeature', array(
+                'feature_id' => $this->object->get('id'),
+                'category_id' => $categoryId
+            ));
+            $this->modx->log(1, print_r($ftCat->toArray(),1));
+
+            if ($ftCat) {
+                $ftCat->set('active', $this->getProperty('active'));
+                $ftCat->set('required', $this->getProperty('required'));
+                $ftCat->set('rank', $this->getProperty('rank'));
+                $ftCat->save();
+            }
+        }
 
         return parent::afterSave();
     }

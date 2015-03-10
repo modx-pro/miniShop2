@@ -339,10 +339,10 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
                 ,bodyCssClass: 'panel-desc'
                 ,bodyStyle: 'margin-bottom: 10px'
             }, {
-                layout:'column',
-                items: [{
-                    xtype: 'minishop2-grid-feature',
-                    columnWidth: .80
+                cls:'main-wrapper'
+                ,items: [{
+                    xtype: 'minishop2-grid-category-feature'
+                    ,border: false
                 }]
             }]
         });

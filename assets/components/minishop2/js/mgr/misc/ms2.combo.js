@@ -626,3 +626,27 @@ miniShop2.combo.FeatureTypes = function(config) {
 
 Ext.extend(miniShop2.combo.FeatureTypes, MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-feature-types',miniShop2.combo.FeatureTypes);
+
+miniShop2.combo.Categories = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        id: 'minishop2-combo-categories'
+        ,fieldLabel: _('ms2_category')
+        ,name: 'category'
+        ,hiddenName: 'category'
+        ,displayField: 'pagetitle'
+        ,valueField: 'id'
+        ,pageSize: 20
+        ,fields: ['id','pagetitle']
+        ,url: miniShop2.config.connector_url
+        ,baseParams: {
+            action: 'mgr/category/getlist'
+        }
+        ,allowBlank: false
+        ,editable: true
+    });
+    miniShop2.combo.FeatureTypes.superclass.constructor.call(this,config);
+};
+
+Ext.extend(miniShop2.combo.Categories, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-categories',miniShop2.combo.Categories);
