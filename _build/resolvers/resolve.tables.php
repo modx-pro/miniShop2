@@ -68,8 +68,6 @@ if ($object->xpdo) {
 				));
 			}
 
-            $manager->addField('msFeature', 'properties');
-
 			$modx->setLogLevel($level);
 
 			break;
