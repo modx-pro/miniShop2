@@ -37,7 +37,7 @@ class msFeatureCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
             'category_to' => $cat2->get('id'),
             ));
         $this->assertTrue($response['success']);
-        $this->assertEquals(array(2,3,4), $response['object']['features']);
+        $this->assertCount(3, $response['object']['features']);
     }
 
     public function testFeatureCategoryDuplicateWithRepeats() {
@@ -49,22 +49,21 @@ class msFeatureCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
             'category_to' => $cat2->get('id'),
         ));
         $this->assertTrue($response['success']);
-        $this->assertEquals(array(2,3,4), $response['object']['features']);
+        $this->assertCount(3, $response['object']['features']);
     }
 
     public function testFeatureCategoryDuplicateSelf() {
         /** @var msCategory $cat1 */
-        $c = $this->modx->getCount('msCategoryFeature');
-        $this->assertEquals(5, $c);
+        $c_start = $this->modx->getCount('msCategoryFeature');
         $cat1 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $response = $this->getResponse(array(
             'category_from' => $cat1->get('id'),
             'category_to' => $cat1->get('id'),
         ));
         $c = $this->modx->getCount('msCategoryFeature');
-        $this->assertEquals(5, $c);
+        $this->assertEquals($c_start, $c);
         $this->assertTrue($response['success']);
-        $this->assertEquals(array(2,3,4), $response['object']['features']);
+        $this->assertCount(3, $response['object']['features']);
     }
 
 

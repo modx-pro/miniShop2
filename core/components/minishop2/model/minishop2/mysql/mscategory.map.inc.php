@@ -32,7 +32,7 @@ $xpdo_meta_map['msCategory']= array (
     array (
       'class' => 'msCategoryFeature',
       'local' => 'id',
-      'foreign' => 'feature_id',
+      'foreign' => 'category_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),
