@@ -40,7 +40,16 @@ miniShop2.grid.Feature = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/feature/getlist'
 		}
-		,fields: ['id','name','caption','type','rank']
+		,fields: ['id','name','caption','type','rank',{
+            name: 'categories'
+            ,convert: function(val,row) {
+                var cat = [];
+                Ext.each(val, function(v){
+                    cat.push(v.id);
+                });
+                return Ext.encode(cat);
+            }
+        }]
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -158,6 +167,13 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 
 	}
 
+    ,reloadTree: function(feature){
+        var tree = Ext.getCmp('minishop2-tree-modal-categories-window-update');
+        tree.enable();
+        tree.getLoader().baseParams.feature = feature;
+        tree.refresh()
+    }
+
 	,updateFeature: function(btn,e) {
 		if (!this.menu.record || !this.menu.record.id) return false;
 		var r = this.menu.record;
@@ -171,10 +187,9 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 					success: {fn:function() { this.refresh(); },scope:this}
 				}
 			});
-		}else{
-			var tree = Ext.getCmp('minishop2-tree-modal-categories-window-update');
-			tree.getLoader().load(tree.root);
 		}
+
+        this.reloadTree(r.id);
 
 		this.windows.updateFeature.fp.getForm().reset();
 		this.windows.updateFeature.fp.getForm().setValues(r);
@@ -205,7 +220,7 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 				xtype: 'minishop2-tree-modal-categories',
 				id: 'minishop2-tree-modal-categories-window-'+type,
 				baseParams: {
-					action: 'mgr/category/getcategorynodes'
+					action: 'settings/feature/getcategorynodes'
 					,type: type
 					,currentResource: MODx.request.id || 0
 					,currentAction: MODx.request.a || 0
@@ -221,14 +236,6 @@ Ext.extend(miniShop2.grid.Feature,MODx.grid.Grid,{
 					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-feature-name-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-feature-caption-'+type}
 					,{xtype: 'minishop2-combo-feature-types', anchor: '99%', id: 'minishop2-combo-feature-types'+type}
-					,{xtype: 'checkboxgroup'
-						,fieldLabel: _('ms2_options')
-						,columns: 1
-						,items: [
-							{xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-feature-active-'+type}
-							,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-feature-required-'+type}
-						]
-					}
 				]
 			}]
 		}];
@@ -337,17 +344,13 @@ miniShop2.tree.ModalCategories = function(config) {
 		,title: ''
 		,anchor: '100%'
 		,rootVisible: false
+        ,autoLoad: false
 		,expandFirst: true
 		,enableDD: false
 		,ddGroup: 'modx-treedrop-dd'
 		,remoteToolbar: false
 		,action: 'mgr/settings/feature/getcategorynodes'
 		,tbarCfg: {id: config.id ? config.id+'-tbar' : 'modx-tree-resource-tbar'}
-		,baseParams: {
-			action: 'mgr/settings/feature/getcategorynodes'
-			,currentResource: MODx.request.id || 0
-			,currentAction: MODx.request.a || 0
-		}
 		//,tbar: []
 		,listeners: {
 			checkchange: function(node, checked) {

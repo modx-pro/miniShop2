@@ -56,8 +56,8 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         ));
         $c->where(array(
             'context_key' => $this->contextKey
-        ,'show_in_tree' => true
-        ,'isfolder' => true
+            ,'show_in_tree' => true
+            ,'isfolder' => true
         ));
         if (empty($this->startNode) && !empty($this->defaultRootId)) {
             $c->where(array(
