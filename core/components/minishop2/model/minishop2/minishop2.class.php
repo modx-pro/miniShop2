@@ -658,26 +658,4 @@ class miniShop2 {
 		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
-    public function getFeatureFields($resource) {
-        $fields = array();
-        $c = $this->modx->newQuery('msFeature');
-        $c->leftJoin('msCategoryFeature', 'msCategoryFeature', 'msCategoryFeature.feature_id=msFeature.id');
-        $c->where(array(
-            'msCategoryFeature.active' => 1,
-            'msCategoryFeature.category_id' => $resource->get('parent'),
-        ));
-        $c->select(array(
-            $this->modx->getSelectColumns('msFeature', 'msFeature'),
-            $this->modx->getSelectColumns('msCategoryFeature', 'msCategoryFeature', '', array('id', 'feature_id', 'category_id'), true),
-        ));
-        $c->sortby('msCategoryFeature.rank');
-
-        $fts = $this->modx->getIterator('msFeature', $c);
-        /** @var msFeature $ft */
-        foreach ($fts as $ft) {
-            $fields[] = $ft->toArray();
-        }
-
-        return $fields;
-    }
 }

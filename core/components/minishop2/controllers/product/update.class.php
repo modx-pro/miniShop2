@@ -52,9 +52,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		//---
 
         // Get feature fields
-        /** @var miniShop2 $miniShop2 */
-        $miniShop2 = $this->modx->getService('minishop2');
-        $product_feature_fields = $miniShop2->getFeatureFields($this->resource);
+        $product_feature_fields = $this->resource->getFeatureFields();
 
 
 		$showComments = class_exists('Ticket') && $this->modx->getOption('ms2_product_show_comments') ? 1 : 0;

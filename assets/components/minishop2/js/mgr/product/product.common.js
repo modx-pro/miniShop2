@@ -144,7 +144,6 @@ var methods = {
 		return fields;
 	}
 
-
 	,getDataFields: function(config) {
 		config = config || {record:{}};
 		return  [{
@@ -182,7 +181,6 @@ var methods = {
 		var enabled = miniShop2.config.data_fields;
 		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
         var features = this.getFeatureFields(config);
-        console.log(items, features);
         var result = [];
 		if (items.length > 0) {
 			result.push({
@@ -196,7 +194,6 @@ var methods = {
                 ,items: features
             });
         }
-
         return result;
 	}
 
@@ -286,7 +283,8 @@ var methods = {
         var fields = miniShop2.config.feature_fields;
         var ext_fields = [];
         for (var i=0; i<fields.length; i++) {
-            var field = {xtype: 'textfield', fieldLabel: fields[i].caption, allowBlank: !fields[i].required, description: '[[+'+fields[i].name+']]'};
+            var allowBlank = 1 - fields[i].required;
+            var field = {xtype: 'textfield', fieldLabel: fields[i].caption, allowBlank: allowBlank, description: '[[+'+fields[i].name+']]'};
 
             field = this.getExtField(config, fields[i].name, field);
             ext_fields.push(field);

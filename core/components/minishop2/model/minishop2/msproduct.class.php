@@ -176,7 +176,9 @@ class msProduct extends modResource {
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
 
-		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'));
+        $features = $this->loadFeatures();
+
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $features);
 	}
 
 
@@ -205,6 +207,24 @@ class msProduct extends modResource {
 		return $this->vendor;
 	}
 
+    public function loadFeatures() {
+        $c = $this->xpdo->newQuery('msFeature');
+        $c->leftJoin('msProductFeature', 'msProductFeature', 'msFeature.id=msProductFeature.feature_id');
+        $c->select(array(
+            $this->xpdo->getSelectColumns('msFeature','msFeature'),
+            $this->xpdo->getSelectColumns('msProductFeature', 'msProductFeature','',array('value'))
+        ));
+        $c->where(array('msProductFeature.product_id' => $this->get('id')));
+        $features = $this->xpdo->getIterator('msFeature', $c);
+
+        $data = array();
+        /** @var msFeature $feature */
+        foreach ($features as $feature) {
+            $data[$feature->get('name')] = $feature->get('value');
+        }
+        return $data;
+
+    }
 
 	/**
 	 * {@inheritdoc}
@@ -489,8 +509,52 @@ class msProduct extends modResource {
 		return parent::process();
 	}
 
+    /**
+     * Return array of feature fields for product by its category
+     * @return array
+     */
+    public function getFeatureFields() {
+        $fields = array();
+        $c = $this->xpdo->newQuery('msFeature');
+        $c->leftJoin('msCategoryFeature', 'msCategoryFeature', 'msCategoryFeature.feature_id=msFeature.id');
+        $c->where(array(
+            'msCategoryFeature.active' => 1,
+            'msCategoryFeature.category_id' => $this->get('parent'),
+        ));
+        $c->select(array(
+            $this->xpdo->getSelectColumns('msFeature', 'msFeature'),
+            $this->xpdo->getSelectColumns('msCategoryFeature', 'msCategoryFeature', '', array('id', 'feature_id', 'category_id'), true),
+        ));
+        $c->sortby('msCategoryFeature.rank');
 
+        $fts = $this->xpdo->getIterator('msFeature', $c);
+        /** @var msFeature $ft */
+        foreach ($fts as $ft) {
+            $fields[] = $ft->toArray();
+        }
+        return $fields;
+    }
 
+    public function saveFeatureFields($properties) {
+        $fields = $this->getFeatureFields();
+
+        foreach ($fields as $field) {
+            $value = isset($properties[$field['name']]) ? $properties[$field['name']] : '';
+            $c = array(
+                'feature_id' => $field['id'],
+                'product_id' => $this->get('id'),
+            );
+            /** @var msProductFeature $pf */
+            $pf = $this->xpdo->getObject('msProductFeature', $c);
+            if (!$pf) {
+                $pf = $this->xpdo->newObject('msProductFeature');
+                $pf->fromArray($c);
+            }
+            $pf->set('value', $value);
+            $pf->save();
+        }
+
+    }
 
 	public function generateAllThumbnails() {
 		$this->loadData()->generateAllThumbnails();
