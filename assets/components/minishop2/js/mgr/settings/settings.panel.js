@@ -87,21 +87,21 @@ miniShop2.panel.Settings = function(config) {
 					xtype: 'minishop2-grid-link'
 				}]
 			},{
-				title: _('ms2_features')
+				title: _('ms2_options')
 				,deferredRender: true
 				,items: [{
-					html: '<p>'+_('ms2_features_intro')+'</p>'
+					html: '<p>'+_('ms2_options_intro')+'</p>'
 					,border: false
 					,bodyCssClass: 'panel-desc'
 					,bodyStyle: 'margin-bottom: 10px'
 				}, {
 					layout:'column',
 					items: [{
-						xtype: 'minishop2-tree-feature-categories',
+						xtype: 'minishop2-tree-option-categories',
 						id: 'minishop2-tree-categories-panel',
 						columnWidth: .20
 					},{
-						xtype: 'minishop2-grid-feature',
+						xtype: 'minishop2-grid-option',
 						columnWidth: .80
 					}]
 				}]

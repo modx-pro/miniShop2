@@ -1,8 +1,8 @@
 <?php
 
-class msFeatureGetListProcessor extends modObjectGetListProcessor {
-    public $classKey = 'msFeature';
-    public $defaultSortField = 'msFeature.name';
+class msOptionGetListProcessor extends modObjectGetListProcessor {
+    public $classKey = 'msOption';
+    public $defaultSortField = 'msOption.key';
     public $defaultSortDirection  = 'asc';
     public $objectType = 'ms2';
     public $languageTopics = array('minishop2:default');
@@ -12,21 +12,21 @@ class msFeatureGetListProcessor extends modObjectGetListProcessor {
         $query = $this->getProperty('query', '');
         if (!empty($query)) {
             $c->where(array(
-                'msFeature.name:LIKE' => "%{$query}%",
-                'OR:msFeature.caption:LIKE' => "%{$query}%",
+                'msOption.key:LIKE' => "%{$query}%",
+                'OR:msOption.caption:LIKE' => "%{$query}%",
             ));
         }
 
-        $c->leftJoin('msCategoryFeature', 'msCategoryFeature', 'msCategoryFeature.feature_id=msFeature.id');
+        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
         $c->select(array(
-            $this->modx->getSelectColumns('msFeature','msFeature'),
-            $this->modx->getSelectColumns('msCategoryFeature', 'msCategoryFeature','', array('id', 'feature_id'), true),
+            $this->modx->getSelectColumns('msOption','msOption'),
+            $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption','', array('id', 'option_id'), true),
         ));
 
         $category = (int)$this->getProperty('category', 0);
         if ($category > 0) {
             $c->where(array(
-                'msCategoryFeature.category_id' => $category
+                'msCategoryOption.category_id' => $category
             ));
         }
 
@@ -35,9 +35,9 @@ class msFeatureGetListProcessor extends modObjectGetListProcessor {
 
     public function prepareRow(xPDOObject $object) {
         $data = $object->toArray();
-        $categories = $object->getMany('FeatureCategories');
+        $categories = $object->getMany('OptionCategories');
         $data['categories'] = array();
-        /** @var msCategoryFeature $cat */
+        /** @var msCategoryOption $cat */
         foreach ($categories as $cat) {
             $category = $cat->getOne('Category');
             if ($category) {
@@ -48,4 +48,4 @@ class msFeatureGetListProcessor extends modObjectGetListProcessor {
     }
 }
 
-return 'msFeatureGetListProcessor';
+return 'msOptionGetListProcessor';

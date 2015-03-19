@@ -52,7 +52,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		//---
 
         // Get feature fields
-        $product_feature_fields = $this->resource->getFeatureFields();
+        $product_option_fields = $this->resource->getOptionFields();
 
 
 		$showComments = class_exists('Ticket') && $this->modx->getOption('ms2_product_show_comments') ? 1 : 0;
@@ -91,7 +91,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
-			,feature_fields: '.json_encode($product_feature_fields).'
+			,option_fields: '.json_encode($product_option_fields).'
 			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
 			,product_tab_extra: '.$this->modx->getOption('ms2_product_tab_extra', null, true).'
 			,product_tab_gallery: '.$this->modx->getOption('ms2_product_tab_gallery', null, true).'

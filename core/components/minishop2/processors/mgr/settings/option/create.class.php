@@ -1,18 +1,20 @@
 <?php
 
-class msFeatureCreateProcessor extends modObjectCreateProcessor {
-    public $classKey = 'msFeature';
-    public $objectType = 'ms2_feature';
+class msOptionCreateProcessor extends modObjectCreateProcessor {
+    public $classKey = 'msOption';
+    public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
+    /** @var msOption */
+    public $object;
 
     public function beforeSet() {
-        $name = $this->getProperty('name');
-        if (empty($name)) {
-            $this->addFieldError('name',$this->modx->lexicon($this->objectType.'_err_name_ns'));
+        $key = $this->getProperty('key');
+        if (empty($key)) {
+            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_name_ns'));
         }
 
-        if ($this->doesAlreadyExist(array('name' => $name))) {
-            $this->addFieldError('name',$this->modx->lexicon($this->objectType.'_err_ae',array('name' => $name)));
+        if ($this->doesAlreadyExist(array('key' => $key))) {
+            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_ae',array('key' => $key)));
         }
 
         return parent::beforeSet();
@@ -22,8 +24,9 @@ class msFeatureCreateProcessor extends modObjectCreateProcessor {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
             $categories = $this->modx->fromJSON($categories);
+        } else {
+            $categories = array();
         }
-        $categories = array_map('trim', $categories);
 
         return $categories;
     }
@@ -37,4 +40,4 @@ class msFeatureCreateProcessor extends modObjectCreateProcessor {
     }
 }
 
-return 'msFeatureCreateProcessor';
+return 'msOptionCreateProcessor';

@@ -13,7 +13,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         }
 
         echo "\r\n".$this->processor ." response:\r\n";
-        var_dump($response);
+       // var_dump($response);
         return $response;
     }
 
@@ -42,35 +42,35 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         return $product;
     }
 
-    protected function createTestFeature($name, $properties = array()) {
+    protected function createTestOption($name, $properties = array()) {
         /** @var msFeature $feature */
-        $feature = $this->modx->newObject('msFeature');
-        $feature->set('name', $name);
-        $feature->fromArray($properties);
-        $feature->save();
+        $option = $this->modx->newObject('msOption');
+        $option->set('key', $name);
+        $option->fromArray($properties);
+        $option->save();
 
-        return $feature;
+        return $option;
     }
 
-    protected function createTestCategoryFeature($cat_id, $feature_id, $properties = array()) {
+    protected function createTestCategoryOption($cat_id, $option_id, $properties = array()) {
         /** @var msCategoryFeature $catFeature */
-        $catFeature = $this->modx->newObject('msCategoryFeature');
-        $catFeature->set('category_id', $cat_id);
-        $catFeature->set('feature_id', $feature_id);
-        $catFeature->fromArray($properties);
-        $catFeature->save();
+        $catOption = $this->modx->newObject('msCategoryOption');
+        $catOption->set('category_id', $cat_id);
+        $catOption->set('option_id', $option_id);
+        $catOption->fromArray($properties);
+        $catOption->save();
 
-        return $catFeature;
+        return $catOption;
     }
 
-    protected function createTestProductFeature($product_id, $feature_id, $properties = array()) {
+    protected function createTestProductOption($product_id, $option_id, $properties = array()) {
         /** @var msProductFeature $prodFeature */
-        $prodFeature = $this->modx->newObject('msProductFeature');
-        $prodFeature->set('product_id', $product_id);
-        $prodFeature->set('feature_id', $feature_id);
-        $prodFeature->fromArray($properties);
-        $prodFeature->save();
-        return $prodFeature;
+        $prodOption = $this->modx->newObject('msProductOption');
+        $prodOption->set('product_id', $product_id);
+        $prodOption->set('key', $option_id);
+        $prodOption->fromArray($properties);
+        $prodOption->save();
+        return $prodOption;
     }
 
     public function tearDown() {
@@ -85,16 +85,16 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategory')." AUTO_INCREMENT = 0;");
 
         /* Remove test features */
-        $objs = $this->modx->getCollection('msFeature',array('name:LIKE' => '%UnitTest%'));
+        $objs = $this->modx->getCollection('msOption',array('key:LIKE' => '%UnitTest%'));
         /** @var xPDOObject $obj */
         foreach ($objs as $obj) {
             $obj->remove();
         }
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msFeature')." AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msOption')." AUTO_INCREMENT = 0;");
 
         $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msProductData')." AUTO_INCREMENT = 0;");
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategoryFeature')." AUTO_INCREMENT = 0;");
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msProductFeature')." AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategoryOption')." AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msProductOption')." AUTO_INCREMENT = 0;");
 
     }
 }

@@ -28,9 +28,9 @@ $xpdo_meta_map['msCategory']= array (
       'cardinality' => 'many',
       'owner' => 'local',
     ),
-    'CategoryFeatures' => 
+    'CategoryOptions' => 
     array (
-      'class' => 'msCategoryFeature',
+      'class' => 'msCategoryOption',
       'local' => 'id',
       'foreign' => 'category_id',
       'cardinality' => 'many',

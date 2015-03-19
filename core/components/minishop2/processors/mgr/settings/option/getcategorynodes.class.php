@@ -2,13 +2,13 @@
 
 require_once MODX_CORE_PATH.'model/modx/processors/resource/getnodes.class.php';
 
-class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
+class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
     protected $pid;
     protected $parent_id;
 
-    /** @var null|msFeature  */
-    public $feature = null;
-    public $featureCategories = null;
+    /** @var null|msOption  */
+    public $option = null;
+    public $optionCategories = null;
 
     /** {@inheritDoc} */
     public function initialize() {
@@ -21,8 +21,8 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
     }
 
     public function prepare() {
-        $this->feature = $this->modx->getObject('msFeature', $this->getProperty('feature', 0));
-        $this->featureCategories = $this->feature ? $this->feature->getMany('FeatureCategories') : array();
+        $this->option = $this->modx->getObject('msOption', $this->getProperty('option', 0));
+        $this->optionCategories = $this->option ? $this->option->getMany('OptionCategories') : array();
         parent::prepare();
     }
 
@@ -170,7 +170,7 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
     }
 
     public function getChecked($resource) {
-        foreach ($this->featureCategories as $key => $cat) {
+        foreach ($this->optionCategories as $key => $cat) {
             if ($resource->get('id') == $cat->get('category_id')) {
                 return true;
             }
@@ -180,4 +180,4 @@ class msFeatureCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 
 }
 
-return 'msFeatureCategoryGetNodesProcessor';
+return 'msOptionCategoryGetNodesProcessor';

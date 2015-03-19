@@ -61,7 +61,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$this->addJavascript($minishopJsUrl.'category/category.common.js');
 		$this->addJavascript($minishopJsUrl.'category/category.grid.js');
         $this->addJavascript($minishopJsUrl.'product/category.tree.js');
-        $this->addJavascript($minishopJsUrl.'category/feature.grid.js');
+        $this->addJavascript($minishopJsUrl.'category/option.grid.js');
 
 		if ($showComments) {$this->loadTickets();}
 

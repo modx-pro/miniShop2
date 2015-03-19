@@ -176,9 +176,9 @@ class msProduct extends modResource {
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
 
-        $features = $this->loadFeatures();
+        $options = $this->loadOptions();
 
-		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $features);
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $options);
 	}
 
 
@@ -207,20 +207,20 @@ class msProduct extends modResource {
 		return $this->vendor;
 	}
 
-    public function loadFeatures() {
-        $c = $this->xpdo->newQuery('msFeature');
-        $c->leftJoin('msProductFeature', 'msProductFeature', 'msFeature.id=msProductFeature.feature_id');
+    public function loadOptions() {
+        $c = $this->xpdo->newQuery('msOption');
+        $c->leftJoin('msProductOption', 'msProductOption', 'msOption.id=msProductOption.option_id');
         $c->select(array(
-            $this->xpdo->getSelectColumns('msFeature','msFeature'),
-            $this->xpdo->getSelectColumns('msProductFeature', 'msProductFeature','',array('value'))
+            $this->xpdo->getSelectColumns('msOption','msOption'),
+            $this->xpdo->getSelectColumns('msProductOption', 'msProductOption','',array('value'))
         ));
-        $c->where(array('msProductFeature.product_id' => $this->get('id')));
-        $features = $this->xpdo->getIterator('msFeature', $c);
+        $c->where(array('msProductOption.product_id' => $this->get('id')));
+        $options = $this->xpdo->getIterator('msOption', $c);
 
         $data = array();
         /** @var msFeature $feature */
-        foreach ($features as $feature) {
-            $data[$feature->get('name')] = $feature->get('value');
+        foreach ($options as $option) {
+            $data[$option->get('name')] = $option->get('value');
         }
         return $data;
 
@@ -513,21 +513,21 @@ class msProduct extends modResource {
      * Return array of feature fields for product by its category
      * @return array
      */
-    public function getFeatureFields() {
+    public function getOptionFields() {
         $fields = array();
-        $c = $this->xpdo->newQuery('msFeature');
-        $c->leftJoin('msCategoryFeature', 'msCategoryFeature', 'msCategoryFeature.feature_id=msFeature.id');
+        $c = $this->xpdo->newQuery('msOption');
+        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
         $c->where(array(
-            'msCategoryFeature.active' => 1,
-            'msCategoryFeature.category_id' => $this->get('parent'),
+            'msCategoryOption.active' => 1,
+            'msCategoryOption.category_id' => $this->get('parent'),
         ));
         $c->select(array(
-            $this->xpdo->getSelectColumns('msFeature', 'msFeature'),
-            $this->xpdo->getSelectColumns('msCategoryFeature', 'msCategoryFeature', '', array('id', 'feature_id', 'category_id'), true),
+            $this->xpdo->getSelectColumns('msOption', 'msOption'),
+            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id', 'category_id'), true),
         ));
-        $c->sortby('msCategoryFeature.rank');
+        $c->sortby('msCategoryOption.rank');
 
-        $fts = $this->xpdo->getIterator('msFeature', $c);
+        $fts = $this->xpdo->getIterator('msOption', $c);
         /** @var msFeature $ft */
         foreach ($fts as $ft) {
             $fields[] = $ft->toArray();
@@ -535,19 +535,19 @@ class msProduct extends modResource {
         return $fields;
     }
 
-    public function saveFeatureFields($properties) {
-        $fields = $this->getFeatureFields();
+    public function saveOptionFields($properties) {
+        $fields = $this->getOptionFields();
 
         foreach ($fields as $field) {
             $value = isset($properties[$field['name']]) ? $properties[$field['name']] : '';
             $c = array(
-                'feature_id' => $field['id'],
+                'option_id' => $field['id'],
                 'product_id' => $this->get('id'),
             );
             /** @var msProductFeature $pf */
-            $pf = $this->xpdo->getObject('msProductFeature', $c);
+            $pf = $this->xpdo->getObject('msProductOption', $c);
             if (!$pf) {
-                $pf = $this->xpdo->newObject('msProductFeature');
+                $pf = $this->xpdo->newObject('msProductOption');
                 $pf->fromArray($c);
             }
             $pf->set('value', $value);

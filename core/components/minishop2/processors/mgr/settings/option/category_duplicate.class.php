@@ -1,6 +1,6 @@
 <?php
 
-class msFeatureCategoryDuplicateProcessor extends modObjectProcessor {
+class msOptionCategoryDuplicateProcessor extends modObjectProcessor {
     public $classKey = 'msCategory';
     public $objectType = 'ms2_category';
     public $languageTopics = array('minishop2:default');
@@ -21,23 +21,31 @@ class msFeatureCategoryDuplicateProcessor extends modObjectProcessor {
     }
 
     public function cleanup() {
-        $cat_fts = $this->to_object->getMany('CategoryFeatures');
+        $cat_fts = $this->to_object->getMany('CategoryOptions');
         $fts = array();
-        /** @var msCategoryFeature $cat_ft */
+        /** @var msCategoryOption $cat_ft */
         foreach ($cat_fts as $cat_ft) {
-            $fts[] = $cat_ft->get('feature_id');
+            $fts[] = $cat_ft->get('option_id');
         }
-        $this->to_object->set('features', $fts);
+        $this->to_object->set('options', $fts);
         return $this->success('', $this->to_object);
     }
 
     public function process() {
-        $cat_fts = $this->object->getMany('CategoryFeatures');
-        /** @var msCategoryFeature $cat_ft */
+        $cat_fts = $this->object->getMany('CategoryOptions');
+        /** @var msCategoryOption $cat_ft */
         foreach ($cat_fts as $cat_ft) {
-            /** @var msCategoryFeature $newCat_ft */
-            $newCat_ft = $this->modx->newObject('msCategoryFeature');
-            $newCat_ft->fromArray($cat_ft->toArray());
+            $newCat_ft = $this->modx->getObject('msCategoryOption', array(
+                'option_id' => $cat_ft->get('option_id'),
+                'category_id' => $this->to_object->get('id')
+            ));
+            if (!$newCat_ft) {
+                /** @var msCategoryOption $newCat_ft */
+                $newCat_ft = $this->modx->newObject('msCategoryOption');
+                $newCat_ft->fromArray($cat_ft->toArray());
+                $newCat_ft->set('option_id', $cat_ft->get('option_id'));
+            }
+
             $this->to_object->addMany($newCat_ft);
         }
 
@@ -45,9 +53,10 @@ class msFeatureCategoryDuplicateProcessor extends modObjectProcessor {
             return $this->failure($this->modx->lexicon($this->objectType.'_err_save'));
         }
 
+        $cat2 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory'));
         return $this->cleanup();
     }
 
 }
 
-return 'msFeatureCategoryDuplicateProcessor';
+return 'msOptionCategoryDuplicateProcessor';

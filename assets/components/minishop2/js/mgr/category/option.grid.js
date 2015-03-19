@@ -1,4 +1,4 @@
-miniShop2.grid.CategoryFeature = function(config) {
+miniShop2.grid.CategoryOption = function(config) {
 	config = config || {};
 
 	this.dd = function(grid) {
@@ -14,7 +14,7 @@ miniShop2.grid.CategoryFeature = function(config) {
 					MODx.Ajax.request({
 						url: miniShop2.config.connector_url
 						,params: {
-							action: config.action || 'mgr/settings/feature/sort'
+							action: config.action || 'mgr/settings/option/sort'
 							,source: source
 							,target: target
 						}
@@ -31,22 +31,22 @@ miniShop2.grid.CategoryFeature = function(config) {
     this.sm = new Ext.grid.CheckboxSelectionModel();
 
 	Ext.applyIf(config,{
-		id: 'minishop2-grid-category-feature'
+		id: 'minishop2-grid-category-option'
 		,url: miniShop2.config.connector_url
 		,baseParams: {
-			action: 'mgr/settings/feature/getlist'
+			action: 'mgr/settings/option/getlist'
             ,category: MODx.request.id
 		}
-		,fields: ['id','name','caption','type','active','required','rank','category_id']
+		,fields: ['id','key','caption','type','active','required','rank','category_id']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
-		,save_action: 'mgr/settings/feature/updatefromgrid'
+		,save_action: 'mgr/settings/option/updatefromgrid'
 		,autosave: true
         ,sm: this.sm
 		,columns: [this.sm
 			,{header: _('id'),dataIndex: 'id',width: 50, sortable: true}
-			,{header: _('ms2_ft_name'),dataIndex: 'name',width: 150, sortable: true}
+			,{header: _('ms2_ft_name'),dataIndex: 'key',width: 150, sortable: true}
 			,{header: _('ms2_ft_caption'),dataIndex: 'caption',width: 150, sortable: true}
 			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 100}
             ,{header: _('ms2_ft_required'),dataIndex: 'required',width: 100, editor: {xtype:'combo-boolean', renderer:'boolean'}}
@@ -54,8 +54,8 @@ miniShop2.grid.CategoryFeature = function(config) {
             ,{header: _('ms2_ft_rank'),dataIndex: 'rank',width: 100, editor: {xtype: 'numberfield'}}
 		]
 		,tbar: [{
-            text: _('ms2_btn_addfeature')
-            ,handler: this.addFeature
+            text: _('ms2_btn_addoption')
+            ,handler: this.addOption
             ,scope: this
         },{
 			text: _('ms2_btn_copy')
@@ -76,14 +76,14 @@ miniShop2.grid.CategoryFeature = function(config) {
 			xtype: 'textfield'
 			,name: 'query'
 			,width: 200
-			,id: 'minishop2-features-search'
+			,id: 'minishop2-options-search'
 			,emptyText: _('ms2_search')
 			,listeners: {
 				render: {fn:function(tf) {tf.getEl().addKeyListener(Ext.EventObject.ENTER,function() {this.FilterByQuery(tf);},this);},scope:this}
 			}
 		},{
 			xtype: 'button'
-			,id: 'minishop2-features-clear'
+			,id: 'minishop2-options-clear'
 			,text: '<i class="'+ (MODx.modx23 ? 'icon icon-times' : 'bicon-remove-sign') + '"></i>'/* + _('ms2_search_clear')*/
 			,listeners: {
 				click: {fn: this.clearFilter, scope: this}
@@ -93,9 +93,9 @@ miniShop2.grid.CategoryFeature = function(config) {
 		,enableDragDrop: true
 		,listeners: {render: {fn: this.dd, scope: this}}
 	});
-	miniShop2.grid.CategoryFeature.superclass.constructor.call(this,config);
+	miniShop2.grid.CategoryOption.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
+Ext.extend(miniShop2.grid.CategoryOption,MODx.grid.Grid,{
 	windows: {}
 
 	,getMenu: function() {
@@ -123,23 +123,23 @@ Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
 	}
 
 	,renderType: function(value) {
-		return _('ms2_feature_'+value);
+		return _('ms2_option_'+value);
 	}
 
-	,addFeature: function(btn,e) {
-        if (!this.windows.addFeature) {
-            this.windows.addFeature = MODx.load({
-                xtype: 'minishop2-window-feature-add'
+	,addOption: function(btn,e) {
+        if (!this.windows.addOption) {
+            this.windows.addOption = MODx.load({
+                xtype: 'minishop2-window-option-add'
                 ,listeners: {
                     success: {fn:function() { this.refresh(); },scope:this}
                 }
             });
         }
 
-        var f = this.windows.addFeature.fp.getForm();
+        var f = this.windows.addOption.fp.getForm();
         f.reset();
         f.setValues({category_id: MODx.request.id});
-        this.windows.addFeature.show(e.target);
+        this.windows.addOption.show(e.target);
     }
 
 	,copyCategory: function(btn,e){
@@ -167,7 +167,7 @@ Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
             MODx.Ajax.request({
                 url: miniShop2.config.connector_url
                 ,params: {
-                    action: 'mgr/settings/feature/delete'
+                    action: 'mgr/settings/option/delete'
                     ,id: sels[i].data['id']
                     ,category_id: sels[i].data['category_id']
                 }
@@ -184,7 +184,7 @@ Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
     }
 
     ,updateSelected: function(params) {
-        params['action'] = 'mgr/settings/feature/category_update';
+        params['action'] = 'mgr/settings/option/category_update';
         MODx.Ajax.request({
             url: miniShop2.config.connector_url
             ,params: params
@@ -253,7 +253,7 @@ Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
         return true;
     }
 
-	,getFeatureFields: function(type) {
+	,getOptionFields: function(type) {
 		return [{
 			layout:'column',
 			items: [{
@@ -271,17 +271,17 @@ Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
 				columnWidth: .60,
 				labelWidth: 120,
 				items: [
-					{xtype: 'hidden',name: 'id', id: 'minishop2-feature-id-'+type}
-					,{xtype: 'hidden',name: 'categories', id: 'minishop2-feature-categories-'+type}
-					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'name', allowBlank: false, anchor: '99%', id: 'minishop2-feature-name-'+type}
-					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-feature-caption-'+type}
-					,{xtype: 'minishop2-combo-feature-types', anchor: '99%', id: 'minishop2-combo-feature-types'+type}
+					{xtype: 'hidden',name: 'id', id: 'minishop2-option-id-'+type}
+					,{xtype: 'hidden',name: 'categories', id: 'minishop2-option-categories-'+type}
+					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
+					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
+					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types'+type}
 					,{xtype: 'checkboxgroup'
 						,fieldLabel: _('ms2_options')
 						,columns: 1
 						,items: [
-							{xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-feature-active-'+type}
-							,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-feature-required-'+type}
+							{xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-option-active-'+type}
+							,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-option-required-'+type}
 						]
 					}
 				]
@@ -299,60 +299,61 @@ Ext.extend(miniShop2.grid.CategoryFeature,MODx.grid.Grid,{
 	,clearFilter: function(btn,e) {
 		var s = this.getStore();
 		s.baseParams.query = '';
-		Ext.getCmp('minishop2-features-search').setValue('');
+		Ext.getCmp('minishop2-options-search').setValue('');
 		this.getBottomToolbar().changePage(1);
 		this.refresh();
 	}
 
 });
-Ext.reg('minishop2-grid-category-feature',miniShop2.grid.CategoryFeature);
+Ext.reg('minishop2-grid-category-option',miniShop2.grid.CategoryOption);
 
-miniShop2.window.AddFeature = function(config) {
+miniShop2.window.AddOption = function(config) {
     config = config || {};
     this.ident = config.ident || 'meuitem'+Ext.id();
     Ext.applyIf(config,{
-        title: _('ms2_category_feature_add')
+        title: _('ms2_category_option_add')
         ,id: this.ident
         ,width: 600
         ,autoHeight: true
         ,labelAlign: 'left'
         ,labelWidth: 180
         ,url: miniShop2.config.connector_url
-        ,action: 'mgr/settings/feature/add'
+        ,action: 'mgr/settings/option/add'
         ,fields: [
-            {xtype: 'hidden',name: 'category_id', id: 'minishop2-feature-category'}
-            ,{xtype: 'minishop2-combo-features', anchor: '99%', id: 'minishop2-combo-features', name: 'feature_id', hiddenName: 'feature_id'}
-            ,{xtype: 'numberfield', width: 50, id: 'minishop2-feature-rank', name: 'rank', fieldLabel: _('ms2_category_feature_rank'), allowDecimals:false, allowNegative: false}
+            {xtype: 'hidden',name: 'category_id', id: 'minishop2-option-category'}
+            ,{xtype: 'minishop2-combo-options', anchor: '99%', id: 'minishop2-combo-options', name: 'option_id', hiddenName: 'option_id'}
+            ,{xtype: 'numberfield', width: 50, id: 'minishop2-option-rank', name: 'rank', fieldLabel: _('ms2_category_option_rank'), allowDecimals:false, allowNegative: false}
+            ,{xtype: 'textfield', anchor: '99%', id: 'minishop2-option-value', name: 'value', fieldLabel: _('ms2_default_value')}
             ,{xtype: 'checkboxgroup'
                 ,fieldLabel: _('ms2_options')
                 ,columns: 1
                 ,items: [
-                    {xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-feature-active'}
-                    ,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-feature-required'}
+                    {xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-option-active'}
+                    ,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-option-required'}
                 ]
             }
         ]
         ,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
     });
-    miniShop2.window.AddFeature.superclass.constructor.call(this,config);
+    miniShop2.window.AddOption.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.window.AddFeature,MODx.Window);
-Ext.reg('minishop2-window-feature-add',miniShop2.window.AddFeature);
+Ext.extend(miniShop2.window.AddOption,MODx.Window);
+Ext.reg('minishop2-window-option-add',miniShop2.window.AddOption);
 
 miniShop2.window.CopyCategory = function(config) {
     config = config || {};
     this.ident = config.ident || 'meuitem'+Ext.id();
     Ext.applyIf(config,{
-        title: _('ms2_category_feature_copy')
+        title: _('ms2_category_option_copy')
         ,id: this.ident
         ,width: 600
         ,autoHeight: true
         ,labelAlign: 'left'
         ,labelWidth: 180
         ,url: miniShop2.config.connector_url
-        ,action: 'mgr/settings/feature/category_duplicate'
+        ,action: 'mgr/settings/option/category_duplicate'
         ,fields: [
-            {xtype: 'hidden',name: 'category_to', id: 'minishop2-feature-category'}
+            {xtype: 'hidden',name: 'category_to', id: 'minishop2-option-category'}
             ,{xtype: 'minishop2-combo-categories', anchor: '99%', id: 'minishop2-combo-categories', name: 'category_from', hiddenName: 'category_from'}
         ]
         ,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
@@ -374,10 +375,10 @@ miniShop2.tree.ModalCategories = function(config) {
 		,enableDD: false
 		,ddGroup: 'modx-treedrop-dd'
 		,remoteToolbar: false
-		,action: 'mgr/settings/feature/getcategorynodes'
+		,action: 'mgr/settings/option/getcategorynodes'
 		,tbarCfg: {id: config.id ? config.id+'-tbar' : 'modx-tree-resource-tbar'}
 		,baseParams: {
-			action: 'mgr/settings/feature/getcategorynodes'
+			action: 'mgr/settings/option/getcategorynodes'
 			,currentResource: MODx.request.id || 0
 			,currentAction: MODx.request.a || 0
 		}
@@ -386,7 +387,7 @@ miniShop2.tree.ModalCategories = function(config) {
 			checkchange: function(node, checked) {
 				this.mask.show();
 				var type = this.baseParams.type;
-				var categories = Ext.getCmp('minishop2-feature-categories-'+type);
+				var categories = Ext.getCmp('minishop2-option-categories-'+type);
 				if(categories.getValue() == ''){
 					var categoriesList = [];
 				}else{

@@ -1,18 +1,18 @@
 <?php
 
-class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
-    public $classKey = 'msFeature';
-    public $objectType = 'ms2_feature';
+class msOptionUpdateProcessor extends modObjectUpdateProcessor {
+    public $classKey = 'msOption';
+    public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
 
     public function beforeSet() {
-        $name = $this->getProperty('name');
-        if (empty($name)) {
-            $this->addFieldError('name',$this->modx->lexicon($this->objectType.'_err_name_ns'));
+        $key = $this->getProperty('key');
+        if (empty($key)) {
+            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_name_ns'));
         }
 
-        if (($this->object->get('name') != $name) && $this->doesAlreadyExist(array('name' => $name))) {
-            $this->addFieldError('name',$this->modx->lexicon($this->objectType.'_err_ae',array('name' => $name)));
+        if (($this->object->get('key') != $key) && $this->doesAlreadyExist(array('key' => $key))) {
+            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_ae',array('key' => $key)));
         }
 
         return parent::beforeSet();
@@ -22,9 +22,9 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
             $categories = $this->modx->fromJSON($categories);
+        } else {
+            $categories = array();
         }
-        $categories = array_map('trim', $categories);
-
         return $categories;
     }
 
@@ -32,7 +32,7 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
         $categories = $this->getCategories();
 
         if (!empty($categories)) {
-            $this->modx->exec("DELETE FROM {$this->modx->getTableName('msCategoryFeature')} WHERE `feature_id` = {$this->object->get('id')};");
+            $this->modx->exec("DELETE FROM {$this->modx->getTableName('msCategoryOption')} WHERE `option_id` = {$this->object->get('id')};");
             $categories = $this->object->setCategories($categories);
             $this->object->set('categories', $categories);
         }
@@ -40,8 +40,8 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
         $categoryId = $this->getProperty('category_id');
         $this->modx->log(1, $categoryId);
         if ($categoryId) {
-            $ftCat = $this->modx->getObject('msCategoryFeature', array(
-                'feature_id' => $this->object->get('id'),
+            $ftCat = $this->modx->getObject('msCategoryOption', array(
+                'option_id' => $this->object->get('id'),
                 'category_id' => $categoryId
             ));
             $this->modx->log(1, print_r($ftCat->toArray(),1));
@@ -58,4 +58,4 @@ class msFeatureUpdateProcessor extends modObjectUpdateProcessor {
     }
 }
 
-return 'msFeatureUpdateProcessor';
+return 'msOptionUpdateProcessor';

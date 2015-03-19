@@ -34,9 +34,8 @@ if ($object->xpdo) {
 				'msLink',
 				'msProductLink',
 				'msCustomerProfile',
-				'msFeature',
-				'msCategoryFeature',
-				'msProductFeature',
+                'msOption',
+				'msCategoryOption',
 			);
 			foreach ($tmp as $v) {
 				$manager->createObjectContainer($v);

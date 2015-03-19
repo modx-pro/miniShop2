@@ -1,8 +1,8 @@
-miniShop2.tree.FeatureCategories = function(config) {
+miniShop2.tree.OptionCategories = function(config) {
 	config = config || {};
 	Ext.applyIf(config,{
 		url: miniShop2.config.connector_url
-		,id: 'minishop2-feature-categories-tree'
+		,id: 'minishop2-option-categories-tree'
 		,title: ''
 		,anchor: '100%'
 		,rootVisible: false
@@ -10,10 +10,10 @@ miniShop2.tree.FeatureCategories = function(config) {
 		,enableDD: false
 		,ddGroup: 'modx-treedrop-dd'
 		,remoteToolbar: false
-		,action: 'mgr/settings/feature/getcategorynodes'
+		,action: 'mgr/settings/option/getcategorynodes'
 		,tbarCfg: {id: config.id ? config.id+'-tbar' : 'modx-tree-resource-tbar'}
 		,baseParams: {
-			action: 'mgr/settings/feature/getcategorynodes'
+			action: 'mgr/settings/option/getcategorynodes'
 			,currentResource: MODx.request.id || 0
 			,currentAction: MODx.request.a || 0
 		}
@@ -24,9 +24,9 @@ miniShop2.tree.FeatureCategories = function(config) {
 				MODx.Ajax.request({
 					url: miniShop2.config.connector_url
 					,params: {
-						action: 'mgr/settings/feature/applycategory'
+						action: 'mgr/settings/option/applycategory'
 						,category_id: node.attributes.pk
-						,feature_id: MODx.request.id || 0
+						,option_id: MODx.request.id || 0
 					}
 					,listeners: {
 						success: {fn: function() {this.mask.hide();}, scope:this}
@@ -39,9 +39,9 @@ miniShop2.tree.FeatureCategories = function(config) {
 			}
 		}
 	});
-	miniShop2.tree.FeatureCategories.superclass.constructor.call(this,config);
+	miniShop2.tree.OptionCategories.superclass.constructor.call(this,config);
 };
-Ext.extend(miniShop2.tree.FeatureCategories, MODx.tree.Tree,{
+Ext.extend(miniShop2.tree.OptionCategories, MODx.tree.Tree,{
 
 	_showContextMenu: function(n,e) {
 		n.select();
@@ -55,4 +55,4 @@ Ext.extend(miniShop2.tree.FeatureCategories, MODx.tree.Tree,{
 	}
 
 });
-Ext.reg('minishop2-tree-feature-categories',miniShop2.tree.FeatureCategories);
+Ext.reg('minishop2-tree-option-categories',miniShop2.tree.OptionCategories);

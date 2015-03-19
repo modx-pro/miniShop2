@@ -103,7 +103,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 
     /** {inheritDoc} */
     public function afterSave() {
-        $this->object->saveFeatureFields($this->getProperties());
+        $this->object->saveOptionFields($this->getProperties());
         return parent::afterSave();
     }
 

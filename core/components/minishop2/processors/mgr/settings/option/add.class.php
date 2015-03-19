@@ -1,13 +1,13 @@
 <?php
 
-class msFeatureAddProcessor extends modObjectCreateProcessor {
-    public $classKey = 'msCategoryFeature';
-    public $objectType = 'ms2_feature';
+class msOptionAddProcessor extends modObjectCreateProcessor {
+    public $classKey = 'msCategoryOption';
+    public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
 
     public function beforeSet() {
-        $featureId = $this->getProperty('feature_id');
-        if (empty($featureId)) {
+        $optionId = $this->getProperty('option_id');
+        if (empty($optionId)) {
             return $this->modx->lexicon($this->objectType.'_err_ns');
         }
 
@@ -17,7 +17,7 @@ class msFeatureAddProcessor extends modObjectCreateProcessor {
         }
 
         $unique = array(
-            'feature_id' => $featureId,
+            'option_id' => $optionId,
             'category_id' => $categoryId,
         );
 
@@ -25,8 +25,8 @@ class msFeatureAddProcessor extends modObjectCreateProcessor {
             return $this->modx->lexicon($this->objectType.'_err_ae', $unique);
         }
 
-        $feature = $this->modx->getObject('msFeature', $featureId);
-        if (!$feature) {
+        $option = $this->modx->getObject('msOption', $optionId);
+        if (!$option) {
             return $this->modx->lexicon($this->objectType.'_err_nf');
         }
 
@@ -40,4 +40,4 @@ class msFeatureAddProcessor extends modObjectCreateProcessor {
 
 }
 
-return 'msFeatureAddProcessor';
+return 'msOptionAddProcessor';

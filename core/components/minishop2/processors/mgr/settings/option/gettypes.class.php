@@ -1,6 +1,6 @@
 <?php
 
-class msFeatureGetTypesProcessor extends modObjectGetListProcessor {
+class msOptionGetTypesProcessor extends modObjectGetListProcessor {
 
     public $languageTopics = array('minishop2:manager');
     /**
@@ -44,4 +44,4 @@ class msFeatureGetTypesProcessor extends modObjectGetListProcessor {
     }
 }
 
-return 'msFeatureGetTypesProcessor';
+return 'msOptionGetTypesProcessor';

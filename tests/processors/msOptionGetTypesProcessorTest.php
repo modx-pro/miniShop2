@@ -1,8 +1,8 @@
 <?php
 
-class msFeatureGetTypesProcessorTest extends MODxProcessorTestCase {
+class msOptionGetTypesProcessorTest extends MODxProcessorTestCase {
 
-    public $processor = 'mgr/settings/feature/gettypes';
+    public $processor = 'mgr/settings/option/gettypes';
 
     public function setUp() {
         parent::setUp();
@@ -15,7 +15,6 @@ class msFeatureGetTypesProcessorTest extends MODxProcessorTestCase {
         $this->assertGreaterThan(0, count($data));
         $this->assertTrue(isset($data[0]['name']));
         $this->assertTrue(isset($data[0]['caption']));
-
         $this->assertTrue(class_exists('msNumberType'));
     }
 

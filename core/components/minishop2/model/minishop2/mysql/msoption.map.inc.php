@@ -1,19 +1,19 @@
 <?php
-$xpdo_meta_map['msFeature']= array (
+$xpdo_meta_map['msOption']= array (
   'package' => 'minishop2',
   'version' => '1.1',
-  'table' => 'ms3_features',
+  'table' => 'ms3_options',
   'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
-    'name' => '',
+    'key' => '',
     'caption' => '',
     'type' => '',
     'properties' => NULL,
   ),
   'fieldMeta' => 
   array (
-    'name' => 
+    'key' => 
     array (
       'dbtype' => 'varchar',
       'precision' => '255',
@@ -49,7 +49,7 @@ $xpdo_meta_map['msFeature']= array (
   ),
   'indexes' => 
   array (
-    'name' => 
+    'key' => 
     array (
       'alias' => 'type',
       'primary' => false,
@@ -84,19 +84,19 @@ $xpdo_meta_map['msFeature']= array (
   ),
   'composites' => 
   array (
-    'FeatureCategories' => 
+    'OptionCategories' => 
     array (
-      'class' => 'msCategoryFeature',
+      'class' => 'msCategoryOption',
       'local' => 'id',
-      'foreign' => 'feature_id',
+      'foreign' => 'option_id',
       'cardinality' => 'many',
       'owner' => 'local',
     ),
-    'FeatureProducts' => 
+    'OptionProducts' => 
     array (
-      'class' => 'msProductFeature',
-      'local' => 'id',
-      'foreign' => 'feature_id',
+      'class' => 'msProductOption',
+      'local' => 'key',
+      'foreign' => 'key',
       'cardinality' => 'many',
       'owner' => 'local',
     ),

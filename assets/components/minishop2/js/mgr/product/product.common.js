@@ -180,7 +180,7 @@ var methods = {
 		config = config || {record:{}};
 		var enabled = miniShop2.config.data_fields;
 		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
-        var features = this.getFeatureFields(config);
+        var options = this.getOptionFields(config);
         var result = [];
 		if (items.length > 0) {
 			result.push({
@@ -188,10 +188,10 @@ var methods = {
 				,items: items
 			});
 		}
-        if (features.length > 0) {
+        if (options.length > 0) {
             result.push({
                 xtype: 'fieldset'
-                ,items: features
+                ,items: options
             });
         }
         return result;
@@ -278,9 +278,9 @@ var methods = {
 		return fields;
 	}
 
-    ,getFeatureFields: function(config){
+    ,getOptionFields: function(config){
 
-        var fields = miniShop2.config.feature_fields;
+        var fields = miniShop2.config.option_fields;
         var ext_fields = [];
         for (var i=0; i<fields.length; i++) {
             var allowBlank = 1 - fields[i].required;

@@ -331,17 +331,17 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 		});
 
         it.push({
-            title: _('ms2_features')
+            title: _('ms2_options')
             ,deferredRender: true
             ,items: [{
-                html: '<p>'+_('ms2_features_intro')+'</p>'
+                html: '<p>'+_('ms2_options_intro')+'</p>'
                 ,border: false
                 ,bodyCssClass: 'panel-desc'
                 ,bodyStyle: 'margin-bottom: 10px'
             }, {
                 cls:'main-wrapper'
                 ,items: [{
-                    xtype: 'minishop2-grid-category-feature'
+                    xtype: 'minishop2-grid-category-option'
                     ,border: false
                 }]
             }]

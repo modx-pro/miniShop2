@@ -1,8 +1,8 @@
 <?php
 
-class msFeatureGetProcessor extends modObjectGetProcessor {
-    public $classKey = 'msFeature';
-    public $objectType = 'ms2_feature';
+class msOptionGetProcessor extends modObjectGetProcessor {
+    public $classKey = 'msOption';
+    public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
 
     /**
@@ -11,11 +11,11 @@ class msFeatureGetProcessor extends modObjectGetProcessor {
      */
     public function beforeOutput() {
         $c = $this->modx->newQuery('msCategory');
-        $c->leftJoin('msCategoryFeature', 'msCategoryFeature', 'msCategoryFeature.category_id=msCategory.id');
-        $c->where(array('msCategoryFeature.feature_id' => $this->object->get('id')));
+        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.category_id=msCategory.id');
+        $c->where(array('msCategoryOption.option_id' => $this->object->get('id')));
         $c->select(array(
             $this->modx->getSelectColumns('msCategory', 'msCategory'),
-            $this->modx->getSelectColumns('msCategoryFeature','msCategoryFeature','',array('id', 'feature_id', 'category_id'), true),
+            $this->modx->getSelectColumns('msCategoryOption','msCategoryOption','',array('id', 'option_id', 'category_id'), true),
         ));
         $categories = $this->modx->getIterator('msCategory', $c);
 
@@ -31,4 +31,4 @@ class msFeatureGetProcessor extends modObjectGetProcessor {
     }
 }
 
-return 'msFeatureGetProcessor';
+return 'msOptionGetProcessor';

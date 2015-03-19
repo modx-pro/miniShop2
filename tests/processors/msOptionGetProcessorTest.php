@@ -1,8 +1,8 @@
 <?php
 
-class msFeatureGetProcessorTest extends MODxProcessorTestCase {
+class msOptionGetProcessorTest extends MODxProcessorTestCase {
 
-    public $processor = 'mgr/settings/feature/get';
+    public $processor = 'mgr/settings/option/get';
 
     public function setUp() {
         parent::setUp();
@@ -11,41 +11,41 @@ class msFeatureGetProcessorTest extends MODxProcessorTestCase {
         $category = $this->createTestCategory('UnitTestCategory');
         $category2 = $this->createTestCategory('UnitTestCategory2');
 
-        $feature1 = $this->createTestFeature('UnitTestFeature1', array('type' => 'number'));
-        $feature2 = $this->createTestFeature('UnitTestFeature2');
-        $feature3 = $this->createTestFeature('UnitTestFeature3');
-        $feature4 = $this->createTestFeature('UnitTestFeature4');
+        $option1 = $this->createTestOption('UnitTestOption1', array('type' => 'number'));
+        $option2 = $this->createTestOption('UnitTestOption2');
+        $option3 = $this->createTestOption('UnitTestOption3');
+        $option4 = $this->createTestOption('UnitTestOption4');
 
-        $catFeature = $this->createTestCategoryFeature($category->get('id'), $feature1->get('id'));
+        $catOption = $this->createTestCategoryOption($category->get('id'), $option1->get('id'));
 
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature1->get('id'), array('rank' => 1));
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature2->get('id'), array('rank' => 2));
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature3->get('id'), array('rank' => 0));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option1->get('id'), array('rank' => 1));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option2->get('id'), array('rank' => 2));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
     }
 
-    public function testGetNotSpecifiedFeature() {
+    public function testGetNotSpecifiedOption() {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
-        $this->assertEquals($this->modx->lexicon('ms2_feature_err_ns'), $response['message']);
+        $this->assertEquals($this->modx->lexicon('ms2_option_err_ns'), $response['message']);
     }
 
-    public function testgetNotExistedFeature() {
+    public function testgetNotExistedOption() {
         $response = $this->getResponse(array('id' => 100500));
         $this->assertFalse($response['success']);
-        $this->assertEquals($this->modx->lexicon('ms2_feature_err_nfs'), $response['message']);
+        $this->assertEquals($this->modx->lexicon('ms2_option_err_nfs'), $response['message']);
     }
 
-    public function testGetFeature() {
-        $feature = $this->modx->getObject('msFeature', array('name' => 'UnitTestFeature1'));
-        $id = $feature->get('id');
+    public function testGetOption() {
+        $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
+        $id = $option->get('id');
 
         $response = $this->getResponse(array('id' => $id));
 
         $this->assertTrue($response['success']);
         $this->assertArraySubset(array(
             'id' => $id,
-            'name' => 'UnitTestFeature1',
+            'key' => 'UnitTestOption1',
             'caption' => '',
             'type' => 'number',
             'categories' => array(),

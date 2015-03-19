@@ -1,8 +1,8 @@
 <?php
 
-class msFeatureGetListProcessorTest extends MODxProcessorTestCase {
+class msOptionGetListProcessorTest extends MODxProcessorTestCase {
 
-    public $processor = 'mgr/settings/feature/getlist';
+    public $processor = 'mgr/settings/option/getlist';
 
     public function setUp() {
         parent::setUp();
@@ -11,57 +11,57 @@ class msFeatureGetListProcessorTest extends MODxProcessorTestCase {
         $category = $this->createTestCategory('UnitTestCategory');
         $category2 = $this->createTestCategory('UnitTestCategory2');
 
-        $feature1 = $this->createTestFeature('UnitTestFeature1');
-        $feature2 = $this->createTestFeature('UnitTestFeature2');
-        $feature3 = $this->createTestFeature('UnitTestFeature3');
-        $feature4 = $this->createTestFeature('UnitTestFeature4');
+        $option1 = $this->createTestOption('UnitTestOption1');
+        $option2 = $this->createTestOption('UnitTestOption2');
+        $option3 = $this->createTestOption('UnitTestOption3');
+        $option4 = $this->createTestOption('UnitTestOption4');
 
-        $catFeature = $this->createTestCategoryFeature($category->get('id'), $feature1->get('id'));
+        $catOption = $this->createTestCategoryOption($category->get('id'), $option1->get('id'));
 
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature1->get('id'), array('rank' => 1));
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature2->get('id'), array('rank' => 2));
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature3->get('id'), array('rank' => 0));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option1->get('id'), array('rank' => 1));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option2->get('id'), array('rank' => 2));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
     }
 
-    public function testGetAllFeatures() {
+    public function testGetAllOptions() {
         $response = $this->getResponse(array());
         $this->assertTrue( $response['success']);
         $data = $response['results'][0];
         $this->assertTrue( isset($data['id']));
-        $this->assertTrue( isset($data['name']));
+        $this->assertTrue( isset($data['key']));
         $this->assertTrue( isset($data['caption']));
         $this->assertTrue( isset($data['type']));
     }
 
-    public function testEmptyCategoryFeatures() {
+    public function testEmptyCategoryOptions() {
         $category = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestEmptyCategory'));
         $response = $this->getResponse(array('category' => $category->get('id')));
         $this->assertTrue( $response['success']);
         $this->assertEquals(0, $response['total']);
     }
 
-    public function testRankedCategoryFeatures() {
+    public function testRankedCategoryOptions() {
         $category = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $response = $this->getResponse(array('category' => $category->get('id'), 'sort' => 'rank'));
         $this->assertTrue( $response['success']);
         $this->assertEquals(3, $response['total']);
-        $this->assertEquals('UnitTestFeature3', $response['results'][0]['name']);
-        $this->assertEquals('UnitTestFeature1', $response['results'][1]['name']);
-        $this->assertEquals('UnitTestFeature2', $response['results'][2]['name']);
+        $this->assertEquals('UnitTestOption3', $response['results'][0]['key']);
+        $this->assertEquals('UnitTestOption1', $response['results'][1]['key']);
+        $this->assertEquals('UnitTestOption2', $response['results'][2]['key']);
         $this->assertEquals(0, $response['results'][0]['rank']);
         $this->assertEquals(1, $response['results'][1]['rank']);
         $this->assertEquals(2, $response['results'][2]['rank']);
     }
 
-    public function testRankByNameCategoryFeatures() {
+    public function testRankByNameCategoryOptions() {
         $category = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $response = $this->getResponse(array('category' => $category->get('id')));
         $this->assertTrue( $response['success']);
         $this->assertEquals(3, $response['total']);
-        $this->assertEquals('UnitTestFeature1', $response['results'][0]['name']);
-        $this->assertEquals('UnitTestFeature2', $response['results'][1]['name']);
-        $this->assertEquals('UnitTestFeature3', $response['results'][2]['name']);
+        $this->assertEquals('UnitTestOption1', $response['results'][0]['key']);
+        $this->assertEquals('UnitTestOption2', $response['results'][1]['key']);
+        $this->assertEquals('UnitTestOption3', $response['results'][2]['key']);
         $this->assertEquals(1, $response['results'][0]['rank']);
         $this->assertEquals(2, $response['results'][1]['rank']);
         $this->assertEquals(0, $response['results'][2]['rank']);

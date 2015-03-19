@@ -1,8 +1,8 @@
 <?php
 
-class msFeatureCreateProcessorTest extends MODxProcessorTestCase {
+class msOptionCreateProcessorTest extends MODxProcessorTestCase {
 
-    public $processor = 'mgr/settings/feature/create';
+    public $processor = 'mgr/settings/option/create';
 
     public function setUp() {
         parent::setUp();
@@ -11,50 +11,50 @@ class msFeatureCreateProcessorTest extends MODxProcessorTestCase {
         $category = $this->createTestCategory('UnitTestCategory');
         $category2 = $this->createTestCategory('UnitTestCategory2');
 
-        $feature1 = $this->createTestFeature('UnitTestFeature1');
-        $feature2 = $this->createTestFeature('UnitTestFeature2');
-        $feature3 = $this->createTestFeature('UnitTestFeature3');
-        $feature4 = $this->createTestFeature('UnitTestFeature4');
+        $option1 = $this->createTestOption('UnitTestOption1');
+        $option2 = $this->createTestOption('UnitTestOption2');
+        $option3 = $this->createTestOption('UnitTestOption3');
+        $option4 = $this->createTestOption('UnitTestOption4');
 
-        $catFeature = $this->createTestCategoryFeature($category->get('id'), $feature1->get('id'));
+        $catOption = $this->createTestCategoryOption($category->get('id'), $option1->get('id'));
 
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature1->get('id'), array('rank' => 1));
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature2->get('id'), array('rank' => 2));
-        $catFeature = $this->createTestCategoryFeature($category2->get('id'), $feature3->get('id'), array('rank' => 0));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option1->get('id'), array('rank' => 1));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option2->get('id'), array('rank' => 2));
+        $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
     }
 
-    public function testCreateUniqueFeature() {
+    public function testCreateUniqueOption() {
         $response = $this->getResponse(array(
-            'name' => 'UnitTestUniqueFeature'
+            'key' => 'UnitTestUniqueOption'
         ));
         $this->assertTrue($response['success']);
         $data = $response['object'];
         $this->assertTrue( isset($data['id']));
-        $this->assertEquals('UnitTestUniqueFeature', $data['name']);
+        $this->assertEquals('UnitTestUniqueOption', $data['key']);
         $this->assertTrue( isset($data['caption']));
         $this->assertTrue( isset($data['type']));
     }
 
-    public function testCreateNonUniqueFeature() {
+    public function testCreateNonUniqueOption() {
         $response = $this->getResponse(array(
-            'name' => 'UnitTestFeature1'
+            'key' => 'UnitTestOption1'
         ));
         $this->assertFalse($response['success']);
-        $this->assertEquals($this->modx->lexicon('ms2_feature_err_ae'), $response['errors'][0]['msg']);
+        $this->assertEquals($this->modx->lexicon('ms2_option_err_ae'), $response['errors'][0]['msg']);
     }
 
-    public function testCreateEmptyNameFeature() {
+    public function testCreateEmptyNameOption() {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
-        $this->assertEquals($this->modx->lexicon('ms2_feature_err_name_ns'), $response['errors'][0]['msg']);
+        $this->assertEquals($this->modx->lexicon('ms2_option_err_name_ns'), $response['errors'][0]['msg']);
     }
 
     public function testCreateWithCategories() {
         $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
 
         $response = $this->getResponse(array(
-            'name' => 'UnitTestUniqueFeature',
+            'key' => 'UnitTestUniqueOption',
             'categories' => $this->modx->toJSON(array_keys($categories))
         ));
 
@@ -66,7 +66,7 @@ class msFeatureCreateProcessorTest extends MODxProcessorTestCase {
         $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
         $categories[100500] = array();
         $response = $this->getResponse(array(
-            'name' => 'UnitTestUniqueFeature',
+            'key' => 'UnitTestUniqueOption',
             'categories' => $this->modx->toJSON(array_keys($categories))
         ));
 

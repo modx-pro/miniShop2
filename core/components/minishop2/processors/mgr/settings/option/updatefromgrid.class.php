@@ -2,9 +2,9 @@
 
 require_once (dirname(__FILE__).'/update.class.php');
 
-class msFeatureUpdateFromGridProcessor extends msFeatureUpdateProcessor {
-    public $classKey = 'msFeature';
-    public $objectType = 'ms2_feature';
+class msOptionUpdateFromGridProcessor extends msOptionUpdateProcessor {
+    public $classKey = 'msOption';
+    public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
 
     public function initialize() {
@@ -17,4 +17,4 @@ class msFeatureUpdateFromGridProcessor extends msFeatureUpdateProcessor {
     }
 }
 
-return 'msFeatureUpdateFromGridProcessor';
+return 'msOptionUpdateFromGridProcessor';

@@ -81,7 +81,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$this->resourceArray['source'] = $this->context->getOption('ms2_product_source_default', 1, $this->modx->_userConfig);
 
         // Get feature fields
-        $product_feature_fields = $this->resource->getFeatureFields($this->resource);
+        $product_option_fields = $this->resource->getOptionFields($this->resource);
 
 		$this->addHtml('
 		<script type="text/javascript">
@@ -93,7 +93,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
-			,feature_fields: '.json_encode($product_feature_fields).'
+			,option_fields: '.json_encode($product_option_fields).'
 			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
 			,product_tab_extra: '.$this->modx->getOption('ms2_product_tab_extra', null, true).'
 			,product_tab_gallery: '.$this->modx->getOption('ms2_product_tab_gallery', null, true).'

@@ -10,31 +10,31 @@
          >
     <testsuites>
         <testsuite name="getlist">
-            <file>processors/msFeatureGetListProcessorTest.php</file>
+            <file>processors/msOptionGetListProcessorTest.php</file>
         </testsuite>
         <testsuite name="create">
-            <file>processors/msFeatureCreateProcessorTest.php</file>
+            <file>processors/msOptionCreateProcessorTest.php</file>
         </testsuite>
         <testsuite name="update">
-            <file>processors/msFeatureUpdateProcessorTest.php</file>
+            <file>processors/msOptionUpdateProcessorTest.php</file>
         </testsuite>
         <testsuite name="updatefromgrid">
-            <file>processors/msFeatureUpdateFromGridProcessorTest.php</file>
+            <file>processors/msOptionUpdateFromGridProcessorTest.php</file>
         </testsuite>
         <testsuite name="remove">
-            <file>processors/msFeatureRemoveProcessorTest.php</file>
+            <file>processors/msOptionRemoveProcessorTest.php</file>
         </testsuite>
         <testsuite name="duplicate">
-            <file>processors/msFeatureDuplicateProcessorTest.php</file>
+            <file>processors/msOptionDuplicateProcessorTest.php</file>
         </testsuite>
         <testsuite name="get">
-            <file>processors/msFeatureGetProcessorTest.php</file>
+            <file>processors/msOptionGetProcessorTest.php</file>
         </testsuite>
         <testsuite name="gettypes">
-            <file>processors/msFeatureGetTypesProcessorTest.php</file>
+            <file>processors/msOptionGetTypesProcessorTest.php</file>
         </testsuite>
         <testsuite name="category_duplicate">
-            <file>processors/msFeatureCategoryDuplicateProcessorTest.php</file>
+            <file>processors/msOptionCategoryDuplicateProcessorTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
