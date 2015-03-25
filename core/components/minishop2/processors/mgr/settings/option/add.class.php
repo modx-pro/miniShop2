@@ -35,6 +35,9 @@ class msOptionAddProcessor extends modObjectCreateProcessor {
             return $this->modx->lexicon('ms2_category_err_nf');
         }
 
+        $this->object->set('option_id', $optionId);
+        $this->object->set('category_id', $categoryId);
+
         return parent::beforeSet();
     }
 

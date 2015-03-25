@@ -592,8 +592,11 @@ miniShop2.combo.Options = function(config) {
             action: 'mgr/settings/option/getlist'
         }
         ,tpl: new Ext.XTemplate('<tpl for="."><div class="x-combo-list-item"><span style="font-weight: bold">{caption}</span>'
-            ,' - <span style="font-style:italic">{key}</span></tpl>'
-            ,'<br />{type}</div></tpl>')
+            ,' - <span style="font-style:italic">{key}</span><br />{[this.getLang(values.type)]}</div></tpl>', {
+                getLang: function(type){
+                    return _("ms2_ft_"+type);
+                }
+            })
         ,allowBlank: false
         ,editable: true
     });
