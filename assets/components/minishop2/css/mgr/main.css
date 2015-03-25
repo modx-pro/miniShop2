@@ -150,3 +150,11 @@ td.x-grid3-td-progress-cell div.x-grid3-cell-inner {padding: 0;position: relativ
 .modx-gallery-details-info .description {margin-top: 20px; padding-top: 20px; border-top: 1px solid #efefef;}
 .modx-gal-item-thumb {width: 120px; height: 90px; border:1px solid #efefef;}
 .modx-gal-item-thumb img {max-width: 120px; max-height: 90px; display: block; margin: auto;}
+
+.grid-row-insert-below {
+    background-color: #f0f0f0;
+    background-image: none;
+    border-bottom: 1px solid #e4e4e4!important;
+    border-top: 1px solid #e4e4e4!important;
+    color: #565550;
+}

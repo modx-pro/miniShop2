@@ -60,7 +60,7 @@ miniShop2.grid.Option = function(config) {
 			,{header: _('id'),dataIndex: 'id',width: 50, sortable: true}
 			,{header: _('ms2_ft_name'),dataIndex: 'key',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
 			,{header: _('ms2_ft_caption'),dataIndex: 'caption',width: 150, editor: {xtype: 'textfield', allowBlank: false}, sortable: true}
-			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 100, editor: {xtype: 'minishop2-combo-option-types'}}
+			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 100, editor: {xtype: 'minishop2-combo-option-types'}, renderer:function(v){return _('ms2_ft_'+v)}}
 		]
 		,tbar: [{
 			text: _('ms2_btn_create')

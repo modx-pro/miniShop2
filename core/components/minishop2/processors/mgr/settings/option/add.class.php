@@ -38,6 +38,9 @@ class msOptionAddProcessor extends modObjectCreateProcessor {
         $this->object->set('option_id', $optionId);
         $this->object->set('category_id', $categoryId);
 
+        $rank = $this->modx->getCount($this->classKey, array('category_id' => $categoryId));
+        $this->object->set('rank', $rank);
+
         return parent::beforeSet();
     }
 

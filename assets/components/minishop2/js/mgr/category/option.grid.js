@@ -36,8 +36,9 @@ miniShop2.grid.CategoryOption = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/option/getlist'
             ,category: MODx.request.id
+            ,sort: 'rank'
 		}
-		,fields: ['id','key','caption','type','active','required','rank','category_id']
+		,fields: ['id','key','caption','type','active','required','rank','value','category_id']
 		,autoHeight: true
 		,paging: true
 		,remoteSort: true
@@ -45,14 +46,23 @@ miniShop2.grid.CategoryOption = function(config) {
 		,autosave: true
         ,sm: this.sm
 		,columns: [this.sm
-			,{header: _('id'),dataIndex: 'id',width: 50, sortable: true}
-			,{header: _('ms2_ft_name'),dataIndex: 'key',width: 150, sortable: true}
-			,{header: _('ms2_ft_caption'),dataIndex: 'caption',width: 150, sortable: true}
-			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 100}
-            ,{header: _('ms2_ft_required'),dataIndex: 'required',width: 100, editor: {xtype:'combo-boolean', renderer:'boolean'}}
-            ,{header: _('ms2_ft_active'),dataIndex: 'active',width: 100, editor: {xtype:'combo-boolean', renderer:'boolean'}}
-            ,{header: _('ms2_ft_rank'),dataIndex: 'rank',width: 100, editor: {xtype: 'numberfield'}}
+			,{header: _('id'),dataIndex: 'id',width: 5, sortable: true}
+			,{header: _('ms2_ft_name'),dataIndex: 'key',width: 15, sortable: true}
+			,{header: _('ms2_ft_caption'),dataIndex: 'caption',width: 20, sortable: true}
+			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 15,renderer:function(v){return _('ms2_ft_'+v)}}
+            ,{header: _('ms2_ft_required'),dataIndex: 'required',width: 10, editor: {xtype:'combo-boolean', renderer:'boolean'}}
+            ,{header: _('ms2_ft_active'),dataIndex: 'active',width: 8, editor: {xtype:'combo-boolean', renderer:'boolean'}}
+            ,{header: _('ms2_ft_rank'),dataIndex: 'rank',width: 7, editor: {xtype: 'numberfield'}}
+            ,{header: _('ms2_default_value'),dataIndex: 'value',width: 20, editor: {xtype: 'textfield'}}
 		]
+        ,plugins: [new Ext.ux.dd.GridDragDropRowOrder({
+            copy: false
+            ,scrollable: true
+            ,targetCfg: {}
+            ,listeners: {
+                'afterrowmove': {fn:this.onAfterRowMove,scope:this}
+            }
+        })]
 		,tbar: [{
             text: _('ms2_btn_addoption')
             ,handler: this.addOption
@@ -304,6 +314,28 @@ Ext.extend(miniShop2.grid.CategoryOption,MODx.grid.Grid,{
 		this.refresh();
 	}
 
+    ,onAfterRowMove: function(dt,sri,ri,sels) {
+        console.log(dt,sri,ri,sels);
+        var s = this.getStore();
+        var sourceRec = s.getAt(sri);
+        sourceRec.set('rank',sri);
+        sourceRec.commit();
+        this.saveRecord({record: sourceRec});
+
+        /* get all rows below ri, and up their rank by 1 */
+        var brec;
+        var total = s.getTotalCount();
+        for (var x=(ri-1);x<total;x++) {
+            brec = s.getAt(x);
+            if (brec) {
+                brec.set('rank',x);
+                brec.commit();
+                this.saveRecord({record: brec});
+            }
+        }
+        return true;
+    }
+
 });
 Ext.reg('minishop2-grid-category-option',miniShop2.grid.CategoryOption);
 
@@ -322,7 +354,7 @@ miniShop2.window.AddOption = function(config) {
         ,fields: [
             {xtype: 'hidden',name: 'category_id', id: 'minishop2-option-category'}
             ,{xtype: 'minishop2-combo-options', anchor: '99%', id: 'minishop2-combo-options', name: 'option_id', hiddenName: 'option_id'}
-            ,{xtype: 'numberfield', width: 50, id: 'minishop2-option-rank', name: 'rank', fieldLabel: _('ms2_category_option_rank'), allowDecimals:false, allowNegative: false}
+           // ,{xtype: 'numberfield', width: 50, id: 'minishop2-option-rank', name: 'rank', fieldLabel: _('ms2_category_option_rank'), allowDecimals:false, allowNegative: false}
             ,{xtype: 'textfield', anchor: '99%', id: 'minishop2-option-value', name: 'value', fieldLabel: _('ms2_default_value')}
             ,{xtype: 'checkboxgroup'
                 ,fieldLabel: _('ms2_options')
