@@ -25,6 +25,14 @@ class msCategoryOptionDeleteProcessor extends modObjectRemoveProcessor {
 
         return true;
     }
+
+    public function afterRemove() {
+        $sql = "UPDATE {$this->modx->getTableName($this->classKey)} SET `rank`=`rank`-1
+            WHERE `rank`>{$this->object->get('rank')} AND `category_id`={$this->object->get('category_id')}";
+        $this->modx->exec($sql);
+
+        return parent::afterRemove();
+    }
 }
 
 return 'msCategoryOptionDeleteProcessor';

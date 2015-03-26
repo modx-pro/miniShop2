@@ -158,3 +158,7 @@ td.x-grid3-td-progress-cell div.x-grid3-cell-inner {padding: 0;position: relativ
     border-top: 1px solid #e4e4e4!important;
     color: #565550;
 }
+
+.fix-tbar, .fix-tbar > .x-toolbar {
+    width: 100% !important;
+}

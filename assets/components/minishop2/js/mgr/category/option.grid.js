@@ -1,7 +1,7 @@
 miniShop2.grid.CategoryOption = function(config) {
 	config = config || {};
 
-	this.dd = function(grid) {
+	/*this.dd = function(grid) {
 		this.dropTarget = new Ext.dd.DropTarget(grid.container, {
 			ddGroup : 'dd',
 			copy:false,
@@ -26,7 +26,7 @@ miniShop2.grid.CategoryOption = function(config) {
 				}
 			}
 		});
-	};
+	};*/
 
     this.sm = new Ext.grid.CheckboxSelectionModel();
 
@@ -63,7 +63,9 @@ miniShop2.grid.CategoryOption = function(config) {
                 'afterrowmove': {fn:this.onAfterRowMove,scope:this}
             }
         })]
-		,tbar: [{
+        ,tbarCssClass: 'fix-tbar'
+        ,bbarCssClass: 'fix-tbar'
+        ,tbar: [{
             text: _('ms2_btn_addoption')
             ,handler: this.addOption
             ,scope: this
@@ -99,7 +101,7 @@ miniShop2.grid.CategoryOption = function(config) {
 				click: {fn: this.clearFilter, scope: this}
 			}
 		}]
-		,ddGroup: 'dd'
+		,ddGroup: 'dd-option-grid'
 		,enableDragDrop: true
 		,listeners: {render: {fn: this.dd, scope: this}}
 	});
@@ -173,7 +175,6 @@ Ext.extend(miniShop2.grid.CategoryOption,MODx.grid.Grid,{
         if (sels.length <= 0) return false;
 
         for (var i=0;i<sels.length;i++) {
-            console.log(sels[i].data);
             MODx.Ajax.request({
                 url: miniShop2.config.connector_url
                 ,params: {
@@ -316,10 +317,15 @@ Ext.extend(miniShop2.grid.CategoryOption,MODx.grid.Grid,{
 
     ,onAfterRowMove: function(dt,sri,ri,sels) {
         var s = this.getStore();
+        var start = this.getBottomToolbar().cursor;
+        var size = this.getBottomToolbar().pageSize;
         var total = s.getTotalCount();
-        for (var x=0;x<total;x++) {
+        if (size > total) {
+            size = total;
+        }
+        for (var x=0;x<size;x++) {
             brec = s.getAt(x);
-            brec.set('rank',x);
+            brec.set('rank',start+x);
             brec.commit();
             this.saveRecord({record: brec});
         }
