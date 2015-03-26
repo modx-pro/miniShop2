@@ -52,8 +52,8 @@ miniShop2.grid.CategoryOption = function(config) {
 			,{header: _('ms2_ft_type'),dataIndex: 'type',width: 15,renderer:function(v){return _('ms2_ft_'+v)}}
             ,{header: _('ms2_ft_required'),dataIndex: 'required',width: 10, editor: {xtype:'combo-boolean', renderer:'boolean'}}
             ,{header: _('ms2_ft_active'),dataIndex: 'active',width: 8, editor: {xtype:'combo-boolean', renderer:'boolean'}}
-            ,{header: _('ms2_ft_rank'),dataIndex: 'rank',width: 7, editor: {xtype: 'numberfield'}}
             ,{header: _('ms2_default_value'),dataIndex: 'value',width: 20, editor: {xtype: 'textfield'}}
+            ,{header: _('ms2_ft_rank'),dataIndex: 'rank',width: 7,editor: {xtype:'numberfield'}}
 		]
         ,plugins: [new Ext.ux.dd.GridDragDropRowOrder({
             copy: false
@@ -315,23 +315,13 @@ Ext.extend(miniShop2.grid.CategoryOption,MODx.grid.Grid,{
 	}
 
     ,onAfterRowMove: function(dt,sri,ri,sels) {
-        console.log(dt,sri,ri,sels);
         var s = this.getStore();
-        var sourceRec = s.getAt(sri);
-        sourceRec.set('rank',sri);
-        sourceRec.commit();
-        this.saveRecord({record: sourceRec});
-
-        /* get all rows below ri, and up their rank by 1 */
-        var brec;
         var total = s.getTotalCount();
-        for (var x=(ri-1);x<total;x++) {
+        for (var x=0;x<total;x++) {
             brec = s.getAt(x);
-            if (brec) {
-                brec.set('rank',x);
-                brec.commit();
-                this.saveRecord({record: brec});
-            }
+            brec.set('rank',x);
+            brec.commit();
+            this.saveRecord({record: brec});
         }
         return true;
     }

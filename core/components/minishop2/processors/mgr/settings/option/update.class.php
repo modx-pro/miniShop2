@@ -39,15 +39,14 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
 
         $categoryId = $this->getProperty('category_id');
         if ($categoryId) {
+            /** @var msCategoryOption $ftCat */
             $ftCat = $this->modx->getObject('msCategoryOption', array(
                 'option_id' => $this->object->get('id'),
                 'category_id' => $categoryId
             ));
 
             if ($ftCat) {
-                $ftCat->set('active', $this->getProperty('active'));
-                $ftCat->set('required', $this->getProperty('required'));
-                $ftCat->set('rank', $this->getProperty('rank'));
+                $ftCat->fromArray($this->getProperties());
                 $ftCat->save();
             }
         }

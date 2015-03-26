@@ -22,6 +22,8 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option2->get('id'), array('rank' => 2));
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
+        $product = $this->createTestProduct('UnitTestProduct1', $category->get('id'));
+
     }
 
     public function testCreateUniqueOption() {
@@ -60,6 +62,14 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
 
         $this->assertTrue($response['success']);
         $this->assertEquals($response['object']['categories'], array_keys($categories));
+
+        $product = $this->modx->getObject('msProduct', array('pagetitle' => 'UnitTestProduct1'));
+        $productOpt = $this->modx->getObject('msProductOption', array(
+            'product_id' => $product->get('id'),
+            'key' => 'UnitTestUniqueOption',
+        ));
+        $this->assertInstanceOf('msProductOption', $productOpt);
+        $this->assertEquals('', $productOpt->get('value'));
     }
 
     public function testCreateWithNotExistedCategories() {
