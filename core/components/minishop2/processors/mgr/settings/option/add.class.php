@@ -5,6 +5,11 @@ class msOptionAddProcessor extends modObjectCreateProcessor {
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
 
+    /** @var  msCategoryOption */
+    public $object;
+    /** @var  msOption */
+    public $option;
+
     public function beforeSet() {
         $optionId = $this->getProperty('option_id');
         if (empty($optionId)) {
@@ -25,8 +30,8 @@ class msOptionAddProcessor extends modObjectCreateProcessor {
             return $this->modx->lexicon($this->objectType.'_err_ae', $unique);
         }
 
-        $option = $this->modx->getObject('msOption', $optionId);
-        if (!$option) {
+        $this->option = $this->modx->getObject('msOption', $optionId);
+        if (!$this->option) {
             return $this->modx->lexicon($this->objectType.'_err_nf');
         }
 
@@ -42,6 +47,12 @@ class msOptionAddProcessor extends modObjectCreateProcessor {
         $this->object->set('rank', $rank);
 
         return parent::beforeSet();
+    }
+
+    public function afterSave() {
+
+
+        return true;
     }
 
 }

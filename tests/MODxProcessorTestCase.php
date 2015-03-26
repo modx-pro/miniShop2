@@ -77,7 +77,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         parent::tearDown();
 
         /* Remove test categories */
-        $category = $this->modx->getCollection('modResource',array('pagetitle:LIKE' => '%UnitTest%'));
+        $category = $this->modx->getIterator('modResource',array('pagetitle:LIKE' => '%UnitTest%'));
         /** @var msCategory $cat */
         foreach ($category as $cat) {
             $cat->remove();
@@ -85,7 +85,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategory')." AUTO_INCREMENT = 0;");
 
         /* Remove test features */
-        $objs = $this->modx->getCollection('msOption',array('key:LIKE' => '%UnitTest%'));
+        $objs = $this->modx->getIterator('msOption',array('key:LIKE' => '%UnitTest%'));
         /** @var xPDOObject $obj */
         foreach ($objs as $obj) {
             $obj->remove();

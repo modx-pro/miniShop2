@@ -36,5 +36,8 @@
         <testsuite name="category_duplicate">
             <file>processors/msOptionCategoryDuplicateProcessorTest.php</file>
         </testsuite>
+        <testsuite name="add">
+            <file>processors/msOptionAddProcessorTest.php</file>
+        </testsuite>
     </testsuites>
 </phpunit>
