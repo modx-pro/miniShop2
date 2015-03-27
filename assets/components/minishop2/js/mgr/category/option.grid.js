@@ -349,7 +349,7 @@ miniShop2.window.AddOption = function(config) {
         ,action: 'mgr/settings/option/add'
         ,fields: [
             {xtype: 'hidden',name: 'category_id', id: 'minishop2-option-category'}
-            ,{xtype: 'minishop2-combo-options', anchor: '99%', id: 'minishop2-combo-options', name: 'option_id', hiddenName: 'option_id'}
+            ,{xtype: 'minishop2-combo-extra-options', anchor: '99%', id: 'minishop2-combo-extra-options', name: 'option_id', hiddenName: 'option_id'}
            // ,{xtype: 'numberfield', width: 50, id: 'minishop2-option-rank', name: 'rank', fieldLabel: _('ms2_category_option_rank'), allowDecimals:false, allowNegative: false}
             ,{xtype: 'textfield', anchor: '99%', id: 'minishop2-option-value', name: 'value', fieldLabel: _('ms2_default_value')}
             ,{xtype: 'checkboxgroup'

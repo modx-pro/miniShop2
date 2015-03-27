@@ -284,22 +284,25 @@ var methods = {
         var ext_fields = [];
         for (var i=0; i<fields.length; i++) {
             var allowBlank = 1 - fields[i].required;
-            var field = {xtype: 'textfield', fieldLabel: fields[i].caption, allowBlank: allowBlank, description: '[[+'+fields[i].name+']]'};
-
-            field = this.getExtField(config, fields[i].name, field);
+            var field = {xtype: 'textfield', fieldLabel: fields[i].caption
+                ,allowBlank: allowBlank, description: '[[+'+fields[i].key+']]'
+                ,value: fields[i].value
+            };
+            field = this.getExtField(config, fields[i].key, field);
             ext_fields.push(field);
         }
         return ext_fields;
     }
 
     ,getExtField: function(config, field, tmp) {
+        console.log(field, tmp, config.record, (tmp.value || config.record[field]));
         var properties = {
             description: '<b>[[*'+field+']]</b><br />'+_('resource_'+field+'_help')
             ,enableKeyEvents: true
             ,listeners: config.listeners
             ,name: field
             ,id: 'modx-resource-'+field
-            ,value: config.record[field] || ''
+            ,value: tmp.value || config.record[field]
             ,msgTarget: 'under'
         };
         if (tmp.allowBlank === false) {tmp.fieldLabel = tmp.fieldLabel + ' <span class="required red">*</span>'}

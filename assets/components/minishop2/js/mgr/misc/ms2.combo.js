@@ -576,10 +576,10 @@ miniShop2.combo.Product = function(config) {
 Ext.extend(miniShop2.combo.Product,MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-product',miniShop2.combo.Product);
 
-miniShop2.combo.Options = function(config) {
+miniShop2.combo.ExtraOptions = function(config) {
     config = config || {};
     Ext.applyIf(config,{
-        id: 'minishop2-combo-options'
+        id: 'minishop2-combo-extra-options'
         ,fieldLabel: _('ms2_option')
         ,name: 'option'
         ,hiddenName: 'option'
@@ -600,11 +600,11 @@ miniShop2.combo.Options = function(config) {
         ,allowBlank: false
         ,editable: true
     });
-    miniShop2.combo.Options.superclass.constructor.call(this,config);
+    miniShop2.combo.ExtraOptions.superclass.constructor.call(this,config);
 };
 
-Ext.extend(miniShop2.combo.Options, MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-options',miniShop2.combo.Options);
+Ext.extend(miniShop2.combo.ExtraOptions, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-extra-options',miniShop2.combo.ExtraOptions);
 
 miniShop2.combo.OptionTypes = function(config) {
 	config = config || {};

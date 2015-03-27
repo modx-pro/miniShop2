@@ -14,6 +14,9 @@ class miniShop2 {
 	/** @var array $initialized */
 	public $initialized = array();
 
+    /** @var array $optionTypes */
+    public $optionTypes = array();
+
 
 	/**
 	 * @param modX $modx
@@ -195,6 +198,28 @@ class miniShop2 {
 			}
 		}
 	}
+
+    /**
+     * @param msOption $option
+     * @return null|msOptionType
+     */
+    public function getOptionType($option) {
+        $typePath = $this->config['corePath'].'processors/mgr/settings/option/types/'.$option->get('type').'.class.php';
+
+        if (array_key_exists($typePath, $this->optionTypes)) {
+            $className = $this->optionTypes[$typePath];
+        } else {
+            $className = include $typePath;
+            $this->optionTypes[$typePath] = $className;
+        }
+
+        if (class_exists($className)) {
+            return new $className($option);
+        } else {
+            $this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 option type class: "'.$className.'"');
+            return null;
+        }
+    }
 
 
 	/**

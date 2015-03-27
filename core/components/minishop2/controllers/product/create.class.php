@@ -80,7 +80,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$this->resourceArray['show_in_tree'] = isset($this->resourceArray['show_in_tree']) && intval($this->resourceArray['show_in_tree']) == 1 ? true : false;
 		$this->resourceArray['source'] = $this->context->getOption('ms2_product_source_default', 1, $this->modx->_userConfig);
 
-        // Get feature fields
+        // Get extra options fields
         $product_option_fields = $this->resource->getOptionFields($this->resource);
 
 		$this->addHtml('

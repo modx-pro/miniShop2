@@ -13,6 +13,7 @@ class msProduct extends modResource {
 	protected $dataRelated = array();
 	/* @var msVendor $vendor */
 	protected $vendor = null;
+    protected $options = array();
 
 
 	/**
@@ -175,10 +176,9 @@ class msProduct extends modResource {
 
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
+        if ($this->options === null) {$this->loadOptions();}
 
-        $options = $this->loadOptions();
-
-		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $options);
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $this->options);
 	}
 
 
@@ -209,7 +209,7 @@ class msProduct extends modResource {
 
     public function loadOptions() {
         $c = $this->xpdo->newQuery('msOption');
-        $c->leftJoin('msProductOption', 'msProductOption', 'msOption.id=msProductOption.option_id');
+        $c->leftJoin('msProductOption', 'msProductOption', 'msOption.key=msProductOption.key');
         $c->select(array(
             $this->xpdo->getSelectColumns('msOption','msOption'),
             $this->xpdo->getSelectColumns('msProductOption', 'msProductOption','',array('value'))
@@ -218,9 +218,9 @@ class msProduct extends modResource {
         $options = $this->xpdo->getIterator('msOption', $c);
 
         $data = array();
-        /** @var msFeature $feature */
+        /** @var msOption $option */
         foreach ($options as $option) {
-            $data[$option->get('name')] = $option->get('value');
+            $data[$option->get('key')] = $option->get('value');
         }
         return $data;
 
@@ -510,7 +510,7 @@ class msProduct extends modResource {
 	}
 
     /**
-     * Return array of feature fields for product by its category
+     * Return array of option fields for product by its category
      * @return array
      */
     public function getOptionFields() {
@@ -528,9 +528,13 @@ class msProduct extends modResource {
         $c->sortby('msCategoryOption.rank');
 
         $fts = $this->xpdo->getIterator('msOption', $c);
-        /** @var msFeature $ft */
+
+        /** @var msOption $ft */
         foreach ($fts as $ft) {
-            $fields[] = $ft->toArray();
+            $field = $ft->toArray();
+            $value = $ft->getValue($this->get('id'));
+            $field['value'] = !is_null($value) ? $value : $field['value'];
+            $fields[] = $field;
         }
         return $fields;
     }
@@ -539,12 +543,12 @@ class msProduct extends modResource {
         $fields = $this->getOptionFields();
 
         foreach ($fields as $field) {
-            $value = isset($properties[$field['name']]) ? $properties[$field['name']] : '';
+            $value = isset($properties[$field['key']]) ? $properties[$field['key']] : '';
             $c = array(
-                'option_id' => $field['id'],
+                'key' => $field['key'],
                 'product_id' => $this->get('id'),
             );
-            /** @var msProductFeature $pf */
+            /** @var msProductOption $pf */
             $pf = $this->xpdo->getObject('msProductOption', $c);
             if (!$pf) {
                 $pf = $this->xpdo->newObject('msProductOption');

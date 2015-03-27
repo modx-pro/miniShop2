@@ -51,7 +51,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
 		//---
 
-        // Get feature fields
+        // Get extra options fields
         $product_option_fields = $this->resource->getOptionFields();
 
 

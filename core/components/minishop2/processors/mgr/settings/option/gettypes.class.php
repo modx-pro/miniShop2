@@ -1,5 +1,7 @@
 <?php
 
+
+
 class msOptionGetTypesProcessor extends modObjectGetListProcessor {
 
     public $languageTopics = array('minishop2:manager');
@@ -8,6 +10,10 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor {
      * @return array
      */
     public function getData() {
+        /** @var miniShop2 $ms */
+        $ms = $this->modx->getService('minishop2');
+        $this->modx->loadClass('msOption', $ms->config['modelPath'].'minishop2/');
+
         $data = array();
         $limit = intval($this->getProperty('limit'));
         $start = intval($this->getProperty('start'));

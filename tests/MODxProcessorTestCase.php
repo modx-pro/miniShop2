@@ -43,7 +43,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
     }
 
     protected function createTestOption($name, $properties = array()) {
-        /** @var msFeature $feature */
+        /** @var msOption $option */
         $option = $this->modx->newObject('msOption');
         $option->set('key', $name);
         $option->fromArray($properties);
@@ -53,7 +53,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
     }
 
     protected function createTestCategoryOption($cat_id, $option_id, $properties = array()) {
-        /** @var msCategoryFeature $catFeature */
+        /** @var msCategoryOption $catOption */
         $catOption = $this->modx->newObject('msCategoryOption');
         $catOption->set('category_id', $cat_id);
         $catOption->set('option_id', $option_id);
@@ -64,7 +64,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
     }
 
     protected function createTestProductOption($product_id, $option_id, $properties = array()) {
-        /** @var msProductFeature $prodFeature */
+        /** @var msProductOption $prodOption */
         $prodOption = $this->modx->newObject('msProductOption');
         $prodOption->set('product_id', $product_id);
         $prodOption->set('key', $option_id);
@@ -84,7 +84,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         }
         $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategory')." AUTO_INCREMENT = 0;");
 
-        /* Remove test features */
+        /* Remove test options */
         $objs = $this->modx->getIterator('msOption',array('key:LIKE' => '%UnitTest%'));
         /** @var xPDOObject $obj */
         foreach ($objs as $obj) {

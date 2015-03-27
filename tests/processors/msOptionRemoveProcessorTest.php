@@ -39,7 +39,7 @@ class msOptionRemoveProcessorTest extends MODxProcessorTestCase {
     public function testRemoveOption() {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
-        $cats = $option->getMany('OptionCategories');//$this->modx->getCollection('msCategoryFeature', array('feature_id' => $id));
+        $cats = $option->getMany('OptionCategories');
         $this->assertCount(2, $cats);
 
         $response = $this->getResponse(array(
