@@ -155,3 +155,6 @@ $_lang['ms2_category_err_ns'] = 'Категория не выбрана';
 $_lang['ms2_option_err_ns'] = 'Свойство не выбрано';
 $_lang['ms2_option_err_nf'] = 'Свойство не найдено';
 $_lang['ms2_option_err_ae'] = 'Свойство уже существует';
+$_lang['ms2_option_err_save'] = 'Ошибка сохранения свойства';
+$_lang['ms2_option_err_reserved_key'] = 'Такой ключ опции использовать нельзя';
+$_lang['ms2_option_err_invalid_key'] = 'Неправильный ключ для свойства';

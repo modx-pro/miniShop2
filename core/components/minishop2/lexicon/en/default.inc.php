@@ -145,3 +145,11 @@ $_lang['ms2_email_subject_sent_user'] = 'Your order #[[+num]] was sent';
 $_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';
 
 $_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]">to continue it at this link</a>.';
+
+$_lang['ms2_category_err_ns'] = 'Category is not specified';
+$_lang['ms2_option_err_ns'] = 'Option is not specified';
+$_lang['ms2_option_err_nf'] = 'Option is not found';
+$_lang['ms2_option_err_ae'] = 'Option already exists';
+$_lang['ms2_option_err_save'] = 'An error while saving option';
+$_lang['ms2_option_err_reserved_key'] = 'Option key is reserved';
+$_lang['ms2_option_err_invalid_key'] = 'Option key is invalid';

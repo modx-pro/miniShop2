@@ -405,6 +405,11 @@
 
 		<composite alias="OptionCategories" class="msCategoryOption" local="id" foreign="option_id" cardinality="many" owner="local" />
 		<composite alias="OptionProducts" class="msProductOption" local="key" foreign="key" cardinality="many" owner="local" />
+        <validation>
+            <rule field="key" name="invalid" type="preg_match" rule="/^(?!\s)[a-zA-Z0-9\x2d-\x2f\x7f-\xff-_\s]+(?!\s)$/" message="ms2_option_err_invalid_key" />
+            <rule field="key" name="reserved" type="preg_match" rule="/^(?!(id|type|contentType|pagetitle|longtitle|description|alias|link_attributes|published|pub_date|unpub_date|parent|isfolder|introtext|content|richtext|template|menuindex|searchable|cacheable|createdby|createdon|editedby|editedon|deleted|deletedby|deletedon|publishedon|publishedby|menutitle|donthit|privateweb|privatemgr|content_dispo|hidemenu|class_key|context_key|content_type|uri|uri_override|hide_children_in_tree|show_in_tree|article|price|old_price|weight|image|thumb|vendor|made_in|new|popular|favorite|tags|color|size|source)$)/"
+                  message="ms2_option_err_reserved_key" />
+        </validation>
 	</object>
 
     <object class="msCategoryOption" table="ms3_category_options" extends="xPDOObject">

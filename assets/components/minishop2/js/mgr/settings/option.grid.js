@@ -137,12 +137,14 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 					success: {fn:function() { this.refresh(); },scope:this}
 				}
 			});
-		}else{
+		} else {
 			var tree = Ext.getCmp('minishop2-tree-modal-categories-window-create');
 			tree.getLoader().load(tree.root);
 		}
 
-		this.windows.createOption.fp.getForm().reset();
+        var f = this.windows.createOption.fp.getForm();
+        f.reset();
+        f.setValues({type: 'input'});
 		this.windows.createOption.show(e.target);
 	}
 
