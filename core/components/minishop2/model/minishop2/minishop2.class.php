@@ -216,7 +216,7 @@ class miniShop2 {
         if (class_exists($className)) {
             return new $className($option);
         } else {
-            $this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 option type class: "'.$className.'"');
+            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 option type class: "'.$className.'"');
             return null;
         }
     }

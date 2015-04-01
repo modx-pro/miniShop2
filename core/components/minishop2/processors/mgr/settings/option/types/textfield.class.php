@@ -1,6 +1,6 @@
 <?php
 
-class msTextareaType extends msOptionType implements msOptionTypeInterface {
+class msTextfieldType extends msOptionType implements msOptionTypeInterface {
 
     public function getValue($criteria) {
         /** @var msProductOption $value */
@@ -13,8 +13,9 @@ class msTextareaType extends msOptionType implements msOptionTypeInterface {
     }
 
     public function getField() {
-        return "{xtype:'textarea'}";
+        return "{xtype:'textfield'}";
     }
+
 }
 
-return 'msTextareaType';
+return 'msTextfieldType';

@@ -1,6 +1,6 @@
 <?php
 
-class msInputType extends msOptionType implements msOptionTypeInterface {
+class msNumberfieldType extends msOptionType implements msOptionTypeInterface {
 
     public function getValue($criteria) {
         /** @var msProductOption $value */
@@ -12,6 +12,9 @@ class msInputType extends msOptionType implements msOptionTypeInterface {
 
     }
 
+    public function getField() {
+        return "{xtype:'numberfield'}";
+    }
 }
 
-return 'msInputType';
+return 'msNumberfieldType';

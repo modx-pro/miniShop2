@@ -284,10 +284,14 @@ var methods = {
         var ext_fields = [];
         for (var i=0; i<fields.length; i++) {
             var allowBlank = 1 - fields[i].required;
-            var field = {xtype: 'textfield', fieldLabel: fields[i].caption
+            console.log(fields[i]);
+
+            var field = Ext.applyIf(Ext.util.JSON.decode(fields[i].ext_field), {
+                fieldLabel: fields[i].caption
                 ,allowBlank: allowBlank, description: '[[+'+fields[i].key+']]'
                 ,value: fields[i].value
-            };
+            });
+            console.log(field);
             field = this.getExtField(config, fields[i].key, field);
             ext_fields.push(field);
         }
@@ -295,7 +299,7 @@ var methods = {
     }
 
     ,getExtField: function(config, field, tmp) {
-        console.log(field, tmp, config.record, (tmp.value || config.record[field]));
+    //    console.log(field, tmp, config.record, (tmp.value || config.record[field]));
         var properties = {
             description: '<b>[[*'+field+']]</b><br />'+_('resource_'+field+'_help')
             ,enableKeyEvents: true

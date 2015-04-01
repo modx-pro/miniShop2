@@ -534,6 +534,7 @@ class msProduct extends modResource {
             $field = $ft->toArray();
             $value = $ft->getValue($this->get('id'));
             $field['value'] = !is_null($value) ? $value : $field['value'];
+            $field['ext_field'] = $ft->getManagerField();
             $fields[] = $field;
         }
         return $fields;

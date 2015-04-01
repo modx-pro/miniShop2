@@ -5,6 +5,8 @@ interface msOptionTypeInterface {
 
     public function setValue();
 
+    public function getField();
+
 }
 
 abstract class msOptionType {
@@ -71,7 +73,19 @@ class msOption extends xPDOSimpleObject {
         } else {
             return null;
         }
+    }
 
+    public function getManagerField() {
+        /** @var miniShop2 $minishop */
+        $minishop = $this->xpdo->getService('minishop2');
 
+        /** @var msOptionType|msOptionTypeInterface $type */
+        $type = $minishop->getOptionType($this);
+
+        if ($type) {
+            return $type->getField();
+        } else {
+            return null;
+        }
     }
 }

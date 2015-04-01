@@ -1,6 +1,6 @@
 <?php
 
-class msTextareaType extends msOptionType implements msOptionTypeInterface {
+class msComboBooleanType extends msOptionType implements msOptionTypeInterface {
 
     public function getValue($criteria) {
         /** @var msProductOption $value */
@@ -13,8 +13,9 @@ class msTextareaType extends msOptionType implements msOptionTypeInterface {
     }
 
     public function getField() {
-        return "{xtype:'textarea'}";
+        return "{xtype:'modx-combo-boolean'}";
     }
+
 }
 
-return 'msTextareaType';
+return 'msComboBooleanType';

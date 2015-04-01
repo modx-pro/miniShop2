@@ -109,7 +109,9 @@ $_lang['ms2_ft_selected_deactivate'] = 'Выключить';
 $_lang['ms2_ft_selected_require'] = 'Сделать обязательной';
 $_lang['ms2_ft_selected_unrequire'] = 'Сделать необязательной';
 
-$_lang['ms2_ft_input'] = 'Текстовое поле';
-$_lang['ms2_ft_number'] = 'Числовое поле';
+$_lang['ms2_ft_textfield'] = 'Текстовое поле';
+$_lang['ms2_ft_numberfield'] = 'Числовое поле';
 $_lang['ms2_ft_textarea'] = 'Текстовая область';
 $_lang['ms2_ft_combobox'] = 'Выпадающий список';
+$_lang['ms2_ft_combo-boolean'] = 'Да/Нет';
+$_lang['ms2_ft_combo-multiple'] = 'Множественный список';
