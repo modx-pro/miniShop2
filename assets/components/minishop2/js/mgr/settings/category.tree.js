@@ -20,19 +20,20 @@ miniShop2.tree.OptionCategories = function(config) {
 		//,tbar: []
 		,listeners: {
 			checkchange: function(node, checked) {
-				this.mask.show();
-				MODx.Ajax.request({
-					url: miniShop2.config.connector_url
-					,params: {
-						action: 'mgr/settings/option/applycategory'
-						,category_id: node.attributes.pk
-						,option_id: MODx.request.id || 0
-					}
-					,listeners: {
-						success: {fn: function() {this.mask.hide();}, scope:this}
-						,failure: {fn: function() {this.mask.hide();}, scope:this}
-					}
-				});
+                if (typeof this.optionGrid == 'undefined') return;
+                var grid = Ext.getCmp(this.optionGrid);
+                if (!grid) return;
+
+                var checkedNodes = this.getChecked();
+                var categories = [];
+                for (var i = 0; i < checkedNodes.length; i++) {
+                    categories.push(checkedNodes[i].attributes.pk);
+                }
+
+                var s = grid.getStore();
+                s.baseParams.categories = Ext.util.JSON.encode(categories);
+                grid.getBottomToolbar().changePage(1);
+
 			}
 			,afterrender: function() {
 				this.mask = new Ext.LoadMask(this.getEl());

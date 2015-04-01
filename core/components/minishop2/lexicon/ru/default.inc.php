@@ -39,6 +39,7 @@ $_lang['ms2_links_intro'] = 'Список возможных связей тов
 $_lang['ms2_option'] = 'Свойство товаров';
 $_lang['ms2_options'] = 'Свойства товаров';
 $_lang['ms2_options_intro'] = 'Список возможных свойств товаров.';
+$_lang['ms2_options_category_intro'] = 'Список возможных свойств товаров.';
 $_lang['ms2_default_value'] = 'Значение по умолчанию';
 $_lang['ms2_customer'] = 'Покупатель';
 $_lang['ms2_all'] = 'Все';

@@ -10,6 +10,8 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
     public $option = null;
     public $optionCategories = null;
 
+    protected $map = array();
+
     /** {@inheritDoc} */
     public function initialize() {
         $initialize = parent::initialize();
@@ -17,7 +19,37 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         if ($res = $this->modx->getObject('msProduct', $this->pid)) {
             $this->parent_id = $res->get('parent');
         }
+
+        $this->prepareMap();
+
         return $initialize;
+    }
+
+    public function prepareMap() {
+        /** @TODO добавить кеширование карты */
+        $t = microtime(true);
+        $q = $this->modx->newQuery('msCategory');
+        $q = $this->modx->addDerivativeCriteria('msCategory', $q);
+        $q->select('id');
+        $ids = array();
+        if ($q->prepare() && $q->stmt->execute()){
+            $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+
+        foreach ($ids as $cat) {
+            $this->map[] = $cat;
+            /** @var modResource $parent */
+            $parent = $this->modx->getObject('modResource', $cat);
+            while($parent = $parent->getOne('Parent')) {
+                if (in_array($parent->get('id'), $this->map)) {
+                    break;
+                    continue;
+                }
+                $this->map[] = $parent->get('id');
+            }
+        }
+        $this->map = array_unique($this->map);
+
     }
 
     public function prepare() {
@@ -48,16 +80,16 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         $this->itemClass= 'modResource';
         $c= $this->modx->newQuery($this->itemClass);
         $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
-        $c->leftJoin('msCategoryMember', 'Member', array('modResource.id = Member.category_id AND Member.product_id = '.$this->pid));
+     //   $c->leftJoin('msCategoryMember', 'Member', array('modResource.id = Member.category_id AND Member.product_id = '.$this->pid));
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
             'childrenCount' => 'COUNT(Child.id)',
-            'member' => 'category_id'
+     //       'member' => 'category_id'
         ));
         $c->where(array(
             'context_key' => $this->contextKey
-            ,'show_in_tree' => true
-            ,'isfolder' => true
+          //  ,'show_in_tree' => true
+         //   ,'isfolder' => true
         ));
         if (empty($this->startNode) && !empty($this->defaultRootId)) {
             $c->where(array(
@@ -71,7 +103,7 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         }
         $c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
         $c->sortby('modResource.'.$this->getProperty('sortBy'),$this->getProperty('sortDir'));
-
+        $c->prepare();
         return $c;
     }
 
@@ -95,6 +127,12 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 
     /** {@inheritDoc} */
     public function prepareResourceNode(modResource $resource) {
+
+        // show only categories and their parents
+        if (!in_array($resource->get('id'), $this->map)) {
+            return false;
+        }
+
         $qtipField = $this->getProperty('qtipField');
         $nodeField = $this->getProperty('nodeField');
 

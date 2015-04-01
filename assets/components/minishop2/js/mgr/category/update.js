@@ -334,7 +334,7 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
             title: _('ms2_options')
             ,deferredRender: true
             ,items: [{
-                html: '<p>'+_('ms2_options_intro')+'</p>'
+                html: '<p>'+_('ms2_options_category_intro')+'</p>'
                 ,border: false
                 ,bodyCssClass: 'panel-desc'
                 ,bodyStyle: 'margin-bottom: 10px'

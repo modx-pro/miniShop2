@@ -66,14 +66,6 @@ miniShop2.grid.Option = function(config) {
 			text: _('ms2_btn_create')
 			,handler: this.createOption
 			,scope: this
-		},{
-            text: _('ms2_btn_addoption')
-            ,handler: this.addOption
-            ,scope: this
-        },{
-			text: _('ms2_btn_copy')
-			,handler: this.copyOption
-			,scope: this
 		},'->',{
 			xtype: 'textfield'
 			,name: 'query'
@@ -144,27 +136,11 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 
         var f = this.windows.createOption.fp.getForm();
         f.reset();
-        f.setValues({type: 'input'});
+        f.setValues({type: 'textfield'});
 		this.windows.createOption.show(e.target);
 	}
 
-    ,addOption: function(btn,e) {
-        if (!this.windows.addOption) {
-            this.windows.addOption = MODx.load({
-                xtype: 'minishop2-window-option-add'
-                ,listeners: {
-                    success: {fn:function() { this.refresh(); },scope:this}
-                }
-            });
-        }
-
-        var f = this.windows.addOption.fp.getForm();
-        f.reset();
-        f.setValues({category_id: MODx.request.id});
-        this.windows.addOption.show(e.target);
-    }
-
-	,copyOption: function(btn,e){
+   	,copyOption: function(btn,e){
 
 
 	}
@@ -255,7 +231,6 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 		s.baseParams.query = '';
 		Ext.getCmp('minishop2-options-search').setValue('');
 		this.getBottomToolbar().changePage(1);
-		this.refresh();
 	}
 
 });
@@ -305,38 +280,6 @@ miniShop2.window.UpdateOption = function(config) {
 };
 Ext.extend(miniShop2.window.UpdateOption,MODx.Window);
 Ext.reg('minishop2-window-option-update',miniShop2.window.UpdateOption);
-
-miniShop2.window.AddOption = function(config) {
-    config = config || {};
-    this.ident = config.ident || 'meuitem'+Ext.id();
-    Ext.applyIf(config,{
-        title: _('ms2_category_option_add')
-        ,id: this.ident
-        ,width: 600
-        ,autoHeight: true
-        ,labelAlign: 'left'
-        ,labelWidth: 180
-        ,url: miniShop2.config.connector_url
-        ,action: 'mgr/settings/option/add'
-        ,fields: [
-            {xtype: 'hidden',name: 'category_id', id: 'minishop2-option-category'}
-            ,{xtype: 'minishop2-combo-extra-options', anchor: '99%', id: 'minishop2-combo-extra-options', name: 'option_id', hiddenName: 'option_id'}
-            ,{xtype: 'numberfield', width: 50, id: 'minishop2-option-rank', name: 'rank', fieldLabel: _('ms2_category_option_rank'), allowDecimals:false, allowNegative: false}
-            ,{xtype: 'checkboxgroup'
-                ,fieldLabel: _('ms2_options')
-                ,columns: 1
-                ,items: [
-                    {xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active', id: 'minishop2-option-active'}
-                    ,{xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required', id: 'minishop2-option-required'}
-                ]
-            }
-        ]
-        ,keys: [{key: Ext.EventObject.ENTER,shift: true,fn: function() {this.submit() },scope: this}]
-    });
-    miniShop2.window.AddOption.superclass.constructor.call(this,config);
-};
-Ext.extend(miniShop2.window.AddOption,MODx.Window);
-Ext.reg('minishop2-window-option-add',miniShop2.window.AddOption);
 
 miniShop2.tree.ModalCategories = function(config) {
 	config = config || {};

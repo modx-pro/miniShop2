@@ -30,6 +30,14 @@ class msOptionGetListProcessor extends modObjectGetListProcessor {
             ));
         }
 
+        $categories = $this->getProperty('categories', '[]');
+        $categories = $this->modx->fromJSON($categories);
+        if (count($categories) > 0) {
+            $c->where(array(
+                'msCategoryOption.category_id:IN' => $categories
+            ));
+        }
+
         return $c;
     }
 
