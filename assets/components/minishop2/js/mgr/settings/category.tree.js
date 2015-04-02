@@ -33,8 +33,10 @@ miniShop2.tree.OptionCategories = function(config) {
                 var s = grid.getStore();
                 s.baseParams.categories = Ext.util.JSON.encode(categories);
                 grid.getBottomToolbar().changePage(1);
-
 			}
+            ,load: function(node) { // refresh grid on tree update
+                this.fireEvent('checkchange', node);
+            }
 			,afterrender: function() {
 				this.mask = new Ext.LoadMask(this.getEl());
 			}

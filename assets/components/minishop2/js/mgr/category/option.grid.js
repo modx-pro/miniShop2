@@ -1,33 +1,5 @@
 miniShop2.grid.CategoryOption = function(config) {
 	config = config || {};
-
-	/*this.dd = function(grid) {
-		this.dropTarget = new Ext.dd.DropTarget(grid.container, {
-			ddGroup : 'dd',
-			copy:false,
-			notifyDrop : function(dd, e, data) {
-				var store = grid.store.data.items;
-				var target = store[dd.getDragData(e).rowIndex].id;
-				var source = store[data.rowIndex].id;
-				if (target != source) {
-					dd.el.mask(_('loading'),'x-mask-loading');
-					MODx.Ajax.request({
-						url: miniShop2.config.connector_url
-						,params: {
-							action: config.action || 'mgr/settings/option/sort'
-							,source: source
-							,target: target
-						}
-						,listeners: {
-							success: {fn:function(r) {dd.el.unmask();grid.refresh();},scope:grid}
-							,failure: {fn:function(r) {dd.el.unmask();},scope:grid}
-						}
-					});
-				}
-			}
-		});
-	};*/
-
     this.sm = new Ext.grid.CheckboxSelectionModel();
 
 	Ext.applyIf(config,{
@@ -76,7 +48,7 @@ miniShop2.grid.CategoryOption = function(config) {
 		},{
             text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_bulk_actions')
             ,menu: [
-                {text: _('ms2_ft_selected_remove'),handler: this.removeSelected,scope: this}
+                {text: _('ms2_ft_selected_delete'),handler: this.removeSelected,scope: this}
                 ,'-'
                 ,{text: _('ms2_ft_selected_activate'),handler: this.activateSelected,scope: this}
                 ,{text: _('ms2_ft_selected_deactivate'),handler: this.deactivateSelected,scope: this}

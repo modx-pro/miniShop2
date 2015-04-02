@@ -103,11 +103,16 @@ $_lang['ms2_ft_required'] = 'Обязательна';
 $_lang['ms2_ft_type'] = 'Тип характеристики';
 $_lang['ms2_ft_rank'] = 'Порядок сортировки';
 
-$_lang['ms2_ft_selected_remove'] = 'Убрать';
+$_lang['ms2_ft_selected_delete'] = 'Убрать';
 $_lang['ms2_ft_selected_activate'] = 'Включить';
 $_lang['ms2_ft_selected_deactivate'] = 'Выключить';
 $_lang['ms2_ft_selected_require'] = 'Сделать обязательной';
 $_lang['ms2_ft_selected_unrequire'] = 'Сделать необязательной';
+$_lang['ms2_ft_selected_assign'] = 'Назначить в категорию';
+$_lang['ms2_options_remove_confirm'] = 'Вы уверены, что хотите удалить все выбранные опции? Значения этих опций в товарах будут удалены без возможности восстановления.';
+$_lang['ms2_category_options_assign'] = 'Назначить опции в категории.';
+
+
 
 $_lang['ms2_ft_textfield'] = 'Текстовое поле';
 $_lang['ms2_ft_numberfield'] = 'Числовое поле';
