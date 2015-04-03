@@ -17,21 +17,24 @@ class msOptionGetListProcessor extends modObjectGetListProcessor {
             ));
         }
 
-        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
-        $c->select(array(
-            $this->modx->getSelectColumns('msOption','msOption'),
-            $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption','', array('id', 'option_id'), true),
-        ));
-
         $category = (int)$this->getProperty('category', 0);
+        $categories = $this->getProperty('categories', '[]');
+        $categories = $this->modx->fromJSON($categories);
+
+        if (($category > 0) || (count($categories) > 0)) {
+            $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
+            $c->select(array(
+                $this->modx->getSelectColumns('msOption','msOption'),
+                $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption','', array('id', 'option_id'), true),
+            ));
+        }
+
         if ($category > 0) {
             $c->where(array(
                 'msCategoryOption.category_id' => $category
             ));
         }
 
-        $categories = $this->getProperty('categories', '[]');
-        $categories = $this->modx->fromJSON($categories);
         if (count($categories) > 0) {
             $c->where(array(
                 'msCategoryOption.category_id:IN' => $categories

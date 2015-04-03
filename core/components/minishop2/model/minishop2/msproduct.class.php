@@ -13,7 +13,6 @@ class msProduct extends modResource {
 	protected $dataRelated = array();
 	/* @var msVendor $vendor */
 	protected $vendor = null;
-    protected $options = array();
 
 
 	/**
@@ -123,19 +122,88 @@ class msProduct extends modResource {
 		}
 	}
 
-
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save($cacheFlag= null) {
-		$res = parent::save($cacheFlag);
-		if (!is_object($this->data)) {$this->loadData();}
 
-		$this->data->set('id', parent::get('id'));
-		$this->data->save($cacheFlag);
+    public function save($cacheFlag= null) {
+        $res = parent::save($cacheFlag);
+        if (!is_object($this->data)) {$this->loadData();}
 
-		return $res;
-	}
+        // Получаем доступные ключи опций для товара
+        $options = $this->getOptionKeys();
+        $productOptions = array();
+        // нужно передать опции в данные товара
+        foreach ($options as $option) {
+            $productOptions[$option] = $this->get($option);
+            $this->data->set('product_options', $productOptions);
+        }
+
+        $this->data->set('id', parent::get('id'));
+        $this->data->save($cacheFlag);
+
+        return $res;
+    }
+
+    /**
+     * Prepare criteria for a list of available options of current product
+     * @return xPDOQuery
+     */
+    public function prepareOptionListCriteria() {
+        $c = $this->xpdo->newQuery('msOption');
+        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
+        $c->where(array(
+            'msCategoryOption.active' => 1,
+            'msCategoryOption.category_id' => $this->get('parent'),
+        ));
+
+        return $c;
+    }
+
+    /**
+     * Return array of option keys for product by its category
+     * @return array
+     */
+    public function getOptionKeys() {
+        $fields = array();
+        /** @var xPDOQuery $c */
+        $c = $this->prepareOptionListCriteria();
+
+        $c->select('msOption.key');
+        if ($c->prepare() && $c->stmt->execute()){
+            return $c->stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+
+        return array();
+    }
+
+    /**
+     * Return array of option fields for product by its category
+     * @return array
+     */
+    public function getOptionFields() {
+        $fields = array();
+        /** @var xPDOQuery $c */
+        $c = $this->prepareOptionListCriteria();
+
+        $c->select(array(
+            $this->xpdo->getSelectColumns('msOption', 'msOption'),
+            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id', 'category_id'), true),
+        ));
+        $c->sortby('msCategoryOption.rank');
+
+        $options = $this->xpdo->getIterator('msOption', $c);
+
+        /** @var msOption $option */
+        foreach ($options as $option) {
+            $field = $option->toArray();
+            $value = $option->getValue($this->get('id'));
+            $field['value'] = !is_null($value) ? $value : $field['value'];
+            $field['ext_field'] = $option->getManagerField();
+            $fields[] = $field;
+        }
+        return $fields;
+    }
 
 
 	/**
@@ -176,9 +244,9 @@ class msProduct extends modResource {
 
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
-        if ($this->options === null) {$this->loadOptions();}
+        $options = $this->data->loadOptions();
 
-		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $this->options);
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $options);
 	}
 
 
@@ -206,25 +274,6 @@ class msProduct extends modResource {
 		}
 		return $this->vendor;
 	}
-
-    public function loadOptions() {
-        $c = $this->xpdo->newQuery('msOption');
-        $c->leftJoin('msProductOption', 'msProductOption', 'msOption.key=msProductOption.key');
-        $c->select(array(
-            $this->xpdo->getSelectColumns('msOption','msOption'),
-            $this->xpdo->getSelectColumns('msProductOption', 'msProductOption','',array('value'))
-        ));
-        $c->where(array('msProductOption.product_id' => $this->get('id')));
-        $options = $this->xpdo->getIterator('msOption', $c);
-
-        $data = array();
-        /** @var msOption $option */
-        foreach ($options as $option) {
-            $data[$option->get('key')] = $option->get('value');
-        }
-        return $data;
-
-    }
 
 	/**
 	 * {@inheritdoc}
@@ -508,58 +557,6 @@ class msProduct extends modResource {
 		$this->xpdo->lexicon->load('minishop2:product');
 		return parent::process();
 	}
-
-    /**
-     * Return array of option fields for product by its category
-     * @return array
-     */
-    public function getOptionFields() {
-        $fields = array();
-        $c = $this->xpdo->newQuery('msOption');
-        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
-        $c->where(array(
-            'msCategoryOption.active' => 1,
-            'msCategoryOption.category_id' => $this->get('parent'),
-        ));
-        $c->select(array(
-            $this->xpdo->getSelectColumns('msOption', 'msOption'),
-            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id', 'category_id'), true),
-        ));
-        $c->sortby('msCategoryOption.rank');
-
-        $fts = $this->xpdo->getIterator('msOption', $c);
-
-        /** @var msOption $ft */
-        foreach ($fts as $ft) {
-            $field = $ft->toArray();
-            $value = $ft->getValue($this->get('id'));
-            $field['value'] = !is_null($value) ? $value : $field['value'];
-            $field['ext_field'] = $ft->getManagerField();
-            $fields[] = $field;
-        }
-        return $fields;
-    }
-
-    public function saveOptionFields($properties) {
-        $fields = $this->getOptionFields();
-
-        foreach ($fields as $field) {
-            $value = isset($properties[$field['key']]) ? $properties[$field['key']] : '';
-            $c = array(
-                'key' => $field['key'],
-                'product_id' => $this->get('id'),
-            );
-            /** @var msProductOption $pf */
-            $pf = $this->xpdo->getObject('msProductOption', $c);
-            if (!$pf) {
-                $pf = $this->xpdo->newObject('msProductOption');
-                $pf->fromArray($c);
-            }
-            $pf->set('value', $value);
-            $pf->save();
-        }
-
-    }
 
 	public function generateAllThumbnails() {
 		$this->loadData()->generateAllThumbnails();

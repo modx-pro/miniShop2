@@ -8,6 +8,13 @@ class msComboMultipleType extends msComboboxType implements msOptionTypeInterfac
         return "{xtype:'minishop2-combo-options'}";
     }
 
+    public function getValue($criteria) {
+
+    }
+
+    public function setValue($criteria, $value) {
+
+    }
 }
 
 return 'msComboMultipleType';

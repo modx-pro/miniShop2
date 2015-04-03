@@ -8,7 +8,7 @@ class msComboBooleanType extends msOptionType implements msOptionTypeInterface {
         return ($value) ? $value->get('value') : null;
     }
 
-    public function setValue() {
+    public function setValue($criteria, $value) {
 
     }
 

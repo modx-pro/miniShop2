@@ -8,8 +8,19 @@ class msTextfieldType extends msOptionType implements msOptionTypeInterface {
         return ($value) ? $value->get('value') : null;
     }
 
-    public function setValue() {
-
+    public function setValue($criteria, $value) {
+        /** @var msProductOption $po */
+        $po = $this->xpdo->getObject('msProductOption', $criteria);
+        // дефолтные значения применяются только к тем товарам, у которых их еще нет
+        if (!$po) {
+            $po = $this->xpdo->newObject('msProductOption');
+            $po->fromArray($criteria);
+            $po->set('value', $value);
+            $po->save();
+        } else if (is_null($po->get('value'))) {
+            $po->set('value', $value);
+            $po->save();
+        }
     }
 
     public function getField() {

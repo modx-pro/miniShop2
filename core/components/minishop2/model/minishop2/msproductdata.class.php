@@ -31,11 +31,21 @@ class msProductData extends xPDOSimpleObject {
 		$stmt->execute();
 		$stmt->closeCursor();
 
+        $options = $this->get('product_options');
+        foreach ($options as $key => $value) {
+            if (!is_array($value)) {
+                $value = array($value);
+            }
+            $arrays[$key] = $value;
+        }
+
+        $this->xpdo->log(1, print_r($arrays,1));
+
 		if (!empty($arrays)) {
 			$values = array();
 			foreach ($arrays as $key => $tmp) {
 				foreach ($tmp as $value) {
-					if (!empty($value)) {
+					if (!empty($value) || array_key_exists($key, $options)) {
 						$values[] = '('.$id.',"'.$key.'","'.$value.'")';
 					}
 				}
@@ -50,6 +60,54 @@ class msProductData extends xPDOSimpleObject {
 
 		return $save;
 	}
+
+    public function loadOptions() {
+        $c = $this->xpdo->newQuery('msOption');
+        $c->leftJoin('msProductOption', 'msProductOption', 'msOption.key=msProductOption.key');
+        $c->select(array(
+            $this->xpdo->getSelectColumns('msOption','msOption'),
+            $this->xpdo->getSelectColumns('msProductOption', 'msProductOption','',array('value'))
+        ));
+        $c->where(array('msProductOption.product_id' => $this->get('id')));
+        $options = $this->xpdo->getIterator('msOption', $c);
+        $data = array();
+        /** @var msOption $option */
+        foreach ($options as $option) {
+            if (isset($data[$option->get('key')])) { // если опция повторяется, ее значение будет массивом
+                if (!is_array($data[$option->get('key')])) {
+                    $data[$option->get('key')] = array($data[$option->get('key')]);
+                }
+                $data[$option->get('key')][] = $option->get('value');
+            } else { // одиночная опция останется строкой
+                $data[$option->get('key')] = $option->get('value');
+            }
+
+        }
+        return $data;
+    }
+
+
+/*
+    public function saveOptionFields($properties) {
+        $fields = $this->getOptionFields();
+
+        foreach ($fields as $field) {
+            $value = isset($properties[$field['key']]) ? $properties[$field['key']] : '';
+            $c = array(
+                'key' => $field['key'],
+                'product_id' => $this->get('id'),
+            );
+            /** @var msProductOption $pf
+            $pf = $this->xpdo->getObject('msProductOption', $c);
+            if (!$pf) {
+                $pf = $this->xpdo->newObject('msProductOption');
+                $pf->fromArray($c);
+            }
+            $pf->set('value', $value);
+            $pf->save();
+        }
+
+    }*/
 
 
 	/**

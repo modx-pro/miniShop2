@@ -12,7 +12,7 @@ class msComboboxType extends msOptionType implements msOptionTypeInterface {
         return $result;
     }
 
-    public function setValue() {
+    public function setValue($criteria, $value) {
 
     }
 

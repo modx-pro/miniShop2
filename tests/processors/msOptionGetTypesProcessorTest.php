@@ -15,7 +15,17 @@ class msOptionGetTypesProcessorTest extends MODxProcessorTestCase {
         $this->assertGreaterThan(0, count($data));
         $this->assertTrue(isset($data[0]['name']));
         $this->assertTrue(isset($data[0]['caption']));
-        $this->assertTrue(class_exists('msNumberType'));
+        $types = array(
+            'msTextfieldType',
+            'msNumberfieldType',
+            'msTextareaType',
+            'msComboboxType',
+            'msComboMultipleType',
+            'msComboBooleanType',
+        );
+        foreach ($types as $type) {
+            $this->assertTrue(class_exists($type), $type);
+        }
     }
 
 }

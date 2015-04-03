@@ -101,12 +101,6 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 		$this->object->clearCache();
 	}
 
-    /** {inheritDoc} */
-    public function afterSave() {
-        $this->object->saveOptionFields($this->getProperties());
-        return parent::afterSave();
-    }
-
 }
 
 return 'msProductUpdateProcessor';

@@ -81,7 +81,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$this->resourceArray['source'] = $this->context->getOption('ms2_product_source_default', 1, $this->modx->_userConfig);
 
         // Get extra options fields
-        $product_option_fields = $this->resource->getOptionFields($this->resource);
+        $product_option_fields = $this->resource->getOptionFields();
 
 		$this->addHtml('
 		<script type="text/javascript">
