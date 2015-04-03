@@ -59,8 +59,6 @@ class msProductCreateProcessor extends modResourceCreateProcessor {
 		$this->modx->context->resourceMap = $results['resourceMap'];
 		$this->modx->context->aliasMap = $results['aliasMap'];
 
-        $this->object->saveOptionFields($this->getProperties());
-
 		return parent::afterSave();
 	}
 

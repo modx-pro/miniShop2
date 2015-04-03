@@ -3,7 +3,7 @@ interface msOptionTypeInterface {
 
     public function getValue($criteria);
 
-    public function setValue();
+    public function setValue($criteria, $value);
 
     public function getField();
 
@@ -43,6 +43,7 @@ class msOption extends xPDOSimpleObject {
                 /** @var msCategoryOption $catFtObj */
                 $catFtObj = $this->xpdo->newObject('msCategoryOption');
                 $catFtObj->set('category_id', $category);
+                $catFtObj->set('value', '');
                 $this->addMany($catFtObj);
                 $result[] = $catObj->get('id');
             }
@@ -70,6 +71,28 @@ class msOption extends xPDOSimpleObject {
             );
             $value = $type->getValue($criteria);
             return $value;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param $product_id
+     * @return mixed
+     */
+    public function setValue($product_id, $value) {
+        /** @var miniShop2 $minishop */
+        $minishop = $this->xpdo->getService('minishop2');
+
+        /** @var msOptionType|msOptionTypeInterface $type */
+        $type = $minishop->getOptionType($this);
+
+        if ($type) {
+            $criteria = array(
+                'product_id' => $product_id,
+                'key' => $this->get('key')
+            );
+            $type->setValue($criteria, $value);
         } else {
             return null;
         }
