@@ -7,6 +7,12 @@ interface msOptionTypeInterface {
 
     public function getField();
 
+    /**
+     * @param modX $modx
+     * @return string|null
+     */
+    public static function getProperties(&$modx);
+
 }
 
 abstract class msOptionType {
@@ -18,10 +24,14 @@ abstract class msOptionType {
     public $config = array();
     public $multiple = false;
 
-    function __construct(msOption $option,array $config = array()) {
+    public function __construct(msOption $option,array $config = array()) {
         $this->option =& $option;
         $this->xpdo =& $option->xpdo;
         $this->config = array_merge($this->config,$config);
+    }
+
+    public static function getProperties(&$modx) {
+        return null;
     }
 
 }

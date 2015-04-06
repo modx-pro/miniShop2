@@ -20,6 +20,11 @@ class msComboboxType extends msOptionType implements msOptionTypeInterface {
         return "{xtype:'modx-combo'}";
     }
 
+
+    public static function getProperties(& $modx) {
+        return $modx->miniShop2->config['jsUrl'].'mgr/settings/types/combobox.grid.js';
+    }
+
 }
 
 return 'msComboboxType';

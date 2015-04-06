@@ -230,11 +230,28 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 					,{xtype: 'hidden',name: 'categories', id: 'minishop2-option-categories-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
-					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types'+type}
+					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types'+type
+                        ,listeners: {
+                            select: this.onSelectType
+                        }
+                    }
+                    ,{xtype: 'panel', id: 'minishop2-option-properties', cls:'main-wrapper'}
 				]
 			}]
 		}];
 	}
+
+    ,onSelectType: function(combo,record,index) {
+        var panel = Ext.getCmp('minishop2-option-properties');
+        panel.getEl().update('');
+
+        var properties = record.data.properties;
+        if (!properties) {
+            return;
+        }
+        Ext.Loader.load([properties]);
+
+    }
 
 	,FilterByQuery: function(tf, nv, ov) {
 		var s = this.getStore();

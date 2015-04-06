@@ -200,18 +200,37 @@ class miniShop2 {
 	}
 
     /**
-     * @param msOption $option
-     * @return null|msOptionType
+     * @param string $type
+     * @return mixed
      */
-    public function getOptionType($option) {
-        $typePath = $this->config['corePath'].'processors/mgr/settings/option/types/'.$option->get('type').'.class.php';
+    public function loadOptionType($type) {
+        $typePath = $this->config['corePath'].'processors/mgr/settings/option/types/'.$type.'.class.php';
 
         if (array_key_exists($typePath, $this->optionTypes)) {
             $className = $this->optionTypes[$typePath];
         } else {
-            $className = include $typePath;
+            $className = include_once $typePath;
+            /* handle already included classes */
+            if ($className == 1) {
+                $o = array();
+                $s = explode(' ', str_replace(array('_','-'),' ',$type));
+                foreach ($s as $k) {
+                    $o[] = ucfirst($k);
+                }
+                $className = 'ms'.implode('',$o).'Type';
+            }
             $this->optionTypes[$typePath] = $className;
         }
+
+        return $className;
+    }
+
+    /**
+     * @param msOption $option
+     * @return null|msOptionType
+     */
+    public function getOptionType($option) {
+        $className = $this->loadOptionType($option->get('type'));
 
         if (class_exists($className)) {
             return new $className($option);
@@ -220,7 +239,6 @@ class miniShop2 {
             return null;
         }
     }
-
 
 	/**
 	 * Returns id of current customer. If no exists - register him and returns id.

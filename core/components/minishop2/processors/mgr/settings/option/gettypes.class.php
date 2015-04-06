@@ -21,13 +21,22 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor {
         $typeDir = dirname(__FILE__) . '/types';
         $files = scandir($typeDir);
         $data['results'] = array();
+
         foreach ($files as $file) {
             if (preg_match('/.*?\.class\.php$/i', $file)) {
-                include_once($typeDir . '/' . $file);
+
                 $name = str_replace('.class.php', '', $file);
+                $className = $ms->loadOptionType($name);
+                $properties = null;
+                if (class_exists($className)) {
+                    /** @var msOptionType|msOptionTypeInterface $optionType */
+                    $properties = $className::getProperties($this->modx);
+                }
+
                 $data['results'][] = array(
                     'name' => $name,
                     'caption' => $this->modx->lexicon('ms2_ft_'.$name),
+                    'properties' => $properties
                 );
             }
         }
@@ -38,6 +47,22 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor {
         }
 
         return $data;
+    }
+
+    public function getType($type) {
+        if (array_key_exists($typePath, $this->optionTypes)) {
+            $className = $this->optionTypes[$typePath];
+        } else {
+            $className = include $typePath;
+            $this->optionTypes[$typePath] = $className;
+        }
+
+        if (class_exists($className)) {
+            return new $className($option);
+        } else {
+            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 option type class: "'.$className.'"');
+            return null;
+        }
     }
 
     /**

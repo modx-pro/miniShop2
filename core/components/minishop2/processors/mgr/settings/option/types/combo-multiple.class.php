@@ -15,6 +15,7 @@ class msComboMultipleType extends msComboboxType implements msOptionTypeInterfac
     public function setValue($criteria, $value) {
 
     }
+
 }
 
 return 'msComboMultipleType';
