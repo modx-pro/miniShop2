@@ -67,6 +67,10 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => '',
 	),
+    'optionFilters' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
 	'where' => array(
 		'type' => 'textfield',
 		'value' => '',

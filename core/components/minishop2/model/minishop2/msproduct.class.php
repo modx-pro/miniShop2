@@ -244,7 +244,7 @@ class msProduct extends modResource {
 
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
-        $options = $this->data->loadOptions();
+        $options = $this->xpdo->call('msProductData', 'loadOptions', array(&$this->xpdo, $this->data->get('id')));
 
 		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $options);
 	}

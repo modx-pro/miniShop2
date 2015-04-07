@@ -61,31 +61,29 @@ class msProductData extends xPDOSimpleObject {
 		return $save;
 	}
 
-    public function loadOptions() {
-        $c = $this->xpdo->newQuery('msOption');
-        $c->leftJoin('msProductOption', 'msProductOption', 'msOption.key=msProductOption.key');
-        $c->select(array(
-            $this->xpdo->getSelectColumns('msOption','msOption'),
-            $this->xpdo->getSelectColumns('msProductOption', 'msProductOption','',array('value'))
-        ));
-        $c->where(array('msProductOption.product_id' => $this->get('id')));
-        $options = $this->xpdo->getIterator('msOption', $c);
-        $data = array();
-        /** @var msOption $option */
-        foreach ($options as $option) {
-            if (isset($data[$option->get('key')])) { // если опция повторяется, ее значение будет массивом
-                if (!is_array($data[$option->get('key')])) {
-                    $data[$option->get('key')] = array($data[$option->get('key')]);
+    public static function loadOptions(xPDO & $xpdo, $product) {
+        $c = $xpdo->newQuery('msProductOption');
+        $c->where(array('msProductOption.product_id' => $product));
+        $c->select(array('key', 'value'));
+        $tstart = microtime(true);
+        if ($c->prepare() && $c->stmt->execute()) {
+            $xpdo->queryTime += microtime(true) - $tstart;
+            $xpdo->executedQueries++;
+            $data = array();
+            while ($option = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
+                if (isset($data[$option['key']])) { // если опция повторяется, ее значение будет массивом
+                    if (!is_array($data[$option['key']])) {
+                        $data[$option['key']] = array($data[$option['key']]);
+                    }
+                    $data[$option['key']][] = $option['value'];
+                } else { // одиночная опция останется строкой
+                    $data[$option['key']] = $option['value'];
                 }
-                $data[$option->get('key')][] = $option->get('value');
-            } else { // одиночная опция останется строкой
-                $data[$option->get('key')] = $option->get('value');
             }
-
         }
+
         return $data;
     }
-
 
 /*
     public function saveOptionFields($properties) {

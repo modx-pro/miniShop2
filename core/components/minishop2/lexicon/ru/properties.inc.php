@@ -49,3 +49,4 @@ $_lang['ms2_prop_product'] = 'Идентификатор товара. Если 
 $_lang['ms2_prop_optionSelected'] = 'Имя активной опции, чтобы поставить аттрибут "selected"';
 $_lang['ms2_prop_optionName'] = 'Имя опции для вывода.';
 $_lang['ms2_prop_filetype'] = 'Тип файлов для выборки. Можно использовать "image" для указания картинок и расширения для остальных файлов. Например: "image,pdf,xls,doc".';
+$_lang['ms2_prop_optionFilters'] = 'Фильтры по опциям товаров. Передаются JSON строкой, например, {"optionkey:>":10}';
