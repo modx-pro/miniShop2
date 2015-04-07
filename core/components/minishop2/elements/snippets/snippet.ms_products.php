@@ -70,11 +70,12 @@ foreach (array('where','leftJoin','innerJoin','select') as $v) {
     unset($scriptProperties[$v]);
 }
 
+$joinedOptions = array();
 // Add filters by options
 if (!empty($scriptProperties['optionFilters'])) {
     $filters = $modx->fromJSON($scriptProperties['optionFilters']);
     $opt_where = array();
-    $joined = array();
+
     foreach ($filters as $key => $value) {
         $key_operator= explode(':', $key);
         $operator = '=';
@@ -89,9 +90,9 @@ if (!empty($scriptProperties['optionFilters'])) {
             $operator= $key_operator[2];
         }
 
-        if (!in_array($key, $joined)) {
+        if (!in_array($key, $joinedOptions)) {
             $leftJoin[] = array('class' => 'msProductOption', 'alias' => $key, 'on' => "`{$key}`.`product_id`=`Data`.`id` AND `{$key}`.`key`='{$key}'");
-            $joined[] = $key;
+            $joinedOptions[] = $key;
         }
 
         if (!is_string($value)) {
@@ -115,6 +116,44 @@ if (!empty($scriptProperties['optionFilters'])) {
 
     }
     $where[] = $opt_where;
+}
+
+// Add sorting by options
+if (!empty($scriptProperties['sortbyOptions'])) {
+    $sorts = explode(',', $scriptProperties['sortbyOptions']);
+    foreach ($sorts as $sort) {
+        $sort = explode(':', $sort);
+        $option = $sort[0];
+        $type = 'string';
+        if (isset($sort[1])) {
+            $type = $sort[1];
+        }
+
+        switch ($type) {
+            case 'number':
+            case 'decimal':
+                $sortbyOptions = "CAST(`{$option}`.`value` AS DECIMAL(13,3))";
+                break;
+            case 'integer':
+                $sortbyOptions = "CAST(`{$option}`.`value` AS UNSIGNED INTEGER)";
+                break;
+            case 'date':
+            case 'datetime':
+                $sortbyOptions = "CAST(`{$option}`.`value` AS DATETIME)";
+                break;
+            default:
+                $sortbyOptions ="`{$option}`.`value`";
+                break;
+        }
+
+        $scriptProperties['sortby'] = str_replace($option, $sortbyOptions, $scriptProperties['sortby']);
+
+        if (!in_array($option, $joinedOptions)) {
+            $leftJoin[] = array('class' => 'msProductOption', 'alias' => $option, 'on' => "`{$option}`.`product_id`=`Data`.`id` AND `{$option}`.`key`='{$option}'");
+            $joinedOptions[] = $option;
+        }
+
+    }
 }
 
 // Default parameters

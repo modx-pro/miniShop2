@@ -23,6 +23,10 @@ $tmp = array(
 		'type' => 'textfield',
 		'value' => 'id',
 	),
+    'sortbyOptions' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
 	'sortdir' => array(
 		'type' => 'list',
 		'options' => array(
