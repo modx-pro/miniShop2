@@ -13,6 +13,7 @@ class msProduct extends modResource {
 	protected $dataRelated = array();
 	/* @var msVendor $vendor */
 	protected $vendor = null;
+    protected $optionKeys = array();
     protected $options = null;
 
 
@@ -25,7 +26,10 @@ class msProduct extends modResource {
 			$criteria= $xpdo->getCriteria($className, $criteria, $cacheFlag);
 		}
 		$xpdo->addDerivativeCriteria($className, $criteria);
-		return parent::load($xpdo, $className, $criteria, $cacheFlag);
+        /** @var msProduct $instance */
+		$instance =  parent::load($xpdo, $className, $criteria, $cacheFlag);
+        $instance->optionKeys = $instance->getOptionKeys();
+        return $instance;
 	}
 
 
@@ -231,17 +235,13 @@ class msProduct extends modResource {
 			if ($this->data === null) {$this->loadData();}
 			return $this->data->get($k, $format, $formatTemplate);
 		}
-		else {
-			$value =  parent::get($k, $format, $formatTemplate);
-            if ($value === null) {
-                $this->loadOptions();
-                if (isset($this->options[$k])) {
-                    return $this->options[$k];
-                }
-            }
-
+		elseif (in_array($k, $this->optionKeys)) {
+            $this->loadOptions();
+            $value = isset($this->options[$k]) ? $this->options[$k] : null;
             return $value;
-		}
+		} else {
+            return parent::get($k, $format, $formatTemplate);
+        }
 	}
 
 

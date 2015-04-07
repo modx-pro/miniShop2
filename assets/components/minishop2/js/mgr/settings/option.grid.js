@@ -169,9 +169,8 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 
 	,removeOption: function(btn,e) {
 		if (!this.menu.record) return false;
-
 		MODx.msg.confirm({
-			title: _('ms2_menu_remove') + '"' + this.menu.record.name + '"'
+			title: _('ms2_menu_remove') + '"' + this.menu.record.key + '"'
 			,text: _('ms2_menu_remove_confirm')
 			,url: this.config.url
 			,params: {
