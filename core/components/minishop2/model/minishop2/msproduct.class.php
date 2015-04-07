@@ -13,6 +13,7 @@ class msProduct extends modResource {
 	protected $dataRelated = array();
 	/* @var msVendor $vendor */
 	protected $vendor = null;
+    protected $options = null;
 
 
 	/**
@@ -231,7 +232,15 @@ class msProduct extends modResource {
 			return $this->data->get($k, $format, $formatTemplate);
 		}
 		else {
-			return parent::get($k, $format, $formatTemplate);
+			$value =  parent::get($k, $format, $formatTemplate);
+            if ($value === null) {
+                $this->loadOptions();
+                if (isset($this->options[$k])) {
+                    return $this->options[$k];
+                }
+            }
+
+            return $value;
 		}
 	}
 
@@ -244,9 +253,9 @@ class msProduct extends modResource {
 
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
-        $options = $this->xpdo->call('msProductData', 'loadOptions', array(&$this->xpdo, $this->data->get('id')));
+        $this->loadOptions();
 
-		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $options);
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $this->options);
 	}
 
 
@@ -274,6 +283,19 @@ class msProduct extends modResource {
 		}
 		return $this->vendor;
 	}
+
+    /**
+     * Loads product options
+     */
+    public function loadOptions() {
+        if ($this->options === null) {
+            $this->loadData();
+            $this->options = $this->xpdo->call('msProductData', 'loadOptions', array(&$this->xpdo, $this->data->get('id')));
+        }
+        return $this->options;
+    }
+
+
 
 	/**
 	 * {@inheritdoc}
