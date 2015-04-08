@@ -5,7 +5,7 @@ interface msOptionTypeInterface {
 
     public function setValue($criteria, $value);
 
-    public function getField();
+    public function getField($field);
 
     /**
      * @param modX $modx
@@ -108,7 +108,7 @@ class msOption extends xPDOSimpleObject {
         }
     }
 
-    public function getManagerField() {
+    public function getManagerField($field) {
         /** @var miniShop2 $minishop */
         $minishop = $this->xpdo->getService('minishop2');
 
@@ -116,7 +116,7 @@ class msOption extends xPDOSimpleObject {
         $type = $minishop->getOptionType($this);
 
         if ($type) {
-            return $type->getField();
+            return $type->getField($field);
         } else {
             return null;
         }

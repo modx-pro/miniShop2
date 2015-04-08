@@ -28,7 +28,9 @@ class msProduct extends modResource {
 		$xpdo->addDerivativeCriteria($className, $criteria);
         /** @var msProduct $instance */
 		$instance =  parent::load($xpdo, $className, $criteria, $cacheFlag);
-        $instance->optionKeys = $instance->getOptionKeys();
+        if ($instance) {
+            $instance->optionKeys = $instance->getOptionKeys();
+        }
         return $instance;
 	}
 
@@ -141,9 +143,8 @@ class msProduct extends modResource {
         // нужно передать опции в данные товара
         foreach ($options as $option) {
             $productOptions[$option] = $this->get($option);
-            $this->data->set('product_options', $productOptions);
         }
-
+        $this->data->set('product_options', $productOptions);
         $this->data->set('id', parent::get('id'));
         $this->data->save($cacheFlag);
 
@@ -204,7 +205,7 @@ class msProduct extends modResource {
             $field = $option->toArray();
             $value = $option->getValue($this->get('id'));
             $field['value'] = !is_null($value) ? $value : $field['value'];
-            $field['ext_field'] = $option->getManagerField();
+            $field['ext_field'] = $option->getManagerField($field);
             $fields[] = $field;
         }
         return $fields;
@@ -236,6 +237,9 @@ class msProduct extends modResource {
 			return $this->data->get($k, $format, $formatTemplate);
 		}
 		elseif (in_array($k, $this->optionKeys)) {
+            if (isset($this->$k)) {
+                return $this->$k;
+            }
             $this->loadOptions();
             $value = isset($this->options[$k]) ? $this->options[$k] : null;
             return $value;

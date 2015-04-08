@@ -23,7 +23,7 @@ class msTextfieldType extends msOptionType implements msOptionTypeInterface {
         }
     }
 
-    public function getField() {
+    public function getField($field) {
         return "{xtype:'textfield'}";
     }
 

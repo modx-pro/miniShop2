@@ -12,7 +12,7 @@ class msComboBooleanType extends msOptionType implements msOptionTypeInterface {
 
     }
 
-    public function getField() {
+    public function getField($field) {
         return "{xtype:'modx-combo-boolean'}";
     }
 

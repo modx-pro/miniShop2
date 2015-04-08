@@ -39,8 +39,6 @@ class msProductData extends xPDOSimpleObject {
             $arrays[$key] = $value;
         }
 
-        $this->xpdo->log(1, print_r($arrays,1));
-
 		if (!empty($arrays)) {
 			$values = array();
 			foreach ($arrays as $key => $tmp) {

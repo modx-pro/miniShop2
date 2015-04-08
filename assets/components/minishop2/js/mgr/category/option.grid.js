@@ -84,7 +84,7 @@ Ext.extend(miniShop2.grid.CategoryOption,MODx.grid.Grid,{
 
 	,getMenu: function() {
 		var m = [
-            {text: _('ms2_ft_selected_remove'),handler: this.removeSelected,scope: this}
+            {text: _('ms2_ft_selected_delete'),handler: this.removeSelected,scope: this}
             ,'-'
             ,{text: _('ms2_ft_selected_activate'),handler: this.activateSelected,scope: this}
             ,{text: _('ms2_ft_selected_deactivate'),handler: this.deactivateSelected,scope: this}

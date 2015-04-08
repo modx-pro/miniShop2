@@ -5,14 +5,21 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
 
+    protected $oldKey = null;
+
     public function beforeSet() {
         $key = $this->getProperty('key');
         if (empty($key)) {
             $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_name_ns'));
         }
 
-        if (($this->object->get('key') != $key) && $this->doesAlreadyExist(array('key' => $key))) {
-            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_ae',array('key' => $key)));
+        $oldKey = $this->object->get('key');
+        if (($oldKey != $key)) {
+            if ($this->doesAlreadyExist(array('key' => $key))) {
+                $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_ae',array('key' => $key)));
+            }
+
+            $this->oldKey = $oldKey;
         }
 
         return parent::beforeSet();
@@ -49,6 +56,11 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
                 $ftCat->fromArray($this->getProperties());
                 $ftCat->save();
             }
+        }
+
+        if ($this->oldKey) {
+            $sql = "UPDATE {$this->modx->getTableName('msProductOption')} SET `key` = '{$this->object->get('key')}' WHERE `key`='{$this->oldKey}';";
+            $this->modx->exec($sql);
         }
 
         return parent::afterSave();

@@ -16,10 +16,36 @@ class msComboboxType extends msOptionType implements msOptionTypeInterface {
 
     }
 
-    public function getField() {
-        return "{xtype:'modx-combo'}";
+    public function getField($field) {
+        if (isset($field['properties']['values'])) {
+            $values = $this->xpdo->toJSON(array_chunk($field['properties']['values'],1));
+        } else {
+            $values = '[]';
+        }
+        return "{xtype:'modx-combo'
+            ,store: new Ext.data.SimpleStore({
+                fields: ['value']
+                ,data: {$values}
+            })
+            ,fields: ['value']
+            ,displayField: 'value'
+            ,valueField: 'value'
+            ,mode: 'local'
+        }";
     }
+/*
+ * store: new Ext.data.SimpleStore({
+            fields: ['d','v']
+            ,data: [[_('yes'),true],[_('no'),false]]
+        })
 
+        ,triggerAction: 'all'
+        ,editable: false
+        ,selectOnFocus: false
+        ,preventRender: true
+        ,forceSelection: true
+        ,enableKeyEvents: true
+ */
 
     public static function getProperties(& $modx) {
         return $modx->miniShop2->config['jsUrl'].'mgr/settings/types/combobox.grid.js';
