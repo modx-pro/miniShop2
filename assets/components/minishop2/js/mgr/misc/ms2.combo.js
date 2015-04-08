@@ -616,7 +616,7 @@ miniShop2.combo.OptionTypes = function(config) {
 		,displayField: 'caption'
 		,valueField: 'name'
 		,pageSize: 20
-		,fields: ['name','caption','properties']
+		,fields: ['name','caption','xtype']
 		,url: miniShop2.config.connector_url
 		,baseParams: {
 			action: 'mgr/settings/option/gettypes'

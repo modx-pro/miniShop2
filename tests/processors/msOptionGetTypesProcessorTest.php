@@ -16,15 +16,18 @@ class msOptionGetTypesProcessorTest extends MODxProcessorTestCase {
         $this->assertTrue(isset($data[0]['name']));
         $this->assertTrue(isset($data[0]['caption']));
         $types = array(
-            'msTextfieldType',
-            'msNumberfieldType',
-            'msTextareaType',
-            'msComboboxType',
-            'msComboMultipleType',
-            'msComboBooleanType',
+            "combo-boolean",
+            "combo-multiple",
+            "combobox",
+            "numberfield",
+            "textarea",
+            "textfield",
         );
         foreach ($types as $type) {
-            $this->assertTrue(class_exists($type), $type);
+            $this->assertContains(array(
+                'name' => $type,
+                'caption' => $this->modx->lexicon('ms2_ft_'.$type),
+            ), $data);
         }
     }
 

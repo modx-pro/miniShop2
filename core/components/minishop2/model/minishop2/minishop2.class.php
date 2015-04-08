@@ -199,11 +199,26 @@ class miniShop2 {
 		}
 	}
 
+    public function loadOptionTypeList() {
+        $typeDir = $this->config['corePath'].'processors/mgr/settings/option/types';
+        $files = scandir($typeDir);
+        $list = array();
+
+        foreach ($files as $file) {
+            if (preg_match('/.*?\.class\.php$/i', $file)) {
+                $list[] = str_replace('.class.php', '', $file);
+            }
+        }
+
+        return $list;
+    }
+
     /**
      * @param string $type
      * @return mixed
      */
     public function loadOptionType($type) {
+        $this->modx->loadClass('msOption', $this->config['modelPath'].'minishop2/');
         $typePath = $this->config['corePath'].'processors/mgr/settings/option/types/'.$type.'.class.php';
 
         if (array_key_exists($typePath, $this->optionTypes)) {

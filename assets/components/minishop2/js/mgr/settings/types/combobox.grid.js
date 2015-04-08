@@ -77,9 +77,3 @@ Ext.extend(miniShop2.grid.ComboboxOptions,MODx.grid.LocalGrid,{
 
 });
 Ext.reg('minishop2-grid-combobox-options',miniShop2.grid.ComboboxOptions);
-
-MODx.load({
-    xtype: 'minishop2-grid-combobox-options'
-    ,renderTo: 'minishop2-option-properties'
-    ,name: 'properties'
-});

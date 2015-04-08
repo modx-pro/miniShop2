@@ -80,20 +80,6 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 		this.addContextMenuItem(m);
 	}
 
-	,renderLogo: function(value) {
-		if (/(jpg|png|gif|jpeg)$/i.test(value)) {
-			if (!/^\//.test(value)) {value = '/' + value;}
-			return '<img src="'+value+'" height="35" />';
-		}
-		else {
-			return '';
-		}
-	}
-
-	,renderType: function(value) {
-		return _('ms2_option_'+value);
-	}
-
 	,createOption: function(btn,e) {
 		if (!this.windows.createOption) {
 			this.windows.createOption = MODx.load({
@@ -112,6 +98,7 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
         f.reset();
         f.setValues({type: 'textfield'});
 		this.windows.createOption.show(e.target);
+       // this.onSelectType();
 	}
 
    	,copyOption: function(btn,e){
@@ -207,6 +194,7 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
     }
 
 	,getOptionFields: function(type) {
+        var propPanel = 'minishop2-option-properties-'+type;
 		return [{
 			layout:'column',
 			items: [{
@@ -229,26 +217,46 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 					,{xtype: 'hidden',name: 'categories', id: 'minishop2-option-categories-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
-					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types'+type
+					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types-'+type, propertiesPanel: propPanel
                         ,listeners: {
-                            select: this.onSelectType
+                            select: {fn:this.onSelectType, scope: this}
                         }
                     }
-                    ,{xtype: 'panel', id: 'minishop2-option-properties', cls:'main-wrapper'}
+                    ,{xtype: 'panel', id: propPanel, cls:'main-wrapper', comboTypes: 'minishop2-combo-option-types-'+type
+                    }
 				]
 			}]
 		}];
 	}
 
-    ,onSelectType: function(combo,record,index) {
-        var panel = Ext.getCmp('minishop2-option-properties');
+    ,clearProperties: function(panel) {
+        panel = Ext.getCmp(panel);
         panel.getEl().update('');
+    }
 
-        var properties = record.data.properties;
-        if (!properties) {
+    ,loadProperties: function() {
+
+        var combo = Ext.getCmp(this.comboTypes);
+        var v = combo.getValue();
+        var record = combo.findRecord('name', v);
+     //  console.log(combo, v, record);
+    }
+
+    ,onSelectType: function(combo,record,index) {
+        this.clearProperties(combo.propertiesPanel);
+
+        if (!record) return;
+
+        var xtype = record.data.xtype;
+        if (!xtype) {
             return;
         }
-        Ext.Loader.load([properties]);
+
+        MODx.load({
+            xtype: xtype
+            ,renderTo: combo.propertiesPanel
+            ,name: 'properties'
+        });
 
     }
 
