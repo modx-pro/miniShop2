@@ -34,6 +34,7 @@ class msOptionAddMultipleProcessor extends modObjectProcessor {
                         'option_id' => $option,
                         'category_id' => $category,
                     ), array('processors_path' => $path));
+                    $this->modx->error->reset();
                 }
             }
         }

@@ -31,7 +31,7 @@ class Minishop2SettingsManagerController extends miniShop2MainController {
         foreach ($types as $type) {
             $className = $this->miniShop2->loadOptionType($type);
             if (class_exists($className)) {
-                /** @var msOptionType|msOptionTypeInterface $className */
+                /** @var msOptionType $className */
                 if ($className::$script) {
                     $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/types/' . $className::$script);
                 }

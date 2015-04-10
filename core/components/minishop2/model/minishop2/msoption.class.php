@@ -1,13 +1,4 @@
 <?php
-interface msOptionTypeInterface {
-
-    public function getValue($criteria);
-
-    public function setValue($criteria, $value);
-
-    public function getField($field);
-
-}
 
 abstract class msOptionType {
     /** @var msOption $option */
@@ -25,6 +16,30 @@ abstract class msOptionType {
         $this->xpdo =& $option->xpdo;
         $this->config = array_merge($this->config,$config);
     }
+
+    public function getValue($criteria) {
+        /** @var msProductOption $value */
+        $value = $this->xpdo->getObject('msProductOption', $criteria);
+        return ($value) ? $value->get('value') : null;
+    }
+
+//    public function setValue($criteria, $value) {
+//        /** @var msProductOption $po */
+//        $po = $this->xpdo->getObject('msProductOption', $criteria);
+//        // дефолтные значения применяются только к тем товарам, у которых их еще нет
+//        if (!$po) {
+//            $po = $this->xpdo->newObject('msProductOption');
+//            $po->fromArray($criteria);
+//            $po->set('value', $value);
+//            $po->save();
+//        } else if (is_null($po->get('value'))) {
+//            $po->set('value', $value);
+//            $po->save();
+//        }
+//    }
+
+    public abstract function getField($field);
+
 
 }
 
@@ -63,7 +78,7 @@ class msOption extends xPDOSimpleObject {
         /** @var miniShop2 $minishop */
         $minishop = $this->xpdo->getService('minishop2');
 
-        /** @var msOptionType|msOptionTypeInterface $type */
+        /** @var msOptionType $type */
         $type = $minishop->getOptionType($this);
 
         if ($type) {
@@ -82,29 +97,29 @@ class msOption extends xPDOSimpleObject {
      * @param $product_id
      * @return mixed
      */
-    public function setValue($product_id, $value) {
-        /** @var miniShop2 $minishop */
-        $minishop = $this->xpdo->getService('minishop2');
-
-        /** @var msOptionType|msOptionTypeInterface $type */
-        $type = $minishop->getOptionType($this);
-
-        if ($type) {
-            $criteria = array(
-                'product_id' => $product_id,
-                'key' => $this->get('key')
-            );
-            $type->setValue($criteria, $value);
-        } else {
-            return null;
-        }
-    }
+//    public function setValue($product_id, $value) {
+//        /** @var miniShop2 $minishop */
+//        $minishop = $this->xpdo->getService('minishop2');
+//
+//        /** @var msOptionType $type */
+//        $type = $minishop->getOptionType($this);
+//
+//        if ($type) {
+//            $criteria = array(
+//                'product_id' => $product_id,
+//                'key' => $this->get('key')
+//            );
+//            $type->setValue($criteria, $value);
+//        } else {
+//            return null;
+//        }
+//    }
 
     public function getManagerField($field) {
         /** @var miniShop2 $minishop */
         $minishop = $this->xpdo->getService('minishop2');
 
-        /** @var msOptionType|msOptionTypeInterface $type */
+        /** @var msOptionType $type */
         $type = $minishop->getOptionType($this);
 
         if ($type) {

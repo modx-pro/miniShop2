@@ -9,7 +9,7 @@ miniShop2.grid.Option = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/option/getlist'
 		}
-		,fields: ['id','key','caption','type','rank',{
+		,fields: ['id','key','caption','type','properties','rank',{
             name: 'categories'
             ,convert: function(val,row) {
                 var cat = [];
@@ -81,24 +81,23 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 	}
 
 	,createOption: function(btn,e) {
-		if (!this.windows.createOption) {
-			this.windows.createOption = MODx.load({
-				xtype: 'minishop2-window-option-create'
-				,fields: this.getOptionFields('create')
-				,listeners: {
-					success: {fn:function() { this.refresh(); },scope:this}
-				}
-			});
-		} else {
-			var tree = Ext.getCmp('minishop2-tree-modal-categories-window-create');
-			tree.getLoader().load(tree.root);
-		}
+        delete this.menu.record;
+        var w = Ext.getCmp('minishop2-window-option-create');
+        if (w) {w.hide().getEl().remove();}
+
+        this.windows.createOption = MODx.load({
+            xtype: 'minishop2-window-option-create'
+            ,id: 'minishop2-window-option-create'
+            ,fields: this.getOptionFields('create')
+            ,listeners: {
+                success: {fn:function() { this.refresh(); },scope:this}
+            }
+        });
 
         var f = this.windows.createOption.fp.getForm();
         f.reset();
         f.setValues({type: 'textfield'});
-		this.windows.createOption.show(e.target);
-       // this.onSelectType();
+        this.windows.createOption.show(e.target);
 	}
 
    	,copyOption: function(btn,e){
@@ -136,16 +135,18 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 		if (!this.menu.record || !this.menu.record.id) return false;
 		var r = this.menu.record;
 
-		if (!this.windows.updateOption) {
-			this.windows.updateOption = MODx.load({
-				xtype: 'minishop2-window-option-update'
-				,record: r
-				,fields: this.getOptionFields('update')
-				,listeners: {
-					success: {fn:function() { this.refresh(); },scope:this}
-				}
-			});
-		}
+        var w = Ext.getCmp('minishop2-window-option-update');
+        if (w) {w.hide().getEl().remove();}
+
+        this.windows.updateOption = MODx.load({
+            xtype: 'minishop2-window-option-update'
+            ,id: 'minishop2-window-option-update'
+            ,record: r
+            ,fields: this.getOptionFields('update')
+            ,listeners: {
+                success: {fn:function() { this.refresh(); },scope:this}
+            }
+        });
 
         this.reloadTree(r.id);
 
@@ -220,6 +221,26 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types-'+type, propertiesPanel: propPanel
                         ,listeners: {
                             select: {fn:this.onSelectType, scope: this}
+                            ,afterrender: {fn:function(c) {
+                                if (!this.menu.record) return;
+                                var record = this.menu.record;
+                                c.store.load({
+                                    callback: function() {
+                                        var xtype = c.findRecord('name', record.type).data.xtype;
+                                        if (!xtype) {
+                                            return;
+                                        }
+                                        MODx.load({
+                                            xtype: xtype
+                                            ,renderTo: c.propertiesPanel
+                                            ,record: record
+                                            ,name: 'properties'
+                                        });
+                                    }
+                                    ,scope: this
+                                });
+
+                            }, scope: this}
                         }
                     }
                     ,{xtype: 'panel', id: propPanel, cls:'main-wrapper', comboTypes: 'minishop2-combo-option-types-'+type
@@ -232,14 +253,6 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
     ,clearProperties: function(panel) {
         panel = Ext.getCmp(panel);
         panel.getEl().update('');
-    }
-
-    ,loadProperties: function() {
-
-        var combo = Ext.getCmp(this.comboTypes);
-        var v = combo.getValue();
-        var record = combo.findRecord('name', v);
-     //  console.log(combo, v, record);
     }
 
     ,onSelectType: function(combo,record,index) {

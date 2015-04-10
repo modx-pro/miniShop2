@@ -403,7 +403,6 @@ miniShop2.tree.ModalCategories = function(config) {
 				}
 
 				categories.setValue(Ext.encode(categoriesList));
-				console.log(index, categoriesList, checked, categories, categories.getValue());
 				this.mask.hide();
 			}
 			,afterrender: function() {

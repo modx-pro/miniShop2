@@ -1,23 +1,9 @@
 <?php
 
-class msComboboxType extends msOptionType implements msOptionTypeInterface {
+class msComboboxType extends msOptionType {
 
     public static $script = 'combobox.grid.js';
     public static $xtype = 'minishop2-grid-combobox-options';
-
-    public function getValue($criteria) {
-        /** @var msProductOption $value */
-        $values = $this->xpdo->getIterator('msProductOption', $criteria);
-        $result = array();
-        foreach ($values as $value) {
-            $result[] = $value->get('value');
-        }
-        return $result;
-    }
-
-    public function setValue($criteria, $value) {
-
-    }
 
     public function getField($field) {
         if (isset($field['properties']['values'])) {

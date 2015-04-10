@@ -1,16 +1,6 @@
 <?php
 
-class msTextareaType extends msOptionType implements msOptionTypeInterface {
-
-    public function getValue($criteria) {
-        /** @var msProductOption $value */
-        $value = $this->xpdo->getObject('msProductOption', $criteria);
-        return ($value) ? $value->get('value') : null;
-    }
-
-    public function setValue($criteria, $value) {
-
-    }
+class msTextareaType extends msOptionType {
 
     public function getField($field) {
         return "{xtype:'textarea'}";
