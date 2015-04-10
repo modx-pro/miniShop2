@@ -43,7 +43,7 @@ class msProductData extends xPDOSimpleObject {
 			$values = array();
 			foreach ($arrays as $key => $tmp) {
 				foreach ($tmp as $value) {
-					if (!empty($value) || array_key_exists($key, $options)) {
+					if (!empty($value) || (is_array($options) && array_key_exists($key, $options))) {
 						$values[] = '('.$id.',"'.$key.'","'.$value.'")';
 					}
 				}

@@ -156,11 +156,18 @@ class msProduct extends modResource {
      * @return xPDOQuery
      */
     public function prepareOptionListCriteria() {
+        $q = $this->xpdo->newQuery('msCategoryMember', array('product_id' => $this->get('id')));
+        $q->select('category_id');
+        if ($q->prepare() && $q->stmt->execute()){
+            $categories = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+        $categories[] = $this->get('parent');
+        $categories = array_unique($categories);
         $c = $this->xpdo->newQuery('msOption');
         $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
         $c->where(array(
             'msCategoryOption.active' => 1,
-            'msCategoryOption.category_id' => $this->get('parent'),
+            'msCategoryOption.category_id:IN' => $categories,
         ));
 
         return $c;
@@ -572,7 +579,11 @@ class msProduct extends modResource {
 			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
 			$pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
 			unset($pls['id']);
+
 			$this->xpdo->setPlaceholders($pls);
+
+            $this->loadOptions();
+            $this->xpdo->setPlaceholders($this->options);
 		}
 		/* @var msVendor $vendor */
 		if ($vendor = $this->getOne('Vendor')) {

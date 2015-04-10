@@ -7,7 +7,6 @@ abstract class msOptionType {
     public $xpdo;
     /** @var array $config */
     public $config = array();
-    public $multiple = false;
     public static $script = null;
     public static $xtype = null;
 
