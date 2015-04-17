@@ -4,7 +4,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
-
+    /** @var  msOption */
+    public $object;
     protected $oldKey = null;
 
     public function beforeSet() {
@@ -25,25 +26,40 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
         return parent::beforeSet();
     }
 
+    /**
+     * @return array|boolean
+     */
     public function getCategories() {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
             $categories = $this->modx->fromJSON($categories);
-        } else {
-            $categories = array();
         }
         return $categories;
     }
 
-    public function afterSave() {
-        $categories = $this->getCategories();
-
-        if (!empty($categories)) {
-            $this->modx->exec("DELETE FROM {$this->modx->getTableName('msCategoryOption')} WHERE `option_id` = {$this->object->get('id')};");
-            $categories = $this->object->setCategories($categories);
-            $this->object->set('categories', $categories);
+    public function removeNotAssignedCategories($assignedCats) {
+        $q = $this->modx->newQuery('msCategoryOption');
+        $q->command('DELETE');
+        $q->where(array('option_id' => $this->object->get('id')));
+        if (!empty($assignedCats)) {
+            $q->where(array('category_id:NOT IN' => $assignedCats));
         }
+        $q->prepare();
+        $q->stmt->execute();
+    }
 
+    public function updateOldKeys() {
+        if ($this->oldKey) {
+            $q = $this->modx->newQuery('msProductOption');
+            $q->command('UPDATE');
+            $q->where(array('key' => $this->oldKey));
+            $q->set(array('key' => $this->object->get('key')));
+            $q->prepare();
+            $q->stmt->execute();
+        }
+    }
+
+    public function updateAssignedCategory() {
         $categoryId = $this->getProperty('category_id');
         if ($categoryId) {
             /** @var msCategoryOption $ftCat */
@@ -57,11 +73,22 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
                 $ftCat->save();
             }
         }
+    }
 
-        if ($this->oldKey) {
-            $sql = "UPDATE {$this->modx->getTableName('msProductOption')} SET `key` = '{$this->object->get('key')}' WHERE `key`='{$this->oldKey}';";
-            $this->modx->exec($sql);
+    public function afterSave() {
+        $categories = $this->getCategories();
+        if (is_array($categories)) {
+            if (!empty($categories)) {
+                $categories = $this->object->setCategories($categories);
+            }
+            // удаляем категории, которые не были установлены
+            $this->removeNotAssignedCategories($categories);
+            $this->object->set('categories', $categories);
         }
+
+        $this->updateAssignedCategory();
+
+        $this->updateOldKeys();
 
         return parent::afterSave();
     }

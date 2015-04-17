@@ -50,14 +50,11 @@ class msOptionUpdateFromGridProcessorTest extends MODxProcessorTestCase {
             'caption' => 'UnitTestOption5'
         ))));
         $this->assertTrue($response['success']);
-        $this->assertEquals(array(
+        $this->assertArraySubset(array(
             'id' => $option->get('id'),
             'key' => 'UnitTestOption5',
             'caption' => 'UnitTestOption5',
-            'type' => '',
-            'properties' => null,
         ), $response['object']);
-
 
         $response = $this->getResponse(array('data' => $this->modx->toJSON(array(
             'id' =>  $option->get('id'),
@@ -65,12 +62,10 @@ class msOptionUpdateFromGridProcessorTest extends MODxProcessorTestCase {
             'caption' => 'UnitTestOption6'
         ))));
         $this->assertTrue($response['success']);
-        $this->assertEquals(array(
+        $this->assertArraySubset(array(
             'id' => $option->get('id'),
             'key' => 'UnitTestOption5',
             'caption' => 'UnitTestOption6',
-            'type' => '',
-            'properties' => null,
         ), $response['object']);
     }
 

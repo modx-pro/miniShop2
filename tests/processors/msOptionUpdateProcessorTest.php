@@ -23,6 +23,7 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
         $product = $this->createTestProduct('UnitTestProduct1', $category->get('id'));
+        $this->createTestProductOption($product->get('id'), 'UnitTestOption1', array('value' => 1));
     }
 
     public function testUpdateNotSpecifiedOption() {
@@ -97,7 +98,7 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
             'key' => 'UnitTestOption5',
         ));
         $this->assertInstanceOf('msProductOption', $productOpt);
-        $this->assertEquals('', $productOpt->get('value'));
+        $this->assertEquals('1', $productOpt->get('value'));
     }
 
     public function testUpdateWithNotExistedCategories() {

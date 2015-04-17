@@ -277,7 +277,6 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 		var s = this.getStore();
 		s.baseParams.query = tf.getValue();
 		this.getBottomToolbar().changePage(1);
-		this.refresh();
 	}
 
 	,clearFilter: function(btn,e) {
