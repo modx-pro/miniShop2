@@ -91,3 +91,12 @@ $_lang['ms2_link_many_to_many'] = 'Many to many';
 $_lang['ms2_link_many_to_many_desc'] = 'Equal union of many goods. All the goods of the group are connected with each other and with the addition of a new connection to one product, all other will have the same. Typical applications: link by one parameter, such as color, size, language, version, etc.';
 $_lang['ms2_link_master'] = 'Master product';
 $_lang['ms2_link_slave'] = 'Slave product';
+
+
+$_lang['ms2_ft_textfield'] = 'Textfield';
+$_lang['ms2_ft_numberfield'] = 'Numberfield';
+$_lang['ms2_ft_textarea'] = 'Textarea';
+$_lang['ms2_ft_combobox'] = 'Combobox';
+$_lang['ms2_ft_combo-boolean'] = 'Yes/No';
+$_lang['ms2_ft_combo-multiple'] = 'Multiple combobox';
+$_lang['ms2_ft_datefield'] = 'Datefield';

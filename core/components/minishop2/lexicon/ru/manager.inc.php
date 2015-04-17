@@ -120,3 +120,4 @@ $_lang['ms2_ft_textarea'] = 'Текстовая область';
 $_lang['ms2_ft_combobox'] = 'Выпадающий список';
 $_lang['ms2_ft_combo-boolean'] = 'Да/Нет';
 $_lang['ms2_ft_combo-multiple'] = 'Множественный список';
+$_lang['ms2_ft_datefield'] = 'Дата';
