@@ -356,13 +356,6 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 		if (miniShop2.config.show_comments) {
 			it.push({
 				title: _('comments')
-				,id: 'modx-tickets-comments'
-				,cls: 'modx-resource-tab'
-				,layout: 'form'
-				,labelAlign: 'top'
-				,labelSeparator: ''
-				,bodyCssClass: 'tab-panel-wrapper main-wrapper'
-				,autoHeight: true
 				,items: this.getComments(config)
 			});
 		}
@@ -414,7 +407,7 @@ Ext.extend(miniShop2.panel.Product,MODx.panel.Resource,{
 
 	,getComments: function(config) {
 		return [{
-			xtype: 'tickets-tab-comments'
+			xtype: 'tickets-panel-comments'
 			,record: config.record
 			,parents: config.record.id
 			,layout: 'form'
