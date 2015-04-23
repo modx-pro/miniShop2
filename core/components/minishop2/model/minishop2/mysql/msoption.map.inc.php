@@ -2,7 +2,7 @@
 $xpdo_meta_map['msOption']= array (
   'package' => 'minishop2',
   'version' => '1.1',
-  'table' => 'ms3_options',
+  'table' => 'ms2_options',
   'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
