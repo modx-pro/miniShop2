@@ -25,6 +25,8 @@ $tmp = array(
 	,'tpl.msOrder.delivery' => 'ms_order_delivery'
 	,'tpl.msOrder.success' => 'ms_order_success'
 	,'tpl.msGetOrder.row' => 'ms_get_order_row'
+    ,'tpl.msProductOptions.outer'=>'ms_product_options_outer'
+    ,'tpl.msProductOptions.row'=>'ms_product_options_row'
 );
 
 // Save chunks for setup options
