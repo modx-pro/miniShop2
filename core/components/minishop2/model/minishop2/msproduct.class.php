@@ -243,7 +243,8 @@ class msProduct extends modResource {
 			if ($this->data === null) {$this->loadData();}
 			return $this->data->get($k, $format, $formatTemplate);
 		}
-		elseif (in_array($k, $this->optionKeys)) {
+		elseif (in_array($k, $this->optionKeys) ||
+            (($optFields = explode('.', $k)) && in_array($optFields[0], $this->optionKeys))) {
             if (isset($this->$k)) {
                 return $this->$k;
             }

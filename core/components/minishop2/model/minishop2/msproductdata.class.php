@@ -61,13 +61,15 @@ class msProductData extends xPDOSimpleObject {
 
     public static function loadOptions(xPDO & $xpdo, $product) {
         $c = $xpdo->newQuery('msProductOption');
+        $c->rightJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');
         $c->where(array('msProductOption.product_id' => $product));
-        $c->select(array('key', 'value'));
+        $c->select($xpdo->getSelectColumns('msOption','msOption'));
+        $c->select($xpdo->getSelectColumns('msProductOption','msProductOption', '', array('key')));
+        $data = array();
         $tstart = microtime(true);
         if ($c->prepare() && $c->stmt->execute()) {
             $xpdo->queryTime += microtime(true) - $tstart;
             $xpdo->executedQueries++;
-            $data = array();
             while ($option = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
                 if (isset($data[$option['key']])) { // если опция повторяется, ее значение будет массивом
                     if (!is_array($data[$option['key']])) {
@@ -77,34 +79,15 @@ class msProductData extends xPDOSimpleObject {
                 } else { // одиночная опция останется строкой
                     $data[$option['key']] = $option['value'];
                 }
+
+                foreach ($option as $key => $value) {
+                    $data[$option['key'].'.'.$key] = $value;
+                }
             }
         }
 
         return $data;
     }
-
-/*
-    public function saveOptionFields($properties) {
-        $fields = $this->getOptionFields();
-
-        foreach ($fields as $field) {
-            $value = isset($properties[$field['key']]) ? $properties[$field['key']] : '';
-            $c = array(
-                'key' => $field['key'],
-                'product_id' => $this->get('id'),
-            );
-            /** @var msProductOption $pf
-            $pf = $this->xpdo->getObject('msProductOption', $c);
-            if (!$pf) {
-                $pf = $this->xpdo->newObject('msProductOption');
-                $pf->fromArray($c);
-            }
-            $pf->set('value', $value);
-            $pf->save();
-        }
-
-    }*/
-
 
 	/**
 	 * {@inheritdoc}

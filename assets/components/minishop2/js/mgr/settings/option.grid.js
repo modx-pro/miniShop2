@@ -216,8 +216,9 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 				items: [
 					{xtype: 'hidden',name: 'id', id: 'minishop2-option-id-'+type}
 					,{xtype: 'hidden',name: 'categories', id: 'minishop2-option-categories-'+type}
-					,{xtype: 'textfield',fieldLabel: _('ms2_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
-					,{xtype: 'textfield',fieldLabel: _('ms2_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
+					,{xtype: 'textfield',fieldLabel: _('ms2_ft_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
+					,{xtype: 'textfield',fieldLabel: _('ms2_ft_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
+                    ,{xtype: 'textfield',fieldLabel: _('ms2_ft_description'), name: 'description', allowBlank: true, anchor: '99%', id: 'minishop2-option-description-'+type}
 					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types-'+type, propertiesPanel: propPanel
                         ,listeners: {
                             select: {fn:this.onSelectType, scope: this}
