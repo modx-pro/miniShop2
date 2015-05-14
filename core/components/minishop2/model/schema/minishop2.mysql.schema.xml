@@ -391,6 +391,7 @@
     <object class="msOption" table="ms2_options" extends="xPDOSimpleObject">
 		<field key="key" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
         <field key="caption" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="fulltext"/>
+        <field key="description" dbtype="text" phptype="string" null="true" />
 		<field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
         <field key="properties" dbtype="text" phptype="json" null="true" />
 
