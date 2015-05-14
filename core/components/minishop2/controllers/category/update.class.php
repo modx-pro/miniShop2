@@ -131,22 +131,37 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 	 *
 	 * */
 	public function loadTickets() {
-		$ticketsAssetsUrl = $this->modx->getOption('tickets.assets_url',null,$this->modx->getOption('assets_url',null,MODX_ASSETS_URL).'components/tickets/');
-		$connectorUrl = $ticketsAssetsUrl.'connector.php';
-		$ticketsJsUrl = $ticketsAssetsUrl.'js/mgr/';
+		/** @var Tickets $Tickets */
+		if (!$Tickets = $this->modx->getService('Tickets')) {
+			return;
+		}
+		if (method_exists($Tickets, 'loadManagerFiles')) {
+			$Tickets->loadManagerFiles($this, array(
+				'config' => true,
+				'utils' => true,
+				'css' => true,
+				'comments' => true,
+			));
+		}
+		else {
+			$ticketsAssetsUrl = $Tickets->config['assetsUrl'];
+			$connectorUrl = $ticketsAssetsUrl . 'connector.php';
+			$ticketsJsUrl = $ticketsAssetsUrl . 'js/mgr/';
 
-		$this->addJavascript($ticketsJsUrl.'tickets.js');
-		$this->addJavascript($ticketsJsUrl.'comment/comments.common.js');
-		$this->addJavascript($ticketsJsUrl.'comment/comments.grid.js');
-		$this->addHtml('
-		<script type="text/javascript">
-		// <![CDATA[
-		Tickets.config = {
-			assets_url: "'.$ticketsAssetsUrl.'"
-			,connector_url: "'.$connectorUrl.'"
-		};
-		// ]]>
-		</script>');
+			$this->addJavascript($ticketsJsUrl . 'tickets.js');
+			$this->addLastJavascript($ticketsJsUrl . 'misc/utils.js');
+			$this->addLastJavascript($ticketsJsUrl . 'comment/comments.common.js');
+			$this->addLastJavascript($ticketsJsUrl . 'comment/comments.grid.js');
+			$this->addHtml('
+			<script type="text/javascript">
+			// <![CDATA[
+			Tickets.config = {
+				assets_url: "' . $ticketsAssetsUrl . '",
+				connector_url: "' . $connectorUrl . '",
+			};
+			// ]]>
+			</script>');
+		}
 	}
 
 

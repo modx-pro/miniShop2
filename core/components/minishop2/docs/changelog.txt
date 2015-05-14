@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.10 pl
+==============
+- Added support of Tickets 1.6.
+
 2.1.9 beta
 ==============
 - Fixed modification of order price by delivery and payment in default order handler.
