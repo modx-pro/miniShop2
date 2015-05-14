@@ -388,7 +388,7 @@
 		<aggregate alias="User" class="modUser" local="id" foreign="id" owner="foreign" cardinality="one" />
 	</object>
 
-    <object class="msOption" table="ms3_options" extends="xPDOSimpleObject">
+    <object class="msOption" table="ms2_options" extends="xPDOSimpleObject">
 		<field key="key" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
         <field key="caption" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="fulltext"/>
         <field key="description" dbtype="text" phptype="string" null="true" />
@@ -414,7 +414,7 @@
         </validation>
 	</object>
 
-    <object class="msCategoryOption" table="ms3_category_options" extends="xPDOObject">
+    <object class="msCategoryOption" table="ms2_category_options" extends="xPDOObject">
         <field key="option_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="pk" />
         <field key="category_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="pk" />
         <field key="rank" dbtype="int" precision="10" phptype="integer" null="false" default="0" index="index" />
