@@ -63,8 +63,9 @@ class msProductData extends xPDOSimpleObject {
         $c = $xpdo->newQuery('msProductOption');
         $c->rightJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');
         $c->where(array('msProductOption.product_id' => $product));
+
         $c->select($xpdo->getSelectColumns('msOption','msOption'));
-        $c->select($xpdo->getSelectColumns('msProductOption','msProductOption', '', array('key')));
+        $c->select($xpdo->getSelectColumns('msProductOption','msProductOption', '', array('key'), true));
         $data = array();
         $tstart = microtime(true);
         if ($c->prepare() && $c->stmt->execute()) {

@@ -19,39 +19,20 @@ if (!($product instanceof msProduct)) {
     $output = 'This resource is not instance of msProduct class.';
 }
 
-$query = $modx->newQuery('msProductOption');
-//$query->select($modx->getSelectColumns('msProductOption'));
-$query->select(array(
-    'msProductOption.key',
-    'msProductOption.value',
-    'msProductOption.product_id',
-    'msOption.caption',
-    'msOption.type'
-));
-$query->where(array(
-    'msProductOption.product_id'=>$product->id
-));
-$query->leftJoin('msOption','msOption','`msProductOption`.`key` = `msOption`.`key`');
-$msProductOptions = $modx->getCollection('msProductOption',$query);
+$optionKeys = $product->getOptionKeys();
+$productData = $product->toArray();
 
-if($msProductOptions){
-    $productOptions = array();
-    foreach ($msProductOptions as $msProductOption) {
-        $option = $msProductOption->toArray();
-        $key = $option['key'];
-
-        if(isset($productOptions[$key])){
-            $productOptions[$key]['values'][] = $option['value'];
-        }
-        else{
-            $productOptions[$key] = $option;
-            $productOptions[$key]['values'] = array($option['value']);
-        }
-    }
-
+if(count($optionKeys) > 0){
     $rows = array();
-    foreach($productOptions as $productOption){
-        $productOption['value'] = implode($valuesSeparator,$productOption['values']);
+    foreach ($optionKeys as $key) {
+        $productOption = array();
+        foreach ($productData as $dataKey => $dataValue) {
+            $dataKey = explode('.', $dataKey);
+            if ($dataKey[0] == $key && (count($dataKey) > 1)) {
+                $productOption[$dataKey[1]] = $dataValue;
+            }
+        }
+        $productOption['value'] = implode($valuesSeparator,$productData[$key]);
         $rows[] = $pdoFetch->getChunk($tplRow, $productOption);
     }
     $rows = implode($outputSeparator, $rows);
