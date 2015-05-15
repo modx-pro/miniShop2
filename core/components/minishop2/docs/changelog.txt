@@ -1,5 +1,11 @@
 Changelog for miniShop2.
 
+2.2.0 pl
+==============
+- Custom product options support.
+- Fixed TV showing under content.
+- Some code refactoring.
+
 2.1.10 pl
 ==============
 - Added support of Tickets 1.6.

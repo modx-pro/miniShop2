@@ -8,6 +8,7 @@ $xpdo_meta_map['msOption']= array (
   array (
     'key' => '',
     'caption' => '',
+    'description' => NULL,
     'type' => '',
     'properties' => NULL,
   ),
@@ -30,6 +31,12 @@ $xpdo_meta_map['msOption']= array (
       'null' => false,
       'default' => '',
       'index' => 'fulltext',
+    ),
+    'description' => 
+    array (
+      'dbtype' => 'text',
+      'phptype' => 'string',
+      'null' => true,
     ),
     'type' => 
     array (

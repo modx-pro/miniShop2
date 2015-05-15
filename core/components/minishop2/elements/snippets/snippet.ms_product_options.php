@@ -22,6 +22,7 @@ if (!($product instanceof msProduct)) {
 $optionKeys = $product->getOptionKeys();
 $productData = $product->toArray();
 
+
 if(count($optionKeys) > 0){
     $rows = array();
     foreach ($optionKeys as $key) {
@@ -32,18 +33,18 @@ if(count($optionKeys) > 0){
                 $productOption[$dataKey[1]] = $dataValue;
             }
         }
-        $productOption['value'] = implode($valuesSeparator,$productData[$key]);
-        $rows[] = $pdoFetch->getChunk($tplRow, $productOption);
+        $productOption['value'] = is_array($productData[$key]) ? implode($valuesSeparator,$productData[$key]) : $productData[$key];
+        $rows[] = $pdoFetch->getChunk($tplRow, array_merge($productData, $productOption));
     }
     $rows = implode($outputSeparator, $rows);
 
     $output = empty($tplOuter)
-        ? $pdoFetch->getChunk('', array('rows' => $rows))
-        : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, array('rows' => $rows)));
+        ? $pdoFetch->getChunk('', array_merge($productData, array('rows' => $rows)))
+        : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, $productData, array('rows' => $rows)));
 }
 else{
     $output = !empty($tplEmpty)
-        ? $pdoFetch->getChunk($tplEmpty, $scriptProperties)
+        ? $pdoFetch->getChunk($tplEmpty, array_merge($scriptProperties, $productData))
         : '';
 }
 
