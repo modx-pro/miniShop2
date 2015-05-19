@@ -38,7 +38,6 @@ $_lang['ms2_links'] = 'Prekių sąryšiai';
 $_lang['ms2_links_intro'] = 'Galimų prekių tarpusavio susiejimo būdų sąrašas. Sąryšio tipas nurodo, kaip būtent sąryšis veiks. Naujų sąryšio tipų kurti negalima, privaloma rinktis vieną iš esamų.';
 $_lang['ms2_customer'] = 'Pirkėjas';
 $_lang['ms2_all'] = 'Visi';
-$_lang['ms2_action'] = 'Visi';
 $_lang['ms2_type'] = 'Tipas';
 
 $_lang['ms2_btn_create'] = 'Kurti';

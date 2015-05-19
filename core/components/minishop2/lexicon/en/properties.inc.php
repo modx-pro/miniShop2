@@ -51,3 +51,6 @@ $_lang['ms2_prop_optionName'] = 'Name of the option for displaying.';
 $_lang['ms2_prop_filetype'] = 'Type of files for select. You can use "image" for images and extensions for other files. For example "image,pdf,xls,doc".';
 $_lang['ms2_prop_optionFilters'] = 'Filters by product options via JSON, e.g. {"optionkey:>":10}';
 $_lang['ms2_prop_sortbyOptions'] = 'Lists options from &sortby for sorting with type via string, e.g. "optionkey:integer,optionkey2:datetime"';
+$_lang['ms2_prop_valuesSeparator'] = 'Separator between values in multiple options';
+$_lang['ms2_prop_ignoreOptions'] = 'Options that should be ignored by snippet';
+$_lang['ms2_prop_tplValue'] = 'Chunk for templating of one value for multiple options';

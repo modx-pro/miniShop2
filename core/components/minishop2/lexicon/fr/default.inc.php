@@ -38,7 +38,6 @@ $_lang['ms2_links'] = 'Lien de produits';
 $_lang['ms2_links_intro'] = 'Liste des liens possible de produits entre eux. Le type de connexion décrit exactement comment il va fonctionner, il n\'est pas possible d\'en créer de nouveau, vous pouvez seulement le sélectionner dans la liste.';
 $_lang['ms2_customer'] = 'Clients';
 $_lang['ms2_all'] = 'Tout';
-$_lang['ms2_action'] = 'Tout';
 $_lang['ms2_type'] = 'Type';
 
 $_lang['ms2_btn_create'] = 'Création';

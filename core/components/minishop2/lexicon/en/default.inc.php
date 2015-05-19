@@ -43,10 +43,10 @@ $_lang['ms2_options_category_intro'] = 'List of available product options in the
 $_lang['ms2_default_value'] = 'Default value';
 $_lang['ms2_customer'] = 'Customer';
 $_lang['ms2_all'] = 'All';
-$_lang['ms2_action'] = 'All';
 $_lang['ms2_type'] = 'Type';
 
 $_lang['ms2_btn_create'] = 'Create';
+$_lang['ms2_btn_copy'] = 'Copy';
 $_lang['ms2_btn_save'] = 'Save';
 $_lang['ms2_btn_edit'] = 'Edit';
 $_lang['ms2_btn_view'] = 'View';
@@ -60,6 +60,7 @@ $_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 $_lang['ms2_btn_duplicate'] = 'Duplicate product';
+$_lang['ms2_btn_addoption'] = 'Add option';
 
 $_lang['ms2_bulk_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';
@@ -78,11 +79,15 @@ $_lang['ms2_category_delete'] = 'Delete category';
 $_lang['ms2_category_undelete'] = 'Undelete category';
 $_lang['ms2_category_view'] = 'View on site';
 $_lang['ms2_category_new'] = 'New category';
+$_lang['ms2_category_option_add'] = 'Add option';
+$_lang['ms2_category_option_rank'] = 'Rank';
 
 $_lang['ms2_product'] = 'Product of the shop';
 $_lang['ms2_product_type'] = 'Product of the shop';
 $_lang['ms2_product_create_here'] = 'Product of the category';
 $_lang['ms2_product_create'] = 'Add product';
+
+$_lang['ms2_option_type'] = 'Option type';
 
 $_lang['ms2_frontend_currency'] = 'USD';
 $_lang['ms2_frontend_weight_unit'] = 'pt.';

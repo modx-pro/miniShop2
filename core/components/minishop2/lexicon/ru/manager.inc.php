@@ -113,8 +113,6 @@ $_lang['ms2_ft_selected_assign'] = 'Назначить в категорию';
 $_lang['ms2_options_remove_confirm'] = 'Вы уверены, что хотите удалить все выбранные опции? Значения этих опций в товарах будут удалены без возможности восстановления.';
 $_lang['ms2_category_options_assign'] = 'Назначить опции в категории.';
 
-
-
 $_lang['ms2_ft_textfield'] = 'Текстовое поле';
 $_lang['ms2_ft_numberfield'] = 'Числовое поле';
 $_lang['ms2_ft_textarea'] = 'Текстовая область';

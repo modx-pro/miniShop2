@@ -98,7 +98,7 @@ $_lang['ms2_product_source'] = 'Medienquelle';
 $_lang['ms2_product_source_help'] = 'Medienquelle, die die Produktbilder speichert.';
 $_lang['ms2_product_change_source_confirm'] = 'Wollen Sie die Medienquelle dieses Produktes wirklich ändern? ACHTUNG: Diese Aktion wird Ihre vorherigen Änderungen speichern!';
 
-$_lang['ms2_panel_save'] = 'Speichern';
+$_lang['ms2_product_save'] = 'Speichern';
 $_lang['ms2_product_edit'] = 'Bearbeiten';
 $_lang['ms2_product_view'] = 'Ansehen';
 $_lang['ms2_product_delete'] = 'Löschen';

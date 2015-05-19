@@ -32,7 +32,6 @@ $_lang['ms2_links'] = 'Produktlinks';
 $_lang['ms2_links_intro'] = 'The list of possible links of goods with each other. Connection type describes exactly how it will work, it is impossible to create, you can only select from the list.';
 $_lang['ms2_customer'] = 'Kunde';
 $_lang['ms2_all'] = 'Alle';
-$_lang['ms2_action'] = 'All';
 $_lang['ms2_type'] = 'Typ';
 
 $_lang['ms2_btn_create'] = 'Erstellen';

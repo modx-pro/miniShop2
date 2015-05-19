@@ -98,7 +98,7 @@ $_lang['ms2_product_source'] = 'Source des medias';
 $_lang['ms2_product_source_help'] = 'Fichiers sources des images des articles du magasin.';
 $_lang['ms2_product_change_source_confirm'] = 'Êtes-vous sûr de vouloir changer la source des médias du produit? ATTENTION: Ceci va enregistrer vos modifications antérieures, assurez-vous que vous êtes prêt à le faire avant de procéder.';
 
-$_lang['ms2_panel_save'] = 'Sauvegarder';
+$_lang['ms2_product_save'] = 'Sauvegarder';
 $_lang['ms2_product_edit'] = 'Éditer';
 $_lang['ms2_product_view'] = 'Vue';
 $_lang['ms2_product_delete'] = 'Supprimer';

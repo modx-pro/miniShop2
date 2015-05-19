@@ -6,6 +6,7 @@
  * @subpackage lexicon
  */
 $_lang['ms2_menu_create'] = 'Create';
+$_lang['ms2_menu_copy'] = 'Copy';
 $_lang['ms2_menu_add'] = 'Add';
 $_lang['ms2_menu_update'] = 'Update';
 $_lang['ms2_menu_remove'] = 'Remove';
@@ -17,7 +18,9 @@ $_lang['ms2_combo_select'] = 'Click to select';
 $_lang['ms2_combo_select_status'] = 'Filter by status';
 
 $_lang['ms2_id'] = 'Id';
+$_lang['ms2_key'] = 'key';
 $_lang['ms2_name'] = 'Name';
+$_lang['ms2_caption'] = 'Caption';
 $_lang['ms2_color'] = 'Color';
 $_lang['ms2_country'] = 'Country';
 $_lang['ms2_logo'] = 'Logo';
@@ -26,6 +29,7 @@ $_lang['ms2_phone'] = 'Phone';
 $_lang['ms2_fax'] = 'Fax';
 $_lang['ms2_email'] = 'Email';
 $_lang['ms2_active'] = 'Active';
+$_lang['ms2_required'] = 'Required';
 $_lang['ms2_class'] = 'Handler class';
 $_lang['ms2_description'] = 'Description';
 $_lang['ms2_num'] = 'Number';
@@ -92,6 +96,22 @@ $_lang['ms2_link_many_to_many_desc'] = 'Equal union of many goods. All the goods
 $_lang['ms2_link_master'] = 'Master product';
 $_lang['ms2_link_slave'] = 'Slave product';
 
+$_lang['ms2_ft_active'] = 'Active';
+$_lang['ms2_ft_caption'] = 'Caption';
+$_lang['ms2_ft_description'] = 'Description';
+$_lang['ms2_ft_name'] = 'Key';
+$_lang['ms2_ft_required'] = 'Required';
+$_lang['ms2_ft_type'] = 'Option type';
+$_lang['ms2_ft_rank'] = 'Rank';
+
+$_lang['ms2_ft_selected_delete'] = 'Delete selected';
+$_lang['ms2_ft_selected_activate'] = 'Activate selected';
+$_lang['ms2_ft_selected_deactivate'] = 'Deactivate selected';
+$_lang['ms2_ft_selected_require'] = 'Set required';
+$_lang['ms2_ft_selected_unrequire'] = 'Set unrequired';
+$_lang['ms2_ft_selected_assign'] = 'Assign to the category';
+$_lang['ms2_options_remove_confirm'] = 'Are you sure you want to remove all selected options? All values of this options will be deleted with no restore.';
+$_lang['ms2_category_options_assign'] = 'Assign the options to the categories.';
 
 $_lang['ms2_ft_textfield'] = 'Textfield';
 $_lang['ms2_ft_numberfield'] = 'Numberfield';
