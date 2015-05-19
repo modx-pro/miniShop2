@@ -22,10 +22,12 @@ if (!($product instanceof msProduct)) {
 $optionKeys = $product->getOptionKeys();
 $productData = $product->toArray();
 
+$ignoreOptions = explode(',', trim($modx->getOption('ignoreOptions', $scriptProperties, '')));
 
 if(count($optionKeys) > 0){
     $rows = array();
     foreach ($optionKeys as $key) {
+        if (in_array($key, $ignoreOptions)) continue;
         $productOption = array();
         foreach ($productData as $dataKey => $dataValue) {
             $dataKey = explode('.', $dataKey);
@@ -33,7 +35,17 @@ if(count($optionKeys) > 0){
                 $productOption[$dataKey[1]] = $dataValue;
             }
         }
-        $productOption['value'] = is_array($productData[$key]) ? implode($valuesSeparator,$productData[$key]) : $productData[$key];
+        if (is_array($productData[$key])) {
+            $values = array();
+            foreach ($productData[$key] as $value) {
+                $params = array_merge($productData, $productOption, array('value' => $value));
+                $values[] = $pdoFetch->getChunk($tplValue, $params);
+            }
+            $productOption['value'] = implode($valuesSeparator, $values);
+        } else {
+            $productOption['value'] = $productData[$key];
+        }
+
         $rows[] = $pdoFetch->getChunk($tplRow, array_merge($productData, $productOption));
     }
     $rows = implode($outputSeparator, $rows);

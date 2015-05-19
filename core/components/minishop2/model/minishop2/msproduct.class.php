@@ -169,6 +169,7 @@ class msProduct extends modResource {
             'msCategoryOption.active' => 1,
             'msCategoryOption.category_id:IN' => $categories,
         ));
+        $c->sortby('msCategoryOption.rank');
 
         return $c;
     }
@@ -203,7 +204,6 @@ class msProduct extends modResource {
             $this->xpdo->getSelectColumns('msOption', 'msOption'),
             $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id', 'category_id'), true),
         ));
-        $c->sortby('msCategoryOption.rank');
 
         $options = $this->xpdo->getIterator('msOption', $c);
 

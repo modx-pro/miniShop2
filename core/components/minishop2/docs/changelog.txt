@@ -1,8 +1,8 @@
 Changelog for miniShop2.
 
-2.2.0 pl
+2.2.0 beta
 ==============
-- Custom product options support.
+- Custom product options support. More info at modx.pro.
 - Fixed TV showing under content.
 - Some code refactoring.
 

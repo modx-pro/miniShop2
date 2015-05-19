@@ -14,6 +14,14 @@ $tmp = array(
     'valuesSeparator' => array(
         'type' => 'textfield',
         'value' => ', ',
+    ),
+    'ignoreOptions' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
+    'tplValue' => array(
+        'type' => 'textfield',
+        'value' => '@INLINE [[+value]]',
     )
 );
 
