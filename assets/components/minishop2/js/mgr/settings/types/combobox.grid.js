@@ -38,6 +38,7 @@ miniShop2.grid.ComboboxOptions = function(config) {
         ,bodyCssClass: 'x-menu'
         ,listeners: {
             viewready: {fn: this.prepareValues, scope: this}
+            ,afteredit: {fn: this.prepareProperties, scope: this}
         }
     });
     miniShop2.grid.ComboboxOptions.superclass.constructor.call(this,config);
