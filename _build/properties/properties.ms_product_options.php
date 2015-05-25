@@ -19,6 +19,14 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
+    'hideEmpty' => array(
+        'type' => 'combo-boolean',
+        'value' => false,
+    ),
+    'groups' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
     'tplValue' => array(
         'type' => 'textfield',
         'value' => '@INLINE [[+value]]',

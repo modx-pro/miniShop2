@@ -1,5 +1,11 @@
 Changelog for miniShop2.
 
+2.2.0 beta2
+==============
+- Groups of options support.
+- hideEmpty parameter in msProductOptions snippet.
+- Fixed some bugs.
+
 2.2.0 beta
 ==============
 - Custom product options support. More info at modx.pro.

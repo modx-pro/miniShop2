@@ -24,6 +24,13 @@ $productData = $product->toArray();
 
 $ignoreOptions = explode(',', trim($modx->getOption('ignoreOptions', $scriptProperties, '')));
 
+if (!empty($groups)) {
+    $groups = explode(',', trim($groups));
+    $groups = array_map('trim', $groups);
+} else if ($groups === '0') {
+    $groups = array(0);
+}
+
 if(count($optionKeys) > 0){
     $rows = array();
     foreach ($optionKeys as $key) {
@@ -35,6 +42,11 @@ if(count($optionKeys) > 0){
                 $productOption[$dataKey[1]] = $dataValue;
             }
         }
+
+        // Пропускаем, если характеристика группы не указана в параметре &groups
+        if (!empty($groups) && !in_array($productOption['category'], $groups) && !in_array($productOption['category_name'], $groups)) continue;
+        if (isset($groups[0]) && ($groups[0] == 0) && ($productOption['category'] != 0)) continue;
+
         if (is_array($productData[$key])) {
             $values = array();
             foreach ($productData[$key] as $value) {
@@ -46,7 +58,9 @@ if(count($optionKeys) > 0){
             $productOption['value'] = $productData[$key];
         }
 
+        // Пропускаем, если значение пустое
         if ($hideEmpty && empty($productOption['value'])) continue;
+
         $rows[] = $pdoFetch->getChunk($tplRow, array_merge($productData, $productOption));
     }
     $rows = implode($outputSeparator, $rows);
