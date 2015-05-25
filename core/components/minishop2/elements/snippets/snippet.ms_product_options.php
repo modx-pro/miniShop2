@@ -46,6 +46,7 @@ if(count($optionKeys) > 0){
             $productOption['value'] = $productData[$key];
         }
 
+        if ($hideEmpty && empty($productOption['value'])) continue;
         $rows[] = $pdoFetch->getChunk($tplRow, array_merge($productData, $productOption));
     }
     $rows = implode($outputSeparator, $rows);
