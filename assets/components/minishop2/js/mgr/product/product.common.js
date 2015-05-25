@@ -189,9 +189,36 @@ var methods = {
 			});
 		}
         if (options.length > 0) {
+            var option_groups = [];
+            for (var i = 0; i < options.length; i++) {
+                var newGroup = true;
+                for (var j = 0; j < option_groups.length; j++) {
+                    if (option_groups[j].category == options[i].category) {
+                        option_groups[j].items.push(options[i]);
+                        newGroup = false;
+                        break;
+                    }
+                }
+                if (newGroup) {
+                    option_groups.push({
+                        id: 'minishop2-options-tab-' + options[i].category
+                        ,category: options[i].category
+                        ,title: options[i].category_name ? options[i].category_name : _('ms2_ft_nogroup')
+                        ,items: [options[i]]
+                    });
+                }
+            }
             result.push({
                 xtype: 'fieldset'
-                ,items: options
+                ,items:[{
+                    xtype: 'modx-vtabs'
+                    ,autoTabs: true
+                    ,border: false
+                    ,plain: true
+                    ,deferredRender: false
+                    ,id: 'minishop2-options-vtabs'
+                    ,items: option_groups
+                }]
             });
         }
         return result;
@@ -289,6 +316,8 @@ var methods = {
                 fieldLabel: fields[i].caption
                 ,allowBlank: allowBlank, description: '[[+'+fields[i].key+']]'
                 ,value: fields[i].value
+                ,category: fields[i].category
+                ,category_name: fields[i].category_name
             });
 
             field = this.getExtField(config, fields[i].key, field);

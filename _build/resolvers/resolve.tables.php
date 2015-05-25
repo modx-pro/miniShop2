@@ -64,6 +64,7 @@ if ($object->xpdo) {
 			$manager->addIndex('msOrder', 'type');
 
             $manager->addField('msOption', 'description', array('after' => 'caption'));
+            $manager->addField('msOption', 'category', array('after' => 'description'));
 
 			// Fix for wrong events
 			if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {

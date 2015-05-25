@@ -165,6 +165,7 @@ class msProduct extends modResource {
         $categories = array_unique($categories);
         $c = $this->xpdo->newQuery('msOption');
         $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
+        $c->leftJoin('modCategory', 'Category', 'Category.id=msOption.category');
         $c->where(array(
             'msCategoryOption.active' => 1,
             'msCategoryOption.category_id:IN' => $categories,
@@ -203,6 +204,7 @@ class msProduct extends modResource {
         $c->select(array(
             $this->xpdo->getSelectColumns('msOption', 'msOption'),
             $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id', 'category_id'), true),
+            '`Category`.`category` AS `category_name`',
         ));
 
         $options = $this->xpdo->getIterator('msOption', $c);
