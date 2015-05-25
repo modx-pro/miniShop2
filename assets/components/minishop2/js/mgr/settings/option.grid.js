@@ -9,7 +9,7 @@ miniShop2.grid.Option = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/option/getlist'
 		}
-		,fields: ['id','key','caption','type','properties','rank',{
+		,fields: ['id','key','caption','description','type','properties','rank',{
             name: 'categories'
             ,convert: function(val,row) {
                 var cat = [];
@@ -149,7 +149,6 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
         });
 
         this.reloadTree(r.id);
-
 		this.windows.updateOption.fp.getForm().reset();
 		this.windows.updateOption.fp.getForm().setValues(r);
 		this.windows.updateOption.show(e.target);
@@ -218,29 +217,25 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 					,{xtype: 'hidden',name: 'categories', id: 'minishop2-option-categories-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_ft_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_ft_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
-                    ,{xtype: 'textfield',fieldLabel: _('ms2_ft_description'), name: 'description', allowBlank: true, anchor: '99%', id: 'minishop2-option-description-'+type}
+                    ,{xtype: 'textarea',fieldLabel: _('ms2_ft_description'), name: 'description', allowBlank: true, anchor: '99%', id: 'minishop2-option-description-'+type}
 					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types-'+type, propertiesPanel: propPanel
                         ,listeners: {
                             select: {fn:this.onSelectType, scope: this}
                             ,afterrender: {fn:function(c) {
                                 if (!this.menu.record) return;
                                 var record = this.menu.record;
-                                c.store.load({
-                                    callback: function() {
-                                        var xtype = c.findRecord('name', record.type).data.xtype;
-                                        if (!xtype) {
-                                            return;
-                                        }
-                                        MODx.load({
-                                            xtype: xtype
-                                            ,renderTo: c.propertiesPanel
-                                            ,record: record
-                                            ,name: 'properties'
-                                        });
+                                c.store.on('load', function(){
+                                    var xtype = c.findRecord('name', record.type).data.xtype;
+                                    if (!xtype) {
+                                        return;
                                     }
-                                    ,scope: this
+                                    MODx.load({
+                                        xtype: xtype
+                                        ,renderTo: c.propertiesPanel
+                                        ,record: record
+                                        ,name: 'properties'
+                                    });
                                 });
-
                             }, scope: this}
                         }
                     }
