@@ -99,6 +99,7 @@ $_lang['ms2_link_slave'] = 'Slave product';
 $_lang['ms2_ft_active'] = 'Active';
 $_lang['ms2_ft_caption'] = 'Caption';
 $_lang['ms2_ft_description'] = 'Description';
+$_lang['ms2_ft_measure_unit'] = 'Measure unit';
 $_lang['ms2_ft_group'] = 'Group';
 $_lang['ms2_ft_groups'] = 'Groups';
 $_lang['ms2_ft_nogroup'] = 'No group';

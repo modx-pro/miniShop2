@@ -99,6 +99,7 @@ $_lang['ms2_link_slave'] = 'Подчинённый товар';
 $_lang['ms2_ft_active'] = 'Включена';
 $_lang['ms2_ft_caption'] = 'Название';
 $_lang['ms2_ft_description'] = 'Описание';
+$_lang['ms2_ft_measure_unit'] = 'Единица измерения';
 $_lang['ms2_ft_group'] = 'Группа';
 $_lang['ms2_ft_groups'] = 'Группы';
 $_lang['ms2_ft_nogroup'] = 'Без группы';

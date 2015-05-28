@@ -9,7 +9,7 @@ miniShop2.grid.Option = function(config) {
 		,baseParams: {
 			action: 'mgr/settings/option/getlist'
 		}
-		,fields: ['id','key','caption','description','category','type','properties','rank',{
+		,fields: ['id','key','caption','description','measure_unit','category','type','properties','rank',{
             name: 'categories'
             ,convert: function(val,row) {
                 var cat = [];
@@ -218,6 +218,7 @@ Ext.extend(miniShop2.grid.Option,MODx.grid.Grid,{
 					,{xtype: 'textfield',fieldLabel: _('ms2_ft_name'), name: 'key', allowBlank: false, anchor: '99%', id: 'minishop2-option-name-'+type}
 					,{xtype: 'textfield',fieldLabel: _('ms2_ft_caption'), name: 'caption', allowBlank: false, anchor: '99%', id: 'minishop2-option-caption-'+type}
                     ,{xtype: 'textarea',fieldLabel: _('ms2_ft_description'), name: 'description', allowBlank: true, anchor: '99%', id: 'minishop2-option-description-'+type}
+                    ,{xtype: 'textfield',fieldLabel: _('ms2_ft_measure_unit'), name: 'measure_unit', allowBlank: true, anchor: '99%', id: 'minishop2-option-measure_unit-'+type}
                     ,{xtype: 'modx-combo-category',fieldLabel: _('ms2_ft_group'), name: 'category', allowBlank: true, anchor: '99%', id: 'minishop2-option-category-'+type}
 					,{xtype: 'minishop2-combo-option-types', anchor: '99%', id: 'minishop2-combo-option-types-'+type, propertiesPanel: propPanel
                         ,listeners: {

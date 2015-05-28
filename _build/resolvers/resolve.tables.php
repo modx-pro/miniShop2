@@ -65,6 +65,7 @@ if ($object->xpdo) {
 
             $manager->addField('msOption', 'description', array('after' => 'caption'));
             $manager->addField('msOption', 'category', array('after' => 'description'));
+            $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
 
 			// Fix for wrong events
 			if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {

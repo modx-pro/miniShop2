@@ -15,6 +15,10 @@ $tmp = array(
         'type' => 'textfield',
         'value' => ', ',
     ),
+    'outputSeparator' => array(
+        'type' => 'textfield',
+        'value' => "\n"
+    ),
     'ignoreOptions' => array(
         'type' => 'textfield',
         'value' => '',

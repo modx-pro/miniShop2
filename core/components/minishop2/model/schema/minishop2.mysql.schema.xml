@@ -392,6 +392,7 @@
 		<field key="key" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
         <field key="caption" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="fulltext"/>
         <field key="description" dbtype="text" phptype="string" null="true" />
+        <field key="measure_unit" dbtype="tinytext" phptype="string" null="true" />
         <field key="category" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" />
 		<field key="type" dbtype="varchar" precision="255" phptype="string" null="false" default="" index="index" />
         <field key="properties" dbtype="text" phptype="json" null="true" />
