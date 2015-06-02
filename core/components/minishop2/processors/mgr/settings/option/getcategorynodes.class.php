@@ -27,7 +27,6 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
 
     public function prepareMap() {
         /** @TODO добавить кеширование карты */
-        $t = microtime(true);
         $q = $this->modx->newQuery('msCategory');
         $q = $this->modx->addDerivativeCriteria('msCategory', $q);
         $q->select('id');
@@ -43,7 +42,6 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
             while($parent = $parent->getOne('Parent')) {
                 if (in_array($parent->get('id'), $this->map)) {
                     break;
-                    continue;
                 }
                 $this->map[] = $parent->get('id');
             }
@@ -207,7 +205,12 @@ class msOptionCategoryGetNodesProcessor  extends modResourceGetNodesProcessor {
         return $itemArray;
     }
 
+    /**
+     * @param modResource $resource
+     * @return bool
+     */
     public function getChecked($resource) {
+        /** @var modResource $cat */
         foreach ($this->optionCategories as $key => $cat) {
             if ($resource->get('id') == $cat->get('category_id')) {
                 return true;

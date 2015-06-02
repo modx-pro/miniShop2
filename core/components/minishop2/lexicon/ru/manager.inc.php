@@ -124,4 +124,5 @@ $_lang['ms2_ft_combobox'] = 'Выпадающий список';
 $_lang['ms2_ft_combo-boolean'] = 'Да/Нет';
 $_lang['ms2_ft_combo-multiple'] = 'Множественный список';
 $_lang['ms2_ft_combo-options'] = 'Список с автодополнением';
+$_lang['ms2_ft_checkbox'] = 'Флажок';
 $_lang['ms2_ft_datefield'] = 'Дата';

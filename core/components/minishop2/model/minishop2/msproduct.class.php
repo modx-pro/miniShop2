@@ -180,7 +180,6 @@ class msProduct extends modResource {
      * @return array
      */
     public function getOptionKeys() {
-        $fields = array();
         /** @var xPDOQuery $c */
         $c = $this->prepareOptionListCriteria();
 

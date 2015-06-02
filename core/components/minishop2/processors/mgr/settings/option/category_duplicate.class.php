@@ -49,11 +49,10 @@ class msOptionCategoryDuplicateProcessor extends modObjectProcessor {
             $this->to_object->addMany($newCat_ft);
         }
 
-        if ($this->to_object->save() == false) {
+        if (!$this->to_object->save()) {
             return $this->failure($this->modx->lexicon($this->objectType.'_err_save'));
         }
 
-        $cat2 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory'));
         return $this->cleanup();
     }
 

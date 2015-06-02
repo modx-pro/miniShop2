@@ -31,7 +31,6 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor {
     public function duplicateProducts() {
         if ($this->getProperty('copy_values', false)) {
             $products = $this->object->getMany('OptionProducts');
-            $p = $this->modx->getCollection('msProductOption');
             if (is_array($products) && !empty($products)) {
                 /** @var msProductOption $product */
                 foreach ($products as $product) {

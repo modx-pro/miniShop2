@@ -17,7 +17,7 @@ class msOptionRemoveMultipleProcessor extends modObjectProcessor {
 
         foreach ($ids as $id) {
             if (!empty($id)) {
-                $response = $this->modx->runProcessor('mgr/settings/option/remove',array('id' => $id), array('processors_path' => $path));
+                $this->modx->runProcessor('mgr/settings/option/remove',array('id' => $id), array('processors_path' => $path));
             }
         }
         return $this->success();

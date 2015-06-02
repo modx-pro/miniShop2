@@ -124,4 +124,5 @@ $_lang['ms2_ft_combobox'] = 'Combobox';
 $_lang['ms2_ft_combo-boolean'] = 'Yes/No';
 $_lang['ms2_ft_combo-multiple'] = 'Multiple combobox';
 $_lang['ms2_ft_combo-options'] = 'Superboxselect';
+$_lang['ms2_ft_checkbox'] = 'Checkbox';
 $_lang['ms2_ft_datefield'] = 'Datefield';

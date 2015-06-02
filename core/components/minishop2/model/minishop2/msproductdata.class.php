@@ -32,11 +32,13 @@ class msProductData extends xPDOSimpleObject {
 		$stmt->closeCursor();
 
         $options = $this->get('product_options');
-        foreach ($options as $key => $value) {
-            if (!is_array($value)) {
-                $value = array($value);
+        if (count($options) > 0) {
+            foreach ($options as $key => $value) {
+                if (!is_array($value)) {
+                    $value = array($value);
+                }
+                $arrays[$key] = $value;
             }
-            $arrays[$key] = $value;
         }
 
 		if (!empty($arrays)) {
