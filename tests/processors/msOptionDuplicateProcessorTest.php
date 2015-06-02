@@ -52,12 +52,9 @@ class msOptionDuplicateProcessorTest extends MODxProcessorTestCase {
         $this->assertArrayHasKey('id', $response['object']);
         $newId = $response['object']['id'];
         unset($response['object']['id']);
-        $this->assertEquals(array(
-            'key' => 'Копия UnitTestOption1',
-            'caption' => 'UnitTestOption1 Caption',
-            'type' => 'number',
-            'properties' => null,
-        ), $response['object']);
+        $this->assertEquals('Копия UnitTestOption1', $response['object']['key']);
+        $this->assertEquals('UnitTestOption1 Caption', $response['object']['caption']);
+        $this->assertEquals('number', $response['object']['type']);
 
         $cats = $this->modx->getCollection('msCategoryOption', array('option_id' => $newId));
         $this->assertCount(0, $cats);

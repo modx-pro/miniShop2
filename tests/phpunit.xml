@@ -39,5 +39,8 @@
         <testsuite name="add">
             <file>processors/msOptionAddProcessorTest.php</file>
         </testsuite>
+        <testsuite name="product">
+            <file>processors/msProductUpdateProcessorTest.php</file>
+        </testsuite>
     </testsuites>
 </phpunit>
