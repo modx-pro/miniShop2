@@ -328,8 +328,9 @@ var methods = {
 
     ,getExtField: function(config, field, tmp) {
 
+        var help = _('resource_'+field+'_help') ? '<br />'+_('resource_'+field+'_help') : '';
         var properties = {
-            description: '<b>[[*'+field+']]</b><br />'+_('resource_'+field+'_help')
+            description: '<b>[[*'+field+']]</b>'+help
             ,enableKeyEvents: true
             ,listeners: config.listeners
             ,name: field
@@ -344,7 +345,7 @@ var methods = {
                 properties.anchor = '95%';
                 properties.fieldLabel = _('ms2_product_'+field);
                 break;
-            case 'xcheckbox': properties.boxLabel = _('ms2_product_'+field); break;
+            case 'xcheckbox': properties.boxLabel = _('ms2_product_'+field);break;
             case 'textfield':
                 properties.maxLength = 255;
             default:
