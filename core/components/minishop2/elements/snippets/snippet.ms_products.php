@@ -94,7 +94,7 @@ if (!empty($returnIds)) {return $rows;}
 // Processing rows
 $output = array();
 if (!empty($rows) && is_array($rows)) {
-	$q = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice','msOnGetProductWeight')));
+	$q = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice','msOnGetProductWeight', 'msOnGetProductFields')));
 	$q->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
 	$q->where('modPlugin.disabled = 0');
 
