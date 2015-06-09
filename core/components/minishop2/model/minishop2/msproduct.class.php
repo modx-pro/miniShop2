@@ -137,18 +137,26 @@ class msProduct extends modResource {
         $res = parent::save($cacheFlag);
         if (!is_object($this->data)) {$this->loadData();}
 
-        // Получаем доступные ключи опций для товара
-        $options = $this->getOptionKeys();
-        $productOptions = array();
-        // нужно передать опции в данные товара
-        foreach ($options as $option) {
-            $productOptions[$option] = $this->get($option);
-        }
-        $this->data->set('product_options', $productOptions);
+        $this->setProductOptions($this->data);
         $this->data->set('id', parent::get('id'));
         $this->data->save($cacheFlag);
 
         return $res;
+    }
+
+    /**
+     * Pass product options from Product to ProductData
+     * @param msProductData $data
+     */
+    public function setProductOptions(msProductData &$data) {
+        $productOptions = array();
+
+        $this->optionKeys = $this->getOptionKeys();
+        foreach ($this->optionKeys as $option) {
+            $productOptions[$option] = $this->get($option);
+        }
+
+        $data->set('product_options', $productOptions);
     }
 
     /**

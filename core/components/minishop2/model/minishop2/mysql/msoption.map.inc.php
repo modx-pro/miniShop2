@@ -9,6 +9,8 @@ $xpdo_meta_map['msOption']= array (
     'key' => '',
     'caption' => '',
     'description' => NULL,
+    'measure_unit' => NULL,
+    'category' => NULL,
     'type' => '',
     'properties' => NULL,
   ),
@@ -37,6 +39,20 @@ $xpdo_meta_map['msOption']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
+    ),
+    'measure_unit' => 
+    array (
+      'dbtype' => 'tinytext',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'category' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'null' => false,
     ),
     'type' => 
     array (
@@ -88,6 +104,22 @@ $xpdo_meta_map['msOption']= array (
         ),
       ),
     ),
+    'category' => 
+    array (
+      'alias' => 'category',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'category' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
   ),
   'composites' => 
   array (
@@ -108,6 +140,17 @@ $xpdo_meta_map['msOption']= array (
       'owner' => 'local',
     ),
   ),
+  'aggregates' => 
+  array (
+    'Category' => 
+    array (
+      'class' => 'modCategory',
+      'local' => 'category',
+      'foreign' => 'id',
+      'owner' => 'foreign',
+      'cardinality' => 'one',
+    ),
+  ),
   'validation' => 
   array (
     'rules' => 
@@ -117,7 +160,7 @@ $xpdo_meta_map['msOption']= array (
         'invalid' => 
         array (
           'type' => 'preg_match',
-          'rule' => '/^(?!\\s)[a-zA-Z0-9\\x2d-\\x2f\\x7f-\\xff-_\\s]+(?!\\s)$/',
+          'rule' => '/^(?!\\W+)(?!\\d)[a-zA-Z0-9\\x2d-\\x2f\\x7f-\\xff-_]+(?!\\s)$/',
           'message' => 'ms2_option_err_invalid_key',
         ),
         'reserved' => 
