@@ -20,7 +20,8 @@ class msProductSortProcessor extends modObjectProcessor {
 		if ($source->get('menuindex') < $target->get('menuindex')) {
 			$this->modx->exec("UPDATE {$this->modx->getTableName($this->classKey)}
 				SET menuindex = menuindex - 1 WHERE
-					menuindex <= {$target->get('menuindex')}
+					parent = {$source->get('parent')}
+					AND menuindex <= {$target->get('menuindex')}
 					AND menuindex > {$source->get('menuindex')}
 					AND menuindex > 0
 			");
@@ -28,7 +29,8 @@ class msProductSortProcessor extends modObjectProcessor {
 		} else {
 			$this->modx->exec("UPDATE {$this->modx->getTableName($this->classKey)}
 				SET menuindex = menuindex + 1 WHERE
-					menuindex >= {$target->get('menuindex')}
+					parent = {$source->get('parent')}
+					AND menuindex >= {$target->get('menuindex')}
 					AND menuindex < {$source->get('menuindex')}
 			");
 		}
