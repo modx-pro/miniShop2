@@ -73,6 +73,14 @@ miniShop2.grid.Orders = function(config) {
 	miniShop2.grid.Orders.superclass.constructor.call(this,config);
 	this.changed = false;
 	this._makeTemplates();
+
+	this.on('afterrender', function(grid) {
+		var params = miniShop2.utils.Hash.get();
+		var order = params['order'] || '';
+		if (order) {
+			this.updateOrder(grid, Ext.EventObject, {data: {id: order}});
+		}
+	});
 };
 Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 	windows: {}
@@ -214,12 +222,19 @@ Ext.extend(miniShop2.grid.Orders,MODx.grid.Grid,{
 							,listeners: {
 								success: {fn:function() {this.refresh();},scope:this}
 								,hide: {fn: function() {
+									miniShop2.utils.Hash.remove('order');
 									if (miniShop2.grid.Orders.changed === true) {
 										Ext.getCmp('minishop2-grid-orders').getStore().reload();
 										miniShop2.grid.Orders.changed = false;
 									}
-									this.getEl().remove();
+									var item = this;
+									window.setTimeout(function() {
+										item.close();
+									}, 100);
 								}}
+								,afterrender: function() {
+									miniShop2.utils.Hash.add('order', r.object['id']);
+								}
 							}
 						});
 					w.fp.getForm().reset();

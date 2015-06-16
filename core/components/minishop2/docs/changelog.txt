@@ -1,5 +1,10 @@
 Changelog for miniShop2.
 
+2.1.11 pl
+==============
+- Added new events: "msOnBeforeGetOrderCost" and "msOnGetOrderCost".
+- [mgr] Direct links to orders in manager.
+
 2.1.10 pl1
 ==============
 - Added support of Tickets 1.6.
