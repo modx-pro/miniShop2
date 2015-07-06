@@ -31,8 +31,8 @@ if (!empty($groups)) {
     $groups = array(0);
 }
 
-if(count($optionKeys) > 0){
-    $rows = array();
+$rows = array();
+if(count($optionKeys) > 0) {
     foreach ($optionKeys as $key) {
         if (in_array($key, $ignoreOptions)) continue;
         $productOption = array();
@@ -63,8 +63,10 @@ if(count($optionKeys) > 0){
 
         $rows[] = $pdoFetch->getChunk($tplRow, array_merge($productData, $productOption));
     }
-    $rows = implode($outputSeparator, $rows);
+}
 
+if (count($rows) > 0) {
+    $rows = implode($outputSeparator, $rows);
     $output = empty($tplOuter)
         ? $pdoFetch->getChunk('', array_merge($productData, array('rows' => $rows)))
         : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, $productData, array('rows' => $rows)));

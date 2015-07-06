@@ -1,5 +1,11 @@
 Changelog for miniShop2.
 
+2.2.0 beta4
+==============
+- Category pagination fix.
+- Fixed bug removal options when modifying and generating images of products
+- Don't display tplOuter when all options are empty with hideEmpty=1
+
 2.2.0 beta3
 ==============
 - Measure units for options.

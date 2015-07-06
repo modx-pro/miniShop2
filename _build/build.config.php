@@ -5,7 +5,7 @@ define('PKG_NAME', 'miniShop2');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
 define('PKG_VERSION', '2.2.0');
-define('PKG_RELEASE', 'beta3');
+define('PKG_RELEASE', 'beta4');
 define('PKG_AUTO_INSTALL', true);
 
 /* define paths */
