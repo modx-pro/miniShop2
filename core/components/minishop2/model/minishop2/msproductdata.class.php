@@ -12,7 +12,7 @@ class msProductData extends xPDOSimpleObject {
 	 *
 	 */
 	public function save($cacheFlag= null) {
-		$save = parent::save();
+		$save = $this->simpleSave($cacheFlag);
 
 		$arrays = array();
 		foreach ($this->_fieldMeta as $name => $field) {
@@ -24,7 +24,7 @@ class msProductData extends xPDOSimpleObject {
 			}
 		}
 
-		$id = $this->get('id');
+		$id = $this->getPrimaryKey();
 		$table = $this->xpdo->getTableName('msProductOption');
 		$sql = 'DELETE FROM '.$table.' WHERE `product_id` = '.$id;
 		$stmt = $this->xpdo->prepare($sql);
@@ -60,6 +60,15 @@ class msProductData extends xPDOSimpleObject {
 
 		return $save;
 	}
+
+    /**
+     * Save data without custom logic
+     * @param null $cacheFlag
+     * @return bool
+     */
+    public function simpleSave($cacheFlag = null) {
+        return parent::save($cacheFlag);
+    }
 
     public static function loadOptions(xPDO & $xpdo, $product) {
         $c = $xpdo->newQuery('msProductOption');
@@ -181,7 +190,7 @@ class msProductData extends xPDOSimpleObject {
 		}
 
 		$this->fromArray($arr);
-		if ($this->save()) {
+		if ($this->simpleSave()) {
 			/* @var msProduct $product */
 			if ($product = $this->getOne('Product')) {
 				$product->clearCache();

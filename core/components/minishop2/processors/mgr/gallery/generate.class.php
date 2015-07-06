@@ -33,9 +33,10 @@ class msProductFileGenerateProcessor extends modObjectProcessor {
 			$file->generateThumbnails();
 
 			$thumb = $file->getFirstThumbnail();
+            /** @var msProductData $product */
 			$product = $this->modx->getObject('msProductData', array('id' => $file->product_id));
-			$product->thumb = $thumb['url'];
-			if ($product->save()) {
+            $product->set('thumb', $thumb['url']);
+			if ($product->simpleSave()) {
 				return $this->success();
 			}
 		}
