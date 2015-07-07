@@ -3,6 +3,10 @@
 $properties = array();
 
 $tmp = array(
+    'product' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
     'tplRow' => array(
         'type' => 'textfield',
         'value' => 'tpl.msProductOptions.row',
