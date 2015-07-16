@@ -16,10 +16,6 @@ if ($object->xpdo) {
 			$modelPath = $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/';
 			$modx->addPackage('minishop2',$modelPath);
 
-            $prefix = $modx->getOption(xPDO::OPT_TABLE_PREFIX, null, '');
-            $modx->exec("RENAME TABLE {$prefix}ms3_category_options TO {$prefix}ms2_category_options;");
-            $modx->exec("RENAME TABLE {$prefix}ms3_options TO {$prefix}ms2_options;");
-
 			$manager = $modx->getManager();
 			$tmp = array(
 				'msProductData',

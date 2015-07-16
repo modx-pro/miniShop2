@@ -329,13 +329,13 @@ var methods = {
     ,getExtField: function(config, field, tmp) {
 
         var help = _('resource_'+field+'_help') ? '<br />'+_('resource_'+field+'_help') : '';
+        tmp.value = tmp.value || config.record[field];
         var properties = {
             description: '<b>[[*'+field+']]</b>'+help
             ,enableKeyEvents: true
             ,listeners: config.listeners
             ,name: field
             ,id: 'modx-resource-'+field
-            ,value: tmp.value || config.record[field]
             ,msgTarget: 'under'
         };
         if (tmp.allowBlank === false) {tmp.fieldLabel = tmp.fieldLabel + ' <span class="required red">*</span>'}

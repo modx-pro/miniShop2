@@ -16,7 +16,7 @@ class msProductGetOptionsProcessor extends modObjectProcessor {
 		$c->groupby('value');
 		$c->where(array('key' => $key));
 		$c->limit($limit);
-		if (!empty($query)) {
+        if (!empty($query)) {
 			$c->where(array('value:LIKE' => "%{$query}%"));
 		}
 		$found = false;

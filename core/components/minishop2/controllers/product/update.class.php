@@ -21,7 +21,6 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		return $this->modx->hasPermission('edit_document');
 	}
 
-
 	/**
 	 * Register custom CSS/JS for the page
 	 * @return void
@@ -165,7 +164,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			// <![CDATA[
 			Tickets.config = {
 				assets_url: "' . $ticketsAssetsUrl . '",
-				connector_url: "' . $connectorUrl . '",
+				connector_url: "' . $connectorUrl . '"
 			};
 			// ]]>
 			</script>');
