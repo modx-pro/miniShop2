@@ -1,0 +1,46 @@
+<phpunit colors="true"
+         convertErrorsToExceptions="false"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         verbose="true"
+         bootstrap="MODxTestHarness.php"
+         >
+    <testsuites>
+        <testsuite name="getlist">
+            <file>processors/msOptionGetListProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="create">
+            <file>processors/msOptionCreateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="update">
+            <file>processors/msOptionUpdateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="updatefromgrid">
+            <file>processors/msOptionUpdateFromGridProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="remove">
+            <file>processors/msOptionRemoveProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="duplicate">
+            <file>processors/msOptionDuplicateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="get">
+            <file>processors/msOptionGetProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="gettypes">
+            <file>processors/msOptionGetTypesProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="category_duplicate">
+            <file>processors/msOptionCategoryDuplicateProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="add">
+            <file>processors/msOptionAddProcessorTest.php</file>
+        </testsuite>
+        <testsuite name="product">
+            <file>processors/msProductUpdateProcessorTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

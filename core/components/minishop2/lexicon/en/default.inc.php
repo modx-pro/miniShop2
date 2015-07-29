@@ -36,12 +36,17 @@ $_lang['ms2_vendors_intro'] = 'The list of possible manufacturers of goods. What
 $_lang['ms2_link'] = 'Link of goods';
 $_lang['ms2_links'] = 'Links of goods';
 $_lang['ms2_links_intro'] = 'The list of possible links of goods with each other. Connection type describes exactly how it will work, it is impossible to create, you can only select from the list.';
+$_lang['ms2_option'] = 'Product option';
+$_lang['ms2_options'] = 'Product options';
+$_lang['ms2_options_intro'] = 'List of available product options. Category tree is used for filtering options by checked categories.';
+$_lang['ms2_options_category_intro'] = 'List of available product options in the category.';
+$_lang['ms2_default_value'] = 'Default value';
 $_lang['ms2_customer'] = 'Customer';
 $_lang['ms2_all'] = 'All';
-$_lang['ms2_action'] = 'All';
 $_lang['ms2_type'] = 'Type';
 
 $_lang['ms2_btn_create'] = 'Create';
+$_lang['ms2_btn_copy'] = 'Copy';
 $_lang['ms2_btn_save'] = 'Save';
 $_lang['ms2_btn_edit'] = 'Edit';
 $_lang['ms2_btn_view'] = 'View';
@@ -55,6 +60,7 @@ $_lang['ms2_btn_prev'] = 'Previous btn (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 $_lang['ms2_btn_duplicate'] = 'Duplicate product';
+$_lang['ms2_btn_addoption'] = 'Add option';
 
 $_lang['ms2_bulk_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';
@@ -73,11 +79,15 @@ $_lang['ms2_category_delete'] = 'Delete category';
 $_lang['ms2_category_undelete'] = 'Undelete category';
 $_lang['ms2_category_view'] = 'View on site';
 $_lang['ms2_category_new'] = 'New category';
+$_lang['ms2_category_option_add'] = 'Add option';
+$_lang['ms2_category_option_rank'] = 'Rank';
 
 $_lang['ms2_product'] = 'Product of the shop';
 $_lang['ms2_product_type'] = 'Product of the shop';
 $_lang['ms2_product_create_here'] = 'Product of the category';
 $_lang['ms2_product_create'] = 'Add product';
+
+$_lang['ms2_option_type'] = 'Option type';
 
 $_lang['ms2_frontend_currency'] = 'USD';
 $_lang['ms2_frontend_weight_unit'] = 'pt.';
@@ -145,3 +155,11 @@ $_lang['ms2_email_subject_sent_user'] = 'Your order #[[+num]] was sent';
 $_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';
 
 $_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]">to continue it at this link</a>.';
+
+$_lang['ms2_category_err_ns'] = 'Category is not specified';
+$_lang['ms2_option_err_ns'] = 'Option is not specified';
+$_lang['ms2_option_err_nf'] = 'Option is not found';
+$_lang['ms2_option_err_ae'] = 'Option already exists';
+$_lang['ms2_option_err_save'] = 'An error while saving option';
+$_lang['ms2_option_err_reserved_key'] = 'Option key is reserved';
+$_lang['ms2_option_err_invalid_key'] = 'Option key is invalid';

@@ -13,6 +13,8 @@ class msProduct extends modResource {
 	protected $dataRelated = array();
 	/* @var msVendor $vendor */
 	protected $vendor = null;
+    protected $optionKeys = array();
+    protected $options = null;
 
 
 	/**
@@ -24,7 +26,12 @@ class msProduct extends modResource {
 			$criteria= $xpdo->getCriteria($className, $criteria, $cacheFlag);
 		}
 		$xpdo->addDerivativeCriteria($className, $criteria);
-		return parent::load($xpdo, $className, $criteria, $cacheFlag);
+        /** @var msProduct $instance */
+		$instance =  parent::load($xpdo, $className, $criteria, $cacheFlag);
+        if ($instance) {
+            $instance->optionKeys = $instance->getOptionKeys();
+        }
+        return $instance;
 	}
 
 
@@ -122,19 +129,103 @@ class msProduct extends modResource {
 		}
 	}
 
-
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save($cacheFlag= null) {
-		$res = parent::save($cacheFlag);
-		if (!is_object($this->data)) {$this->loadData();}
 
-		$this->data->set('id', parent::get('id'));
-		$this->data->save($cacheFlag);
+    public function save($cacheFlag= null) {
+        $res = parent::save($cacheFlag);
+        if (!is_object($this->data)) {$this->loadData();}
 
-		return $res;
-	}
+        $this->setProductOptions($this->data);
+        $this->data->set('id', parent::get('id'));
+        $this->data->save($cacheFlag);
+
+        return $res;
+    }
+
+    /**
+     * Pass product options from Product to ProductData
+     * @param msProductData $data
+     */
+    public function setProductOptions(msProductData &$data) {
+        $productOptions = array();
+
+        $this->optionKeys = $this->getOptionKeys();
+        foreach ($this->optionKeys as $option) {
+            $productOptions[$option] = $this->get($option);
+        }
+
+        $data->set('product_options', $productOptions);
+    }
+
+    /**
+     * Prepare criteria for a list of available options of current product
+     * @return xPDOQuery
+     */
+    public function prepareOptionListCriteria() {
+        $q = $this->xpdo->newQuery('msCategoryMember', array('product_id' => $this->get('id')));
+        $q->select('category_id');
+        if ($q->prepare() && $q->stmt->execute()){
+            $categories = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+        $categories[] = $this->get('parent');
+        $categories = array_unique($categories);
+        $c = $this->xpdo->newQuery('msOption');
+        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
+        $c->leftJoin('modCategory', 'Category', 'Category.id=msOption.category');
+        $c->where(array(
+            'msCategoryOption.active' => 1,
+            'msCategoryOption.category_id:IN' => $categories,
+        ));
+        $c->sortby('msCategoryOption.rank');
+
+        return $c;
+    }
+
+    /**
+     * Return array of option keys for product by its category
+     * @return array
+     */
+    public function getOptionKeys() {
+        /** @var xPDOQuery $c */
+        $c = $this->prepareOptionListCriteria();
+
+        $c->select('msOption.key');
+        if ($c->prepare() && $c->stmt->execute()){
+            return $c->stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+
+        return array();
+    }
+
+    /**
+     * Return array of option fields for product by its category
+     * @return array
+     */
+    public function getOptionFields() {
+        $fields = array();
+        /** @var xPDOQuery $c */
+        $c = $this->prepareOptionListCriteria();
+
+        $c->select(array(
+            $this->xpdo->getSelectColumns('msOption', 'msOption'),
+            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id', 'category_id'), true),
+            '`Category`.`category` AS `category_name`',
+        ));
+
+        $options = $this->xpdo->getIterator('msOption', $c);
+
+        /** @var msOption $option */
+        foreach ($options as $option) {
+            $field = $option->toArray();
+            $value = $option->getValue($this->get('id'));
+            $field['value'] = !is_null($value) ? $value : $field['value'];
+            $field['ext_field'] = $option->getManagerField($field);
+            $fields[] = $field;
+        }
+        return $fields;
+    }
 
 
 	/**
@@ -161,9 +252,17 @@ class msProduct extends modResource {
 			if ($this->data === null) {$this->loadData();}
 			return $this->data->get($k, $format, $formatTemplate);
 		}
-		else {
-			return parent::get($k, $format, $formatTemplate);
-		}
+		elseif (in_array($k, $this->optionKeys) ||
+            (($optFields = explode('.', $k)) && in_array($optFields[0], $this->optionKeys))) {
+            if (isset($this->$k)) {
+                return $this->$k;
+            }
+            $this->loadOptions();
+            $value = isset($this->options[$k]) ? $this->options[$k] : null;
+            return $value;
+		} else {
+            return parent::get($k, $format, $formatTemplate);
+        }
 	}
 
 
@@ -175,8 +274,9 @@ class msProduct extends modResource {
 
 		if ($this->data === null) {$this->loadData();}
 		if ($this->vendor === null) {$this->loadVendor();}
+        $this->loadOptions();
 
-		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'));
+		return array_merge($array, $this->data->toArray(), $this->vendor->toArray('vendor.'), $this->options);
 	}
 
 
@@ -204,6 +304,18 @@ class msProduct extends modResource {
 		}
 		return $this->vendor;
 	}
+
+    /**
+     * Loads product options
+     */
+    public function loadOptions() {
+        if ($this->options === null) {
+            $this->loadData();
+            $this->options = $this->xpdo->call('msProductData', 'loadOptions', array(&$this->xpdo, $this->data->get('id')));
+        }
+        return $this->options;
+    }
+
 
 
 	/**
@@ -477,7 +589,11 @@ class msProduct extends modResource {
 			$pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
 			$pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
 			unset($pls['id']);
+
 			$this->xpdo->setPlaceholders($pls);
+
+            $this->loadOptions();
+            $this->xpdo->setPlaceholders($this->options);
 		}
 		/* @var msVendor $vendor */
 		if ($vendor = $this->getOne('Vendor')) {
@@ -488,9 +604,6 @@ class msProduct extends modResource {
 		$this->xpdo->lexicon->load('minishop2:product');
 		return parent::process();
 	}
-
-
-
 
 	public function generateAllThumbnails() {
 		$this->loadData()->generateAllThumbnails();

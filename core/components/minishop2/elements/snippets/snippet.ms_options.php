@@ -15,7 +15,10 @@ if (!($product instanceof msProduct)) {
 	$output = 'This resource is not instance of msProduct class.';
 }
 elseif (!empty($name) && $options = $product->get($name)) {
-	if (!is_array($options) || $options[0] == '') {
+    if (!is_array($options)) {
+        $options = array($options);
+    }
+	if ($options[0] == '') {
 		$output = !empty($tplEmpty)
 			? $pdoFetch->getChunk($tplEmpty, $scriptProperties)
 			: '';

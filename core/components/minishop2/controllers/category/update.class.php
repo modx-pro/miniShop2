@@ -8,7 +8,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 	 * @return array
 	 */
 	public function getLanguageTopics() {
-		return array('resource','minishop2:default','minishop2:product','tickets:default');
+		return array('resource','minishop2:default','minishop2:product','minishop2:manager','tickets:default');
 	}
 
 
@@ -60,6 +60,8 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 		$this->addJavascript($minishopJsUrl.'misc/ms2.utils.js');
 		$this->addJavascript($minishopJsUrl.'category/category.common.js');
 		$this->addJavascript($minishopJsUrl.'category/category.grid.js');
+        $this->addJavascript($minishopJsUrl.'product/category.tree.js');
+        $this->addJavascript($minishopJsUrl.'category/option.grid.js');
 
 		if ($showComments) {$this->loadTickets();}
 

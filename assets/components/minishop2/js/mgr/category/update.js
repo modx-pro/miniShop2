@@ -330,6 +330,23 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 			,items: this.getTemplateSettings(config)
 		});
 
+        it.push({
+            title: _('ms2_options')
+            ,deferredRender: true
+            ,items: [{
+                html: '<p>'+_('ms2_options_category_intro')+'</p>'
+                ,border: false
+                ,bodyCssClass: 'panel-desc'
+                ,bodyStyle: 'margin-bottom: 10px'
+            }, {
+                cls:'main-wrapper'
+                ,items: [{
+                    xtype: 'minishop2-grid-category-option'
+                    ,border: false
+                }]
+            }]
+        });
+
 		if (miniShop2.config.show_comments) {
 			it.push({
 				title: _('comments')
@@ -366,7 +383,6 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 		}
 		if (MODx.config.tvs_below_content == 1) {
 			var tvs = this.getTemplateVariablesPanel(config);
-			tvs.style = 'margin-top: 10px';
 			its.push(tvs);
 		}
 		return its;

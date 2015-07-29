@@ -113,6 +113,10 @@ foreach ($rows as $row) {
 		}
 	}
 
+    // Add option values
+    $options = $modx->call('msProductData', 'loadOptions', array(&$modx, $row['id']));
+    $row = array_merge($row, $options);
+
 	$row['idx'] = $pdoFetch->idx++;
 	$tplRow = $pdoFetch->defineChunk($row);
 	$outer['goods'] .= empty($tplRow)

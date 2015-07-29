@@ -14,6 +14,9 @@ class miniShop2 {
 	/** @var array $initialized */
 	public $initialized = array();
 
+    /** @var array $optionTypes */
+    public $optionTypes = array();
+
 
 	/**
 	 * @param modX $modx
@@ -196,6 +199,61 @@ class miniShop2 {
 		}
 	}
 
+    public function loadOptionTypeList() {
+        $typeDir = $this->config['corePath'].'processors/mgr/settings/option/types';
+        $files = scandir($typeDir);
+        $list = array();
+
+        foreach ($files as $file) {
+            if (preg_match('/.*?\.class\.php$/i', $file)) {
+                $list[] = str_replace('.class.php', '', $file);
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * @param string $type
+     * @return mixed
+     */
+    public function loadOptionType($type) {
+        $this->modx->loadClass('msOption', $this->config['modelPath'].'minishop2/');
+        $typePath = $this->config['corePath'].'processors/mgr/settings/option/types/'.$type.'.class.php';
+
+        if (array_key_exists($typePath, $this->optionTypes)) {
+            $className = $this->optionTypes[$typePath];
+        } else {
+            $className = include_once $typePath;
+            /* handle already included classes */
+            if ($className == 1) {
+                $o = array();
+                $s = explode(' ', str_replace(array('_','-'),' ',$type));
+                foreach ($s as $k) {
+                    $o[] = ucfirst($k);
+                }
+                $className = 'ms'.implode('',$o).'Type';
+            }
+            $this->optionTypes[$typePath] = $className;
+        }
+
+        return $className;
+    }
+
+    /**
+     * @param msOption $option
+     * @return null|msOptionType
+     */
+    public function getOptionType($option) {
+        $className = $this->loadOptionType($option->get('type'));
+
+        if (class_exists($className)) {
+            return new $className($option);
+        } else {
+            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not initialize miniShop2 option type class: "'.$className.'"');
+            return null;
+        }
+    }
 
 	/**
 	 * Returns id of current customer. If no exists - register him and returns id.
@@ -657,4 +715,5 @@ class miniShop2 {
 
 		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
+
 }

@@ -31,11 +31,21 @@ class msProductData extends xPDOSimpleObject {
 		$stmt->execute();
 		$stmt->closeCursor();
 
+        $options = $this->get('product_options');
+        if (count($options) > 0) {
+            foreach ($options as $key => $value) {
+                if (!is_array($value)) {
+                    $value = array($value);
+                }
+                $arrays[$key] = $value;
+            }
+        }
+
 		if (!empty($arrays)) {
 			$values = array();
 			foreach ($arrays as $key => $tmp) {
 				foreach ($tmp as $value) {
-					if (!empty($value)) {
+					if (!empty($value) || (is_array($options) && array_key_exists($key, $options))) {
 						$values[] = '('.$id.',"'.$key.'","'.$value.'")';
 					}
 				}
@@ -51,6 +61,38 @@ class msProductData extends xPDOSimpleObject {
 		return $save;
 	}
 
+    public static function loadOptions(xPDO & $xpdo, $product) {
+        $c = $xpdo->newQuery('msProductOption');
+        $c->rightJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');
+        $c->leftJoin('modCategory', 'Category', 'Category.id=msOption.category');
+        $c->where(array('msProductOption.product_id' => $product));
+
+        $c->select($xpdo->getSelectColumns('msOption','msOption'));
+        $c->select($xpdo->getSelectColumns('msProductOption','msProductOption', '', array('key'), true));
+        $c->select('`Category`.`category` AS `category_name`');
+        $data = array();
+        $tstart = microtime(true);
+        if ($c->prepare() && $c->stmt->execute()) {
+            $xpdo->queryTime += microtime(true) - $tstart;
+            $xpdo->executedQueries++;
+            while ($option = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
+                if (isset($data[$option['key']])) { // если опция повторяется, ее значение будет массивом
+                    if (!is_array($data[$option['key']])) {
+                        $data[$option['key']] = array($data[$option['key']]);
+                    }
+                    $data[$option['key']][] = $option['value'];
+                } else { // одиночная опция останется строкой
+                    $data[$option['key']] = $option['value'];
+                }
+
+                foreach ($option as $key => $value) {
+                    $data[$option['key'].'.'.$key] = $value;
+                }
+            }
+        }
+
+        return $data;
+    }
 
 	/**
 	 * {@inheritdoc}

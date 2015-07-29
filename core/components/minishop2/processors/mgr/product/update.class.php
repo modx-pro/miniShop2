@@ -83,7 +83,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor {
 	public function fixParents() {
 		if (!empty($this->oldParent) && !($this->oldParent instanceof msCategory)) {
 			$oldParentChildrenCount = $this->modx->getCount('modResource', array('parent' => $this->oldParent->get('id')));
-			if ($oldParentChildrenCount <= 0 || $oldParentChildrenCount == null) {
+			if ($oldParentChildrenCount <= 0 || $oldParentChildrenCount === null) {
 				$this->oldParent->set('isfolder', false);
 				$this->oldParent->save();
 			}

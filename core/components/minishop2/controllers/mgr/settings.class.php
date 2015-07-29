@@ -23,7 +23,21 @@ class Minishop2SettingsManagerController extends miniShop2MainController {
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/status.grid.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/vendor.grid.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/link.grid.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/category.tree.js');
+		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/option.grid.js');
 		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/settings.panel.js');
+
+        $types = $this->miniShop2->loadOptionTypeList();
+        foreach ($types as $type) {
+            $className = $this->miniShop2->loadOptionType($type);
+            if (class_exists($className)) {
+                /** @var msOptionType $className */
+                if ($className::$script) {
+                    $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/types/' . $className::$script);
+                }
+            }
+        }
+
 		$this->addHtml('<script type="text/javascript">
 			Ext.onReady(function() {
 				MODx.load({ xtype: "minishop2-page-settings"});

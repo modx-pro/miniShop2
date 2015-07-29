@@ -16,6 +16,10 @@ if ($object->xpdo) {
 			$modelPath = $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/';
 			$modx->addPackage('minishop2',$modelPath);
 
+            $prefix = $modx->getOption(xPDO::OPT_TABLE_PREFIX, null, '');
+            $modx->exec("RENAME TABLE {$prefix}ms3_category_options TO {$prefix}ms2_category_options;");
+            $modx->exec("RENAME TABLE {$prefix}ms3_options TO {$prefix}ms2_options;");
+
 			$manager = $modx->getManager();
 			$tmp = array(
 				'msProductData',
@@ -34,6 +38,8 @@ if ($object->xpdo) {
 				'msLink',
 				'msProductLink',
 				'msCustomerProfile',
+                'msOption',
+				'msCategoryOption',
 			);
 			foreach ($tmp as $v) {
 				$manager->createObjectContainer($v);
@@ -56,6 +62,10 @@ if ($object->xpdo) {
 
 			$manager->addField('msOrder', 'type');
 			$manager->addIndex('msOrder', 'type');
+
+            $manager->addField('msOption', 'description', array('after' => 'caption'));
+            $manager->addField('msOption', 'category', array('after' => 'description'));
+            $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
 
 			// Fix for wrong events
 			if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {

@@ -80,6 +80,9 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$this->resourceArray['show_in_tree'] = isset($this->resourceArray['show_in_tree']) && intval($this->resourceArray['show_in_tree']) == 1 ? true : false;
 		$this->resourceArray['source'] = $this->context->getOption('ms2_product_source_default', 1, $this->modx->_userConfig);
 
+        // Get extra options fields
+        $product_option_fields = $this->resource->getOptionFields();
+
 		$this->addHtml('
 		<script type="text/javascript">
 		// <![CDATA[
@@ -90,6 +93,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
+			,option_fields: '.json_encode($product_option_fields).'
 			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
 			,product_tab_extra: '.$this->modx->getOption('ms2_product_tab_extra', null, true).'
 			,product_tab_gallery: '.$this->modx->getOption('ms2_product_tab_gallery', null, true).'
