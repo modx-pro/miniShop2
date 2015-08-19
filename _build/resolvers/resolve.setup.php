@@ -10,7 +10,6 @@ if (!function_exists('installPackage')) {
 			$provider = $modx->getObject('transport.modTransportProvider', 1);
 		}
 
-		$provider->getClient();
 		$modx->getVersionData();
 		$productVersion = $modx->version['code_name'] . '-' . $modx->version['full_version'];
 
@@ -122,14 +121,14 @@ if (!function_exists('downloadPackage')) {
 
 
 $success = false;
-switch ($options[xPDOTransport::PACKAGE_ACTION]) {
+switch (@$options[xPDOTransport::PACKAGE_ACTION]) {
 	case xPDOTransport::ACTION_INSTALL:
 	case xPDOTransport::ACTION_UPGRADE:
 		/* @var modX $modx */
 		$modx = &$object->xpdo;
 		/* Checking and installing required packages */
 		$packages = array(
-			'pdoTools' => '2.0.2-pl',
+			'pdoTools' => '2.1.0-pl',
 		);
 
 		foreach ($packages as $package_name => $version) {

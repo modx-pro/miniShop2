@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.1.12 pl
+==============
+- Improved installation script for MODX 2.4.
+
 2.1.11 pl
 ==============
 - Added new events: "msOnBeforeGetOrderCost" and "msOnGetOrderCost".
