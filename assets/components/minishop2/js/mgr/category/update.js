@@ -332,6 +332,7 @@ Ext.extend(miniShop2.panel.UpdateCategory,MODx.panel.Resource,{
 
         it.push({
             title: _('ms2_options')
+            ,id: 'modx-minishop2-options'
             ,deferredRender: true
             ,items: [{
                 html: '<p>'+_('ms2_options_category_intro')+'</p>'
