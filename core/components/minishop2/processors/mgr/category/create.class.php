@@ -15,6 +15,7 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor {
 	public function beforeSet() {
 		$this->setProperties(array(
 			'isfolder' => 1
+			,'template' => $this->modx->getOption('ms2_template_category_default', null, $this->modx->getOption('default_template'))
 		));
 		return parent::beforeSet();
 	}
