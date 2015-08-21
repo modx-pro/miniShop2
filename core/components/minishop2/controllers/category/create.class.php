@@ -1,6 +1,17 @@
 <?php
 class msCategoryCreateManagerController extends ResourceCreateManagerController {
 	/**
+	 * Custom logic code here for setting placeholders, etc
+	 * @param array $scriptProperties
+	 * @return mixed
+	 */
+	public function process(array $scriptProperties = array()) {
+		$this->scriptProperties['template'] = $this->modx->getOption('ms2_template_category_default',null,$this->modx->getOption('default_template',null,1), true);
+
+		return parent::process($scriptProperties);
+	}
+
+	/**
 	 * Returns language topics
 	 * @return array
 	 */
