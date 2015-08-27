@@ -1,5 +1,11 @@
 Changelog for miniShop2.
 
+2.2.0 pl2
+==============
+- ID for Category's options tab
+- Fix installation for MODX 2.4.0
+- msProductOptions product property
+
 2.2.0 beta4
 ==============
 - Category pagination fix.
