@@ -10,7 +10,6 @@ if (!function_exists('installPackage')) {
 			$provider = $modx->getObject('transport.modTransportProvider', 1);
 		}
 
-		$provider->getClient();
 		$modx->getVersionData();
 		$productVersion = $modx->version['code_name'] . '-' . $modx->version['full_version'];
 
