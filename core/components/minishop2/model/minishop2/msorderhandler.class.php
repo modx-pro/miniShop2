@@ -305,6 +305,9 @@ class msOrderHandler implements msOrderInterface {
 		if ($this->ms2->config['json_response']) {
 			$response = $this->modx->fromJSON($response);
 		}
+		if (!$response['success']) {
+			return $this->error($response['message']);
+		}
 		$requires = $response['data']['requires'];
 
 		$errors = array();
