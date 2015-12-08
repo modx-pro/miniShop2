@@ -58,8 +58,10 @@ class msProductSortProcessor extends modObjectProcessor {
 			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
 			$sql = '';
 			$table = $this->modx->getTableName($this->classKey);
+			$r = 0;
 			foreach ($ids as $k => $id) {
-				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `product_id` = '{$id}' AND category_id = '{$this->getProperty('parent')}';";
+				$r++;
+				$sql .= "UPDATE {$table} SET `rank` = '{$r}' WHERE `product_id` = '{$id}' AND category_id = '{$this->getProperty('parent')}';";
 			}
 			$this->modx->exec($sql);
 		}
