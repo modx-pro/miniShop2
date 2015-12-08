@@ -101,6 +101,7 @@ Ext.extend(miniShop2.grid.Category,MODx.grid.Grid,{
 							action: 'mgr/product/sort'
 							,source: source.id
 							,target: target.id
+							,parent: source.parent
 						}
 						,listeners: {
 							success: {fn:function(r) {dd.el.unmask();grid.refresh();},scope:grid}
