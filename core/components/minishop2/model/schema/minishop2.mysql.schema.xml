@@ -90,6 +90,7 @@
 	<object class="msCategoryMember" table="ms2_product_categories" extends="xPDOObject">
 		<field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
 		<field key="category_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
+		<field key="rank" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" />
 
 		<index alias="product" name="product" primary="true" unique="true" type="BTREE" >
 			<column key="product_id" length="" collation="A" null="false" />

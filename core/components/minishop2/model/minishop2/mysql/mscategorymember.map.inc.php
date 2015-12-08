@@ -8,6 +8,7 @@ $xpdo_meta_map['msCategoryMember']= array (
   array (
     'product_id' => NULL,
     'category_id' => NULL,
+    'rank' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -21,6 +22,15 @@ $xpdo_meta_map['msCategoryMember']= array (
       'index' => 'pk',
     ),
     'category_id' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'null' => false,
+      'index' => 'pk',
+    ),
+    'rank' => 
     array (
       'dbtype' => 'int',
       'precision' => '10',

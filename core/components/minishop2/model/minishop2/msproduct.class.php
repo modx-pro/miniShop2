@@ -127,11 +127,33 @@ class msProduct extends modResource {
 	 * {@inheritdoc}
 	 */
 	public function save($cacheFlag= null) {
+		$oldParent = false;
+		if($this->get('id')) {
+			$p = $this->xpdo->getObject('msProduct', $this->get('id'));
+			if($p) $oldParent = $p->get('parent');
+		}
 		$res = parent::save($cacheFlag);
+
 		if (!is_object($this->data)) {$this->loadData();}
 
 		$this->data->set('id', parent::get('id'));
 		$this->data->save($cacheFlag);
+
+		if($oldParent != $this->get('parent')) {
+			// delete old categoryMember
+			$this->xpdo->exec("DELETE FROM {$this->xpdo->getTableName('msCategoryMember')} WHERE `product_id` = {$this->get('id')} AND `category_id` = {$oldParent};");
+		}
+
+		$exists = $this->xpdo->getObject('msCategoryMember', array(
+			'product_id' => $this->get('id')
+			,'category_id' => $this->get('parent')
+		));
+		if(!$exists) {
+			$res = $this->xpdo->newObject('msCategoryMember');
+			$res->set('product_id', $this->get('id'));
+			$res->set('category_id', $this->get('parent'));
+			$res->save();
+		}
 
 		return $res;
 	}
