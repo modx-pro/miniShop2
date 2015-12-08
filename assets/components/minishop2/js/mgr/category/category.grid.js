@@ -4,6 +4,7 @@ miniShop2.grid.Category = function(config) {
 	var baseParams = {
 		action: 'mgr/product/getlist'
 		,parent: config.resource
+		,sort: 'rank'
 	};
 	var params = {};
 	if (MODx.config.ms2_category_remember_grid) {

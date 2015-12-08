@@ -37,6 +37,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor {
 			$c->select($this->modx->getSelectColumns('msVendor','Vendor', 'vendor_', array('name')));
 			$c->select($this->modx->getSelectColumns('msCategory','Category', 'category_', array('pagetitle')));
 		}
+		$c->select('Member.rank');
 		if ($query = $this->getProperty('query',null)) {
 			$queryWhere = array(
 				'msProduct.id' => $query
