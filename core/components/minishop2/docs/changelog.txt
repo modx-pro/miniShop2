@@ -1,5 +1,10 @@
 Changelog for miniShop2.
 
+2.4.0 beta0
+==============
+- Updated builder
+- Added icons for CRCs in managers tree
+
 2.2.0 pl2
 ==============
 - ID for Category's options tab

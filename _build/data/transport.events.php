@@ -3,55 +3,54 @@
 $events = array();
 
 $tmp = array(
-	'msOnBeforeAddToCart',
-	'msOnAddToCart',
-	'msOnBeforeChangeInCart',
-	'msOnChangeInCart',
-	'msOnBeforeRemoveFromCart',
-	'msOnRemoveFromCart',
-	'msOnBeforeEmptyCart',
-	'msOnEmptyCart',
+    'msOnBeforeAddToCart',
+    'msOnAddToCart',
+    'msOnBeforeChangeInCart',
+    'msOnChangeInCart',
+    'msOnBeforeRemoveFromCart',
+    'msOnRemoveFromCart',
+    'msOnBeforeEmptyCart',
+    'msOnEmptyCart',
 
-	'msOnBeforeAddToOrder',
-	'msOnAddToOrder',
-	'msOnBeforeRemoveFromOrder',
-	'msOnRemoveFromOrder',
-	'msOnBeforeEmptyOrder',
-	'msOnEmptyOrder',
+    'msOnBeforeAddToOrder',
+    'msOnAddToOrder',
+    'msOnBeforeRemoveFromOrder',
+    'msOnRemoveFromOrder',
+    'msOnBeforeEmptyOrder',
+    'msOnEmptyOrder',
 
-	'msOnBeforeGetOrderCost',
-	'msOnGetOrderCost',
+    'msOnBeforeGetOrderCost',
+    'msOnGetOrderCost',
 
-	'msOnBeforeChangeOrderStatus',
-	'msOnChangeOrderStatus',
+    'msOnBeforeChangeOrderStatus',
+    'msOnChangeOrderStatus',
 
-	'msOnBeforeUpdateOrder',
-	'msOnUpdateOrder',
-	'msOnBeforeCreateOrder',
-	'msOnCreateOrder',
-	'msOnBeforeRemoveOrder',
-	'msOnRemoveOrder',
+    'msOnBeforeUpdateOrder',
+    'msOnUpdateOrder',
+    'msOnBeforeCreateOrder',
+    'msOnCreateOrder',
+    'msOnBeforeRemoveOrder',
+    'msOnRemoveOrder',
 
-	'msOnSubmitOrder',
-	'msOnManagerCustomCssJs',
+    'msOnSubmitOrder',
+    'msOnManagerCustomCssJs',
 
-	'msOnBeforeValidateOrderValue',
-	'msOnValidateOrderValue',
+    'msOnBeforeValidateOrderValue',
+    'msOnValidateOrderValue',
 
-	'msOnGetProductPrice',
-	'msOnGetProductWeight',
+    'msOnGetProductPrice',
+    'msOnGetProductWeight',
 );
 
 foreach ($tmp as $k => $v) {
-	/* @var modEvent $event */
-	$event = $modx->newObject('modEvent');
-	$event->fromArray(array(
-		'name' => $v
-		,'service' => 6
-		,'groupname' => PKG_NAME
-	),'', true, true);
-
-	$events[] = $event;
+    /** @var modEvent $event */
+    $event = $modx->newObject('modEvent');
+    $event->fromArray(array(
+        'name' => $v,
+        'service' => 6,
+        'groupname' => PKG_NAME,
+    ), '', true, true);
+    $events[] = $event;
 }
 
 return $events;
