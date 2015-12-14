@@ -28,6 +28,14 @@ $xpdo_meta_map['msCategory']= array (
       'cardinality' => 'many',
       'owner' => 'local',
     ),
+    'CategoryOptions' => 
+    array (
+      'class' => 'msCategoryOption',
+      'local' => 'id',
+      'foreign' => 'category_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
+    ),
   ),
   'aggregates' => 
   array (

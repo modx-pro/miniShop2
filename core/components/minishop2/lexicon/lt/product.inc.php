@@ -101,7 +101,7 @@ $_lang['ms2_product_change_source_confirm'] = 'Ar tikrai norite pakeisti šios p
 $_lang['ms2_product_count'] = 'Kiekis';
 $_lang['ms2_product_options'] = 'Parinktys';
 
-$_lang['ms2_panel_save'] = 'Įrašyti';
+$_lang['ms2_product_save'] = 'Įrašyti';
 $_lang['ms2_product_edit'] = 'Redaguoti';
 $_lang['ms2_product_view'] = 'Žiūrėti';
 $_lang['ms2_product_delete'] = 'Šalinti';

@@ -1,5 +1,36 @@
 Changelog for miniShop2.
 
+2.2.0 pl2
+==============
+- ID for Category's options tab
+- Fix installation for MODX 2.4.0
+- msProductOptions product property
+
+2.2.0 beta4
+==============
+- Category pagination fix.
+- Fixed bug removal options when modifying and generating images of products
+- Don't display tplOuter when all options are empty with hideEmpty=1
+
+2.2.0 beta3
+==============
+- Measure units for options.
+- Restrictions for option names.
+- Superboxselect and checkbox option types.
+- Fixed bug with empty options after modResource save.
+
+2.2.0 beta2
+==============
+- Groups of options support.
+- hideEmpty parameter in msProductOptions snippet.
+- Fixed some bugs.
+
+2.2.0 beta
+==============
+- Custom product options support. More info at modx.pro.
+- Fixed TV showing under content.
+- Some code refactoring.
+
 2.1.12 pl
 ==============
 - Improved installation script for MODX 2.4.

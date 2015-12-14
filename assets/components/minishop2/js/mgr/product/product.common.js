@@ -91,7 +91,6 @@ var methods = {
 
 		enabled = ['content'];
 		fields.push(this.getProductFields(config, enabled, miniShop2.config.main_fields));
-
 		return fields;
 	}
 
@@ -145,7 +144,6 @@ var methods = {
 		return fields;
 	}
 
-
 	,getDataFields: function(config) {
 		config = config || {record:{}};
 		return  [{
@@ -182,14 +180,48 @@ var methods = {
 		config = config || {record:{}};
 		var enabled = miniShop2.config.data_fields;
 		var items = this.getProductFields(config, enabled, miniShop2.config.extra_fields);
-
+        var options = this.getOptionFields(config);
+        var result = [];
 		if (items.length > 0) {
-			return {
+			result.push({
 				xtype: 'fieldset'
 				,items: items
-			};
+			});
 		}
-		else {return [];}
+        if (options.length > 0) {
+            var option_groups = [];
+            for (var i = 0; i < options.length; i++) {
+                var newGroup = true;
+                for (var j = 0; j < option_groups.length; j++) {
+                    if (option_groups[j].category == options[i].category) {
+                        option_groups[j].items.push(options[i]);
+                        newGroup = false;
+                        break;
+                    }
+                }
+                if (newGroup) {
+                    option_groups.push({
+                        id: 'minishop2-options-tab-' + options[i].category
+                        ,category: options[i].category
+                        ,title: options[i].category_name ? options[i].category_name : _('ms2_ft_nogroup')
+                        ,items: [options[i]]
+                    });
+                }
+            }
+            result.push({
+                xtype: 'fieldset'
+                ,items:[{
+                    xtype: 'modx-vtabs'
+                    ,autoTabs: true
+                    ,border: false
+                    ,plain: true
+                    ,deferredRender: false
+                    ,id: 'minishop2-options-vtabs'
+                    ,items: option_groups
+                }]
+            });
+        }
+        return result;
 	}
 
 	,getProductFields: function(config, enabled, available) {
@@ -201,31 +233,7 @@ var methods = {
 			if ((enabled.length > 0 && enabled.indexOf(field) === -1) || miniShop2.config.active_fields.indexOf(field) !== -1) {continue;}
 			if (tmp = product_fields[field]) {
 				miniShop2.config.active_fields.push(field);
-				properties = {
-					description: '<b>[[*'+field+']]</b><br />'+_('resource_'+field+'_help')
-					,enableKeyEvents: true
-					,listeners: config.listeners
-					,name: field
-					,id: 'modx-resource-'+field
-					,value: config.record[field] || ''
-					,msgTarget: 'under'
-				};
-				if (tmp.allowBlank === false) {tmp.fieldLabel = tmp.fieldLabel + ' <span class="required red">*</span>'}
-				switch (tmp.xtype) {
-					case 'minishop2-xdatetime':
-					case 'minishop2-combo-user':
-						properties.anchor = '95%';
-						properties.fieldLabel = _('ms2_product_'+field);
-						break;
-					case 'xcheckbox': properties.boxLabel = _('ms2_product_'+field); break;
-					case 'textfield':
-						properties.maxLength = 255;
-					default:
-						properties.fieldLabel = _('ms2_product_'+field);
-						properties.anchor = '100%';
-				}
-
-				Ext.applyIf(tmp, properties);
+				tmp = this.getExtField(config, field, tmp);
 				fields.push(tmp);
 			}
 		}
@@ -293,8 +301,59 @@ var methods = {
 				Ext.apply(fields, add);
 			}
 		}
+
 		return fields;
 	}
+
+    ,getOptionFields: function(config){
+
+        var fields = miniShop2.config.option_fields;
+        var ext_fields = [];
+        for (var i=0; i<fields.length; i++) {
+            var allowBlank = 1 - fields[i].required;
+
+            var field = Ext.applyIf(Ext.util.JSON.decode(fields[i].ext_field), {
+                fieldLabel: fields[i].caption
+                ,allowBlank: allowBlank, description: '[[+'+fields[i].key+']]'
+                ,value: fields[i].value
+                ,category: fields[i].category
+                ,category_name: fields[i].category_name
+            });
+
+            field = this.getExtField(config, fields[i].key, field);
+            ext_fields.push(field);
+        }
+        return ext_fields;
+    }
+
+    ,getExtField: function(config, field, tmp) {
+
+        var help = _('resource_'+field+'_help') ? '<br />'+_('resource_'+field+'_help') : '';
+        tmp.value = tmp.value || config.record[field];
+        var properties = {
+            description: '<b>[[*'+field+']]</b>'+help
+            ,enableKeyEvents: true
+            ,listeners: config.listeners
+            ,name: field
+            ,id: 'modx-resource-'+field
+            ,msgTarget: 'under'
+        };
+        if (tmp.allowBlank === false) {tmp.fieldLabel = tmp.fieldLabel + ' <span class="required red">*</span>'}
+        switch (tmp.xtype) {
+            case 'minishop2-xdatetime':
+            case 'minishop2-combo-user':
+                properties.anchor = '95%';
+                properties.fieldLabel = _('ms2_product_'+field);
+                break;
+            case 'xcheckbox': properties.boxLabel = _('ms2_product_'+field);break;
+            case 'textfield':
+                properties.maxLength = 255;
+            default:
+                properties.fieldLabel = _('ms2_product_'+field);
+                properties.anchor = '100%';
+        }
+        return Ext.applyIf(tmp, properties);
+    }
 
 
 	,templateWarning: function() {

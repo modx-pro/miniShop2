@@ -70,5 +70,13 @@ $xpdo_meta_map['msProductOption']= array (
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),
+    'Option' => 
+    array (
+      'class' => 'msOption',
+      'local' => 'key',
+      'foreign' => 'key',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
   ),
 );

@@ -21,7 +21,6 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		return $this->modx->hasPermission('edit_document');
 	}
 
-
 	/**
 	 * Register custom CSS/JS for the page
 	 * @return void
@@ -50,6 +49,10 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 		$product_extra_fields = array_map('trim', explode(',',$product_extra_fields));
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
 		//---
+
+        // Get extra options fields
+        $product_option_fields = $this->resource->getOptionFields();
+
 
 		$showComments = class_exists('Ticket') && $this->modx->getOption('ms2_product_show_comments') ? 1 : 0;
 
@@ -87,6 +90,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			,logo_small: "'.$minishopImgUrl.'ms2_small.png"
 			,main_fields: '.json_encode($product_main_fields).'
 			,extra_fields: '.json_encode($product_extra_fields).'
+			,option_fields: '.json_encode($product_option_fields).'
 			,vertical_tabs: '.$this->modx->getOption('ms2_product_vertical_tabs', null, true).'
 			,product_tab_extra: '.$this->modx->getOption('ms2_product_tab_extra', null, true).'
 			,product_tab_gallery: '.$this->modx->getOption('ms2_product_tab_gallery', null, true).'
@@ -160,7 +164,7 @@ class msProductUpdateManagerController extends ResourceUpdateManagerController {
 			// <![CDATA[
 			Tickets.config = {
 				assets_url: "' . $ticketsAssetsUrl . '",
-				connector_url: "' . $connectorUrl . '",
+				connector_url: "' . $connectorUrl . '"
 			};
 			// ]]>
 			</script>');

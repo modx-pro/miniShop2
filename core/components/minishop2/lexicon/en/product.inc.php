@@ -82,7 +82,7 @@ $_lang['ms2_product_thumb_help'] = '';
 $_lang['ms2_product_vendor'] = 'Vendor';
 $_lang['ms2_product_vendor_help'] = '';
 $_lang['ms2_product_made_in'] = 'Made in';
-$_lang['ms2_product_made_in__help'] = '';
+$_lang['ms2_product_made_in_help'] = '';
 $_lang['ms2_product_tags'] = 'Tags';
 $_lang['ms2_product_tags_help'] = 'Any tags of the product.';
 $_lang['ms2_product_size'] = 'Sizes';
@@ -101,7 +101,7 @@ $_lang['ms2_product_change_source_confirm'] = 'Are you sure you want to change t
 $_lang['ms2_product_count'] = 'Count';
 $_lang['ms2_product_options'] = 'Options';
 
-$_lang['ms2_panel_save'] = 'Save';
+$_lang['ms2_product_save'] = 'Save';
 $_lang['ms2_product_edit'] = 'Edit';
 $_lang['ms2_product_view'] = 'View';
 $_lang['ms2_product_delete'] = 'Delete';

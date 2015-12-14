@@ -6,6 +6,7 @@
  * @subpackage lexicon
  */
 $_lang['ms2_menu_create'] = 'Создать';
+$_lang['ms2_menu_copy'] = 'Копировать';
 $_lang['ms2_menu_add'] = 'Добавить';
 $_lang['ms2_menu_update'] = 'Изменить';
 $_lang['ms2_menu_remove'] = 'Удалить';
@@ -17,7 +18,9 @@ $_lang['ms2_combo_select'] = 'Нажмите для выбора';
 $_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
 
 $_lang['ms2_id'] = 'Id';
+$_lang['ms2_key'] = 'Ключ';
 $_lang['ms2_name'] = 'Имя';
+$_lang['ms2_caption'] = 'Заголовок';
 $_lang['ms2_color'] = 'Цвет';
 $_lang['ms2_country'] = 'Страна';
 $_lang['ms2_logo'] = 'Логотип';
@@ -26,6 +29,7 @@ $_lang['ms2_phone'] = 'Телефон';
 $_lang['ms2_fax'] = 'Факс';
 $_lang['ms2_email'] = 'Email';
 $_lang['ms2_active'] = 'Включен';
+$_lang['ms2_required'] = 'Обязательный';
 $_lang['ms2_class'] = 'Класс-обработчик';
 $_lang['ms2_description'] = 'Описание';
 $_lang['ms2_num'] = 'Номер';
@@ -91,3 +95,34 @@ $_lang['ms2_link_many_to_many'] = 'Многие ко многим';
 $_lang['ms2_link_many_to_many_desc'] = 'Равная связь множества товаров. Все товары группы связаны друг с другом и при добавлении новой связи одному из них - её получают и другие. Типичное применение: связь по какому-то параметру, например цвету, размеру, языковой версии и т.д.';
 $_lang['ms2_link_master'] = 'Главный товар';
 $_lang['ms2_link_slave'] = 'Подчинённый товар';
+
+$_lang['ms2_ft_active'] = 'Включена';
+$_lang['ms2_ft_caption'] = 'Название';
+$_lang['ms2_ft_description'] = 'Описание';
+$_lang['ms2_ft_measure_unit'] = 'Единица измерения';
+$_lang['ms2_ft_group'] = 'Группа';
+$_lang['ms2_ft_groups'] = 'Группы';
+$_lang['ms2_ft_nogroup'] = 'Без группы';
+$_lang['ms2_ft_name'] = 'Ключ';
+$_lang['ms2_ft_required'] = 'Обязательна';
+$_lang['ms2_ft_type'] = 'Тип характеристики';
+$_lang['ms2_ft_rank'] = 'Порядок сортировки';
+
+$_lang['ms2_ft_selected_delete'] = 'Убрать';
+$_lang['ms2_ft_selected_activate'] = 'Включить';
+$_lang['ms2_ft_selected_deactivate'] = 'Выключить';
+$_lang['ms2_ft_selected_require'] = 'Сделать обязательной';
+$_lang['ms2_ft_selected_unrequire'] = 'Сделать необязательной';
+$_lang['ms2_ft_selected_assign'] = 'Назначить в категорию';
+$_lang['ms2_options_remove_confirm'] = 'Вы уверены, что хотите удалить все выбранные опции? Значения этих опций в товарах будут удалены без возможности восстановления.';
+$_lang['ms2_category_options_assign'] = 'Назначить опции в категории.';
+
+$_lang['ms2_ft_textfield'] = 'Текстовое поле';
+$_lang['ms2_ft_numberfield'] = 'Числовое поле';
+$_lang['ms2_ft_textarea'] = 'Текстовая область';
+$_lang['ms2_ft_combobox'] = 'Выпадающий список';
+$_lang['ms2_ft_combo-boolean'] = 'Да/Нет';
+$_lang['ms2_ft_combo-multiple'] = 'Множественный список';
+$_lang['ms2_ft_combo-options'] = 'Список с автодополнением';
+$_lang['ms2_ft_checkbox'] = 'Флажок';
+$_lang['ms2_ft_datefield'] = 'Дата';

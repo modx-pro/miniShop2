@@ -1,3 +1,5 @@
 config.core.php
 sftp-config.json
 .idea
+.gitignore
+tests/properties.inc.php
