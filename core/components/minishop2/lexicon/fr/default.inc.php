@@ -55,7 +55,7 @@ $_lang['ms2_btn_next'] = 'Suivant (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Aide';
 $_lang['ms2_btn_duplicate'] = 'Dupliquer un article';
 
-$_lang['ms2_bulk_actions'] = 'Actions';
+$_lang['ms2_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Chercher';
 $_lang['ms2_search_clear'] = 'Éffacer';
 

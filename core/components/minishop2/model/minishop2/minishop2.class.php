@@ -22,36 +22,41 @@ class miniShop2 {
 	 * @param modX $modx
 	 * @param array $config
 	 */
-	function __construct(modX &$modx,array $config = array()) {
+	function __construct(modX &$modx, array $config = array())
+	{
 		$this->modx =& $modx;
 
-		$corePath = $this->modx->getOption('minishop2.core_path', $config, $this->modx->getOption('core_path').'components/minishop2/');
-		$assetsPath = $this->modx->getOption('minishop2.assets_path', $config, $this->modx->getOption('assets_path').'components/minishop2/');
-		$assetsUrl = $this->modx->getOption('minishop2.assets_url', $config, $this->modx->getOption('assets_url').'components/minishop2/');
-		$actionUrl = $this->modx->getOption('minishop2.action_url', $config, $assetsUrl.'action.php');
-		$connectorUrl = $assetsUrl.'connector.php';
+		$corePath = $this->modx->getOption('minishop2.core_path', $config,
+			$this->modx->getOption('core_path') . 'components/minishop2/');
+		$assetsPath = $this->modx->getOption('minishop2.assets_path', $config,
+			$this->modx->getOption('assets_path') . 'components/minishop2/');
+		$assetsUrl = $this->modx->getOption('minishop2.assets_url', $config,
+			$this->modx->getOption('assets_url') . 'components/minishop2/');
+		$actionUrl = $this->modx->getOption('minishop2.action_url', $config, $assetsUrl . 'action.php');
+		$connectorUrl = $assetsUrl . 'connector.php';
 
 		$this->config = array_merge(array(
-			'assetsUrl' => $assetsUrl
-			,'cssUrl' => $assetsUrl.'css/'
-			,'jsUrl' => $assetsUrl.'js/'
-			,'jsPath' => $assetsPath.'js/'
-			,'imagesUrl' => $assetsUrl.'images/'
-			,'customPath' => $corePath.'custom/'
+			'assetsUrl' => $assetsUrl,
+			'cssUrl' => $assetsUrl . 'css/',
+			'jsUrl' => $assetsUrl . 'js/',
+			'jsPath' => $assetsPath . 'js/',
+			'imagesUrl' => $assetsUrl . 'images/',
+			'customPath' => $corePath . 'custom/',
 
-			,'connectorUrl' => $connectorUrl
-			,'actionUrl' => $actionUrl
+			'connectorUrl' => $connectorUrl,
+			'connector_url' => $connectorUrl,
+			'actionUrl' => $actionUrl,
 
-			,'corePath' => $corePath
-			,'assetsPath' => $assetsPath
-			,'modelPath' => $corePath.'model/'
-			,'ctx' => 'web'
-			,'json_response' => false
+			'corePath' => $corePath,
+			'assetsPath' => $assetsPath,
+			'modelPath' => $corePath . 'model/',
+			'ctx' => 'web',
+			'json_response' => false,
 
-			,'templatesPath' => $corePath.'elements/templates/'
-		),$config);
+			//'templatesPath' => $corePath . 'elements/templates/',
+		), $config);
 
-		$this->modx->addPackage('minishop2',$this->config['modelPath']);
+		$this->modx->addPackage('minishop2', $this->config['modelPath']);
 		$this->modx->lexicon->load('minishop2:default');
 	}
 
@@ -82,37 +87,37 @@ class miniShop2 {
 					$config_js = preg_replace(array('/^\n/', '/\t{5}/'), '', '
 					miniShop2 = {};
 					miniShop2Config = {
-						cssUrl: "'.$this->config['cssUrl'].'web/"
-						,jsUrl: "'.$this->config['jsUrl'].'web/"
-						,imagesUrl: "'.$this->config['imagesUrl'].'web/"
-						,actionUrl: "'.$this->config['actionUrl'].'"
-						,ctx: "'.$this->modx->context->get('key').'"
-						,close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'"
-						,price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').'
-						,price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).'
-						,weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').'
-						,weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).'
-						,callbacksObjectTemplate: function() {
+						cssUrl: "'.$this->config['cssUrl'].'web/",
+						jsUrl: "'.$this->config['jsUrl'].'web/",
+						imagesUrl: "'.$this->config['imagesUrl'].'web/",
+						actionUrl: "'.$this->config['actionUrl'].'",
+						ctx: "'.$this->modx->context->get('key').'",
+						close_all_message: "'.$this->modx->lexicon('ms2_message_close_all').'",
+						price_format: '.$this->modx->getOption('ms2_price_format', null, '[2, ".", " "]').',
+						price_format_no_zeros: '.$this->modx->getOption('ms2_price_format_no_zeros', null, true).',
+						weight_format: '.$this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]').',
+						weight_format_no_zeros: '.$this->modx->getOption('ms2_weight_format_no_zeros', null, true).',
+						callbacksObjectTemplate: function() {
 							return {
-								before: function() {/*return false to prevent send data*/}
-								,response: {success: function(response) {},error: function(response) {}}
-								,ajax: {done: function(xhr) {},fail: function(xhr) {},always: function(xhr) {}}
+								before: function() {/*return false to prevent send data*/},
+								response: {success: function(response) {},error: function(response) {}},
+								ajax: {done: function(xhr) {},fail: function(xhr) {},always: function(xhr) {}}
 							};
 						}
 					};
 					miniShop2.Callbacks = miniShop2Config.Callbacks = {
 						Cart: {
-							add: miniShop2Config.callbacksObjectTemplate()
-							,remove: miniShop2Config.callbacksObjectTemplate()
-							,change: miniShop2Config.callbacksObjectTemplate()
-							,clean: miniShop2Config.callbacksObjectTemplate()
-						}
-						,Order: {
-							add: miniShop2Config.callbacksObjectTemplate()
-							,getcost: miniShop2Config.callbacksObjectTemplate()
-							,clean: miniShop2Config.callbacksObjectTemplate()
-							,submit: miniShop2Config.callbacksObjectTemplate()
-							,getRequired: miniShop2Config.callbacksObjectTemplate()
+							add: miniShop2Config.callbacksObjectTemplate(),
+							remove: miniShop2Config.callbacksObjectTemplate(),
+							change: miniShop2Config.callbacksObjectTemplate(),
+							clean: miniShop2Config.callbacksObjectTemplate()
+						},
+						Order: {
+							add: miniShop2Config.callbacksObjectTemplate(),
+							getcost: miniShop2Config.callbacksObjectTemplate(),
+							clean: miniShop2Config.callbacksObjectTemplate(),
+							submit: miniShop2Config.callbacksObjectTemplate(),
+							getRequired: miniShop2Config.callbacksObjectTemplate()
 						}
 					};');
 					$this->modx->regClientStartupScript("<script type=\"text/javascript\">\n".$config_js."\n</script>", true);
@@ -496,12 +501,12 @@ class miniShop2 {
 
 		$user_id = ($action == 'status' && $entry == 1) || !$this->modx->user->id ? $order->get('user_id') : $this->modx->user->id;
 		$log = $this->modx->newObject('msOrderLog', array(
-			'order_id' => $order_id
-			,'user_id' => $user_id
-			,'timestamp' => time()
-			,'action' => $action
-			,'entry' => $entry
-			,'ip' => $this->modx->request->getClientIp()
+			'order_id' => $order_id,
+			'user_id' => $user_id,
+			'timestamp' => time(),
+			'action' => $action,
+			'entry' => $entry,
+			'ip' => $this->modx->request->getClientIp()
 		));
 
 		return $log->save();
@@ -670,9 +675,9 @@ class miniShop2 {
 		}
 
 		return array(
-			'success' => empty($message)
-			,'message' => $message
-			,'data' => $params
+			'success' => empty($message),
+			'message' => $message,
+			'data' => $params
 		);
 	}
 

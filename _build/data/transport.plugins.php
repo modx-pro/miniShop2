@@ -7,7 +7,6 @@ $tmp = array(
         'file' => 'minishop2',
         'description' => '',
         'events' => array(
-            'OnManagerPageBeforeRender',
             'OnWebPageInit',
             'OnHandleRequest',
             'OnLoadWebDocument',

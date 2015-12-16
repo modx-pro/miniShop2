@@ -62,7 +62,7 @@ $_lang['ms2_btn_help'] = 'Help';
 $_lang['ms2_btn_duplicate'] = 'Duplicate product';
 $_lang['ms2_btn_addoption'] = 'Add option';
 
-$_lang['ms2_bulk_actions'] = 'Actions';
+$_lang['ms2_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';
 $_lang['ms2_search_clear'] = 'Clear';
 

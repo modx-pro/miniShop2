@@ -18,7 +18,7 @@ $_lang['minishop2'] = 'miniShop2';
 $_lang['ms2_menu_desc'] = 'Продвинутый интернет-магазин';
 $_lang['ms2_order'] = 'Заказ';
 $_lang['ms2_orders'] = 'Заказы';
-$_lang['ms2_orders_intro'] = 'Панель управления заказами';
+$_lang['ms2_orders_intro'] = 'Панель управления заказами. Вы можете выбирать сразу несколько заказов через Shift или Ctrl(Cmd).';
 $_lang['ms2_orders_desc'] = 'Управление заказами';
 $_lang['ms2_settings'] = 'Настройки';
 $_lang['ms2_settings_intro'] = 'Панель управления настройками магазина. Здесь вы можете указать способы оплаты, доставки и статусы заказов.';
@@ -62,7 +62,7 @@ $_lang['ms2_btn_help'] = 'Помощь';
 $_lang['ms2_btn_duplicate'] = 'Сделать копию товара';
 $_lang['ms2_btn_addoption'] = 'Добавить';
 
-$_lang['ms2_bulk_actions'] = 'Действия';
+$_lang['ms2_actions'] = 'Действия';
 $_lang['ms2_search'] = 'Поиск';
 $_lang['ms2_search_clear'] = 'Очистить';
 

@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 beta0
+==============
+- Improved orders panel.
+
 2.2.0 pl2
 ==============
 - ID for Category's options tab
