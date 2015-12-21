@@ -22,9 +22,7 @@ if (empty($showZeroPrice)) {$where['Data.price:>'] = 0;}
 $leftJoin = array(
 	array('class' => 'msProductData', 'alias' => 'Data', 'on' => '`'.$class.'`.`id`=`Data`.`id`'),
 	array('class' => 'msVendor', 'alias' => 'Vendor', 'on' => '`Data`.`vendor`=`Vendor`.`id`'),
-);
-$innerJoin = array(
-	array('class' => 'msCategoryMember', 'alias' => 'catMember', 'on' => '`catMember`.`product_id` = `msProduct`.`id`')
+	array('class' => 'msCategoryMember', 'alias' => 'catMember', 'on' => '`catMember`.`product_id` = `msProduct`.`id`'),
 );
 
 // Include Thumbnails
