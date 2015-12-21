@@ -65,7 +65,9 @@ if ($object->xpdo) {
 				));
 			}
 
-			$modx->setLogLevel($level);
+		$manager->addField('msCategoryMember', 'rank', array('after' => 'category_id'));
+
+		$modx->setLogLevel($level);
 
 			break;
 
