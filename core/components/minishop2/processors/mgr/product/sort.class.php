@@ -22,8 +22,6 @@ class msProductSortProcessor extends modObjectProcessor {
 			return $this->modx->error->failure();
 		}
 
-		// ignore whatever is below here and only use our new "rank"
-
 		// get "source" msCategoryMember
 		// add 1 to all ranks AFTER AND INCLUDING that source
 		// update "target" with new msCategoryMember
