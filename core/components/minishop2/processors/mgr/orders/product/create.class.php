@@ -3,6 +3,8 @@
 class msOrderProductCreateProcessor extends modObjectCreateProcessor {
 	public $classKey = 'msOrderProduct';
 	public $languageTopics = array('minishop2:default');
+	public $beforeSaveEvent = 'msOnBeforeAddOrderProduct';
+	public $afterSaveEvent = 'msOnAddOrderProduct';
 	public $permission = 'msorder_save';
 	/* @var msOrder $order */
 	protected $order;
