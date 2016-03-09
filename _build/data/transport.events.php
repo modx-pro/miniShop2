@@ -31,6 +31,13 @@ $tmp = array(
 	'msOnCreateOrder',
 	'msOnBeforeRemoveOrder',
 	'msOnRemoveOrder',
+	
+	'msOnBeforeAddOrderProduct',
+	'msOnAddOrderProduct',
+	'msOnBeforeUpdateOrderProduct',
+	'msOnUpdateOrderProduct',
+	'msOnBeforeRemoveOrderProduct',
+	'msOnRemoveOrderProduct',
 
 	'msOnSubmitOrder',
 	'msOnManagerCustomCssJs',
