@@ -627,6 +627,7 @@ Ext.extend(miniShop2.grid.Products,MODx.grid.Grid, {
 
 					r.object.order_id = this.config.order_id;
 					r.object.count = 1;
+					r.object.name = row.data.pagetitle;
 					 w = MODx.load({
 						 xtype: 'minishop2-window-orderproduct-update'
 						 ,id: 'minishop2-window-orderproduct-update'
