@@ -28,7 +28,7 @@ $xpdo_meta_map['msProductData']= array (
     array (
       'dbtype' => 'varchar',
       'precision' => '50',
-      'phptype' => 'varchar',
+      'phptype' => 'string',
       'null' => true,
     ),
     'price' => 

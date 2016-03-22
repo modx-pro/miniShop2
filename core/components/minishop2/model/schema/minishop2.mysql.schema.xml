@@ -22,7 +22,7 @@
 
 
 	<object class="msProductData" table="ms2_products" extends="xPDOSimpleObject">
-		<field key="article" dbtype="varchar" precision="50" phptype="varchar" null="true" />
+		<field key="article" dbtype="varchar" precision="50" phptype="string" null="true" />
 		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="old_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0" />
 		<field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0" />

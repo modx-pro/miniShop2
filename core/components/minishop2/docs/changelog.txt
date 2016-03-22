@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 beta0
+==============
+- Fixed php type of "article" in msProductData xPDO object.
+
 2.2.0 pl2
 ==============
 - ID for Category's options tab
