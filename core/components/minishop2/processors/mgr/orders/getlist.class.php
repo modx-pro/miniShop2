@@ -223,6 +223,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
         $selected = $this->query;
         $selected->query['columns'] = array();
+        $selected->query['limit'] =
+        $selected->query['offset'] = 0;
         $selected->where(array('type' => 0));
         $selected->select('SUM(msOrder.cost)');
         $selected->prepare();
