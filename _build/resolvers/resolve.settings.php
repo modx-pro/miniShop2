@@ -83,7 +83,7 @@ if ($object->xpdo) {
                 }
             }
 
-            /*@var msDelivery $delivery */
+            /** @var msDelivery $delivery */
             if (!$delivery = $modx->getObject('msDelivery', 1)) {
                 $delivery = $modx->newObject('msDelivery');
                 $delivery->fromArray(array(
@@ -99,7 +99,7 @@ if ($object->xpdo) {
                 $delivery->save();
             }
 
-            /*@var msPayment $payment */
+            /** @var msPayment $payment */
             if (!$payment = $modx->getObject('msPayment', 1)) {
                 $payment = $modx->newObject('msPayment');
                 $payment->fromArray(array(
@@ -111,7 +111,7 @@ if ($object->xpdo) {
                 $payment->save();
             }
 
-            /*@var msPayment $payment */
+            /** @var msPayment $payment */
             if (!$payment = $modx->getObject('msPayment', 2)) {
                 $payment = $modx->newObject('msPayment');
                 $payment->fromArray(array(
@@ -124,7 +124,7 @@ if ($object->xpdo) {
                 $payment->save();
             }
 
-            /*@var msDeliveryMember $member */
+            /** @var msDeliveryMember $member */
             if (!$member = $modx->getObject('msDeliveryMember', array('payment_id' => 1, 'delivery_id' => 1))) {
                 $member = $modx->newObject('msDeliveryMember');
                 $member->fromArray(array(
@@ -142,9 +142,37 @@ if ($object->xpdo) {
                     $setting->save();
                 }
             }
+
+            if (!$setting = $modx->getObject('modSystemSetting', array('key' => 'mgr_tree_icon_msCategory'))) {
+                $setting = $modx->newObject('modSystemSetting');
+                $setting->fromArray(array(
+                    'key' => 'mgr_tree_icon_mscategory',
+                    'area' => 'minishop2.main',
+                    'namespace' => 'minishop2',
+                    'value' => 'icon icon-barcode',
+                ), '', true, true);
+                $setting->save();
+            }
+
+            if (!$setting = $modx->getObject('modSystemSetting', array('key' => 'mgr_tree_icon_msProduct'))) {
+                $setting = $modx->newObject('modSystemSetting');
+                $setting->fromArray(array(
+                    'key' => 'mgr_tree_icon_msproduct',
+                    'area' => 'minishop2.main',
+                    'namespace' => 'minishop2',
+                    'value' => 'icon icon-tag',
+                ), '', true, true);
+                $setting->save();
+            }
             break;
 
         case xPDOTransport::ACTION_UNINSTALL:
+            $modx->removeCollection('modSystemSetting', array(
+                'key:IN' => array(
+                    'mgr_tree_icon_mscategory',
+                    'mgr_tree_icon_msproduct',
+                ),
+            ));
             break;
     }
 }
