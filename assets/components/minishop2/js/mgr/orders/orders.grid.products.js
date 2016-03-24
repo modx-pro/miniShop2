@@ -1,6 +1,8 @@
 miniShop2.grid.Products = function (config) {
     config = config || {};
-
+    if (!config.id) {
+        config.id = 'minishop2-grid-order-products';
+    }
     Ext.applyIf(config, {
         baseParams: {
             action: 'mgr/orders/product/getlist',
@@ -8,9 +10,9 @@ miniShop2.grid.Products = function (config) {
             type: 'status'
         },
         cls: 'minishop2-grid',
-        multi_select: false,
-        changed: false,
-        stateful: false,
+        multi_select: true,
+        stateful: true,
+        stateId: config.id,
         pageSize: Math.round(MODx.config['default_per_page'] / 2),
     });
     miniShop2.grid.Products.superclass.constructor.call(this, config);
@@ -23,7 +25,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
 
     getColumns: function () {
         var fields = {
-            id: {hidden: true, sortable: true, width: 40},
+            //id: {hidden: true, sortable: true, width: 40},
             product_id: {hidden: true, sortable: true, width: 40},
             name: {header: _('ms2_name'), width: 100, renderer: miniShop2.utils.productLink},
             product_weight: {header: _('ms2_product_weight'), width: 50},
