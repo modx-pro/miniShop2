@@ -60,7 +60,7 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         }
         if ($status = $this->getProperty('status')) {
             $c->where(array(
-                'status' => $status
+                'status' => $status,
             ));
         }
         if ($customer = $this->getProperty('customer')) {

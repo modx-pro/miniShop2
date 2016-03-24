@@ -3,7 +3,6 @@
 class msOrderMultipleProcessor extends modProcessor
 {
 
-
     /**
      * @return array|string
      */

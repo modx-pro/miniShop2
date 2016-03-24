@@ -17,12 +17,14 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
         if (!$this->modx->hasPermission($this->permission)) {
             return $this->modx->lexicon('access_denied');
         }
+
         return parent::initialize();
     }
 
 
     /**
      * @param xPDOQuery $c
+     *
      * @return xPDOQuery
      */
     public function prepareQueryBeforeCount(xPDOQuery $c)
@@ -31,7 +33,7 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
         $c->leftJoin('msProduct', 'msProduct', '`msOrderProduct`.`product_id` = `msProduct`.`id`');
         $c->leftJoin('msProductData', 'msProductData', '`msOrderProduct`.`product_id` = `msProductData`.`id`');
         $c->where(array(
-            'order_id' => $this->getProperty('order_id')
+            'order_id' => $this->getProperty('order_id'),
         ));
 
         $c->select($this->modx->getSelectColumns('msOrderProduct', 'msOrderProduct'));
@@ -55,13 +57,17 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
 
     /**
      * @param xPDOObject $object
+     *
      * @return array
      */
     public function prepareRow(xPDOObject $object)
     {
         $fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));
         $fields = array_values(array_unique(array_merge($fields, array(
-            'id', 'product_id', 'name', 'product_pagetitle'
+            'id',
+            'product_id',
+            'name',
+            'product_pagetitle',
         ))));
 
         $data = array();
@@ -69,8 +75,10 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
             $data[$v] = $object->get($v);
             if ($v == 'product_price' || $v == 'product_old_price') {
                 $data[$v] = round($data[$v], 2);
-            } else if ($v == 'product_weight') {
-                $data[$v] = round($data[$v], 3);
+            } else {
+                if ($v == 'product_weight') {
+                    $data[$v] = round($data[$v], 3);
+                }
             }
         }
 
