@@ -7,10 +7,9 @@ miniShop2.grid.Products = function (config) {
         baseParams: {
             action: 'mgr/orders/product/getlist',
             order_id: config.order_id,
-            type: 'status'
         },
         cls: 'minishop2-grid',
-        multi_select: true,
+        multi_select: false,
         stateful: true,
         stateId: config.id,
         pageSize: Math.round(MODx.config['default_per_page'] / 2),
