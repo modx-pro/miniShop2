@@ -46,7 +46,7 @@ miniShop2.grid.CategoryOption = function(config) {
 			,handler: this.copyCategory
 			,scope: this
 		},{
-            text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_bulk_actions')
+            text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_actions')
             ,menu: [
                 {text: _('ms2_ft_selected_delete'),handler: this.removeSelected,scope: this}
                 ,'-'

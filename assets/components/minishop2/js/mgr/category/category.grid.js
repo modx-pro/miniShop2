@@ -37,7 +37,7 @@ miniShop2.grid.Category = function(config) {
 		,stateId: 'minishop2-category-grid'
 		,stateEvents: ['columnresize']
 		,tbar: [{
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_bulk_actions')
+			text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_actions')
 			,menu: [
 				{text: _('ms2_product_selected_publish'),handler: this.publishSelected,scope: this}
 				,{text: _('ms2_product_selected_unpublish'),handler: this.unpublishSelected,scope: this}

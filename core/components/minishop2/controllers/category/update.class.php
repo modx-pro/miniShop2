@@ -49,6 +49,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController 
 			$neighborhood = $this->resource->getNeighborhood();
 		}
 
+		$this->addCss($minishopAssetsUrl . 'css/mgr/old.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');

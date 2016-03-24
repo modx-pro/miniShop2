@@ -62,6 +62,7 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 		$product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
 		//---
 
+		$this->addCss($minishopAssetsUrl . 'css/mgr/old.css');
 		$this->addJavascript($mgrUrl.'assets/modext/util/datetime.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/element/modx.panel.tv.renders.js');
 		$this->addJavascript($mgrUrl.'assets/modext/widgets/resource/modx.grid.resource.security.local.js');

@@ -4,8 +4,9 @@ Changelog for miniShop2.
 ==============
 - Fixed php type of "article" in msProductData xPDO object.
 - Improved orders panel.
-- Updated builder
-- Added icons for CRCs in managers tree
+- Updated builder.
+- Added icons for CRCs in managers tree.
+- Minimum version is MODX 2.3.
 
 2.2.0 pl2
 ==============

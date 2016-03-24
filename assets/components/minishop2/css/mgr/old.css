@@ -1,0 +1,227 @@
+
+.minishop2-grid .product-id,
+.minishop2-grid .order-id {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+    line-height: .8em;
+    padding-top: 1px;
+    padding-right: 5px;
+    float: left;
+    color: #555555;
+}
+
+.minishop2-grid .main-column {
+    float: left;
+}
+
+.minishop2-grid .main-column a {
+    float: left;
+    color: #005580;
+    line-height: .8em;
+    font-size: .8em;
+    text-decoration: none;
+}
+
+.minishop2-grid .main-column .title {
+    line-height: .8em;
+    font-size: .8em;
+    text-decoration: none;
+}
+
+.minishop2-grid .main-column a:hover {
+    color: #0088cc;
+    text-decoration: none;
+}
+
+.minishop2-grid .multicategory h3 a {
+    color: #555555 !important;
+}
+
+.minishop2-grid .multicategory h3 a:hover {
+    color: #777777 !important;
+}
+
+.minishop2-grid .multicategory .product-category {
+    font-size: 12px;
+    color: #777777;
+    font-style: italic;
+    clear: both;
+}
+
+.minishop2-grid .product-title-column ul,
+.minishop2-grid .order-title-column ul {
+    clear: both;
+}
+
+.minishop2-panel-spacer .x-panel-body {
+    background: transparent !important;
+}
+
+.actions a {
+    border-radius: 3px;
+    background: #dcdcdc;
+    background: linear-gradient(center bottom, #dcdcdc 0%, #fcfcfc 100%);
+    text-shadow: 0 1px 0 #ffffff;
+    border: 1px solid #cccccc;
+    color: #888888;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    font-family: helvetica, arial, freesans, clean, sans-serif;
+    padding: 6px 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.actions a:hover {
+    background: #e0e0e0;
+    background: linear-gradient(center bottom, #e0e0e0 0%, #fcfcfc 100%);
+    color: #5b7a98;
+}
+
+.actions a:active {
+    box-shadow: 0 0 3px #aaaaaa inset;
+    background-color: #ffffff;
+    background-image: none;
+}
+
+.actions a.delete:hover {
+    color: brown;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.actions a.unpublish:hover {
+    color: darkgoldenrod;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.minishop2-category-list-item .parents, .minishop2-product-list-item .parents {
+    display: block;
+}
+
+#minishop2-product-header-image {
+    margin: auto;
+    display: block;
+    padding: 10px;
+}
+
+#minishop2-product-extra-right .x-panel-header {
+    border: none;
+    background: none;
+    font-weight: bold;
+    font-size: 12px;
+    color: #707070;
+    padding: 0;
+}
+
+/* Upload progress bar in product gallery */
+td.x-grid3-td-progress-cell {
+    padding: 0;
+}
+
+td.x-grid3-td-progress-cell div.x-grid3-cell-inner {
+    padding: 0;
+    position: relative;
+    line-height: 36px;
+    height: 41px;
+}
+
+.ux-progress-cell-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.ux-progress-cell-background {
+    background: #E0E8F3;
+    white-space: nowrap;
+}
+
+.x-grid3-td-progress-cell .low {
+    background: #11aa11;
+}
+
+.x-grid3-td-progress-cell .medium {
+    background: #f1fa1a;
+}
+
+.x-grid3-td-progress-cell .high {
+    background: #ee1111;
+}
+
+.ux-progress-cell-foreground {
+    color: #000;
+    background-color: #cadaba;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.ux-progress-cell-inner-right {
+    text-align: right;
+}
+
+.ux-progress-cell-inner-center {
+    text-align: center;
+}
+
+.ux-progress-cell .ux-progress-cell-inner div {
+    padding: 3px 0 0 4px;
+}
+
+.ux-progress-cell-inner-right div {
+    padding: 3px 4px 0 0;
+    position: relative;
+}
+
+.ux-progress-cell-inner-center div {
+    padding: 3px 0 0 0;
+    position: relative;
+}
+
+.ux-progress-cell-inner-left div {
+    padding: 3px 0 0 4px;
+    position: relative;
+}
+
+/* Gallery styles */
+.modx-gallery-detail-thumb img {
+    max-width: 300px;
+    display: block;
+    margin: auto;
+}
+
+.modx-gallery-details-info,
+.modx-gallery-details-info .description {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #efefef;
+}
+
+.modx-gal-item-thumb {
+    width: 120px;
+    height: 90px;
+    border: 1px solid #efefef;
+}
+
+.modx-gal-item-thumb img {
+    max-width: 120px;
+    max-height: 90px;
+    display: block;
+    margin: auto;
+}
+
+.grid-row-insert-below {
+    background-color: #f0f0f0;
+    background-image: none;
+    border-bottom: 1px solid #e4e4e4 !important;
+    border-top: 1px solid #e4e4e4 !important;
+    color: #565550;
+}
+
+.fix-tbar, .fix-tbar > .x-toolbar {
+    width: 100% !important;
+}

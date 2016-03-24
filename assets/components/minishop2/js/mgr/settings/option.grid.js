@@ -36,7 +36,7 @@ miniShop2.grid.Option = function(config) {
 			,handler: this.createOption
 			,scope: this
 		},{
-            text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_bulk_actions')
+            text: '<i class="'+ (MODx.modx23 ? 'icon icon-list' : 'bicon-list') + '"></i> ' + _('ms2_actions')
             ,menu: [
                 {text: _('ms2_ft_selected_assign'),handler: this.assignSelected,scope: this}
                 ,'-'

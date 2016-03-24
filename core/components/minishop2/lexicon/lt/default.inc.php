@@ -55,7 +55,7 @@ $_lang['ms2_btn_next'] = 'Kitas (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Pagalba';
 $_lang['ms2_btn_duplicate'] = 'Kurti dublikatą';
 
-$_lang['ms2_bulk_actions'] = 'Veiksmai';
+$_lang['ms2_actions'] = 'Veiksmai';
 $_lang['ms2_search'] = 'Ieškoti';
 $_lang['ms2_search_clear'] = 'Valyti';
 
