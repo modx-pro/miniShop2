@@ -7,6 +7,7 @@ miniShop2.window.OrderProduct = function (config) {
         baseParams: {
             action: config.action || 'mgr/orders/product/update',
         },
+        modal: true,
     });
     miniShop2.window.OrderProduct.superclass.constructor.call(this, config);
 };
