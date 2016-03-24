@@ -1,19 +1,6 @@
 <?php
 switch ($modx->event->name) {
 
-	case 'OnManagerPageBeforeRender':
-		$modx23 = !empty($modx->version) && version_compare($modx->version['full_version'], '2.3.0', '>=');
-		$modx->controller->addHtml('<script type="text/javascript">
-			Ext.onReady(function() {
-				MODx.modx23 = '.(int)$modx23.';
-			});
-		</script>');
-		if (!$modx23) {
-			$modx->controller->addCss(MODX_ASSETS_URL . 'components/minishop2/css/mgr/bootstrap.min.css');
-		}
-		$modx->controller->addCss(MODX_ASSETS_URL . 'components/minishop2/css/mgr/main.css');
-		break;
-
 	case 'OnHandleRequest':
 	case 'OnLoadWebDocument':
 		$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';

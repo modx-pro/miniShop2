@@ -21,7 +21,7 @@ $tmp = array(
     ),
     'outputSeparator' => array(
         'type' => 'textfield',
-        'value' => "\n"
+        'value' => "\n",
     ),
     'ignoreOptions' => array(
         'type' => 'textfield',
@@ -38,16 +38,15 @@ $tmp = array(
     'tplValue' => array(
         'type' => 'textfield',
         'value' => '@INLINE [[+value]]',
-    )
+    ),
 );
 
 foreach ($tmp as $k => $v) {
     $properties[] = array_merge(array(
-            'name' => $k,
-            'desc' => 'ms2_prop_' . $k,
-            'lexicon' => 'minishop2:properties',
-        ), $v
-    );
+        'name' => $k,
+        'desc' => 'ms2_prop_' . $k,
+        'lexicon' => 'minishop2:properties',
+    ), $v);
 }
 
 return $properties;

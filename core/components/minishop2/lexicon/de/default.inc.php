@@ -49,7 +49,7 @@ $_lang['ms2_btn_next'] = 'Vor btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Hilfe';
 $_lang['ms2_btn_duplicate'] = 'Produkt duplizieren';
 
-$_lang['ms2_bulk_actions'] = 'Aktionen';
+$_lang['ms2_actions'] = 'Aktionen';
 $_lang['ms2_search'] = 'Suchen';
 $_lang['ms2_search_clear'] = 'Verwerfen';
 

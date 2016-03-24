@@ -126,3 +126,15 @@ $_lang['ms2_ft_combo-multiple'] = 'Множественный список';
 $_lang['ms2_ft_combo-options'] = 'Список с автодополнением';
 $_lang['ms2_ft_checkbox'] = 'Флажок';
 $_lang['ms2_ft_datefield'] = 'Дата';
+
+$_lang['ms2_orders_form_begin'] = 'Выбрать заказы с';
+$_lang['ms2_orders_form_end'] = 'Выбрать заказы по';
+$_lang['ms2_orders_form_status'] = 'Фильтр по статусу';
+$_lang['ms2_orders_form_search'] = 'Поиск (номер, email, комментарий)';
+$_lang['ms2_orders_form_customer'] = 'Фильтр по заказчику';
+$_lang['ms2_orders_form_selected_num'] = 'Выбрано заказов';
+$_lang['ms2_orders_form_selected_sum'] = 'на сумму';
+$_lang['ms2_orders_form_month_num'] = 'Выполнено за 30 дней';
+$_lang['ms2_orders_form_month_sum'] = 'на сумму';
+$_lang['ms2_orders_form_submit'] = 'Отправить';
+$_lang['ms2_orders_form_reset'] = 'Сброс';

@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.0 beta0
 ==============
 - Fixed php type of "article" in msProductData xPDO object.
+- Improved orders panel.
 
 2.2.0 pl2
 ==============

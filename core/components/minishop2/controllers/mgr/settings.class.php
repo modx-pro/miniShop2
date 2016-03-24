@@ -1,31 +1,58 @@
 <?php
-require_once dirname(dirname(dirname(__FILE__))) . '/index.class.php';
 
-class ControllersSettingsManagerController extends miniShop2MainController {
-	public static function getDefaultController() {
-		return 'settings';
-	}
-}
-
-class Minishop2SettingsManagerController extends miniShop2MainController {
-
-	public function getPageTitle() {
-		return 'miniShop2 :: ' . $this->modx->lexicon('ms2_settings');
-	}
+class Minishop2MgrSettingsManagerController extends modExtraManagerController
+{
+    /** @var miniShop2 $minishop2 */
+    public $miniShop2;
 
 
-	public function loadCustomCssJs() {
-		$this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.utils.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.combo.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/delivery.grid.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/payment.grid.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/status.grid.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/vendor.grid.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/link.grid.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/category.tree.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/option.grid.js');
-		$this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/settings.panel.js');
+    /**
+     *
+     */
+    public function initialize()
+    {
+        $this->miniShop2 = $this->modx->getService('miniShop2');
+
+        parent::initialize();
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getPageTitle()
+    {
+        return 'miniShop2 :: ' . $this->modx->lexicon('ms2_settings');
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getLanguageTopics()
+    {
+        return array('minishop2:default', 'minishop2:product', 'minishop2:manager');
+    }
+
+
+    /**
+     *
+     */
+    public function loadCustomCssJs()
+    {
+        $this->addCss($this->miniShop2->config['cssUrl'] . 'mgr/main.css');
+        $this->addJavaScript($this->miniShop2->config['jsUrl'] . 'mgr/minishop2.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.utils.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.combo.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/delivery.grid.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/payment.grid.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/status.grid.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/vendor.grid.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/link.grid.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/category.tree.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/option.grid.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/settings.panel.js');
+        $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
         $types = $this->miniShop2->loadOptionTypeList();
         foreach ($types as $type) {
@@ -38,26 +65,17 @@ class Minishop2SettingsManagerController extends miniShop2MainController {
             }
         }
 
-		$this->addHtml('<script type="text/javascript">
-			Ext.onReady(function() {
-				MODx.load({ xtype: "minishop2-page-settings"});
-			});
-		</script>');
-		$this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => &$this, 'page' => 'settings'));
-	}
+        $config = $this->miniShop2->config;
+        $this->addHtml('<script type="text/javascript">
+            miniShop2.config = ' . $this->modx->toJSON($config) . ';
+            Ext.onReady(function() {
+                MODx.add({xtype: "minishop2-panel-settings"});
+            });
+        </script>');
 
-
-	public function getTemplateFile() {
-		return $this->miniShop2->config['templatesPath'] . 'mgr/settings.tpl';
-	}
-}
-
-// MODX 2.3
-class ControllersMgrSettingsManagerController extends ControllersSettingsManagerController {
-	public static function getDefaultController() {
-		return 'mgr/settings';
-	}
-}
-
-class Minishop2MgrSettingsManagerController extends Minishop2SettingsManagerController {
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', array(
+            'controller' => &$this,
+            'page' => 'settings',
+        ));
+    }
 }

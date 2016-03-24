@@ -11,8 +11,8 @@ $_lang['ms2_menu_add'] = 'Add';
 $_lang['ms2_menu_update'] = 'Update';
 $_lang['ms2_menu_remove'] = 'Remove';
 $_lang['ms2_menu_remove_multiple'] = 'Remove selected';
-$_lang['ms2_menu_remove_confirm'] = 'Are you sure you want to remove this entry?';
-$_lang['ms2_menu_remove_multiple_confirm'] = 'Are you sure you want to remove all selected entries?';
+$_lang['ms2_menu_remove_confirm'] = 'Are you sure you want to remove this item?';
+$_lang['ms2_menu_remove_multiple_confirm'] = 'Are you sure you want to remove all selected items?';
 
 $_lang['ms2_combo_select'] = 'Click to select';
 $_lang['ms2_combo_select_status'] = 'Filter by status';
@@ -126,3 +126,15 @@ $_lang['ms2_ft_combo-multiple'] = 'Multiple combobox';
 $_lang['ms2_ft_combo-options'] = 'Superboxselect';
 $_lang['ms2_ft_checkbox'] = 'Checkbox';
 $_lang['ms2_ft_datefield'] = 'Datefield';
+
+$_lang['ms2_orders_form_begin'] = 'Get orders from';
+$_lang['ms2_orders_form_end'] = 'Get orders to';
+$_lang['ms2_orders_form_status'] = 'Filter by status';
+$_lang['ms2_orders_form_search'] = 'Search (number, email, comment)';
+$_lang['ms2_orders_form_customer'] = 'Filter by customer';
+$_lang['ms2_orders_form_selected_num'] = 'Selected orders';
+$_lang['ms2_orders_form_selected_sum'] = 'for the sum';
+$_lang['ms2_orders_form_month_num'] = 'Completed within 30 days';
+$_lang['ms2_orders_form_month_sum'] = 'for the sum';
+$_lang['ms2_orders_form_submit'] = 'Submit';
+$_lang['ms2_orders_form_reset'] = 'Reset';
