@@ -48,7 +48,7 @@ Ext.reg('minishop2-combo-search', miniShop2.combo.Search);
 Ext.reg('minishop2-field-search', miniShop2.combo.Search);
 
 
-miniShop2.combo.User = function(config) {
+miniShop2.combo.User = function (config) {
     config = config || {};
     Ext.applyIf(config, {
         name: 'user',
@@ -59,14 +59,13 @@ miniShop2.combo.User = function(config) {
         anchor: '99%',
         fields: ['username', 'id', 'fullname'],
         pageSize: 20,
-        url: MODx.config['connector_url'],
         typeAhead: false,
         editable: true,
         allowBlank: false,
+        url: miniShop2.config['connector_url'],
         baseParams: {
-            action: 'security/user/getlist',
+            action: 'mgr/system/user/getlist',
             combo: 1,
-            id: config.value
         },
         tpl: new Ext.XTemplate('\
             <tpl for=".">\
@@ -106,22 +105,23 @@ miniShop2.combo.Category = function (config) {
             id: config.value
             //,limit: 0
         },
-        tpl: new Ext.XTemplate(''
-            + '<tpl for="."><div class="x-combo-list-item minishop2-category-list-item">'
-            + '<tpl if="parents">'
-            + '<span class="parents">'
-            + '<tpl for="parents">'
-            + '<nobr><small>{pagetitle} / </small></nobr>'
-            + '</tpl>'
-            + '</span>'
-            + '</tpl>'
-            + '<span><small>({id})</small> <b>{pagetitle}</b></span>'
-            + '</div></tpl>', {
+        tpl: new Ext.XTemplate('\
+            <tpl for="."><div class="x-combo-list-item minishop2-category-list-item">\
+                <tpl if="parents">\
+                    <span class="parents">\
+                        <tpl for="parents">\
+                            <nobr><small>{pagetitle} / </small></nobr>\
+                        </tpl>\
+                    </span>\
+                </tpl>\
+                <span>\
+                    <small>({id})</small> <b>{pagetitle}</b>\
+                </span>\
+            </div></tpl>', {
             compiled: true
         }),
         itemSelector: 'div.minishop2-category-list-item',
         pageSize: 20,
-        //,typeAhead: true,
         editable: true
     });
     miniShop2.combo.Category.superclass.constructor.call(this, config);
@@ -136,8 +136,8 @@ miniShop2.combo.DateTime = function (config) {
         timePosition: 'right',
         allowBlank: true,
         hiddenFormat: 'Y-m-d H:i:s',
-        dateFormat: MODx.config.manager_date_format,
-        timeFormat: MODx.config.manager_time_format,
+        dateFormat: MODx.config['manager_date_format'],
+        timeFormat: MODx.config['manager_time_format'],
         dateWidth: 120,
         timeWidth: 120
     });
@@ -260,8 +260,8 @@ miniShop2.combo.Options = function (config) {
         valueField: 'value',
         triggerAction: 'all',
         extraItemCls: 'x-tag',
-        expandBtnCls: MODx.modx23 ? 'x-form-trigger' : 'x-superboxselect-btn-expand',
-        clearBtnCls: MODx.modx23 ? 'x-form-trigger' : 'x-superboxselect-btn-clear',
+        expandBtnCls: 'x-form-trigger',
+        clearBtnCls: 'x-form-trigger',
         listeners: {
             newitem: function (bs, v, f) {
                 bs.addItem({tag: v});
@@ -335,7 +335,7 @@ miniShop2.combo.Browser = function (config) {
             config.openTo = '/' + config.openTo;
         }
         if (!/$\//.test(config.openTo)) {
-            var tmp = config.openTo.split('/')
+            var tmp = config.openTo.split('/');
             delete tmp[tmp.length - 1];
             tmp = tmp.join('/');
             config.openTo = tmp.substr(1)
@@ -350,8 +350,8 @@ miniShop2.combo.Browser = function (config) {
     this.config = config;
 };
 Ext.extend(miniShop2.combo.Browser, Ext.form.TriggerField, {
-    browser: null
-    ,
+    browser: null,
+
     onTriggerClick: function (btn) {
         if (this.disabled) {
             return false;
@@ -362,7 +362,7 @@ Ext.extend(miniShop2.combo.Browser, Ext.form.TriggerField, {
                 xtype: 'modx-browser',
                 id: Ext.id(),
                 multiple: true,
-                source: this.config.source || MODx.config.default_media_source,
+                source: this.config.source || MODx.config['default_media_source'],
                 rootVisible: this.config.rootVisible || false,
                 allowedFileTypes: this.config.allowedFileTypes || '',
                 wctx: this.config.wctx || 'web',
@@ -382,15 +382,13 @@ Ext.extend(miniShop2.combo.Browser, Ext.form.TriggerField, {
         }
         this.browser.win.buttons[0].on('disable', function (e) {
             this.enable()
-        })
+        });
         this.browser.win.tree.on('click', function (n, e) {
-                path = this.getPath(n);
-                this.setValue(path);
+                this.setValue(this.getPath(n));
             }, this
         );
         this.browser.win.tree.on('dblclick', function (n, e) {
-                path = this.getPath(n);
-                this.setValue(path);
+                this.setValue(this.getPath(n));
                 this.browser.hide()
             }, this
         );
@@ -404,10 +402,8 @@ Ext.extend(miniShop2.combo.Browser, Ext.form.TriggerField, {
         if (n.id == '/') {
             return '';
         }
-        data = n.attributes;
-        path = data.path + '/';
 
-        return path;
+        return n.attributes.path + '/';
     }
 });
 Ext.reg('minishop2-combo-browser', miniShop2.combo.Browser);
@@ -472,8 +468,6 @@ miniShop2.combo.Delivery = function (config) {
         baseParams: {
             action: 'mgr/settings/delivery/getlist',
             combo: true
-            //,addall: config.addall || 0
-            //,order_id: config.order_id || 0
         },
         listeners: {
             render: function () {
@@ -519,7 +513,6 @@ miniShop2.combo.Payment = function (config) {
         baseParams: {
             action: 'mgr/settings/payment/getlist',
             combo: true,
-            //addall: config.addall || 0,
             delivery_id: config.delivery_id || 0
         },
         listeners: miniShop2.combo.listeners_disable
