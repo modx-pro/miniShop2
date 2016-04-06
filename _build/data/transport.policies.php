@@ -13,6 +13,8 @@ $policy->fromArray(array(
     'data' => json_encode(array(
         'mscategory_save' => true,
         'msproduct_save' => true,
+        'msproduct_publish' => true,
+        'msproduct_delete' => true,
         'msorder_save' => true,
         'msorder_view' => true,
         'msorder_list' => true,

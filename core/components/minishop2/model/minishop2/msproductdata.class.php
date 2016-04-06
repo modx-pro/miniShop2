@@ -3,6 +3,22 @@ class msProductData extends xPDOSimpleObject {
 	var $source;
 	/* @var modMediaSource $mediaSource */
 	public $mediaSource;
+	/** @var miniShop2 $miniShop2 */
+	public $miniShop2;
+
+
+	/**
+	 * msProductData constructor.
+	 *
+	 * @param xPDO $xpdo
+     */
+    public function __construct(xPDO $xpdo)
+	{
+		parent::__construct($xpdo);
+
+		$this->miniShop2 = $xpdo->getService('miniShop2');
+		$this->miniShop2->plugins->loadMap('msProductData');
+	}
 
 
 	/**
@@ -238,15 +254,14 @@ class msProductData extends xPDOSimpleObject {
 		$this->xpdo->getPrice = true;
 
 		if (empty($data)) {$data = $this->toArray();}
-		/** @var miniShop2 $miniShop2 */
-		$miniShop2 = $this->xpdo->getService('minishop2');
+
 		$params = array(
 			//'product' => $this->getOne('Product'),
 			'product' => $this,
 			'data' => $data,
 			'price' => $price
 		);
-		$response = $miniShop2->invokeEvent('msOnGetProductPrice', $params);
+		$response = $this->miniShop2->invokeEvent('msOnGetProductPrice', $params);
 		if ($response['success']) {
 			$price = $params['price'] = $response['data']['price'];
 		}
@@ -278,15 +293,13 @@ class msProductData extends xPDOSimpleObject {
 		$this->xpdo->getWeight = true;
 
 		if (empty($data)) {$data = $this->toArray();}
-		/** @var miniShop2 $miniShop2 */
-		$miniShop2 = $this->xpdo->getService('minishop2');
 		$params = array(
 			//'product' => $this->getOne('Product'),
 			'product' => $this,
 			'data' => $data,
 			'weight' => $weight
 		);
-		$response = $miniShop2->invokeEvent('msOnGetProductWeight', $params);
+		$response = $this->miniShop2->invokeEvent('msOnGetProductWeight', $params);
 		if ($response['success']) {
 			$weight = $params['weight'] = $response['data']['weight'];
 		}
@@ -304,7 +317,5 @@ class msProductData extends xPDOSimpleObject {
 		$this->xpdo->getWeight = false;
 		return $weight;
 	}
-
-
 
 }

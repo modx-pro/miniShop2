@@ -1,6 +1,10 @@
 miniShop2.grid.Default = function (config) {
     config = config || {};
 
+    if (typeof(config['multi_select']) != 'undefined' && config['multi_select'] == true) {
+        config.sm = new Ext.grid.CheckboxSelectionModel();
+    }
+
     Ext.applyIf(config, {
         url: miniShop2.config['connector_url'],
         baseParams: {},
@@ -29,14 +33,20 @@ miniShop2.grid.Default = function (config) {
                 if (rec.data['deleted'] != undefined && rec.data['deleted'] == 1) {
                     cls.push('minishop2-row-deleted');
                 }
+                if (rec.data['required'] != undefined && rec.data['required'] == 1) {
+                    cls.push('minishop2-row-required');
+                }
                 return cls.join(' ');
             }
         },
     });
-    if (typeof(config['multi_select']) != 'undefined' && config['multi_select'] == true) {
-        config.sm = new Ext.grid.CheckboxSelectionModel();
-    }
     miniShop2.grid.Default.superclass.constructor.call(this, config);
+
+    if (config.enableDragDrop && config.ddAction) {
+        this.on('render', function(grid) {
+            grid._initDD(config);
+        });
+    }
 };
 Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
 
@@ -122,8 +132,26 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                 }
             }
         }
-
+        else if (elem.nodeName == 'A' && elem.href.match(/(\?|\&)a=resource/)) {
+            if (e.button == 1 || (e.button == 0 && e.ctrlKey == true)) {
+                // Bypass
+            }
+            else if (elem.target && elem.target == '_blank') {
+                // Bypass
+            }
+            else {
+                e.preventDefault();
+                MODx.loadPage('', elem.href);
+            }
+        }
         return this.processEvent('click', e);
+    },
+
+    refresh: function() {
+        this.getStore().reload();
+        if (this.config['enableDragDrop'] == true) {
+            this.getSelectionModel().clearSelections(true);
+        }
     },
 
     _doSearch: function (tf) {
@@ -148,6 +176,57 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
         }
 
         return ids;
+    },
+
+    _initDD: function (config) {
+        var grid = this;
+        var el = grid.getEl();
+
+        new Ext.dd.DropTarget(el, {
+            ddGroup: grid.ddGroup,
+            notifyDrop: function (dd, e, data) {
+                var store = grid.getStore();
+                var target = store.getAt(dd.getDragData(e).rowIndex).id;
+                var sources = [];
+                if (data.selections.length < 1 || data.selections[0].id == target) {
+                    return false;
+                }
+                for (var i in data.selections) {
+                    if (!data.selections.hasOwnProperty(i)) {
+                        continue;
+                    }
+                    var row = data.selections[i];
+                    sources.push(row.id);
+                }
+
+                el.mask(_('loading'), 'x-mask-loading');
+                MODx.Ajax.request({
+                    url: config.url,
+                    params: {
+                        action: config.ddAction,
+                        sources: Ext.util.JSON.encode(sources),
+                        target: target,
+                    },
+                    listeners: {
+                        success: {
+                            fn: function () {
+                                el.unmask();
+                                grid.refresh();
+                                if (typeof(grid.reloadTree) == 'function') {
+                                    sources.push(target);
+                                    grid.reloadTree(sources);
+                                }
+                            }, scope: grid
+                        },
+                        failure: {
+                            fn: function () {
+                                el.unmask();
+                            }, scope: grid
+                        },
+                    }
+                });
+            },
+        });
     },
 
     _loadStore: function () {

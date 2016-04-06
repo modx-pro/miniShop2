@@ -53,8 +53,7 @@ Ext.extend(miniShop2.grid.ProductLinks,MODx.grid.Grid, {
 			return value;
 		}
 		else {
-			row.data['product_id'] = row.data.master;
-			return miniShop2.utils.productLink(value, cell, row);
+			return miniShop2.utils.productLink(value, row.data.master);
 		}
 	}
 
@@ -63,8 +62,7 @@ Ext.extend(miniShop2.grid.ProductLinks,MODx.grid.Grid, {
 			return value;
 		}
 		else {
-			row.data['product_id'] = row.data.slave;
-			return miniShop2.utils.productLink(value, cell, row);
+			return miniShop2.utils.productLink(value, row.data.slave);
 		}
 	}
 

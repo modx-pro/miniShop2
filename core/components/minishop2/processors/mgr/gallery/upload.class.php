@@ -5,9 +5,9 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 	public $ObjectKey = 'msProductFile';
 	public $languageTopics = array('minishop2:default','minishop2:product');
 	public $permission = 'msproductfile_save';
-	/* @var modMediaSource $mediaSource */
+	/** @var modMediaSource $mediaSource */
 	public $mediaSource;
-	/* @var msProduct $product */
+	/** @var msProduct $product */
 	private $product = 0;
 
 
@@ -16,7 +16,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 		if (!$this->modx->hasPermission($this->permission)) {
 			return $this->modx->lexicon('access_denied');
 		}
-		/* @var msProduct $product */
+		/** @var msProduct $product */
 		$id = $this->getProperty('id', @$_GET['id']);
 		if (!$product = $this->modx->getObject('msProduct', $id)) {
 			return $this->modx->lexicon('ms2_gallery_err_no_product');
@@ -65,7 +65,7 @@ class msProductFileUploadProcessor extends modObjectProcessor {
 			$filename .= '.'.$extension;
 		}
 
-		/* @var msProductFile $product_file */
+		/** @var msProductFile $product_file */
 		$product_file = $this->modx->newObject('msProductFile', array(
 			'product_id' => $this->product->id,
 			'parent' => 0,

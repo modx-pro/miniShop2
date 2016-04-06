@@ -5,7 +5,7 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
 	public $ObjectKey = 'msProductFile';
 	public $languageTopics = array('core:default','minishop2:product');
 	public $permission = 'msproductfile_save';
-	/* @var msProductFile $object */
+	/** @var msProductFile $object */
 	public $object;
 	protected $old_name = null;
 
@@ -54,7 +54,7 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor {
 
 		$children = $this->object->getMany('Children');
 		if (!empty($children)) {
-			/* @var msProductFile $child */
+			/** @var msProductFile $child */
 			foreach ($children as $child) {
 				$child->fromArray(array(
 					'name' => $this->object->get('name'),

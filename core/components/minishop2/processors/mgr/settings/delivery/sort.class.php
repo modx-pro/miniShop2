@@ -18,9 +18,9 @@ class msDeliverySortProcessor extends modObjectProcessor {
 
 	/** {@inheritDoc} */
 	public function process() {
-		/* @var msDelivery $source */
+		/** @var msDelivery $source */
 		$source = $this->modx->getObject($this->classKey, $this->getProperty('source'));
-		/* @var msDelivery $target */
+		/** @var msDelivery $target */
 		$target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
 
 		if (empty($source) || empty($target)) {

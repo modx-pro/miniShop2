@@ -22,9 +22,9 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor {
 			$c->select('id,name');
 			$c->where(array('active' => 1));
 			if ($order_id = $this->getProperty('order_id')) {
-				/* @var msOrder $order */
+				/** @var msOrder $order */
 				if ($order = $this->modx->getObject('msOrder', $order_id)) {
-					/* @var msOrderStatus $status */
+					/** @var msOrderStatus $status */
 					$status = $order->getOne('Status');
 					if ($status->get('final') == 1) {
 						$c->where(array('id' => $status->get('id')));

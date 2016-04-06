@@ -5,7 +5,7 @@ class msProductFileRemoveProcessor extends modObjectRemoveProcessor {
 	public $ObjectKey = 'msProductFile';
 	public $languageTopics = array('minishop2:product');
 	public $permission = 'msproductfile_save';
-	/* @var msProduct $product */
+	/** @var msProduct $product */
 	public $product;
 
 

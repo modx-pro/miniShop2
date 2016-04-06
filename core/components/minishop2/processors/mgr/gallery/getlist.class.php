@@ -31,7 +31,7 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor {
 
 	/** {@inheritDoc} */
 	public function prepareRow(xPDOObject $object) {
-		/* @var msProductFile $object */
+		/** @var msProductFile $object */
 		$row = $object->toArray();
 
 		if ($row['type'] != 'image') {

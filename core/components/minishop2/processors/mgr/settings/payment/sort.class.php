@@ -18,9 +18,9 @@ class msPaymentSortProcessor extends modObjectProcessor {
 
 	/** {@inheritDoc} */
 	public function process() {
-		/* @var msPayment $source */
+		/** @var msPayment $source */
 		$source = $this->modx->getObject($this->classKey, $this->getProperty('source'));
-		/* @var msPayment $target */
+		/** @var msPayment $target */
 		$target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
 
 		if (empty($source) || empty($target)) {

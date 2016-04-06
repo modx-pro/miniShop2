@@ -18,9 +18,9 @@ class msOrderStatusSortProcessor extends modObjectProcessor {
 
 	/** {@inheritDoc} */
 	public function process() {
-		/* @var msOrderStatus $source */
+		/** @var msOrderStatus $source */
 		$source = $this->modx->getObject($this->classKey, $this->getProperty('source'));
-		/* @var msOrderStatus $target */
+		/** @var msOrderStatus $target */
 		$target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
 
 		if (empty($source) || empty($target)) {

@@ -39,26 +39,3 @@ $generator->parseSchema($sources['xml'], $sources['model']);
 $modx->addPackage(PKG_NAME_LOWER, $sources['model']);
 
 $modx->log(modX::LOG_LEVEL_INFO, 'Model generated.');
-
-add_plugins_call($sources['model'] . PKG_NAME_LOWER, array(
-    'msProductData',
-    'msCustomerProfile',
-));
-
-/********************************************************/
-
-function add_plugins_call($dir, $classes = array())
-{
-    foreach ($classes as $name) {
-        $file = $dir . '/mysql/' . strtolower($name) . '.map.inc.php';
-        if (file_exists($file)) {
-            file_put_contents($file, str_replace('                ', '', "\n" . '
-                if (!class_exists(\'ms2Plugins\') || !is_object($this->ms2Plugins)) {
-                    require_once (dirname(dirname(__FILE__)) . \'/plugins.class.php\');
-                    $this->ms2Plugins = new ms2Plugins($this, array());
-                }
-                $xpdo_meta_map[\'' . $name . '\'] = $this->ms2Plugins->loadMap(\'' . $name . '\', $xpdo_meta_map[\'' . $name . '\']);')
-                , FILE_APPEND);
-        }
-    }
-}

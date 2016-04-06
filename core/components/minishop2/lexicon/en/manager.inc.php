@@ -138,3 +138,8 @@ $_lang['ms2_orders_form_month_num'] = 'Completed within 30 days';
 $_lang['ms2_orders_form_month_sum'] = 'for the sum';
 $_lang['ms2_orders_form_submit'] = 'Submit';
 $_lang['ms2_orders_form_reset'] = 'Reset';
+
+$_lang['ms2_tab_category'] = 'Category';
+$_lang['ms2_tab_products'] = 'Products';
+$_lang['ms2_tab_options'] = 'Product Options';
+$_lang['ms2_tab_comments'] = 'Comments';

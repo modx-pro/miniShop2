@@ -47,7 +47,7 @@ class msDeliveryCreateProcessor extends modObjectCreateProcessor {
 	/** {@inheritDoc} */
 	public function afterSave() {
 		$delivery_id = $this->object->get('id');
-		/* @var msDeliveryMember $entry */
+		/** @var msDeliveryMember $entry */
 		$payments = $this->getProperty('payments');
 		if (!empty($payments) && is_array($payments)) {
 			foreach ($payments as $payment => $v) {

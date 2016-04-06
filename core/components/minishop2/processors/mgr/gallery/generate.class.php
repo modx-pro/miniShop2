@@ -23,10 +23,10 @@ class msProductFileGenerateProcessor extends modObjectProcessor {
 			return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
 		}
 
-		/* @var msProductFile $file */
+		/** @var msProductFile $file */
 		if ($file = $this->modx->getObject('msProductFile', $id)) {
 			$children = $file->getMany('Children');
-			/* @var msProductFile $child */
+			/** @var msProductFile $child */
 			foreach ($children as $child) {
 				$child->remove();
 			}

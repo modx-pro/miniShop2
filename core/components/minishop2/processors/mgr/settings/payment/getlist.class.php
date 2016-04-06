@@ -22,7 +22,7 @@ class msPaymentGetListProcessor extends modObjectGetListProcessor {
 			$c->select('id,name');
 			$c->where(array('active' => 1));
 			if ($delivery_id = $this->getProperty('delivery_id')) {
-				/* @var msDelivery $delivery */
+				/** @var msDelivery $delivery */
 				if ($delivery = $this->modx->getObject('msDelivery', $delivery_id)) {
 					$q = $this->modx->newQuery('msDeliveryMember', array('delivery_id' => $delivery_id));
 					$q->select('payment_id');

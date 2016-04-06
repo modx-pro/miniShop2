@@ -9,9 +9,9 @@
 include_once('setting.inc.php');
 $files = scandir(dirname(__FILE__));
 foreach ($files as $file) {
-	if (strpos($file, 'msp.') === 0) {
-		@include_once($file);
-	}
+    if (strpos($file, 'msp.') === 0) {
+        @include_once($file);
+    }
 }
 
 $_lang['minishop2'] = 'miniShop2';
@@ -84,7 +84,7 @@ $_lang['ms2_category_option_rank'] = 'Порядок сортировки';
 
 $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';
-$_lang['ms2_product_create_here'] = 'Товар категории';
+$_lang['ms2_product_create_here'] = 'Товар магазина';
 $_lang['ms2_product_create'] = 'Добавить товар';
 
 $_lang['ms2_option_type'] = 'Тип свойства';

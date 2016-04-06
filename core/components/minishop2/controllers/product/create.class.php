@@ -2,7 +2,15 @@
 class msProductCreateManagerController extends ResourceCreateManagerController {
 	/* @var msProduct $resource */
 	public $resource;
+	/** @var miniShop2 $miniShop2 */
+	public $miniShop2;
 
+
+	public function initialize()
+	{
+		parent::initialize();
+		$this->miniShop2 = $this->modx->getService('miniShop2');
+	}
 
 	/**
 	 * Custom logic code here for setting placeholders, etc
@@ -146,13 +154,13 @@ class msProductCreateManagerController extends ResourceCreateManagerController {
 	}
 
 
-	/*
+	/**
 	 * Loads additional scripts for product form from miniShop2 plugins
-	 *
-	 * @return void
-	 * */
-	function loadPlugins() {
-		foreach ($this->modx->ms2Plugins->plugins as $plugin) {
+	 */
+	function loadPlugins()
+	{
+		$plugins = $this->miniShop2->plugins->getPlugins();
+		foreach ($plugins as $plugin) {
 			if (!empty($plugin['manager']['msProductData'])) {
 				$this->addJavascript($plugin['manager']['msProductData']);
 			}

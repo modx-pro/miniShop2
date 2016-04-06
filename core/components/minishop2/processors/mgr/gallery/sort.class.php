@@ -17,11 +17,11 @@ class msProductFileSortProcessor extends modObjectProcessor {
 
 	/** {@inheritDoc} */
 	public function process() {
-		/* @var msProductFile $source */
+		/** @var msProductFile $source */
 		$source = $this->modx->getObject('msProductFile', $this->getProperty('source'));
-		/* @var msProductFile $target */
+		/** @var msProductFile $target */
 		$target = $this->modx->getObject('msProductFile', $this->getProperty('target'));
-		/* @var msProduct $product */
+		/** @var msProduct $product */
 		$product = $this->modx->getObject('msProduct', $this->getProperty('product_id'));
 		$product_id =$product->get('id');
 

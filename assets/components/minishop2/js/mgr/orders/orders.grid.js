@@ -6,7 +6,9 @@ miniShop2.grid.Orders = function (config) {
 
     Ext.applyIf(config, {
         baseParams: {
-            action: 'mgr/orders/getlist'
+            action: 'mgr/orders/getlist',
+            sort: 'id',
+            dir: 'desc',
         },
         multi_select: true,
         changed: false,

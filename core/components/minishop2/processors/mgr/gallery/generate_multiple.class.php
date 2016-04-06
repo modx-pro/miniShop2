@@ -23,10 +23,10 @@ class msProductFileGenerateMultipleProcessor extends modObjectProcessor {
 		$ids = explode($separator,$ids);
 
 		foreach ($ids as $id) {
-			/* @var msProductFile $file */
+			/** @var msProductFile $file */
 			if ($file = $this->modx->getObject('msProductFile', $id)) {
 				$children = $file->getMany('Children');
-				/* @var msProductFile $child */
+				/** @var msProductFile $child */
 				foreach ($children as $child) {
 					$child->remove();
 				}

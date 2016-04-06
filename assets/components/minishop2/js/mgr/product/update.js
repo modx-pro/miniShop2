@@ -14,8 +14,8 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 		if (cfg.canSave == 1) {
 			btns.push({
-				process: MODx.modx23 ? 'resource/update' : 'update'
-				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-check' : 'bicon-ok') + '"></i> ' + _('ms2_btn_save')
+				process: 'resource/update'
+				,text: '<i class="icon icon-check"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
 				,cls: 'primary-button'
@@ -35,7 +35,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 		}
 
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-power-off' : 'bicon-off') + '"></i> ' + _('ms2_btn_publish')
+			text: '<i class="icon icon-power-off"></i> ' + _('ms2_btn_publish')
 			,id: 'minishop2-panel-btn-publish'
 			,handler: this.publishProduct
 			,hidden: !cfg.canPublish || cfg.record.published
@@ -44,7 +44,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			,cls: 'btn-orange'
 		});
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-power-off' : 'bicon-off') + '"></i> ' + _('ms2_btn_unpublish')
+			text: '<i class="icon icon-power-off"></i> ' + _('ms2_btn_unpublish')
 			,id: 'minishop2-panel-btn-unpublish'
 			,handler: this.unpublishProduct
 			,hidden: !cfg.canPublish || !cfg.record.published
@@ -54,7 +54,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-trash-o' : 'bicon-trash') + '"></i> ' + _('ms2_btn_delete')
+			text: '<i class="icon icon-trash-o"></i> ' + _('ms2_btn_delete')
 			,id: 'minishop2-panel-btn-delete'
 			,handler: this.deleteProduct
 			,hidden: !cfg.canDelete || cfg.record.deleted
@@ -63,7 +63,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			,cls: 'btn-brown'
 		});
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-trash-o' : 'bicon-trash') + '"></i> ' + _('ms2_btn_undelete')
+			text: '<i class="icon icon-trash-o"></i> ' + _('ms2_btn_undelete')
 			,id: 'minishop2-panel-btn-undelete'
 			,handler: this.undeleteProduct
 			,hidden: !cfg.canDelete || !cfg.record.deleted
@@ -74,14 +74,14 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-eye' : 'bicon-eye-open') + '"></i> ' + _('ms2_btn_view')
+			text: '<i class="icon icon-eye"></i> ' + _('ms2_btn_view')
 			,handler: this.preview
 			,scope: this
 		});
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-copy' : 'bicon-file') + '"></i>'
+			text: '<i class="icon icon-copy"></i>'
 			,handler: this.duplicateProduct
 			,scope: this
 			,hidden: !cfg.canSave
@@ -90,7 +90,7 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 		btns.push('-');
 
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-arrow-left' : 'bicon-arrow-left') + '"></i>'
+			text: '<i class="icon icon-arrow-left"></i>'
 			,handler: this.prevPage
 			,disabled: !cfg.prev_page ? 1 : 0
 			,scope: this
@@ -98,14 +98,14 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 			,keys: [{key: 37,alt: true, scope: this, fn: this.prevPage}]
 		});
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-arrow-up' : 'bicon-arrow-up') + '"></i>'
+			text: '<i class="icon icon-arrow-up"></i>'
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')
 			,keys: [{key: 38,alt: true, scope: this, fn: this.upPage}]
 		});
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-arrow-right' : 'bicon-arrow-right') + '"></i>'
+			text: '<i class="icon icon-arrow-right"></i>'
 			,handler: this.nextPage
 			,disabled: !cfg.next_page ? 1 : 0
 			,scope: this
@@ -226,10 +226,10 @@ Ext.extend(miniShop2.page.UpdateProduct,MODx.page.UpdateResource,{
 
 	,duplicateProduct: function(btn,e) {
 		MODx.msg.confirm({
-			url: MODx.modx23 ? MODx.config.connector_url : MODx.config.connectors_url + 'resource/index.php'
+			url: MODx.config.connector_url
 			,text: _('ms2_product_duplicate_confirm')
 			,params: {
-				action: MODx.modx23 ? 'resource/duplicate' : 'duplicate'
+				action: 'resource/duplicate'
 				,id: this.record.id
 			}
 			,listeners: {

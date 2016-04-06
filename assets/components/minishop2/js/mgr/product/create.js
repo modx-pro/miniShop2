@@ -14,8 +14,8 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 
 		if (cfg.canSave == 1) {
 			btns.push({
-				process: MODx.modx23 ? 'resource/create' : 'create'
-				,text: '<i class="'+ (MODx.modx23 ? 'icon icon-check' : 'bicon-ok') + '"></i> ' + _('ms2_btn_save')
+				process: 'resource/create'
+				,text: '<i class="icon icon-check"></i> ' + _('ms2_btn_save')
 				,method: 'remote'
 				,checkDirty: cfg.richtext || MODx.request.activeSave == 1 ? false : true
 				,cls: 'primary-button'
@@ -28,7 +28,7 @@ Ext.extend(miniShop2.page.CreateProduct,MODx.page.CreateResource,{
 		}
 
 		btns.push({
-			text: '<i class="'+ (MODx.modx23 ? 'icon icon-ban' : 'bicon-ban-circle') + '"></i> ' + _('ms2_btn_cancel')
+			text: '<i class="icon icon-ban"></i> ' + _('ms2_btn_cancel')
 			,handler: this.upPage
 			,scope: this
 			,tooltip: _('ms2_btn_back')

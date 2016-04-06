@@ -1,5 +1,12 @@
 Changelog for miniShop2.
 
+2.4.0 beta1
+==============
+- Improved categories with products.
+- Improved menu of categories in resources tree.
+- Ability to change class_key of category.
+- Many improvements of ExtJS category panel and products grid.
+
 2.4.0 beta0
 ==============
 - Fixed php type of "article" in msProductData xPDO object.

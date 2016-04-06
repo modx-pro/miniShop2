@@ -32,18 +32,19 @@ miniShop2.utils.userLink = function (val, cell, row) {
     );
 };
 
-miniShop2.utils.productLink = function (val, cell, row) {
-    if (!val) {
+miniShop2.utils.productLink = function (value, id, blank) {
+    if (!value) {
         return '';
     }
-    else if (!row.data['product_id']) {
-        return val;
+    else if (!id) {
+        return value;
     }
 
     return String.format(
-        '<a href="?a=resource/update&id={0}" target="_blank" class="ms2-link">{1}</a>',
-        row.data['product_id'],
-        val
+        '<a href="index.php?a=resource/update&id={0}" class="ms2-link" target="{1}">{2}</a>',
+        id,
+        (blank ? '_blank' : '_self'),
+        value
     );
 };
 
@@ -215,3 +216,17 @@ miniShop2.utils.Hash = {
         return !(window.history && history.pushState);
     },
 };
+/*
+miniShop2.getOptCaption = function (field) {
+    var opts = miniShop2.config['option_fields'];
+    if (!opts) {
+        return '';
+    }
+    for (var i = 0, len = opts.length; i < len; i++) {
+        if (opts[i]['key'] == field) {
+            return opts[i]['caption'];
+        }
+    }
+    return '';
+};
+*/

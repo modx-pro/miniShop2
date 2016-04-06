@@ -20,6 +20,11 @@ $_lang['setting_ms2_product_main_fields_desc'] = 'Comma separated list of fields
 $_lang['setting_ms2_product_extra_fields'] = 'Extra fields of the panel of the product';
 $_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of fields in the panel of the product, that needed in your shop. For example: "price,old_price,weight".';
 
+$_lang['setting_mgr_tree_icon_mscategory'] = 'The icon of category';
+$_lang['setting_mgr_tree_icon_mscategory_desc'] = 'The icon of category with miniShop2 products';
+$_lang['setting_mgr_tree_icon_msproduct'] = 'The icon of product';
+$_lang['setting_mgr_tree_icon_msproduct_desc'] = 'The icon of miniShop2 product';
+
 $_lang['setting_ms2_product_tab_extra'] = 'Product properties tab';
 $_lang['setting_ms2_product_tab_extra_desc'] = 'Display tab with product properties?';
 $_lang['setting_ms2_product_tab_gallery'] = 'Product gallery tab';

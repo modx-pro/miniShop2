@@ -24,14 +24,14 @@ class msProductFileRemoveMultipleProcessor extends modObjectProcessor {
 		$ids = explode($separator,$ids);
 
 		foreach ($ids as $id) {
-			/* @var msProductFile $file */
+			/** @var msProductFile $file */
 			if ($file = $this->modx->getObject('msProductFile', $id)) {
 				$file->remove();
 			}
 		}
 
 		$thumb = '';
-		/* @var msProduct $product */
+		/** @var msProduct $product */
 		if ($product = $this->modx->getObject('msProduct', $product_id)) {
 			$thumb = $product->updateProductImage();
 		}

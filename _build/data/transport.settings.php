@@ -3,8 +3,21 @@
 $settings = array();
 
 $tmp = array(
+    'mgr_tree_icon_mscategory' => array(
+        'value' => 'icon icon-barcode',
+        'xtype' => 'textarea',
+        'area' => 'ms2_category',
+        'key' => 'mgr_tree_icon_mscategory',
+    ),
+    'mgr_tree_icon_msproduct' => array(
+        'value' => 'icon icon-tag',
+        'xtype' => 'textarea',
+        'area' => 'ms2_product',
+        'key' => 'mgr_tree_icon_msproduct',
+    ),
+
     'ms2_category_grid_fields' => array(
-        'value' => 'pagetitle,article,price,weight,thumb,new,favorite,popular',
+        'value' => 'id,pagetitle,article,price,weight,thumb,new,favorite,popular',
         'xtype' => 'textarea',
         'area' => 'ms2_category',
     ),
@@ -23,11 +36,13 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'area' => 'ms2_category',
     ),
+    /*
     'ms2_category_remember_grid' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
         'area' => 'ms2_category',
     ),
+    */
     'ms2_category_id_as_alias' => array(
         'value' => false,
         'xtype' => 'combo-boolean',

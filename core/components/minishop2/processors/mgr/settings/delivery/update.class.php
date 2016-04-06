@@ -40,7 +40,7 @@ class msDeliveryUpdateProcessor extends modObjectUpdateProcessor {
 		$delivery_id = $this->object->get('id');
 		$this->modx->exec("DELETE FROM {$this->modx->getTableName('msDeliveryMember')} WHERE `delivery_id` = {$delivery_id};");
 
-		/* @var msDeliveryMember $entry */
+		/** @var msDeliveryMember $entry */
 		$payments = $this->getProperty('payments');
 		if (!empty($payments) && is_array($payments)) {
 			foreach ($payments as $payment => $v) {

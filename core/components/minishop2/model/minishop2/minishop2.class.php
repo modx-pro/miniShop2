@@ -16,6 +16,8 @@ class miniShop2 {
 
     /** @var array $optionTypes */
     public $optionTypes = array();
+	/** @var msPlugins $_plugins */
+	public $plugins;
 
 
 	/**
@@ -58,6 +60,7 @@ class miniShop2 {
 
 		$this->modx->addPackage('minishop2', $this->config['modelPath']);
 		$this->modx->lexicon->load('minishop2:default');
+		$this->plugins = $this->modx->getService('msPlugins', 'msplugins', $corePath . 'model/minishop2/');
 	}
 
 
@@ -721,4 +724,37 @@ class miniShop2 {
 		return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
 	}
 
+	/*
+	protected function _loadPlugins() {
+		if (!class_exists('ms2Plugins')) {
+			require_once 'plugins.class.php';
+			$this->_plugins = new ms2Plugins($this->modx, array());
+		}
+		echo '<pre>';
+		var_dump(class_exists('msCategory'));die;
+		print_r($this->modx->classMap);die;
+		$xpdo_meta_map['msCustomerProfile'] = $this->_plugins->loadMap('msCustomerProfile', $xpdo_meta_map['msCustomerProfile']);
+	}
+	*/
+
+	/**
+	 * Shorthand for the call of processor
+	 *
+	 * @access public
+	 *
+	 * @param string $action Path to processor
+	 * @param array $data Data to be transmitted to the processor
+	 *
+	 * @return mixed The result of the processor
+	 */
+	public function runProcessor($action = '', $data = array()) {
+		if (empty($action)) {
+			return false;
+		}
+		$this->modx->error->reset();
+		$processorsPath = !empty($this->config['processorsPath'])
+			? $this->config['processorsPath']
+			: MODX_CORE_PATH . 'components/minishop2/processors/';
+		return $this->modx->runProcessor($action, $data, array('processors_path' => $processorsPath));
+	}
 }

@@ -20,6 +20,11 @@ $_lang['setting_ms2_product_main_fields_desc'] = 'Список полей пан
 $_lang['setting_ms2_product_extra_fields'] = 'Дополнительные поля товара';
 $_lang['setting_ms2_product_extra_fields_desc'] = 'Список дополнительных полей товара, использующихся в магазине, через запятую. Например: "price,old_price,weight".';
 
+$_lang['setting_mgr_tree_icon_mscategory'] = 'Иконка категории';
+$_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Иконка категории товаров miniShop2 в дереве ресурсов';
+$_lang['setting_mgr_tree_icon_msproduct'] = 'Иконка товара';
+$_lang['setting_mgr_tree_icon_msproduct_desc'] = 'Иконка товара miniShop2 в дереве ресурсов';
+
 $_lang['setting_ms2_product_tab_extra'] = 'Вкладка свойств товара';
 $_lang['setting_ms2_product_tab_extra_desc'] = 'Показывать вкладку свойств товара?';
 $_lang['setting_ms2_product_tab_gallery'] = 'Вкладка галереи товара';

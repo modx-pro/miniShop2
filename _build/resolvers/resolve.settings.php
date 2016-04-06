@@ -143,35 +143,21 @@ if ($object->xpdo) {
                 }
             }
 
-            if (!$setting = $modx->getObject('modSystemSetting', array('key' => 'mgr_tree_icon_msCategory'))) {
-                $setting = $modx->newObject('modSystemSetting');
-                $setting->fromArray(array(
-                    'key' => 'mgr_tree_icon_mscategory',
-                    'area' => 'minishop2.main',
-                    'namespace' => 'minishop2',
-                    'value' => 'icon icon-barcode',
-                ), '', true, true);
-                $setting->save();
-            }
-
-            if (!$setting = $modx->getObject('modSystemSetting', array('key' => 'mgr_tree_icon_msProduct'))) {
-                $setting = $modx->newObject('modSystemSetting');
-                $setting->fromArray(array(
-                    'key' => 'mgr_tree_icon_msproduct',
-                    'area' => 'minishop2.main',
-                    'namespace' => 'minishop2',
-                    'value' => 'icon icon-tag',
-                ), '', true, true);
-                $setting->save();
+            $old_settings = array(
+                'ms2_category_remember_grid' => null,
+            );
+            foreach ($old_settings as $k => $v) {
+                if ($item = $modx->getObject('modSystemSetting', array('key' => $k))) {
+                    if (!$v || $item->get('value') == $v) {
+                        $item->remove();
+                    }
+                }
             }
             break;
 
         case xPDOTransport::ACTION_UNINSTALL:
             $modx->removeCollection('modSystemSetting', array(
-                'key:IN' => array(
-                    'mgr_tree_icon_mscategory',
-                    'mgr_tree_icon_msproduct',
-                ),
+                'namespace' => 'minishop2',
             ));
             break;
     }

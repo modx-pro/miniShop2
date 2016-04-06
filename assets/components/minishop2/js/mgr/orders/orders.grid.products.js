@@ -1,4 +1,4 @@
-miniShop2.grid.Products = function (config) {
+miniShop2.grid.OrderProducts = function (config) {
     config = config || {};
     if (!config.id) {
         config.id = 'minishop2-grid-order-products';
@@ -14,9 +14,9 @@ miniShop2.grid.Products = function (config) {
         stateId: config.id,
         pageSize: Math.round(MODx.config['default_per_page'] / 2),
     });
-    miniShop2.grid.Products.superclass.constructor.call(this, config);
+    miniShop2.grid.OrderProducts.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
+Ext.extend(miniShop2.grid.OrderProducts, miniShop2.grid.Default, {
 
     getFields: function () {
         return miniShop2.config['order_product_fields'];
@@ -26,7 +26,13 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         var fields = {
             //id: {hidden: true, sortable: true, width: 40},
             product_id: {hidden: true, sortable: true, width: 40},
-            name: {header: _('ms2_name'), width: 100, renderer: miniShop2.utils.productLink},
+            name: {
+                header: _('ms2_name'),
+                width: 100,
+                renderer: function (value, metaData, record) {
+                    return miniShop2.utils.productLink(value, record['data']['product_id']);
+                }
+            },
             product_weight: {header: _('ms2_product_weight'), width: 50},
             product_price: {header: _('ms2_product_price'), width: 50},
             product_article: {width: 50},
@@ -198,4 +204,4 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         });
     }
 });
-Ext.reg('minishop2-grid-order-products', miniShop2.grid.Products);
+Ext.reg('minishop2-grid-order-products', miniShop2.grid.OrderProducts);

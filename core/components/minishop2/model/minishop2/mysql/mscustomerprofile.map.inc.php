@@ -146,10 +146,3 @@ $xpdo_meta_map['msCustomerProfile']= array (
     ),
   ),
 );
-
-
-if (!class_exists('ms2Plugins') || !is_object($this->ms2Plugins)) {
-    require_once (dirname(dirname(__FILE__)) . '/plugins.class.php');
-    $this->ms2Plugins = new ms2Plugins($this, array());
-}
-$xpdo_meta_map['msCustomerProfile'] = $this->ms2Plugins->loadMap('msCustomerProfile', $xpdo_meta_map['msCustomerProfile']);
