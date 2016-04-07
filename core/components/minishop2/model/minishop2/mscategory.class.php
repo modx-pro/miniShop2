@@ -172,4 +172,25 @@ class msCategory extends modResource
 
         return $arr;
     }
+
+
+    /**
+     * Gets the raw, unprocessed source content for a resource.
+     * Adding ms2_category_content_default processing
+     *
+     * @param array $options An array of options implementations can use to
+     * accept language, revision identifiers, or other information to alter the
+     * behavior of the method.
+     * @return string The raw source content for the resource.
+     */
+    public function getContent(array $options = array()) {
+        $content = '';
+        if (isset($options['content'])) {
+            $content = $options['content'];
+        } else {
+            $content = $this->get('content');
+        }
+        $content .= $this->xpdo->getOption('ms2_category_content_default', null, '');
+        return $content;
+    }
 }
