@@ -59,9 +59,6 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                 item.hideLabel = false;
                 item.fieldLabel = _('content');
                 item.description = '<b>[[*content]]</b>';
-                if (MODx.config['ms2_category_content_default']) {
-                    item.value = MODx.config['ms2_category_content_default'];
-                }
             }
             fields.push(item);
         }
