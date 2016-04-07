@@ -49,7 +49,7 @@ $tmp = array(
         'area' => 'ms2_category',
     ),
     'ms2_category_content_default' => array(
-        'value' => "[[!pdoPage?\n	&element=`msProducts`\n]]\n\n[[!+page.nav]]",
+        'value' => '',
         'xtype' => 'textarea',
         'area' => 'ms2_category',
     ),
@@ -67,7 +67,7 @@ $tmp = array(
     'ms2_product_show_comments' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
-        'area' => 'ms2_product',
+        'area' => 'ms2_product', 
     ),
     'ms2_template_product_default' => array(
         'value' => '',

@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - Improved menu of categories in resources tree.
 - Ability to change class_key of category.
 - Many improvements of ExtJS category panel and products grid.
+- Setting ms2_category_content_default is now empty by default.
 
 2.4.0 beta0
 ==============
