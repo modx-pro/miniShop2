@@ -21,7 +21,7 @@ class msProduct extends modResource
     function __construct(xPDO & $xpdo)
     {
         parent:: __construct($xpdo);
-        $this->set('class_key', 'msCategory');
+        $this->set('class_key', 'msProduct');
 
         $fields = $this->xpdo->getFieldMeta('msProductData');
         unset($fields['id']);
