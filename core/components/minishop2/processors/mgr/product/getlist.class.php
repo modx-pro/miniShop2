@@ -49,7 +49,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             }
             else {
                 $c->where(array(
-                    'OR:msProduct.pagetitle:LIKE' => "%{$query}%",
+                    'msProduct.pagetitle:LIKE' => "%{$query}%",
                     'OR:msProduct.longtitle:LIKE' => "%{$query}%",
                     'OR:msProduct.description:LIKE' => "%{$query}%",
                     'OR:msProduct.introtext:LIKE' => "%{$query}%",
