@@ -31,7 +31,7 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                     if (tab.id == 'modx-resource-settings') {
                         tab.title = _('ms2_tab_category');
                         tab.items = this.getMainFields(config);
-                        tab.items.push(this.getContentField(config));
+                        tab.items.push(this.getContent(config));
                     }
                     else if (tab.id == 'modx-page-settings') {
                         tab.items = this.getCategorySettings(config);
@@ -46,7 +46,7 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
         return fields;
     },
 
-    getContentField: function (config) {
+    getContent: function (config) {
         var fields = [];
         var originals = MODx.panel.Resource.prototype.getContentField.call(this, config);
         for (var i in originals) {
@@ -59,7 +59,7 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                 item.hideLabel = false;
                 item.fieldLabel = _('content');
                 item.description = '<b>[[*content]]</b>';
-                if (MODx.config['ms2_category_content_default']) {
+                if (MODx.config['ms2_category_content_default'] && config['mode'] == 'create') {
                     item.value = MODx.config['ms2_category_content_default'];
                 }
             }
