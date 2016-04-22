@@ -43,7 +43,7 @@ switch ($modx->event->name) {
                 $response = $miniShop2->cart->clean();
                 break;
             case 'cart/get':
-                $response = $miniShop2->cart->get();
+                $response = $modx->toJSON($miniShop2->cart->get());
                 break;
             case 'order/add':
                 $response = $miniShop2->order->add(@$_POST['key'], @$_POST['value']);
