@@ -542,9 +542,17 @@ class miniShop2 {
 		}
 
 		if ($this->modx->getOption('ms2_price_format_no_zeros', null, true)) {
-			if (preg_match('/\..*$/', $price, $matches)) {
-				$tmp = rtrim($matches[0], '.0');
-				$price = str_replace($matches[0], $tmp, $price);
+			if(is_array($pf)) {
+				if (preg_match('/\\'.$pf[1].'.*$/', $price, $matches)) {
+					$tmp = rtrim($matches[0], $pf[1].'0');
+					$price = str_replace($matches[0], $tmp, $price);
+				}
+			}
+			else {
+				if (preg_match('/\..*$/', $price, $matches)) {
+					$tmp = rtrim($matches[0], '.0');
+					$price = str_replace($matches[0], $tmp, $price);
+				}
 			}
 		}
 
