@@ -23,6 +23,20 @@ class msCategoryCreateManagerController extends ResourceCreateManagerController
 
 
     /**
+     * Return the default template for this resource
+     * @return int|mixed
+     */
+    public function getDefaultTemplate()
+    {
+        if (!$template = $this->modx->getOption('ms2_template_category_default')) {
+            $template = parent::getDefaultTemplate();
+        }
+
+        return $template;
+    }
+
+
+    /**
      * Register custom CSS/JS for the page
      * @return void
      */

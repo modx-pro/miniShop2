@@ -53,6 +53,11 @@ $tmp = array(
         'xtype' => 'textarea',
         'area' => 'ms2_category',
     ),
+    'ms2_template_category_default' => array(
+        'value' => '',
+        'xtype' => 'modx-combo-template',
+        'area' => 'ms2_product',
+    ),
 
     'ms2_product_main_fields' => array(
         'value' => 'pagetitle,longtitle,introtext,price,old_price,article,weight,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree',
@@ -67,7 +72,7 @@ $tmp = array(
     'ms2_product_show_comments' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
-        'area' => 'ms2_product', 
+        'area' => 'ms2_product',
     ),
     'ms2_template_product_default' => array(
         'value' => '',

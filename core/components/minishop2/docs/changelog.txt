@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 beta2
+==============
+- Added system setting ms2_template_category_default.
+
 2.4.0 beta1
 ==============
 - Improved categories with products.
