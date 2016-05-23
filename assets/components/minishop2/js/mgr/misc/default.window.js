@@ -47,7 +47,7 @@ Ext.extend(miniShop2.window.Default, MODx.Window, {
         }];
     },
 
-    getKeys: function(config) {
+    getKeys: function() {
         return [{
             key: Ext.EventObject.ENTER,
             shift: true,

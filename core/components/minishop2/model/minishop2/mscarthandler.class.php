@@ -85,9 +85,9 @@ interface msCartInterface {
 
 
 class msCartHandler implements msCartInterface {
-	/* @var modX $modx */
+	/** @var modX $modx */
 	public $modx;
-	/* @var array $cart */
+	/** @var array $cart */
 	protected $cart;
 
 	/* @inheritdoc} */
@@ -127,7 +127,7 @@ class msCartHandler implements msCartInterface {
 		$filter = array('id' => $id);
 		if (!$this->config['allow_deleted']) {$filter['deleted'] = 0;}
 		if (!$this->config['allow_unpublished']) {$filter['published'] = 1;}
-		/* @var msProduct $product */
+		/** @var msProduct $product */
 		if ($product = $this->modx->getObject('modResource', $filter)) {
 			if (!($product instanceof msProduct)) {
 				return $this->error('ms2_cart_add_err_product', $this->status());
@@ -166,7 +166,7 @@ class msCartHandler implements msCartInterface {
 			$count = $response['data']['count'];
 			$options = $response['data']['options'];
 
-			$key = md5($id.$price.$weight.($this->modx->toJSON($options)));
+			$key = md5($id.$price.$weight.(json_encode($options)));
 			if (array_key_exists($key, $this->cart)) {
 				return $this->change($key, $this->cart[$key]['count'] + $count);
 			}

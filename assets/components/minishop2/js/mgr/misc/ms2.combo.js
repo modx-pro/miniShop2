@@ -65,7 +65,7 @@ miniShop2.combo.User = function (config) {
         url: miniShop2.config['connector_url'],
         baseParams: {
             action: 'mgr/system/user/getlist',
-            combo: 1,
+            combo: true,
         },
         tpl: new Ext.XTemplate('\
             <tpl for=".">\
@@ -101,18 +101,17 @@ miniShop2.combo.Category = function (config) {
         url: miniShop2.config['connector_url'],
         baseParams: {
             action: 'mgr/category/getcats',
-            combo: 1,
+            combo: true,
             id: config.value
-            //,limit: 0
         },
         tpl: new Ext.XTemplate('\
             <tpl for="."><div class="x-combo-list-item minishop2-category-list-item">\
                 <tpl if="parents">\
-                    <span class="parents">\
+                    <div class="parents">\
                         <tpl for="parents">\
                             <nobr><small>{pagetitle} / </small></nobr>\
                         </tpl>\
-                    </span>\
+                    </div>\
                 </tpl>\
                 <span>\
                     <small>({id})</small> <b>{pagetitle}</b>\
@@ -168,10 +167,10 @@ miniShop2.combo.Autocomplete = function (config) {
         baseParams: {
             action: 'mgr/product/autocomplete',
             name: config.name,
-            combo: 1,
+            combo: true,
             limit: 0
         },
-        hideTrigger: true
+        hideTrigger: false,
     });
     miniShop2.combo.Autocomplete.superclass.constructor.call(this, config);
 };
@@ -198,9 +197,9 @@ miniShop2.combo.Vendor = function (config) {
         emptyText: _('no'),
         baseParams: {
             action: 'mgr/settings/vendor/getlist',
-            combo: 1,
-            id: config.value
-            //,limit: 0
+            combo: true,
+            id: config.value,
+            //limit: 0,
         }
     });
     miniShop2.combo.Vendor.superclass.constructor.call(this, config);
@@ -238,6 +237,7 @@ miniShop2.combo.Options = function (config) {
         msgTarget: 'under',
         allowAddNewData: true,
         addNewDataOnBlur: true,
+        pinList: false,
         resizable: true,
         name: config.name || 'tags',
         anchor: '100%',
@@ -245,7 +245,7 @@ miniShop2.combo.Options = function (config) {
         store: new Ext.data.JsonStore({
             id: (config.name || 'tags') + '-store',
             root: 'results',
-            autoLoad: true,
+            autoLoad: false,
             autoSave: false,
             totalProperty: 'total',
             fields: ['value'],
@@ -262,17 +262,17 @@ miniShop2.combo.Options = function (config) {
         extraItemCls: 'x-tag',
         expandBtnCls: 'x-form-trigger',
         clearBtnCls: 'x-form-trigger',
-        listeners: {
-            newitem: function (bs, v, f) {
-                bs.addItem({tag: v});
-            },
-            select: {fn: MODx.fireResourceFormChange, scope: this},
-            beforeadditem: {fn: MODx.fireResourceFormChange, scope: this},
-            beforeremoveitem: {fn: MODx.fireResourceFormChange, scope: this},
-            clear: {fn: MODx.fireResourceFormChange, scope: this}
-        }
     });
     config.name += '[]';
+
+    Ext.apply(config, {
+        listeners: {
+            newitem: function(bs, v) {
+                bs.addNewItem({value: v});
+            },
+        },
+    });
+
     miniShop2.combo.Options.superclass.constructor.call(this, config);
 };
 Ext.extend(miniShop2.combo.Options, Ext.ux.form.SuperBoxSelect);
@@ -380,14 +380,14 @@ Ext.extend(miniShop2.combo.Browser, Ext.form.TriggerField, {
                 }
             });
         }
-        this.browser.win.buttons[0].on('disable', function (e) {
+        this.browser.win.buttons[0].on('disable', function () {
             this.enable()
         });
-        this.browser.win.tree.on('click', function (n, e) {
+        this.browser.win.tree.on('click', function (n) {
                 this.setValue(this.getPath(n));
             }, this
         );
-        this.browser.win.tree.on('dblclick', function (n, e) {
+        this.browser.win.tree.on('dblclick', function (n) {
                 this.setValue(this.getPath(n));
                 this.browser.hide()
             }, this
@@ -471,14 +471,14 @@ miniShop2.combo.Delivery = function (config) {
         },
         listeners: {
             render: function () {
-                this.store.on('load', function () {
-                    if (this.store.getTotalCount() == 1 && this.store.getAt(0).id == this.value) {
+                this.store.on('load', function (store) {
+                    if (store.getTotalCount() == 1 && store.getAt(0).id == this.getValue()) {
                         this.readOnly = true;
-                        this.addClass('disabled');
+                        this.wrap.addClass('disabled');
                     }
                     else {
                         this.readOnly = false;
-                        this.removeClass('disabled');
+                        this.wrap.removeClass('disabled');
                     }
                 }, this);
             },
@@ -598,7 +598,7 @@ miniShop2.combo.Product = function (config) {
         url: miniShop2.config['connector_url'],
         baseParams: {
             action: 'mgr/product/getlist',
-            combo: 1,
+            combo: true,
             id: config.value
         },
         tpl: new Ext.XTemplate('\

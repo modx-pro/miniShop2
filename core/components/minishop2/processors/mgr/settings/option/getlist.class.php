@@ -19,7 +19,7 @@ class msOptionGetListProcessor extends modObjectGetListProcessor {
 
         $category = (int)$this->getProperty('category', 0);
         $categories = $this->getProperty('categories', '[]');
-        $categories = $this->modx->fromJSON($categories);
+        $categories = json_decode($categories, true);
 
         if (($category > 0) || (count($categories) > 0)) {
             $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');

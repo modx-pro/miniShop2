@@ -247,7 +247,7 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
             'month_total' => (string)$month['total'],
         );
 
-        return $this->modx->toJSON($data);
+        return json_encode($data);
     }
 
 }

@@ -7,7 +7,7 @@ class msComboboxType extends msOptionType {
 
     public function getField($field) {
         if (isset($field['properties']['values'])) {
-            $values = $this->xpdo->toJSON(array_chunk($field['properties']['values'],1));
+            $values = json_encode(array_chunk($field['properties']['values'],1));
         } else {
             $values = '[]';
         }

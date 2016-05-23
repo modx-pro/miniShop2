@@ -17,7 +17,7 @@ class msProductSortProcessor extends modObjectProcessor
         }
         $this->_parent = $target->get('parent');
 
-        $sources = $this->modx->fromJSON($this->getProperty('sources'));
+        $sources = json_decode($this->getProperty('sources'), true);
         if (!is_array($sources)) {
             return $this->failure();
         }
@@ -30,10 +30,7 @@ class msProductSortProcessor extends modObjectProcessor
                 $this->move($source);
             }
         }
-
-        if (!$this->modx->getCount($this->classKey, array('menuindex' => 0, 'parent' => $this->_parent))) {
-            $this->updateIndex();
-        }
+        $this->updateIndex();
 
         return $this->modx->error->success();
     }
@@ -96,18 +93,30 @@ class msProductSortProcessor extends modObjectProcessor
      */
     public function updateIndex()
     {
-        $q = $this->modx->newQuery($this->classKey, array('parent' => $this->_parent));
-        $q->select('id');
-        $q->sortby('menuindex ASC, id', 'ASC');
-
-        if ($q->prepare() && $q->stmt->execute()) {
-            $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-            $sql = '';
-            $table = $this->modx->getTableName($this->classKey);
-            foreach ($ids as $k => $id) {
-                $sql .= "UPDATE {$table} SET `menuindex` = '{$k}' WHERE `id` = '{$id}';";
+        // Check if need to update children indexes
+        $c = $this->modx->newQuery($this->classKey, array('parent' => $this->_parent));
+        $c->groupby('menuindex');
+        $c->select('COUNT(menuindex) as idx');
+        $c->sortby('idx', 'DESC');
+        $c->limit(1);
+        if ($c->prepare() && $c->stmt->execute()) {
+            if ($c->stmt->fetchColumn() == 1) {
+                return;
             }
-            $this->modx->exec($sql);
+        }
+
+        // Update indexes
+        $c = $this->modx->newQuery($this->classKey, array('parent' => $this->_parent));
+        $c->select('id');
+        $c->sortby('menuindex ASC, id', 'ASC');
+        if ($c->prepare() && $c->stmt->execute()) {
+            $table = $this->modx->getTableName($this->classKey);
+            $update = $this->modx->prepare("UPDATE {$table} SET menuindex = ? WHERE id = ?");
+            $i = 0;
+            while ($id = $c->stmt->fetch(PDO::FETCH_COLUMN)) {
+                $update->execute(array($i, $id));
+                $i++;
+            }
         }
     }
 

@@ -33,7 +33,7 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
         }
 
         if ($options = $this->getProperty('options')) {
-            $tmp = $this->modx->fromJSON($options);
+            $tmp = json_decode($options, true);
             if (!is_array($tmp)) {
                 $this->modx->error->addField('options', $this->modx->lexicon('ms2_err_json'));
             } else {

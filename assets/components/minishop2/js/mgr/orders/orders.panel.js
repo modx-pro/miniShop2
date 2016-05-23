@@ -5,6 +5,16 @@ miniShop2.panel.Orders = function (config) {
         cls: 'container',
         items: [{
             xtype: 'modx-tabs',
+            id: 'minishop2-orders-tabs',
+            stateful: true,
+            stateId: 'minishop2-orders-tabs',
+            stateEvents: ['tabchange'],
+            getState: function () {
+                return {
+                    activeTab: this.items.indexOf(this.getActiveTab())
+                };
+            },
+            deferredRender: false,
             items: [{
                 title: _('ms2_orders'),
                 layout: 'anchor',

@@ -18,8 +18,9 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
             }
             else if (item.id == 'modx-resource-tabs') {
                 item.stateful = MODx.config['ms2_category_remember_tabs'] == 1;
-                item.stateId = 'minishop2-category-new-tabpanel';
+                item.stateId = 'minishop2-category-' + config.mode + '-tabpanel';
                 item.stateEvents = ['tabchange'];
+                item.collapsible = false;
                 item.getState = function () {
                     return {activeTab: this.items.indexOf(this.getActiveTab())};
                 };
@@ -30,7 +31,6 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                     var tab = item.items[i2];
                     if (tab.id == 'modx-resource-settings') {
                         tab.title = _('ms2_tab_category');
-                        tab.items = this.getMainFields(config);
                         tab.items.push(this.getContent(config));
                     }
                     else if (tab.id == 'modx-page-settings') {
@@ -101,7 +101,19 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                         if (field.xtype == 'fieldset') {
                             this.findField(field, 'modx-resource-isfolder', function (f) {
                                 f.disabled = true;
+                                f.hidden = true;
                             });
+                            field.items[0].items[0].items = [{
+                                id: 'modx-resource-hide_children_in_tree',
+                                xtype: 'xcheckbox',
+                                name: 'hide_children_in_tree',
+                                listeners: config.listeners,
+                                enableKeyEvents: true,
+                                msgTarget: 'under',
+                                hideLabel: true,
+                                boxLabel: _('ms2_product_hide_children_in_tree'),
+                                description: '<b>[[*hide_children_in_tree]]</b><br />' + _('ms2_product_hide_children_in_tree_help'),
+                            }].concat(field.items[0].items[0].items);
                             moved.checkboxes = field;
                             continue;
                         }

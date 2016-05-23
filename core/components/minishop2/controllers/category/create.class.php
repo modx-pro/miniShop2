@@ -1,6 +1,10 @@
 <?php
 
-class msCategoryCreateManagerController extends ResourceCreateManagerController
+if (!class_exists('msResourceCreateController')) {
+    require_once dirname(dirname(__FILE__)) . '/resource_create.class.php';
+}
+
+class msCategoryCreateManagerController extends msResourceCreateController
 {
     /**
      * Returns language topics
@@ -80,9 +84,9 @@ class msCategoryCreateManagerController extends ResourceCreateManagerController
             MODx.config.publish_document = "' . $this->canPublish . '";
             MODx.onDocFormRender = "' . $this->onDocFormRender . '";
             MODx.ctx = "' . $this->ctx . '";
-            miniShop2.config = ' . $this->modx->toJSON($config) . ';
+            miniShop2.config = ' . json_encode($config) . ';
             Ext.onReady(function() {
-                MODx.load(' . $this->modx->toJSON($ready) . ');
+                MODx.load(' . json_encode($ready) . ');
             });
         // ]]>
         </script>');

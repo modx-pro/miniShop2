@@ -8,9 +8,10 @@ $tmp = array(
         'description' => '',
         'events' => array(
             'OnMODXInit',
-            'OnWebPageInit',
             'OnHandleRequest',
             'OnLoadWebDocument',
+            'OnWebPageInit',
+            'OnUserSave',
             'msOnChangeOrderStatus',
         ),
     ),

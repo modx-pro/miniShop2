@@ -17,28 +17,28 @@ class msProductAutocompleteProcessor extends modObjectProcessor
         }
 
         $res = array();
+        $c = $this->modx->newQuery('msProduct', array('class_key' => 'msProduct'));
+        $c->leftJoin('msProductData', 'Data', 'Data.id = msProduct.id');
+        $c->sortby($name, 'ASC');
+        $c->select($name);
+        $c->groupby($name);
         if (!empty($query)) {
-            $c = $this->modx->newQuery('msProduct', array('class_key' => 'msProduct'));
-            $c->leftJoin('msProductData', 'Data', 'Data.id = msProduct.id');
-            $c->sortby($name, 'ASC');
-            $c->select($name);
-            $c->groupby($name);
             $c->where("$name LIKE '%{$query}%'");
-            $found = 0;
-            if ($c->prepare() && $c->stmt->execute()) {
-                $res = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($res as $v) {
-                    if ($v[$name] == $query) {
-                        $found = 1;
-                    }
+        }
+        $found = 0;
+        if ($c->prepare() && $c->stmt->execute()) {
+            $res = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($res as $k => $v) {
+                if ($v[$name] == '') {
+                    unset($res[$k]);
                 }
-            } else {
-                $res = array();
+                elseif ($v[$name] == $query) {
+                    $found = 1;
+                }
             }
-
-            if (!$found) {
-                $res = array_merge_recursive(array(array($name => $query)), $res);
-            }
+        }
+        if (!$found && !empty($query)) {
+            $res = array_merge_recursive(array(array($name => $query)), $res);
         }
 
         return $this->outputArray($res);

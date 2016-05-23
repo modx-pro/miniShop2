@@ -17,6 +17,9 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         if (!$this->getProperty('limit')) {
             $this->setProperty('limit', 20);
         }
+        if ($this->getProperty('sort') == 'menuindex') {
+            $this->setProperty('sort', 'parent ' . $this->getProperty('dir') . ', menuindex');
+        }
 
         return parent::initialize();
     }
@@ -46,8 +49,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         if (!empty($query)) {
             if (is_numeric($query)) {
                 $c->where(array('msProduct.id' => $query));
-            }
-            else {
+            } else {
                 $c->where(array(
                     'msProduct.pagetitle:LIKE' => "%{$query}%",
                     'OR:msProduct.longtitle:LIKE' => "%{$query}%",
@@ -66,7 +68,12 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             $category = $this->modx->getObject('modResource', $this->getProperty('parent'));
             $this->parent = $parent;
             $parents = array($parent);
-            if ($this->modx->getOption('ms2_category_show_nested_products', null, true)) {
+
+            $nested = $this->getProperty('nested', null);
+            $nested = $nested === null && $this->modx->getOption('ms2_category_show_nested_products', null, true)
+                ? true
+                : (bool)$nested;
+            if ($nested) {
                 $tmp = $this->modx->getChildIds($parent, 10, array('context' => $category->get('context_key')));
                 foreach ($tmp as $v) {
                     $parents[] = $v;
@@ -156,7 +163,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         if ($this->getProperty('combo')) {
             $array['parents'] = array();
             $parents = $this->modx->getParentIds($array['id'], 2, array(
-                'context' => $array['context_key']
+                'context' => $array['context_key'],
             ));
             if (empty($parents[count($parents) - 1])) {
                 unset($parents[count($parents) - 1]);
@@ -231,8 +238,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
                     'button' => true,
                     'menu' => true,
                 );
-            }
-            else {
+            } else {
                 $array['actions'][] = array(
                     'cls' => '',
                     'icon' => 'icon icon-power-off action-gray',
@@ -254,8 +260,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
                     'button' => false,
                     'menu' => true,
                 );
-            }
-            else {
+            } else {
                 $array['actions'][] = array(
                     'cls' => '',
                     'icon' => 'icon icon-minus',
@@ -277,8 +282,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
                     'button' => false,
                     'menu' => true,
                 );
-            }
-            else {
+            } else {
                 $array['actions'][] = array(
                     'cls' => '',
                     'icon' => 'icon icon-undo action-green',

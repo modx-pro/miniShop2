@@ -32,7 +32,7 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
     public function getCategories() {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
-            $categories = $this->modx->fromJSON($categories);
+            $categories = json_decode($categories, true);
         }
         return $categories;
     }

@@ -13,19 +13,6 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return array|string
-     */
-    public function beforeSet()
-    {
-        $this->setProperties(array(
-            'isfolder' => 1,
-        ));
-
-        return parent::beforeSet();
-    }
-
-
-    /**
      * @return string
      */
     public function prepareAlias()
@@ -38,6 +25,17 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
         }
 
         return $alias;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function beforeSave()
+    {
+        $this->object->set('isfolder', true);
+
+        return parent::beforeSave();
     }
 
 

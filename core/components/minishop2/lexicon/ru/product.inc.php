@@ -57,7 +57,9 @@ $_lang['ms2_product_menutitle'] = 'Пункт меню';
 $_lang['ms2_product_hidemenu'] = 'Не показывать в меню';
 $_lang['ms2_product_uri_override'] = 'Заморозить ссылку';
 $_lang['ms2_product_uri'] = 'Ссылка';
-$_lang['ms2_product_hide_in_tree'] = 'Не показывать в дереве';
+$_lang['ms2_product_hide_children_in_tree'] = 'Скрыть потомков в дереве';
+$_lang['ms2_product_hide_children_in_tree_help'] = 'Эта настройка скроет все дочерние товары и категории в дереве ресурса, независимо от их свойства "show_in_tree".';
+$_lang['ms2_product_hide_in_tree'] = 'Скрыть в дереве';
 $_lang['ms2_product_show_in_tree'] = 'Показывать в дереве';
 $_lang['ms2_product_show_in_tree_help'] = 'По умолчанию, товары магазина не показываются в дереве ресурсов MODX, чтобы не нагружать его. Но вы можете включить вывод некоторых позиций.';
 $_lang['ms2_product_syncsite'] = 'Очистить кэш';
@@ -125,41 +127,26 @@ $_lang['ms2_product_selected_unpublish'] = 'Отключить выбранны�
 $_lang['ms2_product_selected_delete'] = 'Удалить выбранные товары';
 $_lang['ms2_product_selected_undelete'] = 'Восстановить выбранные товары';
 
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
-$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
+$_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файлов не найдено.<br/><br/>Вы можете загрузить их, перетащив прямо на эту панель или выбрав кнопкой вверху.</p>';
+$_lang['ms2_gallery_file_name'] = 'Имя файла';
+$_lang['ms2_gallery_file_title'] = 'Название';
+$_lang['ms2_gallery_file_description'] = 'Описание';
+$_lang['ms2_gallery_file_size'] = 'Размер';
+$_lang['ms2_gallery_file_createdon'] = 'Дата создания';
+$_lang['ms2_gallery_file_createdby'] = 'Автор';
+$_lang['ms2_gallery_file_url'] = 'Ссылка';
+$_lang['ms2_gallery_file_source'] = 'Источник файла';
 
-$_lang['ms2_gallery_emptymsg'] = 'Перетяните в эту таблицу файлы для загрузки, или выберите их кнопкой вверху.';
-$_lang['ms2_gallery_introtext'] = 'Здесь вы управляете галереей товара. Вы можете загрузить новые изображения просто перетянув их в таблицу. Первое изображение в галерее является основным для товара.';
-$_lang['ms2_gallery_filename'] = 'Имя файла';
-$_lang['ms2_gallery_title'] = 'Название';
-$_lang['ms2_gallery_description'] = 'Описание';
-$_lang['ms2_gallery_size'] = 'Размер';
-$_lang['ms2_gallery_status'] = 'Статус';
-$_lang['ms2_gallery_progress'] = 'Прогресс';
-$_lang['ms2_gallery_inactive'] = 'Отключено';
-$_lang['ms2_gallery_createdon'] = 'Дата создания';
-$_lang['ms2_gallery_createdby'] = 'Автор';
-$_lang['ms2_gallery_url'] = 'Адрес';
-$_lang['ms2_gallery_name'] = 'Название';
-$_lang['ms2_gallery_status'] = 'Статус';
 $_lang['ms2_gallery_button_upload'] = 'Выбрать файлы';
-$_lang['ms2_gallery_status_aborted'] = '<i class="bicon-remove"></i> Отменен';
-$_lang['ms2_gallery_status_error'] = '<i class="bicon-remove"></i> Ошибка';
-$_lang['ms2_gallery_status_sending'] = '<i class="bicon-repeat"></i> В процессе';
-$_lang['ms2_gallery_status_done'] = '<i class="bicon-ok"></i> Готово';
-$_lang['ms2_gallery_uploads_clear'] = 'Очистить';
-$_lang['ms2_gallery_generate_thumbs'] = 'Обновить все превьюшки';
 
-$_lang['ms2_gallery_image_generate_thumbs'] = 'Обновить превьюшки';
+$_lang['ms2_gallery_file_show'] = 'Открыть в новом окне';
 $_lang['ms2_gallery_file_update'] = 'Изменить свойства';
+$_lang['ms2_gallery_file_generate_thumbs'] = 'Обновить превьюшки';
 $_lang['ms2_gallery_file_delete'] = 'Удалить файл';
 $_lang['ms2_gallery_file_delete_confirm'] = 'Вы действительно хотите удалить этот файл вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
 $_lang['ms2_gallery_file_delete_multiple'] = 'Удалить файлы';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти файлы со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
-
-$_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> В очереди';
-$_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> В процессе';
-$_lang['ms2_gallery_status_code_4'] = '<i class="bicon-remove"></i> Ошибка';
-$_lang['ms2_gallery_status_code_5'] = '<i class="bicon-ok"></i> Готово';
 
 $_lang['ms2_gallery_errors'] = 'Ошибки при загрузке';

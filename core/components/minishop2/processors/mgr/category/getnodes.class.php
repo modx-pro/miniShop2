@@ -4,8 +4,8 @@ require_once MODX_CORE_PATH . 'model/modx/processors/resource/getnodes.class.php
 
 class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
 {
-    protected $pid;
-    protected $parent_id;
+    protected $resource_id = 0;
+    protected $parent_id = 0;
 
 
     /**
@@ -14,10 +14,9 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
     public function initialize()
     {
         $initialize = parent::initialize();
-        $this->pid = $this->getProperty('currentResource');
-        if ($res = $this->modx->getObject('msProduct', $this->pid)) {
-            $this->parent_id = $res->get('parent');
-        }
+
+        $this->parent_id = $this->getProperty('parent', 0);
+        $this->resource_id = $this->getProperty('resource', 0);
 
         return $initialize;
     }
@@ -48,7 +47,8 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         $c = $this->modx->newQuery($this->itemClass);
         $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
         $c->leftJoin('msCategoryMember', 'Member',
-            array('modResource.id = Member.category_id AND Member.product_id = ' . $this->pid));
+            'modResource.id = Member.category_id AND Member.product_id = ' . $this->resource_id
+        );
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
             'childrenCount' => 'COUNT(Child.id)',
@@ -121,7 +121,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         $iconCls[] = $classKeyIcon;
 
         $class[] = 'icon-' . strtolower(str_replace('mod', '', $resource->get('class_key')));
-        if (!$resource->isfolder) {
+        if (!$resource->get('isfolder')) {
             $class[] = 'x-tree-node-leaf icon-resource';
         }
         if (!$resource->get('published')) {
@@ -135,7 +135,9 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         }
         if ($hasChildren) {
             $class[] = 'haschildren';
-            $iconCls[] = $this->modx->getOption('mgr_tree_icon_folder', null, 'tree-folder');
+            if ($resource->get('class_key') != 'msCategory') {
+                $iconCls[] = $this->modx->getOption('mgr_tree_icon_folder', null, 'tree-folder');
+            }
             $iconCls[] = 'parent-resource';
         }
 

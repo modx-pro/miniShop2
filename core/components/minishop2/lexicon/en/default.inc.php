@@ -81,6 +81,7 @@ $_lang['ms2_category_view'] = 'View on site';
 $_lang['ms2_category_new'] = 'New category';
 $_lang['ms2_category_option_add'] = 'Add option';
 $_lang['ms2_category_option_rank'] = 'Rank';
+$_lang['ms2_category_show_nested'] = 'Show nested products';
 
 $_lang['ms2_product'] = 'Product of the shop';
 $_lang['ms2_product_type'] = 'Product of the shop';

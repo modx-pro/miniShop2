@@ -1,7 +1,7 @@
 <?php
-/* @var array $scriptProperties */
-/* @var miniShop2 $miniShop2 */
-$miniShop2 = $modx->getService('minishop2');
+/** @var array $scriptProperties */
+/** @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('miniShop2');
 $miniShop2->initialize($modx->context->key);
 
 // You can set modResource instead of msProduct
@@ -10,7 +10,7 @@ if (isset($parents) && $parents === '') {
     $scriptProperties['parents'] = $modx->resource->id;
 }
 
-/* @var pdoFetch $pdoFetch */
+/** @var pdoFetch $pdoFetch */
 if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
@@ -62,7 +62,7 @@ if (!empty($thumbsSelect)) {$select = array_merge($select, $thumbsSelect);}
 // Add custom parameters
 foreach (array('where','leftJoin','innerJoin','select') as $v) {
     if (!empty($scriptProperties[$v])) {
-        $tmp = $modx->fromJSON($scriptProperties[$v]);
+        $tmp = json_decode($scriptProperties[$v], true);
         if (is_array($tmp)) {
             $$v = array_merge($$v, $tmp);
         }
@@ -73,7 +73,7 @@ foreach (array('where','leftJoin','innerJoin','select') as $v) {
 $joinedOptions = array();
 // Add filters by options
 if (!empty($scriptProperties['optionFilters'])) {
-    $filters = $modx->fromJSON($scriptProperties['optionFilters']);
+    $filters = json_decode($scriptProperties['optionFilters'], true);
     $opt_where = array();
 
     foreach ($filters as $key => $value) {
@@ -159,10 +159,10 @@ if (!empty($scriptProperties['sortbyOptions'])) {
 // Default parameters
 $default = array(
     'class' => $class,
-    'where' => $modx->toJSON($where),
-    'leftJoin' => $modx->toJSON($leftJoin),
-    'innerJoin' => $modx->toJSON($innerJoin),
-    'select' => $modx->toJSON($select),
+    'where' => json_encode($where),
+    'leftJoin' => json_encode($leftJoin),
+    'innerJoin' => json_encode($innerJoin),
+    'select' => json_encode($select),
     'sortby' => $class.'id',
     'sortdir' => 'ASC',
     'groupby' => $class.'.id',
@@ -185,7 +185,7 @@ if (!empty($rows) && is_array($rows)) {
     $q->where('modPlugin.disabled = 0');
 
     if ($modificators = $modx->getOption('ms2_price_snippet', null, false, true) || $modx->getOption('ms2_weight_snippet', null, false, true) || $modx->getCount('modPluginEvent', $q)) {
-        /* @var msProductData $product */
+        /** @var msProductData $product */
         $product = $modx->newObject('msProductData');
     }
     $pdoFetch->addTime('Checked the active modifiers');

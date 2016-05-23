@@ -8,7 +8,7 @@ $xpdo_meta_map['msOrderLog']= array (
   array (
     'user_id' => 0,
     'order_id' => 0,
-    'timestamp' => '0000-00-00 00:00:00',
+    'timestamp' => NULL,
     'action' => '',
     'entry' => '0',
     'ip' => NULL,
@@ -38,7 +38,6 @@ $xpdo_meta_map['msOrderLog']= array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'default' => '0000-00-00 00:00:00',
     ),
     'action' => 
     array (

@@ -16,8 +16,19 @@ $tmp = array(
         'key' => 'mgr_tree_icon_msproduct',
     ),
 
+    'ms2_services' => array(
+        'value' => '{"cart":[],"order":[],"payment":[],"delivery":[]}',
+        'xtype' => 'textarea',
+        'area' => 'ms2_main',
+    ),
+    'ms2_plugins' => array(
+        'value' => '[]',
+        'xtype' => 'textarea',
+        'area' => 'ms2_main',
+    ),
+
     'ms2_category_grid_fields' => array(
-        'value' => 'id,pagetitle,article,price,weight,thumb,new,favorite,popular',
+        'value' => 'id,menuindex,pagetitle,article,price,thumb,new,favorite,popular',
         'xtype' => 'textarea',
         'area' => 'ms2_category',
     ),
@@ -56,16 +67,17 @@ $tmp = array(
     'ms2_template_category_default' => array(
         'value' => '',
         'xtype' => 'modx-combo-template',
-        'area' => 'ms2_product',
+        'area' => 'ms2_category',
     ),
-
+    /*
     'ms2_product_main_fields' => array(
         'value' => 'pagetitle,longtitle,introtext,price,old_price,article,weight,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree',
         'xtype' => 'textarea',
         'area' => 'ms2_product',
     ),
+    */
     'ms2_product_extra_fields' => array(
-        'value' => 'color,size,vendor,new,popular,favorite,made_in,tags',
+        'value' => 'price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite',
         'xtype' => 'textarea',
         'area' => 'ms2_product',
     ),
@@ -94,11 +106,13 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_product',
     ),
+    /*
     'ms2_product_vertical_tabs' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
         'area' => 'ms2_product',
     ),
+    */
     'ms2_product_remember_tabs' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
@@ -154,6 +168,16 @@ $tmp = array(
         'area' => 'ms2_product',
     ),
     'ms2_product_tab_links' => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_product',
+    ),
+    'ms2_product_tab_options' => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_product',
+    ),
+    'ms2_product_tab_categories' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
         'area' => 'ms2_product',
@@ -260,7 +284,7 @@ $tmp = array(
     ),
 );
 
-
+/** @var modX $modx */
 foreach ($tmp as $k => $v) {
     /** @var modSystemSetting $setting */
     $setting = $modx->newObject('modSystemSetting');
@@ -268,6 +292,7 @@ foreach ($tmp as $k => $v) {
         array(
             'key' => $k,
             'namespace' => 'minishop2',
+            'editedon' => date('Y-m-d H:i:s'),
         ), $v
     ), '', true, true);
     $settings[] = $setting;

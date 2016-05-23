@@ -70,9 +70,9 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
                         }
                     }
                     $table = $this->modx->getTableName('msProductLink');
-                    $sql = "INSERT INTO {$table} (`link`,`master`,`slave`) VALUES ";
+                    $sql = "INSERT INTO {$table} (link,master,slave) VALUES ";
                     $sql .= implode(',', $rows);
-                    $sql .= " ON DUPLICATE KEY UPDATE `link` = '$link';";
+                    $sql .= " ON DUPLICATE KEY UPDATE link = '$link';";
                     $this->modx->exec($sql);
                 }
                 break;
@@ -106,7 +106,11 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
     {
         if ($link && $master && $slave) {
             $table = $this->modx->getTableName('msProductLink');
-            $sql = "INSERT INTO {$table} (`link`,`master`,`slave`) VALUES ('$link','$master','$slave')ON DUPLICATE KEY UPDATE `link` = '$link';";
+            $sql = "
+                INSERT INTO {$table} (link, master, slave)
+                VALUES ('$link', '$master', '$slave')
+                ON DUPLICATE KEY UPDATE link = '$link';
+            ";
             $this->modx->exec($sql);
         }
 

@@ -8,7 +8,7 @@ miniShop2.grid.Default = function (config) {
     Ext.applyIf(config, {
         url: miniShop2.config['connector_url'],
         baseParams: {},
-        cls: 'main-wrapper minishop2-grid' || config['cls'],
+        cls: config['cls'] || 'main-wrapper minishop2-grid',
         autoHeight: true,
         paging: true,
         remoteSort: true,

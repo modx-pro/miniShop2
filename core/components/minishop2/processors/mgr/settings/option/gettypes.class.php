@@ -9,7 +9,7 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor {
      */
     public function getData() {
         /** @var miniShop2 $ms */
-        $ms = $this->modx->getService('minishop2');
+        $ms = $this->modx->getService('miniShop2');
         $data = array();
         $limit = intval($this->getProperty('limit'));
         $start = intval($this->getProperty('start'));

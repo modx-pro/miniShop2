@@ -6,7 +6,7 @@
     <object class="msCategory" extends="modResource">
         <field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msCategory"/>
 
-        <aggregate alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local"/>
+        <composite alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local"/>
         <composite alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many"
                    owner="local"/>
         <composite alias="CategoryOptions" class="msCategoryOption" local="id" foreign="category_id" cardinality="many"
@@ -145,7 +145,7 @@
         <field key="path" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
         <field key="file" dbtype="varchar" precision="255" phptype="string" null="false"/>
         <field key="type" dbtype="varchar" precision="50" phptype="string" null="true"/>
-        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
         <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
                default="0"/>
         <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
@@ -170,6 +170,7 @@
         <composite alias="Children" class="msProductFile" local="id" foreign="parent" cardinality="many" owner="local"/>
         <aggregate alias="Parent" class="msProductFile" local="parent" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign"/>
+        <aggregate alias="Source" class="modMediaSource" local="source" foreign="id" cardinality="one" owner="foreign" />
     </object>
 
 
@@ -230,8 +231,8 @@
 
     <object class="msOrder" table="ms2_orders" extends="xPDOSimpleObject">
         <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
-        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
-        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
         <field key="num" dbtype="varchar" precision="20" phptype="string" null="true" default=""/>
         <field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
@@ -307,7 +308,7 @@
                default="0"/>
         <field key="order_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
                default="0"/>
-        <field key="timestamp" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
+        <field key="timestamp" dbtype="datetime" phptype="datetime" null="true" />
         <field key="action" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
         <field key="entry" dbtype="varchar" precision="255" phptype="string" null="false" default="0"/>
         <field key="ip" dbtype="text" phptype="json" null="false"/>
@@ -330,8 +331,8 @@
 
     <object class="msOrderAddress" table="ms2_order_addresses" extends="xPDOSimpleObject">
         <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
-        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
-        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
         <field key="receiver" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="phone" dbtype="varchar" precision="20" phptype="string" null="true"/>
         <field key="country" dbtype="varchar" precision="100" phptype="string" null="true"/>

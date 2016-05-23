@@ -50,14 +50,12 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return bool|string
+     * @return bool
      */
-    public function beforeSet()
+    public function beforeSave()
     {
-        $this->setProperties(array(
-            'isfolder' => 1,
-        ));
+        $this->object->set('isfolder', true);
 
-        return parent::beforeSet();
+        return parent::beforeSave();
     }
 }

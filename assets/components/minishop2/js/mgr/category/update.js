@@ -123,12 +123,6 @@ Ext.extend(miniShop2.panel.UpdateCategory, miniShop2.panel.Category, {
             }
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
-                item.stateful = MODx.config['ms2_category_remember_tabs'] == 1;
-                item.stateId = 'minishop2-category-upd-tabpanel';
-                item.stateEvents = ['tabchange'];
-                item.getState = function () {
-                    return {activeTab: this.items.indexOf(this.getActiveTab())};
-                };
                 var tabs = [
                     this.getProducts(config)
                 ];
@@ -141,10 +135,10 @@ Ext.extend(miniShop2.panel.UpdateCategory, miniShop2.panel.Category, {
                     // Additional tabs
                     if (tab.id == 'modx-page-settings') {
                         tab.items = this.addOptions(config, tab.items);
-                        if (miniShop2.config['show_comments']) {
-                            tabs.push(this.getComments(config));
-                        }
                     }
+                }
+                if (miniShop2.config['show_comments']) {
+                    tabs.push(this.getComments(config));
                 }
                 item.items = tabs;
             }

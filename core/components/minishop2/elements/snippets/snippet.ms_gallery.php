@@ -1,9 +1,9 @@
 <?php
-/* @var array $scriptProperties */
-/* @var miniShop2 $miniShop2 */
-$miniShop2 = $modx->getService('minishop2');
+/** @var array $scriptProperties */
+/** @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('miniShop2');
 $miniShop2->initialize($modx->context->key);
-/* @var pdoFetch $pdoFetch */
+/** @var pdoFetch $pdoFetch */
 if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
@@ -21,7 +21,7 @@ if ($data = $product->getOne('Data')) {
 	$data->initializeMediaSource();
 	$properties = $data->mediaSource->getProperties();
 	if (isset($properties['thumbnails']['value'])) {
-		$fileTypes = $modx->fromJSON($properties['thumbnails']['value']);
+		$fileTypes = json_decode($properties['thumbnails']['value'], true);
 		foreach ($fileTypes as $v) {
 			$resolution[] = $v['w'].'x'.$v['h'];
 		}
@@ -38,7 +38,7 @@ if (!empty($filetype)) {
 }
 // processing additional query params
 if (!empty($scriptProperties['where'])) {
-	$tmp = $modx->fromJSON($scriptProperties['where']);
+	$tmp = json_decode($scriptProperties['where'], true);
 	if (is_array($tmp) && !empty($tmp)) {
 		$where = array_merge($where, $tmp);
 	}
@@ -48,7 +48,7 @@ unset($scriptProperties['where']);
 // Default parameters
 $default = array(
 	'class' => 'msProductFile'
-	,'where' => $modx->toJSON($where)
+	,'where' => json_encode($where)
 	,'select' => '{"msProductFile":"all"}'
 	,'limit' => $limit
 	,'sortby' => 'rank'

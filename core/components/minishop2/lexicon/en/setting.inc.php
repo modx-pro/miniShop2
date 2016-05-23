@@ -5,6 +5,7 @@
  * @package minishop2
  * @subpackage lexicon
  */
+$_lang['area_ms2_main'] = 'Main settings';
 $_lang['area_ms2_category'] = 'Category of the goods';
 $_lang['area_ms2_product'] = 'Product';
 $_lang['area_ms2_gallery'] = 'Gallery';
@@ -12,6 +13,11 @@ $_lang['area_ms2_cart'] = 'Cart';
 $_lang['area_ms2_order'] = 'Order';
 $_lang['area_ms2_frontend'] = 'Frontend';
 $_lang['area_ms2_payment'] = 'Payments';
+
+$_lang['setting_ms2_services'] = 'Store services';
+$_lang['setting_ms2_services_desc'] = 'Array with registered classes for cart, order, delivery and payment. Used by third-party extras to load their functionality.';
+$_lang['setting_ms2_plugins'] = 'Store plugins';
+$_lang['setting_ms2_plugins_desc'] = 'Array with registered plugins for extension objects of store model: products, customer profiles, etc.';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
@@ -31,6 +37,10 @@ $_lang['setting_ms2_product_tab_gallery'] = 'Product gallery tab';
 $_lang['setting_ms2_product_tab_gallery_desc'] = 'Display tab with product gallery?';
 $_lang['setting_ms2_product_tab_links'] = 'Product links tab';
 $_lang['setting_ms2_product_tab_links_desc'] = 'Display tab with product links?';
+$_lang['setting_ms2_product_tab_options'] = 'Product options tab';
+$_lang['setting_ms2_product_tab_options_desc'] = 'Display tab with product options?';
+$_lang['setting_ms2_product_tab_categories'] = 'Product categories tab';
+$_lang['setting_ms2_product_tab_categories_desc'] = 'Display tab with product categories?';
 
 $_lang['setting_ms2_category_show_comments'] = 'Display comments of the category';
 $_lang['setting_ms2_category_show_comments_desc'] = 'Display comments of all goods from category if component "Tickets" is installed.';

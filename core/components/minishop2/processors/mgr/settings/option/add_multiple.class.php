@@ -23,7 +23,7 @@ class msOptionAddMultipleProcessor extends modObjectProcessor {
         }
 
         $options = explode(',',$optionIds);
-        $categories = $this->modx->fromJSON($categoryIds);
+        $categories = json_decode($categoryIds, true);
 
         $path = dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR;
 

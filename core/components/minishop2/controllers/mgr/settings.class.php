@@ -1,22 +1,11 @@
 <?php
 
-class Minishop2MgrSettingsManagerController extends modExtraManagerController
+if (!class_exists('msManagerController')) {
+    require_once dirname(dirname(__FILE__)) . '/manager.class.php';
+}
+
+class Minishop2MgrSettingsManagerController extends msManagerController
 {
-    /** @var miniShop2 $minishop2 */
-    public $miniShop2;
-
-
-    /**
-     *
-     */
-    public function initialize()
-    {
-        $this->miniShop2 = $this->modx->getService('miniShop2');
-
-        parent::initialize();
-    }
-
-
     /**
      * @return string
      */
@@ -41,7 +30,7 @@ class Minishop2MgrSettingsManagerController extends modExtraManagerController
     public function loadCustomCssJs()
     {
         $this->addCss($this->miniShop2->config['cssUrl'] . 'mgr/main.css');
-        $this->addJavaScript($this->miniShop2->config['jsUrl'] . 'mgr/minishop2.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/minishop2.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.utils.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.combo.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/delivery.grid.js');
@@ -67,7 +56,7 @@ class Minishop2MgrSettingsManagerController extends modExtraManagerController
 
         $config = $this->miniShop2->config;
         $this->addHtml('<script type="text/javascript">
-            miniShop2.config = ' . $this->modx->toJSON($config) . ';
+            miniShop2.config = ' . json_encode($config) . ';
             Ext.onReady(function() {
                 MODx.add({xtype: "minishop2-panel-settings"});
             });

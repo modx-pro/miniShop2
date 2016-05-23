@@ -48,41 +48,12 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return mixed
-     */
-    public function checkPublishedOn()
-    {
-        $published = $this->getProperty('published', null);
-        if ($published !== null && $published != $this->object->get('published')) {
-            if (empty($published)) {
-                // if unpublish
-                $this->setProperty('publishedon', 0);
-                $this->setProperty('publishedby', 0);
-            } else {
-                // if publish
-                $publishedOn = $this->getProperty('publishedon', null);
-                $this->setProperty('publishedon', !empty($publishedOn) ? strtotime($publishedOn) : time());
-                $this->setProperty('publishedby', $this->modx->user->get('id'));
-            }
-        } else {
-            // if no change, unset publishedon/publishedby
-            if (empty($published)) {
-                $this->unsetProperty('publishedon');
-                $this->unsetProperty('publishedby');
-            }
-        }
-
-        return $this->getProperty('publishedon');
-    }
-
-
-    /**
      * @return int|mixed|string
      */
     public function checkFriendlyAlias()
     {
         if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
-            $alias = $this->object->id;
+            $alias = $this->object->get('id');
             $this->setProperty('alias', $alias);
         } else {
             $alias = parent::checkFriendlyAlias();
@@ -97,7 +68,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
      */
     public function beforeSave()
     {
-        $this->object->set('isfolder', 0);
+        $this->object->set('isfolder', false);
 
         return parent::beforeSave();
     }
@@ -108,9 +79,13 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
      */
     public function fixParents()
     {
+        if (!$this->modx->getOption('auto_isfolder', null, true)) {
+            return;
+        }
         if (!empty($this->oldParent) && !($this->oldParent instanceof msCategory)) {
             $oldParentChildrenCount = $this->modx->getCount('modResource',
-                array('parent' => $this->oldParent->get('id')));
+                array('parent' => $this->oldParent->get('id'))
+            );
             if ($oldParentChildrenCount <= 0 || $oldParentChildrenCount === null) {
                 $this->oldParent->set('isfolder', false);
                 $this->oldParent->save();
@@ -120,16 +95,6 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         if (!empty($this->newParent)) {
             $this->newParent->set('isfolder', true);
         }
-    }
-
-
-    /**
-     *
-     */
-    public function clearCache()
-    {
-        parent::clearCache();
-        $this->object->clearCache();
     }
 
 }

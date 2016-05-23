@@ -1,22 +1,11 @@
 <?php
 
-class Minishop2MgrOrdersManagerController extends modExtraManagerController
+if (!class_exists('msManagerController')) {
+    require_once dirname(dirname(__FILE__)) . '/manager.class.php';
+}
+
+class Minishop2MgrOrdersManagerController extends msManagerController
 {
-    /** @var miniShop2 $minishop2 */
-    public $miniShop2;
-
-
-    /**
-     *
-     */
-    public function initialize()
-    {
-        $this->miniShop2 = $this->modx->getService('miniShop2');
-
-        parent::initialize();
-    }
-
-
     /**
      * @return string
      */
@@ -59,7 +48,8 @@ class Minishop2MgrOrdersManagerController extends modExtraManagerController
         $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
         $grid_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_grid_fields', null,
-            'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment', true)));
+            'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment', true
+        )));
         $grid_fields = array_values(array_unique(array_merge($grid_fields, array(
             'id', 'user_id', 'num', 'type', 'actions'
         ))));
@@ -76,7 +66,7 @@ class Minishop2MgrOrdersManagerController extends modExtraManagerController
         $config['order_product_fields'] = $product_fields;
         $this->addHtml('
             <script type="text/javascript">
-                miniShop2.config = ' . $this->modx->toJSON($config) . ';
+                miniShop2.config = ' . json_encode($config) . ';
                 Ext.onReady(function() {
                     MODx.add({xtype: "minishop2-panel-orders"});
                 });
@@ -88,4 +78,5 @@ class Minishop2MgrOrdersManagerController extends modExtraManagerController
             'page' => 'orders',
         ));
     }
+
 }

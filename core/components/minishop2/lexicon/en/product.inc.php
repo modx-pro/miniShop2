@@ -57,7 +57,9 @@ $_lang['ms2_product_menutitle'] = 'Menu title';
 $_lang['ms2_product_hidemenu'] = 'Hide in menu';
 $_lang['ms2_product_uri_override'] = 'Override URI';
 $_lang['ms2_product_uri'] = 'URI';
-$_lang['ms2_product_hide_in_tree'] = 'Do not show in tree';
+$_lang['ms2_product_hide_children_in_tree'] = 'Hide children in tree';
+$_lang['ms2_product_hide_children_in_tree_help'] = 'This option will hide all products and categories in this resource tree. It overrides children option "show_in_tree".';
+$_lang['ms2_product_hide_in_tree'] = 'Hide in tree';
 $_lang['ms2_product_show_in_tree'] = 'Show in tree';
 $_lang['ms2_product_show_in_tree_help'] = 'By default, the goods is not displayed in the MODX resource tree for speed reasons. But you can enable displaying of some positions.';
 $_lang['ms2_product_syncsite'] = 'Empty Cache';
@@ -125,41 +127,26 @@ $_lang['ms2_product_selected_unpublish'] = 'Unpublish selected goods';
 $_lang['ms2_product_selected_delete'] = 'Delete selected goods';
 $_lang['ms2_product_selected_undelete'] = 'Undelete selected goods';
 
+//$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
 
-$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
+$_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Files not found.<br/><br/>You can load them by dragging directly into this pane, or by selecting the button at the top.</p>';
+$_lang['ms2_gallery_file_name'] = 'File name';
+$_lang['ms2_gallery_file_title'] = 'File title';
+$_lang['ms2_gallery_file_description'] = 'Description';
+$_lang['ms2_gallery_file_size'] = 'File size';
+$_lang['ms2_gallery_file_createdon'] = 'Created On';
+$_lang['ms2_gallery_file_createdby'] = 'Created By';
+$_lang['ms2_gallery_file_url'] = 'Url';
+$_lang['ms2_gallery_file_source'] = 'Media source';
 
-$_lang['ms2_gallery_emptymsg'] = 'Drag and drop files to this table for upload, or select them by clicking on the button at the top.';
-$_lang['ms2_gallery_introtext'] = 'Here you can manage the product gallery. Upload new images simply by dragging them to the table. The first image in the gallery is main for the product.';
-$_lang['ms2_gallery_filename'] = 'Filename';
-$_lang['ms2_gallery_title'] = 'Title';
-$_lang['ms2_gallery_description'] = 'Description';
-$_lang['ms2_gallery_size'] = 'Size';
-$_lang['ms2_gallery_status'] = 'Status';
-$_lang['ms2_gallery_progress'] = 'Progress';
-$_lang['ms2_gallery_inactive'] = 'Inactive';
-$_lang['ms2_gallery_createdon'] = 'Created on';
-$_lang['ms2_gallery_createdby'] = 'Created by';
-$_lang['ms2_gallery_url'] = 'Url';
-$_lang['ms2_gallery_name'] = 'Name';
-$_lang['ms2_gallery_status'] = 'Status';
-$_lang['ms2_gallery_button_upload'] = 'Select your files';
-$_lang['ms2_gallery_status_aborted'] = '<i class="bicon-remove"></i> Aborted';
-$_lang['ms2_gallery_status_error'] = '<i class="bicon-remove"></i> Error';
-$_lang['ms2_gallery_status_sending'] = '<i class="bicon-repeat"></i> Sending';
-$_lang['ms2_gallery_status_done'] = '<i class="bicon-remove"></i> Done';
-$_lang['ms2_gallery_uploads_clear'] = 'Clear';
-$_lang['ms2_gallery_generate_thumbs'] = 'Regenerate all thumbnails';
+$_lang['ms2_gallery_button_upload'] = 'Select files';
 
-$_lang['ms2_gallery_image_generate_thumbs'] = 'Regenerate thumbnails';
+$_lang['ms2_gallery_file_show'] = 'Open in a new window';
 $_lang['ms2_gallery_file_update'] = 'Update properties';
+$_lang['ms2_gallery_file_generate_thumbs'] = 'Regenerate thumbnails';
 $_lang['ms2_gallery_file_delete'] = 'Delete file';
 $_lang['ms2_gallery_file_delete_confirm'] = 'Are you shure you want to delete this file with all of it thumbnails? <br/> This operation is irreversible.';
 $_lang['ms2_gallery_file_delete_multiple'] = 'Delete files';
-$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Are you shure you want to delete this files with all of its thumbnails? <br/> This operation is irreversible.';
-
-$_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> Queued';
-$_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> Uploading';
-$_lang['ms2_gallery_status_code_4'] = '<i class="bicon-remove"></i> Error';
-$_lang['ms2_gallery_status_code_5'] = '<i class="bicon-ok"></i> Done';
+$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Are you sure you want to delete this files with all of its thumbnails? <br/> This operation is irreversible.';
 
 $_lang['ms2_gallery_errors'] = 'Errors on upload';

@@ -1,21 +1,13 @@
 <?php
 
-class msCategoryUpdateManagerController extends ResourceUpdateManagerController
+if (!class_exists('msResourceUpdateController')) {
+    require_once dirname(dirname(__FILE__)) . '/resource_update.class.php';
+}
+
+class msCategoryUpdateManagerController extends msResourceUpdateController
 {
     /** @var msCategory $resource */
     public $resource;
-    /** @var miniShop2 $miniShop2 */
-    public $miniShop2;
-
-
-    /**
-     *
-     */
-    public function initialize()
-    {
-        parent::initialize();
-        $this->miniShop2 = $this->modx->getService('miniShop2');
-    }
 
 
     /**
@@ -121,9 +113,9 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController
             MODx.config.publish_document = "' . $this->canPublish . '";
             MODx.onDocFormRender = "' . $this->onDocFormRender . '";
             MODx.ctx = "' . $this->ctx . '";
-            miniShop2.config = ' . $this->modx->toJSON($config) . ';
+            miniShop2.config = ' . json_encode($config) . ';
             Ext.onReady(function() {
-                MODx.load(' . $this->modx->toJSON($ready) . ');
+                MODx.load(' . json_encode($ready) . ');
             });
         // ]]>
         </script>');
@@ -199,7 +191,7 @@ class msCategoryUpdateManagerController extends ResourceUpdateManagerController
      */
     function loadPlugins()
     {
-        $plugins = $this->miniShop2->plugins->getPlugins();
+        $plugins = $this->miniShop2->loadPlugins();
         foreach ($plugins as $plugin) {
             if (!empty($plugin['manager']['msProductData'])) {
                 $this->addJavascript($plugin['manager']['msProductData']);

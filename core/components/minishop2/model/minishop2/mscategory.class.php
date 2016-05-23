@@ -1,16 +1,19 @@
 <?php
-
 /** @noinspection PhpIncludeInspection */
 require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/category/create.class.php';
 /** @noinspection PhpIncludeInspection */
 require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/category/update.class.php';
-
 
 class msCategory extends modResource
 {
     public $showInContextMenu = true;
 
 
+    /**
+     * msCategory constructor.
+     *
+     * @param xPDO $xpdo
+     */
     function __construct(xPDO & $xpdo)
     {
         parent:: __construct($xpdo);
@@ -113,13 +116,39 @@ class msCategory extends modResource
 
 
     /**
+     * @param array $options
+     *
+     * @return mixed
+     */
+    public function duplicate(array $options = array())
+    {
+        $category = parent::duplicate($options);
+
+        $options = $this->getMany('CategoryOptions');
+        /** @var msCategoryOption $option */
+        foreach ($options as $option) {
+            $option->set('category_id', $category->get('id'));
+
+            /** @var msCategoryOption $new */
+            $new = $this->xpdo->newObject('msCategoryOption');
+            $new->fromArray($option->toArray(), '', true, true);
+            $new->save();
+        }
+
+        return $category;
+    }
+
+
+    /**
      * @param null $cacheFlag
      *
      * @return bool
      */
     public function save($cacheFlag = null)
     {
-        if (parent::get('cache_key') != 'msCategory') {
+        if (!$this->isNew() && parent::get('class_key') != 'msCategory') {
+            parent::set('hide_children_in_tree', false);
+            // Show children
             $c = $this->xpdo->newQuery('msProduct');
             $c->command('UPDATE');
             $c->where(array(

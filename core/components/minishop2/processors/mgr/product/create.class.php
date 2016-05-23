@@ -14,6 +14,9 @@ class msProductCreateProcessor extends modResourceCreateProcessor
     public $object;
 
 
+    /**
+     * @return string
+     */
     public function prepareAlias()
     {
         if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
@@ -27,6 +30,9 @@ class msProductCreateProcessor extends modResourceCreateProcessor
     }
 
 
+    /**
+     * @return array|string
+     */
     public function beforeSet()
     {
         $this->setDefaultProperties(array(
@@ -34,46 +40,44 @@ class msProductCreateProcessor extends modResourceCreateProcessor
             'hidemenu' => $this->modx->getOption('hidemenu_default', null, true),
             'source' => $this->modx->getOption('ms2_product_source_default', null, 1),
             'template' => $this->modx->getOption('ms2_template_product_default', null,
-                $this->modx->getOption('default_template')),
+                $this->modx->getOption('default_template')
+            ),
         ));
 
         return parent::beforeSet();
     }
 
 
+    /**
+     * @return mixed
+     */
     public function beforeSave()
     {
-        $this->object->set('isfolder', 0);
+        $this->object->set('isfolder', false);
 
         return parent::beforeSave();
     }
 
 
+    /**
+     * @return mixed
+     */
     public function afterSave()
     {
-        if ($this->object->alias == 'empty-resource-alias') {
-            $this->object->set('alias', $this->object->id);
+        if ($this->object->get('alias') == 'empty-resource-alias') {
+            $this->object->set('alias', $this->object->get('id'));
             $this->object->save();
         }
-
         // Update resourceMap before OnDocSaveForm event
         $results = $this->modx->cacheManager->generateContext($this->object->context_key);
-        $this->modx->context->resourceMap = $results['resourceMap'];
-        $this->modx->context->aliasMap = $results['aliasMap'];
-
-        return parent::afterSave();
-    }
-
-
-    public function clearCache()
-    {
-        $clear = parent::clearCache();
-        /** @var msCategory $category */
-        if ($category = $this->object->getOne('Category')) {
-            $category->clearCache();
+        if (isset($results['resourceMap'])) {
+            $this->modx->context->resourceMap = $results['resourceMap'];
+        }
+        if (isset($results['aliasMap'])) {
+            $this->modx->context->aliasMap = $results['aliasMap'];
         }
 
-        return $clear;
+        return parent::afterSave();
     }
 
 }

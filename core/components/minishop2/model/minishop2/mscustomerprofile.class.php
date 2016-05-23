@@ -6,18 +6,17 @@ class msCustomerProfile extends xPDOObject
     public $miniShop2;
 
 
-    public function __construct(xPDO $xpdo)
-    {
-        parent::__construct($xpdo);
-
-        $this->miniShop2 = $xpdo->getService('miniShop2');
-        $this->miniShop2->plugins->loadMap('msCustomerProfile');
-    }
-
-
+    /**
+     * @param xPDO $xpdo
+     * @param string $className
+     * @param mixed $criteria
+     * @param bool $cacheFlag
+     *
+     * @return msCustomerProfile
+     */
     public static function load(xPDO & $xpdo, $className, $criteria, $cacheFlag = true)
     {
-        /* @var $instance msCustomerProfile */
+        /** @var $instance msCustomerProfile */
         $instance = parent::load($xpdo, 'msCustomerProfile', $criteria, $cacheFlag);
 
         if (!is_object($instance) || !($instance instanceof $className)) {

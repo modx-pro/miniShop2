@@ -36,7 +36,7 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
         $slave = $this->getProperty('slave');
 
         if (!$link || !$master || !$slave) {
-            return $this->failure('');
+            return $this->failure('Wrong object key');
         }
 
         /** @var msLink $msLink */

@@ -9,7 +9,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         $response = $this->modx->runProcessor($this->processor, $data, $this->path);
         $response = $response->getResponse();
         if (!is_array($response)) {
-            $response = $this->modx->fromJSON($response);
+            $response = json_decode($response, true);
         }
 
         echo "\r\n".$this->processor ." response:\r\n";

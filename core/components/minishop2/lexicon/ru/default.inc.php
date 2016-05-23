@@ -81,6 +81,7 @@ $_lang['ms2_category_view'] = 'Просмотреть на сайте';
 $_lang['ms2_category_new'] = 'Новая категория';
 $_lang['ms2_category_option_add'] = 'Добавить характеристику';
 $_lang['ms2_category_option_rank'] = 'Порядок сортировки';
+$_lang['ms2_category_show_nested'] = 'Показывать вложенные товары';
 
 $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';

@@ -26,7 +26,9 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
     getColumns: function () {
         var all = {
             id: {width: 35},
-            customer: {width: 100, renderer: miniShop2.utils.userLink},
+            customer: {width: 100, renderer: function(val, cell, row) {
+                return miniShop2.utils.userLink(val, row.data['user_id'], true);
+            }},
             num: {width: 50},
             receiver: {width: 100},
             createdon: {width: 75, renderer: miniShop2.utils.formatDate},
@@ -60,7 +62,7 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
         return columns;
     },
 
-    getTopBar: function (config) {
+    getTopBar: function () {
         return [];
     },
 
@@ -160,7 +162,7 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
         });
     },
 
-    removeOrder: function (btn, e) {
+    removeOrder: function () {
         var ids = this._getSelectedIds();
 
         Ext.MessageBox.confirm(
@@ -172,8 +174,7 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
                 if (val == 'yes') {
                     this.orderAction('remove');
                 }
-            },
-            this
+            }, this
         );
     },
 

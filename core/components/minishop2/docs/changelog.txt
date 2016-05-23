@@ -2,7 +2,20 @@ Changelog for miniShop2.
 
 2.4.0 beta2
 ==============
-- Added system setting ms2_template_category_default.
+- Added system setting "ms2_template_category_default".
+- Improved referrals registration.
+- Improved ExtJS product panel.
+- Emails chunks are now processed by pdoTools.
+- Replaced modX::toJSON and modX::fromJSON calls to native functions.
+- New system to register 3rd party classes of extensions.
+- New system to register 3rd party plugins for objects model.
+- Improved duplicate of products and categories.
+- The data fields of the product are added to the tags of the resource: [[*price]], [[*article]] etc.
+- Improved registration of JS and CSS on frontend.
+- Javascript callbacks now are arrays with functions. New functions to register and remove callbacks.
+- Updated model for MySQL 5.7.
+- Improved product gallery.
+- New logo.
 
 2.4.0 beta1
 ==============

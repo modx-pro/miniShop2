@@ -19,7 +19,7 @@ class msOrderStatusFromGridProcessor extends msOrderStatusUpdateProcessor {
 			return $this->modx->lexicon('invalid_data');
 		}
 
-		$data = $this->modx->fromJSON($data);
+		$data = json_decode($data, true);
 		if (empty($data)) {
 			return $this->modx->lexicon('invalid_data');
 		}

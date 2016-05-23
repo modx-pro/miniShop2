@@ -1,83 +1,51 @@
 <?php
+/** @var modX $modx */
 switch ($modx->event->name) {
 
     case 'OnMODXInit':
+        // Load extensions
         /** @var miniShop2 $miniShop2 */
         if ($miniShop2 = $modx->getService('miniShop2')) {
-            $miniShop2->plugins->loadMap();
+            $miniShop2->loadMap();
         }
         break;
 
     case 'OnHandleRequest':
-    case 'OnLoadWebDocument':
+        // Handle ajax requests
         $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-
-        if (empty($_REQUEST['ms2_action']) || ($isAjax && $modx->event->name != 'OnHandleRequest') || (!$isAjax && $modx->event->name != 'OnLoadWebDocument')) {
+        if (empty($_REQUEST['ms2_action']) || !$isAjax) {
             return;
         }
-        $action = trim($_REQUEST['ms2_action']);
-        $ctx = !empty($_REQUEST['ctx']) ? (string)$_REQUEST['ctx'] : 'web';
-        if ($ctx != 'web') {
-            $modx->switchContext($ctx);
-        }
-
-        /* @var miniShop2 $miniShop2 */
-        $miniShop2 = $modx->getService('minishop2');
-        $miniShop2->initialize($ctx, array('json_response' => $isAjax));
-        if (!($miniShop2 instanceof miniShop2)) {
-            @session_write_close();
-            exit('Could not initialize miniShop2');
-        }
-
-        switch ($action) {
-            case 'cart/add':
-                $response = $miniShop2->cart->add(@$_POST['id'], @$_POST['count'], @$_POST['options']);
-                break;
-            case 'cart/change':
-                $response = $miniShop2->cart->change(@$_POST['key'], @$_POST['count']);
-                break;
-            case 'cart/remove':
-                $response = $miniShop2->cart->remove(@$_POST['key']);
-                break;
-            case 'cart/clean':
-                $response = $miniShop2->cart->clean();
-                break;
-            case 'cart/get':
-                $response = $miniShop2->cart->get();
-                break;
-            case 'order/add':
-                $response = $miniShop2->order->add(@$_POST['key'], @$_POST['value']);
-                break;
-            case 'order/submit':
-                $response = $miniShop2->order->submit($_POST);
-                break;
-            case 'order/getcost':
-                $response = $miniShop2->order->getCost();
-                break;
-            case 'order/getrequired':
-                $response = $miniShop2->order->getDeliveryRequiresFields(@$_POST['id']);
-                break;
-            case 'order/clean':
-                $response = $miniShop2->order->clean();
-                break;
-            case 'order/get':
-                $response = $miniShop2->order->get();
-                break;
-            default:
-                $message = ($_REQUEST['ms2_action'] != $action)
-                    ? 'ms2_err_register_globals'
-                    : 'ms2_err_unknown';
-                $response = $miniShop2->error($message);
-        }
-
-        if ($isAjax) {
+        /** @var miniShop2 $miniShop2 */
+        if ($miniShop2 = $modx->getService('miniShop2')) {
+            $response = $miniShop2->handleRequest($_REQUEST['ms2_action'], @$_POST);
             @session_write_close();
             exit($response);
         }
         break;
 
+    case 'OnLoadWebDocument':
+        // Handle non-ajax requests
+        if (!empty($_REQUEST['ms2_action'])) {
+            if ($miniShop2 = $modx->getService('miniShop2')) {
+                $miniShop2->handleRequest($_REQUEST['ms2_action'], @$_POST);
+            }
+        }
+        // Set product fields as [[*resource]] tags
+        if ($modx->resource->get('class_key') == 'msProduct') {
+            if ($dataMeta = $modx->getFieldMeta('msProductData')) {
+                unset($dataMeta['id']);
+                $modx->resource->_fieldMeta = array_merge(
+                    $modx->resource->_fieldMeta,
+                    $dataMeta
+                );
+            }
+        }
+        break;
+
     case 'OnWebPageInit':
-        /* @var msCustomerProfile $profile */
+        // Set referrer cookie
+        /** @var msCustomerProfile $profile */
         $referrerVar = $modx->getOption('ms2_referrer_code_var', null, 'msfrom', true);
         $cookieVar = $modx->getOption('ms2_referrer_cookie_var', null, 'msreferrer', true);
         $cookieTime = $modx->getOption('ms2_referrer_time', null, 86400 * 365, true);
@@ -85,21 +53,32 @@ switch ($modx->event->name) {
         if (!$modx->user->isAuthenticated() && !empty($_REQUEST[$referrerVar])) {
             $code = trim($_REQUEST[$referrerVar]);
             if ($profile = $modx->getObject('msCustomerProfile', array('referrer_code' => $code))) {
-                $referrer = $profile->id;
+                $referrer = $profile->get('id');
                 setcookie($cookieVar, $referrer, time() + $cookieTime);
             }
-        } elseif ($modx->user->isAuthenticated() && !empty($_COOKIE[$cookieVar])) {
-            if ($profile = $modx->getObject('msCustomerProfile', $modx->user->id)) {
-                if (!$profile->get('referrer_id') && $_COOKIE[$cookieVar] != $modx->user->id) {
-                    $profile->set('referrer_id', $_COOKIE[$cookieVar]);
-                    $profile->save();
+        }
+        break;
+
+    case 'OnUserSave':
+        // Save referrer id
+        if ($mode == modSystemEvent::MODE_NEW) {
+            /** @var modUser $user */
+            $cookieVar = $modx->getOption('ms2_referrer_cookie_var', null, 'msreferrer', true);
+            $cookieTime = $modx->getOption('ms2_referrer_time', null, 86400 * 365, true);
+            if ($modx->context->key != 'mgr' && !empty($_COOKIE[$cookieVar])) {
+                if ($profile = $modx->getObject('msCustomerProfile', $user->get('id'))) {
+                    if (!$profile->get('referrer_id') && $_COOKIE[$cookieVar] != $user->get('id')) {
+                        $profile->set('referrer_id', (int)$_COOKIE[$cookieVar]);
+                        $profile->save();
+                    }
                 }
+                setcookie($cookieVar, '', time() - $cookieTime);
             }
-            setcookie($cookieVar, '', time() - $cookieTime);
         }
         break;
 
     case 'msOnChangeOrderStatus':
+        // Update customer stat
         if (empty($status) || $status != 2) {
             return;
         }
@@ -107,19 +86,19 @@ switch ($modx->event->name) {
         /** @var modUser $user */
         if ($user = $order->getOne('User')) {
             $q = $modx->newQuery('msOrder', array('type' => 0));
-            $q->innerJoin('modUser', 'modUser', array('`modUser`.`id` = `msOrder`.`user_id`'));
+            $q->innerJoin('modUser', 'modUser', array('modUser.id = msOrder.user_id'));
             $q->innerJoin('msOrderLog', 'msOrderLog', array(
-                '`msOrderLog`.`order_id` = `msOrder`.`id`',
+                'msOrderLog.order_id = msOrder.id',
                 'msOrderLog.action' => 'status',
                 'msOrderLog.entry' => $status,
             ));
-            $q->where(array('msOrder.user_id' => $user->id));
+            $q->where(array('msOrder.user_id' => $user->get('id')));
             $q->groupby('msOrder.user_id');
-            $q->select('SUM(`msOrder`.`cost`)');
+            $q->select('SUM(msOrder.cost)');
             if ($q->prepare() && $q->stmt->execute()) {
-                $spent = $q->stmt->fetch(PDO::FETCH_COLUMN);
+                $spent = $q->stmt->fetchColumn();
                 /** @var msCustomerProfile $profile */
-                if ($profile = $modx->getObject('msCustomerProfile', $user->id)) {
+                if ($profile = $modx->getObject('msCustomerProfile', $user->get('id'))) {
                     $profile->set('spent', $spent);
                     $profile->save();
                 }

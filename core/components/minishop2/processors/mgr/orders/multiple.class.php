@@ -11,7 +11,7 @@ class msOrderMultipleProcessor extends modProcessor
         if (!$method = $this->getProperty('method', false)) {
             return $this->failure();
         }
-        $ids = $this->modx->fromJSON($this->getProperty('ids'));
+        $ids = json_decode($this->getProperty('ids'), true);
         if (empty($ids)) {
             return $this->success();
         }

@@ -1,6 +1,6 @@
 <?php
-/* @var array $scriptProperties */
-/* @var pdoFetch $pdoFetch */
+/** @var array $scriptProperties */
+/** @var pdoFetch $pdoFetch */
 if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
 $pdoFetch = new pdoFetch($modx, $scriptProperties);
 

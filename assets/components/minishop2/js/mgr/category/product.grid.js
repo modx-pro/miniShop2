@@ -69,7 +69,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             },
             publishedby: {width: 100, sortable: true, editor: {xtype: 'minishop2-combo-user', name: 'publishedby'}},
             menutitle: {width: 100, sortable: true, editor: {xtype: 'textfield'}},
-            menuindex: {width: 50, sortable: true, editor: {xtype: 'numberfield'}},
+            menuindex: {width: 35, sortable: true, header: 'IDx', editor: {xtype: 'numberfield'}},
             uri: {width: 50, sortable: true, editor: {xtype: 'textfield'}},
             uri_override: {width: 50, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
             show_in_tree: {width: 50, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
@@ -146,11 +146,27 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             text: '<i class="icon icon-folder-open"></i> ' + _('ms2_category_create'),
             handler: this.createCategory,
             scope: this
-        }, {
+        }, '-', {
             text: '<i class="icon icon-trash-o action-red"></i>',
             handler: this._emptyRecycleBin,
             scope: this,
-        }, '->', this.getSearchField()];
+        }, '->', {
+            xtype: 'xcheckbox',
+            name: 'nested',
+            width: 200,
+            boxLabel: _('ms2_category_show_nested'),
+            ctCls: 'tbar-checkbox',
+            checked: MODx.config['ms2_category_show_nested_products'] == 1,
+            listeners: {
+                check: {fn: this.nestedFilter, scope: this}
+            }
+        }, '-', this.getSearchField()];
+    },
+
+    nestedFilter: function (checkbox, checked) {
+        var s = this.getStore();
+        s.baseParams.nested = checked ? 1 : 0;
+        this.getBottomToolbar().changePage(1);
     },
 
     productAction: function (method) {
@@ -290,7 +306,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         return row.data['vendor_name'];
     },
 
-    _renderPagetitle: function(value, cell, row) {
+    _renderPagetitle: function (value, cell, row) {
         var link = miniShop2.utils.productLink(value, row['data']['id']);
         if (!row.data['category_name']) {
             return String.format(
@@ -300,11 +316,15 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             );
         }
         else {
+            var category_link = miniShop2.utils.productLink(row.data['category_name'], row.data['parent']);
             return String.format(
-                '<div class="nested-product"><span class="id">({0})</span>{1}<div class="product-category">{2}</div></div>',
+                '<div class="nested-product">\
+                    <span class="id">({0})</span>{1}\
+                    <div class="product-category">{2}</div>\
+                </div>',
                 row['data']['id'],
                 link,
-                row.data['category_name']
+                category_link
             );
         }
     },

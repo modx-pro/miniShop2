@@ -6,7 +6,7 @@ class msOrder extends xPDOSimpleObject {
 		$cart_cost = $cost = $weight = 0;
 
 		$products = $this->getMany('Products');
-		/* @var msOrderProduct $product */
+		/** @var msOrderProduct $product */
 		foreach ($products as $product) {
 			$count = $product->get('count');
 			$cart_cost += $product->get('price') * $count;

@@ -79,7 +79,7 @@ class msOption extends xPDOSimpleObject {
      */
     public function getValue($product_id) {
         /** @var miniShop2 $minishop */
-        $minishop = $this->xpdo->getService('minishop2');
+        $minishop = $this->xpdo->getService('miniShop2');
 
         /** @var msOptionType $type */
         $type = $minishop->getOptionType($this);
@@ -102,7 +102,7 @@ class msOption extends xPDOSimpleObject {
      */
 //    public function setValue($product_id, $value) {
 //        /** @var miniShop2 $minishop */
-//        $minishop = $this->xpdo->getService('minishop2');
+//        $minishop = $this->xpdo->getService('miniShop2');
 //
 //        /** @var msOptionType $type */
 //        $type = $minishop->getOptionType($this);
@@ -120,7 +120,7 @@ class msOption extends xPDOSimpleObject {
 
     public function getManagerField($field) {
         /** @var miniShop2 $minishop */
-        $minishop = $this->xpdo->getService('minishop2');
+        $minishop = $this->xpdo->getService('miniShop2');
 
         /** @var msOptionType $type */
         $type = $minishop->getOptionType($this);

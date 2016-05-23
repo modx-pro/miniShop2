@@ -8,12 +8,12 @@ $modx->getService('error','error.modError');
 $modx->setLogLevel(modX::LOG_LEVEL_ERROR);
 $modx->setLogTarget('FILE');
 
-/* @var miniShop2 $miniShop2 */
-$miniShop2 = $modx->getService('minishop2');
+/** @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('miniShop2');
 $miniShop2->loadCustomClasses('payment');
 
 if (!class_exists('PayPal')) {exit( 'Error: could not load payment class "PayPal".');}
-/* @var msPaymentInterface|PayPal $handler */
+/** @var msPaymentInterface|PayPal $handler */
 $handler = new PayPal($modx->newObject('msOrder'));
 
 if (isset($_GET['action']) && $_GET['action'] == 'continue' && !empty($_GET['msorder']) && !empty($_GET['mscode'])) {
