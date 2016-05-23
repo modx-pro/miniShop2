@@ -391,9 +391,10 @@ typeof $.fn.jGrowl == 'function' || document.write('<script src="' + miniShop2Co
 					document.location.href = response.data['redirect'];
 				}
 				else if (response.data['msorder']) {
-					document.location.href = /\?/.test(document.location.href)
-						? document.location.href + '&msorder=' + response.data['msorder']
-						: document.location.href + '?msorder=' + response.data['msorder'];
+					var dlh=document.location.href.split('#')[0];
+					document.location.href = /\?/.test(dlh)
+						? dlh + '&msorder=' + response.data['msorder']
+						: dlh + '?msorder=' + response.data['msorder'];
 				}
 				else {
 					location.reload();
