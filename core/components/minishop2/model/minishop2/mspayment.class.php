@@ -36,6 +36,10 @@ class msPayment extends xPDOSimpleObject
             $class = 'msPaymentHandler';
         }
 
+        if ($class != 'msPaymentHandler') {
+            $this->ms2->loadCustomClasses('payment');
+        }
+
         if (!class_exists($class)) {
             $this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Payment handler class "' . $class . '" not found.');
             $class = 'msPaymentHandler';

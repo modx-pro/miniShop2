@@ -36,6 +36,10 @@ class msDelivery extends xPDOSimpleObject
             $class = 'msDeliveryHandler';
         }
 
+        if ($class != 'msDeliveryHandler') {
+            $this->ms2->loadCustomClasses('delivery');
+        }
+
         if (!class_exists($class)) {
             $this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Delivery handler class "' . $class . '" not found.');
             $class = 'msDeliveryHandler';
