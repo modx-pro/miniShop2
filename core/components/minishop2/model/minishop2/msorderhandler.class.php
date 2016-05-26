@@ -219,7 +219,7 @@ class msOrderHandler implements msOrderInterface
                 }
                 break;
             case 'index':
-                $value = substr(preg_replace('/[^-0-9]/iu', '', $value), 0, 10);
+                $value = substr(preg_replace('/[^-0-9a-z]/iu', '', $value), 0, 10);
                 break;
         }
 
