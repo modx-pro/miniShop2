@@ -25,7 +25,7 @@ class msProductCreateManagerController extends msResourceCreateController
      */
     public function getDefaultTemplate()
     {
-        if (!$template = $this->modx->getOption('ms2_template_category_default')) {
+        if (!$template = $this->modx->getOption('ms2_template_product_default')) {
             $template = parent::getDefaultTemplate();
         }
 
