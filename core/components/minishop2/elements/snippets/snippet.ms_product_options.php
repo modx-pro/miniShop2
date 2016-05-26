@@ -10,7 +10,10 @@ $pdoFetch = new pdoFetch($modx, $scriptProperties);
 
 $output = '';
 
-if (empty($product) && !empty($input)) {$product = $input;}
+/** @var msProduct $product */
+if (empty($product) && !empty($input)) {
+    $product = $input;
+}
 if (empty($outputSeparator)) {$outputSeparator = "\n";}
 $options = explode(",",$modx->getOption('options',$scriptProperties,''));
 
@@ -18,8 +21,11 @@ $product = !empty($product) ? $modx->getObject('msProduct', $product) : $product
 if (!($product instanceof msProduct)) {
     $output = 'This resource is not instance of msProduct class.';
 }
-
-$optionKeys = $product->getOptionKeys();
+$optionKeys = array();
+/** @var msProductData $data */
+if ($data = $product->getOne('Data')) {
+    $optionKeys = $data->getOptionKeys();
+}
 $productData = $product->toArray();
 
 $ignoreOptions = explode(',', trim($modx->getOption('ignoreOptions', $scriptProperties, '')));

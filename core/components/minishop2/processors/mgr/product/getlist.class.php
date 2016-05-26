@@ -48,7 +48,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         $query = trim($this->getProperty('query'));
         if (!empty($query)) {
             if (is_numeric($query)) {
-                $c->where(array('msProduct.id' => $query));
+                $c->where(array(
+                    'msProduct.id' => $query,
+                    'OR:Data.article:=' => $query,
+                ));
             } else {
                 $c->where(array(
                     'msProduct.pagetitle:LIKE' => "%{$query}%",
