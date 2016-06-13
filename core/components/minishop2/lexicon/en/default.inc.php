@@ -147,6 +147,7 @@ $_lang['ms2_err_gallery_ns'] = 'Could not read file';
 $_lang['ms2_err_gallery_ext'] = 'Wrong file extension';
 $_lang['ms2_err_gallery_thumb'] = 'Could not generate thumbnails. See system log for details.';
 $_lang['ms2_err_gallery_exists'] = 'Such an image is already in the product gallery.';
+$_lang['ms2_err_wrong_image'] = 'File is not a valid image.';
 
 $_lang['ms2_email_subject_new_user'] = 'You made the order #[[+num]] on the [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'You have a new order #[[+num]]';

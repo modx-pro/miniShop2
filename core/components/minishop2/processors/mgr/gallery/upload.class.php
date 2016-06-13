@@ -59,13 +59,13 @@ class msProductFileUploadProcessor extends modObjectProcessor
         if (!empty($allowed_extensions) && !in_array($extension, $allowed_extensions)) {
             @unlink($data['tmp_name']);
 
-            return $this->failure($this->modx->lexicon('ms2gallery_err_wrong_ext'));
+            return $this->failure($this->modx->lexicon('ms2_err_gallery_ext'));
         } else {
             if (in_array($extension, $image_extensions)) {
                 if (empty($data['properties']['height']) || empty($data['properties']['width'])) {
                     @unlink($data['tmp_name']);
 
-                    return $this->failure($this->modx->lexicon('ms2gallery_err_wrong_image'));
+                    return $this->failure($this->modx->lexicon('ms2_err_wrong_image'));
                 }
                 $type = 'image';
             } else {

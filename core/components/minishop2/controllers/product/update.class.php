@@ -57,8 +57,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
         $this->addLastJavascript($assetsUrl . 'js/mgr/product/product.common.js');
         $this->addLastJavascript($assetsUrl . 'js/mgr/product/update.js');
 
-        $show_gallery = $this->modx->getOption('ms2_product_tab_gallery', null, true) &&
-            !$this->modx->getOption('ms2gallery_disable_for_ms2', null, false);
+        $show_gallery = $this->modx->getOption('ms2_product_tab_gallery', null, true);
         if ($show_gallery) {
             $this->addLastJavascript($assetsUrl . 'js/mgr/misc/plupload/plupload.full.min.js');
             $this->addLastJavascript($assetsUrl . 'js/mgr/misc/ext.ddview.js');

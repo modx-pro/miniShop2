@@ -21,7 +21,7 @@ miniShop2.panel.Gallery = function (config) {
                 id: 'minishop2-gallery-images-panel',
                 cls: 'modx-pb-view-ct',
                 product_id: config.record.id,
-                pageSize: config.pageSize || MODx.config.ms2gallery_page_size
+                pageSize: config.pageSize
             }]
         }]
     });
@@ -175,7 +175,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     fireAlert: function () {
-        MODx.msg.alert(_('ms2gallery_errors'), this.errors);
+        MODx.msg.alert(_('ms2_errors'), this.errors);
     },
 
     /*

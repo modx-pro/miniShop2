@@ -146,6 +146,7 @@ $_lang['ms2_err_gallery_ns'] = 'Передан пустой файл';
 $_lang['ms2_err_gallery_ext'] = 'Неверное расширение файла';
 $_lang['ms2_err_gallery_exists'] = 'Такое изображение уже есть в галерее товара.';
 $_lang['ms2_err_gallery_thumb'] = 'Не получилось сгенерировать превьюшки. Смотрите системный лог.';
+$_lang['ms2_err_wrong_image'] = 'Файл не является корректным изображением.';
 
 $_lang['ms2_email_subject_new_user'] = 'Вы сделали заказ #[[+num]] на сайте [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'У вас новый заказ #[[+num]]';

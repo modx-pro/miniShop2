@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 beta3
+==============
+- Small improvements of product gallery.
+
 2.4.0 beta2
 ==============
 - Added system setting "ms2_template_category_default".

@@ -1,13 +1,17 @@
 <?php
 
-class msOptionGetTypesProcessor extends modObjectGetListProcessor {
+class msOptionGetTypesProcessor extends modObjectGetListProcessor
+{
 
     public $languageTopics = array('minishop2:manager');
+
+
     /**
      * Get the data of the query
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         /** @var miniShop2 $ms */
         $ms = $this->modx->getService('miniShop2');
         $data = array();
@@ -21,8 +25,8 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor {
             if (class_exists($className)) {
                 $data['results'][] = array(
                     'name' => $name,
-                    'caption' => $this->modx->lexicon('ms2_ft_'.$name),
-                    'xtype' => $className::$xtype
+                    'caption' => $this->modx->lexicon('ms2_ft_' . $name),
+                    'xtype' => $className::$xtype,
                 );
             }
         }
@@ -35,13 +39,43 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor {
         return $data;
     }
 
+
     /**
-     * Prepare the row for iteration
-     * @param array $object
+     * Iterate across the data
+     *
+     * @param array $data
+     *
      * @return array
      */
-    public function prepareRow(array $object) {
-        return $object;
+    public function iterate(array $data)
+    {
+        $list = array();
+        $list = $this->beforeIteration($list);
+        $this->currentIndex = 0;
+        /** @var array $array */
+        foreach ($data['results'] as $array) {
+            $array = $this->prepareArray($array);
+            if (!empty($array) && is_array($array)) {
+                $list[] = $array;
+                $this->currentIndex++;
+            }
+        }
+        $list = $this->afterIteration($list);
+
+        return $list;
+    }
+
+
+    /**
+     * Prepare the row for iteration
+     *
+     * @param array $array
+     *
+     * @return array
+     */
+    public function prepareArray($array)
+    {
+        return $array;
     }
 }
 

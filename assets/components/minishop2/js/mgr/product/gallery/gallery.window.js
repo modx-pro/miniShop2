@@ -2,7 +2,7 @@ miniShop2.window.Image = function (config) {
     config = config || {};
 
     Ext.applyIf(config, {
-        title: config.record['name'] || _('ms2gallery_file_update'),
+        title: config.record['name'],
         width: 700,
         baseParams: {
             action: 'mgr/gallery/update',
@@ -28,7 +28,6 @@ Ext.extend(miniShop2.window.Image, miniShop2.window.Default, {
             ms2_gallery_file_source: config.record['source_name'],
             ms2_gallery_file_size: config.record['size'],
             ms2_gallery_file_createdon: config.record['createdon'],
-            //ms2gallery_rank: config.record['rank'],
         };
         var details = '';
         for (var i in fields) {

@@ -137,7 +137,7 @@ class msProductFile extends xPDOSimpleObject
                 return $phpThumb->outputImageData;
             }
         }
-        $this->xpdo->log(modX::LOG_LEVEL_ERROR, '[ms2Gallery] Could not generate thumbnail for "' .
+        $this->xpdo->log(modX::LOG_LEVEL_ERROR, '[miniShop2] Could not generate thumbnail for "' .
             $this->get('url') . '". ' . print_r($phpThumb->debugmessages, true)
         );
         @unlink($tf);
