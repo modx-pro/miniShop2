@@ -85,6 +85,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             'show_comments' => $showComments,
             'product_fields' => $product_fields,
             'grid_fields' => $grid_fields,
+            'default_thumb' => $this->miniShop2->config['defaultThumb'],
         );
         $ready = array(
             'xtype' => 'minishop2-page-category-update',

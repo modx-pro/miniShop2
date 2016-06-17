@@ -2,6 +2,7 @@
 
 /**
  * @property int id
+ * @property int rank
  */
 class msPayment extends xPDOSimpleObject
 {

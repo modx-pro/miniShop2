@@ -90,7 +90,7 @@ miniShop2.combo.Category = function (config) {
     config = config || {};
     Ext.applyIf(config, {
         id: 'minishop2-combo-section',
-        fieldLabel: _('ms2_link'),
+        fieldLabel: _('ms2_category'),
         description: '<b>[[*parent]]</b><br />' + _('ms2_product_parent_help'),
         fields: ['id', 'pagetitle', 'parents'],
         valueField: 'id',
@@ -283,7 +283,7 @@ miniShop2.combo.Chunk = function (config) {
     config = config || {};
     Ext.applyIf(config, {
         name: 'chunk',
-        hiddenName: 'chunk',
+        hiddenName: config.name || 'chunk',
         displayField: 'name',
         valueField: 'id',
         editable: true,
@@ -330,7 +330,7 @@ Ext.reg('minishop2-combo-resource', miniShop2.combo.Resource);
 miniShop2.combo.Browser = function (config) {
     config = config || {};
 
-    if (config.length != 0 && typeof config.openTo !== "undefined") {
+    if (config.length != 0 && config.openTo != undefined) {
         if (!/^\//.test(config.openTo)) {
             config.openTo = '/' + config.openTo;
         }
@@ -352,52 +352,44 @@ miniShop2.combo.Browser = function (config) {
 Ext.extend(miniShop2.combo.Browser, Ext.form.TriggerField, {
     browser: null,
 
-    onTriggerClick: function (btn) {
+    onTriggerClick: function () {
         if (this.disabled) {
             return false;
         }
-
-        if (this.browser === null) {
-            this.browser = MODx.load({
-                xtype: 'modx-browser',
-                id: Ext.id(),
-                multiple: true,
-                source: this.config.source || MODx.config['default_media_source'],
-                rootVisible: this.config.rootVisible || false,
-                allowedFileTypes: this.config.allowedFileTypes || '',
-                wctx: this.config.wctx || 'web',
-                openTo: this.config.openTo || '',
-                rootId: this.config.rootId || '/',
-                hideSourceCombo: this.config.hideSourceCombo || false,
-                hideFiles: this.config.hideFiles || true,
-                listeners: {
-                    'select': {
-                        fn: function (data) {
-                            this.setValue(data.fullRelativeUrl);
-                            this.fireEvent('select', data);
-                        }, scope: this
-                    }
+        var browser = MODx.load({
+            xtype: 'modx-browser',
+            id: Ext.id(),
+            multiple: true,
+            source: this.config.source || MODx.config['default_media_source'],
+            rootVisible: this.config.rootVisible || false,
+            allowedFileTypes: this.config.allowedFileTypes || '',
+            wctx: this.config.wctx || 'web',
+            openTo: this.config.openTo || '',
+            rootId: this.config.rootId || '/',
+            hideSourceCombo: this.config.hideSourceCombo || false,
+            hideFiles: this.config.hideFiles || true,
+            listeners: {
+                select: {
+                    fn: function (data) {
+                        this.setValue(data.fullRelativeUrl);
+                        this.fireEvent('select', data);
+                    }, scope: this
                 }
-            });
-        }
-        this.browser.win.buttons[0].on('disable', function () {
+            },
+        });
+        browser.win.buttons[0].on('disable', function () {
             this.enable()
         });
-        this.browser.win.tree.on('click', function (n) {
-                this.setValue(this.getPath(n));
-            }, this
-        );
-        this.browser.win.tree.on('dblclick', function (n) {
-                this.setValue(this.getPath(n));
-                this.browser.hide()
-            }, this
-        );
-        this.browser.show(btn);
-        return true;
+        browser.win.tree.on('click', function (n) {
+            this.setValue(this.getPath(n));
+        }, this);
+        browser.win.tree.on('dblclick', function (n) {
+            this.setValue(this.getPath(n));
+            browser.hide()
+        }, this);
+        browser.show();
     },
-    onDestroy: function () {
-        miniShop2.combo.Browser.superclass.onDestroy.call(this);
-    },
+
     getPath: function (n) {
         if (n.id == '/') {
             return '';
@@ -679,25 +671,26 @@ Ext.extend(miniShop2.combo.OptionTypes, MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-option-types', miniShop2.combo.OptionTypes);
 
 
-miniShop2.combo.Categories = function (config) {
+miniShop2.combo.Classes = function (config) {
     config = config || {};
     Ext.applyIf(config, {
-        id: 'minishop2-combo-categories',
-        fieldLabel: _('ms2_category'),
-        name: 'category',
-        hiddenName: 'category',
-        displayField: 'pagetitle',
-        valueField: 'id',
+        id: 'minishop2-combo-classes',
+        fieldLabel: _('ms2_class'),
+        name: 'class',
+        hiddenName: 'class',
+        displayField: 'class',
+        valueField: 'class',
         pageSize: 20,
-        fields: ['id', 'pagetitle'],
+        fields: ['type', 'class'],
         url: miniShop2.config['connector_url'],
         baseParams: {
-            action: 'mgr/category/getlist',
+            action: 'mgr/settings/getclass',
+            type: config.type || '',
         },
-        allowBlank: false,
+        allowBlank: true,
         editable: true,
     });
-    miniShop2.combo.OptionTypes.superclass.constructor.call(this, config);
+    miniShop2.combo.Classes.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Categories, MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-categories', miniShop2.combo.Categories);
+Ext.extend(miniShop2.combo.Classes, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-classes', miniShop2.combo.Classes);

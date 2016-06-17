@@ -85,8 +85,8 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             price: {width: 50, sortable: true, editor: {xtype: 'numberfield', decimalPrecision: 2}},
             old_price: {width: 50, sortable: true, editor: {xtype: 'numberfield', decimalPrecision: 2}},
             weight: {width: 50, sortable: true, editor: {xtype: 'numberfield', decimalPrecision: 3}},
-            image: {width: 50, sortable: false, renderer: this._renderThumb, id: 'product-image'},
-            thumb: {width: 50, sortable: false, renderer: this._renderThumb, id: 'product-thumb'},
+            image: {width: 50, sortable: false, renderer: miniShop2.utils.renderImage, id: 'product-image'},
+            thumb: {width: 50, sortable: false, renderer: miniShop2.utils.renderImage, id: 'product-thumb'},
             vendor: {
                 width: 50,
                 sortable: true,
@@ -290,15 +290,6 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
                     });
                 }
             }
-        }
-    },
-
-    _renderThumb: function (value) {
-        if (value) {
-            return String.format('<img src="{0}" />', value);
-        }
-        else {
-            return '';
         }
     },
 

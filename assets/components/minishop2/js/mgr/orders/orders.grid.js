@@ -97,6 +97,7 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
             listeners: {
                 success: {
                     fn: function () {
+                        //noinspection JSUnresolvedFunction
                         this.refresh();
                     }, scope: this
                 },

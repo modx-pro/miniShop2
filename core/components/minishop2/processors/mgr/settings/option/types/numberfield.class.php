@@ -1,8 +1,15 @@
 <?php
 
-class msNumberfieldType extends msOptionType {
+class msNumberfieldType extends msOptionType
+{
 
-    public function getField($field) {
+    /**
+     * @param $field
+     *
+     * @return string
+     */
+    public function getField($field)
+    {
         return "{xtype:'numberfield'}";
     }
 }

@@ -13,6 +13,8 @@ $_lang['ms2_menu_remove'] = 'Remove';
 $_lang['ms2_menu_remove_multiple'] = 'Remove selected';
 $_lang['ms2_menu_remove_confirm'] = 'Are you sure you want to remove this item?';
 $_lang['ms2_menu_remove_multiple_confirm'] = 'Are you sure you want to remove all selected items?';
+$_lang['ms2_menu_enable'] = 'Enable';
+$_lang['ms2_menu_disable'] = 'Disable';
 
 $_lang['ms2_combo_select'] = 'Click to select';
 $_lang['ms2_combo_select_status'] = 'Filter by status';
@@ -81,6 +83,7 @@ $_lang['ms2_distance_price'] = 'Price for 1 u/d';
 $_lang['ms2_distance_price_help'] = 'Additional cost per unit of distance.<br/>Can be used in custom classes.';
 $_lang['ms2_order_requires'] = 'Required fields';
 $_lang['ms2_order_requires_help'] = 'When ordering, custom class can require the filling of these fields';
+$_lang['ms2_rank'] = 'Rank';
 
 $_lang['ms2_orders_selected_status'] = 'Change status of selected orders';
 

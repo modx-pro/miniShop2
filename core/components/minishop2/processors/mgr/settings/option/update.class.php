@@ -1,23 +1,43 @@
 <?php
 
-class msOptionUpdateProcessor extends modObjectUpdateProcessor {
+class msOptionUpdateProcessor extends modObjectUpdateProcessor
+{
+    /** @var msOption $object */
+    public $object;
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
-    /** @var  msOption */
-    public $object;
     protected $oldKey = null;
+    public $permission = 'mssetting_save';
 
-    public function beforeSet() {
+
+    /**
+     * @return bool|null|string
+     */
+    public function initialize()
+    {
+        if (!$this->modx->hasPermission($this->permission)) {
+            return $this->modx->lexicon('access_denied');
+        }
+
+        return parent::initialize();
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function beforeSet()
+    {
         $key = $this->getProperty('key');
         if (empty($key)) {
-            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_name_ns'));
+            $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_name_ns'));
         }
 
         $oldKey = $this->object->get('key');
         if (($oldKey != $key)) {
             if ($this->doesAlreadyExist(array('key' => $key))) {
-                $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_ae',array('key' => $key)));
+                $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', array('key' => $key)));
             }
 
             $this->oldKey = $oldKey;
@@ -26,18 +46,26 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
         return parent::beforeSet();
     }
 
+
     /**
      * @return array|boolean
      */
-    public function getCategories() {
+    public function getCategories()
+    {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
             $categories = json_decode($categories, true);
         }
+
         return $categories;
     }
 
-    public function removeNotAssignedCategories($assignedCats) {
+
+    /**
+     * @param $assignedCats
+     */
+    public function removeNotAssignedCategories($assignedCats)
+    {
         $q = $this->modx->newQuery('msCategoryOption');
         $q->command('DELETE');
         $q->where(array('option_id' => $this->object->get('id')));
@@ -48,7 +76,12 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
         $q->stmt->execute();
     }
 
-    public function updateOldKeys() {
+
+    /**
+     *
+     */
+    public function updateOldKeys()
+    {
         if ($this->oldKey) {
             $q = $this->modx->newQuery('msProductOption');
             $q->command('UPDATE');
@@ -59,13 +92,18 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
         }
     }
 
-    public function updateAssignedCategory() {
+
+    /**
+     *
+     */
+    public function updateAssignedCategory()
+    {
         $categoryId = $this->getProperty('category_id');
         if ($categoryId) {
             /** @var msCategoryOption $ftCat */
             $ftCat = $this->modx->getObject('msCategoryOption', array(
                 'option_id' => $this->object->get('id'),
-                'category_id' => $categoryId
+                'category_id' => $categoryId,
             ));
 
             if ($ftCat) {
@@ -75,19 +113,21 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor {
         }
     }
 
-    public function afterSave() {
+
+    /**
+     * @return bool
+     */
+    public function afterSave()
+    {
         $categories = $this->getCategories();
         if (is_array($categories)) {
             if (!empty($categories)) {
                 $categories = $this->object->setCategories($categories);
             }
-            // удаляем категории, которые не были установлены
             $this->removeNotAssignedCategories($categories);
             $this->object->set('categories', $categories);
         }
-
         $this->updateAssignedCategory();
-
         $this->updateOldKeys();
 
         return parent::afterSave();

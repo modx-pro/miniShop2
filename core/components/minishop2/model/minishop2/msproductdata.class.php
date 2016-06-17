@@ -93,9 +93,11 @@ class msProductData extends xPDOSimpleObject
         ));
         if ($c->prepare() && $c->stmt->execute()) {
             foreach ($arrays as $key => $array) {
-                foreach ($array as $value) {
-                    if ($value !== '') {
-                        $add->execute(array($key, $value));
+                if (is_array($array)) {
+                    foreach ($array as $value) {
+                        if ($value !== '') {
+                            $add->execute(array($key, $value));
+                        }
                     }
                 }
             }

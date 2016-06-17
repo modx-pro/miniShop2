@@ -25,6 +25,7 @@ class msProductSortProcessor extends modObjectProcessor
             /** @var msProduct $source */
             $source = $this->modx->getObject($this->classKey, $id);
             if ($source->get('parent') == $this->_parent) {
+                $target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
                 $this->sort($source, $target);
             } else {
                 $this->move($source);

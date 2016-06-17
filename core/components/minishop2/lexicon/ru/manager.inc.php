@@ -13,6 +13,8 @@ $_lang['ms2_menu_remove'] = 'Удалить';
 $_lang['ms2_menu_remove_multiple'] = 'Удалить выбранное';
 $_lang['ms2_menu_remove_confirm'] = 'Вы уверены, что хотите удалить эту запись?';
 $_lang['ms2_menu_remove_multiple_confirm'] = 'Вы уверены, что хотите удалить все выбранные записи?';
+$_lang['ms2_menu_enable'] = 'Включить';
+$_lang['ms2_menu_disable'] = 'Выключить';
 
 $_lang['ms2_combo_select'] = 'Нажмите для выбора';
 $_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
@@ -81,6 +83,7 @@ $_lang['ms2_distance_price'] = 'Стоимость ед/рст';
 $_lang['ms2_distance_price_help'] = 'Добавочная стоимость доставки за единицу расстояния.<br/>Может быть использовано в кастомных классах.';
 $_lang['ms2_order_requires'] = 'Обязательные поля';
 $_lang['ms2_order_requires_help'] = 'При оформлении заказа, кастомный класс может требовать заполнение этих полей.';
+$_lang['ms2_rank'] = 'Порядок';
 
 $_lang['ms2_orders_selected_status'] = 'Сменить статус';
 

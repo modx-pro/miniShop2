@@ -1,17 +1,28 @@
 <?php
 
-class msOptionDuplicateProcessor extends modObjectDuplicateProcessor {
+class msOptionDuplicateProcessor extends modObjectDuplicateProcessor
+{
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
     public $languageTopics = array('default', 'minishop2:default');
     public $nameField = 'key';
 
-    public function afterSave() {
+
+    /**
+     *
+     */
+    public function afterSave()
+    {
         $this->duplicateCategories();
         $this->duplicateProducts();
     }
 
-    public function duplicateCategories() {
+
+    /**
+     *
+     */
+    public function duplicateCategories()
+    {
         if ($this->getProperty('copy_categories', false)) {
             $cats = $this->object->getMany('OptionCategories');
             if (is_array($cats) && !empty($cats)) {
@@ -28,7 +39,12 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor {
         }
     }
 
-    public function duplicateProducts() {
+
+    /**
+     *
+     */
+    public function duplicateProducts()
+    {
         if ($this->getProperty('copy_values', false)) {
             $products = $this->object->getMany('OptionProducts');
             if (is_array($products) && !empty($products)) {

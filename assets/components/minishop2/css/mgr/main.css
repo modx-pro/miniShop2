@@ -69,10 +69,6 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .x-menu-list .icon { min-width: 1em; text-align: center; }
 .ext-strict .x-menu-item-icon { top: 5px; }
 .x-menu-list-item:hover .icon { color: inherit !important; }
-/*
-.x-form-label-left .x-form-item-label,
-.x-form-label-right .x-form-item-label { line-height: 32px; }
-*/
 .x-menu-list .icon { min-width: 1em; text-align: center; }
 .x-tab-strip li { list-style: none; }
 .x-grid3-col-actions { padding: 5px 0 0 5px !important; }
@@ -83,6 +79,17 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .x-grid3-col-actions .action-gray, .x-menu .action-gray { color: dimgray !important; }
 .x-grid3 .green { color: darkgreen; }
 .x-grid3 .red { color: darkred; }
+/* Windows */
+.minishop2-window .x-form-label-top .x-form-item label.x-form-item-label { padding-top: 15px !important; }
+.minishop2-window .x-panel-mc,
+.minishop2-window .x-tab-panel-bwrap > .x-tab-panel-body > .x-panel { margin-top: -15px; }
+.minishop2-window .x-window-body.tabs { padding: 5px 10px 0 10px; }
+.minishop2-window .desc { font-style: italic; padding-top: 5px; color: #555555; }
+/* Tree */
+.minishop2-panel .x-tree-root-ct,
+.minishop2-window .x-tree-root-ct { overflow: visible; }
+.minishop2-panel .x-tree-root-ct input,
+.minishop2-window .x-tree-root-ct input { vertical-align: top; }
 /* Orders */
 #minishop2-form-orders { padding-top: 10px; padding-bottom: 0; }
 #minishop2-grid-orders { padding-top: 10px; }
@@ -104,14 +111,16 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .x-grid3-col-product-title,
 .x-grid3-col-product-image,
 .x-grid3-col-product-thumb,
-.x-grid3-col-vendor-logo {
+.x-grid3-col-vendor-logo,
+.x-grid3-col-image {
     padding-top: 0;
     padding-bottom: 0;
     margin: 0;
 }
 .x-grid3-col-product-image img,
 .x-grid3-col-product-thumb img,
-.x-grid3-col-vendor-logo img {
+.x-grid3-col-vendor-logo img,
+.x-grid3-col-image img {
     max-height: 40px;
     display: block;
 }
@@ -136,7 +145,6 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 #minishop2-product-tabs .x-tab-strip .x-tab-strip-text { line-height: 2; font-size: 90%; }
 #minishop2-product-tabs > .x-tab-panel-bwrap { border: 1px solid #f0f0f0; margin-top: -1px; }
 #minishop2-categories-tree { overflow: hidden; }
-#minishop2-categories-tree input { vertical-align: top; }
 #minishop2-product-image-wrap { text-align: center; }
 #minishop2-product-image { max-width: 100%; height: auto; }
 /* Gallery */
@@ -159,8 +167,11 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .minishop2-gallery-thumb { width: 120px; height: 90px; }
 .minishop2-gallery-thumb img { max-width: 120px; max-height: 90px; display: block; margin: auto; }
 .minishop2-gallery-window-thumb { border: 1px solid #e4e4e4; border-radius: 2px; background: #fdfdfd; }
-/* Image window */
+/* Gallery image window */
 .minishop2-gallery-cba .x-form-cb-label { margin-top: 6px; }
 .minishop2-gallery-window-link { width: 100%; display: block; text-align: center; }
 .minishop2-gallery-window-details { width: 100%; font-size: 12px; }
 .minishop2-gallery-window-details th { text-align: right; padding-right: 5px; width: 50%; }
+/* Settings */
+.x-grid3-col-color { padding-top: 10px; padding-bottom: 10px; }
+.status-color { width: 30px; height: 20px; border-radius: 3px; }

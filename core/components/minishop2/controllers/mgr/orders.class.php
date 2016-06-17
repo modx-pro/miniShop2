@@ -11,7 +11,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
      */
     public function getPageTitle()
     {
-        return 'miniShop2 :: ' . $this->modx->lexicon('ms2_orders');
+        return $this->modx->lexicon('ms2_orders') . ' | miniShop2';
     }
 
 

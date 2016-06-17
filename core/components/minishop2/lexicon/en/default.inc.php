@@ -38,7 +38,7 @@ $_lang['ms2_links'] = 'Links of goods';
 $_lang['ms2_links_intro'] = 'The list of possible links of goods with each other. Connection type describes exactly how it will work, it is impossible to create, you can only select from the list.';
 $_lang['ms2_option'] = 'Product option';
 $_lang['ms2_options'] = 'Product options';
-$_lang['ms2_options_intro'] = 'List of available product options. Category tree is used for filtering options by checked categories.';
+$_lang['ms2_options_intro'] = 'List of available product options. Category tree is used for filtering options by checked categories.<br/>To assign multiple options to the categories, you need to choose them using the Ctrl(Cmd) or Shift.';
 $_lang['ms2_options_category_intro'] = 'List of available product options in the category.';
 $_lang['ms2_default_value'] = 'Default value';
 $_lang['ms2_customer'] = 'Customer';
@@ -61,6 +61,7 @@ $_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 $_lang['ms2_btn_duplicate'] = 'Duplicate product';
 $_lang['ms2_btn_addoption'] = 'Add option';
+$_lang['ms2_btn_assign'] = 'Assign';
 
 $_lang['ms2_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';

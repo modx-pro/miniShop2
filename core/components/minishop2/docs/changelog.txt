@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.0 beta3
 ==============
 - Small improvements of product gallery.
+- Improved ExtJS settings panel.
 
 2.4.0 beta2
 ==============

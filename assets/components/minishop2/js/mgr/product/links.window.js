@@ -4,9 +4,6 @@ miniShop2.window.CreateProductLink = function (config) {
     Ext.applyIf(config, {
         title: _('ms2_link'),
         width: 600,
-        autoHeight: true,
-        labelAlign: 'left',
-        labelWidth: 180,
         success: this.success,
         baseParams: {
             action: 'mgr/product/productlink/create',

@@ -2,7 +2,6 @@
 
 class msOptionGetTypesProcessor extends modObjectGetListProcessor
 {
-
     public $languageTopics = array('minishop2:manager');
 
 

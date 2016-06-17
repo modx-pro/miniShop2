@@ -26,7 +26,7 @@ miniShop2.window.Default = function(config) {
 };
 Ext.extend(miniShop2.window.Default, MODx.Window, {
 
-    getFields: function(config) {
+    getFields: function() {
         return [];
     },
 

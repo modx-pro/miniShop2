@@ -14,8 +14,10 @@ class msChunkGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
-        $query = $this->getProperty('query');
-        if (!empty($query)) {
+        if ($id = (int)$this->getProperty('id')) {
+            $c->where(array('id' => $id));
+        }
+        if ($query = trim($this->getProperty('query'))) {
             $c->where(array('name:LIKE' => "%{$query}%"));
         }
 

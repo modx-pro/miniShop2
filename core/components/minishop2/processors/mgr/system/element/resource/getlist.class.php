@@ -17,8 +17,10 @@ class msResourceGetListProcessor extends modObjectGetListProcessor
         if ($this->getProperty('combo')) {
             $c->select('id,pagetitle');
         }
-        $query = $this->getProperty('query');
-        if (!empty($query)) {
+        if ($id = (int)$this->getProperty('id')) {
+            $c->where(array('id' => $id));
+        }
+        if ($query = trim($this->getProperty('query'))) {
             $c->where(array('pagetitle:LIKE' => "%{$query}%"));
         }
 

@@ -4,8 +4,6 @@ miniShop2.window.AddOption = function (config) {
     Ext.applyIf(config, {
         title: _('ms2_category_option_add'),
         width: 600,
-        labelAlign: 'left',
-        labelWidth: 180,
         baseParams: {
             action: 'mgr/category/option/add',
         },
@@ -58,8 +56,6 @@ miniShop2.window.CopyCategory = function (config) {
     Ext.applyIf(config, {
         title: _('ms2_category_option_copy'),
         width: 600,
-        labelAlign: 'left',
-        labelWidth: 180,
         baseParams: {
             action: 'mgr/category/option/duplicate',
         },
@@ -72,7 +68,7 @@ Ext.extend(miniShop2.window.CopyCategory, miniShop2.window.Default, {
         return [
             {xtype: 'hidden', name: 'category_to'},
             {
-                xtype: 'minishop2-combo-categories',
+                xtype: 'minishop2-combo-category',
                 anchor: '99%',
                 name: 'category_from',
                 hiddenName: 'category_from'

@@ -1,9 +1,11 @@
 miniShop2.tree.Categories = function (config) {
     config = config || {};
+    if (!config.id) {
+        config.id = 'minishop2-categories-tree';
+    }
 
     Ext.applyIf(config, {
         url: miniShop2.config.connector_url,
-        id: 'minishop2-categories-tree',
         title: '',
         name: 'categories',
         anchor: '100%',
@@ -13,7 +15,6 @@ miniShop2.tree.Categories = function (config) {
         remoteToolbar: false,
         action: 'mgr/category/getnodes',
         baseParams: {
-            action: 'mgr/category/getnodes',
             parent: config.parent || 0,
             resource: config.resource || 0,
         },
@@ -60,7 +61,7 @@ Ext.extend(miniShop2.tree.Categories, MODx.tree.Tree, {
         this.cm.removeAll();
         var m = [];
         m.push({
-            text: _('directory_refresh'),
+            text: '<i class="x-menu-item-icon icon icon-refresh"></i> ' + _('directory_refresh'),
             handler: function () {
                 this.refreshNode(this.cm.activeNode.id, true);
             }

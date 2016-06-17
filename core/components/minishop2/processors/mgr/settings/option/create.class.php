@@ -1,26 +1,37 @@
 <?php
 
-class msOptionCreateProcessor extends modObjectCreateProcessor {
+class msOptionCreateProcessor extends modObjectCreateProcessor
+{
+    /** @var msOption $object*/
+    public $object;
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
-    /** @var msOption */
-    public $object;
 
-    public function beforeSet() {
+
+    /**
+     * @return bool
+     */
+    public function beforeSet()
+    {
         $key = $this->getProperty('key');
         if (empty($key)) {
-            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_name_ns'));
+            $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_name_ns'));
         }
 
         if ($this->doesAlreadyExist(array('key' => $key))) {
-            $this->addFieldError('key',$this->modx->lexicon($this->objectType.'_err_ae',array('key' => $key)));
+            $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', array('key' => $key)));
         }
 
         return parent::beforeSet();
     }
 
-    public function getCategories() {
+
+    /**
+     * @return array|mixed
+     */
+    public function getCategories()
+    {
         $categories = $this->getProperty('categories', false);
         if ($categories) {
             $categories = json_decode($categories, true);
@@ -31,7 +42,12 @@ class msOptionCreateProcessor extends modObjectCreateProcessor {
         return $categories;
     }
 
-    public function afterSave() {
+
+    /**
+     * @return bool
+     */
+    public function afterSave()
+    {
         $categories = $this->getCategories();
         $categories = $this->object->setCategories($categories);
         $this->object->set('categories', $categories);
