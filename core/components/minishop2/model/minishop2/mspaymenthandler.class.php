@@ -133,6 +133,10 @@ class msPaymentHandler implements msPaymentInterface
      */
     public function error($message = '', $data = array(), $placeholders = array())
     {
+        if (empty($this->ms2)) {
+            $this->ms2 = $this->modx->getService('miniShop2');
+        }
+
         return $this->ms2->error($message, $data, $placeholders);
     }
 
@@ -146,6 +150,10 @@ class msPaymentHandler implements msPaymentInterface
      */
     public function success($message = '', $data = array(), $placeholders = array())
     {
+        if (empty($this->ms2)) {
+            $this->ms2 = $this->modx->getService('miniShop2');
+        }
+
         return $this->ms2->success($message, $data, $placeholders);
     }
 

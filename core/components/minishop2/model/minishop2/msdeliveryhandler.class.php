@@ -68,6 +68,9 @@ class msDeliveryHandler implements msDeliveryInterface
      */
     public function getCost(msOrderInterface $order, msDelivery $delivery, $cost = 0.0)
     {
+        if (empty($this->ms2)) {
+            $this->ms2 = $this->modx->getService('miniShop2');
+        }
         $cart = $this->ms2->cart->status();
         $weight_price = $delivery->get('weight_price');
         //$distance_price = $delivery->get('distance_price');
@@ -95,6 +98,10 @@ class msDeliveryHandler implements msDeliveryInterface
      */
     public function error($message = '', $data = array(), $placeholders = array())
     {
+        if (empty($this->ms2)) {
+            $this->ms2 = $this->modx->getService('miniShop2');
+        }
+
         return $this->ms2->error($message, $data, $placeholders);
     }
 
@@ -108,6 +115,10 @@ class msDeliveryHandler implements msDeliveryInterface
      */
     public function success($message = '', $data = array(), $placeholders = array())
     {
+        if (empty($this->ms2)) {
+            $this->ms2 = $this->modx->getService('miniShop2');
+        }
+
         return $this->ms2->success($message, $data, $placeholders);
     }
 }
