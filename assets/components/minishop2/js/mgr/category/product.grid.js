@@ -16,6 +16,7 @@ miniShop2.grid.Products = function (config) {
         stateId: config.id,
         save_action: 'mgr/product/updatefromgrid',
         autosave: true,
+        save_callback: this.updateRow,
         ddGroup: 'ms2-products',
         ddAction: 'mgr/product/sort',
         enableDragDrop: true,
@@ -78,7 +79,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             searchable: {width: 100, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
             cacheable: {width: 100, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
 
-            new: {width: 50, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
+            'new': {width: 50, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
             favorite: {width: 50, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
             popular: {width: 50, sortable: true, editor: {xtype: 'combo-boolean', renderer: 'boolean'}},
             article: {width: 50, sortable: true, editor: {xtype: 'textfield'}},
@@ -92,7 +93,6 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
                 sortable: true,
                 renderer: this._renderVendor,
                 editor: {xtype: 'minishop2-combo-vendor'},
-                id: 'vendor-logo'
             },
             vendor_name: {width: 50, sortable: true, header: _('ms2_product_vendor')},
             made_in: {width: 50, sortable: true, editor: {xtype: 'minishop2-combo-autocomplete', name: 'made_in'}},
@@ -167,6 +167,20 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         var s = this.getStore();
         s.baseParams.nested = checked ? 1 : 0;
         this.getBottomToolbar().changePage(1);
+    },
+
+    updateRow: function (res) {
+        if (res.results && res.results[0]) {
+            var data = res.results[0];
+            var items = this.getStore().data.items;
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (item.id == data.id) {
+                    item.data = data;
+                    break;
+                }
+            }
+        }
     },
 
     productAction: function (method) {

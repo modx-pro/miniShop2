@@ -45,44 +45,51 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             $c->select($this->modx->getSelectColumns('msVendor', 'Vendor', 'vendor_', array('name')));
             $c->select($this->modx->getSelectColumns('msCategory', 'Category', 'category_', array('pagetitle')));
         }
-        $query = trim($this->getProperty('query'));
-        if (!empty($query)) {
-            if (is_numeric($query)) {
-                $c->where(array(
-                    'msProduct.id' => $query,
-                    'OR:Data.article:=' => $query,
-                ));
-            } else {
-                $c->where(array(
-                    'msProduct.pagetitle:LIKE' => "%{$query}%",
-                    'OR:msProduct.longtitle:LIKE' => "%{$query}%",
-                    'OR:msProduct.description:LIKE' => "%{$query}%",
-                    'OR:msProduct.introtext:LIKE' => "%{$query}%",
-                    'OR:Data.article:LIKE' => "%{$query}%",
-                    'OR:Data.made_in:LIKE' => "%{$query}%",
-                    'OR:Vendor.name:LIKE' => "%{$query}%",
-                    'OR:Category.pagetitle:LIKE' => "%{$query}%",
-                ));
+        if ($id = (int)$this->getProperty('id')) {
+            $c->where(array('msProduct.id' => $id));
+            if ($parent = (int)$this->getProperty('parent')) {
+                $this->parent = $parent;
             }
-        }
-
-        $parent = (int)$this->getProperty('parent');
-        if (!empty($parent)) {
-            $category = $this->modx->getObject('modResource', $this->getProperty('parent'));
-            $this->parent = $parent;
-            $parents = array($parent);
-
-            $nested = $this->getProperty('nested', null);
-            $nested = $nested === null && $this->modx->getOption('ms2_category_show_nested_products', null, true)
-                ? true
-                : (bool)$nested;
-            if ($nested) {
-                $tmp = $this->modx->getChildIds($parent, 10, array('context' => $category->get('context_key')));
-                foreach ($tmp as $v) {
-                    $parents[] = $v;
+        } else {
+            $query = trim($this->getProperty('query'));
+            if (!empty($query)) {
+                if (is_numeric($query)) {
+                    $c->where(array(
+                        'msProduct.id' => $query,
+                        'OR:Data.article:=' => $query,
+                    ));
+                } else {
+                    $c->where(array(
+                        'msProduct.pagetitle:LIKE' => "%{$query}%",
+                        'OR:msProduct.longtitle:LIKE' => "%{$query}%",
+                        'OR:msProduct.description:LIKE' => "%{$query}%",
+                        'OR:msProduct.introtext:LIKE' => "%{$query}%",
+                        'OR:Data.article:LIKE' => "%{$query}%",
+                        'OR:Data.made_in:LIKE' => "%{$query}%",
+                        'OR:Vendor.name:LIKE' => "%{$query}%",
+                        'OR:Category.pagetitle:LIKE' => "%{$query}%",
+                    ));
                 }
             }
-            $c->orCondition(array('parent:IN' => $parents, 'Member.category_id:IN' => $parents), '', 1);
+
+            $parent = (int)$this->getProperty('parent');
+            if (!empty($parent)) {
+                $category = $this->modx->getObject('modResource', $this->getProperty('parent'));
+                $this->parent = $parent;
+                $parents = array($parent);
+
+                $nested = $this->getProperty('nested', null);
+                $nested = $nested === null && $this->modx->getOption('ms2_category_show_nested_products', null, true)
+                    ? true
+                    : (bool)$nested;
+                if ($nested) {
+                    $tmp = $this->modx->getChildIds($parent, 10, array('context' => $category->get('context_key')));
+                    foreach ($tmp as $v) {
+                        $parents[] = $v;
+                    }
+                }
+                $c->orCondition(array('parent:IN' => $parents, 'Member.category_id:IN' => $parents), '', 1);
+            }
         }
 
         return $c;

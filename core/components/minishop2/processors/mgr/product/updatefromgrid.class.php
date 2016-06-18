@@ -70,9 +70,15 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
         $this->object->removeLock();
         $this->clearCache();
 
-        $returnArray = $this->object->toArray();
+        /** @var miniShop2 $miniShop2 */
+        $miniShop2 = $this->modx->getService('miniShop2');
+        /** @var modProcessorResponse $res */
+        $res = $miniShop2->runProcessor('mgr/product/getlist', array(
+            'id' => $this->object->id,
+            'parent' => $this->object->parent,
+        ));
 
-        return $this->success('', $returnArray);
+        return $res->getResponse();
     }
 
 }
