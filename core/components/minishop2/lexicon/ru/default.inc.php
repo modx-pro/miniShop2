@@ -141,6 +141,7 @@ $_lang['ms2_err_status_wrong'] = 'Неверный статус заказа.';
 $_lang['ms2_err_status_same'] = 'Этот статус уже установлен.';
 $_lang['ms2_err_register_globals'] = 'Ошибка: php параметр <b>register_globals</b> должен быть выключен.';
 $_lang['ms2_err_link_equal'] = 'Вы пытаетесь добавить товару ссылку на самого себя';
+$_lang['ms2_err_value_duplicate'] = 'Вы не ввели значение или ввели повтор.';
 
 $_lang['ms2_err_gallery_save'] = 'Не могу сохранить файл не был сохранён (см. системный журнал).';
 $_lang['ms2_err_gallery_ns'] = 'Передан пустой файл';

@@ -142,6 +142,7 @@ $_lang['ms2_err_status_same'] = 'This status is already set.';
 $_lang['ms2_err_register_globals'] = 'Error: php parameter <b>register_globals</b> must be off.';
 $_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
 $_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
+$_lang['ms2_err_value_duplicate'] = 'You have not entered a value or entered a duplicate.';
 
 $_lang['ms2_err_gallery_save'] = 'Could not save file';
 $_lang['ms2_err_gallery_ns'] = 'Could not read file';

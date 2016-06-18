@@ -133,7 +133,7 @@ Ext.extend(miniShop2.grid.ComboboxOptions, MODx.grid.LocalGrid, {
             }));
             this.focusValueCell(this.store.data.length - 1);
         } else {
-            Ext.Msg.alert(_('error'), 'Вы не ввели значение или ввели повтор.', function () {
+            Ext.Msg.alert(_('error'), _('ms2_err_value_duplicate'), function () {
                 this.focusValueCell(this.store.data.length - 1);
             }, this);
         }
