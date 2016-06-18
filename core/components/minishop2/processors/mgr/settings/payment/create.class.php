@@ -27,7 +27,7 @@ class msPaymentCreateProcessor extends modObjectCreateProcessor
      */
     public function beforeSet()
     {
-        $required = array('name', 'class');
+        $required = array('name');
         foreach ($required as $field) {
             if (!$tmp = trim($this->getProperty($field))) {
                 $this->addFieldError($field, $this->modx->lexicon('field_required'));
