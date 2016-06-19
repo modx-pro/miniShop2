@@ -95,6 +95,8 @@ class msOrderHandler implements msOrderInterface
     public $modx;
     /** @var miniShop2 $ms2 */
     public $ms2;
+    /** @var array $config */
+    public $config;
     /** @var array $order */
     protected $order;
 
@@ -105,8 +107,8 @@ class msOrderHandler implements msOrderInterface
      */
     function __construct(miniShop2 & $ms2, array $config = array())
     {
-        $this->ms2 = &$ms2;
-        $this->modx = &$ms2->modx;
+        $this->ms2 = $ms2;
+        $this->modx = $ms2->modx;
 
         $this->config = array_merge(array(
             'order' => & $_SESSION['minishop2']['order'],
@@ -121,14 +123,23 @@ class msOrderHandler implements msOrderInterface
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param string $ctx
+     *
+     * @return bool
+     */
     public function initialize($ctx = 'web')
     {
         return true;
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param string $key
+     * @param string $value
+     *
+     * @return array|string
+     */
     public function add($key, $value)
     {
         $response = $this->ms2->invokeEvent('msOnBeforeAddToOrder', array(
@@ -167,7 +178,12 @@ class msOrderHandler implements msOrderInterface
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param string $key
+     * @param string $value
+     *
+     * @return bool|mixed|string
+     */
     public function validate($key, $value)
     {
         if ($key != 'comment') {
@@ -189,8 +205,11 @@ class msOrderHandler implements msOrderInterface
                 break;
             case 'receiver':
                 // Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
-                $tmp = preg_replace(array('/[^-a-zа-яёЁ\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'), array('', ' ', '-', '.'),
-                    $value);
+                $tmp = preg_replace(
+                    array('/[^-a-zа-яёЁ\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'),
+                    array('', ' ', '-', '.'),
+                    $value
+                );
                 $tmp = preg_split('/\s/', $tmp, -1, PREG_SPLIT_NO_EMPTY);
                 $tmp = array_map(array($this, 'ucfirst'), $tmp);
                 $value = preg_replace('/\s+/', ' ', implode(' ', $tmp));
@@ -205,17 +224,17 @@ class msOrderHandler implements msOrderInterface
                 /** @var msDelivery $delivery */
                 if (!$delivery = $this->modx->getObject('msDelivery', array('id' => $value, 'active' => 1))) {
                     $value = $old_value;
-                } else {
-                    if (!empty($this->order['payment'])) {
-                        if (!$this->hasPayment($value, $this->order['payment'])) {
-                            $this->order['payment'] = $delivery->getFirstPayment();
-                        };
-                    }
+                } elseif (!empty($this->order['payment'])) {
+                    if (!$this->hasPayment($value, $this->order['payment'])) {
+                        $this->order['payment'] = $delivery->getFirstPayment();
+                    };
                 }
                 break;
             case 'payment':
                 if (!empty($this->order['delivery'])) {
-                    $value = $this->hasPayment($this->order['delivery'], $value) ? $value : $old_value;
+                    $value = $this->hasPayment($this->order['delivery'], $value)
+                        ? $value
+                        : $old_value;
                 }
                 break;
             case 'index':
@@ -245,13 +264,18 @@ class msOrderHandler implements msOrderInterface
     {
         $q = $this->modx->newQuery('msPayment', array('id' => $payment, 'active' => 1));
         $q->innerJoin('msDeliveryMember', 'Member',
-            'Member.payment_id = msPayment.id AND Member.delivery_id = ' . $delivery);
+            'Member.payment_id = msPayment.id AND Member.delivery_id = ' . $delivery
+        );
 
         return $this->modx->getCount('msPayment', $q) ? true : false;
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param string $key
+     *
+     * @return array|bool|string
+     */
     public function remove($key)
     {
         if ($exists = array_key_exists($key, $this->order)) {
@@ -277,14 +301,20 @@ class msOrderHandler implements msOrderInterface
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @return array
+     */
     public function get()
     {
         return $this->order;
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param array $order
+     *
+     * @return array
+     */
     public function set(array $order)
     {
         foreach ($order as $key => $value) {
@@ -321,7 +351,11 @@ class msOrderHandler implements msOrderInterface
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param array $data
+     *
+     * @return array|string
+     */
     public function submit($data = array())
     {
         $response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
@@ -359,26 +393,16 @@ class msOrderHandler implements msOrderInterface
         /** @var msOrder $order */
         $order = $this->modx->newObject('msOrder');
         $order->fromArray(array(
-            'user_id' => $user_id
-        ,
-            'createdon' => $createdon
-        ,
-            'num' => $this->getnum()
-        ,
-            'delivery' => $this->order['delivery']
-        ,
-            'payment' => $this->order['payment']
-        ,
-            'cart_cost' => $cart_cost
-        ,
-            'weight' => $cart_status['total_weight']
-        ,
-            'delivery_cost' => $delivery_cost
-        ,
-            'cost' => $cart_cost + $delivery_cost
-        ,
-            'status' => 0
-        ,
+            'user_id' => $user_id,
+            'createdon' => $createdon,
+            'num' => $this->getNum(),
+            'delivery' => $this->order['delivery'],
+            'payment' => $this->order['payment'],
+            'cart_cost' => $cart_cost,
+            'weight' => $cart_status['total_weight'],
+            'delivery_cost' => $delivery_cost,
+            'cost' => $cart_cost + $delivery_cost,
+            'status' => 0,
             'context' => $this->ms2->config['ctx'],
         ));
 
@@ -386,8 +410,7 @@ class msOrderHandler implements msOrderInterface
         /** @var msOrderAddress $address */
         $address = $this->modx->newObject('msOrderAddress');
         $address->fromArray(array_merge($this->order, array(
-            'user_id' => $user_id
-        ,
+            'user_id' => $user_id,
             'createdon' => $createdon,
         )));
         $order->addOne($address);
@@ -404,10 +427,8 @@ class msOrderHandler implements msOrderInterface
             /** @var msOrderProduct $product */
             $product = $this->modx->newObject('msOrderProduct');
             $product->fromArray(array_merge($v, array(
-                'product_id' => $v['id']
-            ,
-                'name' => $name
-            ,
+                'product_id' => $v['id'],
+                'name' => $name,
                 'cost' => $v['price'] * $v['count'],
             )));
             $products[] = $product;
@@ -453,23 +474,31 @@ class msOrderHandler implements msOrderInterface
                 } else {
                     if (!empty($response['data']['redirect'])) {
                         $this->modx->sendRedirect($response['data']['redirect']);
-                        exit();
                     } elseif (!empty($response['data']['msorder'])) {
-                        $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id,
-                            array('msorder' => $response['data']['msorder'])));
-                        exit();
+                        $this->modx->sendRedirect(
+                            $this->modx->context->makeUrl(
+                                $this->modx->resource->id,
+                                array('msorder' => $response['data']['msorder'])
+                            )
+                        );
                     } else {
                         $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id));
-                        exit();
                     }
+
+                    return $this->success();
                 }
             } else {
                 if ($this->ms2->config['json_response']) {
                     return $this->success('', array('msorder' => $order->get('id')));
                 } else {
-                    $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id,
-                        array('msorder' => $response['data']['msorder'])));
-                    exit();
+                    $this->modx->sendRedirect(
+                        $this->modx->context->makeUrl(
+                            $this->modx->resource->id,
+                            array('msorder' => $response['data']['msorder'])
+                        )
+                    );
+
+                    return $this->success();
                 }
             }
         }
@@ -478,7 +507,9 @@ class msOrderHandler implements msOrderInterface
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @return array|string
+     */
     public function clean()
     {
         $response = $this->ms2->invokeEvent('msOnBeforeEmptyOrder', array('order' => $this));
@@ -496,7 +527,12 @@ class msOrderHandler implements msOrderInterface
     }
 
 
-    /** @inheritdoc} */
+    /**
+     * @param bool $with_cart
+     * @param bool $only_cost
+     *
+     * @return array|string
+     */
     public function getCost($with_cart = true, $only_cost = false)
     {
         $response = $this->ms2->invokeEvent('msOnBeforeGetOrderCost', array(
@@ -551,14 +587,18 @@ class msOrderHandler implements msOrderInterface
      *
      * @return string
      */
-    public function getnum()
+    public function getNum()
     {
-        $table = $this->modx->getTableName('msOrder');
         $cur = date('ym');
+        $num = 0;
 
-        $sql = $this->modx->query("SELECT `num` FROM {$table} WHERE `num` LIKE '{$cur}%' ORDER BY `id` DESC LIMIT 1");
-        $num = $sql->fetch(PDO::FETCH_COLUMN);
-
+        $c = $this->modx->newQuery('msOrder');
+        $c->where(array('num:LIKE' => "{$cur}%"));
+        $c->select('num');
+        $c->limit(1);
+        if ($c->prepare() && $c->stmt->execute()) {
+            $num = $c->stmt->fetch(PDO::FETCH_COLUMN);
+        }
         if (empty($num)) {
             $num = date('ym') . '/0';
         }
@@ -618,8 +658,8 @@ class msOrderHandler implements msOrderInterface
 
         if (function_exists('mb_substr') && preg_match('/[а-я]/iu', $str)) {
             $tmp = mb_strtolower($str, 'utf-8');
-            $str = mb_substr(mb_strtoupper($tmp, 'utf-8'), 0, 1, 'utf-8') . mb_substr($tmp, 1, mb_strlen($tmp) - 1,
-                    'utf-8');
+            $str = mb_substr(mb_strtoupper($tmp, 'utf-8'), 0, 1, 'utf-8') .
+                mb_substr($tmp, 1, mb_strlen($tmp) - 1, 'utf-8');
         } else {
             $str = ucfirst(strtolower($str));
         }
