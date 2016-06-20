@@ -113,6 +113,8 @@ class msCartHandler implements msCartInterface {
 
 	/* @inheritdoc} */
 	public function initialize($ctx = 'web') {
+		$this->ctx = $ctx;
+		
 		return true;
 	}
 
@@ -240,7 +242,7 @@ class msCartHandler implements msCartInterface {
 		if (!$response['success']) {return $this->error($response['message']);}
 
 		foreach ($this->cart as $key => $item) {
-			if (empty($item['ctx']) || $item['ctx'] == $this->modx->context->key) {
+			if (empty($item['ctx']) || $item['ctx'] == $this->ctx) {
 				unset($this->cart[$key]);
 			}
 		}
@@ -260,7 +262,7 @@ class msCartHandler implements msCartInterface {
 			,'total_weight' => 0
 		);
 		foreach ($this->cart as $item) {
-			if (empty($item['ctx']) || $item['ctx'] == $this->modx->context->key){
+			if (empty($item['ctx']) || $item['ctx'] == $this->ctx){
 				$status['total_count'] += $item['count'];
 				$status['total_cost'] += $item['price'] * $item['count'];
 				$status['total_weight'] += $item['weight'] * $item['count'];
@@ -274,7 +276,7 @@ class msCartHandler implements msCartInterface {
 	public function get() {
 		$cart = array();
 		foreach ($this->cart as $key => $item) {
-			if (empty($item['ctx']) || $item['ctx'] == $this->modx->context->key) {
+			if (empty($item['ctx']) || $item['ctx'] == $this->ctx) {
 				$cart[$key] = $item;
 			}
 		}
