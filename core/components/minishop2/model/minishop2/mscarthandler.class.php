@@ -148,6 +148,12 @@ class msCartHandler implements msCartInterface
             return $this->error('ms2_cart_add_err_id');
         }
         $count = intval($count);
+        if (is_string($options)) {
+            $options = json_decode($options, true);
+        }
+        if (!is_array($options)) {
+            $options = array();
+        }
 
         $filter = array('id' => $id);
         if (!$this->config['allow_deleted']) {

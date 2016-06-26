@@ -104,7 +104,9 @@ $_lang['ms2_frontend_popular'] = 'Popular';
 $_lang['ms2_frontend_favorite'] = 'Favorite';
 $_lang['ms2_frontend_new'] = 'New';
 $_lang['ms2_frontend_deliveries'] = 'Deliveries';
+$_lang['ms2_frontend_delivery'] = 'Delivery';
 $_lang['ms2_frontend_payments'] = 'Payments';
+$_lang['ms2_frontend_payment'] = 'Payment';
 $_lang['ms2_frontend_delivery_select'] = 'Select delivery';
 $_lang['ms2_frontend_payment_select'] = 'Select payment';
 $_lang['ms2_frontend_credentials'] = 'Credentials';
@@ -141,7 +143,6 @@ $_lang['ms2_err_status_wrong'] = 'Wrong status of order.';
 $_lang['ms2_err_status_same'] = 'This status is already set.';
 $_lang['ms2_err_register_globals'] = 'Error: php parameter <b>register_globals</b> must be off.';
 $_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
-$_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
 $_lang['ms2_err_value_duplicate'] = 'You have not entered a value or entered a duplicate.';
 
 $_lang['ms2_err_gallery_save'] = 'Could not save file';
@@ -158,7 +159,7 @@ $_lang['ms2_email_subject_paid_manager'] = 'Order #[[+num]] was paid';
 $_lang['ms2_email_subject_sent_user'] = 'Your order #[[+num]] was sent';
 $_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';
 
-$_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]">to continue it at this link</a>.';
+$_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]" style="color:#348eda;">to continue it at this link</a>.';
 
 $_lang['ms2_category_err_ns'] = 'Category is not specified';
 $_lang['ms2_option_err_ns'] = 'Option is not specified';

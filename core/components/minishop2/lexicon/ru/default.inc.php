@@ -104,7 +104,9 @@ $_lang['ms2_frontend_popular'] = 'Популярный товар';
 $_lang['ms2_frontend_favorite'] = 'Рекомендуем';
 $_lang['ms2_frontend_new'] = 'Новинка';
 $_lang['ms2_frontend_deliveries'] = 'Варианты доставки';
+$_lang['ms2_frontend_delivery'] = 'Доставка';
 $_lang['ms2_frontend_payments'] = 'Способы оплаты';
+$_lang['ms2_frontend_payment'] = 'Оплата';
 $_lang['ms2_frontend_delivery_select'] = 'Выберите доставку';
 $_lang['ms2_frontend_payment_select'] = 'Выберите оплату';
 $_lang['ms2_frontend_credentials'] = 'Данные получателя';
@@ -157,7 +159,7 @@ $_lang['ms2_email_subject_paid_manager'] = 'Заказ #[[+num]] был опла
 $_lang['ms2_email_subject_sent_user'] = 'Ваш заказ #[[+num]] был отправлен';
 $_lang['ms2_email_subject_cancelled_user'] = 'Ваш заказ #[[+num]] был отменён';
 
-$_lang['ms2_payment_link'] = 'Если вы случайно прервали процедуру оплаты, вы всегда можете <a href="[[+link]]">продолжить её по этой ссылке</a>.';
+$_lang['ms2_payment_link'] = 'Если вы случайно прервали процедуру оплаты, вы всегда можете <a href="[[+link]]" style="color:#348eda;">продолжить её по этой ссылке</a>.';
 
 $_lang['ms2_category_err_ns'] = 'Категория не выбрана';
 $_lang['ms2_option_err_ns'] = 'Свойство не выбрано';

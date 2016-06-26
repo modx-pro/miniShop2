@@ -7,37 +7,17 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
-    'tplRow' => array(
+    'tpl' => array(
         'type' => 'textfield',
-        'value' => 'tpl.msProductOptions.row',
-    ),
-    'tplOuter' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msProductOptions.outer',
-    ),
-    'valuesSeparator' => array(
-        'type' => 'textfield',
-        'value' => ', ',
-    ),
-    'outputSeparator' => array(
-        'type' => 'textfield',
-        'value' => "\n",
+        'value' => 'tpl.msProductOptions',
     ),
     'ignoreOptions' => array(
         'type' => 'textfield',
         'value' => '',
     ),
-    'hideEmpty' => array(
-        'type' => 'combo-boolean',
-        'value' => false,
-    ),
     'groups' => array(
         'type' => 'textfield',
         'value' => '',
-    ),
-    'tplValue' => array(
-        'type' => 'textfield',
-        'value' => '@INLINE [[+value]]',
     ),
 );
 

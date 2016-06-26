@@ -7,25 +7,13 @@ $tmp = array(
         'type' => 'numberfield',
         'value' => '',
     ),
-    'tplRow' => array(
+    'tpl' => array(
         'type' => 'textfield',
-        'value' => 'tpl.msGallery.row',
-    ),
-    'tplOuter' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msGallery.outer',
-    ),
-    'tplEmpty' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msGallery.empty',
-    ),
-    'tplSingle' => array(
-        'type' => 'textfield',
-        'value' => '',
+        'value' => 'tpl.msGallery',
     ),
     'limit' => array(
         'type' => 'numberfield',
-        'value' => 100,
+        'value' => 0,
     ),
     'offset' => array(
         'type' => 'numberfield',
@@ -44,10 +32,6 @@ $tmp = array(
         'value' => 'ASC',
     ),
     'toPlaceholder' => array(
-        'type' => 'textfield',
-        'value' => '',
-    ),
-    'toSeparatePlaceholders' => array(
         'type' => 'textfield',
         'value' => '',
     ),

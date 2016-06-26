@@ -90,7 +90,7 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
             $this->classKey . '.id = Thumb.parent AND 
             Thumb.path LIKE "%' . $this->modx->getOption('ms2_product_thumbnail_size', null, '120x90', true) . '/%"'
         );
-        $c->groupby($this->classKey . '.id');
+        $c->groupby($this->classKey . '.id, thumbnail');
         $c->select('Source.name as source_name');
         $c->select('Thumb.url as thumbnail');
 

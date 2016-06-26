@@ -239,8 +239,9 @@ class msProductData extends xPDOSimpleObject
         if ($this->optionKeys === null || $force) {
             /** @var xPDOQuery $c */
             $c = $this->prepareOptionListCriteria();
-            $c->groupby('msOption.id');
+            $c->groupby('msOption.id, msCategoryOption.rank');
             $c->select('msOption.key');
+
             $this->optionKeys = $c->prepare() && $c->stmt->execute()
                 ? $c->stmt->fetchAll(PDO::FETCH_COLUMN)
                 : array();

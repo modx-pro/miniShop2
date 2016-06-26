@@ -3,25 +3,17 @@
 $properties = array();
 
 $tmp = array(
-    'tplOuter' => array(
+    'tpl' => array(
         'type' => 'textfield',
-        'value' => 'tpl.msOrder.outer',
+        'value' => 'tpl.msOrder',
     ),
-    'tplPayment' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msOrder.payment',
-    ),
-    'tplDelivery' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msOrder.delivery',
-    ),
-    'tplEmpty' => array(
+    'userFields' => array(
         'type' => 'textfield',
         'value' => '',
     ),
-    'tplSuccess' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msOrder.success',
+    'showLog' => array(
+        'type' => 'combo-boolean',
+        'value' => false,
     ),
 );
 

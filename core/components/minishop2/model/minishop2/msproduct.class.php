@@ -213,12 +213,18 @@ class msProduct extends modResource
      */
     public function toArray($keyPrefix = '', $rawValues = false, $excludeLazy = false, $includeRelated = false)
     {
-        return array_merge(
-            $this->loadOptions(),
-            $this->loadVendor()->toArray($keyPrefix . 'vendor.', $rawValues, $excludeLazy, $includeRelated),
+        $original = parent::toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated);
+        $additional = array_merge(
             $this->loadData()->toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated),
-            parent::toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated)
+            $this->loadOptions(),
+            $this->loadVendor()->toArray($keyPrefix . 'vendor.', $rawValues, $excludeLazy, $includeRelated)
         );
+        $intersect = array_keys(array_intersect_key($original, $additional));
+        foreach ($intersect as $key) {
+            unset($additional[$key]);
+        }
+
+        return array_merge($original, $additional);
     }
 
 

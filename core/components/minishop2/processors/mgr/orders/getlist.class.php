@@ -240,11 +240,11 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
         $data = array(
             'success' => true,
-            'total' => (string)$count,
             'results' => $array,
+            'total' => $this->ms2->formatPrice($count),
             'sum' => $this->ms2->formatPrice($selected->stmt->fetchColumn()),
             'month_sum' => $this->ms2->formatPrice($month['sum']),
-            'month_total' => (string)$month['total'],
+            'month_total' => $this->ms2->formatPrice($month['total']),
         );
 
         return json_encode($data);

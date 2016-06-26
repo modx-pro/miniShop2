@@ -7,29 +7,13 @@ $tmp = array(
         'type' => 'numberfield',
         'value' => '',
     ),
-    'tplRow' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msOptions.row',
-    ),
-    'tplOuter' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msOptions.outer',
-    ),
-    'tplEmpty' => array(
+    'options' => array(
         'type' => 'textfield',
         'value' => '',
     ),
-    'name' => array(
+    'tpl' => array(
         'type' => 'textfield',
-        'value' => '',
-    ),
-    'selected' => array(
-        'type' => 'textfield',
-        'value' => '',
-    ),
-    'outputSeparator' => array(
-        'type' => 'textfield',
-        'value' => "\n",
+        'value' => 'tpl.msOptions',
     ),
 );
 

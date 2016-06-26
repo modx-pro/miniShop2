@@ -103,10 +103,10 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 }
 #minishop2-orders-info table { width: 100%; }
 #minishop2-orders-info td { width: 50%; }
-#minishop2-orders-info .top td { font-size: 12px; }
+#minishop2-orders-info .top td { font-size: 10px; }
 #minishop2-orders-info .top td span { font-size: 30px; line-height: 30px; }
 #minishop2-orders-info .bottom td { padding-top: 10px; font-size: 10px; }
-#minishop2-orders-info .bottom td span { font-size: 20px; line-height: 20px; }
+#minishop2-orders-info .bottom td span { font-size: 30px; line-height: 30px; }
 /* Products */
 .x-grid3-col-product-title,
 .x-grid3-col-product-image,

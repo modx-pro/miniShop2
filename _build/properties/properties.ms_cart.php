@@ -3,17 +3,9 @@
 $properties = array();
 
 $tmp = array(
-    'tplRow' => array(
+    'tpl' => array(
         'type' => 'textfield',
-        'value' => 'tpl.msCart.row',
-    ),
-    'tplOuter' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msCart.outer',
-    ),
-    'tplEmpty' => array(
-        'type' => 'textfield',
-        'value' => 'tpl.msCart.empty',
+        'value' => 'tpl.msCart',
     ),
     'includeTVs' => array(
         'type' => 'textfield',
@@ -22,6 +14,14 @@ $tmp = array(
     'includeThumbs' => array(
         'type' => 'textfield',
         'value' => '',
+    ),
+    'toPlaceholder' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
+    'showLog' => array(
+        'type' => 'combo-boolean',
+        'value' => false,
     ),
 );
 

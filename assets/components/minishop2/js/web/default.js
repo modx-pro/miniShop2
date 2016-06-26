@@ -309,21 +309,21 @@
 
     miniShop2.Gallery = {
         setup: function () {
-            miniShop2.Gallery.gallery = '#msGallery';
-            miniShop2.Gallery.mainImage = '#mainImage';
-            miniShop2.Gallery.thumbnail = '.thumbnail';
+            miniShop2.Gallery.gallery = $('#msGallery');
+            miniShop2.Gallery.files = miniShop2.Gallery.gallery.find('.fotorama');
         },
         initialize: function () {
             miniShop2.Gallery.setup();
-            if ($(miniShop2.Gallery.gallery).length) {
-                miniShop2.$doc.on('click', miniShop2.Gallery.gallery + ' ' + miniShop2.Gallery.thumbnail, function (e) {
-                    var src = $(this).attr('href');
-                    var href = $(this).data('image');
-                    $(miniShop2.Gallery.mainImage, miniShop2.Gallery.gallery).attr('src', src).parent().attr('href', href);
-                    e.preventDefault();
-                });
-
-                $(miniShop2.Gallery.thumbnail + ':first', miniShop2.Gallery.gallery).trigger('click');
+            if (miniShop2.Gallery.files.length) {
+                $('<link/>', {
+                    rel: 'stylesheet',
+                    type: 'text/css',
+                    href: miniShop2Config.cssUrl + 'lib/fotorama.min.css',
+                }).appendTo('head');
+                $('<script/>', {
+                    type: 'text/javascript',
+                    src: miniShop2Config.jsUrl + 'lib/fotorama.min.js',
+                }).appendTo('head');
             }
         }
     };
@@ -526,8 +526,9 @@
 
     miniShop2.Message = {
         initialize: function () {
-            miniShop2.Message.close = function() {};
-            miniShop2.Message.show = function(message) {
+            miniShop2.Message.close = function () {
+            };
+            miniShop2.Message.show = function (message) {
                 if (message != '') {
                     alert(message);
                 }

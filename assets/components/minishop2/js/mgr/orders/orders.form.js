@@ -139,6 +139,14 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
                     form.updateInfo(res.reader['jsonData']);
                 });
             },
+            afterrender: function() {
+                var form = this;
+                window.setTimeout(function() {
+                    form.on('resize', function() {
+                        form.updateInfo();
+                    });
+                }, 100);
+            },
             change: function () {
                 this.submit();
             },
@@ -208,10 +216,36 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     updateInfo: function (data) {
-        Ext.get('minishop2-orders-info-num').update(data['total']);
-        Ext.get('minishop2-orders-info-sum').update(data['sum']);
-        Ext.get('minishop2-orders-info-month-num').update(data['month_total']);
-        Ext.get('minishop2-orders-info-month-sum').update(data['month_sum']);
+        var arr = {
+            'num': 'total',
+            'sum': 'sum',
+            'month-num': 'month_total',
+            'month-sum': 'month_sum',
+        };
+        for (var i in arr) {
+            if (!arr.hasOwnProperty(i)) {
+                continue;
+            }
+            var text_size = 30;
+            var elem = Ext.get('minishop2-orders-info-' + i);
+            if (elem) {
+                elem.setStyle('font-size', text_size + 'px');
+                var val = data != undefined
+                    ? data[arr[i]]
+                    : elem.dom.innerText;
+                var elem_width = elem.parent().getWidth();
+                var text_width = val.length * text_size * .6;
+                if (text_width > elem_width) {
+                    for (var m = text_size; m >= 10; m--) {
+                        if ((val.length * m * .6) < elem_width) {
+                            break;
+                        }
+                    }
+                    elem.setStyle('font-size', m + 'px');
+                }
+                elem.update(val);
+            }
+        }
     },
 
     focusFirstField: function () {

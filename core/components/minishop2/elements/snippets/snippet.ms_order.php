@@ -1,162 +1,182 @@
 <?php
+/** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('miniShop2');
 $miniShop2->initialize($modx->context->key);
 /** @var pdoFetch $pdoFetch */
-if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
-$pdoFetch = new pdoFetch($modx, $scriptProperties);
+$pdoFetch = $modx->getService('pdoFetch');
+$pdoFetch->setConfig($scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
+$tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msOrder');
+
+// Do not show order form when displaying details of existing order
 if (!empty($_GET['msorder'])) {
-	if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
-		if ((!empty($_SESSION['minishop2']['orders']) && in_array($_GET['msorder'], $_SESSION['minishop2']['orders'])) || $order->get('user_id') == $modx->user->id || $modx->context->key == 'mgr') {
-			if (empty($tplSuccess)) {$tplSuccess = 'tpl.msOrder.success';}
-			return $pdoFetch->getChunk($tplSuccess, array('id' => $_GET['msorder']));
-		}
-	}
+    return '';
 }
 
 $cart = $miniShop2->cart->get();
-$status = $miniShop2->cart->status();
 $order = $miniShop2->order->get();
+$status = $miniShop2->cart->status();
 if (empty($status['total_count'])) {
-	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
+    return '';
 }
+$cost = $miniShop2->order->getCost();
+$order['cost'] = $miniShop2->formatPrice($cost['data']['cost']);
 
-$deliveryColumns = $modx->getSelectColumns('msDelivery', 'msDelivery', 'delivery_');
-$paymentColumns = $modx->getSelectColumns('msPayment', 'msPayment', 'payment_');
+// We need only active methods
+$where = array(
+    'msDelivery.active' => true,
+    'msPayment.active' => true,
+);
+
+// Join payments to deliveries
+$leftJoin = array(
+    'Payments' => array(
+        'class' => 'msDeliveryMember',
+    ),
+    'msPayment' => array(
+        'class' => 'msPayment',
+        'on' => 'Payments.payment_id = msPayment.id',
+    ),
+);
+
+// Select columns
+$select = array(
+    'msDelivery' => $modx->getSelectColumns('msDelivery', 'msDelivery', 'delivery_'),
+    'msPayment' => $modx->getSelectColumns('msPayment', 'msPayment', 'payment_'),
+);
+
+// Add user parameters
+foreach (array('where', 'leftJoin', 'select') as $v) {
+    if (!empty($scriptProperties[$v])) {
+        $tmp = $scriptProperties[$v];
+        if (!is_array($tmp)) {
+            $tmp = json_decode($tmp, true);
+        }
+        if (is_array($tmp)) {
+            $$v = array_merge($$v, $tmp);
+        }
+    }
+    unset($scriptProperties[$v]);
+}
+$pdoFetch->addTime('Conditions prepared');
 
 // Default parameters
 $default = array(
-	'class' => 'msDelivery'
-	,'where' => '{"active":1}'
-	,'select' => '{"msDelivery":"all"}'
-	,'sortby' => 'rank'
-	,'sortdir' => 'ASC'
-	,'return' => 'data'
-	,'fastMode' => false
-	,'nestedChunkPrefix' => 'minishop2_'
+    'class' => 'msDelivery',
+    'where' => $where,
+    'leftJoin' => $leftJoin,
+    'select' => $select,
+    'sortby' => 'msDelivery.rank asc, msPayment.rank',
+    'sortdir' => 'asc',
+    'limit' => 0,
+    'return' => 'data',
+    'nestedChunkPrefix' => 'minishop2_',
 );
-
 // Merge all properties and run!
-$pdoFetch->addTime('Query parameters are prepared.');
-$pdoFetch->setConfig(array_merge($default, $scriptProperties));
-$deliveries = $pdoFetch->run();
-$pdoFetch->addTime('Fetched deliveries.');
+$pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
+$rows = $pdoFetch->run();
 
-$arrays = array('deliveries' => array(),'payments' => array());
-if (!empty($deliveries)) {
-	foreach ($deliveries as $di => $delivery) {
-		$did = $delivery['id'];
-		if (empty($order['delivery']) && $di == 0) {
-			$miniShop2->order->add('delivery', $did);
-			$order = $miniShop2->order->get();
-		}
+$deliveries = $payments = array();
+foreach ($rows as $row) {
+    $delivery = array();
+    $payment = array();
+    foreach ($row as $key => $value) {
+        if (strpos($key, 'delivery_') === 0) {
+            $delivery[substr($key, 9)] = $value;
+        } else {
+            $payment[substr($key, 8)] = $value;
+        }
+    }
 
-		$delivery['payments'] = array();
-		$pdoFetch->config = array_merge($pdoFetch->config, array(
-			'class' => 'msPayment'
-			,'innerJoin' => '[{"class":"msDeliveryMember","alias":"Member","on":"Member.delivery_id='.$delivery['id'].' AND Member.payment_id=msPayment.id"}]'
-			,'select' => '{"msPayment":"all"}'
-		));
-		$pdoFetch->addTime('Fetched payments for delivery '.$delivery['name'].'.');
-		$payments = $pdoFetch->run();
-		if (!empty($payments)) {
-			foreach ($payments as $pi => $payment) {
-				$pdoFetch->addTime('Processing payment '.$payment['name'].'.');
-				$pid = $payment['id'];
-				if (empty($order['payment']) && $pi == 0) {
-					$miniShop2->order->add('payment', $pid);
-					$order = $miniShop2->order->get();
-				}
-				if (!array_key_exists($pid, $arrays['payments'])) {
-					$payment['checked'] = !empty($order['payment']) && $order['payment'] == $pid ? 'checked' : '';
-					$arrays['payments'][$pid] = empty($tplPayment)
-						? $pdoFetch->getChunk('', $payment)
-						: $pdoFetch->getChunk($tplPayment, $payment);
-				}
-				$delivery['payments'][] = $pid;
-			}
-		}
-
-		$pdoFetch->addTime('Processing delivery '.$delivery['name'].'.');
-		$delivery['checked'] = !empty($order['delivery']) && $order['delivery'] == $did ? 'checked' : '';
-		$delivery['payments'] = json_encode($delivery['payments']);
-		$arrays['deliveries'][$did] = empty($tplDelivery)
-			? $pdoFetch->getChunk('', $delivery)
-			: $pdoFetch->getChunk($tplDelivery, $delivery);
-	}
+    if (!isset($deliveries[$delivery['id']])) {
+        $delivery['payments'] = array();
+        $deliveries[$delivery['id']] = $delivery;
+    }
+    if (!empty($payment['id'])) {
+        $deliveries[$delivery['id']]['payments'][] = (int)$payment['id'];
+        if (!isset($payments[$payment['id']])) {
+            $payments[$payment['id']] = $payment;
+        }
+    }
 }
 
-$order_cost = $miniShop2->order->getcost();
-$deliveries = implode('', $arrays['deliveries']);
-$payments = implode('', $arrays['payments']);
-$form = array(
-	'deliveries' => $deliveries
-	,'payments' => $payments
-	,'order_cost' => $miniShop2->formatPrice($order_cost['data']['cost'])
+$form = array();
+// Get user data
+$profile = array();
+if ($modx->user->isAuthenticated($modx->context->key)) {
+    $profile = array_merge($modx->user->Profile->toArray(), $modx->user->toArray());
+}
+$fields = array(
+    'receiver' => 'fullname',
+    'phone' => 'phone',
+    'email' => 'email',
+    'comment' => 'extended[comment]',
+    'index' => 'zip',
+    'country' => 'country',
+    'region' => 'state',
+    'city' => 'city',
+    'street' => 'address',
+    'building' => 'extended[building]',
+    'room' => 'extended[room]',
 );
-
-// Setting user fields
-if ($isAuthenticated = $modx->user->isAuthenticated()) {
-	$profile = $modx->user->Profile->toArray();
+// Apply custom fields
+if (!empty($userFields)) {
+    if (!is_array($userFields)) {
+        $userFields = json_decode($userFields, true);
+    }
+    if (is_array($userFields)) {
+        $fields = array_merge($fields, $userFields);
+    }
 }
-$user_fields = array(
-	'receiver' => 'fullname',
-	'phone' => 'phone',
-	'email' => 'email',
-	'comment' => 'extended[comment]',
-	'index' => 'zip',
-	'country' => 'country',
-	'region' => 'state',
-	'city' => 'city',
-	'street' => 'address',
-	'building' => 'extended[building]',
-	'room' => 'extended[room]',
-);
-foreach ($user_fields as $key => $value) {
-	if (!empty($profile) && !empty($value)) {
-		if (strpos($value, 'extended') !== false) {
-			$tmp = substr($value, 9, -1);
-			$value = !empty($profile['extended'][$tmp])
-				? $profile['extended'][$tmp]
-				: '';
-		}
-		else {
-			$value = $profile[$value];
-		}
-		$tmp = $miniShop2->order->add($key, $value);
-		if ($tmp['success'] && !empty($tmp['data'][$key])) {
-			$form[$key] = $tmp['data'][$key];
-		}
-	}
-	if (empty($form[$key]) && !empty($order[$key])) {
-		$form[$key] = $order[$key];
-		unset($order[$key]);
-	}
+// Set user fields
+foreach ($fields as $key => $value) {
+    if (!empty($profile) && !empty($value)) {
+        if (strpos($value, 'extended') !== false) {
+            $tmp = substr($value, 9, -1);
+            $value = !empty($profile['extended'][$tmp])
+                ? $profile['extended'][$tmp]
+                : '';
+        } else {
+            $value = $profile[$value];
+        }
+        $response = $miniShop2->order->add($key, $value);
+        if ($response['success'] && !empty($response['data'][$key])) {
+            $form[$key] = $response['data'][$key];
+        }
+    }
+    if (empty($form[$key]) && !empty($order[$key])) {
+        $form[$key] = $order[$key];
+        unset($order[$key]);
+    }
 }
-$form = array_merge($order, $form);
-$form['errors'] = array();
 
+// Check for errors
+$errors = array();
 if (!empty($_POST)) {
-	$response = $miniShop2->order->getDeliveryRequiresFields();
-	$requires = $response['data']['requires'];
+    $response = $miniShop2->order->getDeliveryRequiresFields();
+    $requires = $response['data']['requires'];
 
-	foreach ($_POST as $field => $val) {
-		$validated = $miniShop2->order->validate($field, $val);
-		if ((in_array($field, $requires) && empty($validated))) {
-			$form['errors'][$field] = 'error';
-		}
-	}
+    foreach ($_POST as $field => $val) {
+        $validated = $miniShop2->order->validate($field, $val);
+        if ((in_array($field, $requires) && empty($validated))) {
+            $errors[] = $field;
+        }
+    }
 }
 
-$output = empty($tplOuter)
-	? $pdoFetch->getChunk('', $form)
-	: $pdoFetch->getChunk($tplOuter, $form);
+$output = $pdoFetch->getChunk($tpl, array(
+    'order' => $order,
+    'form' => $form,
+    'deliveries' => $deliveries,
+    'payments' => $payments,
+    'errors' => $errors,
+));
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
-	$output .= '<pre class="msOrderLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
+    $output .= '<pre class="msOrderLog">' . print_r($pdoFetch->getTime(), true) . '</pre>';
 }
 
 return $output;

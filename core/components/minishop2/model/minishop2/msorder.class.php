@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property int id
+ */
 class msOrder extends xPDOSimpleObject
 {
 

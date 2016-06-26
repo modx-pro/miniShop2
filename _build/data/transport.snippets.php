@@ -1,5 +1,6 @@
 <?php
-
+/** @var modX $modx */
+/** @var array $sources */
 $snippets = array();
 
 $tmp = array(
@@ -26,6 +27,7 @@ foreach ($tmp as $k => $v) {
         'static_file' => 'core/components/' . PKG_NAME_LOWER . '/elements/snippets/snippet.' . $v . '.php',
     ), '', true, true);
 
+    /** @noinspection PhpIncludeInspection */
     $properties = include $sources['build'] . 'properties/properties.' . $v . '.php';
     $snippet->setProperties($properties);
 

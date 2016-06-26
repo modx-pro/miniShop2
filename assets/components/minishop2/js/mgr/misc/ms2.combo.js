@@ -241,7 +241,7 @@ miniShop2.combo.Options = function (config) {
         resizable: true,
         name: config.name || 'tags',
         anchor: '100%',
-        minChars: 2,
+        minChars: 1,
         store: new Ext.data.JsonStore({
             id: (config.name || 'tags') + '-store',
             root: 'results',

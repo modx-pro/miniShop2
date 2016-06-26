@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '2.4.0-beta3';
+    public $version = '2.4.0-rc';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -704,27 +704,25 @@ class miniShop2
                         $handler = new $class($order);
                         if (method_exists($handler, 'getPaymentLink')) {
                             $link = $handler->getPaymentLink($order);
-                            $pls['payment_link'] = $this->modx->lexicon('ms2_payment_link', array('link' => $link));
+                            $pls['payment_link'] = $link;
                         }
                     }
                 }
             }
 
-            /** @var modChunk $chunk */
             if ($status->get('email_manager')) {
                 $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
-                $body = 'no chunk set';
+                $tpl = '';
                 if ($chunk = $this->modx->getObject('modChunk', $status->get('body_manager'))) {
-                    $body = $this->pdoTools->getChunk($chunk->get('name'), $pls);
-                    $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
-                    $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', array(), 10);
+                    $tpl = $chunk->get('name');
                 }
+                $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
                 $emails = array_map('trim', explode(',',
-                    $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender')))
+                        $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender')))
                 );
                 if (!empty($subject)) {
                     foreach ($emails as $email) {
-                        if (preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m', $email)) {
+                        if (preg_match('#.*?@.*#', $email)) {
                             $this->sendEmail($email, $subject, $body);
                         }
                     }
@@ -732,21 +730,15 @@ class miniShop2
             }
 
             if ($status->get('email_user')) {
-                /** @var modUserProfile $profile */
-                if ($profile = $this->modx->getObject('modUserProfile',
-                    array('internalKey' => $order->get('user_id')))
-                ) {
+                if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $pls['user_id']))) {
                     $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_user'), $pls);
-                    $body = 'no chunk set';
+                    $tpl = '';
                     if ($chunk = $this->modx->getObject('modChunk', $status->get('body_user'))) {
-                        $body = $this->pdoTools->getChunk($chunk->get('name'), $pls);
-                        $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
-                        $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', array(), 10);
+                        $tpl = $chunk->get('name');
                     }
+                    $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
                     $email = $profile->get('email');
-                    if (!empty($subject) && preg_match('/^[^@а-яА-Я]+@[^@а-яА-Я]+(?<!\.)\.[^\.а-яА-Я]{2,}$/m',
-                            $email)
-                    ) {
+                    if (!empty($subject) && preg_match('#.*?@.*#', $email)) {
                         $this->sendEmail($email, $subject, $body);
                     }
                 }
@@ -766,8 +758,11 @@ class miniShop2
      *
      * @return void
      */
-    public function sendEmail($email, $subject, $body = 'no body set')
+    public function sendEmail($email, $subject, $body = '')
     {
+        $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
+        $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', array(), 10);
+
         /** @var modPHPMailer $mail */
         $mail = $this->modx->getService('mail', 'mail.modPHPMailer');
         $mail->setHTML(true);

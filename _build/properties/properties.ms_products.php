@@ -55,10 +55,6 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
-    'fastMode' => array(
-        'type' => 'combo-boolean',
-        'value' => false,
-    ),
     'includeContent' => array(
         'type' => 'combo-boolean',
         'value' => false,
@@ -90,10 +86,6 @@ $tmp = array(
     'slave' => array(
         'type' => 'numberfield',
         'value' => '',
-    ),
-    'class' => array(
-        'type' => 'textfield',
-        'value' => 'msProduct',
     ),
     'tvPrefix' => array(
         'type' => 'textfield',

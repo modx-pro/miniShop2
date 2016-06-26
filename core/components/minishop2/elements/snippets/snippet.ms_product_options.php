@@ -1,86 +1,60 @@
 <?php
+/** @var modX $modx */
 /** @var array $scriptProperties */
-/** @var miniShop2 $miniShop2 */
-$miniShop2 = $modx->getService('miniShop2');
-$miniShop2->initialize($modx->context->key);
 
-/** @var pdoFetch $pdoFetch */
-if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
-$pdoFetch = new pdoFetch($modx, $scriptProperties);
-
-$output = '';
-
-/** @var msProduct $product */
-if (empty($product) && !empty($input)) {
+$tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msOptions');
+if (!empty($input) && empty($product)) {
     $product = $input;
 }
-if (empty($outputSeparator)) {$outputSeparator = "\n";}
-$options = explode(",",$modx->getOption('options',$scriptProperties,''));
-
-$product = !empty($product) ? $modx->getObject('msProduct', $product) : $product = $modx->resource;
-if (!($product instanceof msProduct)) {
-    $output = 'This resource is not instance of msProduct class.';
+if (!empty($name) && empty($options)) {
+    $options = $name;
 }
-$optionKeys = array();
+
+$product = !empty($product) && $product != $modx->resource->id
+    ? $modx->getObject('msProduct', $product)
+    : $modx->resource;
+if (!($product instanceof msProduct)) {
+    return "[msProductOptions] The resource with id = {$product->id} is not instance of msProduct.";
+}
+
+$ignoreOptions = array_map('trim', explode(',', $modx->getOption('ignoreOptions', $scriptProperties, '')));
+$groups = !empty($groups)
+    ? array_map('trim', explode(',', $groups))
+    : array();
 /** @var msProductData $data */
 if ($data = $product->getOne('Data')) {
     $optionKeys = $data->getOptionKeys();
 }
-$productData = $product->toArray();
-
-$ignoreOptions = explode(',', trim($modx->getOption('ignoreOptions', $scriptProperties, '')));
-
-if (!empty($groups)) {
-    $groups = explode(',', trim($groups));
-    $groups = array_map('trim', $groups);
-} else if ($groups === '0') {
-    $groups = array(0);
+if (empty($optionKeys)) {
+    return '';
 }
+$productData = $product->loadOptions();
 
-$rows = array();
-if(count($optionKeys) > 0) {
-    foreach ($optionKeys as $key) {
-        if (in_array($key, $ignoreOptions)) continue;
-        $productOption = array();
-        foreach ($productData as $dataKey => $dataValue) {
-            $dataKey = explode('.', $dataKey);
-            if ($dataKey[0] == $key && (count($dataKey) > 1)) {
-                $productOption[$dataKey[1]] = $dataValue;
-            }
-        }
-
-        // Пропускаем, если характеристика группы не указана в параметре &groups
-        if (!empty($groups) && !in_array($productOption['category'], $groups) && !in_array($productOption['category_name'], $groups)) continue;
-        if (isset($groups[0]) && ($groups[0] == 0) && ($productOption['category'] != 0)) continue;
-
-        if (is_array($productData[$key])) {
-            $values = array();
-            foreach ($productData[$key] as $value) {
-                $params = array_merge($productData, $productOption, array('value' => $value));
-                $values[] = $pdoFetch->getChunk($tplValue, $params);
-            }
-            $productOption['value'] = implode($valuesSeparator, $values);
-        } else {
-            $productOption['value'] = $productData[$key];
-        }
-
-        // Пропускаем, если значение пустое
-        if ($hideEmpty && empty($productOption['value'])) continue;
-
-        $rows[] = $pdoFetch->getChunk($tplRow, array_merge($productData, $productOption));
+$options = array();
+foreach ($optionKeys as $key) {
+    if (in_array($key, $ignoreOptions)) {
+        continue;
     }
+    $option = array();
+    foreach ($productData as $dataKey => $dataValue) {
+        $dataKey = explode('.', $dataKey);
+        if ($dataKey[0] == $key && (count($dataKey) > 1)) {
+            $option[$dataKey[1]] = $dataValue;
+        }
+    }
+    $option['value'] = $product->get($key);
+
+    // Filter by groups
+    $skip = !empty($groups) && !in_array($option['category'], $groups) && !in_array($option['category_name'], $groups);
+    if ($skip || empty($option['value'])) {
+        continue;
+    }
+    $options[$key] = $option;
 }
 
-if (count($rows) > 0) {
-    $rows = implode($outputSeparator, $rows);
-    $output = empty($tplOuter)
-        ? $pdoFetch->getChunk('', array_merge($productData, array('rows' => $rows)))
-        : $pdoFetch->getChunk($tplOuter, array_merge($scriptProperties, $productData, array('rows' => $rows)));
-}
-else{
-    $output = !empty($tplEmpty)
-        ? $pdoFetch->getChunk($tplEmpty, array_merge($scriptProperties, $productData))
-        : '';
-}
+/** @var pdoTools $pdoTools */
+$pdoTools = $modx->getService('pdoTools');
 
-return $output;
+return $pdoTools->getChunk($tpl, array(
+    'options' => $options,
+));

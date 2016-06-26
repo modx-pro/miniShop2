@@ -1,5 +1,28 @@
 Changelog for miniShop2.
 
+2.4.0 rc
+==============
+- All snippets are completely rewritten.
+- All chunks uses Fenom syntax.
+- Improved compatibility with MySQL 5.7.
+- Improved orders form panel.
+- [msOrder] Removed chunks tpl.msOrder.delivery, tpl.msOrder.payment and tpl.msOrder.success.
+- [msOrder] Chunk tpl.msOrder.outer renamed to tpl.msOrder.
+- [msOrder] New parameter &userFields.
+- [msCart] Removed chunks tpl.msCart.row and tpl.msCart.empty.
+- [msCart] Chunk tpl.msCart.outer renamed to tpl.msCart.
+- [msGetOrder] Now acts as usual snippet and do not set placeholders to the page by default.
+- [msGetOrder] Removed chunk tpl.msGetOrder.row.
+- [msGetOrder] Added chunk tpl.msGetOrder.
+- [msOptions] Removed chunks tpl.msOptions.outer and tpl.msOptions.row.
+- [msOptions] Added chunk tpl.msOptions.
+- [msProductOptions] Removed chunks tpl.msProductOptions.outer and tpl.msProductOptions.row.
+- [msProductOptions] Added chunk tpl.msProductOptions.
+- [msGallery] Removed chunks tpl.msGallery.outer, tpl.msGallery.row and tpl.msGallery.empty.
+- [msGallery] Added chunk tpl.msGallery.
+- [msGallery] Added Fotorama script out from the box.
+- Improved email chunks. Added common email template.
+
 2.4.0 beta3
 ==============
 - Small improvements of product gallery.
