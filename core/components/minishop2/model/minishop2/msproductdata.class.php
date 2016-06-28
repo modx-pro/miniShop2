@@ -213,6 +213,8 @@ class msProductData extends xPDOSimpleObject
         }
         if ($product = $this->getOne('Product')) {
             $categories[] = $product->get('parent');
+        } elseif (!empty($_GET['parent'])) {
+            $categories[] = (int)$_GET['parent'];
         }
         $categories = array_unique($categories);
 

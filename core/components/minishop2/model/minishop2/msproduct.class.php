@@ -236,7 +236,6 @@ class msProduct extends modResource
         if (!is_object($this->Data) || !($this->Data instanceof msProductData)) {
             if (!$this->Data = $this->getOne('Data')) {
                 $this->Data = $this->xpdo->newObject('msProductData');
-                $this->Data->addOne($this);
                 parent::addOne($this->Data);
             }
         }

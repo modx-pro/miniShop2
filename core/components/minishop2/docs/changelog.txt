@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc1
+==============
+- Fixed loop error on change class key from modResource to msProduct.
+
 2.4.0 rc
 ==============
 - All snippets are completely rewritten.
