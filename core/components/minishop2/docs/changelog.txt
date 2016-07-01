@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc2
+==============
+- Fixed duplicate of order number in msOrderHandler.
+
 2.4.0 rc1
 ==============
 - Fixed loop error on change class key from modResource to msProduct.

@@ -595,9 +595,10 @@ class msOrderHandler implements msOrderInterface
         $c = $this->modx->newQuery('msOrder');
         $c->where(array('num:LIKE' => "{$cur}%"));
         $c->select('num');
+        $c->sortby('num', 'DESC');
         $c->limit(1);
         if ($c->prepare() && $c->stmt->execute()) {
-            $num = $c->stmt->fetch(PDO::FETCH_COLUMN);
+            $num = $c->stmt->fetchColumn();
         }
         if (empty($num)) {
             $num = date('ym') . '/0';
