@@ -67,12 +67,13 @@ $pdoFetch->addTime('Fetching thumbnails');
 $resolution = array();
 /** @var msProductData $data */
 if ($data = $product->getOne('Data')) {
-    $data->initializeMediaSource();
-    $properties = $data->mediaSource->getProperties();
-    if (isset($properties['thumbnails']['value'])) {
-        $fileTypes = json_decode($properties['thumbnails']['value'], true);
-        foreach ($fileTypes as $v) {
-            $resolution[] = $v['w'] . 'x' . $v['h'];
+    if ($data->initializeMediaSource()) {
+        $properties = $data->mediaSource->getProperties();
+        if (isset($properties['thumbnails']['value'])) {
+            $fileTypes = json_decode($properties['thumbnails']['value'], true);
+            foreach ($fileTypes as $v) {
+                $resolution[] = $v['w'] . 'x' . $v['h'];
+            }
         }
     }
 }

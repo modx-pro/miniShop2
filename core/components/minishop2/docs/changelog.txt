@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc3
+==============
+- [msGallery] Improved snippet in case when product has no media source set.
+
 2.4.0 rc2
 ==============
 - Fixed duplicate of order number in msOrderHandler.
