@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.0 rc3
 ==============
 - [msGallery] Improved snippet in case when product has no media source set.
+- Fixed work with autocomplete product options.
 
 2.4.0 rc2
 ==============

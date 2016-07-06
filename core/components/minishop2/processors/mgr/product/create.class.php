@@ -44,6 +44,16 @@ class msProductCreateProcessor extends modResourceCreateProcessor
             ),
         ));
 
+        $properties = $this->getProperties();
+        $options = array();
+        foreach ($properties as $key => $value) {
+            if (strpos($key, 'options-') === 0) {
+                $options[substr($key, 8)] = $value;
+                $this->unsetProperty($key);
+            }
+        }
+        $this->setProperty('options', $options);
+
         return parent::beforeSet();
     }
 

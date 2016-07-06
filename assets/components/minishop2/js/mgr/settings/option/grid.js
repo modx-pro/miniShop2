@@ -161,42 +161,18 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
             text: _('ms2_menu_remove_confirm'),
             url: this.config.url,
             params: {
-                action: 'mgr/settings/option/remove',
-                id: this.menu.record.id
+                action: 'mgr/settings/option/multiple',
+                method: 'remove',
+                ids: Ext.util.JSON.encode(this._getSelectedIds()),
             },
             listeners: {
                 success: {
-                    fn: function (r) {
+                    fn: function () {
                         this.refresh();
                     }, scope: this
                 }
             }
         });
-    },
-
-    removeSelected: function (btn, e) {
-        var cs = this.getSelectedAsList();
-        if (cs === false) return false;
-
-        MODx.msg.confirm({
-            title: _('ms2_menu_remove_multiple')
-            , text: _('ms2_options_remove_confirm')
-            , url: this.config.url
-            , params: {
-                action: 'mgr/settings/option/remove_multiple'
-                , ids: cs
-            }
-            , listeners: {
-                'success': {
-                    fn: function (r) {
-                        this.getSelectionModel().clearSelections(true);
-                        this.refresh();
-                    }, scope: this
-                }
-            }
-        });
-
-        return true;
     },
 
     assignOption: function (btn, e) {

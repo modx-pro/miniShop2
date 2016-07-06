@@ -79,11 +79,13 @@ class msOption extends xPDOSimpleObject
             if ($catObj) {
                 /** @var msCategoryOption $catFtObj */
                 $catFtObj = $this->xpdo->getObject('msCategoryOption',
-                    array('category_id' => $category, 'option_id' => $this->get('id')));
+                    array('category_id' => $category, 'option_id' => $this->get('id'))
+                );
                 if (!$catFtObj) {
                     $catFtObj = $this->xpdo->newObject('msCategoryOption');
                     $catFtObj->set('category_id', $category);
                     $catFtObj->set('value', '');
+                    $catFtObj->set('active', true);
                     $this->addMany($catFtObj);
                 }
                 $result[] = $catObj->get('id');
