@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc4
+==============
+- Improved migration of system settings when upgrade from older versions.
+
 2.4.0 rc3
 ==============
 - [msGallery] Improved snippet in case when product has no media source set.

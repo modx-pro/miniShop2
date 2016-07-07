@@ -1,9 +1,10 @@
 <?php
 
-if ($object->xpdo) {
-    /** @var modX $modx */
-    $modx =& $object->xpdo;
-    /** @var array $options */
+/** @var xPDOTransport $transport */
+/** @var array $options */
+/** @var modX $modx */
+if ($transport->xpdo) {
+    $modx =& $transport->xpdo;
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
@@ -13,7 +14,7 @@ if ($object->xpdo) {
             $lang = $modx->getOption('manager_language') == 'en' ? 1 : 0;
 
             $statuses = array(
-                '1' => array(
+                1 => array(
                     'name' => !$lang ? 'Новый' : 'New',
                     'color' => '000000',
                     'email_user' => 1,
@@ -24,7 +25,7 @@ if ($object->xpdo) {
                     'body_manager' => 'tpl.msEmail.new.manager',
                     'final' => 0,
                 ),
-                '2' => array(
+                2 => array(
                     'name' => !$lang ? 'Оплачен' : 'Paid',
                     'color' => '008000',
                     'email_user' => 1,
@@ -35,7 +36,7 @@ if ($object->xpdo) {
                     'body_manager' => 'tpl.msEmail.paid.manager',
                     'final' => 0,
                 ),
-                '3' => array(
+                3 => array(
                     'name' => !$lang ? 'Отправлен' : 'Sent',
                     'color' => '003366',
                     'email_user' => 1,
@@ -46,7 +47,7 @@ if ($object->xpdo) {
                     'body_manager' => '',
                     'final' => 1,
                 ),
-                '4' => array(
+                4 => array(
                     'name' => !$lang ? 'Отменён' : 'Cancelled',
                     'color' => '800000',
                     'email_user' => 1,

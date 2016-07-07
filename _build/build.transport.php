@@ -230,7 +230,7 @@ $vehicle->resolve('file', array(
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
 ));
-
+/** @var array $BUILD_RESOLVERS */
 foreach ($BUILD_RESOLVERS as $resolver) {
     if ($vehicle->resolve('php', array('source' => $sources['resolvers'] . 'resolve.' . $resolver . '.php'))) {
         $modx->log(modX::LOG_LEVEL_INFO, 'Added resolver "' . $resolver . '" to category.');
@@ -251,6 +251,11 @@ $builder->setPackageAttributes(array(
     'setup-options' => array(
         'source' => $sources['build'] . 'setup.options.php',
     ),
+    /*
+    'requires' => array(
+        'pdotools' => '>=2.5.0-pl',
+    ),
+    */
 ));
 $modx->log(modX::LOG_LEVEL_INFO, 'Added package attributes and setup options.');
 

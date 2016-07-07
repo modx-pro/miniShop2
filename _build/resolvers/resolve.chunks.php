@@ -1,9 +1,10 @@
 <?php
 
-if ($object->xpdo) {
-    /** @var modX $modx */
-    $modx =& $object->xpdo;
-    /** @var array $options */
+/** @var xPDOTransport $transport */
+/** @var array $options */
+/** @var modX $modx */
+if ($transport->xpdo) {
+    $modx =& $transport->xpdo;
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
             break;

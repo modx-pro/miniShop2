@@ -121,39 +121,42 @@ if (!function_exists('downloadPackage')) {
 
 
 $success = false;
+/** @var xPDOTransport $transport */
 /** @var array $options */
-switch (@$options[xPDOTransport::PACKAGE_ACTION]) {
-    case xPDOTransport::ACTION_INSTALL:
-    case xPDOTransport::ACTION_UPGRADE:
-        /** @var modX $modx */
-        $modx = &$object->xpdo;
+/** @var modX $modx */
+if ($transport->xpdo) {
+    $modx =& $transport->xpdo;
+    switch ($options[xPDOTransport::PACKAGE_ACTION]) {
+        case xPDOTransport::ACTION_INSTALL:
+        case xPDOTransport::ACTION_UPGRADE:
+            // Checking and installing required packages
+            $packages = array(
+                'pdoTools' => '2.5.0-pl',
+            );
 
-        // Checking and installing required packages
-        $packages = array(
-            'pdoTools' => '2.1.20-pl',
-        );
-
-        foreach ($packages as $package_name => $version) {
-            $installed = $modx->getIterator('transport.modTransportPackage', array('package_name' => $package_name));
-            /** @var modTransportPackage $package */
-            foreach ($installed as $package) {
-                if ($package->compareVersion($version, '<=')) {
-                    continue(2);
+            foreach ($packages as $package_name => $version) {
+                $installed = $modx->getIterator('transport.modTransportPackage',
+                    array('package_name' => $package_name));
+                /** @var modTransportPackage $package */
+                foreach ($installed as $package) {
+                    if ($package->compareVersion($version, '<=')) {
+                        continue(2);
+                    }
                 }
+                $modx->log(modX::LOG_LEVEL_INFO, "Trying to install <b>{$package_name}</b>. Please wait...");
+                $response = installPackage($package_name);
+                $level = $response['success']
+                    ? modX::LOG_LEVEL_INFO
+                    : modX::LOG_LEVEL_ERROR;
+                $modx->log($level, $response['message']);
             }
-            $modx->log(modX::LOG_LEVEL_INFO, "Trying to install <b>{$package_name}</b>. Please wait...");
-            $response = installPackage($package_name);
-            $level = $response['success']
-                ? modX::LOG_LEVEL_INFO
-                : modX::LOG_LEVEL_ERROR;
-            $modx->log($level, $response['message']);
-        }
-        $success = true;
-        break;
+            $success = true;
+            break;
 
-    case xPDOTransport::ACTION_UNINSTALL:
-        $success = true;
-        break;
+        case xPDOTransport::ACTION_UNINSTALL:
+            $success = true;
+            break;
+    }
+
+    return $success;
 }
-
-return $success;

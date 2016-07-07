@@ -5,7 +5,7 @@ define('PKG_NAME', 'miniShop2');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
 define('PKG_VERSION', '2.4.0');
-define('PKG_RELEASE', 'rc3');
+define('PKG_RELEASE', 'rc4');
 define('PKG_AUTO_INSTALL', true);
 
 // Define paths
@@ -52,6 +52,7 @@ $BUILD_RESOLVERS = array(
     'policy',
     'sources',
     'settings',
-    'update',
+    'chunks',
     'setup',
+    'upgrade',
 );
