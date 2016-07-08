@@ -45,32 +45,17 @@ Ext.extend(miniShop2.window.CreatePayment, miniShop2.window.Default, {
             }]
 
         }, {
-            layout: 'column',
+            columnWidth: .5,
+            layout: 'form',
+            defaults: {msgTarget: 'under'},
             items: [{
-                columnWidth: .5,
-                layout: 'form',
-                defaults: {msgTarget: 'under'},
-                items: [{
-                    xtype: 'textfield',
-                    fieldLabel: _('ms2_order_requires'),
-                    description: _('ms2_order_requires_help'),
-                    name: 'requires',
-                    anchor: '99%',
-                    id: config.id + '-requires'
-                }]
-            }, {
-                columnWidth: .5,
-                layout: 'form',
-                defaults: {msgTarget: 'under'},
-                items: [{
-                    xtype: 'minishop2-combo-classes',
-                    type: 'payment',
-                    fieldLabel: _('ms2_class'),
-                    name: 'class',
-                    anchor: '99%',
-                    id: config.id + '-class',
-                }],
-            }]
+                xtype: 'minishop2-combo-classes',
+                type: 'payment',
+                fieldLabel: _('ms2_class'),
+                name: 'class',
+                anchor: '99%',
+                id: config.id + '-class',
+            }],
         }, {
             xtype: 'minishop2-combo-browser',
             fieldLabel: _('ms2_logo'),

@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc5
+==============
+- Removed wrong "requires" field in msPayment settings.
+
 2.4.0 rc4
 ==============
 - Improved migration of system settings when upgrade from older versions.
