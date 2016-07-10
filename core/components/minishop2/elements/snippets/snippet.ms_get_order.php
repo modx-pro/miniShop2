@@ -21,6 +21,7 @@ if (empty($id)) {
 if (!$order = $modx->getObject('msOrder', $id)) {
     return $modx->lexicon('ms2_err_order_nf');
 }
+
 $canView = (!empty($_SESSION['minishop2']['orders']) && in_array($id, $_SESSION['minishop2']['orders'])) ||
     $order->get('user_id') == $modx->user->id || $modx->user->hasSessionContext('mgr');
 if (!$canView) {
@@ -29,18 +30,17 @@ if (!$canView) {
 
 // Select ordered products
 $where = array(
-    'msOrderProduct.order_id' => $id,
+    'OrderProduct.order_id' => $id,
 );
 
 // Include products properties
 $leftJoin = array(
-    'msProduct' => array(
-        'class' => 'msProduct',
-        'on' => 'msProduct.id = msOrderProduct.product_id',
+    'OrderProduct' => array(
+        'class' => 'msOrderProduct',
+        'on' => 'msProduct.id = OrderProduct.product_id',
     ),
     'Data' => array(
         'class' => 'msProductData',
-        'on' => 'msProduct.id = Data.id',
     ),
     'Vendor' => array(
         'class' => 'msVendor',
@@ -53,9 +53,9 @@ $select = array(
     'msProduct' => !empty($includeContent)
         ? $modx->getSelectColumns('msProduct', 'msProduct')
         : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true),
+    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'OrderProduct', '', array('id'), true),
     'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true),
     'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
-    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true),
 );
 
 // Include products thumbnails
@@ -90,13 +90,13 @@ $pdoFetch->addTime('Conditions prepared');
 
 // Tables for joining
 $default = array(
-    'class' => 'msOrderProduct',
+    'class' => 'msProduct',
     'where' => $where,
     'leftJoin' => $leftJoin,
     'select' => $select,
-    'sortby' => 'msOrderProduct.id',
+    'sortby' => 'OrderProduct.id',
     'sortdir' => 'asc',
-    'groupby' => 'msOrderProduct.id',
+    'groupby' => 'OrderProduct.id',
     'fastMode' => false,
     'limit' => 0,
     'return' => 'data',
