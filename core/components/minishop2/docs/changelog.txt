@@ -1,5 +1,12 @@
 Changelog for miniShop2.
 
+2.4.0 rc7
+==============
+- Reverted back #216 due to issues.
+- [#216] [msGetOrder] Need to update pdoTools to version 2.5.6-pl to fix this.
+- [msGetOrder] Orders are show to all if parameter &id is set.
+- [mgr] Fixed number of rows in orders panel.
+
 2.4.0 rc6
 ==============
 - [#216] [msGetOrder] Fixed ability to &includeTVs.

@@ -217,7 +217,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
 
     updateInfo: function (data) {
         var arr = {
-            'num': 'total',
+            'num': 'num',
             'sum': 'sum',
             'month-num': 'month_total',
             'month-sum': 'month_sum',

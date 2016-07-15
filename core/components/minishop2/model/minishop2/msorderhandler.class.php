@@ -595,7 +595,7 @@ class msOrderHandler implements msOrderInterface
         $c = $this->modx->newQuery('msOrder');
         $c->where(array('num:LIKE' => "{$cur}%"));
         $c->select('num');
-        $c->sortby('num', 'DESC');
+        $c->sortby('id', 'DESC');
         $c->limit(1);
         if ($c->prepare() && $c->stmt->execute()) {
             $num = $c->stmt->fetchColumn();

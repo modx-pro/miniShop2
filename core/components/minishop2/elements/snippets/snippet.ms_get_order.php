@@ -21,26 +21,26 @@ if (empty($id)) {
 if (!$order = $modx->getObject('msOrder', $id)) {
     return $modx->lexicon('ms2_err_order_nf');
 }
-
 $canView = (!empty($_SESSION['minishop2']['orders']) && in_array($id, $_SESSION['minishop2']['orders'])) ||
-    $order->get('user_id') == $modx->user->id || $modx->user->hasSessionContext('mgr');
+    $order->get('user_id') == $modx->user->id || $modx->user->hasSessionContext('mgr') || !empty($scriptProperties['id']);
 if (!$canView) {
     return '';
 }
 
 // Select ordered products
 $where = array(
-    'OrderProduct.order_id' => $id,
+    'msOrderProduct.order_id' => $id,
 );
 
 // Include products properties
 $leftJoin = array(
-    'OrderProduct' => array(
-        'class' => 'msOrderProduct',
-        'on' => 'msProduct.id = OrderProduct.product_id',
+    'msProduct' => array(
+        'class' => 'msProduct',
+        'on' => 'msProduct.id = msOrderProduct.product_id',
     ),
     'Data' => array(
         'class' => 'msProductData',
+        'on' => 'msProduct.id = Data.id',
     ),
     'Vendor' => array(
         'class' => 'msVendor',
@@ -53,9 +53,10 @@ $select = array(
     'msProduct' => !empty($includeContent)
         ? $modx->getSelectColumns('msProduct', 'msProduct')
         : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true),
-    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'OrderProduct', '', array('id'), true),
-    'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true),
+    'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'),
+            true) . ',`Data`.`price` as `original_price`',
     'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
+    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true),
 );
 
 // Include products thumbnails
@@ -90,13 +91,14 @@ $pdoFetch->addTime('Conditions prepared');
 
 // Tables for joining
 $default = array(
-    'class' => 'msProduct',
+    'class' => 'msOrderProduct',
     'where' => $where,
     'leftJoin' => $leftJoin,
     'select' => $select,
-    'sortby' => 'OrderProduct.id',
+    'joinTVsTo' => 'msProduct',
+    'sortby' => 'msOrderProduct.id',
     'sortdir' => 'asc',
-    'groupby' => 'OrderProduct.id',
+    'groupby' => 'msOrderProduct.id',
     'fastMode' => false,
     'limit' => 0,
     'return' => 'data',
