@@ -1,5 +1,110 @@
 Changelog for miniShop2.
 
+2.4.0 rc7
+==============
+- Reverted back #216 due to issues.
+- [#216] [msGetOrder] Need to update pdoTools to version 2.5.6-pl to fix this.
+- [msGetOrder] Orders are show to all if parameter &id is set.
+- [mgr] Fixed number of rows in orders panel.
+
+2.4.0 rc6
+==============
+- [#216] [msGetOrder] Fixed ability to &includeTVs.
+
+2.4.0 rc5
+==============
+- Removed wrong "requires" field in msPayment settings.
+
+2.4.0 rc4
+==============
+- Improved migration of system settings when upgrade from older versions.
+
+2.4.0 rc3
+==============
+- [msGallery] Improved snippet in case when product has no media source set.
+- Fixed work with autocomplete product options.
+
+2.4.0 rc2
+==============
+- Fixed duplicate of order number in msOrderHandler.
+
+2.4.0 rc1
+==============
+- Fixed loop error on change class key from modResource to msProduct.
+
+2.4.0 rc
+==============
+- All snippets are completely rewritten.
+- All chunks uses Fenom syntax.
+- Improved compatibility with MySQL 5.7.
+- Improved orders form panel.
+- [msOrder] Removed chunks tpl.msOrder.delivery, tpl.msOrder.payment and tpl.msOrder.success.
+- [msOrder] Chunk tpl.msOrder.outer renamed to tpl.msOrder.
+- [msOrder] New parameter &userFields.
+- [msCart] Removed chunks tpl.msCart.row and tpl.msCart.empty.
+- [msCart] Chunk tpl.msCart.outer renamed to tpl.msCart.
+- [msGetOrder] Now acts as usual snippet and do not set placeholders to the page by default.
+- [msGetOrder] Removed chunk tpl.msGetOrder.row.
+- [msGetOrder] Added chunk tpl.msGetOrder.
+- [msOptions] Removed chunks tpl.msOptions.outer and tpl.msOptions.row.
+- [msOptions] Added chunk tpl.msOptions.
+- [msProductOptions] Removed chunks tpl.msProductOptions.outer and tpl.msProductOptions.row.
+- [msProductOptions] Added chunk tpl.msProductOptions.
+- [msGallery] Removed chunks tpl.msGallery.outer, tpl.msGallery.row and tpl.msGallery.empty.
+- [msGallery] Added chunk tpl.msGallery.
+- [msGallery] Added Fotorama script out from the box.
+- Improved email chunks. Added common email template.
+
+2.4.0 beta3
+==============
+- Small improvements of product gallery.
+- Improved ExtJS settings panel.
+
+2.4.0 beta2
+==============
+- Added system setting "ms2_template_category_default".
+- Improved referrals registration.
+- Improved ExtJS product panel.
+- Emails chunks are now processed by pdoTools.
+- Replaced modX::toJSON and modX::fromJSON calls to native functions.
+- New system to register 3rd party classes of extensions.
+- New system to register 3rd party plugins for objects model.
+- Improved duplicate of products and categories.
+- The data fields of the product are added to the tags of the resource: [[*price]], [[*article]] etc.
+- Improved registration of JS and CSS on frontend.
+- Javascript callbacks now are arrays with functions. New functions to register and remove callbacks.
+- Updated model for MySQL 5.7.
+- Improved product gallery.
+- New logo.
+
+2.4.0 beta1
+==============
+- Improved categories with products.
+- Improved menu of categories in resources tree.
+- Ability to change class_key of category.
+- Many improvements of ExtJS category panel and products grid.
+- Setting ms2_category_content_default is now empty by default.
+
+2.4.0 beta0
+==============
+- Fixed php type of "article" in msProductData xPDO object.
+- Improved orders panel.
+- Updated builder.
+- Added icons for CRCs in managers tree.
+- Minimum version is MODX 2.3.
+
+2.2.0 pl2
+==============
+- ID for Category's options tab
+- Fix installation for MODX 2.4.0
+- msProductOptions product property
+
+2.2.0 beta4
+==============
+- Category pagination fix.
+- Fixed bug removal options when modifying and generating images of products
+- Don't display tplOuter when all options are empty with hideEmpty=1
+
 2.2.0 beta3
 ==============
 - Measure units for options.
@@ -18,6 +123,10 @@ Changelog for miniShop2.
 - Custom product options support. More info at modx.pro.
 - Fixed TV showing under content.
 - Some code refactoring.
+
+2.1.12 pl
+==============
+- Improved installation script for MODX 2.4.
 
 2.1.11 pl
 ==============

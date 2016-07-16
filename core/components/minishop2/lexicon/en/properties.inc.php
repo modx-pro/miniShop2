@@ -45,6 +45,7 @@ $_lang['ms2_prop_tplPaymentsRow'] = 'Chunk to process a payment method.';
 $_lang['ms2_prop_tplDeliveriesOuter'] = 'Chunk for templating of a block of possible ways of deliveries.';
 $_lang['ms2_prop_tplDeliveriesRow'] = 'Chunk to process a way of delivery.';
 
+$_lang['ms2_prop_options'] = 'Comma-separated list of options to output.';
 $_lang['ms2_prop_product'] = 'Id of the product. If empty, will used id of the current document.';
 $_lang['ms2_prop_optionSelected'] = 'Name of the active option, for setting attribute "selected"';
 $_lang['ms2_prop_optionName'] = 'Name of the option for displaying.';
@@ -56,3 +57,6 @@ $_lang['ms2_prop_ignoreOptions'] = 'Options that should be ignored by snippet';
 $_lang['ms2_prop_hideEmpty'] = 'Hide options with empty value.';
 $_lang['ms2_prop_groups'] = 'Show options only by chosen groups (name or id of category separated by comma, "0" means no group).';
 $_lang['ms2_prop_tplValue'] = 'Chunk for templating of one value for multiple options';
+
+$_lang['ms2_prop_userFields'] = 'An associative array of order and user fields in format "order field" => "user field".';
+$_lang['ms2_prop_wrapIfEmpty'] = 'If true, will output the wrapper specified in &tplWrapper even if the output is empty.';

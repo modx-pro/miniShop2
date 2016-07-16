@@ -1,3 +1,0 @@
-<table>
-    [[+rows]]
-</table>

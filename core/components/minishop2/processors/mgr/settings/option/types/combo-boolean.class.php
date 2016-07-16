@@ -1,8 +1,15 @@
 <?php
 
-class msComboBooleanType extends msOptionType {
+class msComboBooleanType extends msOptionType
+{
 
-    public function getField($field) {
+    /**
+     * @param $field
+     *
+     * @return string
+     */
+    public function getField($field)
+    {
         return "{xtype:'modx-combo-boolean'}";
     }
 

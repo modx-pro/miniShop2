@@ -7,8 +7,8 @@ $xpdo_meta_map['msOrderAddress']= array (
   'fields' => 
   array (
     'user_id' => NULL,
-    'createdon' => '0000-00-00 00:00:00',
-    'updatedon' => '0000-00-00 00:00:00',
+    'createdon' => NULL,
+    'updatedon' => NULL,
     'receiver' => NULL,
     'phone' => NULL,
     'country' => NULL,
@@ -37,14 +37,12 @@ $xpdo_meta_map['msOrderAddress']= array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'default' => '0000-00-00 00:00:00',
     ),
     'updatedon' => 
     array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'default' => '0000-00-00 00:00:00',
     ),
     'receiver' => 
     array (

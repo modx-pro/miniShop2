@@ -1,9 +1,13 @@
 <?php
 class msCategoryOption extends xPDOObject {
 
+
     /**
-     * {@inheritdoc}
      * Create option values for product in category
+     * 
+     * @param null $cacheFlag
+     *
+     * @return bool
      */
     public function save($cacheFlag= null) {
         $save = parent::save();
@@ -31,9 +35,13 @@ class msCategoryOption extends xPDOObject {
         return $save;
     }
 
+
     /**
-     * {@inheritdoc}
      * Delete option values for product in category while remove option from category
+     *
+     * @param array $ancestors
+     *
+     * @return bool
      */
     public function remove(array $ancestors= array ()) {
         $q = $this->xpdo->newQuery('msProduct', array('parent' => $this->get('category_id')));

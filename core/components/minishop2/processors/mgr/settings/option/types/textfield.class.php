@@ -1,8 +1,15 @@
 <?php
 
-class msTextfieldType extends msOptionType {
+class msTextfieldType extends msOptionType
+{
 
-    public function getField($field) {
+    /**
+     * @param $field
+     *
+     * @return string
+     */
+    public function getField($field)
+    {
         return "{xtype:'textfield'}";
     }
 

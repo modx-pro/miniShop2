@@ -85,7 +85,7 @@ abstract class MODxTestCase extends PHPUnit_Framework_TestCase {
      */
     public function getResults(&$result) {
         $response = ltrim(rtrim($result->response,')'),'(');
-        $response = $this->modx->fromJSON($response);
+        $response = json_decode($response, true);
         return !empty($response['results']) ? $response['results'] : array();
     }
 }

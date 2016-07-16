@@ -13,6 +13,8 @@ $_lang['ms2_menu_remove'] = 'Удалить';
 $_lang['ms2_menu_remove_multiple'] = 'Удалить выбранное';
 $_lang['ms2_menu_remove_confirm'] = 'Вы уверены, что хотите удалить эту запись?';
 $_lang['ms2_menu_remove_multiple_confirm'] = 'Вы уверены, что хотите удалить все выбранные записи?';
+$_lang['ms2_menu_enable'] = 'Включить';
+$_lang['ms2_menu_disable'] = 'Выключить';
 
 $_lang['ms2_combo_select'] = 'Нажмите для выбора';
 $_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
@@ -81,6 +83,7 @@ $_lang['ms2_distance_price'] = 'Стоимость ед/рст';
 $_lang['ms2_distance_price_help'] = 'Добавочная стоимость доставки за единицу расстояния.<br/>Может быть использовано в кастомных классах.';
 $_lang['ms2_order_requires'] = 'Обязательные поля';
 $_lang['ms2_order_requires_help'] = 'При оформлении заказа, кастомный класс может требовать заполнение этих полей.';
+$_lang['ms2_rank'] = 'Порядок';
 
 $_lang['ms2_orders_selected_status'] = 'Сменить статус';
 
@@ -126,3 +129,26 @@ $_lang['ms2_ft_combo-multiple'] = 'Множественный список';
 $_lang['ms2_ft_combo-options'] = 'Список с автодополнением';
 $_lang['ms2_ft_checkbox'] = 'Флажок';
 $_lang['ms2_ft_datefield'] = 'Дата';
+
+$_lang['ms2_orders_form_begin'] = 'Выбрать заказы с';
+$_lang['ms2_orders_form_end'] = 'Выбрать заказы по';
+$_lang['ms2_orders_form_status'] = 'Фильтр по статусу';
+$_lang['ms2_orders_form_search'] = 'Поиск (номер, email, комментарий)';
+$_lang['ms2_orders_form_customer'] = 'Фильтр по заказчику';
+$_lang['ms2_orders_form_selected_num'] = 'Выбрано заказов';
+$_lang['ms2_orders_form_selected_sum'] = 'на сумму';
+$_lang['ms2_orders_form_month_num'] = 'Выполнено за 30 дней';
+$_lang['ms2_orders_form_month_sum'] = 'на сумму';
+$_lang['ms2_orders_form_submit'] = 'Отправить';
+$_lang['ms2_orders_form_reset'] = 'Сброс';
+
+$_lang['ms2_tab_category'] = 'Категория';
+$_lang['ms2_tab_products'] = 'Товары';
+$_lang['ms2_tab_options'] = 'Свойства товаров';
+$_lang['ms2_tab_comments'] = 'Комментарии';
+$_lang['ms2_tab_product'] = 'Товар';
+$_lang['ms2_tab_product_data'] = 'Свойства товара';
+$_lang['ms2_tab_product_options'] = 'Опции товара';
+$_lang['ms2_tab_product_links'] = 'Связи';
+$_lang['ms2_tab_product_categories'] = 'Категории';
+$_lang['ms2_tab_product_gallery'] = 'Галерея';

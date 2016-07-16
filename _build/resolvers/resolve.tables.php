@@ -1,86 +1,77 @@
 <?php
-/**
- * Resolve creating db tables
- *
- * @var xPDOObject $object
- * @var array $options
- */
 
-if ($object->xpdo) {
-	/* @var modX $modx */
-	$modx =& $object->xpdo;
+/** @var xPDOTransport $transport */
+/** @var array $options */
+/** @var modX $modx */
+if ($transport->xpdo) {
+    $modx =& $transport->xpdo;
+    switch ($options[xPDOTransport::PACKAGE_ACTION]) {
+        case xPDOTransport::ACTION_INSTALL:
+        case xPDOTransport::ACTION_UPGRADE:
+            $modelPath = $modx->getOption('minishop2.core_path', null,
+                    $modx->getOption('core_path') . 'components/minishop2/') . 'model/';
+            $modx->addPackage('minishop2', $modelPath);
 
-	switch ($options[xPDOTransport::PACKAGE_ACTION]) {
-		case xPDOTransport::ACTION_INSTALL:
-		case xPDOTransport::ACTION_UPGRADE:
-			$modelPath = $modx->getOption('minishop2.core_path',null,$modx->getOption('core_path').'components/minishop2/').'model/';
-			$modx->addPackage('minishop2',$modelPath);
-
-            $prefix = $modx->getOption(xPDO::OPT_TABLE_PREFIX, null, '');
-            $modx->exec("RENAME TABLE {$prefix}ms3_category_options TO {$prefix}ms2_category_options;");
-            $modx->exec("RENAME TABLE {$prefix}ms3_options TO {$prefix}ms2_options;");
-
-			$manager = $modx->getManager();
-			$tmp = array(
-				'msProductData',
-				'msVendor',
-				'msCategoryMember',
-				'msProductOption',
-				'msProductFile',
-				'msOrder',
-				'msOrderStatus',
-				'msOrderLog',
-				'msPayment',
-				'msDelivery',
-				'msDeliveryMember',
-				'msOrderAddress',
-				'msOrderProduct',
-				'msLink',
-				'msProductLink',
-				'msCustomerProfile',
+            $manager = $modx->getManager();
+            $tmp = array(
+                'msProductData',
+                'msVendor',
+                'msCategoryMember',
+                'msProductOption',
+                'msProductFile',
+                'msOrder',
+                'msOrderStatus',
+                'msOrderLog',
+                'msPayment',
+                'msDelivery',
+                'msDeliveryMember',
+                'msOrderAddress',
+                'msOrderProduct',
+                'msLink',
+                'msProductLink',
+                'msCustomerProfile',
                 'msOption',
-				'msCategoryOption',
-			);
-			foreach ($tmp as $v) {
-				$manager->createObjectContainer($v);
-			}
+                'msCategoryOption',
+            );
+            foreach ($tmp as $v) {
+                $manager->createObjectContainer($v);
+            }
 
-			$level = $modx->getLogLevel();
-			$modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
+            $level = $modx->getLogLevel();
+            $modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
 
-			$manager->addField('msProductFile', 'properties');
-			$manager->addField('msProductFile', 'hash');
-			$manager->addIndex('msProductFile', 'hash');
+            $manager->addField('msProductFile', 'properties');
+            $manager->addField('msProductFile', 'hash');
+            $manager->addIndex('msProductFile', 'hash');
 
-			$manager->addField('msOrderProduct', 'name');
+            $manager->addField('msOrderProduct', 'name');
 
-			$manager->alterField('msDelivery', 'price');
-			$manager->addField('msPayment', 'price', array('after' => 'description'));
+            $manager->alterField('msDelivery', 'price');
+            $manager->addField('msPayment', 'price', array('after' => 'description'));
 
-			$manager->addField('msCustomerProfile', 'spent', array('after' => 'account'));
-			$manager->addIndex('msCustomerProfile', 'spent');
+            $manager->addField('msCustomerProfile', 'spent', array('after' => 'account'));
+            $manager->addIndex('msCustomerProfile', 'spent');
 
-			$manager->addField('msOrder', 'type');
-			$manager->addIndex('msOrder', 'type');
+            $manager->addField('msOrder', 'type');
+            $manager->addIndex('msOrder', 'type');
 
             $manager->addField('msOption', 'description', array('after' => 'caption'));
             $manager->addField('msOption', 'category', array('after' => 'description'));
             $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
 
-			// Fix for wrong events
-			if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
-				$modx->removeCollection('modEvent', array(
-					'groupname' => 'miniShop2',
-					'name:IN' => array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
-				));
-			}
-
-			$modx->setLogLevel($level);
-
-			break;
-
-		case xPDOTransport::ACTION_UNINSTALL:
-			break;
-	}
+            // Fix for wrong events
+            /*
+            if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
+                $modx->removeCollection('modEvent', array(
+                    'groupname' => 'miniShop2',
+                    'name:IN' => array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
+                ));
+            }
+            */
+            $modx->setLogLevel($level);
+            break;
+        case xPDOTransport::ACTION_UNINSTALL:
+            break;
+    }
 }
 return true;

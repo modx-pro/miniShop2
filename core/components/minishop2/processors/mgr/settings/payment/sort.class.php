@@ -1,75 +1,121 @@
 <?php
 
-// It is adapted code from https://github.com/splittingred/Gallery/blob/a51442648fde1066cf04d46550a04265b1ad67da/core/components/gallery/processors/mgr/item/sort.php
-
-class msPaymentSortProcessor extends modObjectProcessor {
-	public $classKey = 'msPayment';
-	public $permission = 'mssetting_save';
-
-
-	/** {@inheritDoc} */
-	public function initialize() {
-		if (!$this->modx->hasPermission($this->permission)) {
-			return $this->modx->lexicon('access_denied');
-		}
-		return parent::initialize();
-	}
+class msPaymentSortProcessor extends modObjectProcessor
+{
+    public $classKey = 'msPayment';
+    public $permission = 'mssetting_save';
 
 
-	/** {@inheritDoc} */
-	public function process() {
-		/* @var msPayment $source */
-		$source = $this->modx->getObject($this->classKey, $this->getProperty('source'));
-		/* @var msPayment $target */
-		$target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
+    /**
+     * @return bool|null|string
+     */
+    public function initialize()
+    {
+        if (!$this->modx->hasPermission($this->permission)) {
+            return $this->modx->lexicon('access_denied');
+        }
 
-		if (empty($source) || empty($target)) {
-			return $this->modx->error->failure();
-		}
-
-		if ($source->get('rank') < $target->get('rank')) {
-			$this->modx->exec("UPDATE {$this->modx->getTableName($this->classKey)}
-				SET rank = rank - 1 WHERE
-					rank <= {$target->get('rank')}
-					AND rank > {$source->get('rank')}
-					AND rank > 0
-			");
-
-		} else {
-			$this->modx->exec("UPDATE {$this->modx->getTableName($this->classKey)}
-				SET rank = rank + 1 WHERE
-					rank >= {$target->get('rank')}
-					AND rank < {$source->get('rank')}
-			");
-		}
-		$newRank = $target->get('rank');
-		$source->set('rank',$newRank);
-		$source->save();
-
-		if (!$this->modx->getCount($this->classKey, array('rank' => 0))) {
-			$this->setRanks();
-		}
-		return $this->modx->error->success();
-	}
+        return parent::initialize();
+    }
 
 
-	/** {@inheritDoc} */
-	public function setRanks() {
-		$q = $this->modx->newQuery($this->classKey);
-		$q->select('id');
-		$q->sortby('rank ASC, id', 'ASC');
+    /**
+     * @return array|string
+     */
+    public function process()
+    {
+        if (!$this->modx->getCount($this->classKey, $this->getProperty('target'))) {
+            return $this->failure();
+        }
 
-		if ($q->prepare() && $q->stmt->execute()) {
-			$ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-			$sql = '';
-			$table = $this->modx->getTableName($this->classKey);
-			foreach ($ids as $k => $id) {
-				$sql .= "UPDATE {$table} SET `rank` = '{$k}' WHERE `id` = '{$id}';";
-			}
-			$this->modx->exec($sql);
-		}
-	}
+        $sources = json_decode($this->getProperty('sources'), true);
+        if (!is_array($sources)) {
+            return $this->failure();
+        }
+        foreach ($sources as $id) {
+            /** @var msPayment $source */
+            $source = $this->modx->getObject($this->classKey, $id);
+            /** @var msPayment $target */
+            $target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
+            $this->sort($source, $target);
+        }
+        $this->updateIndex();
 
+        return $this->modx->error->success();
+    }
+
+
+    /**
+     * @param msPayment $source
+     * @param msPayment $target
+     *
+     * @return array|string
+     */
+    public function sort(msPayment $source, msPayment $target)
+    {
+        $c = $this->modx->newQuery($this->classKey);
+        $c->command('UPDATE');
+        if ($source->get('rank') < $target->get('rank')) {
+            $c->query['set']['menuindex'] = array(
+                'value' => '`menuindex` - 1',
+                'type' => false,
+            );
+            $c->andCondition(array(
+                'rank:<=' => $target->rank,
+                'rank:>' => $source->rank,
+            ));
+            $c->andCondition(array(
+                'rank:>' => 0,
+            ));
+        } else {
+            $c->query['set']['rank'] = array(
+                'value' => '`rank` + 1',
+                'type' => false,
+            );
+            $c->andCondition(array(
+                'rank:>=' => $target->rank,
+                'rank:<' => $source->rank,
+            ));
+        }
+        $c->prepare();
+        $c->stmt->execute();
+
+        $source->set('rank', $target->rank);
+        $source->save();
+    }
+
+
+    /**
+     *
+     */
+    public function updateIndex()
+    {
+        // Check if need to update indexes
+        $c = $this->modx->newQuery($this->classKey);
+        $c->groupby('rank');
+        $c->select('COUNT(rank) as idx');
+        $c->sortby('idx', 'DESC');
+        $c->limit(1);
+        if ($c->prepare() && $c->stmt->execute()) {
+            if ($c->stmt->fetchColumn() == 1) {
+                return;
+            }
+        }
+
+        // Update indexes
+        $c = $this->modx->newQuery($this->classKey);
+        $c->select('id');
+        $c->sortby('rank ASC, id', 'ASC');
+        if ($c->prepare() && $c->stmt->execute()) {
+            $table = $this->modx->getTableName($this->classKey);
+            $update = $this->modx->prepare("UPDATE {$table} SET rank = ? WHERE id = ?");
+            $i = 0;
+            while ($id = $c->stmt->fetch(PDO::FETCH_COLUMN)) {
+                $update->execute(array($i, $id));
+                $i++;
+            }
+        }
+    }
 }
 
 return 'msPaymentSortProcessor';

@@ -1,13 +1,21 @@
 <?php
 
-class msOptionGetListProcessor extends modObjectGetListProcessor {
+class msOptionGetListProcessor extends modObjectGetListProcessor
+{
     public $classKey = 'msOption';
-    public $defaultSortField = 'msOption.key';
-    public $defaultSortDirection  = 'asc';
+    public $defaultSortField = 'key';
+    public $defaultSortDirection = 'asc';
     public $objectType = 'ms2';
     public $languageTopics = array('minishop2:default');
 
-    public function prepareQueryBeforeCount(xPDOQuery $c) {
+
+    /**
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
+    public function prepareQueryBeforeCount(xPDOQuery $c)
+    {
 
         $query = $this->getProperty('query', '');
         if (!empty($query)) {
@@ -19,42 +27,87 @@ class msOptionGetListProcessor extends modObjectGetListProcessor {
 
         $category = (int)$this->getProperty('category', 0);
         $categories = $this->getProperty('categories', '[]');
-        $categories = $this->modx->fromJSON($categories);
+        $categories = json_decode($categories, true);
 
         if (($category > 0) || (count($categories) > 0)) {
             $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
             $c->select(array(
-                $this->modx->getSelectColumns('msOption','msOption'),
-                $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption','', array('id', 'option_id'), true),
+                $this->modx->getSelectColumns('msOption', 'msOption'),
+                $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id'),
+                    true),
             ));
         }
 
         if ($category > 0) {
             $c->where(array(
-                'msCategoryOption.category_id' => $category
+                'msCategoryOption.category_id' => $category,
             ));
         }
 
         if (count($categories) > 0) {
             $c->where(array(
-                'msCategoryOption.category_id:IN' => $categories
+                'msCategoryOption.category_id:IN' => $categories,
             ));
         }
 
         return $c;
     }
 
-    public function prepareRow(xPDOObject $object) {
+
+    /**
+     * @param xPDOObject $object
+     *
+     * @return array
+     */
+    public function prepareRow(xPDOObject $object)
+    {
         $data = $object->toArray();
+
         $categories = $object->getMany('OptionCategories');
         $data['categories'] = array();
         /** @var msCategoryOption $cat */
         foreach ($categories as $cat) {
             $category = $cat->getOne('Category');
             if ($category) {
-                $data['categories'][] = $category->get(array('id', 'pagetitle'));
+                $data['categories'][] = $category->get('id');
             }
         }
+        $data['categories'] = json_encode($data['categories']);
+
+        $data['actions'] = array(
+            /*
+            array(
+                'cls' => '',
+                'icon' => 'icon icon-check',
+                'title' => $this->modx->lexicon('ms2_menu_assign'),
+                'multiple' => $this->modx->lexicon('ms2_menu_assign'),
+                'action' => 'assignOption',
+                'button' => true,
+                'menu' => true,
+            ),
+            */
+            array(
+                'cls' => '',
+                'icon' => 'icon icon-edit',
+                'title' => $this->modx->lexicon('ms2_menu_update'),
+                'action' => 'updateOption',
+                'button' => true,
+                'menu' => true,
+            ),
+            array(
+                'cls' => array(
+                    'menu' => 'red',
+                    'button' => 'red',
+                ),
+                'icon' => 'icon icon-trash-o',
+                'title' => $this->modx->lexicon('ms2_menu_remove'),
+                'multiple' => $this->modx->lexicon('ms2_menu_remove_multiple'),
+                'action' => 'removeOption',
+                'button' => true,
+                'menu' => true,
+            ),
+        );
+
         return $data;
     }
 }

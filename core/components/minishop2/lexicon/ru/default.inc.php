@@ -9,16 +9,16 @@
 include_once('setting.inc.php');
 $files = scandir(dirname(__FILE__));
 foreach ($files as $file) {
-	if (strpos($file, 'msp.') === 0) {
-		@include_once($file);
-	}
+    if (strpos($file, 'msp.') === 0) {
+        @include_once($file);
+    }
 }
 
 $_lang['minishop2'] = 'miniShop2';
 $_lang['ms2_menu_desc'] = 'Продвинутый интернет-магазин';
 $_lang['ms2_order'] = 'Заказ';
 $_lang['ms2_orders'] = 'Заказы';
-$_lang['ms2_orders_intro'] = 'Панель управления заказами';
+$_lang['ms2_orders_intro'] = 'Панель управления заказами. Вы можете выбирать сразу несколько заказов через Shift или Ctrl(Cmd).';
 $_lang['ms2_orders_desc'] = 'Управление заказами';
 $_lang['ms2_settings'] = 'Настройки';
 $_lang['ms2_settings_intro'] = 'Панель управления настройками магазина. Здесь вы можете указать способы оплаты, доставки и статусы заказов.';
@@ -38,7 +38,7 @@ $_lang['ms2_links'] = 'Связи товаров';
 $_lang['ms2_links_intro'] = 'Список возможных связей товаров друг с другом. Тип связи характеризует, как именно она будет работать, его нельзя создавать, можно только выбрать из списка.';
 $_lang['ms2_option'] = 'Свойство товаров';
 $_lang['ms2_options'] = 'Свойства товаров';
-$_lang['ms2_options_intro'] = 'Список возможных свойств товаров. Дерево категорий используется для фильтрации свойств выбранных категорий.';
+$_lang['ms2_options_intro'] = 'Список возможных свойств товаров. Дерево категорий используется для фильтрации свойств выбранных категорий.<br/>Чтобы назначить категориям сразу несколько опций, выберите их через Ctrl(Cmd) или Shift.';
 $_lang['ms2_options_category_intro'] = 'Список возможных свойств товаров в данной категории.';
 $_lang['ms2_default_value'] = 'Значение по умолчанию';
 $_lang['ms2_customer'] = 'Покупатель';
@@ -61,8 +61,9 @@ $_lang['ms2_btn_next'] = 'Следующий товар (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Помощь';
 $_lang['ms2_btn_duplicate'] = 'Сделать копию товара';
 $_lang['ms2_btn_addoption'] = 'Добавить';
+$_lang['ms2_btn_assign'] = 'Назначить';
 
-$_lang['ms2_bulk_actions'] = 'Действия';
+$_lang['ms2_actions'] = 'Действия';
 $_lang['ms2_search'] = 'Поиск';
 $_lang['ms2_search_clear'] = 'Очистить';
 
@@ -81,10 +82,11 @@ $_lang['ms2_category_view'] = 'Просмотреть на сайте';
 $_lang['ms2_category_new'] = 'Новая категория';
 $_lang['ms2_category_option_add'] = 'Добавить характеристику';
 $_lang['ms2_category_option_rank'] = 'Порядок сортировки';
+$_lang['ms2_category_show_nested'] = 'Показывать вложенные товары';
 
 $_lang['ms2_product'] = 'Товар магазина';
 $_lang['ms2_product_type'] = 'Товар магазина';
-$_lang['ms2_product_create_here'] = 'Товар категории';
+$_lang['ms2_product_create_here'] = 'Товар магазина';
 $_lang['ms2_product_create'] = 'Добавить товар';
 
 $_lang['ms2_option_type'] = 'Тип свойства';
@@ -102,7 +104,9 @@ $_lang['ms2_frontend_popular'] = 'Популярный товар';
 $_lang['ms2_frontend_favorite'] = 'Рекомендуем';
 $_lang['ms2_frontend_new'] = 'Новинка';
 $_lang['ms2_frontend_deliveries'] = 'Варианты доставки';
+$_lang['ms2_frontend_delivery'] = 'Доставка';
 $_lang['ms2_frontend_payments'] = 'Способы оплаты';
+$_lang['ms2_frontend_payment'] = 'Оплата';
 $_lang['ms2_frontend_delivery_select'] = 'Выберите доставку';
 $_lang['ms2_frontend_payment_select'] = 'Выберите оплату';
 $_lang['ms2_frontend_credentials'] = 'Данные получателя';
@@ -139,12 +143,14 @@ $_lang['ms2_err_status_wrong'] = 'Неверный статус заказа.';
 $_lang['ms2_err_status_same'] = 'Этот статус уже установлен.';
 $_lang['ms2_err_register_globals'] = 'Ошибка: php параметр <b>register_globals</b> должен быть выключен.';
 $_lang['ms2_err_link_equal'] = 'Вы пытаетесь добавить товару ссылку на самого себя';
+$_lang['ms2_err_value_duplicate'] = 'Вы не ввели значение или ввели повтор.';
 
 $_lang['ms2_err_gallery_save'] = 'Не могу сохранить файл не был сохранён (см. системный журнал).';
 $_lang['ms2_err_gallery_ns'] = 'Передан пустой файл';
 $_lang['ms2_err_gallery_ext'] = 'Неверное расширение файла';
 $_lang['ms2_err_gallery_exists'] = 'Такое изображение уже есть в галерее товара.';
 $_lang['ms2_err_gallery_thumb'] = 'Не получилось сгенерировать превьюшки. Смотрите системный лог.';
+$_lang['ms2_err_wrong_image'] = 'Файл не является корректным изображением.';
 
 $_lang['ms2_email_subject_new_user'] = 'Вы сделали заказ #[[+num]] на сайте [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'У вас новый заказ #[[+num]]';
@@ -153,7 +159,7 @@ $_lang['ms2_email_subject_paid_manager'] = 'Заказ #[[+num]] был опла
 $_lang['ms2_email_subject_sent_user'] = 'Ваш заказ #[[+num]] был отправлен';
 $_lang['ms2_email_subject_cancelled_user'] = 'Ваш заказ #[[+num]] был отменён';
 
-$_lang['ms2_payment_link'] = 'Если вы случайно прервали процедуру оплаты, вы всегда можете <a href="[[+link]]">продолжить её по этой ссылке</a>.';
+$_lang['ms2_payment_link'] = 'Если вы случайно прервали процедуру оплаты, вы всегда можете <a href="[[+link]]" style="color:#348eda;">продолжить её по этой ссылке</a>.';
 
 $_lang['ms2_category_err_ns'] = 'Категория не выбрана';
 $_lang['ms2_option_err_ns'] = 'Свойство не выбрано';

@@ -1,25 +1,34 @@
 <?php
-class msOrder extends xPDOSimpleObject {
 
-	public function updateProducts() {
-		$delivery_cost = $this->get('delivery_cost');
-		$cart_cost = $cost = $weight = 0;
+/**
+ * @property int id
+ */
+class msOrder extends xPDOSimpleObject
+{
 
-		$products = $this->getMany('Products');
-		/* @var msOrderProduct $product */
-		foreach ($products as $product) {
-			$count = $product->get('count');
-			$cart_cost += $product->get('price') * $count;
-			$weight += $product->get('weight') * $count;
-		}
+    /**
+     * @return bool
+     */
+    public function updateProducts()
+    {
+        $delivery_cost = $this->get('delivery_cost');
+        $cart_cost = $cost = $weight = 0;
 
-		$this->fromArray(array(
-			'cost' => $cart_cost + $delivery_cost
-			,'cart_cost' => $cart_cost
-			,'weight' => $weight
-		));
+        $products = $this->getMany('Products');
+        /** @var msOrderProduct $product */
+        foreach ($products as $product) {
+            $count = $product->get('count');
+            $cart_cost += $product->get('price') * $count;
+            $weight += $product->get('weight') * $count;
+        }
 
-		return $this->save();
-	}
+        $this->fromArray(array(
+            'cost' => $cart_cost + $delivery_cost,
+            'cart_cost' => $cart_cost,
+            'weight' => $weight,
+        ));
+
+        return $this->save();
+    }
 
 }

@@ -7,13 +7,13 @@ $xpdo_meta_map['msOrder']= array (
   'fields' => 
   array (
     'user_id' => NULL,
-    'createdon' => '0000-00-00 00:00:00',
-    'updatedon' => '0000-00-00 00:00:00',
+    'createdon' => NULL,
+    'updatedon' => NULL,
     'num' => '',
-    'cost' => 0,
-    'cart_cost' => 0,
-    'delivery_cost' => 0,
-    'weight' => 0,
+    'cost' => 0.0,
+    'cart_cost' => 0.0,
+    'delivery_cost' => 0.0,
+    'weight' => 0.0,
     'status' => 0,
     'delivery' => 0,
     'payment' => 0,
@@ -38,14 +38,12 @@ $xpdo_meta_map['msOrder']= array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'default' => '0000-00-00 00:00:00',
     ),
     'updatedon' => 
     array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'default' => '0000-00-00 00:00:00',
     ),
     'num' => 
     array (
@@ -61,7 +59,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '12,2',
       'phptype' => 'float',
       'null' => true,
-      'default' => 0,
+      'default' => 0.0,
     ),
     'cart_cost' => 
     array (
@@ -69,7 +67,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '12,2',
       'phptype' => 'float',
       'null' => true,
-      'default' => 0,
+      'default' => 0.0,
     ),
     'delivery_cost' => 
     array (
@@ -77,7 +75,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '12,2',
       'phptype' => 'float',
       'null' => true,
-      'default' => 0,
+      'default' => 0.0,
     ),
     'weight' => 
     array (
@@ -85,7 +83,7 @@ $xpdo_meta_map['msOrder']= array (
       'precision' => '13,3',
       'phptype' => 'float',
       'null' => true,
-      'default' => 0,
+      'default' => 0.0,
     ),
     'status' => 
     array (

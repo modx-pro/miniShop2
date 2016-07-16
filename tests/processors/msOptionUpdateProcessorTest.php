@@ -86,7 +86,7 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
             'id' =>  $id,
             'key' => 'UnitTestOption5',
             'caption' => 'UnitTestOption5',
-            'categories' => $this->modx->toJSON(array_keys($categories))
+            'categories' => json_encode(array_keys($categories))
         ));
 
         $this->assertTrue($response['success']);
@@ -110,7 +110,7 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
             'id' =>  $id,
             'key' => 'UnitTestOption5',
             'caption' => 'UnitTestOption5',
-            'categories' => $this->modx->toJSON(array_keys($categories))
+            'categories' => json_encode(array_keys($categories))
         ));
 
         unset($categories[100500]);

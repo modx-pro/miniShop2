@@ -1,113 +1,156 @@
 <?php
-/* @var array $scriptProperties */
-/* @var miniShop2 $miniShop2 */
-$miniShop2 = $modx->getService('minishop2');
+/** @var modX $modx */
+/** @var array $scriptProperties */
+/** @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('miniShop2');
 $miniShop2->initialize($modx->context->key);
-/* @var pdoFetch $pdoFetch */
-if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {return false;}
-$pdoFetch = new pdoFetch($modx, $scriptProperties);
+/** @var pdoFetch $pdoFetch */
+$pdoFetch = $modx->getService('pdoFetch');
+$pdoFetch->setConfig($scriptProperties);
+$pdoFetch->addTime('pdoTools loaded.');
 
+$tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msCart');
 $cart = $miniShop2->cart->get();
 $status = $miniShop2->cart->status();
+
+// Do not show empty cart when displaying order details
 if (!empty($_GET['msorder'])) {
-	return '';
-}
-elseif (empty($status['total_count'])) {
-	return !empty($tplEmpty) ? $pdoFetch->getChunk($tplEmpty) : '';
+    return '';
+} elseif (empty($status['total_count'])) {
+    return $pdoFetch->getChunk($tpl);
 }
 
-// Include Thumbnails
-$thumbsLeftJoin = '';
-$thumbsSelect = array();
+// Select cart products
+$where = array(
+    'msProduct.id:IN' => array(),
+);
+foreach ($cart as $entry) {
+    $where['msProduct.id:IN'][] = $entry['id'];
+}
+$where['msProduct.id:IN'] = array_unique($where['msProduct.id:IN']);
+
+// Include products properties
+$leftJoin = array(
+    'Data' => array(
+        'class' => 'msProductData',
+    ),
+    'Vendor' => array(
+        'class' => 'msVendor',
+        'on' => 'Data.vendor = Vendor.id',
+    ),
+);
+
+// Select columns
+$select = array(
+    'msProduct' => !empty($includeContent)
+        ? $modx->getSelectColumns('msProduct', 'msProduct')
+        : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true),
+    'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true),
+    'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
+);
+
+// Include products thumbnails
 if (!empty($includeThumbs)) {
-	$thumbs = array_map('trim',explode(',',$includeThumbs));
-	if(!empty($thumbs[0])){
-		foreach ($thumbs as $thumb) {
-			$thumbsLeftJoin .= ',{"class":"msProductFile","alias":"'.$thumb.'","on":"'.$thumb.'.product_id = msProduct.id AND '.$thumb.'.parent != 0 AND '.$thumb.'.path LIKE \'%/'.$thumb.'/\'"}';
-			$thumbsSelect[] = ' "'.$thumb.'":"'.$thumb.'.url as '.$thumb.'" ';
-		}
-		$pdoFetch->addTime('Included list of thumbnails: <b>'.implode(', ',$thumbs).'</b>.');
-	}
-}
-// End of including Thumbnails
-
-// Fields to select
-$resourceColumns = !empty($includeContent) ?  $modx->getSelectColumns('msProduct', 'msProduct') : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true);
-$dataColumns = $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true);
-$vendorColumns = $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true);
-
-// Tables for joining
-$leftJoin = '{"class":"msProductData","alias":"Data","on":"msProduct.id=Data.id"},{"class":"msVendor","alias":"Vendor","on":"Data.vendor=Vendor.id"}';
-if (!empty($thumbsLeftJoin)) {$leftJoin .= $thumbsLeftJoin;}
-$select = '"msProduct":"'.$resourceColumns.'","Data":"'.$dataColumns.'","Vendor":"'.$vendorColumns.'"';
-if (!empty($thumbsSelect)) {$select .= ','.implode(',', $thumbsSelect);}
-$pdoFetch->addTime('Query parameters are prepared.');
-
-$scriptProperties['tpl'] = $scriptProperties['tplRow'];
-$pdoFetch->setConfig($scriptProperties);
-
-// Working
-$outer = array('goods' => '', 'total_count' => 0, 'total_weight' => 0, 'total_cost' => 0);
-foreach ($cart as $k => $v) {
-
-	$default = array(
-		'class' => 'msProduct'
-		,'where' => '{"msProduct.id":"'.$v['id'].'","class_key":"msProduct"}'
-		,'leftJoin' => '['.$leftJoin.']'
-		,'select' => '{'.$select.'}'
-		,'sortby' => 'id'
-		,'sortdir' => 'ASC'
-		,'groupby' => 'msProduct.id'
-		,'fastMode' => false
-		,'limit' => 0
-		,'return' => 'data'
-		,'nestedChunkPrefix' => 'minishop2_'
-	);
-	// Merge all properties and run!
-	$pdoFetch->config = array_merge($pdoFetch->config, $default, $scriptProperties);
-	$rows = $pdoFetch->run();
-
-	// If not empty and relevant to the context, then show
-	if (!empty($rows[0]) && (empty($v['ctx']) || $v['ctx'] == $modx->context->key)) {
-		$row = $rows[0];
-		$row['key'] = $k;
-		$row['count'] = $v['count'];
-		$row['old_price'] = $miniShop2->formatPrice(
-			$row['price'] != $v['price']
-				? $row['price']
-				: $row['old_price']
-		);
-		$row['price'] = $miniShop2->formatPrice($v['price']);
-		$row['weight'] = $miniShop2->formatWeight($v['weight']);
-		$row['cost'] = $miniShop2->formatPrice($v['count'] * $v['price']);
-
-		// Additional properties of product
-		if (!empty($v['options']) && is_array($v['options'])) {
-			foreach ($v['options'] as $key => $value) {
-				$row['option.'.$key] = $value;
-			}
-		}
-		unset($v['options']);
-
-        // Add option values
-        $options = $modx->call('msProductData', 'loadOptions', array(&$modx, $row['id']));
-        $row = array_merge($row, $options);
-
-		$row['idx'] = $pdoFetch->idx++;
-		$tplRow = $pdoFetch->defineChunk($row);
-		$outer['goods'] .= empty($tplRow)
-			? $pdoFetch->getChunk('', $row)
-			: $pdoFetch->getChunk($tplRow, $row, $pdoFetch->config['fastMode']);
-
-		$outer['total_count'] += $v['count'];
-		$outer['total_cost'] +=  $v['count'] * $v['price'];
-		$outer['total_weight'] += $v['count'] * $v['weight'];
-	}
+    $thumbs = array_map('trim', explode(',', $includeThumbs));
+    if (!empty($thumbs[0])) {
+        foreach ($thumbs as $thumb) {
+            $leftJoin[$thumb] = array(
+                'class' => 'msProductFile',
+                'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.parent != 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%'",
+            );
+            $select[$thumb] = "`{$thumb}`.url as '{$thumb}'";
+        }
+        $pdoFetch->addTime('Included list of thumbnails: <b>' . implode(', ', $thumbs) . '</b>.');
+    }
 }
 
-$outer['total_cost'] = $miniShop2->formatPrice($outer['total_cost']);
-$outer['total_weight'] = $miniShop2->formatWeight($outer['total_weight']);
+// Add user parameters
+foreach (array('where', 'leftJoin', 'select') as $v) {
+    if (!empty($scriptProperties[$v])) {
+        $tmp = $scriptProperties[$v];
+        if (!is_array($tmp)) {
+            $tmp = json_decode($tmp, true);
+        }
+        if (is_array($tmp)) {
+            $$v = array_merge($$v, $tmp);
+        }
+    }
+    unset($scriptProperties[$v]);
+}
+$pdoFetch->addTime('Conditions prepared');
 
-return empty($tplOuter)
-	? $pdoFetch->getChunk('', $outer)
-	: $pdoFetch->getChunk($tplOuter, $outer, $pdoFetch->config['fastMode']);
+$default = array(
+    'class' => 'msProduct',
+    'where' => $where,
+    'leftJoin' => $leftJoin,
+    'select' => $select,
+    'sortby' => 'msProduct.id',
+    'sortdir' => 'ASC',
+    'groupby' => 'msProduct.id',
+    'limit' => 0,
+    'return' => 'data',
+    'nestedChunkPrefix' => 'minishop2_',
+);
+// Merge all properties and run!
+$pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
+
+$tmp = $pdoFetch->run();
+$rows = array();
+foreach ($tmp as $row) {
+    $rows[$row['id']] = $row;
+}
+
+// Process products in cart
+$products = array();
+$total = array('count' => 0, 'weight' => 0, 'cost' => 0);
+foreach ($cart as $key => $entry) {
+    if (!isset($rows[$entry['id']])) {
+        continue;
+    }
+    $product = $rows[$entry['id']];
+
+    $product['key'] = $key;
+    $product['count'] = $entry['count'];
+    $product['old_price'] = $miniShop2->formatPrice(
+        $product['price'] != $entry['price']
+            ? $product['price']
+            : $product['old_price']
+    );
+    $product['price'] = $miniShop2->formatPrice($entry['price']);
+    $product['weight'] = $miniShop2->formatWeight($entry['weight']);
+    $product['cost'] = $miniShop2->formatPrice($entry['count'] * $entry['price']);
+
+    // Additional properties of product in cart
+    if (!empty($entry['options']) && is_array($entry['options'])) {
+        $product['options'] = $entry['options'];
+        foreach ($entry['options'] as $option => $value) {
+            $product['option.' . $option] = $value;
+        }
+    }
+
+    // Add option values
+    $options = $modx->call('msProductData', 'loadOptions', array(&$modx, $product['id']));
+    $products[] = array_merge($product, $options);
+
+    // Count total
+    $total['count'] += $entry['count'];
+    $total['cost'] += $entry['count'] * $entry['price'];
+    $total['weight'] += $entry['count'] * $entry['weight'];
+}
+$total['cost'] = $miniShop2->formatPrice($total['cost']);
+$total['weight'] = $miniShop2->formatWeight($total['weight']);
+
+$output = $pdoFetch->getChunk($tpl, array(
+    'total' => $total,
+    'products' => $products,
+));
+
+if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
+    $output .= '<pre class="msCartLog">' . print_r($pdoFetch->getTime(), true) . '</pre>';
+}
+
+if (!empty($toPlaceholder)) {
+    $modx->setPlaceholder($toPlaceholder, $output);
+} else {
+    return $output;
+}

@@ -14,7 +14,7 @@ $xpdo_meta_map['msProductFile']= array (
     'path' => '',
     'file' => NULL,
     'type' => NULL,
-    'createdon' => '0000-00-00 00:00:00',
+    'createdon' => NULL,
     'createdby' => 0,
     'rank' => 0,
     'url' => '',
@@ -90,7 +90,6 @@ $xpdo_meta_map['msProductFile']= array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'default' => '0000-00-00 00:00:00',
     ),
     'createdby' => 
     array (
@@ -226,6 +225,14 @@ $xpdo_meta_map['msProductFile']= array (
     array (
       'class' => 'msProduct',
       'local' => 'product_id',
+      'foreign' => 'id',
+      'cardinality' => 'one',
+      'owner' => 'foreign',
+    ),
+    'Source' => 
+    array (
+      'class' => 'modMediaSource',
+      'local' => 'source',
       'foreign' => 'id',
       'cardinality' => 'one',
       'owner' => 'foreign',

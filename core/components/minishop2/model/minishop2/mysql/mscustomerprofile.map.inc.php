@@ -7,8 +7,8 @@ $xpdo_meta_map['msCustomerProfile']= array (
   'fields' => 
   array (
     'id' => NULL,
-    'account' => 0,
-    'spent' => 0,
+    'account' => 0.0,
+    'spent' => 0.0,
     'createdon' => 'CURRENT_TIMESTAMP',
     'referrer_id' => 0,
     'referrer_code' => '',
@@ -30,7 +30,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
       'precision' => '12,2',
       'phptype' => 'float',
       'null' => true,
-      'default' => 0,
+      'default' => 0.0,
     ),
     'spent' => 
     array (
@@ -38,7 +38,7 @@ $xpdo_meta_map['msCustomerProfile']= array (
       'precision' => '12,2',
       'phptype' => 'float',
       'null' => true,
-      'default' => 0,
+      'default' => 0.0,
     ),
     'createdon' => 
     array (
@@ -146,10 +146,3 @@ $xpdo_meta_map['msCustomerProfile']= array (
     ),
   ),
 );
-
-
-if (!class_exists('ms2Plugins') || !is_object($this->ms2Plugins)) {
-	require_once (dirname(dirname(__FILE__)) . '/plugins.class.php');
-	$this->ms2Plugins = new ms2Plugins($this, array());
-}
-$xpdo_meta_map['msCustomerProfile'] = $this->ms2Plugins->loadMap('msCustomerProfile', $xpdo_meta_map['msCustomerProfile']);

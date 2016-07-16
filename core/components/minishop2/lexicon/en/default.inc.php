@@ -9,9 +9,9 @@
 include_once('setting.inc.php');
 $files = scandir(dirname(__FILE__));
 foreach ($files as $file) {
-	if (strpos($file, 'msp.') === 0) {
-		@include_once($file);
-	}
+    if (strpos($file, 'msp.') === 0) {
+        @include_once($file);
+    }
 }
 
 $_lang['minishop2'] = 'miniShop2';
@@ -38,7 +38,7 @@ $_lang['ms2_links'] = 'Links of goods';
 $_lang['ms2_links_intro'] = 'The list of possible links of goods with each other. Connection type describes exactly how it will work, it is impossible to create, you can only select from the list.';
 $_lang['ms2_option'] = 'Product option';
 $_lang['ms2_options'] = 'Product options';
-$_lang['ms2_options_intro'] = 'List of available product options. Category tree is used for filtering options by checked categories.';
+$_lang['ms2_options_intro'] = 'List of available product options. Category tree is used for filtering options by checked categories.<br/>To assign multiple options to the categories, you need to choose them using the Ctrl(Cmd) or Shift.';
 $_lang['ms2_options_category_intro'] = 'List of available product options in the category.';
 $_lang['ms2_default_value'] = 'Default value';
 $_lang['ms2_customer'] = 'Customer';
@@ -61,8 +61,9 @@ $_lang['ms2_btn_next'] = 'Next btn (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Help';
 $_lang['ms2_btn_duplicate'] = 'Duplicate product';
 $_lang['ms2_btn_addoption'] = 'Add option';
+$_lang['ms2_btn_assign'] = 'Assign';
 
-$_lang['ms2_bulk_actions'] = 'Actions';
+$_lang['ms2_actions'] = 'Actions';
 $_lang['ms2_search'] = 'Search';
 $_lang['ms2_search_clear'] = 'Clear';
 
@@ -81,10 +82,11 @@ $_lang['ms2_category_view'] = 'View on site';
 $_lang['ms2_category_new'] = 'New category';
 $_lang['ms2_category_option_add'] = 'Add option';
 $_lang['ms2_category_option_rank'] = 'Rank';
+$_lang['ms2_category_show_nested'] = 'Show nested products';
 
 $_lang['ms2_product'] = 'Product of the shop';
 $_lang['ms2_product_type'] = 'Product of the shop';
-$_lang['ms2_product_create_here'] = 'Product of the category';
+$_lang['ms2_product_create_here'] = 'Product of the shop';
 $_lang['ms2_product_create'] = 'Add product';
 
 $_lang['ms2_option_type'] = 'Option type';
@@ -102,7 +104,9 @@ $_lang['ms2_frontend_popular'] = 'Popular';
 $_lang['ms2_frontend_favorite'] = 'Favorite';
 $_lang['ms2_frontend_new'] = 'New';
 $_lang['ms2_frontend_deliveries'] = 'Deliveries';
+$_lang['ms2_frontend_delivery'] = 'Delivery';
 $_lang['ms2_frontend_payments'] = 'Payments';
+$_lang['ms2_frontend_payment'] = 'Payment';
 $_lang['ms2_frontend_delivery_select'] = 'Select delivery';
 $_lang['ms2_frontend_payment_select'] = 'Select payment';
 $_lang['ms2_frontend_credentials'] = 'Credentials';
@@ -139,13 +143,14 @@ $_lang['ms2_err_status_wrong'] = 'Wrong status of order.';
 $_lang['ms2_err_status_same'] = 'This status is already set.';
 $_lang['ms2_err_register_globals'] = 'Error: php parameter <b>register_globals</b> must be off.';
 $_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
-$_lang['ms2_err_link_equal'] = 'You trying to add link of product to itself';
+$_lang['ms2_err_value_duplicate'] = 'You have not entered a value or entered a duplicate.';
 
 $_lang['ms2_err_gallery_save'] = 'Could not save file';
 $_lang['ms2_err_gallery_ns'] = 'Could not read file';
 $_lang['ms2_err_gallery_ext'] = 'Wrong file extension';
 $_lang['ms2_err_gallery_thumb'] = 'Could not generate thumbnails. See system log for details.';
 $_lang['ms2_err_gallery_exists'] = 'Such an image is already in the product gallery.';
+$_lang['ms2_err_wrong_image'] = 'File is not a valid image.';
 
 $_lang['ms2_email_subject_new_user'] = 'You made the order #[[+num]] on the [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'You have a new order #[[+num]]';
@@ -154,7 +159,7 @@ $_lang['ms2_email_subject_paid_manager'] = 'Order #[[+num]] was paid';
 $_lang['ms2_email_subject_sent_user'] = 'Your order #[[+num]] was sent';
 $_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';
 
-$_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]">to continue it at this link</a>.';
+$_lang['ms2_payment_link'] = 'If you accidentally cancel the payment, you can always <a href="[[+link]]" style="color:#348eda;">to continue it at this link</a>.';
 
 $_lang['ms2_category_err_ns'] = 'Category is not specified';
 $_lang['ms2_option_err_ns'] = 'Option is not specified';

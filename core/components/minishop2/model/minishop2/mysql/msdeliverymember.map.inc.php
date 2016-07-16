@@ -57,7 +57,7 @@ $xpdo_meta_map['msDeliveryMember']= array (
   ),
   'aggregates' => 
   array (
-    'Deliveries' => 
+    'Delivery' => 
     array (
       'class' => 'msDelivery',
       'local' => 'delivery_id',
@@ -65,7 +65,7 @@ $xpdo_meta_map['msDeliveryMember']= array (
       'cardinality' => 'one',
       'owner' => 'foreign',
     ),
-    'Orders' => 
+    'Payment' => 
     array (
       'class' => 'msPayment',
       'local' => 'payment_id',

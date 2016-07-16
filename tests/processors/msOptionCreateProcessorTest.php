@@ -57,7 +57,7 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
 
         $response = $this->getResponse(array(
             'key' => 'UnitTestUniqueOption',
-            'categories' => $this->modx->toJSON(array_keys($categories))
+            'categories' => json_encode(array_keys($categories))
         ));
 
         $this->assertTrue($response['success']);
@@ -77,7 +77,7 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
         $categories[100500] = array();
         $response = $this->getResponse(array(
             'key' => 'UnitTestUniqueOption',
-            'categories' => $this->modx->toJSON(array_keys($categories))
+            'categories' => json_encode(array_keys($categories))
         ));
 
         unset($categories[100500]);
