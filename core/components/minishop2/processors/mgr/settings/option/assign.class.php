@@ -30,6 +30,7 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
     {
         $option_id = $this->getProperty('option_id');
         $category_id = $this->getProperty('category_id');
+        $option_active = $this->getProperty('option_active') ? $this->getProperty('option_active') : 1;
 
         if (!$option_id || !$this->modx->getCount('msOption', $option_id)) {
             return $this->modx->lexicon('msOption_err_ns');
@@ -40,6 +41,7 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
         $key = array(
             'option_id' => $option_id,
             'category_id' => $category_id,
+            'active' => $option_active
         );
         if (!$this->modx->getCount($this->classKey, $key)) {
             $key['rank'] = $this->modx->getCount($this->classKey, array('category_id' => $category_id));
