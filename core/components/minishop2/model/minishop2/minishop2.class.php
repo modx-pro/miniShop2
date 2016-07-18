@@ -61,8 +61,9 @@ class miniShop2
         $this->modx->addPackage('minishop2', $this->config['modelPath']);
         $this->modx->lexicon->load('minishop2:default');
 
-        $this->pdoTools = $this->modx->getService('pdoFetch');
-        $this->pdoTools->setConfig($this->config);
+        if ($this->pdoTools = $this->modx->getService('pdoFetch')) {
+            $this->pdoTools->setConfig($this->config);
+        }
     }
 
 
