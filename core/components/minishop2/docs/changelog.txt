@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc8
+==============
+- [#218] The product options are active immediately after assigning them to categories.
+
 2.4.0 rc7
 ==============
 - Reverted back #216 due to issues.

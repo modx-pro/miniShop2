@@ -40,6 +40,7 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
         $key = array(
             'option_id' => $option_id,
             'category_id' => $category_id,
+            'active' => true,
         );
         if (!$this->modx->getCount($this->classKey, $key)) {
             $key['rank'] = $this->modx->getCount($this->classKey, array('category_id' => $category_id));

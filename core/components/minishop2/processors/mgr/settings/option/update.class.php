@@ -104,6 +104,7 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
             $ftCat = $this->modx->getObject('msCategoryOption', array(
                 'option_id' => $this->object->get('id'),
                 'category_id' => $categoryId,
+                'active' => true,
             ));
 
             if ($ftCat) {
