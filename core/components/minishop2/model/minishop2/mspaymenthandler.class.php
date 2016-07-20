@@ -169,6 +169,7 @@ class msPaymentHandler implements msPaymentInterface
     {
         return md5(
             $order->get('id') .
+            $order->get('num') .
             $order->get('cart_cost') .
             $order->get('delivery_cost') .
             $order->get('createdon')

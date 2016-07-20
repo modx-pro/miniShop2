@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc10
+==============
+- msPaymentHandler::getOrderHash() now includes order num.
+
 2.4.0 rc9
 ==============
 - [#215] Ability to specify working context for cart.
