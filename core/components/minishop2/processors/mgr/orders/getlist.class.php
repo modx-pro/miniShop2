@@ -225,7 +225,7 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         $selected->query['columns'] = array();
         $selected->query['limit'] =
         $selected->query['offset'] = 0;
-        $selected->where(array('type' => 0));
+        $selected->where(array('type' => 0, 'status' => 2, 'status' => 3));
         $selected->select('SUM(msOrder.cost)');
         $selected->prepare();
         $selected->stmt->execute();
@@ -242,10 +242,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
             'success' => true,
             'results' => $array,
             'total' => $count,
-            'num' => $this->ms2->formatPrice($count),
-            'sum' => $this->ms2->formatPrice($selected->stmt->fetchColumn()),
-            'month_sum' => $this->ms2->formatPrice($month['sum']),
-            'month_total' => $this->ms2->formatPrice($month['total']),
+            'num' => $count,
+            'sum' => round($selected->stmt->fetchColumn()).$this->modx->lexicon('ms2_frontend_currency'),
+            'month_sum' => round($month['sum']).$this->modx->lexicon('ms2_frontend_currency'),
+            'month_total' => $month['total'],
         );
 
         return json_encode($data);
