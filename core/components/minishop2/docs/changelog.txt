@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.0 rc11
 ==============
 - [msGallery] Improved fetching of thumbnails in the snippet.
+- [#220] [mgr] Improved the total numbers in the form of orders.
 
 2.4.0 rc10
 ==============

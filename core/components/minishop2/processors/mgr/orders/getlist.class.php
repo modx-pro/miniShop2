@@ -242,10 +242,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
             'success' => true,
             'results' => $array,
             'total' => $count,
-            'num' => $this->ms2->formatPrice($count),
-            'sum' => $this->ms2->formatPrice($selected->stmt->fetchColumn()),
-            'month_sum' => $this->ms2->formatPrice($month['sum']),
-            'month_total' => $this->ms2->formatPrice($month['total']),
+            'num' => number_format($count, 0, '.', ' '),
+            'sum' => number_format(round($selected->stmt->fetchColumn()), 0, '.', ' '),
+            'month_sum' => number_format(round($month['sum']), 0, '.', ' '),
+            'month_total' => number_format($month['total'], 0, '.', ' '),
         );
 
         return json_encode($data);
