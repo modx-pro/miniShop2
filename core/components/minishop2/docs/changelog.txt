@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc11
+==============
+- [msGallery] Improved fetching of thumbnails in the snippet.
+
 2.4.0 rc10
 ==============
 - msPaymentHandler::getOrderHash() now includes order num.

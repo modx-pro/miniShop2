@@ -83,12 +83,14 @@ $files = array();
 foreach ($rows as $row) {
     if (isset($row['type']) && $row['type'] == 'image') {
         $c = $modx->newQuery('msProductFile', array('parent' => $row['id']));
-        $c->select('url');
+        $c->select('product_id,url');
+        $tstart = microtime(true);
         if ($c->prepare() && $c->stmt->execute()) {
-            while ($url = $c->stmt->fetchColumn()) {
-                $tmp = parse_url($url);
-                if (preg_match('/((?:\d{1,4}|)x(?:\d{1,4}|))/', $tmp['path'], $size)) {
-                    $row[$size[0]] = $url;
+            $modx->queryTime += microtime(true) - $tstart;
+            $modx->executedQueries++;
+            while ($tmp = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
+                if (preg_match("#/{$tmp['product_id']}/(.*?)/#", $tmp['url'], $size)) {
+                    $row[$size[1]] = $tmp['url'];
                 }
             }
         }
