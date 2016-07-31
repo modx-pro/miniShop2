@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.0 rc12
+==============
+- [#222] Optimized some code in chunks.
+
 2.4.0 rc11
 ==============
 - [msGallery] Improved fetching of thumbnails in the snippet.

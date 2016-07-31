@@ -81,11 +81,7 @@
                                                     {/if}
                                                     {if $product.options?}
                                                         <div class="small">
-                                                            {var $options = ''}
-                                                            {foreach $product.options as $option}
-                                                                {var $options = $options ~ $option ~ '; '}
-                                                            {/foreach}
-                                                            {$options | preg_replace : '#; $#': ''}
+                                                            {$product.options | join : '; '}
                                                         </div>
                                                     {/if}
                                                 </td>
