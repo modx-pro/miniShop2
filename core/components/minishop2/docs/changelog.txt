@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.4.0 rc12
+2.4.0 pl
 ==============
 - [#222] Optimized some code in chunks.
 
