@@ -109,22 +109,31 @@ class msProductData extends xPDOSimpleObject
             $c = $this->xpdo->newQuery('msProductOption');
             $c->command('DELETE');
             $c->where(array(
-                'product_id' => $id,
-                'key:NOT IN' => array_keys($arrays),
+                'product_id' => $id
             ));
-            if ($c->prepare() && $c->stmt->execute()) {
-                foreach ($options as $key => $array) {
-                    if (!is_array($array)) {
-                        $array = array($array);
-                    }
-                    foreach ($array as $value) {
-                        if ($value !== '') {
-                            $add->execute(array($key, $value));
-                        }
+            if ($category_keys = $this->getOptionKeys()) {
+                $c->andCondition(array(
+                    'key:NOT IN' => array_merge($category_keys, array_keys($arrays)),
+                ), '', 1);
+            }
+            if ($given_keys = array_keys($options)) {
+                $c->orCondition(array(
+                    'key:IN' => $given_keys,
+                ), '', 1);
+            }
+            if ($c->prepare()) {
+                $c->stmt->execute();
+            }
+            foreach ($options as $key => $array) {
+                if (!is_array($array)) {
+                    $array = array($array);
+                }
+                foreach ($array as $value) {
+                    if ($value !== '') {
+                        $add->execute(array($key, $value));
                     }
                 }
             }
-
         }
     }
 

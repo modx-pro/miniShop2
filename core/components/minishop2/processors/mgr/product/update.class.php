@@ -48,7 +48,9 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
                 $this->unsetProperty($key);
             }
         }
-        $this->setProperty('options', $options);
+        if (!empty($options)) {
+            $this->setProperty('options', $options);
+        }
 
         return parent::beforeSet();
     }

@@ -45,6 +45,15 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
 
 
     /**
+     * @return array|string
+     */
+    public function beforeSet()
+    {
+        return true;
+    }
+
+
+    /**
      *
      */
     public function handleCheckBoxes()
