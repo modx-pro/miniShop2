@@ -63,16 +63,14 @@ class msOptionGetListProcessor extends modObjectGetListProcessor
     {
         $data = $object->toArray();
 
-        $categories = $object->getMany('OptionCategories');
-        $data['categories'] = array();
-        /** @var msCategoryOption $cat */
-        foreach ($categories as $cat) {
-            $category = $cat->getOne('Category');
-            if ($category) {
-                $data['categories'][] = $category->get('id');
-            }
+        $category = (int)$this->getProperty('category', 0);
+        $categories = $this->getProperty('categories', '[]');
+        $categories = $this->modx->fromJSON($categories);
+        if($category>0){
+			$categories[]=$category;
         }
-        $data['categories'] = json_encode($data['categories']);
+
+        $data['categories'] = json_encode($categories);
 
         $data['actions'] = array(
             /*
