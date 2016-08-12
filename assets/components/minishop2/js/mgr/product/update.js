@@ -120,10 +120,10 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
                 // Additional tabs
-                if (miniShop2.config['show_comments']) {
+                if (miniShop2.config['show_comments'] != 0) {
                     item.items.push(this.getComments(config));
                 }
-                if (miniShop2.config['show_gallery']) {
+                if (miniShop2.config['show_gallery'] != 0) {
                     item.items.push(this.getGallery(config));
                 }
             }
