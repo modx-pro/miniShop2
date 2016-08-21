@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.3 pl
+==============
+- [#228] Possible fix for "empty file" in product gallery on some server configurations.
+
 2.4.2 pl
 ==============
 - Fixed error when system setting "ms2_product_tab_gallery" is disabled.
