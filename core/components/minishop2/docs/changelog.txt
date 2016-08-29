@@ -2,6 +2,7 @@ Changelog for miniShop2.
 
 2.4.3 pl
 ==============
+- [#231] Snippet msOptions now transfers id of a product into a chunk.
 - [#228] Possible fix for "empty file" in product gallery on some server configurations.
 
 2.4.2 pl
