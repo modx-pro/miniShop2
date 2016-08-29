@@ -30,5 +30,6 @@ foreach ($names as $name) {
 $pdoTools = $modx->getService('pdoTools');
 
 return $pdoTools->getChunk($tpl, array(
+    'id' => $product->id,
     'options' => $options,
 ));
