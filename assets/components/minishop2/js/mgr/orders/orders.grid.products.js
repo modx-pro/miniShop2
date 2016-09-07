@@ -64,6 +64,11 @@ Ext.extend(miniShop2.grid.OrderProducts, miniShop2.grid.Default, {
                     {header: _(field.replace(/^product_/, 'ms2_')), dataIndex: field, width: 75}
                 );
             }
+            else if (/^category_/.test(field)) {
+                columns.push(
+                    {header: _(field.replace(/^category_/, 'ms2_')), dataIndex: field, width: 75}
+                );
+            }
         }
 
         return columns;
