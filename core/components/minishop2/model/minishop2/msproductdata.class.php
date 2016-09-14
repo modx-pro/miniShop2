@@ -472,7 +472,7 @@ class msProductData extends xPDOSimpleObject
                     if ($c->prepare() && $c->stmt->execute()) {
                         $value = array();
                         while ($row = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
-                            if (isset($options[$row['key']])) {
+                            if (isset($value[$row['key']])) {
                                 $value[$row['key']][] = $row['value'];
                             } else {
                                 $value[$row['key']] = array($row['value']);
