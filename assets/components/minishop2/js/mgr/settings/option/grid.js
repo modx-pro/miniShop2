@@ -33,7 +33,7 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
     getFields: function () {
         return [
             'id', 'key', 'caption', 'description', 'measure_unit',
-            'category', 'type', 'properties', 'rank', 'categories', 'actions'
+            'category', 'type', 'properties', 'rank', 'actions'
         ];
     },
 
@@ -124,31 +124,44 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
         if (w) {
             w.close();
         }
-        w = MODx.load({
-            xtype: 'minishop2-window-option-update',
-            id: 'minishop2-window-option-update',
-            title: this.menu.record['caption'],
-            record: this.menu.record,
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/settings/option/get',
+                id: this.menu.record.id
+            },
             listeners: {
-                afterrender: function () {
-                    var combo = Ext.getCmp(this.config.id + '-types');
-                    combo.getStore().on('load', function () {
-                        var row = combo.findRecord('name', combo.getValue());
-                        if (row && row.data['xtype']) {
-                            w.onSelectType(combo, row);
-                        }
-                    });
-                },
                 success: {
-                    fn: function () {
-                        this.refresh();
+                    fn: function (r) {
+                        w = MODx.load({
+                            xtype: 'minishop2-window-option-update',
+                            id: 'minishop2-window-option-update',
+                            title: r.object['caption'],
+                            record: r.object,
+                            listeners: {
+                                afterrender: function () {
+                                    var combo = Ext.getCmp(this.config.id + '-types');
+                                    combo.getStore().on('load', function () {
+                                        var row = combo.findRecord('name', combo.getValue());
+                                        if (row && row.data['xtype']) {
+                                            w.onSelectType(combo, row);
+                                        }
+                                    });
+                                },
+                                success: {
+                                    fn: function () {
+                                        this.refresh();
+                                    }, scope: this
+                                }
+                            }
+                        });
+                        w.fp.getForm().reset();
+                        w.fp.getForm().setValues(r.object);
+                        w.show(e.target);
                     }, scope: this
                 }
             }
         });
-        w.fp.getForm().reset();
-        w.fp.getForm().setValues(this.menu.record);
-        w.show(e.target);
     },
 
     removeOption: function () {

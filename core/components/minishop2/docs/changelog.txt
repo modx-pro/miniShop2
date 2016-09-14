@@ -6,6 +6,7 @@ Changelog for miniShop2.
 - [#236] Ability to display category columns of an ordered product.
 - [#231] Snippet msOptions now transfers id of a product into a chunk.
 - [#228] Possible fix for "empty file" in product gallery on some server configurations.
+- [#227] Improved performance of the grid with options in settings.
 
 2.4.2 pl
 ==============
