@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.3 pl
 ==============
 - [#237] Fixed msProductData::get('options') method.
+- [#236] Ability to display category columns of an ordered product.
 - [#231] Snippet msOptions now transfers id of a product into a chunk.
 - [#228] Possible fix for "empty file" in product gallery on some server configurations.
 
