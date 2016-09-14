@@ -6,6 +6,7 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'ASC';
     public $permission = 'mssetting_list';
+    protected $item_id = 0;
 
 
     /**
@@ -13,6 +14,9 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
      */
     public function initialize()
     {
+        if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
+            $this->item_id = $id;
+        }
         if (!$this->modx->hasPermission($this->permission)) {
             return $this->modx->lexicon('access_denied');
         }
@@ -30,16 +34,14 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
     {
         if ($this->getProperty('combo')) {
             $c->select('id,name');
-        }
-        else {
+        } else {
             $c->leftJoin('modResource', 'Resource');
             $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
             $c->select('Resource.pagetitle');
         }
-        if ($id = (int)$this->getProperty('id')) {
-            $c->where(array('id' => $id));
-        }
-        if ($query = trim($this->getProperty('query'))) {
+        if ($this->item_id) {
+            $c->where(array('id' => $this->item_id));
+        } elseif ($query = trim($this->getProperty('query'))) {
             $c->where(array(
                 'name:LIKE' => "%{$query}%",
                 'OR:description:LIKE' => "%{$query}%",

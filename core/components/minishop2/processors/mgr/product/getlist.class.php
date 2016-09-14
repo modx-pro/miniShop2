@@ -7,6 +7,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
     public $defaultSortField = 'menuindex';
     public $defaultSortDirection = 'ASC';
     public $parent = 0;
+    protected $item_id = 0;
 
 
     /**
@@ -14,6 +15,9 @@ class msProductGetListProcessor extends modObjectGetListProcessor
      */
     public function initialize()
     {
+        if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
+            $this->item_id = $id;
+        }
         if (!$this->getProperty('limit')) {
             $this->setProperty('limit', 20);
         }
@@ -45,8 +49,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             $c->select($this->modx->getSelectColumns('msVendor', 'Vendor', 'vendor_', array('name')));
             $c->select($this->modx->getSelectColumns('msCategory', 'Category', 'category_', array('pagetitle')));
         }
-        if ($id = (int)$this->getProperty('id')) {
-            $c->where(array('msProduct.id' => $id));
+        if ($this->item_id) {
+            $c->where(array('msProduct.id' => $this->item_id));
             if ($parent = (int)$this->getProperty('parent')) {
                 $this->parent = $parent;
             }

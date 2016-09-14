@@ -13,7 +13,7 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
      */
     public function initialize()
     {
-        if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = $this->getProperty('id')) {
+        if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
             $this->item_id = $id;
         }
         $this->setDefaultProperties(array(
@@ -115,12 +115,10 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
             'class_key' => 'msCategory',
         ));
 
-        if ($query = $this->getProperty('query')) {
+        if ($this->item_id) {
+            $c->where(array('id' => $this->item_id));
+        } elseif ($query = $this->getProperty('query')) {
             $c->where(array('pagetitle:LIKE' => "%$query%"));
-        } else {
-            if ($this->item_id) {
-                $c->where(array('id' => $this->item_id));
-            }
         }
 
         return $c;

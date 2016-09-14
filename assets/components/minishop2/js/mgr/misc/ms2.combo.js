@@ -199,7 +199,6 @@ miniShop2.combo.Vendor = function (config) {
             action: 'mgr/settings/vendor/getlist',
             combo: true,
             id: config.value,
-            //limit: 0,
         }
     });
     miniShop2.combo.Vendor.superclass.constructor.call(this, config);
