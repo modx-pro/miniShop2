@@ -475,6 +475,7 @@ class msProductData extends xPDOSimpleObject
                 case 'options':
                     $c = $this->xpdo->newQuery('msProductOption', array('product_id' => $this->id));
                     $c->select('key,value');
+                    $c->sortby('value');
                     if ($c->prepare() && $c->stmt->execute()) {
                         $value = array();
                         while ($row = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
