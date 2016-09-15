@@ -128,6 +128,14 @@ class msProductData extends xPDOSimpleObject
                 if (!is_array($array)) {
                     $array = array($array);
                 }
+                
+                /* fix duplicate, empty options */
+                $array = array_map('trim', $array);
+                $array = array_keys(array_flip($array));
+                $array = array_filter($array);
+                sort($array);
+                $this->set($key, $array);
+                
                 foreach ($array as $value) {
                     if ($value !== '') {
                         $add->execute(array($key, $value));
