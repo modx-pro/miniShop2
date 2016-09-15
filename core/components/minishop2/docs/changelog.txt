@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.4 pl
+==============
+- [#229, #238] Categories tree now respects the "resource_tree_node_name_fallback" system setting.
+
 2.4.3 pl
 ==============
 - [#237] Fixed msProductData::get('options') method.
