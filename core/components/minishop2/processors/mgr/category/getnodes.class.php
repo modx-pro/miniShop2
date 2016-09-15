@@ -108,6 +108,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
     {
         $qtipField = $this->getProperty('qtipField');
         $nodeField = $this->getProperty('nodeField');
+        $nodeFieldFallback = $this->getProperty('nodeFieldFallback');
 
         $hasChildren = (int)$resource->get('childrenCount') > 0 && $resource->get('hide_children_in_tree') == 0;
 
@@ -156,8 +157,14 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         $idNote = $this->modx->hasPermission('tree_show_resource_ids')
             ? ' <span dir="ltr">(' . $resource->id . ')</span>'
             : '';
+        
+        $text = strip_tags($resource->$nodeField);
+        if (empty($text)) {
+            $text = $resource->$nodeFieldFallback;
+            $text = strip_tags($text);
+        }
         $itemArray = array(
-            'text' => strip_tags($resource->$nodeField) . $idNote,
+            'text' => $text . $idNote,
             'id' => $resource->context_key . '_' . $resource->id,
             'pk' => $resource->id,
             'cls' => implode(' ', $class),
