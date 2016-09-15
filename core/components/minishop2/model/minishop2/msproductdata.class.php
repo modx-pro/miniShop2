@@ -137,9 +137,7 @@ class msProductData extends xPDOSimpleObject
                 $this->set($key, $array);
                 
                 foreach ($array as $value) {
-                    if ($value !== '') {
-                        $add->execute(array($key, $value));
-                    }
+                    $add->execute(array($key, $value));
                 }
             }
         }
