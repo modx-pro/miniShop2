@@ -132,7 +132,7 @@ class msProductData extends xPDOSimpleObject
                 /* fix duplicate, empty options */
                 $array = array_map('trim', $array);
                 $array = array_keys(array_flip($array));
-                $array = array_filter($array);
+                $array = array_diff($array, array(''));
                 sort($array);
                 $this->set($key, $array);
                 
