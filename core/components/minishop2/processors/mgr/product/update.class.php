@@ -40,11 +40,13 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
      */
     public function beforeSet()
     {
-        $properties = $this->getProperties();
         $options = array();
-        foreach ($properties as $key => $value) {
-            if (strpos($key, 'options-') === 0) {
-                $options[substr($key, 8)] = $value;
+        $properties = $this->getProperties();
+        $option_fields = $this->object->loadData()->getOptionFields();
+        foreach ($option_fields as $option) {
+            $key = 'options-' . $option['id'];
+            if (isset($properties[$key])) {
+                $options[$option['key']] = $properties[$key];
                 $this->unsetProperty($key);
             }
         }
