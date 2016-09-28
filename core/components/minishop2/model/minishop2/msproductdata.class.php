@@ -128,10 +128,16 @@ class msProductData extends xPDOSimpleObject
                 if (!is_array($array)) {
                     $array = array($array);
                 }
+
+                // fix duplicate, empty options
+                $array = array_map('trim', $array);
+                $array = array_keys(array_flip($array));
+                $array = array_diff($array, array(''));
+                sort($array);
+                $this->set($key, $array);
+
                 foreach ($array as $value) {
-                    if ($value !== '') {
-                        $add->execute(array($key, $value));
-                    }
+                    $add->execute(array($key, $value));
                 }
             }
         }
@@ -469,6 +475,7 @@ class msProductData extends xPDOSimpleObject
                 case 'options':
                     $c = $this->xpdo->newQuery('msProductOption', array('product_id' => $this->id));
                     $c->select('key,value');
+                    $c->sortby('value');
                     if ($c->prepare() && $c->stmt->execute()) {
                         $value = array();
                         while ($row = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
