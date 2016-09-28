@@ -2,7 +2,7 @@
 
 class msOptionCreateProcessor extends modObjectCreateProcessor
 {
-    /** @var msOption $object*/
+    /** @var msOption $object */
     public $object;
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
@@ -18,10 +18,12 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
         if (empty($key)) {
             $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_name_ns'));
         }
+        $key = str_replace('.', '_', $key);
 
         if ($this->doesAlreadyExist(array('key' => $key))) {
             $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', array('key' => $key)));
         }
+        $this->setProperty('key', $key);
 
         return parent::beforeSet();
     }

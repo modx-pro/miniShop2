@@ -33,6 +33,7 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
         if (empty($key)) {
             $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_name_ns'));
         }
+        $key = str_replace('.', '_', $key);
 
         $oldKey = $this->object->get('key');
         if (($oldKey != $key)) {
@@ -42,6 +43,7 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
             $this->oldKey = $oldKey;
         }
+        $this->setProperty('key', $key);
 
         return parent::beforeSet();
     }
