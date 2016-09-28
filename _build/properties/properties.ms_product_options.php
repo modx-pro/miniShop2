@@ -15,6 +15,10 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
+    'onlyOptions' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
     'groups' => array(
         'type' => 'textfield',
         'value' => '',

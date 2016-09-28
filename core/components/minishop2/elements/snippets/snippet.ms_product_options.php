@@ -6,9 +6,6 @@ $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msOptions');
 if (!empty($input) && empty($product)) {
     $product = $input;
 }
-if (!empty($name) && empty($options)) {
-    $options = $name;
-}
 
 $product = !empty($product) && $product != $modx->resource->id
     ? $modx->getObject('msProduct', $product)
@@ -18,6 +15,7 @@ if (!($product instanceof msProduct)) {
 }
 
 $ignoreOptions = array_map('trim', explode(',', $modx->getOption('ignoreOptions', $scriptProperties, '')));
+$onlyOptions = array_map('trim', explode(',', $modx->getOption('onlyOptions', $scriptProperties, '')));
 $groups = !empty($groups)
     ? array_map('trim', explode(',', $groups))
     : array();
@@ -32,7 +30,10 @@ $productData = $product->loadOptions();
 
 $options = array();
 foreach ($optionKeys as $key) {
-    if (in_array($key, $ignoreOptions)) {
+    // Filter by key
+    if (!empty($onlyOptions) && $onlyOptions[0] != '' && !in_array($key, $onlyOptions)) {
+        continue;
+    } elseif (in_array($key, $ignoreOptions)) {
         continue;
     }
     $option = array();

@@ -2,6 +2,7 @@ Changelog for miniShop2.
 
 2.4.4 pl
 ==============
+- [#242] Ability to specify only needed options in the snippet msProductOptions.
 - [#239] Fixed duplicate and empty options in msProductData.
 - [#229, #238] Categories tree now respects the "resource_tree_node_name_fallback" system setting.
 
