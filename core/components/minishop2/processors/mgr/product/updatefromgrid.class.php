@@ -37,10 +37,31 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
             return $this->modx->lexicon('invalid_data');
         }
 
+        $data = $this->prepareValues($data);
         $this->setProperties($data);
         $this->unsetProperty('data');
 
         return parent::initialize();
+    }
+
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function prepareValues(array $data)
+    {
+        $fields = $this->modx->getFieldMeta('modResource');
+        foreach ($fields as $key => $field) {
+            if ($field['phptype'] == 'timestamp') {
+                if (!empty($data[$key]) && is_numeric($data[$key])) {
+                    $data[$key] = date('Y-m-d H:i:s', $data[$key]);
+                }
+            }
+        }
+
+        return $data;
     }
 
 
