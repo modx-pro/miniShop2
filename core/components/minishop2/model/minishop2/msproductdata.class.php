@@ -93,11 +93,11 @@ class msProductData extends xPDOSimpleObject
         ));
         if ($c->prepare() && $c->stmt->execute()) {
             foreach ($arrays as $key => $array) {
+                $array = $this->prepareOptionValues($array);
                 if (is_array($array)) {
+                    $this->set($key, $array);
                     foreach ($array as $value) {
-                        if ($value !== '') {
-                            $add->execute(array($key, $value));
-                        }
+                        $add->execute(array($key, $value));
                     }
                 }
             }
@@ -125,24 +125,15 @@ class msProductData extends xPDOSimpleObject
                 $c->stmt->execute();
             }
             foreach ($options as $key => $array) {
-                if (!is_array($array)) {
-                    $array = array($array);
-                }
-                
-                /* fix duplicate, empty options */
-                $array = array_map('trim', $array);
-                $array = array_keys(array_flip($array));
-                $array = array_diff($array, array(''));
-                sort($array);
-                $this->set($key, $array);
-                
-                foreach ($array as $value) {
-                    $add->execute(array($key, $value));
+                $array = $this->prepareOptionValues($array);
+                if (is_array($array)) {
+                    foreach ($array as $value) {
+                        $add->execute(array($key, $value));
+                    }
                 }
             }
         }
     }
-
 
     /**
      * Additional product categories
@@ -245,7 +236,25 @@ class msProductData extends xPDOSimpleObject
         return $c;
     }
 
-
+    public function prepareOptionValues($values = null) {
+        if ($values) {
+            if (!is_array($values)) {
+                $values = array($values);
+            }
+            // fix duplicate, empty option values
+            $values = array_map('trim', $values);
+            $values = array_keys(array_flip($values));
+            $values = array_diff($values, array(''));
+            sort($values);
+            
+            if (empty($values)) {
+                $values = null;
+            }
+        }
+  
+        return $values;
+    }
+    
     /**
      * @param bool $force
      *
@@ -581,4 +590,5 @@ class msProductData extends xPDOSimpleObject
 
         return $weight;
     }
+    
 }
