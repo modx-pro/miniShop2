@@ -41,7 +41,8 @@ class msProductData extends xPDOSimpleObject
         $c->rightJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');
         $c->leftJoin('modCategory', 'Category', 'Category.id=msOption.category');
         $c->where(array('msProductOption.product_id' => $product));
-
+        $c->sortby('msProductOption.value');
+        
         $c->select($xpdo->getSelectColumns('msOption', 'msOption'));
         $c->select($xpdo->getSelectColumns('msProductOption', 'msProductOption', '', array('key'), true));
         $c->select('Category.category AS category_name');
