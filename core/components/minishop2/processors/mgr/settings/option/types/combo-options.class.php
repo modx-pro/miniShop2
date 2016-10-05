@@ -21,13 +21,15 @@ class msComboOptionsType extends msOptionType
      */
     public function getValue($criteria)
     {
-        /** @var msProductOption $value */
-        $values = $this->xpdo->getIterator('msProductOption', $criteria);
         $result = array();
-        foreach ($values as $value) {
-            $result[] = array('value' => $value->get('value'));
+        
+        $c = $this->xpdo->newQuery('msProductOption', $criteria);
+        $c->select('value');
+        $c->sortby('value');
+        if ($c->prepare() && $c->stmt->execute()) {
+            $result =  (array)$c->stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
+        
         return $result;
     }
 
