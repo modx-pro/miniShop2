@@ -49,14 +49,10 @@ class msProductData extends xPDOSimpleObject
         $data = array();
         if ($c->prepare() && $c->stmt->execute()) {
             while ($option = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
-                // If the option is repeated, its value will be an array
                 if (isset($data[$option['key']])) {
-                    if (!is_array($data[$option['key']])) {
-                        $data[$option['key']] = array($data[$option['key']]);
-                    }
                     $data[$option['key']][] = $option['value'];
-                } else { // Single option will be a string
-                    $data[$option['key']] = $option['value'];
+                } else {
+                    $data[$option['key']] = array($option['value']);
                 }
 
                 foreach ($option as $key => $value) {
