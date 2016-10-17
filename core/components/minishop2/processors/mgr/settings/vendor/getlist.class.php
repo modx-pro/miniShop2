@@ -36,10 +36,9 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
             $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
             $c->select('Resource.pagetitle');
         }
-        if ($id = (int)$this->getProperty('id')) {
-            $c->where(array('id' => $id));
-        }
-        if ($query = trim($this->getProperty('query'))) {
+       
+        $query = trim($this->getProperty('query'));
+        if ($query) {
             $c->where(array(
                 'name:LIKE' => "%{$query}%",
                 'OR:description:LIKE' => "%{$query}%",
@@ -48,6 +47,11 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
                 'OR:address:LIKE' => "%{$query}%",
             ));
         }
+        
+        if (!$query AND $id = (int)$this->getProperty('id')) {
+            $c->where(array('id' => $id));
+        }
+        
 
         return $c;
     }
