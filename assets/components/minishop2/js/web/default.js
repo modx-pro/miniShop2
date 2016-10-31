@@ -288,7 +288,7 @@
                 }
                 $(miniShop2.Cart.totalWeight).text(miniShop2.Utils.formatWeight(status['total_weight']));
                 $(miniShop2.Cart.totalCount).text(status['total_count']);
-                $(miniShop2.Cart.totalCost).text(miniShop2.Utils.formatPrice(status['total_cost']));
+                $(miniShop2.Cart.totalCost).html(miniShop2.Utils.formatPrice(status['total_cost']));
                 if ($(miniShop2.Order.orderCost, miniShop2.Order.order).length) {
                     miniShop2.Order.getcost();
                 }
@@ -434,7 +434,7 @@
         getcost: function () {
             var callbacks = miniShop2.Order.callbacks;
             callbacks.getcost.response.success = function (response) {
-                $(miniShop2.Order.orderCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['cost']));
+                $(miniShop2.Order.orderCost, miniShop2.Order.order).html(miniShop2.Utils.formatPrice(response.data['cost']));
             };
             var data = {};
             data[miniShop2.actionName] = 'order/getcost';
