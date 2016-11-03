@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.5 pl
+==============
+- Fixed possible error in log on create a new product from cli mode.
+
 2.4.4 pl
 ==============
 - [#242] Ability to specify only needed options in the snippet msProductOptions.

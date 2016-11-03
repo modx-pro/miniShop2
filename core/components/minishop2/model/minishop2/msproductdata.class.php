@@ -109,7 +109,7 @@ class msProductData extends xPDOSimpleObject
             $c = $this->xpdo->newQuery('msProductOption');
             $c->command('DELETE');
             $c->where(array(
-                'product_id' => $id
+                'product_id' => $id,
             ));
             if ($category_keys = $this->getOptionKeys()) {
                 $c->andCondition(array(
@@ -236,11 +236,11 @@ class msProductData extends xPDOSimpleObject
         $c = $this->xpdo->newQuery('msOption');
         $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id = msOption.id');
         $c->leftJoin('modCategory', 'Category', 'Category.id = msOption.category');
-        $c->where(array(
-            'msCategoryOption.active' => 1,
-            'msCategoryOption.category_id:IN' => $categories,
-        ));
         $c->sortby('msCategoryOption.rank');
+        $c->where(array('msCategoryOption.active' => 1));
+        if (!empty($categories[0])) {
+            $c->where(array('msCategoryOption.category_id:IN' => $categories));
+        }
 
         return $c;
     }
