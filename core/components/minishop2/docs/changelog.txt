@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.5 pl
 ==============
 - Fixed possible error in log on create a new product from cli mode.
+- Updated jGrowl to version 1.4.5.
 
 2.4.4 pl
 ==============

@@ -1,5 +1,5 @@
 /* Messages */
-@import url("./lib/jquery.jgrowl.css");
+@import url("./lib/jquery.jgrowl.min.css");
 div.jGrowl > .ui-state-highlight {
     background: inherit;
     color: inherit;
