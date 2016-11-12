@@ -563,29 +563,29 @@ class miniShop2
 
 
     /**
-     * Returns id of current customer. If no exists - register him and returns id.
+     * Returns id for current customer. If customer is not exists, registers him and returns id.
      *
      * @return integer $id
      */
     public function getCustomerId()
     {
         $order = $this->order->get();
-        if (empty($order['email'])) {
+        if (!$email = $order['email']) {
             return false;
         }
 
         if ($this->modx->user->isAuthenticated()) {
             $profile = $this->modx->user->Profile;
-            if (!$email = $profile->get('email')) {
-                $profile->set('email', $order['email']);
+            if (!$profile->get('email')) {
+                $profile->set('email', $email);
                 $profile->save();
             }
             $uid = $this->modx->user->id;
         } else {
-            /** @var modUser $user */
-            $email = $order['email'];
             if ($user = $this->modx->getObject('modUser', array('username' => $email))) {
                 $uid = $user->get('id');
+            } elseif ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
+                $uid = $user->get('internalKey');
             } else {
                 $user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
                 $profile = $this->modx->newObject('modUserProfile', array(

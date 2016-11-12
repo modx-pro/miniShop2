@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.6 pl
+==============
+- Added the checking of users email when getting a customer id for new order.
+
 2.4.5 pl
 ==============
 - Fixed possible error in log on create a new product from cli mode.
