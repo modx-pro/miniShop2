@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.6 pl
 ==============
 - Added the checking of users email when getting a customer id for new order.
+- Improved compatibility with MODX 2.5.2.
 
 2.4.5 pl
 ==============

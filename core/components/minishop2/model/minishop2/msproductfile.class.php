@@ -127,7 +127,6 @@ class msProductFile extends xPDOSimpleObject
         }
 
         if ($phpThumb->GenerateThumbnail()) {
-            imageinterlace($phpThumb->gdimg_output, true);
             if ($phpThumb->RenderOutput()) {
                 $this->xpdo->log(modX::LOG_LEVEL_INFO, '[miniShop2] phpThumb messages for "' . $this->get('url') .
                     '". ' . print_r($phpThumb->debugmessages, true)
