@@ -5,6 +5,7 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
     public $classKey = 'msOrderProduct';
     public $languageTopics = array('minishop2:default');
     public $permission = 'msorder_save';
+    public $afterSaveEvent = 'msOnProductUpdateOrder';
     /** @var msOrder $order */
     protected $order;
 
