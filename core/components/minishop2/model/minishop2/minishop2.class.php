@@ -585,7 +585,7 @@ class miniShop2
             if ($user = $this->modx->getObject('modUser', array('username' => $email))) {
                 $uid = $user->get('id');
             } elseif ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
-                $uid = $user->get('internalKey');
+                $uid = $profile->get('internalKey');
             } else {
                 $user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
                 $profile = $this->modx->newObject('modUserProfile', array(
