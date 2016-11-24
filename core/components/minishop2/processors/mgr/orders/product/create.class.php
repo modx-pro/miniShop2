@@ -71,6 +71,12 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
         return parent::beforeSave();
     }
 
+
+    public function afterSave()
+    {
+        $this->order->updateProducts();
+    }
+
 }
 
 return 'msOrderProductCreateProcessor';
