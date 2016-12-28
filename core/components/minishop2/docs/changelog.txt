@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.7 pl
 ==============
 - Fixed the loading of product plugins when they can be loaded multiple times.
+- Fixed fatal error on get classes in settings with some 3rd party payment methods.
 
 2.4.6 pl
 ==============

@@ -22,15 +22,19 @@ class msClassGetListProcessor extends modProcessor
             if ($class == $handler) {
                 continue;
             }
-            $object = in_array($type, array('payment', 'delivery'))
-                ? new $class($this->modx->newObject('msProduct'))
-                : new $class($miniShop2);
+            try {
+                $object = in_array($type, array('payment', 'delivery'))
+                    ? new $class($this->modx->newObject('msProduct'))
+                    : new $class($miniShop2);
 
-            if (!empty($object) && is_a($object, $interface)) {
-                $available[] = array(
-                    'type' => $type,
-                    'class' => $class,
-                );
+                if (!empty($object) && is_a($object, $interface)) {
+                    $available[] = array(
+                        'type' => $type,
+                        'class' => $class,
+                    );
+                }
+            } catch (Error $e) {
+                // nothing
             }
         }
 
