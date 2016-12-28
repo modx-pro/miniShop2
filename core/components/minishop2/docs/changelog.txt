@@ -4,6 +4,7 @@ Changelog for miniShop2.
 ==============
 - Fixed the loading of product plugins when they can be loaded multiple times.
 - Fixed fatal error on get classes in settings with some 3rd party payment methods.
+- Fixed bug with incorrect rank of thumbnails after a sorting.
 
 2.4.6 pl
 ==============

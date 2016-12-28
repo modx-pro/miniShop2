@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property int id
+ */
 class msProductFile extends xPDOSimpleObject
 {
     public $file;
@@ -38,6 +41,22 @@ class msProductFile extends xPDOSimpleObject
                 return '[miniShop2] Could not find product with id = ' . $this->get('product_id');
             }
         }
+    }
+
+
+    /**
+     * @param null $cacheFlag
+     *
+     * @return bool
+     */
+    public function save($cacheFlag = null)
+    {
+        if ($this->isDirty('rank')) {
+            $table = $this->xpdo->getTableName('msProductFile');
+            $this->xpdo->exec("UPDATE {$table} SET rank = {$this->get('rank')} WHERE parent = {$this->id}");
+        }
+
+        return parent::save($cacheFlag);
     }
 
 
