@@ -370,7 +370,7 @@ class miniShop2
             'core_path' => MODX_CORE_PATH,
             'assets_path' => MODX_ASSETS_PATH,
         );
-        $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[+', ']]', false);
+        $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[++', ']]', false);
         $pl2 = $this->pdoTools->makePlaceholders($placeholders, '', '{', '}', false);
         $services = $this->getServices();
         if (!empty($services[$type]) && is_array($services[$type])) {
@@ -429,7 +429,7 @@ class miniShop2
             'core_path' => MODX_CORE_PATH,
             'assets_path' => MODX_ASSETS_PATH,
         );
-        $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[+', ']]', false);
+        $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[++', ']]', false);
         $pl2 = $this->pdoTools->makePlaceholders($placeholders, '', '{', '}', false);
         $plugins = $this->getPlugins();
         if (!empty($plugins) && is_array($plugins)) {
@@ -451,7 +451,7 @@ class miniShop2
                 }
                 if (file_exists($file)) {
                     /** @noinspection PhpIncludeInspection */
-                    $include = include_once($file);
+                    $include = include($file);
                     if (is_array($include)) {
                         $this->plugins[$plugin] = $include;
                     }

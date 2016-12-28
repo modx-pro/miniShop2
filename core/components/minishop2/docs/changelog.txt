@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.7 pl
+==============
+- Fixed the loading of product plugins when they can be loaded multiple times.
+
 2.4.6 pl
 ==============
 - Added the checking of users email when getting a customer id for new order.
