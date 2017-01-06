@@ -102,7 +102,7 @@ $tmp = array(
         'area' => 'ms2_product',
     ),
     'ms2_product_thumbnail_size' => array(
-        'value' => '120x90',
+        'value' => 'small',
         'xtype' => 'textfield',
         'area' => 'ms2_product',
     ),

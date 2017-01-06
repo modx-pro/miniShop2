@@ -68,10 +68,10 @@ $_lang['setting_ms2_product_vertical_tabs'] = 'Vertical tabs at product page';
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'How to display product page in manager? Disabling this option allows you to fit the product page on the screen with a small horizontal size. Not recommended.';
 $_lang['setting_ms2_product_remember_tabs'] = 'Remember product active tab';
 $_lang['setting_ms2_product_remember_tabs_desc'] = 'If true, active tab of product panel will be remembered and restored on reload page.';
-$_lang['setting_ms2_product_thumbnail_size'] = 'Default thumbnail size';
+//$_lang['setting_ms2_product_thumbnail_size'] = 'Default thumbnail size';
+//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
 $_lang['setting_ms2_product_id_as_alias'] = 'Use id of product as alias';
 $_lang['setting_ms2_product_id_as_alias_desc'] = 'If true, aliases for friendly urls of products will don be generated. Id will be set as alias.';
-$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';

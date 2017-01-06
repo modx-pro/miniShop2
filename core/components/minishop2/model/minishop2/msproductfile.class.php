@@ -2,6 +2,8 @@
 
 /**
  * @property int id
+ * @property string hash
+ * @property int product_id
  */
 class msProductFile extends xPDOSimpleObject
 {
@@ -106,11 +108,14 @@ class msProductFile extends xPDOSimpleObject
             );
         }
 
-        foreach ($thumbnails as $options) {
+        foreach ($thumbnails as $k => $options) {
             if (empty($options['f'])) {
                 $options['f'] = !empty($properties['thumbnailType']['value'])
                     ? $properties['thumbnailType']['value']
                     : 'jpg';
+            }
+            if (empty($options['name']) && !is_numeric($k)) {
+                $options['name'] = $k;
             }
             if ($image = $this->makeThumbnail($options, $info)) {
                 $this->saveThumbnail($image, $options);
@@ -173,7 +178,13 @@ class msProductFile extends xPDOSimpleObject
     public function saveThumbnail($raw_image, $options = array())
     {
         $filename = $this->miniShop2->pathinfo($this->get('file'), 'filename') . '.' . $options['f'];
-        $path = $this->get('path') . $options['w'] . 'x' . $options['h'] . '/';
+        if (!empty($options['name'])) {
+            $thumb_dir = preg_replace('#[^\w]#', '', $options['name']);
+        }
+        if (empty($thumb_dir)) {
+            $thumb_dir = $options['w'] . 'x' . $options['h'];
+        }
+        $path = $this->get('path') . $thumb_dir . '/';
 
         /** @var msProductFile $product_file */
         /** @noinspection PhpUndefinedFieldInspection */
@@ -235,25 +246,18 @@ class msProductFile extends xPDOSimpleObject
      */
     public function getFirstThumbnail()
     {
-        $c = array(
+        $c = $this->xpdo->newQuery('msProductFile', array(
             'product_id' => $this->get('product_id'),
             'parent' => $this->get('id'),
-            'path:LIKE' => '%' . $this->xpdo->getOption('ms2_product_thumbnail_size', null, '120x90', true) . '/',
             'type' => 'image',
-        );
-
-        if (!$this->xpdo->getCount('msProductFile', $c)) {
-            unset($c['path:LIKE']);
-        }
-
-        $q = $this->xpdo->newQuery('msProductFile', $c);
-        $q->limit(1);
-        $q->sortby('url', 'ASC');
-        $q->select('id,url');
+        ));
+        $c->limit(1);
+        $c->sortby('id', 'ASC');
+        $c->select('id,url');
 
         $res = array();
-        if ($q->prepare() && $q->stmt->execute()) {
-            $res = $q->stmt->fetch(PDO::FETCH_ASSOC);
+        if ($c->prepare() && $c->stmt->execute()) {
+            $res = $c->stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         return $res;

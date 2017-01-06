@@ -153,6 +153,7 @@
         <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
         <field key="hash" dbtype="char" precision="40" phptype="string" null="true" default="" index="index"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
 
         <index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE">
             <column key="product_id" length="" collation="A" null="false"/>
@@ -165,6 +166,9 @@
         </index>
         <index alias="hash" name="hash" primary="false" unique="false" type="BTREE">
             <column key="hash" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
         </index>
 
         <composite alias="Children" class="msProductFile" local="id" foreign="parent" cardinality="many" owner="local"/>

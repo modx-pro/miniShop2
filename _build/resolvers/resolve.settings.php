@@ -145,13 +145,12 @@ if ($transport->xpdo) {
             }
 
             $old_settings = array(
-                'ms2_category_remember_grid' => null,
+                'ms2_category_remember_grid',
+                'ms2_product_thumbnail_size',
             );
-            foreach ($old_settings as $k => $v) {
-                if ($item = $modx->getObject('modSystemSetting', array('key' => $k))) {
-                    if (!$v || $item->get('value') == $v) {
-                        $item->remove();
-                    }
+            foreach ($old_settings as $key) {
+                if ($item = $modx->getObject('modSystemSetting', $key)) {
+                    $item->remove();
                 }
             }
             break;

@@ -29,7 +29,7 @@ miniShop2.panel.Gallery = function (config) {
 
     this.on('afterrender', function () {
         var gallery = this;
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             gallery.initialize();
         }, 100);
     });
@@ -116,10 +116,10 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     /*
-    onUploadFile: function (uploader, file) {
-        this.updateFile(file);
-    },
-    */
+     onUploadFile: function (uploader, file) {
+     this.updateFile(file);
+     },
+     */
 
     onUploadProgress: function (uploader, file) {
         if (this.progress) {
@@ -128,7 +128,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
         }
     },
 
-    onUploadComplete: function (x,y,z) {
+    onUploadComplete: function () {
         if (this.progress) {
             this.progress.hide();
         }
@@ -148,9 +148,11 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
                     id: this.record.id
                 },
                 listeners: {
-                    success: {fn: function(r) {
-                        panel.view.updateThumb(r.object['thumb']);
-                    }}
+                    success: {
+                        fn: function (r) {
+                            panel.view.updateThumb(r.object['thumb']);
+                        }
+                    }
                 }
             });
         }

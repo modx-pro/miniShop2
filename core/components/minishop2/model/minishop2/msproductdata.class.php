@@ -409,14 +409,16 @@ class msProductData extends xPDOSimpleObject
     public function updateProductImage()
     {
         $this->rankProductImages();
+        $c = $this->xpdo->newQuery('msProductFile', array(
+            'product_id' => $this->id,
+            'parent' => 0,
+            'type' => 'image',
+            //'active' => true,
+        ));
+        $c->sortby('rank', 'ASC');
+        $c->limit(1);
         /** @var msProductFile $file */
-        $file = $this->xpdo->getObject('msProductFile', array(
-                'product_id' => $this->get('id'),
-                'parent' => 0,
-                'rank' => 0,
-                'type' => 'image',
-            )
-        );
+        $file = $this->xpdo->getObject('msProductFile', $c);
         if ($file) {
             $thumb = $file->getFirstThumbnail();
             $arr = array(
@@ -438,6 +440,20 @@ class msProductData extends xPDOSimpleObject
             if ($product = $this->getOne('Product')) {
                 $product->clearCache();
             }
+        }
+
+        if ($this->xpdo->getOption('ms2gallery_sync_ms2')) {
+            /** @var ms2Gallery $ms2Gallery */
+            $ms2Gallery = $this->xpdo->getService('ms2gallery', 'ms2Gallery',
+                MODX_CORE_PATH . 'components/ms2gallery/model/ms2gallery/');
+            if ($ms2Gallery && method_exists($ms2Gallery, 'syncFiles')) {
+                $ms2Gallery->syncFiles('ms2', $this->id, true);
+            }
+        }
+
+        /** @var miniShop2 $miniShop2 */
+        if (empty($arr['thumb']) && $miniShop2 = $this->xpdo->getService('miniShop2')) {
+            $arr['thumb'] = $miniShop2->config['defaultThumb'];
         }
 
         return $arr['thumb'];

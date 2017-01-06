@@ -130,11 +130,12 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                                 '<img src="{0}" id="minishop2-product-image"/>',
                                 config.record['thumb'] || miniShop2.config.default_thumb
                             ),
+                            /*
                             listeners: {
                                 afterrender: function () {
                                     var img = Ext.get('minishop2-product-image');
                                     if (img) {
-                                        var size = MODx.config['ms2_product_thumbnail_size'] || '120x90';
+                                        var size = MODx.config['ms2_product_thumbnail_size'] || 'small';
                                         var tmp = size.split('x');
                                         img.set({
                                             width: tmp[0],
@@ -143,6 +144,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                                     }
                                 }
                             }
+                            */
                         }]
                     }]
                 }, other];

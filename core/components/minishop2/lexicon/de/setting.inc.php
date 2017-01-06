@@ -34,8 +34,8 @@ $_lang['setting_ms2_product_source_default'] = 'Standard Medienquelle';
 $_lang['setting_ms2_product_source_default_desc'] = 'Standard Medienquelle für die Produktgalerie.';
 $_lang['setting_ms2_product_vertical_tabs'] = 'Vertikale Tabs auf der Produktseite';
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'How to display product page in manager? Disabling this option allows you to fit the product page on the screen with a small horizontal size. Not recommended.';
-$_lang['setting_ms2_product_thumbnail_size'] = 'Standard Thumbnail-Grösse';
-$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
+//$_lang['setting_ms2_product_thumbnail_size'] = 'Standard Thumbnail-Grösse';
+//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';

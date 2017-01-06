@@ -1,5 +1,11 @@
 Changelog for miniShop2.
 
+2.4.8 pl
+==============
+- Added support of ms2Gallery 2.0.
+- Media source option "thumbnails" now uses key of array with parameters as alias for thumbnail.
+- Removed system setting "ms2_product_thumbnail_size".
+
 2.4.7 pl
 ==============
 - Fixed the loading of product plugins when they can be loaded multiple times.

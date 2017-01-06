@@ -9,6 +9,7 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
     public $permission = 'msproductfile_list';
     /** @var miniShop2 $miniShop2 */
     protected $miniShop2;
+    protected $thumb;
 
 
     /**
@@ -20,6 +21,36 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
             return $this->modx->lexicon('access_denied');
         }
         $this->miniShop2 = $this->modx->getService('miniShop2');
+
+        /** @var modResource $resource */
+        if ($resource = $this->modx->getObject('modResource', (int)$this->getProperty('resource_id'))) {
+            $properties = $resource->getProperties('ms2gallery');
+            if (!empty($properties['media_source'])) {
+                /** @var modMediaSource $source */
+                if ($source = $this->modx->getObject('modMediaSource', (int)$properties['media_source'])) {
+                    $properties = $source->getProperties();
+                    $thumbnails = array();
+                    if (!empty($properties['thumbnails']['value'])) {
+                        $thumbnails = json_decode($properties['thumbnails']['value'], true);
+                    } elseif (!empty($properties['thumbnail']['value'])) {
+                        $thumbnails = json_decode($properties['thumbnail']['value'], true);
+                    }
+                    if (!empty($thumbnails)) {
+                        foreach ($thumbnails as $key => $thumb) {
+                            if (!is_numeric($key)) {
+                                $this->thumb = $key;
+                            } elseif (!empty($thumb['w']) || !empty($thumb['h'])) {
+                                $this->thumb = @$thumb['w'] . 'x' . @$thumb['h'];
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (!$this->thumb) {
+            $this->thumb = $this->modx->getOption('ms2_product_thumbnail_size', null, 'small', true);
+        }
 
         return parent::initialize();
     }
@@ -78,28 +109,13 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
     }
 
 
-    /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
-        $c->leftJoin('modMediaSource', 'Source');
-        $c->leftJoin($this->classKey, 'Thumb',
-            $this->classKey . '.id = Thumb.parent AND 
-            Thumb.path LIKE "%' . $this->modx->getOption('ms2_product_thumbnail_size', null, '120x90', true) . '/%"'
-        );
-        $c->groupby($this->classKey . '.id, thumbnail');
-        $c->select('Source.name as source_name');
-        $c->select('Thumb.url as thumbnail');
+        $c->where(array(
+            'parent' => (int)$this->getProperty('parent'),
+            'product_id' => (int)$this->getProperty('product_id'),
+        ));
 
-        $c->where(array('product_id' => $this->getProperty('product_id')));
-
-        $parent = $this->getProperty('parent');
-        if ($parent !== false) {
-            $c->where(array('parent' => $parent));
-        }
         $query = trim($this->getProperty('query'));
         if (!empty($query)) {
             $c->where(array(
@@ -108,6 +124,25 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
                 'OR:description:LIKE' => "%{$query}%",
             ));
         }
+
+        return $c;
+    }
+
+
+    /**
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
+    public function prepareQueryAfterCount(xPDOQuery $c)
+    {
+        $c->leftJoin('modMediaSource', 'Source');
+        $c->leftJoin($this->classKey, 'Thumb',
+            $this->classKey . '.id = Thumb.parent AND 
+            Thumb.path LIKE "%/' . $this->thumb . '/"'
+        );
+        $c->select('Source.name as source_name, Thumb.url as thumbnail');
+        $c->groupby($this->classKey . '.id, thumbnail');
 
         return $c;
     }

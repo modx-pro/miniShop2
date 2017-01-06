@@ -34,8 +34,8 @@ $_lang['setting_ms2_product_source_default'] = 'Source des médias par défaut';
 $_lang['setting_ms2_product_source_default_desc'] = 'Source des médias par défaut pour la gallerie des articles.';
 $_lang['setting_ms2_product_vertical_tabs'] = 'Onglet verticaux de la page des articles';
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'Comment afficher la page des articles dans le gestionnaire ? Désactiver cette option vous permet d\'ajuster la page de l\'article sur ​​l\'écran avec une petite taille horizontale. Non recommandé.';
-$_lang['setting_ms2_product_thumbnail_size'] = 'Taille des vignettes par défaut';
-$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
+//$_lang['setting_ms2_product_thumbnail_size'] = 'Taille des vignettes par défaut';
+//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 
 $_lang['setting_ms2_cart_handler_class'] = 'Classe du gestionnaire de panier';

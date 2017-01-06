@@ -8,7 +8,7 @@
              data-autoplay="5000">
             {foreach $files as $file}
                 <a href="{$file['url']}" target="_blank">
-                    <img src="{$file['120x90']}" alt="" title="">
+                    <img src="{$file['small']}" alt="" title="">
                 </a>
             {/foreach}
         </div>

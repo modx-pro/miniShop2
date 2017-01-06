@@ -28,6 +28,9 @@ $where = array(
 if (!empty($filetype)) {
     $where['type:IN'] = array_map('trim', explode(',', $filetype));
 }
+if (empty($showInactive)) {
+    $where['active'] = 1;
+}
 $select = array(
     'msProductFile' => '*',
 );
@@ -71,8 +74,14 @@ if ($data = $product->getOne('Data')) {
         $properties = $data->mediaSource->getProperties();
         if (isset($properties['thumbnails']['value'])) {
             $fileTypes = json_decode($properties['thumbnails']['value'], true);
-            foreach ($fileTypes as $v) {
-                $resolution[] = $v['w'] . 'x' . $v['h'];
+            foreach ($fileTypes as $k => $v) {
+                if (!is_numeric($k)) {
+                    $resolution[] = $k;
+                } elseif (!empty($v['name'])) {
+                    $resolution[] = $v['name'];
+                } else {
+                    $resolution[] = @$v['w'] . 'x' . @$v['h'];
+                }
             }
         }
     }

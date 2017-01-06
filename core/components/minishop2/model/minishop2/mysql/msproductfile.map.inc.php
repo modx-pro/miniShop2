@@ -20,6 +20,7 @@ $xpdo_meta_map['msProductFile']= array (
     'url' => '',
     'properties' => NULL,
     'hash' => '',
+    'active' => 1,
   ),
   'fieldMeta' => 
   array (
@@ -132,6 +133,14 @@ $xpdo_meta_map['msProductFile']= array (
       'default' => '',
       'index' => 'index',
     ),
+    'active' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'integer',
+      'null' => true,
+      'default' => 1,
+    ),
   ),
   'indexes' => 
   array (
@@ -192,6 +201,22 @@ $xpdo_meta_map['msProductFile']= array (
       'columns' => 
       array (
         'hash' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'active' => 
+    array (
+      'alias' => 'active',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'active' => 
         array (
           'length' => '',
           'collation' => 'A',

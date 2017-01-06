@@ -43,6 +43,8 @@ if ($transport->xpdo) {
             $manager->addField('msProductFile', 'properties');
             $manager->addField('msProductFile', 'hash');
             $manager->addIndex('msProductFile', 'hash');
+            $manager->addField('msProductFile', 'active');
+            $manager->addIndex('msProductFile', 'active');
 
             $manager->addField('msOrderProduct', 'name');
 
