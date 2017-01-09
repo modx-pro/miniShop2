@@ -5,6 +5,7 @@ Changelog for miniShop2.
 - Added support of ms2Gallery 2.0.
 - Media source option "thumbnails" now uses key of array with parameters as alias for thumbnail.
 - Removed system setting "ms2_product_thumbnail_size".
+- Fixed bug of gallery with drag-over in Firefox.
 
 2.4.7 pl
 ==============

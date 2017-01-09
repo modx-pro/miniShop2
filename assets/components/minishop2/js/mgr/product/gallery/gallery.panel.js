@@ -46,7 +46,9 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
 
         var el = document.getElementById(this.id);
         el.addEventListener('dragenter', function () {
-            this.className += ' drag-over';
+            if (!this.className.match(/drag-over/)) {
+                this.className += ' drag-over';
+            }
         }, false);
         el.addEventListener('dragleave', function () {
             this.className = this.className.replace(' drag-over', '');

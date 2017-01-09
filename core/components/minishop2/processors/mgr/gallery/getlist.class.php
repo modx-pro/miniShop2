@@ -22,12 +22,11 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
         }
         $this->miniShop2 = $this->modx->getService('miniShop2');
 
-        /** @var modResource $resource */
-        if ($resource = $this->modx->getObject('modResource', (int)$this->getProperty('resource_id'))) {
-            $properties = $resource->getProperties('ms2gallery');
-            if (!empty($properties['media_source'])) {
+        /** @var msProduct $product */
+        if ($product = $this->modx->getObject('msProduct', (int)$this->getProperty('product_id'))) {
+            if ($data = $product->getOne('Data')) {
                 /** @var modMediaSource $source */
-                if ($source = $this->modx->getObject('modMediaSource', (int)$properties['media_source'])) {
+                if ($source = $this->modx->getObject('modMediaSource', (int)$data->get('source'))) {
                     $properties = $source->getProperties();
                     $thumbnails = array();
                     if (!empty($properties['thumbnails']['value'])) {
@@ -59,7 +58,8 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
     /**
      * @return array|string
      */
-    public function process() {
+    public function process()
+    {
         $beforeQuery = $this->beforeQuery();
         if ($beforeQuery !== true) {
             return $this->failure($beforeQuery);
