@@ -370,8 +370,9 @@ class miniShop2
             'core_path' => MODX_CORE_PATH,
             'assets_path' => MODX_ASSETS_PATH,
         );
-        $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[++', ']]', false);
-        $pl2 = $this->pdoTools->makePlaceholders($placeholders, '', '{', '}', false);
+        $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[+', ']]', false);
+        $pl2 = $this->pdoTools->makePlaceholders($placeholders, '', '[[++', ']]', false);
+        $pl3 = $this->pdoTools->makePlaceholders($placeholders, '', '{', '}', false);
         $services = $this->getServices();
         if (!empty($services[$type]) && is_array($services[$type])) {
             foreach ($services[$type] as $controller) {
@@ -383,7 +384,9 @@ class miniShop2
                     continue;
                 }
 
-                $file = str_replace($pl2['pl'], $pl2['vl'], str_replace($pl1['pl'], $pl1['vl'], $file));
+                $file = str_replace($pl1['pl'], $pl1['vl'], $file);
+                $file = str_replace($pl2['pl'], $pl2['vl'], $file);
+                $file = str_replace($pl3['pl'], $pl3['vl'], $file);
                 if (strpos($file, MODX_BASE_PATH) === false) {
                     $file = MODX_BASE_PATH . ltrim($file, '/');
                 }
