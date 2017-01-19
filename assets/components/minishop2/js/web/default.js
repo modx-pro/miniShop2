@@ -363,7 +363,6 @@
                     });
                 var $deliveryInputChecked = $(miniShop2.Order.deliveryInput + ':checked', miniShop2.Order.order);
                 $deliveryInputChecked.trigger('change');
-                miniShop2.Order.updatePayments($deliveryInputChecked.data('payments'));
             }
         },
         updatePayments: function (payments) {
