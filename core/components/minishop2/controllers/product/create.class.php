@@ -76,6 +76,7 @@ class msProductCreateManagerController extends msResourceCreateController
         $this->addJavascript($mgrUrl . 'assets/modext/widgets/resource/modx.panel.resource.tv.js');
         $this->addJavascript($mgrUrl . 'assets/modext/widgets/resource/modx.panel.resource.js');
         $this->addJavascript($mgrUrl . 'assets/modext/sections/resource/create.js');
+        $this->addJavascript($assetsUrl . 'js/mgr/vendor/Sortable.js');
         $this->addJavascript($assetsUrl . 'js/mgr/minishop2.js');
         $this->addJavascript($assetsUrl . 'js/mgr/misc/ms2.combo.js');
         $this->addJavascript($assetsUrl . 'js/mgr/misc/ms2.utils.js');
