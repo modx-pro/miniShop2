@@ -653,6 +653,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
             });
 
             field.name = 'options-' + options[i].key;
+            field.xtype == 'xcheckbox' && parseInt(field.value) == 1 ? field.checked = 1 : '';
             field = this.getExtField(config, options[i].key, field);
             fields.push(field);
         }
