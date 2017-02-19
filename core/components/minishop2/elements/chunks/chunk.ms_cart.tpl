@@ -55,7 +55,7 @@
                         <td class="price">
                             <span>{$product.price}</span> {'ms2_frontend_currency' | lexicon}
                             {if $product.old_price?}
-                            <span class="old_price">{$product.old_price} {'ms2_frontend_currency' | lexicon}
+                            <span class="old_price">{$product.old_price}</span> {'ms2_frontend_currency' | lexicon}
                                 {/if}
                         </td>
                         <td class="remove">
