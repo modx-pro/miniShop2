@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.9 pl
+==============
+- Improved loading of pdoTools in snippets
+
 2.4.8 pl
 ==============
 - Added support of ms2Gallery 2.0.
