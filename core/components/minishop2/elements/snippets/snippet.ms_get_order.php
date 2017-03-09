@@ -5,8 +5,10 @@
 $miniShop2 = $modx->getService('miniShop2');
 $miniShop2->initialize($modx->context->key);
 /** @var pdoFetch $pdoFetch */
-$pdoFetch = $modx->getService('pdoFetch');
-$pdoFetch->setConfig($scriptProperties);
+if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {
+    return false;
+}
+$pdoFetch = new pdoFetch($modx, $scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msGetOrder');
