@@ -342,7 +342,9 @@ class msOrderHandler implements msOrderInterface
             return $this->error('ms2_order_err_delivery', array('delivery'));
         }
         $requires = $delivery->get('requires');
-        $requires = empty($requires) ? array() : array_map('trim', explode(',', $requires));
+        $requires = empty($requires)
+            ? array()
+            : array_map('trim', explode(',', $requires));
         if (!in_array('email', $requires)) {
             $requires[] = 'email';
         }

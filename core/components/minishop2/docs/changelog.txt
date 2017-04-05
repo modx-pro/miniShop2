@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.10 pl
+==============
+- Fixed possible E_WARNING in the snippet msOrder.
+
 2.4.9 pl
 ==============
 - Improved loading of pdoTools in snippets

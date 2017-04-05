@@ -159,14 +159,15 @@ foreach ($fields as $key => $value) {
 $errors = array();
 if (!empty($_POST)) {
     $response = $miniShop2->order->getDeliveryRequiresFields();
-    $requires = $response['data']['requires'];
-
-    foreach ($_POST as $field => $val) {
-        $validated = $miniShop2->order->validate($field, $val);
-        if ((in_array($field, $requires) && empty($validated))) {
-            $errors[] = $field;
+    if ($requires = $response['data']['requires']) {
+        foreach ($_POST as $field => $val) {
+            $validated = $miniShop2->order->validate($field, $val);
+            if ((in_array($field, $requires) && empty($validated))) {
+                $errors[] = $field;
+            }
         }
     }
+
 }
 
 $output = $pdoFetch->getChunk($tpl, array(
