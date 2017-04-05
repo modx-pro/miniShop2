@@ -3,7 +3,9 @@
 class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
 {
     public $classKey = 'msOrderProduct';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = array('minishop2');
+    public $beforeRemoveEvent = 'msOnBeforeRemoveOrderProduct';
+    public $afterRemoveEvent = 'msOnRemoveOrderProduct';
     public $permission = 'msorder_save';
     /** @var msOrder $order */
     protected $order;
@@ -30,7 +32,9 @@ class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * 
+     */
     public function afterRemove()
     {
         $this->order->updateProducts();
