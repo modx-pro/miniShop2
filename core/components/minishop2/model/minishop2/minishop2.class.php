@@ -387,8 +387,8 @@ class miniShop2
                 $file = str_replace($pl1['pl'], $pl1['vl'], $file);
                 $file = str_replace($pl2['pl'], $pl2['vl'], $file);
                 $file = str_replace($pl3['pl'], $pl3['vl'], $file);
-                if (strpos($file, MODX_BASE_PATH) === false) {
-                    $file = MODX_BASE_PATH . ltrim($file, '/');
+                if (strpos($file, MODX_CORE_PATH) === false) {
+                    $file = MODX_CORE_PATH . ltrim($file, '/');
                 }
                 if (file_exists($file)) {
                     /** @noinspection PhpIncludeInspection */
