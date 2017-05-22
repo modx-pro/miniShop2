@@ -90,10 +90,13 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .minishop2-window .x-tree-root-ct { overflow: visible; }
 .minishop2-panel .x-tree-root-ct input,
 .minishop2-window .x-tree-root-ct input { vertical-align: top; }
+/* Btn */
+.x-btn.x-btn-small {padding: 6px 15px 6px 15px; }
+.x-btn.x-btn-small button.x-btn-small {font-size: 12px;padding: 0px!important; }
 /* Orders */
 #minishop2-form-orders { padding-top: 10px; padding-bottom: 0; }
-#minishop2-grid-orders { padding-top: 10px; }
-#minishop2-form-orders .x-panel-btns { margin-top: -44px; }
+#minishop2-grid-orders { padding-top: 0px; }
+/*#minishop2-form-orders .x-panel-btns { margin-top: -44px; }*/
 #minishop2-orders-info {
     background: #f9f9f9;
     height: 95px;

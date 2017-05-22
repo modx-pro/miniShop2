@@ -108,6 +108,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     getRightFields: function (config) {
+        console.log('333');
         return [{
             xtype: 'textfield',
             id: config.id + '-search',
@@ -118,6 +119,19 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             id: config.id + '-user',
             emptyText: _('ms2_orders_form_customer'),
             name: 'customer',
+            allowBlank: true,
+            listeners: {
+                select: {
+                    fn: function () {
+                        this.fireEvent('change')
+                    }, scope: this
+                }
+            }
+        }, {
+            xtype: 'minishop2-combo-context',
+            id: config.id + '-context',
+            emptyText: _('ms2_orders_form_context'),
+            name: 'context',
             allowBlank: true,
             listeners: {
                 select: {
@@ -158,10 +172,12 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             text: '<i class="icon icon-times"></i> ' + _('ms2_orders_form_reset'),
             handler: this.reset,
             scope: this,
+            iconCls: 'x-btn-small',
         }, {
             text: '<i class="icon icon-check"></i> ' + _('ms2_orders_form_submit'),
             handler: this.submit,
             scope: this,
+            iconCls: 'x-btn-small',
             cls: 'primary-button',
         }];
     },
