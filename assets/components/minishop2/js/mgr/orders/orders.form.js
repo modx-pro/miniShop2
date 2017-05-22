@@ -108,7 +108,6 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     getRightFields: function (config) {
-        console.log('333');
         return [{
             xtype: 'textfield',
             id: config.id + '-search',
