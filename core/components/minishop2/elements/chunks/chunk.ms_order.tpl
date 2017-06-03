@@ -31,11 +31,12 @@
                 <label class="col-md-4 control-label"><span class="required-star">*</span>
                     {'ms2_frontend_payment_select' | lexicon}</label>
                 <div class="col-sm-6">
-                    {foreach $payments as $payment}
+                    {foreach $payments as $payment index=$index}
+                        {var $checked = !$order.payment && $index == 0 || $payment.id == $order.payment}
                         <div class="checkbox">
                             <label class="payment input-parent">
                                 <input type="radio" name="payment" value="{$payment.id}" id="payment_{$payment.id}"
-                                        {$payment.id == $order.payment ? 'checked' : ''}>
+                                    {$checked ? 'checked' : ''}>
                                 {if $payment.logo?}
                                     <img src="{$payment.logo}" alt="{$payment.name}" title="{$payment.name}"/>
                                 {else}
@@ -63,9 +64,8 @@
                 </label>
                 <div class="col-sm-6">
                     {var $i = 0}
-                    {foreach $deliveries as $idx => $delivery}
-                        {var $checked = !$order.delivery && $i == 0 || $delivery.id == $order.delivery}
-                        {var $i += 1}
+                    {foreach $deliveries as $idx => $delivery index=$index}
+                        {var $checked = !$order.delivery && $index == 0 || $delivery.id == $order.delivery}
                         <div class="checkbox">
                             <label class="delivery input-parent">
                                 <input type="radio" name="delivery" value="{$delivery.id}" id="delivery_{$delivery.id}"
