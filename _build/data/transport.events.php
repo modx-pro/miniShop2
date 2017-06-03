@@ -47,6 +47,8 @@ $tmp = array(
 
     'msOnGetProductPrice',
     'msOnGetProductWeight',
+
+    'msOnProductUpdateOrder',
 );
 
 foreach ($tmp as $k => $v) {

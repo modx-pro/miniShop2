@@ -7,6 +7,7 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
     public $beforeSaveEvent = 'msOnBeforeUpdateOrderProduct';
     public $afterSaveEvent = 'msOnUpdateOrderProduct';
     public $permission = 'msorder_save';
+    public $afterSaveEvent = 'msOnProductUpdateOrder';
     /** @var msOrder $order */
     protected $order;
 
