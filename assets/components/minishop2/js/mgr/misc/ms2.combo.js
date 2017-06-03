@@ -326,6 +326,30 @@ Ext.extend(miniShop2.combo.Resource, MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-resource', miniShop2.combo.Resource);
 
 
+miniShop2.combo.Context = function (config) {
+    config = config || {};
+    Ext.applyIf(config, {
+        name: 'context',
+        hiddenName: 'context',
+        displayField: 'name',
+        valueField: 'key',
+        editable: true,
+        fields: ['key', 'name'],
+        pageSize: 20,
+        emptyText: _('ms2_combo_select'),
+        hideMode: 'offsets',
+        url: miniShop2.config['connector_url'],
+        baseParams: {
+            action: 'mgr/system/element/context/getlist',
+            combo: true
+        }
+    });
+    miniShop2.combo.Context.superclass.constructor.call(this, config);
+};
+Ext.extend(miniShop2.combo.Context, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-context', miniShop2.combo.Context);
+
+
 miniShop2.combo.Browser = function (config) {
     config = config || {};
 

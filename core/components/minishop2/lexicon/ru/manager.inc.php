@@ -135,6 +135,7 @@ $_lang['ms2_orders_form_end'] = 'Выбрать заказы по';
 $_lang['ms2_orders_form_status'] = 'Фильтр по статусу';
 $_lang['ms2_orders_form_search'] = 'Поиск (номер, email, комментарий)';
 $_lang['ms2_orders_form_customer'] = 'Фильтр по заказчику';
+$_lang['ms2_orders_form_context'] = 'Фильтр по контексту';
 $_lang['ms2_orders_form_selected_num'] = 'Выбрано заказов';
 $_lang['ms2_orders_form_selected_sum'] = 'на сумму, руб.';
 $_lang['ms2_orders_form_month_num'] = 'Выполнено за 30 дней';

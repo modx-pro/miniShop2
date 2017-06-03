@@ -135,6 +135,7 @@ $_lang['ms2_orders_form_end'] = 'Get orders to';
 $_lang['ms2_orders_form_status'] = 'Filter by status';
 $_lang['ms2_orders_form_search'] = 'Search (number, email, comment)';
 $_lang['ms2_orders_form_customer'] = 'Filter by customer';
+$_lang['ms2_orders_form_context'] = 'Filter by context';
 $_lang['ms2_orders_form_selected_num'] = 'Selected orders';
 $_lang['ms2_orders_form_selected_sum'] = 'for the sum, $';
 $_lang['ms2_orders_form_month_num'] = 'Completed within 30 days';

@@ -68,6 +68,11 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
                 'user_id' => (int)$customer,
             ));
         }
+        if ($context = $this->getProperty('context')) {
+            $c->where(array(
+                'context' => $context,
+            ));
+        }
         if ($date_start = $this->getProperty('date_start')) {
             $c->andCondition(array(
                 'createdon:>=' => date('Y-m-d 00:00:00', strtotime($date_start)),
