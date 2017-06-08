@@ -44,12 +44,27 @@ class msProductCreateProcessor extends modResourceCreateProcessor
             ),
         ));
 
-        $properties = $this->getProperties();
         $options = array();
+        $option_ids = array();
+        $properties = $this->getProperties();
         foreach ($properties as $key => $value) {
             if (strpos($key, 'options-') === 0) {
-                $options[substr($key, 8)] = $value;
-                $this->unsetProperty($key);
+                $option_ids[] = substr($key, 8);
+            }
+        }
+
+        $q = $this->modx->newQuery('msOption');
+        $q->select(array('id', 'key'));
+        $q->where(array('id:IN' => $option_ids));
+        $q->limit(1000000);
+        if ($q->prepare() && $q->stmt->execute()) {
+            $option_fields = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($option_fields as $option) {
+                $key = 'options-' . $option['id'];
+                if (isset($properties[$key])) {
+                    $options[$option['key']] = $properties[$key];
+                    $this->unsetProperty($key);
+                }
             }
         }
         $this->setProperty('options', $options);

@@ -9,7 +9,12 @@ class msProductGetOptionsProcessor extends modObjectProcessor
     {
         $query = trim($this->getProperty('query'));
         $limit = trim($this->getProperty('limit', 10));
-        $key = preg_replace('#^options-(.*?)#', '$1', $this->getProperty('key'));
+        $key = $this->getProperty('key');
+        if (preg_match('#^options-(.*?)#', $key)) {
+            $id = preg_replace('#^options-(.*?)#', '$1', $key);
+            $option = $this->modx->getObject('msOption', $id);
+            $key = $option->get('key');
+        }
 
         $c = $this->modx->newQuery('msProductOption');
         $c->sortby('value', 'ASC');

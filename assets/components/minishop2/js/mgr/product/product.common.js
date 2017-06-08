@@ -652,7 +652,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                 category_name: options[i].category_name,
             });
 
-            field.name = 'options-' + options[i].key;
+            field.name = 'options-' + options[i].id;
             field = this.getExtField(config, options[i].key, field);
             fields.push(field);
         }
