@@ -715,37 +715,51 @@ class miniShop2
             }
 
             if ($status->get('email_manager')) {
-                $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
-                $tpl = '';
-                if ($chunk = $this->modx->getObject('modChunk', $status->get('body_manager'))) {
-                    $tpl = $chunk->get('name');
-                }
-                $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
-                $emails = array_map('trim', explode(',',
-                        $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender')))
-                );
-                if (!empty($subject)) {
-                    foreach ($emails as $email) {
-                        if (preg_match('#.*?@.*#', $email)) {
-                            $this->sendEmail($email, $subject, $body);
-                        }
-                    }
-                }
-            }
-
-            if ($status->get('email_user')) {
-                if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $pls['user_id']))) {
-                    $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_user'), $pls);
+                $response = $this->invokeEvent('msOnBeforeOrderEmailToManager', array(
+	                'order' => $order,
+	                'status' => $status,
+	                'pls' => $pls,
+	            ));
+	            if (!$response['skip']) {
+                    $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
                     $tpl = '';
-                    if ($chunk = $this->modx->getObject('modChunk', $status->get('body_user'))) {
+                    if ($chunk = $this->modx->getObject('modChunk', $status->get('body_manager'))) {
                         $tpl = $chunk->get('name');
                     }
                     $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
-                    $email = $profile->get('email');
-                    if (!empty($subject) && preg_match('#.*?@.*#', $email)) {
-                        $this->sendEmail($email, $subject, $body);
+                    $emails = array_map('trim', explode(',',
+                            $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender')))
+                    );
+                    if (!empty($subject)) {
+                        foreach ($emails as $email) {
+                            if (preg_match('#.*?@.*#', $email)) {
+                                $this->sendEmail($email, $subject, $body);
+                            }
+                        }
                     }
-                }
+	            }
+            }
+
+            if ($status->get('email_user')) {
+                $response = $this->invokeEvent('msOnBeforeOrderEmailToUser', array(
+	                'order' => $order,
+	                'status' => $status,
+	                'pls' => $pls,
+	            ));
+	            if (!$response['skip']) {
+                    if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $pls['user_id']))) {
+                        $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_user'), $pls);
+                        $tpl = '';
+                        if ($chunk = $this->modx->getObject('modChunk', $status->get('body_user'))) {
+                            $tpl = $chunk->get('name');
+                        }
+                        $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
+                        $email = $profile->get('email');
+                        if (!empty($subject) && preg_match('#.*?@.*#', $email)) {
+                            $this->sendEmail($email, $subject, $body);
+                        }
+                    }
+	            }
             }
         }
 
