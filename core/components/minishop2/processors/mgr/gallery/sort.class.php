@@ -58,6 +58,10 @@ class msProductFileSortProcessor extends modObjectProcessor
         }
         $source->set('rank', $newRank);
         $source->save();
+        
+        $this->modx->exec("UPDATE {$this->modx->getTableName('msProductFile')}
+            SET rank = " . $source->get('rank') . " WHERE
+        		parent = " . $source->get('id'));   
 
         $thumb = $product->updateProductImage();
 
