@@ -2,13 +2,14 @@ Changelog for miniShop2.
 
 2.4.11 pl
 ==============
-- Add Order context
-- Fix file path if core path outside base path
-- Fix get Order status
-- Add update Order "afterSave"
-- Fix "xcheckbox" Product options
-- Add "expand,collapse,check,uncheck" action to "category,option" tree
-- Fix "process" options
+- Fixed default path to loading services in the loadCustomClasses() method.
+- Update the cost of an orders after product addition.
+- Improved processing of products options.
+- Removed call of ms2Gallery::syncFiles() from msProductData::updateProductImage().
+- [mgr] Add contexts list into filters at the orders page.
+- [mgr] Fixed possible error on get orders statuses list.
+- [mgr] Fix "xcheckbox" in a Product options.
+- [mgr] Add "expand,collapse,check,uncheck" actions to the categories and options trees.
 
 2.4.10 pl
 ==============
