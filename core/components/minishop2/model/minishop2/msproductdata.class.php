@@ -442,15 +442,6 @@ class msProductData extends xPDOSimpleObject
             }
         }
 
-        if ($this->xpdo->getOption('ms2gallery_sync_ms2')) {
-            /** @var ms2Gallery $ms2Gallery */
-            $ms2Gallery = $this->xpdo->getService('ms2gallery', 'ms2Gallery',
-                MODX_CORE_PATH . 'components/ms2gallery/model/ms2gallery/');
-            if ($ms2Gallery && method_exists($ms2Gallery, 'syncFiles')) {
-                $ms2Gallery->syncFiles('ms2', $this->id, true);
-            }
-        }
-
         /** @var miniShop2 $miniShop2 */
         if (empty($arr['thumb']) && $miniShop2 = $this->xpdo->getService('miniShop2')) {
             $arr['thumb'] = $miniShop2->config['defaultThumb'];
