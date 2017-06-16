@@ -15,6 +15,8 @@ $_lang['ms2_menu_remove_confirm'] = 'Are you sure you want to remove this item?'
 $_lang['ms2_menu_remove_multiple_confirm'] = 'Are you sure you want to remove all selected items?';
 $_lang['ms2_menu_enable'] = 'Enable';
 $_lang['ms2_menu_disable'] = 'Disable';
+$_lang['ms2_menu_select_all'] = 'Select all';
+$_lang['ms2_menu_clear_all'] = 'Clear all';
 
 $_lang['ms2_combo_select'] = 'Click to select';
 $_lang['ms2_combo_select_status'] = 'Filter by status';
