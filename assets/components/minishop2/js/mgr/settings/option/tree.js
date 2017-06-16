@@ -53,6 +53,48 @@ Ext.extend(miniShop2.tree.OptionCategories, MODx.tree.Tree, {
             handler: function () {
                 this.refreshNode(this.cm.activeNode.id, true);
             }
+        },{
+            text: '<i class="x-menu-item-icon icon icon-level-down"></i> ' + _('expand_tree'),
+            handler: function () {
+                this.cm.activeNode.expand(true);
+            }
+        },{
+            text: '<i class="x-menu-item-icon icon icon-level-up"></i> ' + _('collapse_tree'),
+            handler: function () {
+                this.cm.activeNode.collapse(true);
+            }
+        },{
+            text: '<i class="x-menu-item-icon icon icon-check-square-o"></i> ' + _('ms2_menu_select_all'),
+            handler: function () {
+                var activeNode=this.cm.activeNode;
+                var checkchange=this.getListeners().checkchange;
+
+                function massCheck(node){
+                    node.getUI().toggleCheck(true);
+                    node.expand(false,false,function(node){
+                        node.eachChild(massCheck);
+                        if(node==activeNode){
+                            checkchange();
+                        }
+                    });
+                }
+                massCheck(activeNode);
+            }
+        },{
+            text: '<i class="x-menu-item-icon icon icon-square-o"></i> ' + _('ms2_menu_clear_all'),
+            handler: function () {
+                var activeNode=this.cm.activeNode;
+                var checkchange=this.getListeners().checkchange;
+
+                function massUncheck(node){
+                    node.getUI().toggleCheck(false);
+                    node.eachChild(massUncheck);
+                    if(node==activeNode){
+                        checkchange();
+                    }
+                }
+                massUncheck(activeNode);
+            }
         });
         this.addContextMenuItem(m);
         this.cm.showAt(e.xy);

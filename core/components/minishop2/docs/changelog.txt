@@ -1,5 +1,15 @@
 Changelog for miniShop2.
 
+2.4.11 pl
+==============
+- Add Order context
+- Fix file path if core path outside base path
+- Fix get Order status
+- Add update Order "afterSave"
+- Fix "xcheckbox" Product options
+- Add "expand,collapse,check,uncheck" action to "category,option" tree
+- Fix "process" options
+
 2.4.10 pl
 ==============
 - Fixed possible E_WARNING in the snippet msOrder.
