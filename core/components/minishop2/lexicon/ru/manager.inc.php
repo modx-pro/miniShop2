@@ -15,6 +15,8 @@ $_lang['ms2_menu_remove_confirm'] = 'Вы уверены, что хотите у
 $_lang['ms2_menu_remove_multiple_confirm'] = 'Вы уверены, что хотите удалить все выбранные записи?';
 $_lang['ms2_menu_enable'] = 'Включить';
 $_lang['ms2_menu_disable'] = 'Выключить';
+$_lang['ms2_menu_select_all'] = 'Выделить всё';
+$_lang['ms2_menu_clear_all'] = 'Очистить всё';
 
 $_lang['ms2_combo_select'] = 'Нажмите для выбора';
 $_lang['ms2_combo_select_status'] = 'Фильтр по статусу';
@@ -135,6 +137,7 @@ $_lang['ms2_orders_form_end'] = 'Выбрать заказы по';
 $_lang['ms2_orders_form_status'] = 'Фильтр по статусу';
 $_lang['ms2_orders_form_search'] = 'Поиск (номер, email, комментарий)';
 $_lang['ms2_orders_form_customer'] = 'Фильтр по заказчику';
+$_lang['ms2_orders_form_context'] = 'Фильтр по контексту';
 $_lang['ms2_orders_form_selected_num'] = 'Выбрано заказов';
 $_lang['ms2_orders_form_selected_sum'] = 'на сумму, руб.';
 $_lang['ms2_orders_form_month_num'] = 'Выполнено за 30 дней';

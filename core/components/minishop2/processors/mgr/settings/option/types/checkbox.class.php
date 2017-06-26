@@ -14,6 +14,7 @@ class msCheckboxType extends msOptionType
             xtype:'xcheckbox',
             fieldLabel: null,
             boxLabel: '" . $field['caption'] . "',
+            checked: ".(int)$field['value'].",
             convertValue: function (v) {
                 return (
                     v === '1' || v === true || v === 'true' ||

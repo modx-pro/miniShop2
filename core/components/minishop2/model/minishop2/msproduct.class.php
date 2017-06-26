@@ -397,6 +397,9 @@ class msProduct extends modResource
         parent::set('options', $this->loadData()->get('options'));
         parent::set('links', $this->loadData()->get('links'));
 
+        parent::set('image', '');
+        parent::set('thumb', '');
+
         /** @var msProduct $new */
         return parent::duplicate($options);
     }

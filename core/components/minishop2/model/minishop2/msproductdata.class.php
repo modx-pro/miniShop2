@@ -50,14 +50,10 @@ class msProductData extends xPDOSimpleObject
             while ($option = $c->stmt->fetch(PDO::FETCH_ASSOC)) {
                 // If the option is repeated, its value will be an array
                 if (isset($data[$option['key']])) {
-                    if (!is_array($data[$option['key']])) {
-                        $data[$option['key']] = array($data[$option['key']]);
-                    }
                     $data[$option['key']][] = $option['value'];
-                } else { // Single option will be a string
-                    $data[$option['key']] = $option['value'];
+                } else {
+                    $data[$option['key']] = array($option['value']);
                 }
-
                 foreach ($option as $key => $value) {
                     $data[$option['key'] . '.' . $key] = $value;
                 }
@@ -93,11 +89,11 @@ class msProductData extends xPDOSimpleObject
         ));
         if ($c->prepare() && $c->stmt->execute()) {
             foreach ($arrays as $key => $array) {
+                $array = $this->prepareOptionValues($array);
                 if (is_array($array)) {
+                    $this->set($key, $array);
                     foreach ($array as $value) {
-                        if ($value !== '') {
-                            $add->execute(array($key, $value));
-                        }
+                        $add->execute(array($key, $value));
                     }
                 }
             }
@@ -125,19 +121,11 @@ class msProductData extends xPDOSimpleObject
                 $c->stmt->execute();
             }
             foreach ($options as $key => $array) {
-                if (!is_array($array)) {
-                    $array = array($array);
-                }
-
-                // fix duplicate, empty options
-                $array = array_map('trim', $array);
-                $array = array_keys(array_flip($array));
-                $array = array_diff($array, array(''));
-                sort($array);
-                $this->set($key, $array);
-
-                foreach ($array as $value) {
-                    $add->execute(array($key, $value));
+                $array = $this->prepareOptionValues($array);
+                if (is_array($array)) {
+                    foreach ($array as $value) {
+                        $add->execute(array($key, $value));
+                    }
                 }
             }
         }
@@ -245,6 +233,27 @@ class msProductData extends xPDOSimpleObject
         return $c;
     }
 
+    /**
+     *
+     */
+    public function prepareOptionValues($values = null) {
+        if ($values) {
+            if (!is_array($values)) {
+                $values = array($values);
+            }
+            // fix duplicate, empty option values
+            $values = array_map('trim', $values);
+            $values = array_keys(array_flip($values));
+            $values = array_diff($values, array(''));
+            //sort($values);
+
+            if (empty($values)) {
+                $values = null;
+            }
+        }
+
+        return $values;
+    }
 
     /**
      * @param bool $force
@@ -256,7 +265,8 @@ class msProductData extends xPDOSimpleObject
         if ($this->optionKeys === null || $force) {
             /** @var xPDOQuery $c */
             $c = $this->prepareOptionListCriteria();
-            $c->groupby('msOption.id, msCategoryOption.rank');
+
+            $c->groupby('msOption.id');
             $c->select('msOption.key');
 
             $this->optionKeys = $c->prepare() && $c->stmt->execute()
@@ -439,15 +449,6 @@ class msProductData extends xPDOSimpleObject
             /** @var msProduct $product */
             if ($product = $this->getOne('Product')) {
                 $product->clearCache();
-            }
-        }
-
-        if ($this->xpdo->getOption('ms2gallery_sync_ms2')) {
-            /** @var ms2Gallery $ms2Gallery */
-            $ms2Gallery = $this->xpdo->getService('ms2gallery', 'ms2Gallery',
-                MODX_CORE_PATH . 'components/ms2gallery/model/ms2gallery/');
-            if ($ms2Gallery && method_exists($ms2Gallery, 'syncFiles')) {
-                $ms2Gallery->syncFiles('ms2', $this->id, true);
             }
         }
 

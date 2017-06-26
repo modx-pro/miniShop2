@@ -13,7 +13,6 @@ class msComboOptionsType extends msOptionType
         return "{xtype:'minishop2-combo-options'}";
     }
 
-
     /**
      * @param $criteria
      *
@@ -21,11 +20,15 @@ class msComboOptionsType extends msOptionType
      */
     public function getValue($criteria)
     {
-        /** @var msProductOption $value */
-        $values = $this->xpdo->getIterator('msProductOption', $criteria);
         $result = array();
-        foreach ($values as $value) {
-            $result[] = array('value' => $value->get('value'));
+
+        $c = $this->xpdo->newQuery('msProductOption', $criteria);
+        $c->select('value');
+        $c->where(array('value:!=' => ''));
+        if ($c->prepare() && $c->stmt->execute()) {
+            if (!$result = $c->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+                $result = array();
+            }
         }
 
         return $result;

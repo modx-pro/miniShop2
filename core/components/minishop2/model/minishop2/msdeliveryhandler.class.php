@@ -71,6 +71,9 @@ class msDeliveryHandler implements msDeliveryInterface
         if (empty($this->ms2)) {
             $this->ms2 = $this->modx->getService('miniShop2');
         }
+        if (empty($this->ms2->cart)) {
+            $this->ms2->loadServices($this->ms2->config['ctx']);
+        }
         $cart = $this->ms2->cart->status();
         $weight_price = $delivery->get('weight_price');
         //$distance_price = $delivery->get('distance_price');

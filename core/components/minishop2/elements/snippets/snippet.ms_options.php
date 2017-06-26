@@ -20,6 +20,9 @@ $names = array_map('trim', explode(',', $options));
 $options = array();
 foreach ($names as $name) {
     if (!empty($name) && $option = $product->get($name)) {
+        if (!is_array($option)) {
+            $option = array($option);
+        }
         if (!empty($option[0])) {
             $options[$name] = $option;
         }
