@@ -618,7 +618,7 @@ miniShop2.combo.Product = function (config) {
         },
         tpl: new Ext.XTemplate('\
             <tpl for=".">\
-                <div class="x-combo-list-item minishop2-product-list-item">\
+                <div class="x-combo-list-item minishop2-product-list-item" ext:qtip="{pagetitle}">\
                     <tpl if="parents">\
                         <span class="parents">\
                             <tpl for="parents">\
