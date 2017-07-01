@@ -26,7 +26,44 @@ miniShop2.grid.Products = function (config) {
 Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
 
     getFields: function () {
-        return miniShop2.config['product_fields'];
+        var fields = miniShop2.config['product_fields'];
+        var options = miniShop2.config['option_fields'];
+
+        for (var i = 0; i < options.length; i++) {
+            var index = fields.indexOf(options[i].key);
+            if (index > 0) {
+                fields[index] = 'options-' + fields[index];
+            }
+        }
+
+        return fields;
+    },
+
+    getOptionFields: function (config) {
+        var options = miniShop2.config['option_fields'];
+        var fields = {};
+        for (var i = 0; i < options.length; i++) {
+            var field = miniShop2.utils.getExtField(config, options[i].key, options[i], 'extra-column');
+            if (field) {
+                Ext.apply(fields, field);
+            }
+        }
+
+        return fields;
+    },
+
+    getCategoryOptions: function (config) {
+        var option_columns = [];
+        var options = this.getOptionFields(config);
+
+        for (i in options) {
+            if (!options.hasOwnProperty(i)) {
+                continue;
+            }
+            option_columns[i] = options[i];
+        }
+
+        return option_columns;
     },
 
     getColumns: function () {
@@ -105,18 +142,23 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
                 width: 75,
                 sortable: false,
                 renderer: miniShop2.utils.renderActions
-            },
+            }
         };
 
-        var i;
+        var i,add;
         for (i in miniShop2.plugin) {
             if (!miniShop2.plugin.hasOwnProperty(i)) {
                 continue;
             }
             if (typeof(miniShop2.plugin[i]['getColumns']) == 'function') {
-                var add = miniShop2.plugin[i].getColumns();
+                add = miniShop2.plugin[i].getColumns();
                 Ext.apply(columns, add);
             }
+        }
+
+        var option_columns= [];
+        if (miniShop2.config['show_options']) {
+            option_columns = this.getCategoryOptions(miniShop2.config);
         }
 
         var fields = [];
@@ -131,6 +173,8 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
                     dataIndex: field
                 });
                 fields.push(columns[field]);
+            }else if (option_columns[field]) {
+                fields.push(option_columns[field]);
             }
         }
 

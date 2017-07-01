@@ -34,6 +34,23 @@ class msComboOptionsType extends msOptionType
         return $result;
     }
 
+    /**
+     * @param $criteria
+     *
+     * @return array
+     */
+    public function getRowValue($criteria)
+    {
+        $result = array();
+
+        $rows = $this->getValue($criteria);
+        foreach ($rows as $row) {
+            $result[] = $row['value'];
+        }
+
+        return $result;
+    }
+
 }
 
 return 'msComboOptionsType';

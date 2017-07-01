@@ -39,6 +39,15 @@ abstract class msOptionType
         return ($value) ? $value->get('value') : null;
     }
 
+    /**
+     * @param $criteria
+     *
+     * @return mixed|null
+     */
+    public function getRowValue($criteria)
+    {
+        return $this->getValue($criteria);
+    }
 
     /**
      * @param $field
@@ -123,6 +132,31 @@ class msOption extends xPDOSimpleObject
         }
     }
 
+    /**
+     * @param $product_id
+     *
+     * @return mixed
+     */
+    public function getRowValue($product_id)
+    {
+        /** @var miniShop2 $minishop */
+        $minishop = $this->xpdo->getService('miniShop2');
+
+        /** @var msOptionType $type */
+        $type = $minishop->getOptionType($this);
+
+        if ($type) {
+            $criteria = array(
+                'product_id' => $product_id,
+                'key' => $this->get('key'),
+            );
+            $value = $type->getRowValue($criteria);
+
+            return $value;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * @param $field

@@ -20,15 +20,15 @@ class msComboboxType extends msOptionType
         }
 
         return "{
-            xtype:'modx-combo',
-            store: new Ext.data.SimpleStore({
-                fields: ['value'],
-                data: {$values}
-            }),
+            xtype: 'modx-combo',
             fields: ['value'],
             displayField: 'value',
             valueField: 'value',
             mode: 'local',
+            store: new Ext.data.SimpleStore({
+                fields: ['value'],
+                data: {$values}
+            })
         }";
     }
 

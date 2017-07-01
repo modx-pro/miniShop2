@@ -70,6 +70,18 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
      */
     public function beforeSet()
     {
+        $properties = $this->getProperties();
+        $options = $this->object->loadData()->get('options');
+        foreach ($properties as $key => $value) {
+            if (strpos($key, 'options-') === 0) {
+                $options[substr($key, 8)] = $value;
+                $this->unsetProperty($key);
+            }
+        }
+        if (!empty($options)) {
+            $this->setProperty('options', $options);
+        }
+
         return true;
     }
 

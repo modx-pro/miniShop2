@@ -38,10 +38,17 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         $mgrUrl = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
 
+        $category_option_keys = array();
+        $showOptions = (bool)$this->modx->getOption('ms2_category_show_options', null, true);
+        if ($showOptions) {
+            $category_option_keys = $this->resource->getOptionKeys();
+        }
+
         /** @var msProduct $product */
         $product = $this->modx->newObject('msProduct');
         $product_fields = array_merge(
             $product->getAllFieldsNames(),
+            $category_option_keys,
             array('actions', 'preview_url', 'cls', 'vendor_name', 'category_name')
         );
 
@@ -79,12 +86,21 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         $this->addLastJavascript($assetsUrl . 'js/mgr/category/update.js');
 
         $showComments = (int)(class_exists('TicketsSection') && $this->modx->getOption('ms2_category_show_comments'));
+
+        $category_option_fields = array();
+        if ($showOptions) {
+            $category_option_fields = $this->resource->getOptionFields($grid_fields);
+        }
+
         $config = array(
             'assets_url' => $this->miniShop2->config['assetsUrl'],
             'connector_url' => $this->miniShop2->config['connectorUrl'],
             'show_comments' => $showComments,
+            'show_options' => $showOptions,
             'product_fields' => $product_fields,
             'grid_fields' => $grid_fields,
+            'option_keys' => $category_option_keys,
+            'option_fields' => $category_option_fields,
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
         );
         $ready = array(

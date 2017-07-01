@@ -7,7 +7,7 @@ require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/category/upda
 class msCategory extends modResource
 {
     public $showInContextMenu = true;
-
+    protected $optionKeys = null;
 
     /**
      * msCategory constructor.
@@ -200,5 +200,74 @@ class msCategory extends modResource
         }
 
         return $arr;
+    }
+
+    /**
+     * @return xPDOQuery
+     */
+    public function prepareOptionListCriteria()
+    {
+        $categories = array();
+        $categories[] = $this->id;
+
+        $c = $this->xpdo->newQuery('msOption');
+        $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id = msOption.id');
+        $c->leftJoin('modCategory', 'Category', 'Category.id = msOption.category');
+        $c->sortby('msCategoryOption.rank');
+        $c->where(array('msCategoryOption.active' => 1));
+        if (!empty($categories[0])) {
+            $c->where(array('msCategoryOption.category_id:IN' => $categories));
+        }
+        return $c;
+    }
+
+    /**
+     * @param bool $force
+     *
+     * @return array
+     */
+    public function getOptionKeys($force = false)
+    {
+        if ($this->optionKeys === null || $force) {
+            /** @var xPDOQuery $c */
+            $c = $this->prepareOptionListCriteria();
+            $c->groupby('msOption.id');
+            $c->select('msOption.key');
+            $this->optionKeys = $c->prepare() && $c->stmt->execute()
+                ? $c->stmt->fetchAll(PDO::FETCH_COLUMN)
+                : array();
+        }
+        return $this->optionKeys;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptionFields(array $keys = array())
+    {
+        $fields = array();
+        /** @var xPDOQuery $c */
+        $c = $this->prepareOptionListCriteria();
+        $c->select(array(
+            $this->xpdo->getSelectColumns('msOption', 'msOption'),
+            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '',
+                array('id', 'option_id', 'category_id'), true
+            ),
+            'Category.category AS category_name',
+        ));
+        if (!empty($keys)) {
+            $c->where(array('msOption.key:IN' => $keys));
+        }
+
+        $options = $this->xpdo->getIterator('msOption', $c);
+        /** @var msOption $option */
+        foreach ($options as $option) {
+            $field = $option->toArray();
+            $value = $option->getValue(parent::get('id'));
+            $field['value'] = !is_null($value) ? $value : $field['value'];
+            $field['ext_field'] = $option->getManagerField($field);
+            $fields[] = $field;
+        }
+        return $fields;
     }
 }

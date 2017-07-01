@@ -260,6 +260,130 @@ miniShop2.utils.formatSize = function (size) {
     return size;
 };
 
+miniShop2.utils.getExtField = function (config, key, option, context) {
+    config = config || {};
+    if (!config.record) {
+        config.record = {};
+    }
+
+    option = option || {};
+    context = context || 'data-field';
+
+    var name = '';
+    switch (context) {
+        case 'extra-column':
+        case 'extra-field':
+            name =  'options-' + key;
+            break;
+        default:
+            name = key;
+            break;
+    }
+
+    var field = option;
+    if (typeof option.ext_field == 'string') {
+        field = Ext.util.JSON.decode(option.ext_field);
+    }
+    var column = {
+        sortable: false,
+        dataIndex: name,
+    };
+
+    var help = '';
+    if (_('resource_' + key + '_help')) {
+        help = '<br/>' + _('resource_' + key + '_help');
+    }
+    else if (_('ms2_product_' + key + '_help')) {
+        help = '<br/>' + _('ms2_product_' + key + '_help');
+    }
+    else if (option.description) {
+        help = '<br/>' + option.description;
+    }
+
+    field = Ext.applyIf(field, {
+        id: 'modx-resource-' + key,
+        name: name,
+        value: option.value || config.record[key] || '',
+        description: '[[+' + key + ']]' + help,
+        fieldLabel: option.caption || _('ms2_product_' + key),
+        fieldKey: key,
+        allowBlank: Boolean(1 - parseInt(option.required || 0)),
+        enableKeyEvents: true,
+        listeners: config.listeners || {},
+        category: option.category,
+        category_name: option.category_name,
+        msgTarget: 'under',
+    });
+
+    if (field.allowBlank === false) {
+        field.fieldLabel = field.fieldLabel + ' <span class="required red">*</span>'
+    }
+
+    switch (field.xtype) {
+        case 'minishop2-combo-options':
+            if (context.indexOf('column') > 0) {
+                field.disabled =true;
+                field.xtype = 'textfield';
+            }
+            break;
+        case 'minishop2-xdatetime':
+            field.anchor = '95%';
+            field.fieldColumnWidth = '75';
+            break;
+        case 'xdatetime':
+            field.anchor = '25.5%';
+            if (typeof field.value !== 'string') {
+                field.value = '';
+            }
+            break;
+        case 'minishop2-combo-user':
+            field.anchor = '95%';
+            field.fieldColumnWidth = '75';
+            break;
+        case 'xcheckbox':
+            field.hideLabel = true;
+            field.boxLabel = field.fieldLabel;
+            field.checked = field.value? 1: 0;
+            if (context.indexOf('column') > 0) {
+                field.xtype ='modx-combo-boolean';
+                field.renderer = 'boolean';
+            }
+            break;
+        case 'textname':
+            field.anchor = '100%';
+            field.maxLength = 255;
+            break;
+        case 'boolean':
+        case 'modx-combo-boolean':
+        case 'combo-boolean':
+            field.anchor = '25%';
+            field.hiddenName = field.name;
+            field.renderer = 'boolean';
+            break;
+        default:
+            field.anchor = '100%';
+    }
+
+    field.cls = 'option-in-' + context + ' option-' + field.xtype + ' ' + (field.cls || '');
+    field.ctCls = 'option-in-' + context + ' option-' + field.xtype + ' ' + (field.ctCls || '');
+
+    switch (context) {
+        case 'extra-column':
+            column = Ext.applyIf(column, {
+                width: field.fieldColumnWidth || 50,
+                header: field.fieldLabel,
+                editor: field
+            });
+            return (function(o,a,b){return o[a]=b,o})({},option.key,column);
+        case 'extra-field':
+        case 'data-field':
+            return field;
+            break;
+        default:
+            return false;
+    }
+};
+
 /*
  miniShop2.getOptCaption = function (field) {
  var opts = miniShop2.config['option_fields'];

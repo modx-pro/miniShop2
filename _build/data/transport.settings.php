@@ -42,6 +42,11 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'area' => 'ms2_category',
     ),
+    'ms2_category_show_options' => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_category',
+    ),
     'ms2_category_remember_tabs' => array(
         'value' => true,
         'xtype' => 'combo-boolean',

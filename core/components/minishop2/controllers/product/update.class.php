@@ -84,6 +84,8 @@ class msProductUpdateManagerController extends msResourceUpdateController
         }
         $product_extra_fields = array_map('trim', explode(',', $product_extra_fields));
         $product_extra_fields = array_values(array_intersect($product_extra_fields, $product_fields));
+
+        $product_option_keys = $this->resource->loadData()->getOptionKeys();
         $product_option_fields = $this->resource->loadData()->getOptionFields();
 
         $this->prepareFields();
@@ -110,6 +112,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
             'main_fields' => $product_main_fields,
             'extra_fields' => $product_extra_fields,
+            'option_keys' => $product_option_keys,
             'option_fields' => $product_option_fields,
             'data_fields' => $product_data_fields,
             'additional_fields' => array(),

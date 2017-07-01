@@ -376,46 +376,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
     },
 
     getExtField: function (config, name, field) {
-        var help = '';
-        if (_('resource_' + name + '_help')) {
-            help = '<br/>' + _('resource_' + name + '_help');
-        }
-        else if (_('ms2_product_' + name + '_help')) {
-            help = '<br/>' + _('ms2_product_' + name + '_help');
-        }
-        field.value = field.value || config.record[name] || '';
-        var properties = {
-            description: '<b>[[*' + name + ']]</b>' + help,
-            enableKeyEvents: true,
-            listeners: config.listeners,
-            name: name,
-            id: 'modx-resource-' + name,
-            msgTarget: 'under',
-        };
-        switch (field.xtype) {
-            case 'minishop2-xdatetime':
-            case 'minishop2-combo-user':
-                properties.anchor = '95%';
-                properties.fieldLabel = _('ms2_product_' + name);
-                break;
-            case 'xcheckbox':
-                properties.boxLabel = _('ms2_product_' + name);
-                properties.hideLabel = true;
-                break;
-            case 'textname':
-                properties.maxLength = 255;
-                properties.anchor = '100%';
-                properties.fieldLabel = _('ms2_product_' + name);
-                break;
-            default:
-                properties.fieldLabel = _('ms2_product_' + name);
-                properties.anchor = '100%';
-        }
-        if (field.allowBlank === false) {
-            field.fieldLabel = field.fieldLabel + ' <span class="required red">*</span>'
-        }
-
-        return Ext.applyIf(field, properties);
+        return miniShop2.utils.getExtField(config, name, field);
     },
 
     getAllProductFields: function (config) {
@@ -643,18 +604,10 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
         var options = miniShop2.config.option_fields;
         var fields = [];
         for (var i = 0; i < options.length; i++) {
-            var field = Ext.applyIf(Ext.util.JSON.decode(options[i].ext_field), {
-                fieldLabel: options[i].caption,
-                allowBlank: 1 - options[i].required,
-                description: '[[+' + options[i].key + ']]',
-                value: options[i].value,
-                category: options[i].category,
-                category_name: options[i].category_name,
-            });
-
-            field.name = 'options-' + options[i].key;
-            field = this.getExtField(config, options[i].key, field);
-            fields.push(field);
+            var field = miniShop2.utils.getExtField(config, options[i].key, options[i], 'extra-field');
+            if (field) {
+                fields.push(field);
+            }
         }
 
         return fields;

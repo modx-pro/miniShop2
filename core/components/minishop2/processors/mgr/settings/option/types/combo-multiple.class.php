@@ -21,13 +21,14 @@ class msComboMultipleType extends msComboboxType
         return "{
             xtype: 'minishop2-combo-options',
             allowAddNewData: false,
-            mode:'local',
+            pinList: true,
+            mode: 'local',
             store: new Ext.data.SimpleStore({
                 fields: ['value'],
                 data: {$values}
-            })}";
+            })
+        }";
     }
-
 
     /**
      * @param $criteria
@@ -36,16 +37,36 @@ class msComboMultipleType extends msComboboxType
      */
     public function getValue($criteria)
     {
-        /** @var msProductOption $value */
-        $values = $this->xpdo->getIterator('msProductOption', $criteria);
         $result = array();
-        foreach ($values as $value) {
-            $result[] = array('value' => $value->get('value'));
+
+        $c = $this->xpdo->newQuery('msProductOption', $criteria);
+        $c->select('value');
+        $c->where(array('value:!=' => ''));
+        if ($c->prepare() && $c->stmt->execute()) {
+            if (!$result = $c->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+                $result = array();
+            }
         }
 
         return $result;
     }
 
+    /**
+     * @param $criteria
+     *
+     * @return array
+     */
+    public function getRowValue($criteria)
+    {
+        $result = array();
+
+        $rows = $this->getValue($criteria);
+        foreach ($rows as $row) {
+            $result[] = $row['value'];
+        }
+
+        return $result;
+    }
 }
 
 return 'msComboMultipleType';

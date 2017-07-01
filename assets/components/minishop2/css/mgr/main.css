@@ -177,3 +177,11 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 /* Settings */
 .x-grid3-col-color { padding-top: 10px; padding-bottom: 10px; }
 .status-color { width: 30px; height: 20px; border-radius: 3px; }
+
+/* Product extra options */
+.option-in-extra-column.option-xdatetime.x-no-time .ux-datetime-time {
+    display: none;
+}
+.option-in-extra-column.option-xdatetime.x-no-time .x-datetime-wrap {
+    margin-top: 0px;
+}
