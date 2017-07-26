@@ -43,21 +43,30 @@ class msPaymentUpdateProcessor extends modObjectUpdateProcessor
         $prices = array('price');
         foreach ($prices as $field) {
             if ($tmp = $this->getProperty($field)) {
-                $tmp = preg_replace(array('#[^0-9%\-,\.]#', '#,#'), array('', '.'), $tmp);
-                if (strpos($tmp, '%') !== false) {
-                    $tmp = str_replace('%', '', $tmp) . '%';
-                }
-                if (strpos($tmp, '-') !== false) {
-                    $tmp = str_replace('-', '', $tmp) * -1;
-                }
-                if (empty($tmp)) {
-                    $tmp = 0;
-                }
+                $tmp = $this->preparePrice($tmp);
                 $this->setProperty($field, $tmp);
             }
         }
 
         return !$this->hasErrors();
+    }
+
+    public function preparePrice($price = 0) {
+        $sign = '';
+        $price = preg_replace(array('#[^0-9%\-,\.]#', '#,#'), array('', '.'), $price);
+        if (strpos($price, '-') !== false) {
+            $price = str_replace('-', '', $price);
+            $sign = '-';
+        }
+        if (strpos($price, '%') !== false) {
+            $price = str_replace('%', '', $price) . '%';
+        }
+        $price = $sign . $price;
+        if (empty($price)) {
+            $price = 0;
+        }
+
+        return $price;
     }
 
 }
