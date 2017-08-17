@@ -80,7 +80,6 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .x-grid3 .green { color: darkgreen; }
 .x-grid3 .red { color: darkred; }
 /* Btn */
-.x-btn.x-btn-small {padding: 6px 15px 6px 15px; }
 .x-btn.x-btn-small button.x-btn-small {font-size: 12px;padding: 0px!important; }
 /* Windows */
 .minishop2-window .x-form-label-top .x-form-item label.x-form-item-label { padding-top: 15px !important; }
