@@ -124,6 +124,11 @@ miniShop2.combo.Category = function (config) {
         editable: true
     });
     miniShop2.combo.Category.superclass.constructor.call(this, config);
+    this.on('expand', function () {
+        if (!!this.pageTb) {
+            this.pageTb.show();
+        }
+    });
 };
 Ext.extend(miniShop2.combo.Category, MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-category', miniShop2.combo.Category);
