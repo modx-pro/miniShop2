@@ -73,7 +73,7 @@ miniShop2.combo.User = function (config) {
                     <span>\
                         <small>({id})</small>\
                         <b>{username}</b>\
-                        <tpl if="fullname"> - {fullname}</tpl>\
+                        <tpl if="fullname && fullname != username"> - {fullname}</tpl>\
                     </span>\
                 </div>\
             </tpl>',

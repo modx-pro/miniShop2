@@ -16,6 +16,11 @@ class msUserGetListProcessor extends modObjectGetListProcessor
     {
         $c->leftJoin('modUserProfile', 'Profile');
 
+        $id = $this->getProperty('id');
+        if (!empty($id) AND $this->getProperty('combo')) {
+            $c->sortby("FIELD (modUser.id, {$id})", "DESC");
+        }
+
         $query = $this->getProperty('query', '');
         if (!empty($query)) {
             $c->where(array(
@@ -40,6 +45,20 @@ class msUserGetListProcessor extends modObjectGetListProcessor
         $c->select($this->modx->getSelectColumns('modUserProfile', 'Profile', '', array('fullname', 'email')));
 
         return $c;
+    }
+
+    public function prepareRow(xPDOObject $object) {
+        $array = $object->toArray();
+
+        if ($this->getProperty('combo')) {
+            $array = array(
+                'id'       => $array['id'],
+                'username' => $array['username'],
+                'fullname' => !empty($array['fullname']) ? $array['fullname'] : $array['username'],
+            );
+        }
+
+        return $array;
     }
 
 }
