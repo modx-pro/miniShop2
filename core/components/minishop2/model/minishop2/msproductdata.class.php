@@ -380,12 +380,11 @@ class msProductData extends xPDOSimpleObject
             'product_id' => $this->get('id'),
             'parent' => 0,
         ));
-        $c->groupby('rank');
-        $c->select('COUNT(rank) as idx');
-        $c->sortby('idx', 'DESC');
-        $c->limit(1);
+        $c->select('MAX(rank) + 1 as max');
+        $c->select('COUNT(id) as total');
+        $c->having('max <> total');
         if ($c->prepare() && $c->stmt->execute()) {
-            if ($c->stmt->fetchColumn() == 1) {
+            if (!$c->stmt->rowCount()) {
                 return;
             }
         }
