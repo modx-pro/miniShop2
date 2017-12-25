@@ -134,10 +134,9 @@ if (!empty($scriptProperties['sortbyOptions'])) {
                     $sortbyOptions = "`{$option}`.`value`";
                     break;
             }
-            $scriptProperties['sortby'] = preg_replace($matches[0], $sortbyOptions, $scriptProperties['sortby']);
+            $scriptProperties['sortby'] = preg_replace("#\b{$option}\b#", $sortbyOptions, $scriptProperties['sortby']);
             $groupby[] = "`{$option}`.value";
         }
-        print_r($scriptProperties['sortby']);
 
         if (!in_array($option, $joinedOptions)) {
             $leftJoin[$option] = array(
