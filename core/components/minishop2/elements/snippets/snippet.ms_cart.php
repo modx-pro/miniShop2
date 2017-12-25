@@ -114,7 +114,7 @@ foreach ($cart as $key => $entry) {
     $product['key'] = $key;
     $product['count'] = $entry['count'];
     $product['old_price'] = $miniShop2->formatPrice(
-        $product['price'] != $entry['price']
+        $product['price'] > $entry['price']
             ? $product['price']
             : $product['old_price']
     );

@@ -190,7 +190,8 @@ if (!empty($rows) && is_array($rows)) {
             $tmp = $row['price'];
             $row['price'] = $product->getPrice($row);
             $row['weight'] = $product->getWeight($row);
-            if ($row['price'] != $tmp) {
+            // A discount here, so we should replace old price
+            if ($row['price'] < $tmp) {
                 $row['old_price'] = $tmp;
             }
         }

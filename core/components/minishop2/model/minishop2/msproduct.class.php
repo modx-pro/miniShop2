@@ -452,7 +452,7 @@ class msProduct extends modResource
             $pls = $data->toArray();
             $tmp = $pls['price'];
             $pls['price'] = $this->getPrice($pls);
-            if ($pls['price'] != $tmp) {
+            if ($pls['price'] < $tmp) {
                 $pls['old_price'] = $tmp;
             }
             $pls['price'] = $miniShop2->formatPrice($pls['price']);

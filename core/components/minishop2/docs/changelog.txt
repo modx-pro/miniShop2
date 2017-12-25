@@ -3,6 +3,7 @@ Changelog for miniShop2.
 2.4.12 pl
 ==============
 - Added dutch lexicons by Sterc
+- When you change the price of a product with msOnGetProductPrice, the old_price will be changed only if the new price is lower.
 
 2.4.11 pl
 ==============

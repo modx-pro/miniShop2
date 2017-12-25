@@ -115,7 +115,7 @@ $products = array();
 $cart_count = 0;
 foreach ($rows as $product) {
     $product['old_price'] = $miniShop2->formatPrice(
-        $product['original_price'] != $product['price']
+        $product['original_price'] > $product['price']
             ? $product['original_price']
             : $product['old_price']
     );
