@@ -58,7 +58,7 @@ if (!empty($includeThumbs)) {
         foreach ($thumbs as $thumb) {
             $leftJoin[$thumb] = array(
                 'class' => 'msProductFile',
-                'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.parent != 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%'",
+                'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.parent != 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%' AND `{$thumb}`.rank = 0",
             );
             $select[$thumb] = "`{$thumb}`.url as '{$thumb}'";
         }
