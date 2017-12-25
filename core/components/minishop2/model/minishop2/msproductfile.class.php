@@ -278,6 +278,11 @@ class msProductFile extends xPDOSimpleObject
                 $this->mediaSource->errors['file']
             );
         }
+        $this->xpdo->exec("UPDATE {$this->xpdo->getTableName('msProductFile')}
+            SET rank = " . ($this->get('rank')-1) . " WHERE
+            rank > " . $this->get('rank') . " AND
+        	product_id = " . $this->get('product_id'));   
+        
         $children = $this->xpdo->getIterator('msProductFile', array('parent' => $this->get('id')));
         /** @var msProductFile $child */
         foreach ($children as $child) {
