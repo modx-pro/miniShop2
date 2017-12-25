@@ -39,6 +39,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
         $mgrUrl = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
 
+        $this->addCss($assetsUrl . 'css/mgr/bootstrap.buttons.css');
         $this->addCss($assetsUrl . 'css/mgr/main.css');
         $this->addJavascript($mgrUrl . 'assets/modext/util/datetime.js');
         $this->addJavascript($mgrUrl . 'assets/modext/widgets/element/modx.panel.tv.renders.js');
