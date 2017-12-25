@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.12 pl
+==============
+- Added dutch lexicons by Sterc
+
 2.4.11 pl
 ==============
 - Fixed default path to loading services in the loadCustomClasses() method.
