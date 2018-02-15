@@ -705,7 +705,7 @@ class miniShop2
                     $this->loadCustomClasses('payment');
                     if (class_exists($class)) {
                         /** @var msPaymentHandler|PayPal $handler */
-                        $handler = new $class($order);
+                        $handler = new $class($payment);
                         if (method_exists($handler, 'getPaymentLink')) {
                             $link = $handler->getPaymentLink($order);
                             $pls['payment_link'] = $link;
