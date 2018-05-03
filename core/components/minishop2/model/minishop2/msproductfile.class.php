@@ -135,8 +135,12 @@ class msProductFile extends xPDOSimpleObject
     public function makeThumbnail($options = array(), array $info)
     {
         if (!class_exists('modPhpThumb')) {
-            /** @noinspection PhpIncludeInspection */
-            require MODX_CORE_PATH . 'model/phpthumb/modphpthumb.class.php';
+            if (file_exists(MODX_CORE_PATH . 'model/phpthumb/modphpthumb.class.php')) {
+                /** @noinspection PhpIncludeInspection */
+                require MODX_CORE_PATH . 'model/phpthumb/modphpthumb.class.php';
+            } else {
+                $this->xpdo->getService('phpthumb', 'modPhpThumb');
+            }
         }
         /** @noinspection PhpParamsInspection */
         $phpThumb = new modPhpThumb($this->xpdo);
