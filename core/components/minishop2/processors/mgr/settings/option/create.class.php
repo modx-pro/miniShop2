@@ -7,7 +7,7 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
-
+    public $permission = 'mssetting_save';
 
     /**
      * @return bool
