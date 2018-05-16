@@ -38,12 +38,11 @@ class msProductData extends xPDOSimpleObject
     public static function loadOptions(xPDO & $xpdo, $product)
     {
         $c = $xpdo->newQuery('msProductOption');
-        $c->leftJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');
+        $c->rightJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');
         $c->leftJoin('modCategory', 'Category', 'Category.id=msOption.category');
         $c->where(array('msProductOption.product_id' => $product));
-
-        $c->select($xpdo->getSelectColumns('msOption', 'msOption', '', array('key'), true));
-        $c->select($xpdo->getSelectColumns('msProductOption', 'msProductOption'));
+        $c->select($xpdo->getSelectColumns('msOption', 'msOption'));
+        $c->select($xpdo->getSelectColumns('msProductOption', 'msProductOption', '', array('key'), true));
         $c->select('Category.category AS category_name');
         $data = array();
         if ($c->prepare() && $c->stmt->execute()) {
