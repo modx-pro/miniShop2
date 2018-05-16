@@ -7,6 +7,7 @@ $tmp = array(
     'msOnAddToCart',
     'msOnBeforeChangeInCart',
     'msOnChangeInCart',
+    'msOnGetCartStatus',
     'msOnBeforeRemoveFromCart',
     'msOnRemoveFromCart',
     'msOnBeforeEmptyCart',

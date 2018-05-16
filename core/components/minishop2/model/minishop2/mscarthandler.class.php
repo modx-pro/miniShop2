@@ -339,6 +339,11 @@ class msCartHandler implements msCartInterface
             }
         }
 
+        $response = $this->ms2->invokeEvent('msOnGetCartStatus', $status);
+        if ($response['success']) {
+            $status = $response['data'];
+        }
+
         return array_merge($data, $status);
     }
 
