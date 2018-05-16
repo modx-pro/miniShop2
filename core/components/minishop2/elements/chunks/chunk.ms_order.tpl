@@ -32,7 +32,7 @@
                     {'ms2_frontend_payment_select' | lexicon}</label>
                 <div class="col-sm-6">
                     {foreach $payments as $payment index=$index}
-                        {var $checked = !$order.payment && $index == 0 || $payment.id == $order.payment}
+                        {var $checked = !($order.payment in keys $payments) && $index == 0 || $payment.id == $order.payment}
                         <div class="checkbox">
                             <label class="payment input-parent">
                                 <input type="radio" name="payment" value="{$payment.id}" id="payment_{$payment.id}"
@@ -64,7 +64,7 @@
                 </label>
                 <div class="col-sm-6">
                     {foreach $deliveries as $delivery index=$index}
-                        {var $checked = !$order.delivery && $index == 0 || $delivery.id == $order.delivery}
+                        {var $checked = !($order.delivery in keys $deliveries) && $index == 0 || $delivery.id == $order.delivery}
                         <div class="checkbox">
                             <label class="delivery input-parent">
                                 <input type="radio" name="delivery" value="{$delivery.id}" id="delivery_{$delivery.id}"
