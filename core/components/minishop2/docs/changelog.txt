@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.13 pl
+==============
+- Added new event: "msOnGetCartStatus"
+
 2.4.12 pl
 ==============
 - Added dutch lexicons by Sterc
