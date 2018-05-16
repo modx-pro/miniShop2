@@ -58,7 +58,7 @@ $select = array(
     'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'),
             true) . ',`Data`.`price` as `original_price`',
     'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
-    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true),
+    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true).', `msOrderProduct`.`id` as `order_product_id`',
 );
 
 // Include products thumbnails
