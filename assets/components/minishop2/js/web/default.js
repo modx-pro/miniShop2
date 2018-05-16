@@ -81,6 +81,8 @@
             action: null,
             formData: null
         };
+
+        this.timeout = 300;
     };
     miniShop2.initialize = function () {
         miniShop2.setup();
@@ -468,9 +470,6 @@
             callbacks.submit.before = function () {
                 $(':button, a', miniShop2.Order.order).attr('disabled', true).prop('disabled', true);
             };
-            callbacks.submit.ajax.always = function () {
-                $(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
-            };
             callbacks.submit.response.success = function (response) {
                 if (response.data['redirect']) {
                     document.location.href = response.data['redirect'];
@@ -485,6 +484,9 @@
                 }
             };
             callbacks.submit.response.error = function (response) {
+                setTimeout((function () {
+                    $(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
+                }.bind(this)),3 * miniShop2.timeout);
                 $('[name]', miniShop2.Order.order).removeClass('error').closest(miniShop2.Order.inputParent).removeClass('error');
                 for (var i in response.data) {
                     if (response.data.hasOwnProperty(i)) {
