@@ -468,8 +468,11 @@
             callbacks.submit.before = function () {
                 $(':button, a', miniShop2.Order.order).attr('disabled', true).prop('disabled', true);
             };
-            callbacks.submit.ajax.always = function () {
-                $(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
+            callbacks.submit.ajax.always = function (resp) {
+                var resp = JSON.parse(resp.responseText);
+                if (resp.success === false) {
+                    $(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
+                }
             };
             callbacks.submit.response.success = function (response) {
                 if (response.data['redirect']) {
