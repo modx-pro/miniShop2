@@ -11,6 +11,7 @@ $tmp = array(
     'msOnRemoveFromCart',
     'msOnBeforeEmptyCart',
     'msOnEmptyCart',
+    'msOnGetStatusCart',
 
     'msOnBeforeAddToOrder',
     'msOnAddToOrder',
