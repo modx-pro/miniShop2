@@ -689,6 +689,7 @@ class miniShop2
             /** @var modContext $context */
             if ($context = $this->modx->getObject('modContext', array('key' => $order->get('context')))) {
                 $this->modx->getCacheManager()->generateContext($context->get('key'));
+                $this->modx->switchContext($context->get('key'));
                 $lang = $context->getOption('cultureKey');
                 $this->modx->setOption('cultureKey', $lang);
                 $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
