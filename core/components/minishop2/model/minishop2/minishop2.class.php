@@ -686,13 +686,15 @@ class miniShop2
                 return $response['message'];
             }
 
-            /** @var modContext $context */
-            if ($context = $this->modx->getObject('modContext', array('key' => $order->get('context')))) {
-                $this->modx->getCacheManager()->generateContext($context->get('key'));
-                $lang = $context->getOption('cultureKey');
-                $this->modx->setOption('cultureKey', $lang);
-                $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
+            $lang = $this->modx->getOption('cultureKey', null, 'en', true);
+            if ($tmp = $this->modx->getObject('modUserSetting', array('key' => 'cultureKey', 'user' => $order->get('user_id')))) {
+                $lang = $tmp->get('value');
             }
+            else if ($context = $this->modx->getCacheManager()->generateContext($order->get('context'))) {
+                $lang = $this->modx->getOption('cultureKey', $context['config']);
+            }
+            $this->modx->setOption('cultureKey', $lang);
+            $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
 
             $pls = $order->toArray();
             $pls['cost'] = $this->formatPrice($pls['cost']);
