@@ -590,12 +590,21 @@ class miniShop2
             } elseif ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
                 $uid = $profile->get('internalKey');
             } else {
+                /** @var modUser $user */
                 $user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
                 $profile = $this->modx->newObject('modUserProfile', array(
                     'email' => $email,
                     'fullname' => $order['receiver'],
                 ));
                 $user->addOne($profile);
+                /** @var modUserSetting $setting */
+                $setting = $this->modx->newObject('modUserSetting');
+                $setting->fromArray(array(
+                    'key' => 'cultureKey',
+                    'area' => 'language',
+                    'value' => $this->modx->getOption('cultureKey', null, 'en', true)
+                ),'', true);
+                $user->addMany($setting);
                 $user->save();
 
                 if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
