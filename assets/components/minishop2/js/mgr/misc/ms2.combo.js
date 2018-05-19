@@ -200,6 +200,7 @@ miniShop2.combo.Vendor = function (config) {
         editable: true,
         allowBlank: true,
         emptyText: _('no'),
+        minChars: 1,
         baseParams: {
             action: 'mgr/settings/vendor/getlist',
             combo: true,
@@ -207,6 +208,11 @@ miniShop2.combo.Vendor = function (config) {
         }
     });
     miniShop2.combo.Vendor.superclass.constructor.call(this, config);
+    this.on('expand', function () {
+        if (!!this.pageTb) {
+            this.pageTb.show();
+        }
+    });
 };
 Ext.extend(miniShop2.combo.Vendor, MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-vendor', miniShop2.combo.Vendor);
