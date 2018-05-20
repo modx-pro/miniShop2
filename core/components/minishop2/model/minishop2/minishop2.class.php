@@ -699,8 +699,8 @@ class miniShop2
             if ($tmp = $this->modx->getObject('modUserSetting', array('key' => 'cultureKey', 'user' => $order->get('user_id')))) {
                 $lang = $tmp->get('value');
             }
-            else if ($context = $this->modx->getCacheManager()->generateContext($order->get('context'))) {
-                $lang = $this->modx->getOption('cultureKey', $context['config']);
+            else if ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
+                $lang = $tmp->get('value');
             }
             $this->modx->setOption('cultureKey', $lang);
             $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
