@@ -145,16 +145,7 @@ foreach ($rows as $product) {
     $cart_count += $product['count'];
 }
 
-$total = array(
-    'cost' => $miniShop2->formatPrice($order->get('cost')),
-    'cart_cost' => $miniShop2->formatPrice($order->get('cart_cost')),
-    'delivery_cost' => $miniShop2->formatPrice($order->get('delivery_cost')),
-    'weight' => $miniShop2->formatWeight($order->get('weight')),
-    'cart_weight' => $miniShop2->formatWeight($order->get('weight')),
-    'cart_count' => $cart_count,
-);
-
-$output = $pdoFetch->getChunk($tpl, array_merge($scriptProperties, array(
+$pls = array_merge($scriptProperties, array(
     'order' => $order->toArray(),
     'products' => $products,
     'user' => ($tmp = $order->getOne('User'))
@@ -166,11 +157,37 @@ $output = $pdoFetch->getChunk($tpl, array_merge($scriptProperties, array(
     'delivery' => ($tmp = $order->getOne('Delivery'))
         ? $tmp->toArray()
         : array(),
-    'payment' => ($tmp = $order->getOne('Payment'))
-        ? $tmp->toArray()
+    'payment' => ($payment = $order->getOne('Payment'))
+        ? $payment->toArray()
         : array(),
-    'total' => $total,
-)));
+    'total' => array(
+        'cost' => $miniShop2->formatPrice($order->get('cost')),
+        'cart_cost' => $miniShop2->formatPrice($order->get('cart_cost')),
+        'delivery_cost' => $miniShop2->formatPrice($order->get('delivery_cost')),
+        'weight' => $miniShop2->formatWeight($order->get('weight')),
+        'cart_weight' => $miniShop2->formatWeight($order->get('weight')),
+        'cart_count' => $cart_count,
+    ),
+));
+
+// add "payment" link
+if ($payment AND $class = $payment->get('class')) {
+    $status = $modx->getOption('payStatus', $scriptProperties, '1');
+    $status = array_map('trim', explode(',', $status));
+    if (in_array($order->get('status'), $status)) {
+        $miniShop2->loadCustomClasses('payment');
+        if (class_exists($class)) {
+            /** @var msPaymentHandler|PayPal $handler */
+            $handler = new $class($order);
+            if (method_exists($handler, 'getPaymentLink')) {
+                $link = $handler->getPaymentLink($order);
+                $pls['payment_link'] = $link;
+            }
+        }
+    }
+}
+
+$output = $pdoFetch->getChunk($tpl, $pls);
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
     $output .= '<pre class="msGetOrderLog">' . print_r($pdoFetch->getTime(), true) . '</pre>';

@@ -59,4 +59,9 @@
         {/if}
         <strong>{$total.cost}</strong> {'ms2_frontend_currency' | lexicon}
     </h4>
+
+    {if $payment_link?}
+        <p>{'ms2_payment_link' | lexicon : ['link' => $payment_link]}</p>
+    {/if}
+
 </div>
