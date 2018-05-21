@@ -338,8 +338,17 @@ class msCartHandler implements msCartInterface
                 $status['total_weight'] += $item['weight'] * $item['count'];
             }
         }
+        $status = array_merge($data, $status);
 
-        return array_merge($data, $status);
+        $response = $this->ms2->invokeEvent('msOnGetStatusCart', array(
+            'status' => $status,
+            'cart' => $this,
+        ));
+        if ($response['success']) {
+            $status = $response['data']['status'];
+        }
+
+        return $status;
     }
 
 

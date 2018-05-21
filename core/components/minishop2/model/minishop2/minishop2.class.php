@@ -590,12 +590,21 @@ class miniShop2
             } elseif ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
                 $uid = $profile->get('internalKey');
             } else {
+                /** @var modUser $user */
                 $user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
                 $profile = $this->modx->newObject('modUserProfile', array(
                     'email' => $email,
                     'fullname' => $order['receiver'],
                 ));
                 $user->addOne($profile);
+                /** @var modUserSetting $setting */
+                $setting = $this->modx->newObject('modUserSetting');
+                $setting->fromArray(array(
+                    'key' => 'cultureKey',
+                    'area' => 'language',
+                    'value' => $this->modx->getOption('cultureKey', null, 'en', true)
+                ),'', true);
+                $user->addMany($setting);
                 $user->save();
 
                 if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
@@ -686,13 +695,15 @@ class miniShop2
                 return $response['message'];
             }
 
-            /** @var modContext $context */
-            if ($context = $this->modx->getObject('modContext', array('key' => $order->get('context')))) {
-                $this->modx->getCacheManager()->generateContext($context->get('key'));
-                $lang = $context->getOption('cultureKey');
-                $this->modx->setOption('cultureKey', $lang);
-                $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
+            $lang = $this->modx->getOption('cultureKey', null, 'en', true);
+            if ($tmp = $this->modx->getObject('modUserSetting', array('key' => 'cultureKey', 'user' => $order->get('user_id')))) {
+                $lang = $tmp->get('value');
             }
+            else if ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
+                $lang = $tmp->get('value');
+            }
+            $this->modx->setOption('cultureKey', $lang);
+            $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
 
             $pls = $order->toArray();
             $pls['cost'] = $this->formatPrice($pls['cost']);
