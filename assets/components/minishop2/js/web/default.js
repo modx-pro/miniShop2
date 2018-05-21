@@ -475,9 +475,9 @@
                     document.location.href = response.data['redirect'];
                 }
                 else if (response.data['msorder']) {
-                    document.location.href = /\?/.test(document.location.href)
-                        ? document.location.href + '&msorder=' + response.data['msorder']
-                        : document.location.href + '?msorder=' + response.data['msorder'];
+                    document.location.href = document.location.origin + document.location.pathname
+                        + (document.location.search ? document.location.search + '&' : '?')
+                        + 'msorder=' + response.data['msorder'];
                 }
                 else {
                     location.reload();
