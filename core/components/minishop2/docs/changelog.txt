@@ -1,5 +1,14 @@
 Changelog for miniShop2.
 
+2.4.13 pl
+==============
+- Added "payment_link" in the snippet msGetOrder.
+- Fixed "cultureKey" option
+- Added new event: "msOnGetStatusCart".
+- Change Order submit js.
+- Fixed msProductData::loadOptions().
+- Added ukrainian lexicon.
+
 2.4.12 pl
 ==============
 - Added dutch lexicons by Sterc
