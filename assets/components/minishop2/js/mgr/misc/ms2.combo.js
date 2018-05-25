@@ -495,27 +495,7 @@ miniShop2.combo.Delivery = function (config) {
             action: 'mgr/settings/delivery/getlist',
             combo: true
         },
-        listeners: {
-            render: function () {
-                this.store.on('load', function (store) {
-                    if (store.getTotalCount() == 1 && store.getAt(0).id == this.getValue()) {
-                        this.readOnly = true;
-                        this.wrap.addClass('disabled');
-                    }
-                    else {
-                        this.readOnly = false;
-                        this.wrap.removeClass('disabled');
-                    }
-                }, this);
-            },
-            select: function (combo, row) {
-                var payments = Ext.getCmp('minishop2-combo-payment');
-                var store = payments.getStore();
-                payments.setValue('');
-                store.baseParams.delivery_id = row.id;
-                store.load();
-            }
-        }
+        listeners: miniShop2.combo.listeners_disable
     });
     miniShop2.combo.Delivery.superclass.constructor.call(this, config);
 };

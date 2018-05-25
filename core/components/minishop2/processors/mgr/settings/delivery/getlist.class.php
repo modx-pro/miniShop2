@@ -30,7 +30,7 @@ class msDeliveryGetListProcessor extends modObjectGetListProcessor
     {
         if ($this->getProperty('combo')) {
             $c->select('id,name');
-            $c->where(array('active' => 1));
+            $c->where(array('active' => 1, 'OR:id:=' => $this->getProperty('id')));
         }
         else {
             $c->leftJoin('msDeliveryMember', 'Payments');
