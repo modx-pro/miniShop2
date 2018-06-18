@@ -4,7 +4,7 @@ class msCategoryOptionUpdateProcessor extends modObjectUpdateProcessor
 {
     public $classKey = 'msCategoryOption';
     public $languageTopics = array('minishop2:default');
-
+    public $permission = 'mscategory_save';
 
     /**
      * @return bool|null|string

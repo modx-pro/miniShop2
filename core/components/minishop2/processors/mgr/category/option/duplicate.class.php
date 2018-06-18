@@ -4,6 +4,7 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
 {
     public $classKey = 'msCategory';
     public $languageTopics = array('minishop2:default');
+    public $permission = 'mscategory_save';
     /** @var msCategory $to_object */
     public $to_object;
 

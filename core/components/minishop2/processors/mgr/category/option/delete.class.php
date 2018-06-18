@@ -5,6 +5,7 @@ class msCategoryOptionDeleteProcessor extends modObjectRemoveProcessor
     public $classKey = 'msCategoryOption';
     public $objectType = 'ms2_option';
     public $languageTopics = array('minishop2:default');
+    public $permission = 'mscategory_save';
 
     /**
      * @return bool|null|string
