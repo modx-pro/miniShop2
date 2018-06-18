@@ -252,6 +252,7 @@ miniShop2.combo.Options = function (config) {
         name: config.name || 'tags',
         anchor: '100%',
         minChars: 1,
+        pageSize: 10,
         store: new Ext.data.JsonStore({
             id: (config.name || 'tags') + '-store',
             root: 'results',
@@ -272,6 +273,25 @@ miniShop2.combo.Options = function (config) {
         extraItemCls: 'x-tag',
         expandBtnCls: 'x-form-trigger',
         clearBtnCls: 'x-form-trigger',
+
+        // fix for setValue
+        addValue : function(value){
+            if(Ext.isEmpty(value)){
+                return;
+            }
+            var values = value;
+            if(!Ext.isArray(value)){
+                value = '' + value;
+                values = value.split(this.valueDelimiter);
+            }
+            Ext.each(values,function(val){
+                this.remoteLookup.push(val);
+            },this);
+            if(this.mode === 'remote'){
+                var q = this.remoteLookup.join(this.queryValuesDelimiter);
+                this.doQuery(q,false, true);
+            }
+        },
     });
     config.name += '[]';
 
@@ -280,6 +300,19 @@ miniShop2.combo.Options = function (config) {
             newitem: function(bs, v) {
                 bs.addNewItem({value: v});
             },
+            beforequery: {
+                fn: function (o) {
+                    // reset sort
+                    o.combo.store.sortInfo = '';
+                    if (o.forceAll !== false) {
+                        exclude = o.combo.getValue().split(o.combo.valueDelimiter);
+                    }else {
+                        exclude = [];
+                    }
+                    o.combo.store.baseParams.exclude = Ext.util.JSON.encode(exclude);
+                },
+                scope: this
+            }
         },
     });
 
