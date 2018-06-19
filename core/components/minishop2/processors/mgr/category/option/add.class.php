@@ -4,6 +4,7 @@ class msCategoryOptionAddProcessor extends modObjectCreateProcessor
 {
     public $classKey = 'msCategoryOption';
     public $languageTopics = array('minishop2:default');
+    public $permission = 'mscategory_save';
     /** @var  msCategoryOption */
     public $object;
 
