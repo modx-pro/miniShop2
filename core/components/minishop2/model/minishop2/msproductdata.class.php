@@ -562,7 +562,7 @@ class msProductData extends xPDOSimpleObject
                 $price = $params['price'] = $response['data']['price'];
             }
         }
-        
+
         return $price;
     }
 
