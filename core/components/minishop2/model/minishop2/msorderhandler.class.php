@@ -206,8 +206,8 @@ class msOrderHandler implements msOrderInterface
             case 'receiver':
                 // Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
                 $tmp = preg_replace(
-                    array('/[^-a-zа-яёЁ\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'),
-                    array('', ' ', '-', '.'),
+                    array('/[^-a-zа-яёґєіїўäëïöüçàéèîôû\s\.\'’ʼ`"]/iu', '/\s+/', '/\-+/', '/\.+/', '/[\'’ʼ`"]/iu', '/\'+/'),
+                    array('', ' ', '-', '.', '\'', '\''),
                     $value
                 );
                 $tmp = preg_split('/\s/', $tmp, -1, PREG_SPLIT_NO_EMPTY);
@@ -654,15 +654,13 @@ class msOrderHandler implements msOrderInterface
      */
     public function ucfirst($str = '')
     {
-        if (!preg_match('/[a-zа-я]/iu', $str)) {
-            return '';
-        } elseif (strpos($str, '-') !== false) {
+        if (strpos($str, '-') !== false) {
             $tmp = array_map(array($this, __FUNCTION__), explode('-', $str));
 
             return implode('-', $tmp);
         }
 
-        if (function_exists('mb_substr') && preg_match('/[а-я]/iu', $str)) {
+        if (function_exists('mb_substr') && preg_match('/[а-я-яёґєіїўäëïöüçàéèîôû]/iu', $str)) {
             $tmp = mb_strtolower($str, 'utf-8');
             $str = mb_substr(mb_strtoupper($tmp, 'utf-8'), 0, 1, 'utf-8') .
                 mb_substr($tmp, 1, mb_strlen($tmp) - 1, 'utf-8');
