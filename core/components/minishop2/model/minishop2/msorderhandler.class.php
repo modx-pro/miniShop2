@@ -206,7 +206,7 @@ class msOrderHandler implements msOrderInterface
             case 'receiver':
                 // Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
                 $tmp = preg_replace(
-                    array('/[^-a-zа-яёЁ\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'),
+                    array('/[^-a-zа-яäëïöüçÄËÏÖÜàéèîôûÀÉÈÎÔÛ\s\.]/iu', '/\s+/', '/\-+/', '/\.+/'),
                     array('', ' ', '-', '.'),
                     $value
                 );
