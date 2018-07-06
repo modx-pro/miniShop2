@@ -273,7 +273,7 @@ miniShop2.combo.Options = function (config) {
         extraItemCls: 'x-tag',
         expandBtnCls: 'x-form-trigger',
         clearBtnCls: 'x-form-trigger',
-
+        displayFieldTpl: config.displayFieldTpl || '{value}',
         // fix for setValue
         addValue : function(value){
             if(Ext.isEmpty(value)){
@@ -291,6 +291,13 @@ miniShop2.combo.Options = function (config) {
                 var q = this.remoteLookup.join(this.queryValuesDelimiter);
                 this.doQuery(q,false, true);
             }
+        },
+        // fix similar queries
+        shouldQuery : function(q){
+            if(this.lastQuery){
+                return (q !== this.lastQuery);
+            }
+            return true;
         },
     });
     config.name += '[]';

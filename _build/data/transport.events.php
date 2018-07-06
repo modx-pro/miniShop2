@@ -30,6 +30,9 @@ $tmp = array(
     'msOnCreateOrder',
     'msOnBeforeUpdateOrder',
     'msOnUpdateOrder',
+
+    'msOnBeforeSaveOrder',
+    'msOnSaveOrder',
     'msOnBeforeRemoveOrder',
     'msOnRemoveOrder',
 

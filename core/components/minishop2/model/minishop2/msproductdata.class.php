@@ -320,7 +320,7 @@ class msProductData extends xPDOSimpleObject
         $this->xpdo->removeCollection('msCategoryMember', array('product_id' => $this->id));
         $this->xpdo->removeCollection('msProductLink', array('master' => $this->id, 'OR:slave:=' => $this->id));
 
-        $files = $this->getMany('Files');
+        $files = $this->getMany('Files', array('parent' => 0));
         /** @var msProductFile $file */
         foreach ($files as $file) {
             $file->remove();
@@ -562,7 +562,6 @@ class msProductData extends xPDOSimpleObject
                 $price = $params['price'] = $response['data']['price'];
             }
         }
-
 
         return $price;
     }
