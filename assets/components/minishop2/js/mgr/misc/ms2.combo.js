@@ -292,6 +292,13 @@ miniShop2.combo.Options = function (config) {
                 this.doQuery(q,false, true);
             }
         },
+        // fix similar queries
+        shouldQuery : function(q){
+            if(this.lastQuery){
+                return (q !== this.lastQuery);
+            }
+            return true;
+        },
     });
     config.name += '[]';
 
@@ -302,6 +309,7 @@ miniShop2.combo.Options = function (config) {
             },
             beforequery: {
                 fn: function (o) {
+                    console.log(o);
                     // reset sort
                     o.combo.store.sortInfo = '';
                     if (o.forceAll !== false) {
