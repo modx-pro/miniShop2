@@ -309,7 +309,6 @@ miniShop2.combo.Options = function (config) {
             },
             beforequery: {
                 fn: function (o) {
-                    console.log(o);
                     // reset sort
                     o.combo.store.sortInfo = '';
                     if (o.forceAll !== false) {
