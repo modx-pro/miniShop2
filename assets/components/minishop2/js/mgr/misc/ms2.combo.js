@@ -273,7 +273,7 @@ miniShop2.combo.Options = function (config) {
         extraItemCls: 'x-tag',
         expandBtnCls: 'x-form-trigger',
         clearBtnCls: 'x-form-trigger',
-
+        displayFieldTpl: config.displayFieldTpl || '{value}',
         // fix for setValue
         addValue : function(value){
             if(Ext.isEmpty(value)){
