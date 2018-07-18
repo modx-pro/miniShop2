@@ -327,6 +327,21 @@
                     src: miniShop2Config.jsUrl + 'lib/fotorama.min.js',
                 }).appendTo('head');
             }
+
+            // fix size gallery
+            miniShop2.$doc.on('fotorama:ready', miniShop2.Gallery.files, function (e, Fotorama, extra) {
+                if ((src = Fotorama.activeFrame.src)) {
+                    measure = $.Fotorama.measures[src];
+                    if (measure === undefined) {
+                        for (i in $.Fotorama.measures) {
+                            measure = $.Fotorama.measures[i];
+                            break;
+                        }
+                        Fotorama.resize(measure);
+                    }
+                }
+            });
+
         }
     };
 

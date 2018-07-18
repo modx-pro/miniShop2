@@ -63,6 +63,29 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
+     * @param string $file
+     * @param bool $isRaw
+     *
+     * @return string
+     */
+    public function generateHash($file = '', $isRaw = false)
+    {
+        $raw = '';
+        if ($isRaw) {
+            $raw = $file;
+        }
+        else {
+            if (file_exists($file)) {
+                $res = fopen($file, 'rb');
+                $raw = fread($res, 8192);
+                fclose($res);
+            }
+        }
+
+        return sha1($raw);
+    }
+
+    /**
      * @param modMediaSource $mediaSource
      *
      * @return bool|string
@@ -204,7 +227,7 @@ class msProductFile extends xPDOSimpleObject
             'createdon' => date('Y-m-d H:i:s'),
             'createdby' => $this->xpdo->user->id,
             'active' => 1,
-            'hash' => sha1($raw_image),
+            'hash' => $this->generateHash($raw_image, true),
             'properties' => array(
                 'size' => strlen($raw_image),
             ),
@@ -266,7 +289,6 @@ class msProductFile extends xPDOSimpleObject
 
         return $res;
     }
-
 
     /**
      * @param array $ancestors
