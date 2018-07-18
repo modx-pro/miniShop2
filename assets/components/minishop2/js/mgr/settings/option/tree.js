@@ -8,6 +8,7 @@ miniShop2.tree.OptionCategories = function (config) {
         url: miniShop2.config.connector_url,
         title: '',
         anchor: '100%',
+        autoHeight: false,
         rootVisible: false,
         expandFirst: true,
         enableDD: false,
@@ -21,6 +22,11 @@ miniShop2.tree.OptionCategories = function (config) {
         listeners: this.getListeners(config)
     });
     miniShop2.tree.OptionCategories.superclass.constructor.call(this, config);
+
+    this.on('afterrender', function () {
+        this.maxHeight = this.maxHeight || Ext.getBody().getViewSize().height  * 0.75;
+        this.setSize('', this.maxHeight);
+    });
 };
 Ext.extend(miniShop2.tree.OptionCategories, MODx.tree.Tree, {
 
