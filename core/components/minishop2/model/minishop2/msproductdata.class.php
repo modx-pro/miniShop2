@@ -11,6 +11,16 @@ class msProductData extends xPDOSimpleObject
     protected $optionKeys = null;
 
 
+    public function prepareObject()
+    {
+        // prepare "array" fields
+        foreach ($this->getArraysValues() as $name => $array) {
+            $array = $this->prepareOptionValues($array);
+            parent::set($name, $array);
+        }
+
+    }
+
     /**
      * All json fields of product are synchronized with msProduct Options
      *
@@ -20,6 +30,7 @@ class msProductData extends xPDOSimpleObject
      */
     public function save($cacheFlag = null)
     {
+        $this->prepareObject();
         $save = parent::save($cacheFlag);
         $this->saveProductCategories();
         $this->saveProductOptions();
@@ -72,13 +83,7 @@ class msProductData extends xPDOSimpleObject
         $id = parent::get('id');
         $add = $this->xpdo->prepare("INSERT INTO {$table} (`product_id`, `key`, `value`) VALUES ({$id}, ?, ?)");
 
-        $arrays = array();
-        foreach ($this->_fieldMeta as $name => $field) {
-            if (strtolower($field['phptype']) == 'json') {
-                $arrays[$name] = parent::get($name);
-            }
-        }
-
+        $arrays = $this->getArraysValues();
         // Copy JSON fields to options
         $c = $this->xpdo->newQuery('msProductOption');
         $c->command('DELETE');
@@ -90,7 +95,6 @@ class msProductData extends xPDOSimpleObject
             foreach ($arrays as $key => $array) {
                 $array = $this->prepareOptionValues($array);
                 if (is_array($array)) {
-                    $this->set($key, $array);
                     foreach ($array as $value) {
                         $add->execute(array($key, $value));
                     }
@@ -232,8 +236,23 @@ class msProductData extends xPDOSimpleObject
         return $c;
     }
 
+    public function getArraysValues()
+    {
+        // prepare "arrays"
+        $arrays = array();
+        foreach ($this->_fieldMeta as $name => $field) {
+            if (strtolower($field['phptype']) === 'json') {
+                $arrays[$name] = parent::get($name);
+            }
+        }
+
+        return $arrays;
+    }
+
     /**
+     * @param null $values
      *
+     * @return array|null
      */
     public function prepareOptionValues($values = null) {
         if ($values) {
