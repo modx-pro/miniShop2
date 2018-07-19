@@ -10,7 +10,9 @@ class msProductData extends xPDOSimpleObject
     public $mediaSource;
     protected $optionKeys = null;
 
-
+    /**
+     *
+     */
     public function prepareObject()
     {
         // prepare "array" fields
@@ -18,8 +20,8 @@ class msProductData extends xPDOSimpleObject
             $array = $this->prepareOptionValues($array);
             parent::set($name, $array);
         }
-
     }
+
 
     /**
      * All json fields of product are synchronized with msProduct Options
@@ -236,9 +238,11 @@ class msProductData extends xPDOSimpleObject
         return $c;
     }
 
+    /**
+     * @return array
+     */
     public function getArraysValues()
     {
-        // prepare "arrays"
         $arrays = array();
         foreach ($this->_fieldMeta as $name => $field) {
             if (strtolower($field['phptype']) === 'json') {
