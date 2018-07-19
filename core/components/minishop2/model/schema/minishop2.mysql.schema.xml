@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model package="minishop2" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="minishop2"
+<model package="minishop2" baseClass="xPDOObject" platform="mysql" defaultEngine="InnoDB" phpdoc-package="minishop2"
        phpdoc-subpackage="" version="1.1">
 
 
@@ -121,7 +121,7 @@
 
     <object class="msProductOption" table="ms2_product_options" extends="xPDOObject">
         <field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
-        <field key="key" dbtype="varchar" precision="255" phptype="string" null="false"/>
+        <field key="key" dbtype="varchar" precision="191" phptype="string" null="false"/>
         <field key="value" dbtype="text" phptype="string" null="true" default=""/>
 
         <index alias="product" name="product" primary="false" unique="false" type="BTREE">

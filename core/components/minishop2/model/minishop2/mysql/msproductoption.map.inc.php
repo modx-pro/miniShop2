@@ -23,7 +23,7 @@ $xpdo_meta_map['msProductOption']= array (
     'key' => 
     array (
       'dbtype' => 'varchar',
-      'precision' => '255',
+      'precision' => '191',
       'phptype' => 'string',
       'null' => false,
     ),
