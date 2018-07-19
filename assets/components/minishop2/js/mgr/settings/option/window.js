@@ -33,6 +33,7 @@ Ext.extend(miniShop2.window.CreateOption, miniShop2.window.Default, {
             xtype: 'minishop2-tree-option-categories',
             id: config.id + '-option-categories',
             categories: config.record['categories'] || '',
+            maxHeight: 320,
             listeners: {
                 checkchange: function () {
                     var nodes = this.getChecked();
