@@ -1,5 +1,17 @@
 Changelog for miniShop2.
 
+2.4.14 pl
+==============
+- Change miniShop2.combo.Options
+- Fixed msCategoryOption permission
+- Added new events: "msOnBeforeSaveOrder" and "msOnSaveOrder"
+- Change receiver validate
+- Fixed size gallery [js]
+- Fixed height options tree [js]
+- Change msProductData::saveProductOptions()
+- Change key index prefix length to 191 from 255
+- Change new installs to create tables with "InnoDB" engine
+
 2.4.13 pl
 ==============
 - Added "payment_link" in the snippet msGetOrder.
