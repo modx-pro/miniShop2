@@ -591,7 +591,7 @@ class miniShop2
                 $receiver = uniqid('user_', false);
             }
             if (empty($email)) {
-                $email = mb_strtolower($receiver, 'utf-8'). '@' . $this->modx->getOption('http_host');
+                $email = $receiver. '@' . $this->modx->getOption('http_host');
             }
 
             if ($this->modx->user->isAuthenticated()) {
