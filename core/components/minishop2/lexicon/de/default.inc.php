@@ -111,6 +111,7 @@ $_lang['ms2_message_close_all'] = 'Alle schließen';
 $_lang['ms2_err_unknown'] = 'Unbekannter Fehler';
 $_lang['ms2_err_ns'] = 'Dieses Feld ist ein Pflichtfeld';
 $_lang['ms2_err_ae'] = 'This field must be unique';
+$_lang['ms2_err_user_nf'] = 'Benutzer nicht gefunden.';
 $_lang['ms2_err_order_nf'] = 'Eine Bestellung mit dieser ID wurde nicht gefunden.';
 $_lang['ms2_err_status_nf'] = 'Ein Status mit dieser ID wurde nicht gefunden.';
 $_lang['ms2_err_delivery_nf'] = 'Eine Zustellung mit dieser ID wurde nicht gefunden.';

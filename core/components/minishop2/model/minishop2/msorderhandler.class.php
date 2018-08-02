@@ -345,7 +345,8 @@ class msOrderHandler implements msOrderInterface
         $requires = empty($requires)
             ? array()
             : array_map('trim', explode(',', $requires));
-        if (!in_array('email', $requires)) {
+
+        if (!in_array('email', $requires) && $this->modx->getOption('ms2_order_email_required', null, true)) {
             $requires[] = 'email';
         }
 
@@ -391,6 +392,10 @@ class msOrderHandler implements msOrderInterface
         }
 
         $user_id = $this->ms2->getCustomerId();
+        if (empty($user_id) || !is_int($user_id)) {
+            return $this->error(is_string($user_id) ? $user_id : 'ms2_err_user_nf');
+        }
+
         $cart_status = $this->ms2->cart->status();
         $delivery_cost = $this->getCost(false, true);
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
@@ -585,7 +590,6 @@ class msOrderHandler implements msOrderInterface
             ? $cost
             : $this->success('', array('cost' => $cost));
     }
-
 
     /**
      * Return current number of order

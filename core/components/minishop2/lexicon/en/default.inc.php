@@ -133,6 +133,7 @@ $_lang['ms2_err_unknown'] = 'Unknown error';
 $_lang['ms2_err_ns'] = 'This field is required';
 $_lang['ms2_err_ae'] = 'This field must be unique';
 $_lang['ms2_err_json'] = 'This field requires JSON string';
+$_lang['ms2_err_user_nf'] = 'User not found.';
 $_lang['ms2_err_order_nf'] = 'The order with this id not found.';
 $_lang['ms2_err_status_nf'] = 'The status with this id not found.';
 $_lang['ms2_err_delivery_nf'] = 'The delivery with this id not found.';

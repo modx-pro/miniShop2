@@ -26,6 +26,9 @@ $tmp = array(
     'msOnBeforeChangeOrderStatus',
     'msOnChangeOrderStatus',
 
+    'msOnBeforeGetOrderCustomer',
+    'msOnGetOrderCustomer',
+
     'msOnBeforeCreateOrder',
     'msOnCreateOrder',
     'msOnBeforeUpdateOrder',

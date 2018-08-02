@@ -209,6 +209,11 @@ $tmp = array(
         'value' => 'product_pagetitle,product_article,weight,price,count,cost',
         'area' => 'ms2_order',
     ),
+    /*'ms2_order_email_required' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => 'ms2_order',
+    ),*/
 
     'ms2_order_handler_class' => array(
         'value' => 'msOrderHandler',
