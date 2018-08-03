@@ -575,8 +575,8 @@ class miniShop2
         $customer = null;
 
         $response = $this->invokeEvent('msOnBeforeGetOrderCustomer', array(
-            'order' => $this->order,
-            'customer' => &$customer
+            'order'    => $this->order,
+            'customer' => &$customer,
         ));
         if (!$response['success']) {
             return $response['message'];
@@ -586,12 +586,16 @@ class miniShop2
             $data = $this->order->get();
             $email = isset($data['email']) ? $data['email'] : '';
             $receiver = isset($data['receiver']) ? $data['receiver'] : '';
-            $mobilephone = isset($data['phone']) ? $data['phone'] : '';
+            $phone = isset($data['phone']) ? $data['phone'] : '';
             if (empty($receiver)) {
-                $receiver = uniqid('user_', false);
+                $receiver = $email
+                    ? substr($email, 0, strpos($email, '@'))
+                    : ($phone
+                        ? preg_replace('#[^0-9]#', '', $phone)
+                        : uniqid('user_', false));
             }
             if (empty($email)) {
-                $email = $receiver. '@' . $this->modx->getOption('http_host');
+                $email = $receiver . '@' . $this->modx->getOption('http_host');
             }
 
             if ($this->modx->user->isAuthenticated()) {
@@ -601,32 +605,30 @@ class miniShop2
                     $profile->save();
                 }
                 $customer = $this->modx->user;
-            }
-            else {
+            } else {
                 /** @var modUser $user */
                 /** @var modUserProfile $profile */
                 if ($user = $this->modx->getObject('modUser', array('username' => $email))) {
                     $customer = $user;
-                } elseif ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
+                } else if ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
                     $customer = $profile->getOne('User');
-                } elseif ($profile = $this->modx->getObject('modUserProfile', array('mobilephone' => $mobilephone))) {
+                } else if ($profile = $this->modx->getObject('modUserProfile', array('mobilephone' => $phone))) {
                     $customer = $profile->getOne('User');
-                }
-                elseif ($user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())))){
+                } else if ($user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())))) {
 
                     $profile = $this->modx->newObject('modUserProfile', array(
-                        'email' => $email,
-                        'fullname' => $receiver,
-                        'mobilephone' => $mobilephone
+                        'email'       => $email,
+                        'fullname'    => $receiver,
+                        'mobilephone' => $phone,
                     ));
                     $user->addOne($profile);
                     /** @var modUserSetting $setting */
                     $setting = $this->modx->newObject('modUserSetting');
                     $setting->fromArray(array(
-                        'key' => 'cultureKey',
-                        'area' => 'language',
-                        'value' => $this->modx->getOption('cultureKey', null, 'en', true)
-                    ),'', true);
+                        'key'   => 'cultureKey',
+                        'area'  => 'language',
+                        'value' => $this->modx->getOption('cultureKey', null, 'en', true),
+                    ), '', true);
                     $user->addMany($setting);
                     if ($user->save()) {
                         if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
@@ -643,8 +645,8 @@ class miniShop2
         }
 
         $response = $this->invokeEvent('msOnGetOrderCustomer', array(
-            'order' => $this->order,
-            'customer' => &$customer
+            'order'    => $this->order,
+            'customer' => &$customer,
         ));
         if (!$response['success']) {
             return $response['message'];

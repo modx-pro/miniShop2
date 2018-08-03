@@ -346,10 +346,6 @@ class msOrderHandler implements msOrderInterface
             ? array()
             : array_map('trim', explode(',', $requires));
 
-        if (!in_array('email', $requires) && $this->modx->getOption('ms2_order_email_required', null, true)) {
-            $requires[] = 'email';
-        }
-
         return $this->success('', array('requires' => $requires));
     }
 
