@@ -575,7 +575,7 @@ class miniShop2
         $customer = null;
 
         $response = $this->invokeEvent('msOnBeforeGetOrderCustomer', array(
-            'order'    => $this->order,
+            'order' => $this->order,
             'customer' => &$customer,
         ));
         if (!$response['success']) {
@@ -606,46 +606,46 @@ class miniShop2
                 }
                 $customer = $this->modx->user;
             } else {
-                /** @var modUser $user */
-                /** @var modUserProfile $profile */
-                if ($user = $this->modx->getObject('modUser', array('username' => $email))) {
-                    $customer = $user;
-                } else if ($profile = $this->modx->getObject('modUserProfile', array('email' => $email))) {
-                    $customer = $profile->getOne('User');
-                } else if ($profile = $this->modx->getObject('modUserProfile', array('mobilephone' => $phone))) {
-                    $customer = $profile->getOne('User');
-                } else if ($user = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())))) {
 
+                $c = $this->modx->newQuery('modUser');
+                $c->leftJoin('modUserProfile', 'Profile');
+                $filter = array('username' => $email, 'OR:Profile.email:=' => $email);
+                if (!empty($phone)) {
+                    $filter['OR:Profile.mobilephone:='] = $phone;
+                }
+                $c->where($filter);
+                $c->select('modUser.id');
+                if (!$customer = $this->modx->getObject('modUser', $c)) {
+                    $customer = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
                     $profile = $this->modx->newObject('modUserProfile', array(
-                        'email'       => $email,
-                        'fullname'    => $receiver,
-                        'mobilephone' => $phone,
+                        'email' => $email,
+                        'fullname' => $receiver,
+                        'mobilephone' => $phone
                     ));
-                    $user->addOne($profile);
+                    $customer->addOne($profile);
                     /** @var modUserSetting $setting */
                     $setting = $this->modx->newObject('modUserSetting');
                     $setting->fromArray(array(
-                        'key'   => 'cultureKey',
-                        'area'  => 'language',
+                        'key' => 'cultureKey',
+                        'area' => 'language',
                         'value' => $this->modx->getOption('cultureKey', null, 'en', true),
                     ), '', true);
-                    $user->addMany($setting);
-                    if ($user->save()) {
-                        if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
-                            $groups = array_map('trim', explode(',', $groups));
-                            foreach ($groups as $group) {
-                                $user->joinGroup($group);
-                            }
+                    $customer->addMany($setting);
+                    if (!$customer->save()) {
+                        $customer = null;
+                    }
+                    else if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
+                        $groups = array_map('trim', explode(',', $groups));
+                        foreach ($groups as $group) {
+                            $customer->joinGroup($group);
                         }
-                        $customer = $user;
                     }
                 }
-
             }
         }
 
         $response = $this->invokeEvent('msOnGetOrderCustomer', array(
-            'order'    => $this->order,
+            'order' => $this->order,
             'customer' => &$customer,
         ));
         if (!$response['success']) {
