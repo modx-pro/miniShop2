@@ -3,6 +3,7 @@
 class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
 {
     public $classKey = 'msOrderProduct';
+    public $objectType = 'msOrderProduct';
     public $languageTopics = array('minishop2');
     public $beforeRemoveEvent = 'msOnBeforeRemoveOrderProduct';
     public $afterRemoveEvent = 'msOnRemoveOrderProduct';

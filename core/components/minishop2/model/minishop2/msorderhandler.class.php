@@ -193,6 +193,7 @@ class msOrderHandler implements msOrderInterface
         $response = $this->ms2->invokeEvent('msOnBeforeValidateOrderValue', array(
             'key' => $key,
             'value' => $value,
+            'order' => $this,
         ));
         $value = $response['data']['value'];
 
@@ -245,6 +246,7 @@ class msOrderHandler implements msOrderInterface
         $response = $this->ms2->invokeEvent('msOnValidateOrderValue', array(
             'key' => $key,
             'value' => $value,
+            'order' => $this,
         ));
         $value = $response['data']['value'];
 
@@ -345,9 +347,6 @@ class msOrderHandler implements msOrderInterface
         $requires = empty($requires)
             ? array()
             : array_map('trim', explode(',', $requires));
-        if (!in_array('email', $requires)) {
-            $requires[] = 'email';
-        }
 
         return $this->success('', array('requires' => $requires));
     }
@@ -391,6 +390,10 @@ class msOrderHandler implements msOrderInterface
         }
 
         $user_id = $this->ms2->getCustomerId();
+        if (empty($user_id) || !is_int($user_id)) {
+            return $this->error(is_string($user_id) ? $user_id : 'ms2_err_user_nf');
+        }
+
         $cart_status = $this->ms2->cart->status();
         $delivery_cost = $this->getCost(false, true);
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
@@ -585,7 +588,6 @@ class msOrderHandler implements msOrderInterface
             ? $cost
             : $this->success('', array('cost' => $cost));
     }
-
 
     /**
      * Return current number of order

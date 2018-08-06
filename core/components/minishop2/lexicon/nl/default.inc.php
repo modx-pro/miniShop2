@@ -123,6 +123,7 @@ $_lang['ms2_err_unknown'] = 'Onbekende fout';
 $_lang['ms2_err_ns'] = 'Dit veld is verplicht';
 $_lang['ms2_err_ae'] = 'Dit veld moet uniek zijn';
 $_lang['ms2_err_json'] = 'Dit veld moet een JSON string bevatten';
+$_lang['ms2_err_user_nf'] = 'Gebruiker niet gevonden.';
 $_lang['ms2_err_order_nf'] = 'Kon geen bestelling vinden met deze zoekopdracht.';
 $_lang['ms2_err_status_nf'] = 'Kon geen status vinden met deze zoekopdracht.';
 $_lang['ms2_err_delivery_nf'] = 'Kon geen verzendmethode vinden met deze zoekopdracht.';

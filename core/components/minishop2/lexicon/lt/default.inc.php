@@ -118,6 +118,7 @@ $_lang['ms2_err_unknown'] = 'Nežinoma klaida';
 $_lang['ms2_err_ns'] = 'Šis laukas privalomas';
 $_lang['ms2_err_ae'] = 'Šio lauko reikšmė turi būti unikali';
 $_lang['ms2_err_json'] = 'Šio lauko reikšmė turi būti JSON eilutė';
+$_lang['ms2_err_user_nf'] = 'Utente non trovato.';
 $_lang['ms2_err_order_nf'] = 'Nurodytas užsakymas nerastas.';
 $_lang['ms2_err_status_nf'] = 'Nurodyta būsena nerasta.';
 $_lang['ms2_err_delivery_nf'] = 'Nurodytas pristatymo būdas nerastas.';

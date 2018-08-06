@@ -117,6 +117,7 @@ $_lang['ms2_message_close_all'] = 'fermer tout';
 $_lang['ms2_err_unknown'] = 'Erreur non référencée';
 $_lang['ms2_err_ns'] = 'Ce champs est requis';
 $_lang['ms2_err_ae'] = 'Ce champs doit être unique';
+$_lang['ms2_err_user_nf'] = 'Utilisateur introuvable.';
 $_lang['ms2_err_order_nf'] = 'Aucune commande avec cet ID n\'a été trouvée.';
 $_lang['ms2_err_status_nf'] = 'Aucun état avec cetID n\'a été trouvé.';
 $_lang['ms2_err_delivery_nf'] = 'Aucune livraison avec cet ID n\'a été trouvée.';
