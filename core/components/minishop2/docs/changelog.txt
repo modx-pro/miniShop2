@@ -1,5 +1,12 @@
 Changelog for miniShop2.
 
+2.4.15 pl
+==============
+- Added new events: "msOnBeforeGetOrderCustomer", "msOnGetOrderCustomer"
+- Change miniShop2::getCustomerId
+- Change submit::msOrderHandler
+- Change getDeliveryRequiresFields::msOrderHandler
+
 2.4.14 pl
 ==============
 - Change miniShop2.combo.Options
