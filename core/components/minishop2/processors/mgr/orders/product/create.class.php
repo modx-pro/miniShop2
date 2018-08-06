@@ -3,6 +3,7 @@
 class msOrderProductCreateProcessor extends modObjectCreateProcessor
 {
     public $classKey = 'msOrderProduct';
+    public $objectType = 'msOrderProduct';
     public $languageTopics = array('minishop2');
     public $beforeSaveEvent = 'msOnBeforeCreateOrderProduct';
     public $afterSaveEvent = 'msOnCreateOrderProduct';

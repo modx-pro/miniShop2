@@ -193,6 +193,7 @@ class msOrderHandler implements msOrderInterface
         $response = $this->ms2->invokeEvent('msOnBeforeValidateOrderValue', array(
             'key' => $key,
             'value' => $value,
+            'order' => $this,
         ));
         $value = $response['data']['value'];
 
@@ -245,6 +246,7 @@ class msOrderHandler implements msOrderInterface
         $response = $this->ms2->invokeEvent('msOnValidateOrderValue', array(
             'key' => $key,
             'value' => $value,
+            'order' => $this,
         ));
         $value = $response['data']['value'];
 

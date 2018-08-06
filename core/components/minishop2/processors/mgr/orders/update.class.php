@@ -3,6 +3,7 @@
 class msOrderUpdateProcessor extends modObjectUpdateProcessor
 {
     public $classKey = 'msOrder';
+    public $objectType = 'msOrder';
     public $languageTopics = array('minishop2:default');
     public $beforeSaveEvent = 'msOnBeforeUpdateOrder';
     public $afterSaveEvent = 'msOnUpdateOrder';

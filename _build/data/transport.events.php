@@ -15,17 +15,17 @@ $tmp = array(
 
     'msOnBeforeAddToOrder',
     'msOnAddToOrder',
+    'msOnBeforeValidateOrderValue',
+    'msOnValidateOrderValue',
     'msOnBeforeRemoveFromOrder',
     'msOnRemoveFromOrder',
     'msOnBeforeEmptyOrder',
     'msOnEmptyOrder',
-
     'msOnBeforeGetOrderCost',
     'msOnGetOrderCost',
-
+    'msOnSubmitOrder',
     'msOnBeforeChangeOrderStatus',
     'msOnChangeOrderStatus',
-
     'msOnBeforeGetOrderCustomer',
     'msOnGetOrderCustomer',
 
@@ -33,7 +33,6 @@ $tmp = array(
     'msOnCreateOrder',
     'msOnBeforeUpdateOrder',
     'msOnUpdateOrder',
-
     'msOnBeforeSaveOrder',
     'msOnSaveOrder',
     'msOnBeforeRemoveOrder',
@@ -46,14 +45,11 @@ $tmp = array(
     'msOnBeforeRemoveOrderProduct',
     'msOnRemoveOrderProduct',
 
-    'msOnSubmitOrder',
-    'msOnManagerCustomCssJs',
-
-    'msOnBeforeValidateOrderValue',
-    'msOnValidateOrderValue',
-
     'msOnGetProductPrice',
     'msOnGetProductWeight',
+
+    'msOnManagerCustomCssJs',
+
 );
 
 foreach ($tmp as $k => $v) {
