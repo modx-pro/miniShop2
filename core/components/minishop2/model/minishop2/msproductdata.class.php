@@ -588,6 +588,31 @@ class msProductData extends xPDOSimpleObject
 
         return $price;
     }
+    
+    /**
+     * Return product old price
+     *
+     * @param array $data Any additional data for price modification
+     *
+     * @return mixed|string
+     */
+    public function getOldPrice($data = array())
+    {
+        $old_price = parent::get('old_price');
+        /** @var miniShop2 $miniShop2 */
+        if ($miniShop2 = $this->xpdo->getService('miniShop2')) {
+            if (empty($data)) {
+                $data = $this->toArray();
+            }
+            $params = array(
+                'product' => $this,
+                'data' => $data,
+                'old_price' => $old_price,
+            );
+        }
+
+        return $old_price;
+    }
 
 
     /**
