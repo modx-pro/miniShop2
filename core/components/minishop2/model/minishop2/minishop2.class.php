@@ -668,21 +668,19 @@ class miniShop2
      */
     public function changeOrderStatus($order_id, $status_id)
     {
-        if (empty($this->order) || !is_object($this->order)) {
-            $ctx = !$this->modx->context->key || $this->modx->context->key == 'mgr'
-                ? 'web'
-                : $this->modx->context->key;
-            $this->initialize($ctx);
-        }
-        // This method could be overwritten from custom order handler
-        if (is_object($this->order) && method_exists($this->order, 'changeOrderStatus')) {
-            return $this->order->changeOrderStatus($order_id, $status_id);
-        }
-
         $error = '';
         /** @var msOrder $order */
         if (!$order = $this->modx->getObject('msOrder', $order_id)) {
             $error = 'ms2_err_order_nf';
+        }
+        else {
+            $ctx = $order->get('context');
+            $this->modx->switchContext($ctx);
+            $this->initialize($ctx);
+            // This method could be overwritten from custom order handler
+            if (is_object($this->order) && method_exists($this->order, 'changeOrderStatus')) {
+                return $this->order->changeOrderStatus($order_id, $status_id);
+            }
         }
 
         /** @var msOrderStatus $status */
