@@ -21,7 +21,7 @@ $order = $modx->newObject('msOrder');
 $handler = new PayPal($order);
 
 if (isset($_GET['action']) && $_GET['action'] == 'continue' && !empty($_GET['msorder']) && !empty($_GET['mscode'])) {
-    if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
+    if ($order = $modx->getObject('msOrder', (int)$_GET['msorder'])) {
         if ($_GET['mscode'] == $handler->getOrderHash($order)) {
             $response = $handler->send($order);
             if ($response['success'] && !empty($response['data']['redirect'])) {
