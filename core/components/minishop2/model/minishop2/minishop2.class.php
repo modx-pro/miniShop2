@@ -610,7 +610,7 @@ class miniShop2
                 if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
                     $groups = array_map('trim', explode(',', $groups));
                     foreach ($groups as $group) {
-                        $user->joinGroup($group);
+                        $user->joinGroup((integer)$group);
                     }
                 }
                 $uid = $user->get('id');
