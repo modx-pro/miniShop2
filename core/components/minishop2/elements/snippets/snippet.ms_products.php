@@ -12,7 +12,6 @@ if ($pdoClass = $modx->loadClass($fqn, $path, false, true)) {
 } else {
     return false;
 }
-$pdoFetch = new pdoFetch($modx, $scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 if (isset($parents) && $parents === '') {
