@@ -656,7 +656,7 @@
                 arr = miniShop2.sendData.formData;
             }
             for (var i = 0, length = arr.length; i < length; i++) {
-                if (arr[i].name = name) {
+                if (arr[i].name == name) {
                     return arr[i].value;
                 }
             }
