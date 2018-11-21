@@ -48,7 +48,7 @@ if (!is_array($response)) {
         '[miniShop2] Error on receive details of PayPal operation: ' . $response . '; ' . print_r($_GET, 1)
     );
 } elseif (!empty($response['PAYMENTREQUEST_0_INVNUM'])) {
-    if ($order = $modx->getObject('msOrder', $response['PAYMENTREQUEST_0_INVNUM'])) {
+    if ($order = $modx->getObject('msOrder', array('id' => $response['PAYMENTREQUEST_0_INVNUM']))) {
         $handler->receive($order, $response);
         $context = $order->get('context');
         $params['msorder'] = $order->get('id');
