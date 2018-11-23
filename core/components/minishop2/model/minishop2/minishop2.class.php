@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '2.4.15-pl';
+    public $version = '2.4.16-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -668,21 +668,20 @@ class miniShop2
      */
     public function changeOrderStatus($order_id, $status_id)
     {
-        $error = '';
         /** @var msOrder $order */
         if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
-            $error = 'ms2_err_order_nf';
-        }
-        else {
-            $ctx = $order->get('context');
-            $this->modx->switchContext($ctx);
-            $this->initialize($ctx);
-            // This method could be overwritten from custom order handler
-            if (is_object($this->order) && method_exists($this->order, 'changeOrderStatus')) {
-                return $this->order->changeOrderStatus($order_id, $status_id);
-            }
+            return $this->modx->lexicon('ms2_err_order_nf');
         }
 
+        $ctx = $order->get('context');
+        $this->modx->switchContext($ctx);
+        $this->initialize($ctx);
+        // This method could be overwritten from custom order handler
+        if (is_object($this->order) && method_exists($this->order, 'changeOrderStatus')) {
+            return $this->order->changeOrderStatus($order_id, $status_id);
+        }
+
+        $error = '';
         /** @var msOrderStatus $status */
         if (!$status = $this->modx->getObject('msOrderStatus', array('id' => $status_id, 'active' => 1))) {
             $error = 'ms2_err_status_nf';
