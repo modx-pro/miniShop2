@@ -66,7 +66,7 @@ switch ($modx->event->name) {
             $cookieVar = $modx->getOption('ms2_referrer_cookie_var', null, 'msreferrer', true);
             $cookieTime = $modx->getOption('ms2_referrer_time', null, 86400 * 365, true);
             if ($modx->context->key != 'mgr' && !empty($_COOKIE[$cookieVar])) {
-                if ($profile = $modx->getObject('msCustomerProfile', $user->get('id'))) {
+                if ($profile = $modx->getObject('msCustomerProfile', array('id' => $user->get('id')))) {
                     if (!$profile->get('referrer_id') && $_COOKIE[$cookieVar] != $user->get('id')) {
                         $profile->set('referrer_id', (int)$_COOKIE[$cookieVar]);
                         $profile->save();
@@ -98,7 +98,7 @@ switch ($modx->event->name) {
             if ($q->prepare() && $q->stmt->execute()) {
                 $spent = $q->stmt->fetchColumn();
                 /** @var msCustomerProfile $profile */
-                if ($profile = $modx->getObject('msCustomerProfile', $user->get('id'))) {
+                if ($profile = $modx->getObject('msCustomerProfile', array('id' => $user->get('id')))) {
                     $profile->set('spent', $spent);
                     $profile->save();
                 }

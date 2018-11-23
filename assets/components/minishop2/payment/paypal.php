@@ -21,7 +21,7 @@ $order = $modx->newObject('msOrder');
 $handler = new PayPal($order);
 
 if (isset($_GET['action']) && $_GET['action'] == 'continue' && !empty($_GET['msorder']) && !empty($_GET['mscode'])) {
-    if ($order = $modx->getObject('msOrder', $_GET['msorder'])) {
+    if ($order = $modx->getObject('msOrder', (int)$_GET['msorder'])) {
         if ($_GET['mscode'] == $handler->getOrderHash($order)) {
             $response = $handler->send($order);
             if ($response['success'] && !empty($response['data']['redirect'])) {
@@ -48,7 +48,7 @@ if (!is_array($response)) {
         '[miniShop2] Error on receive details of PayPal operation: ' . $response . '; ' . print_r($_GET, 1)
     );
 } elseif (!empty($response['PAYMENTREQUEST_0_INVNUM'])) {
-    if ($order = $modx->getObject('msOrder', $response['PAYMENTREQUEST_0_INVNUM'])) {
+    if ($order = $modx->getObject('msOrder', array('id' => $response['PAYMENTREQUEST_0_INVNUM']))) {
         $handler->receive($order, $response);
         $context = $order->get('context');
         $params['msorder'] = $order->get('id');

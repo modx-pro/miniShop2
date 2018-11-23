@@ -8,7 +8,7 @@ if (!empty($input) && empty($product)) {
 }
 
 $product = !empty($product) && $product != $modx->resource->id
-    ? $modx->getObject('msProduct', $product)
+    ? $modx->getObject('msProduct', array('id' => $product))
     : $modx->resource;
 if (!($product instanceof msProduct)) {
     return "[msProductOptions] The resource with id = {$product->id} is not instance of msProduct.";

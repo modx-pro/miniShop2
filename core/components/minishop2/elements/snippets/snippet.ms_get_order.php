@@ -20,7 +20,7 @@ if (empty($id)) {
     return;
 }
 /** @var msOrder $order */
-if (!$order = $modx->getObject('msOrder', $id)) {
+if (!$order = $modx->getObject('msOrder', compact('id'))) {
     return $modx->lexicon('ms2_err_order_nf');
 }
 $canView = (!empty($_SESSION['minishop2']['orders']) && in_array($id, $_SESSION['minishop2']['orders'])) ||

@@ -30,6 +30,8 @@ abstract class msOptionType
      * @param $criteria
      *
      * @return mixed|null
+     *
+     * @TODO Maybe vulnerable
      */
     public function getValue($criteria)
     {
@@ -84,7 +86,7 @@ class msOption extends xPDOSimpleObject
         $result = array();
 
         foreach ($categories as $category) {
-            $catObj = $this->xpdo->getObject('msCategory', $category);
+            $catObj = $this->xpdo->getObject('msCategory', array('id' => $category));
             if ($catObj) {
                 /** @var msCategoryOption $catFtObj */
                 $catFtObj = $this->xpdo->getObject('msCategoryOption',

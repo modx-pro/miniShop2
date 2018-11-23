@@ -670,7 +670,7 @@ class miniShop2
     {
         $error = '';
         /** @var msOrder $order */
-        if (!$order = $this->modx->getObject('msOrder', $order_id)) {
+        if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
             $error = 'ms2_err_order_nf';
         }
         else {
@@ -763,7 +763,7 @@ class miniShop2
             if ($status->get('email_manager')) {
                 $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
                 $tpl = '';
-                if ($chunk = $this->modx->getObject('modChunk', $status->get('body_manager'))) {
+                if ($chunk = $this->modx->getObject('modChunk', array('id' => $status->get('body_manager')))) {
                     $tpl = $chunk->get('name');
                 }
                 $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
@@ -783,7 +783,7 @@ class miniShop2
                 if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $pls['user_id']))) {
                     $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_user'), $pls);
                     $tpl = '';
-                    if ($chunk = $this->modx->getObject('modChunk', $status->get('body_user'))) {
+                    if ($chunk = $this->modx->getObject('modChunk', array('id' => $status->get('body_user')))) {
                         $tpl = $chunk->get('name');
                     }
                     $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
@@ -843,7 +843,7 @@ class miniShop2
     public function orderLog($order_id, $action = 'status', $entry)
     {
         /** @var msOrder $order */
-        if (!$order = $this->modx->getObject('msOrder', $order_id)) {
+        if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
             return false;
         }
 
@@ -1008,7 +1008,7 @@ class miniShop2
         $data = array();
         foreach ($ids as $id) {
             if (!$only_ids) {
-                if ($res = $this->modx->getObject('msProduct', $id)) {
+                if ($res = $this->modx->getObject('msProduct', compact('id'))) {
                     $data[$id] = $res->toArray();
                 }
             }

@@ -87,7 +87,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
             $parent = (int)$this->getProperty('parent');
             if (!empty($parent)) {
-                $category = $this->modx->getObject('modResource', $this->getProperty('parent'));
+                $category = $this->modx->getObject('modResource', $parent);
                 $this->parent = $parent;
                 $parents = array($parent);
 

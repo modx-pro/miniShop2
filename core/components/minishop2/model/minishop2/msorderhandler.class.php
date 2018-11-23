@@ -207,7 +207,7 @@ class msOrderHandler implements msOrderInterface
             case 'receiver':
                 // Transforms string from "nikolaj -  coster--Waldau jr." to "Nikolaj Coster-Waldau Jr."
                 $tmp = preg_replace(
-                    array('/[^-a-zа-яёґєіїўäëïöüçàéèîôû\s\.\'’ʼ`"]/iu', '/\s+/', '/\-+/', '/\.+/', '/[\'’ʼ`"]/iu', '/\'+/'),
+                    array('/[^-a-zа-яёґєіїўäëïöüçàéèîôûäüöÜÖÄ\s\.\'’ʼ`"]/iu', '/\s+/', '/\-+/', '/\.+/', '/[\'’ʼ`"]/iu', '/\'+/'),
                     array('', ' ', '-', '.', '\'', '\''),
                     $value
                 );
@@ -427,7 +427,7 @@ class msOrderHandler implements msOrderInterface
         $cart = $this->ms2->cart->get();
         $products = array();
         foreach ($cart as $v) {
-            if ($tmp = $this->modx->getObject('msProduct', $v['id'])) {
+            if ($tmp = $this->modx->getObject('msProduct', array('id' => $v['id']))) {
                 $name = $tmp->get('pagetitle');
             } else {
                 $name = '';
@@ -560,14 +560,14 @@ class msOrderHandler implements msOrderInterface
 
         /** @var msDelivery $delivery */
         if (!empty($this->order['delivery']) && $delivery = $this->modx->getObject('msDelivery',
-                $this->order['delivery'])
+                array('id' => $this->order['delivery']))
         ) {
             $cost = $delivery->getCost($this, $cost);
         }
 
         /** @var msPayment $payment */
         if (!empty($this->order['payment']) && $payment = $this->modx->getObject('msPayment',
-                $this->order['payment'])
+                array('id' => $this->order['payment']))
         ) {
             $cost = $payment->getCost($this, $cost);
         }

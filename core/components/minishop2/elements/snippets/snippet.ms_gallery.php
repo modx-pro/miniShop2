@@ -17,7 +17,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msGallery');
 
 /** @var msProduct $product */
 $product = !empty($product) && $product != $modx->resource->id
-    ? $modx->getObject('msProduct', $product)
+    ? $modx->getObject('msProduct', array('id' => $product))
     : $modx->resource;
 if (!$product || !($product instanceof msProduct)) {
     return "[msGallery] The resource with id = {$product->id} is not instance of msProduct.";

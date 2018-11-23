@@ -25,7 +25,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         }
 
         if (!$this->modx->getCount($this->classKey, array('id' => $primaryKey, 'class_key' => $this->classKey))) {
-            if ($res = $this->modx->getObject('modResource', $primaryKey)) {
+            if ($res = $this->modx->getObject('modResource', array('id' => $primaryKey))) {
                 $res->set('class_key', $this->classKey);
                 $res->save();
             }
