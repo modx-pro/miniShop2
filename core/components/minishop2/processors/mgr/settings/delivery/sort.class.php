@@ -34,9 +34,9 @@ class msDeliverySortProcessor extends modObjectProcessor
         }
         foreach ($sources as $id) {
             /** @var msDelivery $source */
-            $source = $this->modx->getObject($this->classKey, $id);
+            $source = $this->modx->getObject($this->classKey, compact('id'));
             /** @var msDelivery $target */
-            $target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
+            $target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')));
             $this->sort($source, $target);
         }
         $this->updateIndex();

@@ -25,7 +25,7 @@ class msProductFileGenerateProcessor extends modObjectProcessor
      */
     public function process()
     {
-        $id = $this->getProperty('id');
+        $id = (int)$this->getProperty('id');
         if (empty($id)) {
             return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
         }

@@ -34,9 +34,9 @@ class msPaymentSortProcessor extends modObjectProcessor
         }
         foreach ($sources as $id) {
             /** @var msPayment $source */
-            $source = $this->modx->getObject($this->classKey, $id);
+            $source = $this->modx->getObject($this->classKey, compact('id'));
             /** @var msPayment $target */
-            $target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
+            $target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')));
             $this->sort($source, $target);
         }
         $this->updateIndex();

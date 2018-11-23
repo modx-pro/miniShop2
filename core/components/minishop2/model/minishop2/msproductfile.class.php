@@ -32,7 +32,7 @@ class msProductFile extends xPDOSimpleObject
             return true;
         } else {
             /** @var msProduct $product */
-            if ($product = $this->xpdo->getObject('msProduct', $this->get('product_id'))) {
+            if ($product = $this->xpdo->getObject('msProduct', array('id' => $this->get('product_id')))) {
                 $this->mediaSource = $product->initializeMediaSource();
                 if (!$this->mediaSource || !($this->mediaSource instanceof modMediaSource)) {
                     return '[miniShop2] Could not initialize media source for product with id = ' . $this->get('product_id');

@@ -22,7 +22,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
             return $this->modx->lexicon('access_denied');
         }
         /** @var msProduct $product */
-        $id = $this->getProperty('id', @$_GET['id']);
+        $id = (int)$this->getProperty('id', @$_GET['id']);
         if (!$this->product = $this->modx->getObject('msProduct', $id)) {
             return $this->modx->lexicon('ms2_gallery_err_no_product');
         }
