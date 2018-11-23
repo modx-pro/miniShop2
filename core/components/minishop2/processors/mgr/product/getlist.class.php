@@ -30,8 +30,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         if (!$this->getProperty('limit')) {
             $this->setProperty('limit', 20);
         }
-        if ($this->getProperty('sort') == 'menuindex') {
-            $this->setProperty('sort', 'parent ' . $this->getProperty('dir') . ', menuindex');
+        if ($this->getProperty('sort') === 'menuindex') {
+            $this->setProperty('sort', 'msProduct.parent ' . $this->getProperty('dir') . ', msProduct.menuindex');
         }
 
         return parent::initialize();
@@ -101,9 +101,15 @@ class msProductGetListProcessor extends modObjectGetListProcessor
                         $parents[] = $v;
                     }
                 }
-                $c->orCondition(array('parent:IN' => $parents, 'Member.category_id:IN' => $parents), '', 1);
+                $parents= "(" . implode(',', $parents) . ")";
+                $c->query['where'][] = [[
+                    new xPDOQueryCondition(array('sql' => 'msProduct.parent IN '.$parents, 'conjunction' => 'OR')),
+                    new xPDOQueryCondition(array('sql' => 'Member.category_id IN '.$parents, 'conjunction' => 'OR'))
+                ]];
             }
         }
+
+        $c->groupby($this->classKey . '.id');
 
         return $c;
     }
@@ -116,7 +122,34 @@ class msProductGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
-        $c->groupby($this->classKey . '.id');
+        $total = 0;
+        $limit = (int)$this->getProperty('limit');
+        $start = (int)$this->getProperty('start');
+
+        $q = clone $c;
+        $q->query['columns'] = ['SQL_CALC_FOUND_ROWS msProduct.id'];
+        $sortClassKey = $this->getSortClassKey();
+        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '', [$this->getProperty('sort')]);
+        if (empty($sortKey)) {
+            $sortKey = $this->getProperty('sort');
+        }
+        $q->sortby($sortKey, $this->getProperty('dir'));
+        if ($limit > 0) {
+            $q->limit($limit, $start);
+        }
+
+        $ids = [];
+        if ($q->prepare() AND $q->stmt->execute()) {
+            $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+            $total = $this->modx->query('SELECT FOUND_ROWS()')->fetchColumn();
+        }
+        $ids = empty($ids) ? "(0)" : "(" . implode(',', $ids) . ")";
+        $c->query['where'] = [[
+            new xPDOQueryCondition(array('sql' => 'msProduct.id IN '. $ids, 'conjunction' => 'AND')),
+        ]];
+        $c->sortby($sortKey, $this->getProperty('dir'));
+
+        $this->setProperty('total', $total);
 
         return $c;
     }
@@ -127,29 +160,13 @@ class msProductGetListProcessor extends modObjectGetListProcessor
      */
     public function getData()
     {
-        $data = array();
-        $limit = intval($this->getProperty('limit'));
-        $start = intval($this->getProperty('start'));
-
         $c = $this->modx->newQuery($this->classKey);
         $c = $this->prepareQueryBeforeCount($c);
-        $data['total'] = $this->modx->getCount($this->classKey, $c);
         $c = $this->prepareQueryAfterCount($c);
-
-        $sortClassKey = $this->getSortClassKey();
-        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '',
-            array($this->getProperty('sort')));
-        if (empty($sortKey)) {
-            $sortKey = $this->getProperty('sort');
-        }
-        $c->sortby($sortKey, $this->getProperty('dir'));
-        if ($limit > 0) {
-            $c->limit($limit, $start);
-        }
-
-        if ($c->prepare() && $c->stmt->execute()) {
-            $data['results'] = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+        $data = [
+            'results' => ($c->prepare() AND $c->stmt->execute()) ? $c->stmt->fetchAll(PDO::FETCH_ASSOC) : [],
+            'total'   => (int)$this->getProperty('total'),
+        ];
 
         return $data;
     }
@@ -162,7 +179,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
      */
     public function iterate(array $data)
     {
-        $list = array();
+        $list = [];
         $list = $this->beforeIteration($list);
         $this->currentIndex = 0;
         /** @var xPDOObject|modAccessibleObject $object */

@@ -1,5 +1,11 @@
 Changelog for miniShop2.
 
+2.4.16 pl
+==============
+- Fixed possible SQL injections by Agel_Nash
+- Change miniShop2::changeOrderStatus
+- Change "msProductGetListProcessor"
+
 2.4.15 pl
 ==============
 - Added new events: "msOnBeforeGetOrderCustomer", "msOnGetOrderCustomer"
