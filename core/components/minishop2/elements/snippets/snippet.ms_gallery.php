@@ -106,8 +106,7 @@ foreach ($rows as $row) {
             }
         }
     } elseif (isset($row['type'])) {
-        $row['thumbnail'] =
-        $row['url'] = file_exists(MODX_ASSETS_PATH . $extensionsDir . $row['type'] . '.png')
+        $row['thumbnail'] = file_exists(MODX_ASSETS_PATH . $extensionsDir . $row['type'] . '.png')
             ? MODX_ASSETS_URL . $extensionsDir . $row['type'] . '.png'
             : MODX_ASSETS_URL . $extensionsDir . 'other.png';
         foreach ($resolution as $v) {
