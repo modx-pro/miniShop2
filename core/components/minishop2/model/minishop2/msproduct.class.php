@@ -341,7 +341,7 @@ class msProduct extends modResource
      */
     public function addMany(& $obj, $alias = '')
     {
-        if (empty ($alias)) {
+        if (!empty($alias)) {
             if ($obj->_alias == $obj->_class) {
                 $aliases = $this->_getAliases($obj->_class, 1);
                 if (!empty($aliases)) {
