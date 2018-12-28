@@ -1,5 +1,9 @@
 Changelog for miniShop2.
 
+2.4.17 pl
+==============
+- Fixed load of lexicons in contexts.
+
 2.4.16 pl
 ==============
 - Fixed possible SQL injections by Agel_Nash
