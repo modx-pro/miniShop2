@@ -557,7 +557,7 @@
                 });
             }
             else {
-                $.jGrowl.defaults.closerTemplate = '<div>[ ' + miniShop2Config.close_all_message + ' ]</div>';
+                $.jGrowl.defaults.closerTemplate = '<div>закрыть все</div>';//'<div>[ ' + miniShop2Config.close_all_message + ' ]</div>';
                 miniShop2.Message.close = function () {
                     $.jGrowl('close');
                 };
