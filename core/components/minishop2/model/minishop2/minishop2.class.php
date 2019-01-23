@@ -81,6 +81,7 @@ class miniShop2
         }
         $this->config = array_merge($this->config, $scriptProperties);
         $this->config['ctx'] = $ctx;
+        $this->modx->lexicon->load('minishop2:default');
 
         if ($ctx != 'mgr' && (!defined('MODX_API_MODE') || !MODX_API_MODE)) {
             $config = $this->pdoTools->makePlaceholders($this->config);
@@ -124,7 +125,6 @@ class miniShop2
         }
         $load = $this->loadServices($ctx);
         $this->initialized[$ctx] = $load;
-        $this->modx->lexicon->load('minishop2:default');
 
         return $load;
     }

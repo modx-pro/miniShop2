@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.4.17 pl
+2.4.17 pl2
 ==============
 - Fixed load of lexicons in contexts.
 
