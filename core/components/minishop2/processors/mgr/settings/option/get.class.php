@@ -45,15 +45,18 @@ class msOptionGetProcessor extends modObjectGetProcessor
         }
         $this->object->set('categories', $data);
 
-        $data = array();
+        $data = $parents = array();
         $categories = $this->object->getIterator('OptionCategories');
         /** @var msCategoryOption $cat */
         foreach ($categories as $cat) {
             $category = $cat->getOne('Category');
             if ($category) {
                 $data[] = $category->get('id');
+                $parentIds = $this->modx->getParentIds($category->get('id'), 10, array('context' => $category->get('context_key')));
+                $parents = array_merge($parents, $parentIds);
             }
         }
+        $this->object->set('tree_parents', json_encode(array_values(array_unique($parents))));
         $this->object->set('categories', json_encode($data));
         $this->object->set('properties', $this->object->getInputProperties());
     }
