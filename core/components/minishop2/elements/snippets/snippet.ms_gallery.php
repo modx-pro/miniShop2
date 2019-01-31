@@ -17,7 +17,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msGallery');
 
 /** @var msProduct $product */
 $product = !empty($product) && $product != $modx->resource->id
-    ? $modx->getObject('msProduct', $product)
+    ? $modx->getObject('msProduct', array('id' => $product))
     : $modx->resource;
 if (!$product || !($product instanceof msProduct)) {
     return "[msGallery] The resource with id = {$product->id} is not instance of msProduct.";
@@ -106,8 +106,7 @@ foreach ($rows as $row) {
             }
         }
     } elseif (isset($row['type'])) {
-        $row['thumbnail'] =
-        $row['url'] = file_exists(MODX_ASSETS_PATH . $extensionsDir . $row['type'] . '.png')
+        $row['thumbnail'] = file_exists(MODX_ASSETS_PATH . $extensionsDir . $row['type'] . '.png')
             ? MODX_ASSETS_URL . $extensionsDir . $row['type'] . '.png'
             : MODX_ASSETS_URL . $extensionsDir . 'other.png';
         foreach ($resolution as $v) {

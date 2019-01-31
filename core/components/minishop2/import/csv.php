@@ -102,7 +102,7 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
 	// Set default values
 	if (empty($data['class_key'])) {$data['class_key'] = 'msProduct';}
 	if (empty($data['context_key'])) {
-		if (isset($data['parent']) && $parent = $modx->getObject('modResource', $data['parent'])) {
+		if (isset($data['parent']) && $parent = $modx->getObject('modResource', array('id' => $data['parent']))) {
 			$data['context_key'] = $parent->get('context_key');
 		}
 		elseif (isset($modx->resource) && isset($modx->context)) {

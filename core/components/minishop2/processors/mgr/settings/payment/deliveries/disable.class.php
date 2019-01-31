@@ -18,6 +18,9 @@ class msDeliveryMemberRemoveProcessor extends modObjectRemoveProcessor
             return $this->modx->lexicon('access_denied');
         }
 
+        /**
+         * @TODO: hardcode
+         */
         $this->object = $this->modx->getObject($this->classKey, $this->getProperties());
         if (empty($this->object)) {
             return $this->modx->lexicon($this->objectType . '_err_nfs');

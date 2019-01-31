@@ -41,7 +41,7 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
             if ($order_id = $this->getProperty('order_id')) {
                 /** @var msOrder $order */
                 /** @var msOrderStatus $status */
-                if ($order = $this->modx->getObject('msOrder', $order_id) AND $status = $order->getOne('Status')) {
+                if ($order = $this->modx->getObject('msOrder', array('id' => $order_id)) AND $status = $order->getOne('Status')) {
                     if ($status->get('final')) {
                         $c->where(array('id' => $status->get('id')));
                     } elseif ($status->get('fixed')) {

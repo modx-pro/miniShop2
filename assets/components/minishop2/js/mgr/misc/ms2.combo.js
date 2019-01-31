@@ -249,6 +249,7 @@ miniShop2.combo.Options = function (config) {
         addNewDataOnBlur: true,
         pinList: false,
         resizable: true,
+        lazyInit: false,
         name: config.name || 'tags',
         anchor: '100%',
         minChars: 1,
@@ -285,6 +286,10 @@ miniShop2.combo.Options = function (config) {
                 values = value.split(this.valueDelimiter);
             }
             Ext.each(values,function(val){
+                var record = this.findRecord(this.valueField, val);
+                if(record){
+                    this.addRecord(record);
+                }
                 this.remoteLookup.push(val);
             },this);
             if(this.mode === 'remote'){

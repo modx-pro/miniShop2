@@ -40,7 +40,7 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
         }
 
         /** @var msLink $msLink */
-        if (!$msLink = $this->modx->getObject('msLink', $link)) {
+        if (!$msLink = $this->modx->getObject('msLink', array('id' => $link))) {
             return $this->failure($this->modx->lexicon('ms2_err_no_link'));
         }
         $type = $msLink->get('type');

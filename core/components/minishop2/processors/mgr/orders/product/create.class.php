@@ -44,7 +44,7 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
             }
         }
 
-        if (!$this->order = $this->modx->getObject('msOrder', $this->getProperty('order_id'))) {
+        if (!$this->order = $this->modx->getObject('msOrder', array('id' => $this->getProperty('order_id')))) {
             return $this->modx->lexicon('ms2_err_order_nf');
         }
 

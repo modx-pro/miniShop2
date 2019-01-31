@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '2.4.15-pl';
+    public $version = '2.4.16-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -59,7 +59,6 @@ class miniShop2
         ), $config);
 
         $this->modx->addPackage('minishop2', $this->config['modelPath']);
-        $this->modx->lexicon->load('minishop2:default');
 
         if ($this->pdoTools = $this->modx->getService('pdoFetch')) {
             $this->pdoTools->setConfig($this->config);
@@ -82,6 +81,7 @@ class miniShop2
         }
         $this->config = array_merge($this->config, $scriptProperties);
         $this->config['ctx'] = $ctx;
+        $this->modx->lexicon->load('minishop2:default');
 
         if ($ctx != 'mgr' && (!defined('MODX_API_MODE') || !MODX_API_MODE)) {
             $config = $this->pdoTools->makePlaceholders($this->config);
@@ -668,23 +668,20 @@ class miniShop2
      */
     public function changeOrderStatus($order_id, $status_id)
     {
-        if (empty($this->order) || !is_object($this->order)) {
-            $ctx = !$this->modx->context->key || $this->modx->context->key == 'mgr'
-                ? 'web'
-                : $this->modx->context->key;
-            $this->initialize($ctx);
+        /** @var msOrder $order */
+        if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
+            return $this->modx->lexicon('ms2_err_order_nf');
         }
+
+        $ctx = $order->get('context');
+        $this->modx->switchContext($ctx);
+        $this->initialize($ctx);
         // This method could be overwritten from custom order handler
         if (is_object($this->order) && method_exists($this->order, 'changeOrderStatus')) {
             return $this->order->changeOrderStatus($order_id, $status_id);
         }
 
         $error = '';
-        /** @var msOrder $order */
-        if (!$order = $this->modx->getObject('msOrder', $order_id)) {
-            $error = 'ms2_err_order_nf';
-        }
-
         /** @var msOrderStatus $status */
         if (!$status = $this->modx->getObject('msOrderStatus', array('id' => $status_id, 'active' => 1))) {
             $error = 'ms2_err_status_nf';
@@ -765,7 +762,7 @@ class miniShop2
             if ($status->get('email_manager')) {
                 $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
                 $tpl = '';
-                if ($chunk = $this->modx->getObject('modChunk', $status->get('body_manager'))) {
+                if ($chunk = $this->modx->getObject('modChunk', array('id' => $status->get('body_manager')))) {
                     $tpl = $chunk->get('name');
                 }
                 $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
@@ -785,7 +782,7 @@ class miniShop2
                 if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $pls['user_id']))) {
                     $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_user'), $pls);
                     $tpl = '';
-                    if ($chunk = $this->modx->getObject('modChunk', $status->get('body_user'))) {
+                    if ($chunk = $this->modx->getObject('modChunk', array('id' => $status->get('body_user')))) {
                         $tpl = $chunk->get('name');
                     }
                     $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
@@ -845,7 +842,7 @@ class miniShop2
     public function orderLog($order_id, $action = 'status', $entry)
     {
         /** @var msOrder $order */
-        if (!$order = $this->modx->getObject('msOrder', $order_id)) {
+        if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
             return false;
         }
 
@@ -1010,7 +1007,7 @@ class miniShop2
         $data = array();
         foreach ($ids as $id) {
             if (!$only_ids) {
-                if ($res = $this->modx->getObject('msProduct', $id)) {
+                if ($res = $this->modx->getObject('msProduct', compact('id'))) {
                     $data[$id] = $res->toArray();
                 }
             }

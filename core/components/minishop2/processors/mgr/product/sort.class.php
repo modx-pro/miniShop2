@@ -12,7 +12,7 @@ class msProductSortProcessor extends modObjectProcessor
     public function process()
     {
         /** @var msProduct $target */
-        if (!$target = $this->modx->getObject($this->classKey, $this->getProperty('target'))) {
+        if (!$target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')))) {
             return $this->failure();
         }
         $this->_parent = $target->get('parent');
@@ -23,9 +23,9 @@ class msProductSortProcessor extends modObjectProcessor
         }
         foreach ($sources as $id) {
             /** @var msProduct $source */
-            $source = $this->modx->getObject($this->classKey, $id);
+            $source = $this->modx->getObject($this->classKey, compact('id'));
             if ($source->get('parent') == $this->_parent) {
-                $target = $this->modx->getObject($this->classKey, $this->getProperty('target'));
+                $target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')));
                 $this->sort($source, $target);
             } else {
                 $this->move($source);
