@@ -110,6 +110,17 @@ Ext.extend(miniShop2.tree.OptionCategories, MODx.tree.Tree, {
     remove: function() {
 
     },
+    
+    _onAppend: function(tree, parent, node) {
+        MODx.tree.Tree.prototype._onAppend.call(this, tree, parent, node);
+        
+        if (this.config.update && node.attributes.classKey == 'msCategory'){
+            var tree_parents = JSON.parse(this.config.tree_parents);
+            if (tree_parents.indexOf(node.attributes.pk) >= 0){
+                this.reloadNode(node);
+            }
+        }
+    },
 
 });
 Ext.reg('minishop2-tree-option-categories', miniShop2.tree.OptionCategories);
