@@ -35,14 +35,14 @@ if ($transport->xpdo) {
                         'desc' => 'prop_file.imageExtensions_desc',
                         'type' => 'textfield',
                         'lexicon' => 'core:source',
-                        'value' => 'jpg,jpeg,png,gif',
+                        'value' => 'jpg,jpeg,png,gif,webp',
                     ),
                     'allowedFileTypes' => array(
                         'name' => 'allowedFileTypes',
                         'desc' => 'prop_file.allowedFileTypes_desc',
                         'type' => 'textfield',
                         'lexicon' => 'core:source',
-                        'value' => 'jpg,jpeg,png,gif',
+                        'value' => 'jpg,jpeg,png,gif,webp',
                     ),
                     'thumbnailType' => array(
                         'name' => 'thumbnailType',
@@ -52,6 +52,7 @@ if ($transport->xpdo) {
                         'options' => array(
                             array('text' => 'Png', 'value' => 'png'),
                             array('text' => 'Jpg', 'value' => 'jpg'),
+                            array('text' => 'Webp', 'value' => 'webp'),
                         ),
                         'value' => 'jpg',
                     ),
