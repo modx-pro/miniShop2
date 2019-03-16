@@ -29,22 +29,24 @@ Ext.extend(miniShop2.window.CreateOption, miniShop2.window.Default, {
     },
 
     getTree: function (config) {
+        console.log(config.record['categories']);
         return [{
             xtype: 'minishop2-tree-option-categories',
             id: config.id + '-option-categories',
             categories: config.record['categories'] || '',
             maxHeight: 320,
             listeners: {
-                checkchange: function () {
-                    var nodes = this.getChecked();
-                    var categories = [];
-                    for (var i = 0; i < nodes.length; i++) {
-                        categories.push(nodes[i].attributes.pk);
-                    }
-
+                checkchange: function (node, checked) {
                     var catField = Ext.getCmp(config.id + '-categories');
-                    if (catField) {
-                        catField.setValue(Ext.util.JSON.encode(categories));
+                    if (node && catField) {
+                        var value;
+                        if (catField.getValue() == '[]') {
+                            value = {};
+                        } else {
+                            value = Ext.util.JSON.decode(catField.getValue());
+                        }
+                        value[node.attributes.pk] = Number(checked);
+                        catField.setValue(Ext.util.JSON.encode(value));
                     }
                 }
             }

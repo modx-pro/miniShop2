@@ -50,30 +50,14 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return array|boolean
+     * @param array $categories
      */
-    public function getCategories()
-    {
-        $categories = $this->getProperty('categories', false);
-        if ($categories) {
-            $categories = json_decode($categories, true);
-        }
-
-        return $categories;
-    }
-
-
-    /**
-     * @param $assignedCats
-     */
-    public function removeNotAssignedCategories($assignedCats)
+    public function removeNotAssignedCategories($categories)
     {
         $q = $this->modx->newQuery('msCategoryOption');
         $q->command('DELETE');
         $q->where(array('option_id' => $this->object->get('id')));
-        if (!empty($assignedCats)) {
-            $q->where(array('category_id:NOT IN' => $assignedCats));
-        }
+        $q->where(array('category_id:IN' => $categories));
         $q->prepare();
         $q->stmt->execute();
     }
@@ -122,12 +106,21 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
      */
     public function afterSave()
     {
-        $categories = $this->getCategories();
-        if (is_array($categories)) {
-            if (!empty($categories)) {
-                $categories = $this->object->setCategories($categories);
+        if ($categories = json_decode($this->getProperty('categories', false), true)) {
+            $enabled = $disabled = array();
+            foreach ($categories as $id => $checked) {
+                if ($checked) {
+                    $enabled[] = $id;
+                } else {
+                    $disabled[] = $id;
+                }
             }
-            $this->removeNotAssignedCategories($categories);
+            if ($enabled) {
+                $this->object->setCategories($enabled);
+            }
+            if ($disabled) {
+                $this->removeNotAssignedCategories($disabled);
+            }
             $this->object->set('categories', $categories);
         }
         $this->updateAssignedCategory();
