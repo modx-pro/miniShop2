@@ -2,6 +2,7 @@ Changelog for miniShop2.
 
 2.4.18 pl
 ==============
+- Update chunks for Bootstrap 4.
 - Fixed display of manager tree in MODX 2.7.1
 - [#314] Fixed missing categories for options in settings.
 - [#315] Added romanian lexicon.

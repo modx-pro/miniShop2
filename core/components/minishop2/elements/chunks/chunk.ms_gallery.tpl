@@ -1,6 +1,6 @@
 <div id="msGallery">
     {if $files?}
-        <div class="fotorama"
+        <div class="fotorama w-100"
              data-nav="thumbs"
              data-thumbheight="45"
              data-allowfullscreen="true"
