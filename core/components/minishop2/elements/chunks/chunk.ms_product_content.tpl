@@ -1,8 +1,8 @@
 <h1 class="text-center text-md-left">[[*pagetitle]]</h1>
 <div class="text-center text-md-left mb-2 mb-md-0">
-    [[+new:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">{'ms2_frontend_new' | lexicon}</span>`]]
-    [[+popular:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">{'ms2_frontend_popular' | lexicon}</span>`]]
-    [[+favorite:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">{'ms2_frontend_favorite' | lexicon}</span>`]]
+    [[+new:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">[[%ms2_frontend_new]]</span>`]]
+    [[+popular:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">[[%ms2_frontend_popular]]</span>`]]
+    [[+favorite:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">[[%ms2_frontend_favorite]]</span>`]]
 </div>
 <div id="msProduct" class="row align-items-center">
     <div class="col-12 col-md-6">

@@ -23,9 +23,6 @@ $tmp = array(
     'tpl.msEmail.cancelled.user' => 'ms_email_cancelled_user',
 );
 
-// Save chunks for setup options
-$BUILD_CHUNKS = array();
-
 foreach ($tmp as $k => $v) {
     /** @var modChunk $chunk */
     $chunk = $modx->newObject('modChunk');
@@ -39,9 +36,6 @@ foreach ($tmp as $k => $v) {
         'static_file' => 'core/components/' . PKG_NAME_LOWER . '/elements/chunks/chunk.' . $v . '.tpl',
     ), '', true, true);
     $chunks[] = $chunk;
-
-    $BUILD_CHUNKS[$k] = file_get_contents($sources['source_core'] . '/elements/chunks/chunk.' . $v . '.tpl');
 }
-ksort($BUILD_CHUNKS);
 
 return $chunks;
