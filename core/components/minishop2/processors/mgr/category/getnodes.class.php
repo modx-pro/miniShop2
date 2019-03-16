@@ -155,7 +155,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         }
 
         $idNote = $this->modx->hasPermission('tree_show_resource_ids')
-            ? ' <span dir="ltr">(' . $resource->id . ')</span>'
+            ? ' (' . $resource->id . ')'
             : '';
 
         if (!$text = strip_tags($resource->$nodeField)) {
