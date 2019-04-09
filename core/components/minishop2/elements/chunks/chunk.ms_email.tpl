@@ -114,6 +114,7 @@
                                         <strong>{$total.cost}</strong> {'ms2_frontend_currency' | lexicon}
                                     </h3>
                                 {/block}
+                                {block 'payment'}{/block}
                             </td>
                         </tr>
                     </table>
