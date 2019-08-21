@@ -45,6 +45,10 @@ class msProductCreateProcessor extends modResourceCreateProcessor
         ));
 
         $properties = $this->getProperties();
+        $this->setProperty('price', ($properties['price'] ?: 0));
+        $this->setProperty('old_price', ($properties['old_price'] ?: 0));
+        $this->setProperty('weight', ($properties['weight'] ?: 0));
+        
         $options = array();
         foreach ($properties as $key => $value) {
             if (strpos($key, 'options-') === 0) {
