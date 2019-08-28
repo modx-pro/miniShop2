@@ -206,7 +206,11 @@ class msProductFileUploadProcessor extends modObjectProcessor
                     'size' => $size,
                 ),
             );
+            
+            
             $tmp = getimagesize($tf);
+        
+
             if (is_array($tmp)) {
                 $data['properties'] = array_merge(
                     $data['properties'],
@@ -217,8 +221,20 @@ class msProductFileUploadProcessor extends modObjectProcessor
                         'mime' => $tmp['mime'],
                     )
                 );
+            } elseif (strpos($data['name'], '.webp') !== false) {
+                $img = imagecreatefromwebp($tf);
+                $width = imagesx($img);
+                $height = imagesy($img);
+                
+                $data['properties'] = array_merge(
+                    $data['properties'],
+                    array(
+                        'width' => $width,
+                        'height' => $height,
+                        'mime' => 'image/webp',
+                    )
+                );
             }
-
             return $data;
         } else {
             unlink($tf);
