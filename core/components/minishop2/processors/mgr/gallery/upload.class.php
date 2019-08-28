@@ -221,7 +221,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
                         'mime' => $tmp['mime'],
                     )
                 );
-            }elseif(strpos($data['name'], '.webp') !== false){
+            } elseif (strpos($data['name'], '.webp') !== false) {
                 $img = imagecreatefromwebp($tf);
                 $width = imagesx($img);
                 $height = imagesy($img);
