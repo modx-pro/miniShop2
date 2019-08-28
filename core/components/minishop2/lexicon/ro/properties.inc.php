@@ -13,7 +13,8 @@ $_lang['ms2_prop_sortby'] = 'Sortarea eșantionului. Pentru a sorta după câmpu
 $_lang['ms2_prop_sortdir'] = 'Direcția de sortare';
 $_lang['ms2_prop_where'] = 'Parametri suplimentari de eșantionare codificați în JSON.';
 $_lang['ms2_prop_tpl'] = 'Chunk-ul părții vizuale pentru fiecare rezultat ';  
-$_lang['ms2_prop_toPlaceholder'] = 'Dacă nu este gol, snippetul va salva toate datele în placeholder cu acest nume, în loc de afișare pe ecran'] = 'Dacă veți introduce cuvînt în acest parametru, atunci TOATE rezultatele vor fi plasate în placeholderi diferiți, începând cu acest cuvânt și terminând cu numărul de ordine a rîndului, de la 0. De exemplu al liniei, pornind de la zero. De exemplu, indicînd în parametru "myPl", veți primi placeholderi [[+myPl0]], [[+myPl1]] etc. ';
+$_lang['ms2_prop_toPlaceholder'] = 'Dacă nu este gol, snippetul va salva toate datele în placeholder cu acest nume, în loc de afișare pe ecran';
+$_lang['ms2_prop_toSeparatePlaceholders'] = 'Dacă veți introduce cuvînt în acest parametru, atunci TOATE rezultatele vor fi plasate în placeholderi diferiți, începând cu acest cuvânt și terminând cu numărul de ordine a rîndului, de la 0. De exemplu al liniei, pornind de la zero. De exemplu, indicînd în parametru "myPl", veți primi placeholderi [[+myPl0]], [[+myPl1]] etc. ';
 $_lang['ms2_prop_showLog'] = 'A afișa informație suplimentară despre funcționarea snippet-ului. Numai pentru useri autorizați în context "mgr".';
 $_lang['ms2_prop_parents'] = 'Lista categoriilor, separate prin virgulă, pentru rezultatele căutării. În mod implicit, eșantionarea este limitată la părintele curent. Dacă puneți 0 - eșantionul nu este limitat.';
 $_lang['ms2_prop_resources'] = 'Lista produselor, separate prin virgulă, pentru afișarea în rezultate. Dacă id produsului se începe cu minus, atunci acest produs se exclude din eșantionare.'; 
