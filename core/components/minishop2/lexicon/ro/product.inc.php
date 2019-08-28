@@ -120,7 +120,7 @@ $_lang['ms2_product_next'] = 'Produsul următor';
 $_lang['ms2_product_help'] = 'Ajutor';
 
 
-$_lang['ms2_product_dirty_confirm'] = 'Aveți modificări în așteptare. Sunteți sigur că doriți să anulați'; ?
+$_lang['ms2_product_dirty_confirm'] = 'Aveți modificări în așteptare. Sunteți sigur că doriți să anulați';
 $_lang['ms2_product_duplicate_confirm'] = 'Sunteți sigur că doriți să faceți copia acestui produs?'; 
 $_lang['ms2_product_delete_desc'] = 'Sunteți sigur că doriți să eliminați acest produs?';
 $_lang['ms2_product_selected_publish'] = 'A publica produsele selectate'; 
