@@ -1,3 +1,3 @@
 ## miniShop 2
 
-Advanced e-commerce solution for MODX Revolution 2.3+.
+Самый гибкий и быстрый интернет магазин для MODX Revolution 2.3+.
