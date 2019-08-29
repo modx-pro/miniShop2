@@ -11,7 +11,7 @@
 
 * Подключите наш [репозиторий](https://modstore.pro/info/connection)
 * Установите [pdoTools](https://modstore.pro/packages/utilities/pdotools) - это библиотека для быстрой работы с БД и оформлением, необходима для многих компонентов
-* Установите [Theme.Bootstrap](https://modstore.pro/packages/sites-themes/theme.bootstrap) - а это тем оформления Twitter Bootstrap для MODX, под неё заточены стандартные чанки магазина
+* Установите [Theme.Bootstrap](https://modstore.pro/packages/sites-themes/theme.bootstrap) - а это тема оформления Twitter Bootstrap для MODX, под неё заточены стандартные чанки магазина
 * Установите сам [miniShop2](https://modstore.pro/packages/ecommerce/minishop2)
 
 ## Демо
