@@ -28,6 +28,11 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
             if ($res = $this->modx->getObject('modResource', array('id' => $primaryKey))) {
                 $res->set('class_key', $this->classKey);
                 $res->save();
+                
+                if ($product = $this->modx->getObject('msProduct', array('id' => $primaryKey))) {
+                    $product->set('source', $this->modx->getOption('ms2_product_source_default', null, 1));
+                    $product->save(); 
+                }
             }
         }
 
