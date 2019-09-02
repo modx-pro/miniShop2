@@ -49,7 +49,7 @@ a.link, a.ms2-link { color: #005580; }
     font-weight: bold;
 }
 .tbar-checkbox { text-align: left; }
-.tbar-checkbox label { padding: 2px 0 0 22px !important; }
+.tbar-checkbox label { padding: 2px 0 0 22px !important; line-height: normal; }
 /* Grid actions and menu */
 ul.minishop2-row-actions {
     margin: 0;
