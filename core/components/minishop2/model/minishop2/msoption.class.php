@@ -85,24 +85,26 @@ class msOption extends xPDOSimpleObject
     {
         $result = array();
 
-        foreach ($categories as $category) {
-            $catObj = $this->xpdo->getObject('msCategory', array('id' => $category));
-            if ($catObj) {
-                /** @var msCategoryOption $catFtObj */
-                $catFtObj = $this->xpdo->getObject('msCategoryOption',
-                    array('category_id' => $category, 'option_id' => $this->get('id'))
-                );
-                if (!$catFtObj) {
-                    $catFtObj = $this->xpdo->newObject('msCategoryOption');
-                    $catFtObj->set('category_id', $category);
-                    $catFtObj->set('value', '');
-                    $catFtObj->set('active', true);
-                    $this->addMany($catFtObj);
+        if (!empty($categories)) {
+            foreach ($categories as $category) {
+                $catObj = $this->xpdo->getObject('msCategory', array('id' => $category));
+                if ($catObj) {
+                    /** @var msCategoryOption $catFtObj */
+                    $catFtObj = $this->xpdo->getObject('msCategoryOption',
+                        array('category_id' => $category, 'option_id' => $this->get('id'))
+                    );
+                    if (!$catFtObj) {
+                        $catFtObj = $this->xpdo->newObject('msCategoryOption');
+                        $catFtObj->set('category_id', $category);
+                        $catFtObj->set('value', '');
+                        $catFtObj->set('active', true);
+                        $this->addMany($catFtObj);
+                    }
+                    $result[] = $catObj->get('id');
                 }
-                $result[] = $catObj->get('id');
             }
+            $this->save();
         }
-        $this->save();
 
         return $result;
     }
