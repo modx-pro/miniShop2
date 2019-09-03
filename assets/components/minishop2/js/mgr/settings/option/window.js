@@ -29,7 +29,6 @@ Ext.extend(miniShop2.window.CreateOption, miniShop2.window.Default, {
     },
 
     getTree: function (config) {
-        console.log(config.record['categories']);
         return [{
             xtype: 'minishop2-tree-option-categories',
             id: config.id + '-option-categories',
