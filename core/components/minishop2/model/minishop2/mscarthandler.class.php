@@ -263,7 +263,7 @@ class msCartHandler implements msCartInterface
      */
     public function change($key, $count)
     {
-        if (array_key_exists($key, $this->cart)) {
+        if (array_key_exists($key, $this->cart) && !empty($count)) {
             if ($count <= 0) {
                 return $this->remove($key);
             } else {
