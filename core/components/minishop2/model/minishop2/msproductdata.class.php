@@ -24,6 +24,10 @@ class msProductData extends xPDOSimpleObject
         if ($this->isNew()) {
             parent::set('source', $this->xpdo->getOption('ms2_product_source_default', null, 1));
         }
+
+        parent::set('price', (float)parent::get('price'));
+        parent::set('old_price', (float)parent::get('old_price'));
+        parent::set('weight', (float)parent::get('weight'));
     }
 
 
