@@ -38,7 +38,10 @@ class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
      */
     public function afterRemove()
     {
-        $this->order->updateProducts();
+        // Fix "cache"
+        if ($this->order = $this->modx->getObject('msOrder', $this->order->id, false)) {
+            $this->order->updateProducts();
+        }
     }
 
 }
