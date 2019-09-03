@@ -211,7 +211,6 @@ class msOrderHandler implements msOrderInterface
                     array('', ' ', '-', '.', '\'', '\''),
                     $value
                 );
-                //Jakub Kovář Á
                 $tmp = preg_split('/\s/', $tmp, -1, PREG_SPLIT_NO_EMPTY);
                 $tmp = array_map(array($this, 'ucfirst'), $tmp);
                 $value = preg_replace('/\s+/', ' ', implode(' ', $tmp));
