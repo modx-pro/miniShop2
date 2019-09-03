@@ -51,7 +51,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         if (!empty($options)) {
             $this->setProperty('options', $options);
         }
-
+        
         return parent::beforeSet();
     }
 
@@ -65,6 +65,7 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         $this->setCheckbox('new');
         $this->setCheckbox('popular');
         $this->setCheckbox('favorite');
+        $this->setCheckbox('show_in_tree');
     }
 
 
