@@ -84,13 +84,55 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
             ), null, 1);
         }
 
-        $this->query = $c;
+        $this->query = clone $c;
 
         $c->select(
             $this->modx->getSelectColumns('msOrder', 'msOrder', '', array('status', 'delivery', 'payment'), true) . ',
+            msOrder.status as status_id, msOrder.delivery as delivery_id, msOrder.payment as payment_id,
             UserProfile.fullname as customer, User.username as customer_username,
             Status.name as status, Status.color, Delivery.name as delivery, Payment.name as payment'
         );
+        $c->groupby($this->classKey . '.id');
+
+        return $c;
+    }
+
+
+    /**
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
+    public function prepareQueryAfterCount(xPDOQuery $c)
+    {
+        $total = 0;
+        $limit = (int)$this->getProperty('limit');
+        $start = (int)$this->getProperty('start');
+
+        $q = clone $c;
+        $q->query['columns'] = ['SQL_CALC_FOUND_ROWS msOrder.id'];
+        $sortClassKey = $this->getSortClassKey();
+        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '', [$this->getProperty('sort')]);
+        if (empty($sortKey)) {
+            $sortKey = $this->getProperty('sort');
+        }
+        $q->sortby($sortKey, $this->getProperty('dir'));
+        if ($limit > 0) {
+            $q->limit($limit, $start);
+        }
+
+        $ids = [];
+        if ($q->prepare() AND $q->stmt->execute()) {
+            $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
+            $total = $this->modx->query('SELECT FOUND_ROWS()')->fetchColumn();
+        }
+        $ids = empty($ids) ? "(0)" : "(" . implode(',', $ids) . ")";
+        $c->query['where'] = [[
+            new xPDOQueryCondition(array('sql' => 'msOrder.id IN '. $ids, 'conjunction' => 'AND')),
+        ]];
+        $c->sortby($sortKey, $this->getProperty('dir'));
+
+        $this->setProperty('total', $total);
 
         return $c;
     }
@@ -101,29 +143,13 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
      */
     public function getData()
     {
-        $data = array();
-        $limit = intval($this->getProperty('limit'));
-        $start = intval($this->getProperty('start'));
-
         $c = $this->modx->newQuery($this->classKey);
         $c = $this->prepareQueryBeforeCount($c);
-        $data['total'] = $this->modx->getCount($this->classKey, $c);
         $c = $this->prepareQueryAfterCount($c);
-
-        $sortClassKey = $this->getSortClassKey();
-        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '',
-            array($this->getProperty('sort')));
-        if (empty($sortKey)) {
-            $sortKey = $this->getProperty('sort');
-        }
-        $c->sortby($sortKey, $this->getProperty('dir'));
-        if ($limit > 0) {
-            $c->limit($limit, $start);
-        }
-
-        if ($c->prepare() && $c->stmt->execute()) {
-            $data['results'] = $c->stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+        $data = [
+            'results' => ($c->prepare() AND $c->stmt->execute()) ? $c->stmt->fetchAll(PDO::FETCH_ASSOC) : [],
+            'total'   => (int)$this->getProperty('total'),
+        ];
 
         return $data;
     }
