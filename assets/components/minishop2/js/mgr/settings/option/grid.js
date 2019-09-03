@@ -110,7 +110,8 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
             }
         });
         w.fp.getForm().setValues({
-            type: 'textfield'
+            type: 'textfield',
+            categories: '[]'
         });
         w.show(e.target);
     },

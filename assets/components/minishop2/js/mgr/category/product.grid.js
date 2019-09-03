@@ -213,18 +213,8 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         this.getBottomToolbar().changePage(1);
     },
 
-    updateRow: function (res) {
-        if (res.results && res.results[0]) {
-            var data = res.results[0];
-            var items = this.getStore().data.items;
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                if (item.id == data.id) {
-                    item.data = data;
-                    break;
-                }
-            }
-        }
+    updateRow: function () {
+        this.refresh();
     },
 
     productAction: function (method) {

@@ -13,11 +13,11 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
         if (!empty($options['attributes']['chunks'])) {
             $chunks = '<ul id="formCheckboxes" style="height:200px;overflow:auto;">';
-            foreach ($options['attributes']['chunks'] as $k => $v) {
+            foreach ($options['attributes']['chunks'] as $v) {
                 $chunks .= '
 				<li>
 					<label>
-						<input type="checkbox" name="update_chunks[]" value="' . $k . '"> ' . $k . '
+						<input type="checkbox" name="update_chunks[]" value="' . $v . '"> ' . $v . '
 					</label>
 				</li>';
             }

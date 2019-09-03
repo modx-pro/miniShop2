@@ -35,16 +35,17 @@ Ext.extend(miniShop2.window.CreateOption, miniShop2.window.Default, {
             categories: config.record['categories'] || '',
             maxHeight: 320,
             listeners: {
-                checkchange: function () {
-                    var nodes = this.getChecked();
-                    var categories = [];
-                    for (var i = 0; i < nodes.length; i++) {
-                        categories.push(nodes[i].attributes.pk);
-                    }
-
+                checkchange: function (node, checked) {
                     var catField = Ext.getCmp(config.id + '-categories');
-                    if (catField) {
-                        catField.setValue(Ext.util.JSON.encode(categories));
+                    if (node && catField) {
+                        var value;
+                        if (catField.getValue() == '[]') {
+                            value = {};
+                        } else {
+                            value = Ext.util.JSON.decode(catField.getValue());
+                        }
+                        value[node.attributes.pk] = Number(checked);
+                        catField.setValue(Ext.util.JSON.encode(value));
                     }
                 }
             }

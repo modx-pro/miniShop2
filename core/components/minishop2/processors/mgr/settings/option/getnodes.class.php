@@ -45,7 +45,7 @@ class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
     public function prepareResourceNode(modResource $resource)
     {
         $node = parent::prepareResourceNode($resource);
-        if (in_array($node['pk'], $this->categories)) {
+        if (!empty($this->categories[$node['pk']])) {
             $node['checked'] = true;
         }
 

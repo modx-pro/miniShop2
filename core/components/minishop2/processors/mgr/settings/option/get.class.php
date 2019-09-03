@@ -49,9 +49,8 @@ class msOptionGetProcessor extends modObjectGetProcessor
         $categories = $this->object->getIterator('OptionCategories');
         /** @var msCategoryOption $cat */
         foreach ($categories as $cat) {
-            $category = $cat->getOne('Category');
-            if ($category) {
-                $data[] = $category->get('id');
+            if ($category = $cat->getOne('Category')) {
+                $data[$category->get('id')] = 1;
             }
         }
         $this->object->set('categories', json_encode($data));

@@ -1,44 +1,50 @@
-<div class="row ms2_product">
-    <div class="col-md-2">
-        {if $thumb?}
-            <img src="{$thumb}" alt="{$pagetitle}" title="{$pagetitle}"/>
-        {else}
-            <img src="{'assets_url' | option}components/minishop2/img/web/ms2_small.png"
-                 srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
-                 alt="{$pagetitle}" title="{$pagetitle}"/>
-        {/if}
-    </div>
-    <div class="col-md-10">
-        <form method="post" class="ms2_form">
-            <a href="{$id | url}">{$pagetitle}</a>
-            <span class="flags">
-                {if $new?}
-                    <i class="glyphicon glyphicon-flag" title="{'ms2_frontend_new' | lexicon}"></i>
+<div class="ms2_product mb-5 mb-md-3">
+    <form method="post" class="ms2_form d-flex flex-column flex-md-row align-items-center no-gutters">
+        <input type="hidden" name="id" value="{$id}">
+        <input type="hidden" name="count" value="1">
+        <input type="hidden" name="options" value="[]">
+        <div class="col-md-2 text-center text-md-left">
+            <a href="{$id | url}">
+                {if $thumb?}
+                    <img src="{$thumb}" class="mw-100" alt="{$pagetitle}" title="{$pagetitle}"/>
+                {else}
+                    <img src="{'assets_url' | option}components/minishop2/img/web/ms2_small.png"
+                         srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
+                         class="mw-100" alt="{$pagetitle}" title="{$pagetitle}"/>
                 {/if}
-                {if $popular?}
-                    <i class="glyphicon glyphicon-star" title="{'ms2_frontend_popular' | lexicon}"></i>
+            </a>
+        </div>
+        <div class="col-md-10 d-flex flex-column flex-md-row align-items-center no-gutters">
+            <div class="col-12 col-md-8 mt-2 mt-md-0 flex-grow-1">
+                <div class="d-flex justify-content-around justify-content-md-start">
+                    <a href="{$id | url}" class="font-weight-bold">{$pagetitle}</a>
+                    <span class="price ml-md-3">{$price} {'ms2_frontend_currency' | lexicon}</span>
+                    {if $old_price?}
+                        <span class="old_price ml-md-3">{$old_price} {'ms2_frontend_currency' | lexicon}</span>
+                    {/if}
+                </div>
+                <div class="flags mt-2 d-flex justify-content-around justify-content-md-start">
+                    {if $new?}
+                        <span class="badge badge-secondary badge-pill mr-md-1">{'ms2_frontend_new' | lexicon}</span>
+                    {/if}
+                    {if $popular?}
+                        <span class="badge badge-secondary badge-pill mr-md-1">{'ms2_frontend_popular' | lexicon}</span>
+                    {/if}
+                    {if $favorite?}
+                        <span class="badge badge-secondary badge-pill mr-md-1">{'ms2_frontend_favorite' | lexicon}</span>
+                    {/if}
+                </div>
+                {if $introtext}
+                    <div class="mt-2 text-center text-md-left">
+                        <small>{$introtext | truncate : 200}</small>
+                    </div>
                 {/if}
-                {if $favorite?}
-                    <i class="glyphicon glyphicon-bookmark" title="{'ms2_frontend_favorite' | lexicon}"></i>
-                {/if}
-            </span>
-            <span class="price">
-                {$price} {'ms2_frontend_currency' | lexicon}
-            </span>
-            {if $old_price?}
-                <span class="old_price">{$old_price} {'ms2_frontend_currency' | lexicon}</span>
-            {/if}
-            <button class="btn btn-default pull-right" type="submit" name="ms2_action" value="cart/add">
-                <i class="glyphicon glyphicon-barcode"></i> {'ms2_frontend_add_to_cart' | lexicon}
-            </button>
-            <input type="hidden" name="id" value="{$id}">
-            <input type="hidden" name="count" value="1">
-            <input type="hidden" name="options" value="[]">
-        </form>
-        {if $introtext}
-            <p>
-                <small>{$introtext}</small>
-            </p>
-        {/if}
-    </div>
+            </div>
+            <div class="col-12 col-md-4 mt-2 mt-md-0 text-center text-md-right">
+                <button class="btn btn-primary" type="submit" name="ms2_action" value="cart/add">
+                    {'ms2_frontend_add_to_cart' | lexicon}
+                </button>
+            </div>
+        </div>
+    </form>
 </div>

@@ -132,16 +132,6 @@ $attributes = array(
     xPDOTransport::PRESERVE_KEYS => true,
     xPDOTransport::UPDATE_OBJECT => BUILD_MENU_UPDATE,
     xPDOTransport::UNIQUE_KEY => 'text',
-    xPDOTransport::RELATED_OBJECTS => true,
-    /*
-    xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array(
-        'Action' => array(
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => BUILD_ACTION_UPDATE,
-            xPDOTransport::UNIQUE_KEY => array('namespace', 'controller'),
-        ),
-    ),
-    */
 );
 if (is_array($menus)) {
     foreach ($menus as $menu) {
@@ -173,11 +163,15 @@ if (!is_array($snippets)) {
 }
 
 // Add chunks
+$package_chunks = array();
 $chunks = include $sources['data'] . 'transport.chunks.php';
 if (!is_array($chunks)) {
     $modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in chunks.');
 } else {
     $category->addMany($chunks);
+    foreach ($chunks as $chunk) {
+        $package_chunks[] = $chunk->name;
+    }
     $modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($chunks) . ' chunks.');
 }
 
@@ -247,15 +241,10 @@ $builder->setPackageAttributes(array(
     'changelog' => file_get_contents($sources['docs'] . 'changelog.txt'),
     'license' => file_get_contents($sources['docs'] . 'license.txt'),
     'readme' => file_get_contents($sources['docs'] . 'readme.txt'),
-    'chunks' => $BUILD_CHUNKS,
+    'chunks' => $package_chunks,
     'setup-options' => array(
         'source' => $sources['build'] . 'setup.options.php',
     ),
-    /*
-    'requires' => array(
-        'pdotools' => '>=2.5.0-pl',
-    ),
-    */
 ));
 $modx->log(modX::LOG_LEVEL_INFO, 'Added package attributes and setup options.');
 

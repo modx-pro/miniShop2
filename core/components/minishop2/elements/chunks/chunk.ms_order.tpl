@@ -1,13 +1,13 @@
-<form class="form-horizontal ms2_form" id="msOrder" method="post">
+<form class="ms2_form" id="msOrder" method="post">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <h4>{'ms2_frontend_credentials' | lexicon}:</h4>
             {foreach ['email','receiver','phone'] as $field}
-                <div class="form-group input-parent">
-                    <label class="col-md-4 control-label" for="{$field}">
-                        <span class="required-star">*</span> {('ms2_frontend_' ~ $field) | lexicon}
+                <div class="form-group row input-parent">
+                    <label class="col-md-4 col-form-label" for="{$field}">
+                        {('ms2_frontend_' ~ $field) | lexicon} <span class="required-star">*</span>
                     </label>
-                    <div class="col-sm-6">
+                    <div class="col-md-8">
                         <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
                                name="{$field}" value="{$form[$field]}"
                                class="form-control{($field in list $errors) ? ' error' : ''}">
@@ -15,37 +15,33 @@
                 </div>
             {/foreach}
 
-            <div class="form-group input-parent">
-                <label class="col-md-4 control-label" for="comment">
-                    <span class="required-star">*</span> {'ms2_frontend_comment' | lexicon}</label>
-                <div class="col-sm-6">
+            <div class="form-group row input-parent">
+                <label class="col-md-4 col-form-label" for="comment">
+                    {'ms2_frontend_comment' | lexicon} <span class="required-star">*</span>
+                </label>
+                <div class="col-md-8">
                     <textarea name="comment" id="comment" placeholder="{'ms2_frontend_comment' | lexicon}"
                               class="form-control{('comment' in list $errors) ? ' error' : ''}">{$form.comment}</textarea>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6" id="payments">
+        <div class="col-12 col-md-6" id="payments">
             <h4>{'ms2_frontend_payments' | lexicon}:</h4>
-            <div class="form-group">
-                <label class="col-md-4 control-label"><span class="required-star">*</span>
-                    {'ms2_frontend_payment_select' | lexicon}</label>
-                <div class="col-sm-6">
+            <div class="form-group row">
+                <div class="col-12">
                     {foreach $payments as $payment index=$index}
                         {var $checked = !($order.payment in keys $payments) && $index == 0 || $payment.id == $order.payment}
                         <div class="checkbox">
-                            <label class="payment input-parent">
-                                <input type="radio" name="payment" value="{$payment.id}" id="payment_{$payment.id}"
-                                        {$checked ? 'checked' : ''}>
+                            <label class="col-form-label payment input-parent">
+                                <input type="radio" name="payment" value="{$payment.id}" id="payment_{$payment.id}"{$checked ? 'checked' : ''}>
                                 {if $payment.logo?}
-                                    <img src="{$payment.logo}" alt="{$payment.name}" title="{$payment.name}"/>
+                                    <img src="{$payment.logo}" alt="{$payment.name}" title="{$payment.name}" class="mw-100"/>
                                 {else}
                                     {$payment.name}
                                 {/if}
                                 {if $payment.description?}
-                                    <p class="small">
-                                        {$payment.description}
-                                    </p>
+                                    <p class="small">{$payment.description}</p>
                                 {/if}
                             </label>
                         </div>
@@ -56,17 +52,14 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6" id="deliveries">
+        <div class="col-12 col-md-6" id="deliveries">
             <h4>{'ms2_frontend_deliveries' | lexicon}:</h4>
-            <div class="form-group">
-                <label class="col-md-4 control-label">
-                    <span class="required-star">*</span> {'ms2_frontend_delivery_select' | lexicon}
-                </label>
-                <div class="col-sm-6">
+            <div class="form-group row">
+                <div class="col-12">
                     {foreach $deliveries as $delivery index=$index}
                         {var $checked = !($order.delivery in keys $deliveries) && $index == 0 || $delivery.id == $order.delivery}
                         <div class="checkbox">
-                            <label class="delivery input-parent">
+                            <label class="col-form-label delivery input-parent">
                                 <input type="radio" name="delivery" value="{$delivery.id}" id="delivery_{$delivery.id}"
                                        data-payments="{$delivery.payments | json_encode}"
                                         {$checked ? 'checked' : ''}>
@@ -87,26 +80,26 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <h4>{'ms2_frontend_address' | lexicon}:</h4>
             {foreach ['index','region','city'] as $field}
-                <div class="form-group input-parent">
-                    <label class="col-md-4 control-label" for="{$field}">
-                        <span class="required-star">*</span> {('ms2_frontend_' ~ $field) | lexicon}
+                <div class="form-group row input-parent">
+                    <label class="col-md-4 col-form-label" for="{$field}">
+                        {('ms2_frontend_' ~ $field) | lexicon} <span class="required-star">*</span>
                     </label>
-                    <div class="col-sm-6">
+                    <div class="col-md-8">
                         <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
                                name="{$field}" value="{$form[$field]}"
                                class="form-control{($field in list $errors) ? ' error' : ''}">
                     </div>
                 </div>
             {/foreach}
-            <div class="form-group input-parent">
-                <label class="col-md-4 control-label" for="street">
-                    <span class="required-star">*</span> {'ms2_frontend_street' | lexicon}</label>
-                <div class="col-md-6 row">
-                    {foreach ['street','building','room'] as $field}
-                        <div class="col-md-4">
+            <div class="form-group row input-parent">
+                <label class="col-md-4 col-form-label" for="street">
+                    {'ms2_frontend_street' | lexicon}</label> <span class="required-star">*</span>
+                <div class="col-md-8 row no-gutters">
+                    {foreach ['street' => 6, 'building' => 3, 'room' => 3] as $field => $col}
+                        <div class="col-{$col}">
                             <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
                                    name="{$field}" value="{$form[$field]}"
                                    class="form-control{($field in list $errors) ? ' error' : ''}">
@@ -118,20 +111,18 @@
 
     </div>
 
-    <button type="button" name="ms2_action" value="order/clean" class="btn btn-default ms2_link">
-        <i class="glyphicon glyphicon-remove"></i> {'ms2_frontend_order_cancel' | lexicon}
+    <button type="button" name="ms2_action" value="order/clean" class="btn btn-danger ms2_link">
+        {'ms2_frontend_order_cancel' | lexicon}
     </button>
 
-    <hr/>
-    <div class="well">
-        <div class="col-md-offset-2">
-            <h3>{'ms2_frontend_order_cost' | lexicon}:
-                <span id="ms2_order_cost">{$order.cost ?: 0}</span>
-                {'ms2_frontend_currency' | lexicon}
-            </h3>
-            <button type="submit" name="ms2_action" value="order/submit" class="btn btn-default btn-primary ms2_link">
-                {'ms2_frontend_order_submit' | lexicon}
-            </button>
-        </div>
+    <hr class="mt-4 mb-4"/>
+
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end">
+        <h4 class="mb-md-0">{'ms2_frontend_order_cost' | lexicon}:</h4>
+        <h3 class="mb-md-0 ml-md-2"><span id="ms2_order_cost">{$order.cost ?: 0}</span> {'ms2_frontend_currency' | lexicon}</h3>
+
+        <button type="submit" name="ms2_action" value="order/submit" class="btn btn-lg btn-primary ml-md-2 ms2_link">
+            {'ms2_frontend_order_submit' | lexicon}
+        </button>
     </div>
 </form>

@@ -1,5 +1,20 @@
 Changelog for miniShop2.
 
+2.4.19 pl (TBD)
+==============
+- Fix some bugs on manager pages [PR #327]
+- Fix romanian lexicon [PR #324]
+- Added class small in chunk.ms_cart.tpl [PR #319]
+- Added support for *webp images [PR #318]
+
+2.4.18 pl
+==============
+- Update chunks for Bootstrap 4.
+- Fixed display of manager tree in MODX 2.7.1
+- [#314] Fixed missing categories for options in settings.
+- [#315] Added romanian lexicon.
+- [#316] Added webp extension for mediaSource.
+
 2.4.17 pl2
 ==============
 - Fixed load of lexicons in contexts.

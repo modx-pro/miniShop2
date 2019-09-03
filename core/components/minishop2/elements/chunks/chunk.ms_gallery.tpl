@@ -2,6 +2,7 @@
     {if $files?}
         <div class="fotorama"
              data-nav="thumbs"
+             data-width="100%"
              data-thumbheight="45"
              data-allowfullscreen="true"
              data-swipe="true"
