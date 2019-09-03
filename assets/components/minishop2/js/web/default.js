@@ -596,7 +596,7 @@
             var pf = miniShop2Config.price_format;
             price = this.number_format(price, pf[0], pf[1], pf[2]);
 
-            if (miniShop2Config.price_format_no_zeros) {
+            if (miniShop2Config.price_format_no_zeros && pf[0] > 0) {
                 price = price.replace(/(0+)$/, '');
                 price = price.replace(/[^0-9]$/, '');
             }
@@ -607,7 +607,7 @@
             var wf = miniShop2Config.weight_format;
             weight = this.number_format(weight, wf[0], wf[1], wf[2]);
 
-            if (miniShop2Config.weight_format_no_zeros) {
+            if (miniShop2Config.weight_format_no_zeros && wf[0] > 0) {
                 weight = weight.replace(/(0+)$/, '');
                 weight = weight.replace(/[^0-9]$/, '');
             }
