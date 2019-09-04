@@ -35,11 +35,11 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
      */
     public function loadCustomCssJs()
     {
-        $mgrUrl = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
+        $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
 
         $category_option_keys = array();
-        $showOptions = (bool)$this->modx->getOption('ms2_category_show_options', null, true);
+        $showOptions = (bool)$this->getOption('ms2_category_show_options', null, true);
         if ($showOptions) {
             $category_option_keys = $this->resource->getOptionKeys();
         }
@@ -52,7 +52,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             array('actions', 'preview_url', 'cls', 'vendor_name', 'category_name')
         );
 
-        if (!$category_grid_fields = $this->modx->getOption('ms2_category_grid_fields')) {
+        if (!$category_grid_fields = $this->getOption('ms2_category_grid_fields')) {
             $category_grid_fields = 'id,pagetitle,article,price,weight,image';
         }
 
@@ -85,7 +85,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         $this->addJavascript($assetsUrl . 'js/mgr/category/product.grid.js');
         $this->addLastJavascript($assetsUrl . 'js/mgr/category/update.js');
 
-        $showComments = (int)(class_exists('TicketsSection') && $this->modx->getOption('ms2_category_show_comments'));
+        $showComments = (int)(class_exists('TicketsSection') && $this->getOption('ms2_category_show_comments'));
 
         $category_option_fields = array();
         if ($showOptions) {

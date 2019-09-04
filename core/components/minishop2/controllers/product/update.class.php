@@ -36,7 +36,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
      */
     public function loadCustomCssJs()
     {
-        $mgrUrl = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
+        $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
 
         $this->addCss($assetsUrl . 'css/mgr/bootstrap.buttons.css');
@@ -58,8 +58,8 @@ class msProductUpdateManagerController extends msResourceUpdateController
         $this->addLastJavascript($assetsUrl . 'js/mgr/product/product.common.js');
         $this->addLastJavascript($assetsUrl . 'js/mgr/product/update.js');
 
-        $show_gallery = $this->modx->getOption('ms2_product_tab_gallery', null, true) &&
-            !($this->modx->getOption('ms2gallery_sync_ms2', null, false, true));
+        $show_gallery = $this->getOption('ms2_product_tab_gallery', null, true) &&
+            !($this->getOption('ms2gallery_sync_ms2', null, false, true));
         if ($show_gallery) {
             $this->addLastJavascript($assetsUrl . 'js/mgr/misc/plupload/plupload.full.min.js');
             $this->addLastJavascript($assetsUrl . 'js/mgr/misc/ext.ddview.js');
@@ -73,14 +73,14 @@ class msProductUpdateManagerController extends msResourceUpdateController
         $product_fields = array_merge($this->resource->getAllFieldsNames(), array('syncsite'));
         $product_data_fields = $this->resource->getDataFieldsNames();
 
-        if (!$product_main_fields = $this->modx->getOption('ms2_product_main_fields')) {
+        if (!$product_main_fields = $this->getOption('ms2_product_main_fields')) {
             $product_main_fields = 'pagetitle,longtitle,introtext,content,publishedon,pub_date,unpub_date,template,
                 parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree';
         }
         $product_main_fields = array_map('trim', explode(',', $product_main_fields));
         $product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
 
-        if (!$product_extra_fields = $this->modx->getOption('ms2_product_extra_fields')) {
+        if (!$product_extra_fields = $this->getOption('ms2_product_extra_fields')) {
             $product_extra_fields = 'article,price,old_price,weight,color,remains,reserved,vendor,made_in,tags';
         }
         $product_extra_fields = array_map('trim', explode(',', $product_extra_fields));
@@ -92,7 +92,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
         $this->prepareFields();
         //---
 
-        $show_comments = class_exists('Ticket') && $this->modx->getOption('ms2_product_show_comments');
+        $show_comments = class_exists('Ticket') && $this->getOption('ms2_product_show_comments');
         if ($show_comments) {
             $this->loadTickets();
         }
@@ -106,10 +106,10 @@ class msProductUpdateManagerController extends msResourceUpdateController
             'connector_url' => $this->miniShop2->config['connectorUrl'],
             'show_comments' => $show_comments,
             'show_gallery' => $show_gallery,
-            'show_extra' => (bool)$this->modx->getOption('ms2_product_tab_extra', null, true),
-            'show_options' => (bool)$this->modx->getOption('ms2_product_tab_options', null, true),
-            'show_links' => (bool)$this->modx->getOption('ms2_product_tab_links', null, true),
-            'show_categories' => (bool)$this->modx->getOption('ms2_product_tab_categories', null, true),
+            'show_extra' => (bool)$this->getOption('ms2_product_tab_extra', null, true),
+            'show_options' => (bool)$this->getOption('ms2_product_tab_options', null, true),
+            'show_links' => (bool)$this->getOption('ms2_product_tab_links', null, true),
+            'show_categories' => (bool)$this->getOption('ms2_product_tab_categories', null, true),
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
             'main_fields' => $product_main_fields,
             'extra_fields' => $product_extra_fields,
