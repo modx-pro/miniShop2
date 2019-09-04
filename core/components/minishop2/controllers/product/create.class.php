@@ -146,6 +146,23 @@ class msProductCreateManagerController extends msResourceCreateController
         miniShop2.config = ' . json_encode($config) . ';
         Ext.onReady(function() {
             MODx.load(' . json_encode($ready) . ');
+                
+            var tabs = Ext.getCmp("modx-resource-tabs");
+            var content = Ext.getCmp("modx-resource-content");
+
+            if (tabs && content) {
+                tabs.on("tabchange", function(parent, active) {
+                    if (active.id != "minishop2-product-tab") {
+                        content.hide();
+                    } else {
+                        content.show();
+                    }
+                });
+                var settingTab = tabs.items.keys.indexOf("minishop2-product-tab");
+                if (tabs.items.items[settingTab].hidden) {
+                    content.hide();
+                }
+            }
         });
         // ]]>
         </script>');

@@ -87,6 +87,23 @@ class msCategoryCreateManagerController extends msResourceCreateController
             miniShop2.config = ' . json_encode($config) . ';
             Ext.onReady(function() {
                 MODx.load(' . json_encode($ready) . ');
+                
+                var tabs = Ext.getCmp("modx-resource-tabs");
+                var content = Ext.getCmp("modx-resource-content");
+
+                if (tabs && content) {
+                    tabs.on("tabchange", function(parent, active) {
+                        if (active.id != "modx-resource-settings") {
+                            content.hide();
+                        } else {
+                            content.show();
+                        }
+                    });
+                    var settingsTab = tabs.items.keys.indexOf("modx-resource-settings");
+                    if (tabs.items.items[settingsTab].hidden) {
+                        content.hide();
+                    }
+                }
             });
         // ]]>
         </script>');
