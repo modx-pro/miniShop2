@@ -25,7 +25,7 @@ class msProductCreateManagerController extends msResourceCreateController
      */
     public function getDefaultTemplate()
     {
-        if (!$template = $this->modx->getOption('ms2_template_product_default')) {
+        if (!$template = $this->getOption('ms2_template_product_default')) {
             $template = parent::getDefaultTemplate();
         }
 
@@ -52,8 +52,8 @@ class msProductCreateManagerController extends msResourceCreateController
     {
         $placeholders = parent::process($scriptProperties);
 
-        $this->resourceArray['show_in_tree'] = (int)$this->modx->getOption('ms2_product_show_in_tree_default');
-        $this->resourceArray['source'] = (int)$this->modx->getOption('ms2_product_source_default');
+        $this->resourceArray['show_in_tree'] = (int)$this->getOption('ms2_product_show_in_tree_default');
+        $this->resourceArray['source'] = (int)$this->getOption('ms2_product_source_default');
 
         return $placeholders;
 
@@ -66,7 +66,7 @@ class msProductCreateManagerController extends msResourceCreateController
      */
     public function loadCustomCssJs()
     {
-        $mgrUrl = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
+        $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
 
         $this->addCss($assetsUrl . 'css/mgr/main.css');
@@ -87,14 +87,14 @@ class msProductCreateManagerController extends msResourceCreateController
         $product_fields = array_merge($this->resource->getAllFieldsNames(), array('syncsite'));
         $product_data_fields = $this->resource->getDataFieldsNames();
 
-        if (!$product_main_fields = $this->modx->getOption('ms2_product_main_fields')) {
+        if (!$product_main_fields = $this->getOption('ms2_product_main_fields')) {
             $product_main_fields = 'pagetitle,longtitle,introtext,content,publishedon,pub_date,unpub_date,template,
                 parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree';
         }
         $product_main_fields = array_map('trim', explode(',', $product_main_fields));
         $product_main_fields = array_values(array_intersect($product_main_fields, $product_fields));
 
-        if (!$product_extra_fields = $this->modx->getOption('ms2_product_extra_fields')) {
+        if (!$product_extra_fields = $this->getOption('ms2_product_extra_fields')) {
             $product_extra_fields = 'article,price,old_price,weight,color,remains,reserved,vendor,made_in,tags';
         }
         $product_extra_fields = array_map('trim', explode(',', $product_extra_fields));
@@ -107,17 +107,17 @@ class msProductCreateManagerController extends msResourceCreateController
             'connector_url' => $this->miniShop2->config['connectorUrl'],
             'show_comments' => false,
             'show_gallery' => false,
-            'show_extra' => (bool)$this->modx->getOption('ms2_product_tab_extra', null, true),
-            'show_options' => (bool)$this->modx->getOption('ms2_product_tab_options', null, true),
-            'show_links' => (bool)$this->modx->getOption('ms2_product_tab_links', null, true),
-            'show_categories' => (bool)$this->modx->getOption('ms2_product_tab_categories', null, true),
+            'show_extra' => (bool)$this->getOption('ms2_product_tab_extra', null, true),
+            'show_options' => (bool)$this->getOption('ms2_product_tab_options', null, true),
+            'show_links' => (bool)$this->getOption('ms2_product_tab_links', null, true),
+            'show_categories' => (bool)$this->getOption('ms2_product_tab_categories', null, true),
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
             'main_fields' => $product_main_fields,
             'extra_fields' => $product_extra_fields,
             'option_fields' => $product_option_fields,
-            'product_tab_extra' => (bool)$this->modx->getOption('ms2_product_tab_extra', null, true),
-            'product_tab_gallery' => (bool)$this->modx->getOption('ms2_product_tab_gallery', null, true),
-            'product_tab_links' => (bool)$this->modx->getOption('ms2_product_tab_links', null, true),
+            'product_tab_extra' => (bool)$this->getOption('ms2_product_tab_extra', null, true),
+            'product_tab_gallery' => (bool)$this->getOption('ms2_product_tab_gallery', null, true),
+            'product_tab_links' => (bool)$this->getOption('ms2_product_tab_links', null, true),
             'data_fields' => $product_data_fields,
             'additional_fields' => array(),
         );
