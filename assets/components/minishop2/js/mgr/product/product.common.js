@@ -37,7 +37,6 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                     var tab = item.items[i2];
                     switch (tab.id) {
                         case 'modx-resource-settings':
-                            tab.items.push(this.getContent(config));
                             product.push(tab);
                             break;
                         case 'modx-page-settings':
@@ -87,9 +86,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
 
                 item.items = tabs.concat(other);
             }
-            if (item.id != 'modx-resource-content') {
-                fields.push(item);
-            }
+            fields.push(item);
         }
 
         return fields;
@@ -264,26 +261,6 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                 resource: config.record['id'] || 0,
             }]
         };
-    },
-
-    getContent: function (config) {
-        var fields = [];
-        var originals = MODx.panel.Resource.prototype.getContentField.call(this, config);
-        for (var i in originals) {
-            if (!originals.hasOwnProperty(i)) {
-                continue;
-            }
-            var item = originals[i];
-
-            if (item.id == 'ta') {
-                item.hideLabel = false;
-                item.fieldLabel = _('content');
-                item.description = '<b>[[*content]]</b>';
-            }
-            fields.push(item);
-        }
-
-        return fields;
     },
 
     getProductSettings: function (config) {
