@@ -29,6 +29,42 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         return $this->modx->hasPermission('edit_document');
     }
 
+    /**
+     * Check if content field is hidden
+     * @return bool
+     */
+    public function hideContent()
+    {
+        $userGroups = $this->modx->user->getUserGroups();
+        $c = $this->modx->newQuery('modActionDom');
+        $c->innerJoin('modFormCustomizationSet','FCSet');
+        $c->innerJoin('modFormCustomizationProfile','Profile','FCSet.profile = Profile.id');
+        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup','Profile.id = ProfileUserGroup.profile');
+        $c->leftJoin('modFormCustomizationProfile','UGProfile','UGProfile.id = ProfileUserGroup.profile');
+        $c->where(array(
+            'modActionDom.action:IN' => ['resource/*', 'resource/update'],
+            'modActionDom.name' => 'modx-resource-content',
+            'modActionDom.container' => 'modx-panel-resource',
+            'modActionDom.rule' => 'fieldVisible',
+            'modActionDom.active' => true,
+            'FCSet.template:IN' => [0, $this->resource->template],
+            'FCSet.active' => true,
+            'Profile.active' => true,
+        ));
+        $c->where(array(
+            array(
+                'ProfileUserGroup.usergroup:IN' => $userGroups,
+                array(
+                    'OR:ProfileUserGroup.usergroup:IS' => null,
+                    'AND:UGProfile.active:=' => true,
+                ),
+            ),
+            'OR:ProfileUserGroup.usergroup:=' => null,
+        ), xPDOQuery::SQL_AND, null, 2);
+        
+        return (bool) $this->modx->getCount('modActionDom', $c);
+    }
+
 
     /**
      * Register custom CSS/JS for the page
@@ -102,6 +138,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             'option_keys' => $category_option_keys,
             'option_fields' => $category_option_fields,
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
+            'hideContent' => $this->hideContent(),
         );
         $ready = array(
             'xtype' => 'minishop2-page-category-update',
@@ -133,23 +170,6 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             miniShop2.config = ' . json_encode($config) . ';
             Ext.onReady(function() {
                 MODx.load(' . json_encode($ready) . ');
-                
-                var tabs = Ext.getCmp("modx-resource-tabs");
-                var content = Ext.getCmp("modx-resource-content");
-
-                if (tabs && content) {
-                    tabs.on("tabchange", function(parent, active) {
-                        if (active.id != "modx-resource-settings") {
-                            content.hide();
-                        } else {
-                            content.show();
-                        }
-                    });
-                    var settingsTab = tabs.items.keys.indexOf("modx-resource-settings");
-                    if (tabs.items.items[settingsTab].hidden) {
-                        content.hide();
-                    }
-                }
             });
         // ]]>
         </script>');
