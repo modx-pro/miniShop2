@@ -275,11 +275,11 @@ class msProductFile extends xPDOSimpleObject
     {
         $c = $this->xpdo->newQuery('msProductFile', array(
             'product_id' => $this->get('product_id'),
-            'parent' => $this->get('id'),
+            'parent:>' => 0,
             'type' => 'image',
         ));
         $c->limit(1);
-        $c->sortby('id', 'ASC');
+        $c->sortby('rank ASC,id', 'ASC');
         $c->select('id,url');
 
         $res = array();

@@ -4,10 +4,27 @@ miniShop2.panel.Toolbar = function (config) {
     Ext.apply(config, {
         id: 'minishop2-gallery-page-toolbar',
         items: [{
-            xtype: 'button',
             id: 'minishop2-resource-upload-btn',
             text: '<i class="icon icon-upload"></i> ' + _('ms2_gallery_button_upload'),
-        }, '->', {
+        }, {
+            text: '<i class="icon icon-cogs"></i> ',
+            cls: 'minishop2-btn-actions',
+            menu: [{
+                text: '<i class="icon icon-refresh"></i> ' + _('ms2_gallery_file_generate_all'),
+                cls: 'minishop2-btn-action',
+                handler: function() {
+                    this.fileAction('generateAllThumbs')
+                },
+                scope: this,
+            }, '-', {
+                text: '<i class="icon icon-trash-o action-red"></i> '+ _('ms2_gallery_file_delete_all'),
+                cls: 'minishop2-btn-action',
+                handler: function() {
+                    this.fileAction('deleteAllFiles')
+                },
+                scope: this,
+            },]
+        },'->', {
             xtype: 'displayfield',
             html: '<b>' + _('ms2_product_source') + '</b>:&nbsp;&nbsp;'
         }, '-', {
@@ -50,6 +67,13 @@ Ext.extend(miniShop2.panel.Toolbar, Ext.Toolbar, {
                     combo.setValue(source_id);
                 }
             }, this);
+        }
+    },
+
+    fileAction: function (method) {
+        var view = Ext.getCmp('minishop2-gallery-images-view');
+        if (view && typeof view[method] === 'function') {
+            return view[method].call(view, arguments);
         }
     },
 
