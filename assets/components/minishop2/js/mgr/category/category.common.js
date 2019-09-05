@@ -31,19 +31,38 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                     var tab = item.items[i2];
                     if (tab.id == 'modx-resource-settings') {
                         tab.title = _('ms2_tab_category');
+                        tab.items.push(this.getContent(config));
                     }
                     else if (tab.id == 'modx-page-settings') {
                         tab.items = this.getCategorySettings(config);
                     }
                 }
             }
-            if (item.id == 'modx-resource-content' && MODx.config['ms2_category_content_default'] && config['mode'] == 'create') {
-                for (var i2 in item.items) {
-                    var field = item.items[i2];
-                    if (field.id == 'ta') {
-                        field.value = MODx.config['ms2_category_content_default'];
-                    }
+            if (item.id != 'modx-resource-content') {
+                fields.push(item);
+            }
+        }
+
+        return fields;
+    },
+
+    getContent: function (config) {
+        var fields = [];
+        var originals = MODx.panel.Resource.prototype.getContentField.call(this, config);
+        for (var i in originals) {
+            if (!originals.hasOwnProperty(i)) {
+                continue;
+            }
+            var item = originals[i];
+
+            if (item.id == 'ta') {
+                item.hideLabel = false;
+                item.fieldLabel = _('content');
+                item.description = '<b>[[*content]]</b>';
+                if (MODx.config['ms2_category_content_default'] && config['mode'] == 'create') {
+                    item.value = MODx.config['ms2_category_content_default'];
                 }
+                item.hidden = miniShop2.config.hideContent;
             }
             fields.push(item);
         }
