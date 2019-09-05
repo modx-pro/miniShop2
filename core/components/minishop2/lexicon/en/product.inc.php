@@ -143,8 +143,11 @@ $_lang['ms2_gallery_button_upload'] = 'Select files';
 
 $_lang['ms2_gallery_file_show'] = 'Open in a new window';
 $_lang['ms2_gallery_file_update'] = 'Update properties';
+$_lang['ms2_gallery_file_generate_all'] = 'Update all';
 $_lang['ms2_gallery_file_generate_thumbs'] = 'Regenerate thumbnails';
+$_lang['ms2_gallery_file_generate_thumbs_confirm'] = 'Are you shure you want to regenerate thumbnails of all files?';
 $_lang['ms2_gallery_file_delete'] = 'Delete file';
+$_lang['ms2_gallery_file_delete_all'] = 'Delete all';
 $_lang['ms2_gallery_file_delete_confirm'] = 'Are you shure you want to delete this file with all of it thumbnails? <br/> This operation is irreversible.';
 $_lang['ms2_gallery_file_delete_multiple'] = 'Delete files';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Are you sure you want to delete this files with all of its thumbnails? <br/> This operation is irreversible.';

@@ -143,8 +143,11 @@ $_lang['ms2_gallery_button_upload'] = 'Выбрать файлы';
 
 $_lang['ms2_gallery_file_show'] = 'Открыть в новом окне';
 $_lang['ms2_gallery_file_update'] = 'Изменить свойства';
+$_lang['ms2_gallery_file_generate_all'] = 'Обновить все';
 $_lang['ms2_gallery_file_generate_thumbs'] = 'Обновить превьюшки';
+$_lang['ms2_gallery_file_generate_thumbs_confirm'] = 'Вы действительно хотите обновить превью всех файлов?';
 $_lang['ms2_gallery_file_delete'] = 'Удалить файл';
+$_lang['ms2_gallery_file_delete_all'] = 'Удалить все';
 $_lang['ms2_gallery_file_delete_confirm'] = 'Вы действительно хотите удалить этот файл вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
 $_lang['ms2_gallery_file_delete_multiple'] = 'Удалить файлы';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти файлы со всеми их уменьшенными копиями?<br/>Эта операция необратима.';

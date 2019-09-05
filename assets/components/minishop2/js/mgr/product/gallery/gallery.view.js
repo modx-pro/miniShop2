@@ -275,8 +275,78 @@ Ext.extend(miniShop2.view.Images, MODx.DataView, {
         );
     },
 
+    deleteAllFiles: function () {
+        var product_id = this.config.product_id || '';
+
+        Ext.MessageBox.confirm(
+            _('ms2_gallery_file_delete_multiple'),
+            _('ms2_gallery_file_delete_multiple_confirm'),
+            function (val) {
+                if (val == 'yes') {
+                    this.getEl().mask(_('loading'), 'x-mask-loading');
+                    MODx.Ajax.request({
+                        url: miniShop2.config.connector_url,
+                        params: {
+                            action: 'mgr/gallery/removeall',
+                            product_id: product_id,
+                        },
+                        listeners: {
+                            success: {
+                                fn: function (r) {
+                                    //noinspection JSUnresolvedFunction
+                                    this.updateThumb(r.object['thumb']);
+                                    this.store.reload();
+                                }, scope: this
+                            },
+                            failure: {
+                                fn: function (response) {
+                                    MODx.msg.alert(_('error'), response.message);
+                                }, scope: this
+                            },
+                        }
+                    })
+                }
+            }, this
+        );
+    },
+
     generateThumbs: function () {
         this.fileAction('generate');
+    },
+
+    generateAllThumbs: function () {
+        var product_id = this.config.product_id || '';
+
+        Ext.MessageBox.confirm(
+            _('ms2_gallery_file_generate_thumbs'),
+            _('ms2_gallery_file_generate_thumbs_confirm'),
+            function (val) {
+                if (val == 'yes') {
+                    this.getEl().mask(_('loading'), 'x-mask-loading');
+                    MODx.Ajax.request({
+                        url: miniShop2.config.connector_url,
+                        params: {
+                            action: 'mgr/gallery/generateall',
+                            product_id: product_id,
+                        },
+                        listeners: {
+                            success: {
+                                fn: function (r) {
+                                    //noinspection JSUnresolvedFunction
+                                    this.updateThumb(r.object['thumb']);
+                                    this.store.reload();
+                                }, scope: this
+                            },
+                            failure: {
+                                fn: function (response) {
+                                    MODx.msg.alert(_('error'), response.message);
+                                }, scope: this
+                            },
+                        }
+                    })
+                }
+            }, this
+        );
     },
 
     updateThumb: function (url) {
