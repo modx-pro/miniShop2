@@ -48,6 +48,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
         $this->addJavascript($mgrUrl . 'assets/modext/widgets/resource/modx.panel.resource.js');
         $this->addJavascript($mgrUrl . 'assets/modext/sections/resource/update.js');
         $this->addJavascript($assetsUrl . 'js/mgr/minishop2.js');
+        $this->addJavascript($assetsUrl . 'js/mgr/misc/sortable/sortable.min.js');
         $this->addJavascript($assetsUrl . 'js/mgr/misc/ms2.combo.js');
         $this->addJavascript($assetsUrl . 'js/mgr/misc/ms2.utils.js');
         $this->addJavascript($assetsUrl . 'js/mgr/misc/default.grid.js');
