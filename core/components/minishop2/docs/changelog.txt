@@ -2,6 +2,21 @@ Changelog for miniShop2.
 
 2.4.19 pl (TBD)
 ==============
+- Fix bug when uploading pictures to the gallery, files remain in the root [PR #349]
+- Fix bug when saving order and changing status [PR #348]
+- Improvement. Adding Delete / Update buttons preview in the product gallery [PR #346]
+- Improvement. Add drag'n'drop sortable for miniShop2.combo.Options [PR #345]
+- Fix Preventing the removal of goods with the wrong (empty) count [PR #344]
+- Fix TV update bug if there are more than 10 during CSV import [PR #341]
+- Improvement. Getting parameters for multi-domain [PR #340]
+- Fixed error "Incorrect decimal value" [PR #338]
+- Change update product from grid [PR #337]
+- Fix "formatPrice", "formatWeight" [PR #336]
+- Optimization of the withdrawal of orders and fix for recounting an order [PR #335]
+- Fix cutting Czech characters from username in order [PR #334]
+- Fix defaultSortField [PR #333]
+- Refactoring Relationship Methods [PR #331, #332]
+- Fix set default media source on change resource class_key [PR #330]
 - Fix some bugs on manager pages [PR #327]
 - Fix romanian lexicon [PR #324]
 - Added class small in chunk.ms_cart.tpl [PR #319]
