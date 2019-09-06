@@ -81,6 +81,15 @@ miniShop2.combo.User = function (config) {
         ),
     });
     miniShop2.combo.User.superclass.constructor.call(this, config);
+    
+    var combo = this;
+    combo.on('render', function() {
+        combo.getStore().on('beforeload', function (store, data) {
+            if (!data.params['id']) {
+                data.params['id'] = combo.getValue();
+            }
+        });
+    });
 };
 Ext.extend(miniShop2.combo.User, MODx.combo.ComboBox);
 Ext.reg('minishop2-combo-user', miniShop2.combo.User);
