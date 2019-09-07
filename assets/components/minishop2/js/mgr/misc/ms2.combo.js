@@ -34,7 +34,7 @@ miniShop2.combo.ComboBoxDefault = function (config) {
     miniShop2.combo.ComboBoxDefault.superclass.constructor.call(this, config);
 };
 Ext.extend(miniShop2.combo.ComboBoxDefault, MODx.combo.ComboBox);
-Ext.reg('minishop2-combo-box-default', miniShop2.combo.ComboBoxDefault);
+Ext.reg('minishop2-combo-combobox-default', miniShop2.combo.ComboBoxDefault);
 
 
 miniShop2.combo.Search = function (config) {
