@@ -47,15 +47,15 @@ class Minishop2MgrOrdersManagerController extends msManagerController
 
         $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
-        $grid_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_grid_fields', null,
+        $grid_fields = array_map('trim', explode(',', $this->getOption('ms2_order_grid_fields', null,
             'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment', true
         )));
         $grid_fields = array_values(array_unique(array_merge($grid_fields, array(
             'id', 'user_id', 'num', 'type', 'actions'
         ))));
 
-        $address_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_address_fields')));
-        $product_fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));
+        $address_fields = array_map('trim', explode(',', $this->getOption('ms2_order_address_fields')));
+        $product_fields = array_map('trim', explode(',', $this->getOption('ms2_order_product_fields', null, '')));
         $product_fields = array_values(array_unique(array_merge($product_fields, array(
             'id', 'product_id', 'name', 'actions'
         ))));

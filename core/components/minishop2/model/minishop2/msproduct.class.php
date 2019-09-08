@@ -341,6 +341,7 @@ class msProduct extends modResource
      */
     public function addMany(& $obj, $alias = '')
     {
+        /* TODO корректно не работает
         if (empty ($alias)) {
             if ($obj->_alias == $obj->_class) {
                 $aliases = $this->_getAliases($obj->_class, 1);
@@ -349,7 +350,7 @@ class msProduct extends modResource
                 }
             }
             $alias = $obj->_alias;
-        }
+        }*/
 
         return in_array($alias, $this->dataRelated)
             ? $this->loadData()->addMany($obj, $alias)

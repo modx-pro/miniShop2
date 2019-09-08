@@ -3,7 +3,7 @@
 class msCategoryOptionGetListProcessor extends modObjectGetListProcessor
 {
     public $classKey = 'msCategoryOption';
-    public $defaultSortField = 'msCategoryOption.key';
+    public $defaultSortField = 'msCategoryOption.rank';
     public $defaultSortDirection = 'asc';
     public $languageTopics = array('minishop2:default');
 

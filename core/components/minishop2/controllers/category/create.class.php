@@ -32,7 +32,7 @@ class msCategoryCreateManagerController extends msResourceCreateController
      */
     public function getDefaultTemplate()
     {
-        if (!$template = $this->modx->getOption('ms2_template_category_default')) {
+        if (!$template = $this->getOption('ms2_template_category_default')) {
             $template = parent::getDefaultTemplate();
         }
 
@@ -47,7 +47,7 @@ class msCategoryCreateManagerController extends msResourceCreateController
     public function loadCustomCssJs()
     {
         $miniShop2 = $this->modx->getService('miniShop2');
-        $mgrUrl = $this->modx->getOption('manager_url', null, MODX_MANAGER_URL);
+        $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $miniShop2->config['assetsUrl'];
 
         $this->addCss($assetsUrl . 'css/mgr/main.css');

@@ -177,22 +177,25 @@ class msProductFile extends xPDOSimpleObject
             $phpThumb->setParameter($k, $v);
         }
 
-        if ($phpThumb->GenerateThumbnail()) {
-            if ($phpThumb->RenderOutput()) {
-                $this->xpdo->log(modX::LOG_LEVEL_INFO, '[miniShop2] phpThumb messages for "' . $this->get('url') .
-                    '". ' . print_r($phpThumb->debugmessages, true)
-                );
-                @unlink($tf);
-
-                return $phpThumb->outputImageData;
-            }
+        $output = false;
+        if ($phpThumb->GenerateThumbnail() && $phpThumb->RenderOutput()) {
+            $this->xpdo->log(modX::LOG_LEVEL_INFO, '[miniShop2] phpThumb messages for "' . $this->get('url') .
+                '". ' . print_r($phpThumb->debugmessages, true)
+            );
+            $output = $phpThumb->outputImageData;
         }
-        $this->xpdo->log(modX::LOG_LEVEL_ERROR, '[miniShop2] Could not generate thumbnail for "' .
-            $this->get('url') . '". ' . print_r($phpThumb->debugmessages, true)
-        );
+        else {
+            $this->xpdo->log(modX::LOG_LEVEL_ERROR, '[miniShop2] Could not generate thumbnail for "' .
+                $this->get('url') . '". ' . print_r($phpThumb->debugmessages, true)
+            );
+        }
+
+        if (file_exists($phpThumb->sourceFilename)) {
+            @unlink($phpThumb->sourceFilename);
+        }
         @unlink($tf);
 
-        return false;
+        return $output;
     }
 
 
@@ -275,11 +278,11 @@ class msProductFile extends xPDOSimpleObject
     {
         $c = $this->xpdo->newQuery('msProductFile', array(
             'product_id' => $this->get('product_id'),
-            'parent' => $this->get('id'),
+            'parent:>' => 0,
             'type' => 'image',
         ));
         $c->limit(1);
-        $c->sortby('id', 'ASC');
+        $c->sortby('rank ASC,id', 'ASC');
         $c->select('id,url');
 
         $res = array();

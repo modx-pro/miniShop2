@@ -19,7 +19,7 @@ class msClassGetListProcessor extends modProcessor
         $declared = array_diff(get_declared_classes(), $declared);
         $available = array();
         foreach ($declared as $class) {
-            if ($class == $handler) {
+            if ($class == $handler || strpos($class, 'Exception') !== false) {
                 continue;
             }
             try {

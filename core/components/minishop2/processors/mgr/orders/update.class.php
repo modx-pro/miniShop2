@@ -37,8 +37,7 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
     public function beforeSet()
     {
         foreach (array('status', 'delivery', 'payment') as $v) {
-            $this->$v = $this->object->get($v);
-            if (!$this->getProperty($v)) {
+            if (!$this->$v = $this->getProperty($v)) {
                 $this->addFieldError($v, $this->modx->lexicon('ms2_err_ns'));
             }
         }
@@ -48,6 +47,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
                 return $this->modx->lexicon('ms2_err_status_final');
             }
         }
+        // set "old status"
+        $this->setProperty('status', $this->object->get('status'));
 
         return parent::beforeSet();
     }
@@ -58,32 +59,75 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
      */
     public function beforeSave()
     {
-        if ($this->object->get('status') != $this->status) {
-            $change_status = $this->ms2->changeOrderStatus($this->object->get('id'),
-                $this->object->get('status'));
-            if ($change_status !== true) {
-                return $change_status;
-            }
-        }
         $this->object->set('updatedon', time());
 
-        return parent::beforeSave();
-    }
-
-
-    /**
-     *
-     */
-    public function afterSave()
-    {
         if ($address = $this->object->getOne('Address')) {
             foreach ($this->getProperties() as $k => $v) {
                 if (strpos($k, 'addr_') !== false) {
                     $address->set(substr($k, 5), $v);
                 }
             }
-            $address->save();
+            $this->object->addOne($address, 'Address');
         }
+
+        return parent::beforeSave();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     * @return mixed
+     */
+    public function process() {
+        /* Run the beforeSet method before setting the fields, and allow stoppage */
+        $canSave = $this->beforeSet();
+        if ($canSave !== true) {
+            return $this->failure($canSave);
+        }
+
+        $this->object->fromArray($this->getProperties());
+
+        /* Run the beforeSave method and allow stoppage */
+        $canSave = $this->beforeSave();
+        if ($canSave !== true) {
+            return $this->failure($canSave);
+        }
+
+        /* run object validation */
+        if (!$this->object->validate()) {
+            /** @var modValidator $validator */
+            $validator = $this->object->getValidator();
+            if ($validator->hasMessages()) {
+                foreach ($validator->getMessages() as $message) {
+                    $this->addFieldError($message['field'],$this->modx->lexicon($message['message']));
+                }
+            }
+        }
+
+        /* run the before save event and allow stoppage */
+        $preventSave = $this->fireBeforeSaveEvent();
+        if (!empty($preventSave)) {
+            return $this->failure($preventSave);
+        }
+
+        if ($this->saveObject() == false) {
+            return $this->failure($this->modx->lexicon($this->objectType.'_err_save'));
+        }
+
+        // set "new status"
+        if ($this->object->get('status') != $this->status) {
+            $change_status = $this->ms2->changeOrderStatus($this->object->get('id'), $this->status);
+            if ($change_status !== true) {
+                return $this->failure($change_status);
+            }
+            $this->object = $this->modx->getObject($this->classKey, $this->object->get('id'), false);
+        }
+
+        $this->afterSave();
+        $this->fireAfterSaveEvent();
+        $this->logManagerAction();
+
+        return $this->cleanup();
     }
 
 }

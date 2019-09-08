@@ -46,7 +46,7 @@ if (empty($key)) {
 $keys = array_map('trim', explode(',', strtolower($fields)));
 $tv_enabled = false;
 foreach ($keys as $v) {
-	if (preg_match('/^tv(\d)$/', $v)) {
+	if (preg_match('/^tv(\d+)$/', $v)) {
 		$tv_enabled = true;
 		break;
 	}

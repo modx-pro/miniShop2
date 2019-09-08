@@ -30,29 +30,22 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return array|mixed
-     */
-    public function getCategories()
-    {
-        $categories = $this->getProperty('categories', false);
-        if ($categories) {
-            $categories = json_decode($categories, true);
-        } else {
-            $categories = array();
-        }
-
-        return $categories;
-    }
-
-
-    /**
      * @return bool
      */
     public function afterSave()
     {
-        $categories = $this->getCategories();
-        $categories = $this->object->setCategories($categories);
-        $this->object->set('categories', $categories);
+        if ($categories = json_decode($this->getProperty('categories', false), true)) {
+            $enabled = array();
+            foreach ($categories as $id => $checked) {
+                if ($checked) {
+                    $enabled[] = $id;
+                }
+            }
+            if ($enabled) {
+                $categories = $this->object->setCategories($enabled);
+                $this->object->set('categories', $categories);
+            }
+        }
 
         return parent::afterSave();
     }
