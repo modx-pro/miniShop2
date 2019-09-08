@@ -46,4 +46,41 @@ class msResourceCreateController extends ResourceCreateManagerController
         parent::addLastJavascript($script);
     }
 
+
+    /**
+     * Check if content field is hidden
+     * @return bool
+     */
+    public function isHideContent()
+    {
+        $userGroups = $this->modx->user->getUserGroups();
+        $c = $this->modx->newQuery('modActionDom');
+        $c->innerJoin('modFormCustomizationSet','FCSet');
+        $c->innerJoin('modFormCustomizationProfile','Profile','FCSet.profile = Profile.id');
+        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup','Profile.id = ProfileUserGroup.profile');
+        $c->leftJoin('modFormCustomizationProfile','UGProfile','UGProfile.id = ProfileUserGroup.profile');
+        $c->where(array(
+            'modActionDom.action:IN' => ['resource/*', 'resource/create'],
+            'modActionDom.name' => 'modx-resource-content',
+            'modActionDom.container' => 'modx-panel-resource',
+            'modActionDom.rule' => 'fieldVisible',
+            'modActionDom.active' => true,
+            'FCSet.template:IN' => [0, $this->resource->template],
+            'FCSet.active' => true,
+            'Profile.active' => true,
+        ));
+        $c->where(array(
+            array(
+                'ProfileUserGroup.usergroup:IN' => $userGroups,
+                array(
+                    'OR:ProfileUserGroup.usergroup:IS' => null,
+                    'AND:UGProfile.active:=' => true,
+                ),
+            ),
+            'OR:ProfileUserGroup.usergroup:=' => null,
+        ), xPDOQuery::SQL_AND, null, 2);
+        
+        return (bool) $this->modx->getCount('modActionDom', $c);
+    }
+
 }
