@@ -2,6 +2,9 @@ Changelog for miniShop2.
 
 2.4.19 pl (TBD)
 ==============
+- Added translation into Belarusian (thanks @dmse4050)
+- Fix resetting user id value on expand combobox [PR #351]
+- Fix hiding content field via FC [PR #343]
 - Fix bug when uploading pictures to the gallery, files remain in the root [PR #349]
 - Fix bug when saving order and changing status [PR #348]
 - Improvement. Adding Delete / Update buttons preview in the product gallery [PR #346]
