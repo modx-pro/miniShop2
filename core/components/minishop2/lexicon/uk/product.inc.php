@@ -1,10 +1,10 @@
 <?php
 /**
-* Products Ukrainian Lexicon Entries for miniShop2
-*
-* @package minishop2
-* @subpackage lexicon
-*/
+ * Products Ukrainian Lexicon Entries for miniShop2
+ *
+ * @package minishop2
+ * @subpackage lexicon
+ */
 
 $_lang['ms2_product_tab_main'] = 'Веб сторінка';
 $_lang['ms2_product_tab_extra'] = 'Опції товару';
@@ -31,8 +31,8 @@ $_lang['ms2_product_link_attributes'] = 'Атрибути посилання';
 $_lang['ms2_product_menutitle'] = 'Заголовок меню';
 $_lang['ms2_product_menuindex'] = 'Позиція в меню';
 
-$_lang['ms2_product_deleted'] = 'Видалений';
 $_lang['ms2_product_published'] = 'Опубліковано';
+$_lang['ms2_product_deleted'] = 'Видалений';
 $_lang['ms2_product_pub_date'] = 'Дата публікації';
 $_lang['ms2_product_unpub_date'] = 'Дата зняття з публікації';
 
@@ -65,14 +65,14 @@ $_lang['ms2_product_show_in_tree_help'] = 'За замовчуванням, то
 $_lang['ms2_product_syncsite'] = 'Очищувати кеш';
 
 $_lang['ms2_product_article'] = 'Артикул';
-$_lang['ms2_product_article_help'] = 'Унікальний артикул (ідентифікатор) товару. Наприклад, код у прайсі вашої компанії';
+$_lang['ms2_product_article_help'] = '';
 $_lang['ms2_product_price'] = 'Ціна';
 $_lang['ms2_product_price_help'] = '';
 $_lang['ms2_product_old_price'] = 'Стара ціна';
 $_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Вага';
 $_lang['ms2_product_weight_help'] = '';
-$_lang['ms2_product_color'] = 'Колір';
+$_lang['ms2_product_color'] = 'Кольори';
 $_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Залишок';
 $_lang['ms2_product_remains_help'] = '';
@@ -91,7 +91,7 @@ $_lang['ms2_product_tags_help'] = 'Будь-які теги продукту.';
 $_lang['ms2_product_size'] = 'Розміри';
 $_lang['ms2_product_size_help'] = 'Розміри товару, при наявності.';
 $_lang['ms2_product_color'] = 'Кольори';
-$_lang['ms2_product_color_help'] = 'Кольори товару, при наявності.';
+$_lang['ms2_product_color_help'] = 'Будь-які кольори товару.';
 $_lang['ms2_product_new'] = 'Новий';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Особливий';
@@ -127,7 +127,7 @@ $_lang['ms2_product_selected_unpublish'] = 'Вимкнути вибрані то
 $_lang['ms2_product_selected_delete'] = 'Видалити вибрані товари';
 $_lang['ms2_product_selected_undelete'] = 'Відновити вибрані товари';
 
-//$_lang['ms2_disabled_while_creating'] = '<i>Ця функція вимкнена при створенні нового товару.</i>';
+//$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файли не знайдено.<br/><br/>Ви можете завантажити їх, перетягнувши прямо на цю панель, чи вибрати кнопкою зверху.</p>';
 $_lang['ms2_gallery_file_name'] = 'Імʼя файлу';
@@ -143,8 +143,11 @@ $_lang['ms2_gallery_button_upload'] = 'Вибрати файли';
 
 $_lang['ms2_gallery_file_show'] = 'Відкрити у новому вікні';
 $_lang['ms2_gallery_file_update'] = 'Змінити властивості';
+$_lang['ms2_gallery_file_generate_all'] = 'Оновити всі';
 $_lang['ms2_gallery_file_generate_thumbs'] = 'Оновити мініатюри';
+$_lang['ms2_gallery_file_generate_thumbs_confirm'] = 'Ви впевнені, що бажаєте перегенерувати мініатюри всіх файлів?';
 $_lang['ms2_gallery_file_delete'] = 'Видалити файл';
+$_lang['ms2_gallery_file_delete_all'] = 'Видалити всі';
 $_lang['ms2_gallery_file_delete_confirm'] = 'Ви дійсно бажаєте видалити цей файл разом з усіма його зменшеними копіями?<br/>Ця операція незворотня.';
 $_lang['ms2_gallery_file_delete_multiple'] = 'Видалити файли';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Ви дійсно бажаєте видалити ці файли з усіма їх зменшеними копіями?<br/>Ця операція незворотня.';
