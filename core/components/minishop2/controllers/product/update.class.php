@@ -30,6 +30,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
     }
 
 
+
     /**
      * Register custom CSS/JS for the page
      * @return void
@@ -119,6 +120,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
             'data_fields' => $product_data_fields,
             'additional_fields' => array(),
             'media_source' => $this->getSourceProperties(),
+            'isHideContent' => $this->isHideContent(),
         );
 
         $ready = array(

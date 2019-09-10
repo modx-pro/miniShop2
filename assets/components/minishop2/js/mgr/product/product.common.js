@@ -279,6 +279,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                 item.hideLabel = false;
                 item.fieldLabel = _('content');
                 item.description = '<b>[[*content]]</b>';
+                item.hidden = miniShop2.config.isHideContent;
             }
             fields.push(item);
         }

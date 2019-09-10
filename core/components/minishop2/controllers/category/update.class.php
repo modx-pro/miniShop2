@@ -102,6 +102,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             'option_keys' => $category_option_keys,
             'option_fields' => $category_option_fields,
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
+            'isHideContent' => $this->isHideContent(),
         );
         $ready = array(
             'xtype' => 'minishop2-page-category-update',

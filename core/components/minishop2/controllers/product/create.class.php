@@ -121,6 +121,7 @@ class msProductCreateManagerController extends msResourceCreateController
             'product_tab_links' => (bool)$this->getOption('ms2_product_tab_links', null, true),
             'data_fields' => $product_data_fields,
             'additional_fields' => array(),
+            'isHideContent' => $this->isHideContent(),
         );
 
         $ready = array(

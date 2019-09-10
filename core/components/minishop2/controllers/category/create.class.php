@@ -66,6 +66,7 @@ class msCategoryCreateManagerController extends msResourceCreateController
         $config = array(
             'assets_url' => $miniShop2->config['assetsUrl'],
             'connector_url' => $miniShop2->config['connectorUrl'],
+            'isHideContent' => $this->isHideContent(),
         );
         $ready = array(
             'xtype' => 'minishop2-page-category-create',

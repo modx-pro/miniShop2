@@ -62,6 +62,7 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                 if (MODx.config['ms2_category_content_default'] && config['mode'] == 'create') {
                     item.value = MODx.config['ms2_category_content_default'];
                 }
+                item.hidden = miniShop2.config.isHideContent;
             }
             fields.push(item);
         }
