@@ -1,3 +1,42 @@
+miniShop2.combo.ComboBoxDefault = function (config) {
+    config = config || {};
+
+    Ext.applyIf(config, {
+        assertValue : function(){
+            var val = this.getRawValue(),
+                rec;
+            if(this.valueField && Ext.isDefined(this.value)){
+                rec = this.findRecord(this.valueField, this.value);
+            }
+            /* fix for https://github.com/bezumkin/miniShop2/pull/350
+            if(!rec || rec.get(this.displayField) != val){
+                rec = this.findRecord(this.displayField, val);
+            }*/
+            if(!rec && this.forceSelection){
+                if(val.length > 0 && val != this.emptyText){
+                    this.el.dom.value = Ext.value(this.lastSelectionText, '');
+                    this.applyEmptyText();
+                }else{
+                    this.clearValue();
+                }
+            }else{
+                if(rec && this.valueField){
+                    if (this.value == val){
+                        return;
+                    }
+                    val = rec.get(this.valueField || this.displayField);
+                }
+                this.setValue(val);
+            }
+        },
+
+    });
+    miniShop2.combo.ComboBoxDefault.superclass.constructor.call(this, config);
+};
+Ext.extend(miniShop2.combo.ComboBoxDefault, MODx.combo.ComboBox);
+Ext.reg('minishop2-combo-combobox-default', miniShop2.combo.ComboBoxDefault);
+
+
 miniShop2.combo.Search = function (config) {
     config = config || {};
     Ext.applyIf(config, {
@@ -82,7 +121,7 @@ miniShop2.combo.User = function (config) {
     });
     miniShop2.combo.User.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.User, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.User, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-user', miniShop2.combo.User);
 
 
@@ -130,7 +169,7 @@ miniShop2.combo.Category = function (config) {
         }
     });
 };
-Ext.extend(miniShop2.combo.Category, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Category, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-category', miniShop2.combo.Category);
 
 
@@ -179,7 +218,7 @@ miniShop2.combo.Autocomplete = function (config) {
     });
     miniShop2.combo.Autocomplete.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Autocomplete, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Autocomplete, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-autocomplete', miniShop2.combo.Autocomplete);
 
 
@@ -214,7 +253,7 @@ miniShop2.combo.Vendor = function (config) {
         }
     });
 };
-Ext.extend(miniShop2.combo.Vendor, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Vendor, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-vendor', miniShop2.combo.Vendor);
 
 
@@ -459,7 +498,7 @@ miniShop2.combo.Chunk = function (config) {
     });
     miniShop2.combo.Chunk.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Chunk, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Chunk, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-chunk', miniShop2.combo.Chunk);
 
 
@@ -483,7 +522,7 @@ miniShop2.combo.Resource = function (config) {
     });
     miniShop2.combo.Resource.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Resource, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Resource, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-resource', miniShop2.combo.Resource);
 
 
@@ -507,7 +546,7 @@ miniShop2.combo.Context = function (config) {
     });
     miniShop2.combo.Context.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Context, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Context, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-context', miniShop2.combo.Context);
 
 
@@ -624,7 +663,7 @@ miniShop2.combo.Status = function (config) {
     });
     miniShop2.combo.Status.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Status, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Status, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-status', miniShop2.combo.Status);
 
 
@@ -649,7 +688,7 @@ miniShop2.combo.Delivery = function (config) {
     });
     miniShop2.combo.Delivery.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Delivery, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Delivery, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-delivery', miniShop2.combo.Delivery);
 
 
@@ -675,7 +714,7 @@ miniShop2.combo.Payment = function (config) {
     });
     miniShop2.combo.Payment.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Payment, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Payment, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-payment', miniShop2.combo.Payment);
 
 
@@ -700,7 +739,7 @@ MODx.combo.LinkType = function (config) {
     });
     MODx.combo.LinkType.superclass.constructor.call(this, config);
 };
-Ext.extend(MODx.combo.LinkType, MODx.combo.ComboBox, {
+Ext.extend(MODx.combo.LinkType, miniShop2.combo.ComboBoxDefault, {
 
     getTypes: function () {
         var array = [];
@@ -736,7 +775,7 @@ miniShop2.combo.Link = function (config) {
     });
     miniShop2.combo.Link.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Link, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Link, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-link', miniShop2.combo.Link);
 
 
@@ -777,7 +816,7 @@ miniShop2.combo.Product = function (config) {
     });
     miniShop2.combo.Product.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Product, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Product, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-product', miniShop2.combo.Product);
 
 
@@ -807,7 +846,7 @@ miniShop2.combo.ExtraOptions = function (config) {
     });
     miniShop2.combo.ExtraOptions.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.ExtraOptions, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.ExtraOptions, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-extra-options', miniShop2.combo.ExtraOptions);
 
 
@@ -831,7 +870,7 @@ miniShop2.combo.OptionTypes = function (config) {
     });
     miniShop2.combo.OptionTypes.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.OptionTypes, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.OptionTypes, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-option-types', miniShop2.combo.OptionTypes);
 
 
@@ -856,5 +895,5 @@ miniShop2.combo.Classes = function (config) {
     });
     miniShop2.combo.Classes.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.combo.Classes, MODx.combo.ComboBox);
+Ext.extend(miniShop2.combo.Classes, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-classes', miniShop2.combo.Classes);
