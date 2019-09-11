@@ -1,6 +1,6 @@
 Changelog for miniShop2.
 
-2.4.19 pl (TBD)
+2.5.0 pl
 ==============
 - Added translation into Belarusian (thanks @dmse4050)
 - Fix resetting user id value on expand combobox [PR #351]
