@@ -263,6 +263,7 @@ class msCartHandler implements msCartInterface
      */
     public function change($key, $count)
     {
+        $status = array();
         if (array_key_exists($key, $this->cart)) {
             if ($count <= 0) {
                 return $this->remove($key);
@@ -283,13 +284,15 @@ class msCartHandler implements msCartInterface
                     if (!$response['success']) {
                         return $this->error($response['message']);
                     }
+                    $status['key'] = $key;
+                    $status['cost'] = $count * $this->cart[$key]['price'];
                 }
             }
 
-            return $this->success('ms2_cart_change_success', $this->status(array('key' => $key)),
+            return $this->success('ms2_cart_change_success', $this->status($status),
                 array('count' => $count));
         } else {
-            return $this->error('ms2_cart_change_error', $this->status(array()));
+            return $this->error('ms2_cart_change_error', $this->status($status));
         }
     }
 

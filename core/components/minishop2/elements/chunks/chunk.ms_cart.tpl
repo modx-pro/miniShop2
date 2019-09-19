@@ -11,6 +11,7 @@
                     <th class="count">{'ms2_cart_count' | lexicon}</th>
                     <th class="weight">{'ms2_cart_weight' | lexicon}</th>
                     <th class="price">{'ms2_cart_price' | lexicon}</th>
+                    <th class="cost">{'ms2_cart_cost' | lexicon}</th>
                     <th class="remove"></th>
                 </tr>
 
@@ -70,6 +71,9 @@
                             {if $product.old_price?}
                                 <span class="old_price text-nowrap">{$product.old_price} {'ms2_frontend_currency' | lexicon}</span>
                             {/if}
+                        </td>
+                        <td class="cost">
+                            <span class="mr-2 text-nowrap"><span class="ms2_cost">{$product.cost}</span> {'ms2_frontend_currency' | lexicon}</span>
                         </td>
                         <td class="remove">
                             <form method="post" class="ms2_form text-md-right">
