@@ -186,9 +186,9 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
             ddGroup: grid.ddGroup,
             notifyDrop: function (dd, e, data) {
                 var store = grid.getStore();
-                var target = store.getAt(dd.getDragData(e).rowIndex).id;
+                var target = store.getAt(dd.getDragData(e).rowIndex);
                 var sources = [];
-                if (data.selections.length < 1 || data.selections[0].id == target) {
+                if (data.selections.length < 1 || data.selections[0].id == target.id) {
                     return false;
                 }
                 for (var i in data.selections) {
@@ -205,7 +205,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                     params: {
                         action: config.ddAction,
                         sources: Ext.util.JSON.encode(sources),
-                        target: target,
+                        target: target.id,
                     },
                     listeners: {
                         success: {
@@ -213,8 +213,39 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                                 el.unmask();
                                 grid.refresh();
                                 if (typeof(grid.reloadTree) == 'function') {
-                                    sources.push(target);
+                                    sources.push(target.id);
                                     grid.reloadTree(sources);
+                                }
+                                if (grid.xtype == 'minishop2-grid-products') {
+                                    var sourceNodes = data.selections;
+                                    if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
+                                        var message = '';
+                                        var singleParent = sourceNodes.every(function(node) {
+                                            return node.data.parent == sourceNodes[0].data.parent;
+                                        });
+                                        
+                                        if (singleParent) {
+                                            if (sourceNodes[0].data.parent != target.data.parent) {
+                                                if (target.data.category_name == '') {
+                                                    message = (sourceNodes.length > 1) ? _('ms2_drag_move_this_many_success') : _('ms2_drag_move_this_once_success');
+                                                } else {
+                                                    message = (sourceNodes.length > 1) ? String.format(_('ms2_drag_move_many_success'), target.data.category_name) : String.format(_('ms2_drag_move_one_success'), target.data.category_name);
+                                                }
+                                            }
+                                            // else {
+                                            //     message = (sourceNodes.length > 1) ? _('ms2_drag_sort_many_success') : _('ms2_drag_sort_once_success');
+                                            // }
+                                        } else {
+                                            message = (sourceNodes.length > 1) ? String.format(_('ms2_drag_move_many_success'), target.data.category_name) : String.format(_('ms2_drag_move_one_success'), target.data.category_name);
+                                        }
+
+                                        if (message != '') {
+                                            MODx.msg.status({
+                                                title: _('success')
+                                                ,message: message
+                                            });
+                                        }
+                                    }
                                 }
                             }, scope: grid
                         },
@@ -226,6 +257,52 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                     }
                 });
             },
+            notifyOver: function(dd, e, data) {
+                var returnCls = this.dropAllowed;
+                if (grid.xtype == 'minishop2-grid-products') {
+                    if (dd.getDragData(e)) {
+                        var sourceNodes = data.selections;
+                        var targetNode = dd.getDragData(e).selections[0];
+                        
+                        if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
+                            var singleParent = sourceNodes.every(function(node) {
+                                return node.data.parent == sourceNodes[0].data.parent;
+                            });
+                            
+                            if (singleParent) {
+                                if ((sourceNodes[0].data['id'] == targetNode.data['id'])) {
+                                    this._notifySelf(sourceNodes.length, dd);
+                                    return this.dropNotAllowed;
+                                } else if (sourceNodes[0].data.parent != targetNode.data.parent) {
+                                    this._notifyMove(sourceNodes.length, targetNode, dd);
+                                } else {
+                                    this._notifySort(sourceNodes.length, dd);
+                                }
+                            } else {
+                                this._notifyMove(sourceNodes.length, targetNode, dd);
+                            }
+                        }
+    
+                        dd.proxy.update(dd.ddel);
+                    }
+                }
+                return returnCls;
+            },
+            _notifyMove: function(count, targetNode, dd) {
+                returnCls = 'x-tree-drop-ok-append';
+                if (targetNode.data.category_name == '') {
+                    dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_move_this_many') : _('ms2_drag_move_this_one');
+                } else {
+                    dd.ddel.innerHTML = (count > 1) ? String.format(_('ms2_drag_move_many'), targetNode.data.category_name) : String.format(_('ms2_drag_move_one'), targetNode.data.category_name);
+                }
+            },
+            _notifySort: function(count, dd) {
+                returnCls = 'x-tree-drop-ok-between';
+                dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_sort_many') : _('ms2_drag_sort_one');
+            },
+            _notifySelf: function(count, dd) {
+                dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_self_many') : _('ms2_drag_self_one');
+            }
         });
     },
 
