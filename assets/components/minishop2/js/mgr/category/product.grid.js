@@ -20,6 +20,7 @@ miniShop2.grid.Products = function (config) {
         ddGroup: 'ms2-products',
         ddAction: 'mgr/product/sort',
         enableDragDrop: true,
+        ddText: ''
     });
     miniShop2.grid.Products.superclass.constructor.call(this, config);
 };
@@ -203,11 +204,6 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             checked: MODx.config['ms2_category_show_nested_products'] == 1,
             listeners: {
                 check: {fn: this.nestedFilter, scope: this}
-                ,afterrender: {fn: function(checkbox) {
-                    if (checkbox.checked) {
-                        this.getView().dragZone.lock();
-                    }
-                }, scope: this}
             }
         }, '-', this.getSearchField()];
     },
@@ -216,11 +212,6 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         var s = this.getStore();
         s.baseParams.nested = checked ? 1 : 0;
         this.getBottomToolbar().changePage(1);
-        if (checked) {
-            this.getView().dragZone.lock();
-        } else {
-            this.getView().dragZone.unlock();
-        }
     },
 
     updateRow: function () {
@@ -401,6 +392,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             }
         });
     },
+    
 
 });
 Ext.reg('minishop2-grid-products', miniShop2.grid.Products);
