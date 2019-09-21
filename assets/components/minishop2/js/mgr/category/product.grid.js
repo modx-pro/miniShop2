@@ -392,7 +392,6 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             }
         });
     },
-    
 
 });
 Ext.reg('minishop2-grid-products', miniShop2.grid.Products);
