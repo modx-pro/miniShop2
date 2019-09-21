@@ -216,7 +216,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                                     sources.push(target.id);
                                     grid.reloadTree(sources);
                                 }
-                                if (grid.xtype == 'minishop2-grid-products') {
+                                if (grid.xtype == 'minishop2-grid-products' && !grid.defaultNotify) {
                                     var sourceNodes = data.selections;
                                     if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
                                         var message = '';
@@ -259,7 +259,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
             },
             notifyOver: function(dd, e, data) {
                 var returnCls = this.dropAllowed;
-                if (grid.xtype == 'minishop2-grid-products') {
+                if (grid.xtype == 'minishop2-grid-products' && !grid.defaultNotify) {
                     if (dd.getDragData(e)) {
                         var sourceNodes = data.selections;
                         var targetNode = dd.getDragData(e).selections[0];
