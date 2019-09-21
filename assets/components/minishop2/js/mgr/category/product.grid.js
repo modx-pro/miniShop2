@@ -20,7 +20,7 @@ miniShop2.grid.Products = function (config) {
         ddGroup: 'ms2-products',
         ddAction: 'mgr/product/sort',
         enableDragDrop: true,
-        defaultNotify: true
+        defaultNotify: false
     });
     miniShop2.grid.Products.superclass.constructor.call(this, config);
     if (!this.defaultNotify) { this.ddText = ''; }
