@@ -227,7 +227,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                                         if (singleParent) {
                                             if (sourceNodes[0].data.parent != target.data.parent) {
                                                 if (target.data.category_name == '') {
-                                                    message = (sourceNodes.length > 1) ? _('ms2_drag_move_this_many_success') : _('ms2_drag_move_this_once_success');
+                                                    message = (sourceNodes.length > 1) ? _('ms2_drag_move_current_many_success') : _('ms2_drag_move_current_once_success');
                                                 } else {
                                                     message = (sourceNodes.length > 1) ? String.format(_('ms2_drag_move_many_success'), target.data.category_name) : String.format(_('ms2_drag_move_one_success'), target.data.category_name);
                                                 }
@@ -291,7 +291,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
             _notifyMove: function(count, targetNode, dd) {
                 returnCls = 'x-tree-drop-ok-append';
                 if (targetNode.data.category_name == '') {
-                    dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_move_this_many') : _('ms2_drag_move_this_one');
+                    dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_move_current_many') : _('ms2_drag_move_current_one');
                 } else {
                     dd.ddel.innerHTML = (count > 1) ? String.format(_('ms2_drag_move_many'), targetNode.data.category_name) : String.format(_('ms2_drag_move_one'), targetNode.data.category_name);
                 }
