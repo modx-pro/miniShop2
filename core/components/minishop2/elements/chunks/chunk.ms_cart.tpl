@@ -90,7 +90,7 @@
                         <span class="ms2_total_count">{$total.count}</span>
                         {'ms2_frontend_count_unit' | lexicon}
                     </th>
-                    <th class="total_weight text-nowrap">
+                    <th class="total_weight text-nowrap" colspan="2">
                         <span class="ms2_total_weight">{$total.weight}</span>
                         {'ms2_frontend_weight_unit' | lexicon}
                     </th>
