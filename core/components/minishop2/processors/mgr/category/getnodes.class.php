@@ -86,7 +86,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         $context->prepare();
 
         return array(
-            'text' => $context->get('key'),
+            'text' => $context->get('name') != '' ? strip_tags($context->get('name')) : $context->get('key'),
             'id' => $context->get('key') . '_0',
             'pk' => $context->get('key'),
             'ctx' => $context->get('key'),
