@@ -16,6 +16,17 @@ $tmp = array(
         'key' => 'mgr_tree_icon_msproduct',
     ),
 
+    'ms2_add_icon_category' => array(
+        'value' => 'icon icon-folder-open',
+        'xtype' => 'textfield',
+        'area' => 'ms2_category',
+    ),
+    'ms2_add_icon_product' => array(
+        'value' => 'icon icon-tag',
+        'xtype' => 'textfield',
+        'area' => 'ms2_category',
+    ),
+
     'ms2_services' => array(
         'value' => '{"cart":[],"order":[],"payment":[],"delivery":[]}',
         'xtype' => 'textarea',
