@@ -30,6 +30,10 @@ $_lang['setting_mgr_tree_icon_mscategory'] = 'The icon of category';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'The icon of category with miniShop2 products';
 $_lang['setting_mgr_tree_icon_msproduct'] = 'The icon of product';
 $_lang['setting_mgr_tree_icon_msproduct_desc'] = 'The icon of miniShop2 product';
+$_lang['setting_ms2_add_icon_category'] = 'The category add button icon';
+$_lang['setting_ms2_add_icon_category_desc'] = 'The category add button icon in category page';
+$_lang['setting_ms2_add_icon_product'] = 'The product add button icon';
+$_lang['setting_ms2_add_icon_product_desc'] = 'The product add button icon in category page';
 
 $_lang['setting_ms2_product_tab_extra'] = 'Product properties tab';
 $_lang['setting_ms2_product_tab_extra_desc'] = 'Display tab with product properties?';
