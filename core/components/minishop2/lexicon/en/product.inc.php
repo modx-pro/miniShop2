@@ -153,3 +153,16 @@ $_lang['ms2_gallery_file_delete_multiple'] = 'Delete files';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Are you sure you want to delete this files with all of its thumbnails? <br/> This operation is irreversible.';
 
 $_lang['ms2_gallery_errors'] = 'Errors on upload';
+
+$_lang['ms2_drag_self_one'] = 'Cancel';
+$_lang['ms2_drag_self_many'] = 'Cancel';
+$_lang['ms2_drag_move_one'] = 'Move product to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one_success'] = 'Product was successfully moved to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many'] = 'Move products to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many_success'] = 'Products was successfully moved to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_current_one'] = 'Move product to current category';
+$_lang['ms2_drag_move_current_once_success'] = 'Product was successfully moved to current category';
+$_lang['ms2_drag_move_current_many'] = 'Move products to current category';
+$_lang['ms2_drag_move_current_many_success'] = 'Products was successfully moved to current category';
+$_lang['ms2_drag_sort_one'] = 'Sort product';
+$_lang['ms2_drag_sort_many'] = 'Sorts product';
