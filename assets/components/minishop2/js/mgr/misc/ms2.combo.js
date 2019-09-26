@@ -5,9 +5,9 @@ miniShop2.combo.ComboBoxDefault = function (config) {
         assertValue : function(){
             var val = this.getRawValue(),
                 rec;
-            if(this.valueField && Ext.isDefined(this.value)){
+            /* if(this.valueField && Ext.isDefined(this.value)){
                 rec = this.findRecord(this.valueField, this.value);
-            }
+            }*/
             /* fix for https://github.com/bezumkin/miniShop2/pull/350
             if(!rec || rec.get(this.displayField) != val){
                 rec = this.findRecord(this.displayField, val);
