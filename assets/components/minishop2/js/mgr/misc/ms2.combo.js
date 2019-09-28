@@ -12,6 +12,9 @@ miniShop2.combo.ComboBoxDefault = function (config) {
             if(!rec || rec.get(this.displayField) != val){
                 rec = this.findRecord(this.displayField, val);
             }*/
+            if (rec && rec.get(this.displayField) != val) {
+                rec = null;
+            }
             if(!rec && this.forceSelection){
                 if(val.length > 0 && val != this.emptyText){
                     this.el.dom.value = Ext.value(this.lastSelectionText, '');
