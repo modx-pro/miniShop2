@@ -353,7 +353,7 @@ miniShop2.combo.Options = function (config) {
         setValueEx : function(data){
             // fix for setValue
             if (this.rendered && this.valueField){
-                if(!Ext.isArray(data)){
+                if (!Ext.isArray(data)){
                     data = [data];
                 }
                 var values = [];
