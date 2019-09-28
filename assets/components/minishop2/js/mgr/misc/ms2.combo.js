@@ -353,6 +353,27 @@ miniShop2.combo.Options = function (config) {
                 this.initSorting();
             }
         },
+        setValueEx : function(data){
+            // fix for setValue
+            if (this.rendered && this.valueField){
+                if (!Ext.isArray(data)){
+                    data = [data];
+                }
+                var values = [];
+                Ext.each(data,function(value, i){
+                    if (typeof value == 'string' && value != '') {
+                        value = {};
+                        value[this.valueField] = data[i];
+                    }
+                    if (typeof value == 'object' && value[this.valueField]) {
+                        values.push(value);
+                    }
+                },this);
+                data = values;
+            }
+
+            this.constructor.prototype.setValueEx.apply(this, [data]);
+        },
     });
     config.name += '[]';
 
