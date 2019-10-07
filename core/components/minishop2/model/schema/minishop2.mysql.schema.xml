@@ -488,7 +488,7 @@
                default="0" index="index"/>
         <field key="required" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false"
                default="0" index="index"/>
-        <field key="value" dbtype="text" phptype="string" null="false" index="fulltext"/>
+        <field key="value" dbtype="text" phptype="string" null="true" index="fulltext"/>
 
         <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
             <column key="option_id" length="" collation="A" null="false"/>
