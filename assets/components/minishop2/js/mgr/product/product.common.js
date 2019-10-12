@@ -41,8 +41,6 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                             product.push(tab);
                             break;
                         case 'modx-page-settings':
-                            tab.items = this.getProductSettings(config);
-                            product.push(tab);
                             if (miniShop2.config['show_extra']) {
                                 product.push(this.getProductFields(config));
                             }
@@ -58,6 +56,8 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                             if (miniShop2.config['show_categories']) {
                                 product.push(this.getProductCategories(config));
                             }
+                            tab.items = this.getProductSettings(config);
+                            product.push(tab);
                             break;
                         default:
                             other.push(tab);
