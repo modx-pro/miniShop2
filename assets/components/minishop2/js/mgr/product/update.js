@@ -119,6 +119,8 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
             }
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
+                // Get the "Resource Groups" tab to move it to the end
+                var resource_groups_tab = item.items.pop();
                 // Additional tabs
                 if (miniShop2.config['show_comments'] != 0) {
                     item.items.push(this.getComments(config));
@@ -126,6 +128,7 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
                 if (miniShop2.config['show_gallery'] != 0) {
                     item.items.push(this.getGallery(config));
                 }
+                item.items.push(resource_groups_tab);
             }
             fields.push(item);
         }
