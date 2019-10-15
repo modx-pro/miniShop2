@@ -119,15 +119,15 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
             }
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
-                // Additional "Comments" and "Gallery" tabs
-                if (miniShop2.config['show_comments'] != 0) {
-                    item.items.push(this.getComments(config));
-                }
+                // Additional "Gallery" and "Comments" tabs
                 if (miniShop2.config['show_gallery'] != 0) {
                     item.items.push(this.getGallery(config));
                 }
+                if (miniShop2.config['show_comments'] != 0) {
+                    item.items.push(this.getComments(config));
+                }
                 // Get the "Resource Groups" tab and move it to the end
-                if (miniShop2.config['show_comments'] != 0 || miniShop2.config['show_gallery'] != 0) {
+                if (miniShop2.config['show_gallery'] != 0 || miniShop2.config['show_comments'] != 0) {
                     var index = item.items.findIndex(function(tab) {
                         return tab.id == 'modx-resource-access-permissions';
                     });
