@@ -119,12 +119,22 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
             }
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
-                // Additional tabs
+                // Additional "Comments" and "Gallery" tabs
                 if (miniShop2.config['show_comments'] != 0) {
                     item.items.push(this.getComments(config));
                 }
                 if (miniShop2.config['show_gallery'] != 0) {
                     item.items.push(this.getGallery(config));
+                }
+                // Get the "Resource Groups" tab and move it to the end
+                if (miniShop2.config['show_comments'] != 0 || miniShop2.config['show_gallery'] != 0) {
+                    var index = item.items.findIndex(function(tab) {
+                        return tab.id == 'modx-resource-access-permissions';
+                    });
+                    if (index != -1) {
+                        var resource_groups_tab = item.items.splice(index, 1);
+                        item.items.push(resource_groups_tab);
+                    }
                 }
             }
             fields.push(item);
