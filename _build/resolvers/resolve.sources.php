@@ -61,7 +61,7 @@ if ($transport->xpdo) {
                         'desc' => 'ms2_source_thumbnails_desc',
                         'type' => 'textarea',
                         'lexicon' => 'minishop2:setting',
-                        'value' => '{"small":{"w":120,"h":90,"q":90,"zc":"1","bg":"000000"}}',
+                        'value' => '{"small":{"w":120,"h":90,"q":90,"zc":"1","bg":"000000"}, "webp":{"w":120,"h":90,"q":90,"zc":"1","bg":"000000","f":"webp"}}',
                     ),
                     'maxUploadWidth' => array(
                         'name' => 'maxUploadWidth',
