@@ -43,7 +43,7 @@ class msProductSortProcessor extends modObjectProcessor
      */
     public function sort(msProduct $source, msProduct $target)
     {
-        $c = $this->modx->newQuery('msProduct');
+        $c = $this->modx->newQuery($this->classKey);
         $c->command('UPDATE');
         $c->where(array(
             'parent' => $this->_parent,
