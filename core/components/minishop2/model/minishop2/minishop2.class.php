@@ -543,24 +543,28 @@ class miniShop2
      */
     public function loadMap()
     {
-        $plugins = $this->loadPlugins();
-        foreach ($plugins as $plugin) {
-            // For legacy plugins
-            if (isset($plugin['xpdo_meta_map']) && is_array($plugin['xpdo_meta_map'])) {
-                $plugin['map'] = $plugin['xpdo_meta_map'];
-            }
-            if (isset($plugin['map']) && is_array($plugin['map'])) {
-                foreach ($plugin['map'] as $class => $map) {
-                    if (!isset($this->modx->map[$class])) {
-                        $this->modx->loadClass($class, $this->config['modelPath'] . 'minishop2/');
-                    }
-                    if (isset($this->modx->map[$class])) {
-                        foreach ($map as $key => $values) {
-                            $this->modx->map[$class][$key] = array_merge($this->modx->map[$class][$key], $values);
+        if(method_exists($this->pdoTools, 'makePlaceholders')) {
+            $plugins = $this->loadPlugins();
+            foreach ($plugins as $plugin) {
+                // For legacy plugins
+                if (isset($plugin['xpdo_meta_map']) && is_array($plugin['xpdo_meta_map'])) {
+                    $plugin['map'] = $plugin['xpdo_meta_map'];
+                }
+                if (isset($plugin['map']) && is_array($plugin['map'])) {
+                    foreach ($plugin['map'] as $class => $map) {
+                        if (!isset($this->modx->map[$class])) {
+                            $this->modx->loadClass($class, $this->config['modelPath'] . 'minishop2/');
+                        }
+                        if (isset($this->modx->map[$class])) {
+                            foreach ($map as $key => $values) {
+                                $this->modx->map[$class][$key] = array_merge($this->modx->map[$class][$key], $values);
+                            }
                         }
                     }
                 }
             }
+        } else {
+            $this->modx->log(modX::LOG_LEVEL_ERROR, 'pdoTools not installed, metadata for miniShop2 objects not loaded');
         }
     }
 
