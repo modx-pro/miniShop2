@@ -596,7 +596,10 @@ class msOrderHandler implements msOrderInterface
      */
     public function getNum()
     {
-        $cur = date('ym');
+        $format = $this->modx->getOption('ms2_order_format_num', null, 'ym')
+        $format = preg_replace("/[^Yymdj]/", '', $format);
+
+        $cur = date($format);
         $num = 0;
 
         $c = $this->modx->newQuery('msOrder');
@@ -608,7 +611,7 @@ class msOrderHandler implements msOrderInterface
             $num = $c->stmt->fetchColumn();
         }
         if (empty($num)) {
-            $num = date('ym') . '/0';
+            $num = $cur . '/0';
         }
         $num = explode('/', $num);
         $num = $cur . '/' . ($num[1] + 1);
