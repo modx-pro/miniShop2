@@ -101,10 +101,30 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
                 'METHOD' => 'DoExpressCheckoutPayment',
                 'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
                 'PAYMENTREQUEST_0_AMT' => $params['PAYMENTREQUEST_0_AMT'],
-                'PAYMENTREQUEST_0_CURRENCYCODE' => $this->config['currency'],
                 'PAYERID' => $params['PAYERID'],
                 'TOKEN' => $params['TOKEN'],
+                'PAYMENTREQUEST_0_CURRENCYCODE' => $params['PAYMENTREQUEST_0_CURRENCYCODE']?: $this->config['currency'],
+                'PAYMENTREQUEST_0_ITEMAMT' => $params['PAYMENTREQUEST_0_ITEMAMT'],
+                'PAYMENTREQUEST_0_SHIPPINGAMT' => $params['PAYMENTREQUEST_0_SHIPPINGAMT'],
             );
+ 
+            /** @var msOrderProduct $item */
+            $i = 0;
+            if ($this->modx->getOption('ms2_payment_paypal_order_details', null, true)) {
+                $products = $order->getMany('Products');
+                foreach ($products as $item) {
+                    /** @var msProduct $product */
+                    $name = $item->get('name');
+                    if (empty($name) && $product = $item->getOne('Product')) {
+                        $name = $product->get('pagetitle');
+                    }
+                    $params['L_PAYMENTREQUEST_0_NAME' . $i] = $name;
+                    $params['L_PAYMENTREQUEST_0_AMT' . $i] = str_replace(',', '.', $item->get('price'));
+                    $params['L_PAYMENTREQUEST_0_QTY' . $i] = $item->get('count');
+                    $i++;
+                }
+            }
+
             $response = $this->request($params);
 
             if (!empty($response['ACK']) && $response['ACK'] == 'Success') {
