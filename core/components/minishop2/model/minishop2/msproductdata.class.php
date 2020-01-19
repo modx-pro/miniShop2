@@ -242,6 +242,7 @@ class msProductData extends xPDOSimpleObject
         if (!empty($categories[0])) {
             $c->where(array('msCategoryOption.category_id:IN' => $categories));
         }
+        $c->groupby('msOption.id');
 
         return $c;
     }
