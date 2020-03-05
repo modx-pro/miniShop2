@@ -597,7 +597,7 @@ class msOrderHandler implements msOrderInterface
     public function getNum()
     {
         $formatNum = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
-        $formatNumSeparator = trim(preg_replace("/[^,\/]/", '', "\/"));
+        $formatNumSeparator = trim(preg_replace("/[^,\/\-]/", '', "\/"));
 
         if ($formatNum){
             $cur = strftime($formatNum);
