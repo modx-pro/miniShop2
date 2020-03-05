@@ -115,7 +115,9 @@ $_lang['setting_ms2_payment_paypal_cancel_order'] = 'Отмена заказа P
 $_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'Если включено, заказ будет отменён при отказе от оплаты';
 
 $_lang['setting_ms2_order_format_num'] = 'Формат нумерации заказа';
-$_lang['setting_ms2_order_format_num_desc'] = 'Формат нумерации заказа. Доступные значения в формате PHP date(): "Y, y, m, d, j"';
+$_lang['setting_ms2_order_format_num_desc'] = 'Формат нумерации заказа. Доступные значения в формате PHP strftime()';
+$_lang['setting_ms2_order_format_num_separator'] = 'Разделитель для нумерации заказа';
+$_lang['setting_ms2_order_format_num_separator_desc'] = 'Разделитель для нумерации заказа. Доступние значения "/" и ","';
 $_lang['setting_ms2_order_grid_fields'] = 'Поля таблицы заказов';
 $_lang['setting_ms2_order_grid_fields_desc'] = 'Список полей, которые будут показаны в таблице заказов. Доступны: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
 $_lang['setting_ms2_order_address_fields'] = 'Поля адреса доставки';

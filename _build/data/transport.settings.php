@@ -206,9 +206,14 @@ $tmp = array(
     ),
 
     'ms2_order_format_num' => array(
-        'value' => 'ym',
+        'value' => '%y%m',
         'xtype' => 'textfield',
         'area' => 'ms2_order_format_num',
+    ),
+    'ms2_order_format_num_separator' => array(
+        'value' => '/',
+        'xtype' => 'textfield',
+        'area' => 'ms2_order_format_num_separator',
     ),
     'ms2_order_grid_fields' => array(
         'value' => 'id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment',
