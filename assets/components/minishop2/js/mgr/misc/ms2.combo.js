@@ -283,6 +283,14 @@ Ext.reg('minishop2-combo-source', miniShop2.combo.Source);
 
 miniShop2.combo.Options = function (config) {
     config = config || {};
+
+    if (config.mode == 'remote') {
+        Ext.applyIf(config, {
+            pageSize: 10,
+            paging: true,
+        });
+    }
+
     Ext.applyIf(config, {
         xtype: 'superboxselect',
         allowBlank: true,
@@ -296,7 +304,6 @@ miniShop2.combo.Options = function (config) {
         name: config.name || 'tags',
         anchor: '100%',
         minChars: 1,
-        pageSize: 10,
         store: new Ext.data.JsonStore({
             id: (config.name || 'tags') + '-store',
             root: 'results',
