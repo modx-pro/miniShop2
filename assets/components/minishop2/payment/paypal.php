@@ -62,6 +62,10 @@ if (!is_array($response)) {
     );
 }
 
+if ($modx->context->key !== $context && !empty($context)) {
+    $modx->switchContext($context);
+}
+
 $success = $cancel = $modx->getOption('site_url');
 if ($id = $modx->getOption('ms2_payment_paypal_success_id', null, 0)) {
     $success = $modx->makeUrl($id, $context, $params, 'full');
