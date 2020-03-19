@@ -471,8 +471,13 @@ class msOrderHandler implements msOrderInterface
             $response = $this->ms2->changeOrderStatus($order->get('id'), 1);
             if ($response !== true) {
                 return $this->error($response, array('msorder' => $order->get('id')));
-            } /** @var msPayment $payment */
-            elseif ($payment = $this->modx->getObject('msPayment',
+            }
+            
+            // Reload order object after changes in changeOrderStatus method
+            $order = $this->modx->getObject('msOrder', array('id' => $order->get('id')));
+            
+            /** @var msPayment $payment */
+            if ($payment = $this->modx->getObject('msPayment',
                 array('id' => $order->get('payment'), 'active' => 1))
             ) {
                 $response = $payment->send($order);
