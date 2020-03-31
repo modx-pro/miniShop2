@@ -921,3 +921,36 @@ miniShop2.combo.Classes = function (config) {
 };
 Ext.extend(miniShop2.combo.Classes, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-classes', miniShop2.combo.Classes);
+
+
+miniShop2.combo.ModCategory = function (config) {
+    config = config || {};
+
+    Ext.applyIf(config, {
+        name: config.name || 'modcategory',
+        hiddenName: config.name || 'modcategory',
+        displayField: 'category',
+        valueField: 'id',
+        anchor: '99%',
+        fields: ['category', 'id'],
+        pageSize: 20,
+        url: miniShop2.config['connector_url'],
+        typeAhead: false,
+        editable: false,
+        allowBlank: true,
+        emptyText: _('category'),
+        baseParams: {
+            action: 'mgr/settings/option/getcategories',
+            combo: true,
+            id: config.value,
+        }
+    });
+    miniShop2.combo.ModCategory.superclass.constructor.call(this, config);
+    this.on('expand', function () {
+        if (!!this.pageTb && this.pageSize < this.getStore().totalLength) {
+            this.pageTb.show();
+        }
+    });
+};
+Ext.extend(miniShop2.combo.ModCategory, miniShop2.combo.ComboBoxDefault);
+Ext.reg('minishop2-combo-modcategory', miniShop2.combo.ModCategory);
