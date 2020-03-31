@@ -9,6 +9,13 @@ miniShop2.window.CreateOption = function (config) {
         },
     });
     miniShop2.window.CreateOption.superclass.constructor.call(this, config);
+
+    this.on('success', function() {
+        var c = Ext.getCmp('minishop2-grid-option-modcategory');
+        if (c) {
+            c.getStore().load();
+        }
+    });
 };
 Ext.extend(miniShop2.window.CreateOption, miniShop2.window.Default, {
 
