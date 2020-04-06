@@ -44,6 +44,14 @@ foreach ($optionKeys as $key) {
         }
     }
     $option['value'] = $product->get($key);
+    
+    if (is_array($option['value'])){
+        $option['value'] = array_values(
+            array_filter($option['value'], function($var){
+                return $var !== '';
+            })
+        );
+    }
 
     // Filter by groups
     $skip = !empty($groups) && !in_array($option['category'], $groups) && !in_array($option['category_name'], $groups);
