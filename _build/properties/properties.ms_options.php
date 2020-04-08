@@ -11,6 +11,10 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
+    'sortOptions' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
     'tpl' => array(
         'type' => 'textfield',
         'value' => 'tpl.msOptions',
