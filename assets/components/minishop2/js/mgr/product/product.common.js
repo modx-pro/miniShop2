@@ -188,11 +188,13 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                 items: [{
                     columnWidth: .5,
                     layout: 'form',
+                    id: 'minishop2-product-data-left',
                     labelAlign: 'top',
                     items: col1,
                 }, {
                     columnWidth: .5,
                     layout: 'form',
+                    id: 'minishop2-product-data-right',
                     labelAlign: 'top',
                     items: col2,
                 }],
