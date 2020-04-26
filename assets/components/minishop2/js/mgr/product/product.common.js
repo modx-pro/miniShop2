@@ -181,17 +181,20 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
 
         return {
             title: _('ms2_tab_product_data'),
+            id: 'minishop2-product-data',
             bodyCssClass: 'main-wrapper',
             items: [{
                 layout: 'column',
                 items: [{
                     columnWidth: .5,
                     layout: 'form',
+                    id: 'minishop2-product-data-left',
                     labelAlign: 'top',
                     items: col1,
                 }, {
                     columnWidth: .5,
                     layout: 'form',
+                    id: 'minishop2-product-data-right',
                     labelAlign: 'top',
                     items: col2,
                 }],
@@ -233,6 +236,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
 
         return {
             title: _('ms2_tab_product_options'),
+            id: 'minishop2-product-options',
             items: [{
                 xtype: 'modx-vtabs',
                 autoTabs: true,
@@ -248,6 +252,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
     getProductLinks: function (config) {
         return {
             title: _('ms2_tab_product_links'),
+            id: 'minishop2-product-links',
             items: [{
                 xtype: 'minishop2-product-links',
                 record: config.record,
@@ -258,6 +263,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
     getProductCategories: function (config) {
         return {
             title: _('ms2_tab_product_categories'),
+            id: 'minishop2-product-categories',
             items: [{
                 xtype: 'minishop2-tree-categories',
                 parent: config.record['parent'] || 0,
