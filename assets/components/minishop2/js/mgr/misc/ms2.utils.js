@@ -1,7 +1,3 @@
-Ext.Loader.load([
-    MODx.config.assets_url + 'components/minishop2/js/mgr/misc/strftime-min-1.3.js'
-]);
-
 Ext.namespace('miniShop2.utils');
 
 miniShop2.utils.formatDate = function (string) {
