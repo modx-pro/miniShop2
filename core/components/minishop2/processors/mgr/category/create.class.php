@@ -49,6 +49,15 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
             $this->object->save();
         }
 
+        // Clone options from parent if it exists and is member of msCategory
+        if (!empty($this->object->parent) && $this->modx->getObject('msCategory',$this->object->parent)){
+            $miniShop2 = $this->modx->getService('miniShop2');
+            $miniShop2->runProcessor('mgr/category/option/duplicate',array(
+               'category_to' => $this->object->id,
+               'category_from' => $this->object->parent
+            ));
+        }
+
         // Update resourceMap before OnDocSaveForm event
         $results = $this->modx->cacheManager->generateContext($this->object->context_key);
         if (isset($results['resourceMap'])) {
