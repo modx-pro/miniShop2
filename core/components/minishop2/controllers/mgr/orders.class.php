@@ -34,6 +34,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/minishop2.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/default.grid.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/default.window.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/strftime-min-1.3.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.utils.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/misc/ms2.combo.js');
 
