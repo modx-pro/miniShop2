@@ -1,7 +1,3 @@
-Ext.Loader.load([
-    MODx.config.assets_url + 'components/minishop2/js/mgr/misc/strftime-min-1.3.js'
-]);
-
 Ext.namespace('miniShop2.utils');
 
 miniShop2.utils.formatDate = function (string) {
@@ -305,7 +301,7 @@ miniShop2.utils.getExtField = function (config, key, option, context) {
         name: name,
         value: option.value || config.record[key] || '',
         description: '[[+' + key + ']]' + help,
-        fieldLabel: option.caption || _('ms2_product_' + key),
+        fieldLabel: option.caption || _('ms2_product_' + key) || key,
         fieldKey: key,
         allowBlank: Boolean(1 - parseInt(option.required || 0)),
         enableKeyEvents: true,
