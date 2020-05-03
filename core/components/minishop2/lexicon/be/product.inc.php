@@ -66,9 +66,9 @@ $_lang['ms2_product_syncsite'] = 'Ачысціць кэш';
 
 $_lang['ms2_product_article'] = 'Артыкул';
 $_lang['ms2_product_article_help'] = '';
-$_lang['ms2_product_price'] = 'Цана';
+$_lang['ms2_product_price'] = 'Кошт';
 $_lang['ms2_product_price_help'] = '';
-$_lang['ms2_product_old_price'] = 'Старая цана';
+$_lang['ms2_product_old_price'] = 'Стары кошт';
 $_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Вага';
 $_lang['ms2_product_weight_help'] = '';
@@ -100,7 +100,7 @@ $_lang['ms2_product_popular'] = 'Папулярныя';
 $_lang['ms2_product_popular_help'] = '';
 $_lang['ms2_product_source'] = 'Крыніца файлаў';
 $_lang['ms2_product_source_help'] = 'Крыніца файлаў, якая захоўвае малюнкі тавару.';
-$_lang['ms2_product_change_source_confirm'] = 'Вы ўпэўненыя, што хочаце змяніць крыніца файлаў? УВАГА: пры гэтым будуць захаваны ўсе змены, пераканайцеся, што вы гатовыя зрабіць гэта перад працягам.';
+$_lang['ms2_product_change_source_confirm'] = 'Вы ўпэўненыя, што жадаеце змяніць крыніцу файлаў? УВАГА: пры гэтым будуць захаваны ўсе змены, пераканайцеся, што вы гатовыя зрабіць гэта перад працягам.';
 $_lang['ms2_product_count'] = 'Колькасць';
 $_lang['ms2_product_options'] = 'Опцыі тавараў';
 
@@ -153,3 +153,16 @@ $_lang['ms2_gallery_file_delete_multiple'] = 'Выдаліць файлы';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Вы сапраўды хочаце выдаліць гэтыя файлы з усімі іх паменшанымі копіямі?<br/>Гэтая аперацыя незваротная.';
 
 $_lang['ms2_gallery_errors'] = 'Памылкі пры загрузцы';
+
+$_lang['ms2_drag_self_one'] = 'Cancel';
+$_lang['ms2_drag_self_many'] = 'Cancel';
+$_lang['ms2_drag_move_one'] = 'Move product to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one_success'] = 'Product was successfully moved to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many'] = 'Move products to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many_success'] = 'Products was successfully moved to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_current_one'] = 'Move product to current category';
+$_lang['ms2_drag_move_current_once_success'] = 'Product was successfully moved to current category';
+$_lang['ms2_drag_move_current_many'] = 'Move products to current category';
+$_lang['ms2_drag_move_current_many_success'] = 'Products was successfully moved to current category';
+$_lang['ms2_drag_sort_one'] = 'Sort product';
+$_lang['ms2_drag_sort_many'] = 'Sorts product';

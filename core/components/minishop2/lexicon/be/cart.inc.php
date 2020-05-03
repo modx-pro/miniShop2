@@ -18,14 +18,14 @@ $_lang['ms2_cart_price'] = 'Цана';
 $_lang['ms2_cart_weight'] = 'Вага';
 $_lang['ms2_cart_count'] = 'Колькасць';
 $_lang['ms2_cart_cost'] = 'Кошт';
-$_lang['ms2_cart_remove'] = 'Знішчыць';
+$_lang['ms2_cart_remove'] = 'Выдаліць';
 $_lang['ms2_cart_total'] = 'Усяго';
 
 $_lang['ms2_cart_add_success'] = 'Тавар паспяхова дададзены ў кошык: [[+count]]';
 $_lang['ms2_cart_add_error'] = 'Памылка дадання тавара ў кошык';
 $_lang['ms2_cart_add_err_id'] = 'Памылка дадання ў кошык: не пазначаны ідэнтыфікатар тавару';
 $_lang['ms2_cart_add_err_nf'] = 'Памылка дадання ў кошык: тавар не знойдзены';
-$_lang['ms2_cart_add_err_count'] = 'Памылка дадання ў кошык: няправільнае колькасць "[[+count]]"';
+$_lang['ms2_cart_add_err_count'] = 'Памылка дадання ў кошык: няправільная колькасць "[[+count]]"';
 $_lang['ms2_cart_add_err_product'] = 'Памылка дадання ў кошык: няправільны тып тавару';
 
 $_lang['ms2_cart_remove_success'] = 'Тавар паспяхова выдалены з кошыку';

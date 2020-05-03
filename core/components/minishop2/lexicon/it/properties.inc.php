@@ -10,8 +10,8 @@ $_lang['ms2_prop_offset'] = 'An offset of resources returned by the criteria to 
 $_lang['ms2_prop_depth'] = 'Integer value indicating depth to search for resources from each parent.';
 $_lang['ms2_prop_sortby'] = 'The field to sort by. For sorting by product fields you need to add prefix "Data.", for example: "&sortby=`Data.price`"';
 $_lang['ms2_prop_sortdir'] = 'The direction to sort by';
-$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from.';
-$_lang['ms2_prop_tpl'] = 'The chunk tpl to use for each row.';
+$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from';
+$_lang['ms2_prop_tpl'] = 'Il tpl chunk da utilizzare per ogni riga.';
 $_lang['ms2_prop_toPlaceholder'] = 'If not empty, the snippet will save output to placeholder with that name, instead of return it to screen.';
 $_lang['ms2_prop_toSeparatePlaceholders'] = 'If set, will assign EACH result to a separate placeholder named by this param suffixed with a sequential number (starting from 0).';
 $_lang['ms2_prop_showLog'] = 'Display additional information about snippet work. Only for authenticated in context "mgr".';
@@ -30,8 +30,8 @@ $_lang['ms2_prop_tvPrefix'] = 'The prefix for TemplateVar properties, "tv." for 
 $_lang['ms2_prop_outputSeparator'] = 'An optional string to separate each tpl instance.';
 $_lang['ms2_prop_returnIds'] = 'If true, snippet will return comma separated string with ids of results instead of chunks.';
 
-$_lang['ms2_prop_showUnpublished'] = 'Show unpublished goods.';
-$_lang['ms2_prop_showDeleted'] = 'Show deleted goods.';
+$_lang['ms2_prop_showUnpublished'] = 'Mostra beni non pubblicati.';
+$_lang['ms2_prop_showDeleted'] = 'Mostra i prodotti cancellati.';
 $_lang['ms2_prop_showHidden'] = 'Show goods, that hidden in menu.';
 $_lang['ms2_prop_showZeroPrice'] = 'Show goods with zero price.';
 
