@@ -21,7 +21,7 @@ $_lang['ms2_menu_clear_all'] = 'Очистити все';
 $_lang['ms2_combo_select'] = 'Натисніть для вибору';
 $_lang['ms2_combo_select_status'] = 'Фільтр за статусом';
 
-$_lang['ms2_id'] = 'Id';
+$_lang['ms2_id'] = 'ID';
 $_lang['ms2_key'] = 'Ключ';
 $_lang['ms2_name'] = 'Имʼя';
 $_lang['ms2_caption'] = 'Заголовок';

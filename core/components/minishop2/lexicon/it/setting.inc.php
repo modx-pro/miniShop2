@@ -5,14 +5,14 @@
  * @package minishop2
  * @subpackage lexicon
  */
-$_lang['area_ms2_main'] = 'Main settings';
+$_lang['area_ms2_main'] = 'Impostazioni principali';
 $_lang['area_ms2_category'] = 'Category of the goods';
-$_lang['area_ms2_product'] = 'Product';
-$_lang['area_ms2_gallery'] = 'Gallery';
-$_lang['area_ms2_cart'] = 'Cart';
-$_lang['area_ms2_order'] = 'Order';
+$_lang['area_ms2_product'] = 'Prodotto';
+$_lang['area_ms2_gallery'] = 'Galleria';
+$_lang['area_ms2_cart'] = 'Carrello';
+$_lang['area_ms2_order'] = 'Ordine';
 $_lang['area_ms2_frontend'] = 'Frontend';
-$_lang['area_ms2_payment'] = 'Payments';
+$_lang['area_ms2_payment'] = 'Pagamenti';
 
 $_lang['setting_ms2_services'] = 'Store services';
 $_lang['setting_ms2_services_desc'] = 'Array with registered classes for cart, order, delivery and payment. Used by third-party extras to load their functionality.';
