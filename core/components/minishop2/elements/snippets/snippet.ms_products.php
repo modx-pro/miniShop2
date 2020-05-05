@@ -191,11 +191,11 @@ if (!empty($rows) && is_array($rows)) {
         if ($modifications) {
             $product->fromArray($row, '', true, true);
             $tmp = $row['price'];
-            $row['price'] = $product->getPrice($row);	
-            $row['weight'] = $product->getWeight($row);	
+            $row['price'] = $product->getPrice($row);
+            $row['weight'] = $product->getWeight($row);
             // A discount here, so we should replace old price	
-            if ($row['price'] < $tmp) {	
-                $row['old_price'] = $tmp;	
+            if ($row['price'] < $tmp) {
+                $row['old_price'] = $tmp;
             }
             $row = $product->prepareFields($row);
         }
