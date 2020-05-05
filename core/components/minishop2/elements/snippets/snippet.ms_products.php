@@ -177,8 +177,7 @@ if (!empty($rows) && is_array($rows)) {
     $c->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
     $c->where('modPlugin.disabled = 0');
 
-    $
-        = $modx->getOption('ms2_price_snippet', null, false, true) ||
+    $modifications = $modx->getOption('ms2_price_snippet', null, false, true) ||
         $modx->getOption('ms2_weight_snippet', null, false, true) || $modx->getCount('modPluginEvent', $c);
     if ($modifications) {
         /** @var msProductData $product */
