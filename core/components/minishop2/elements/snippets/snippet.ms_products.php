@@ -177,7 +177,8 @@ if (!empty($rows) && is_array($rows)) {
     $c->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
     $c->where('modPlugin.disabled = 0');
 
-    $modifications = $modx->getOption('ms2_price_snippet', null, false, true) ||
+    $
+        = $modx->getOption('ms2_price_snippet', null, false, true) ||
         $modx->getOption('ms2_weight_snippet', null, false, true) || $modx->getCount('modPluginEvent', $c);
     if ($modifications) {
         /** @var msProductData $product */
@@ -189,6 +190,13 @@ if (!empty($rows) && is_array($rows)) {
     foreach ($rows as $k => $row) {
         if ($modifications) {
             $product->fromArray($row, '', true, true);
+            $tmp = $row['price'];
+            $row['price'] = $product->getPrice($row);	
+            $row['weight'] = $product->getWeight($row);	
+            // A discount here, so we should replace old price	
+            if ($row['price'] < $tmp) {	
+                $row['old_price'] = $tmp;	
+            }
             $row = $product->prepareFields($row);
         }
         $row['price'] = $miniShop2->formatPrice($row['price']);
