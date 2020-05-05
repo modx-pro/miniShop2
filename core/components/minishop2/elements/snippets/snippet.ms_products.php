@@ -189,7 +189,6 @@ if (!empty($rows) && is_array($rows)) {
     foreach ($rows as $k => $row) {
         if ($modifications) {
             $product->fromArray($row, '', true, true);
-            $old_fields = $row;
             $row = $product->prepareFields($row);
         }
         $row['price'] = $miniShop2->formatPrice($row['price']);
