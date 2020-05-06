@@ -79,7 +79,18 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
             handler: this.assignOption,
             scope: this,
             disabled: true,
-        }, '->', this.getSearchField()];
+        }, '->', {
+            xtype: 'minishop2-combo-modcategory',
+            id: config.id + '-modcategory',
+            listeners: {
+                select: {
+                    fn: function (field) {
+                        this.baseParams.modcategory = field.value;
+                        this.getBottomToolbar().changePage(1);
+                    }, scope: this
+                }
+            }
+        }, this.getSearchField()];
     },
 
     getListeners: function () {
@@ -210,6 +221,18 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
         });
         w.fp.getForm().setValues({options: options});
         w.show(e.target);
+    },
+
+    _clearSearch: function () {
+        this.getStore().baseParams.query = '';
+
+        var c = Ext.getCmp(this.config.id + '-modcategory');
+        if (c) {
+            c.clearValue();
+            this.getStore().baseParams.modcategory = '';
+        }
+
+        this.getBottomToolbar().changePage(1);
     },
 
 });
