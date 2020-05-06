@@ -50,13 +50,19 @@ class msOptionGetListProcessor extends modObjectGetListProcessor
             ));
         }
 
-        $mod_category = (int)$this->getProperty('modcategory', 0);
+        $mod_category = $this->getProperty('modcategory', '');
 
-        if ($mod_category > 0) {
-            $c->leftJoin('modCategory', 'modCategory', 'modCategory.id=msOption.category');
-            $c->where(array(
-                'modCategory.id' => $mod_category,
-            ));
+        if (is_numeric($mod_category)) {
+            if ($mod_category > 0) {
+                $c->leftJoin('modCategory', 'modCategory', 'modCategory.id=msOption.category');
+                $c->where(array(
+                    'modCategory.id' => $mod_category,
+                ));
+            } else {
+                $c->where(array(
+                    'msOption.category' => $mod_category,
+                ));
+            }
         }
 
         return $c;

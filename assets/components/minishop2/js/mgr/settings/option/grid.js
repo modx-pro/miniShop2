@@ -228,7 +228,7 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
 
         var c = Ext.getCmp(this.config.id + '-modcategory');
         if (c) {
-            c.reset();
+            c.clearValue();
             this.getStore().baseParams.modcategory = '';
         }
 

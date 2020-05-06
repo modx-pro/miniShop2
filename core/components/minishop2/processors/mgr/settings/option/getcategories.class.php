@@ -20,6 +20,22 @@ class msOptionGetCategoriesProcessor extends modObjectGetListProcessor
 
         return $c;
     }
+
+
+    /**
+     * @param array $list
+     * 
+     * @return array
+     */
+    public function afterIteration(array $list)
+    {
+        array_unshift($list, array(
+            'id' => 0,
+            'category' => $this->modx->lexicon('no_category'),
+        ));
+
+        return $list;
+    }
 }
 
 return 'msOptionGetCategoriesProcessor';
