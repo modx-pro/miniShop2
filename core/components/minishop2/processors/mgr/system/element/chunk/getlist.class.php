@@ -43,12 +43,12 @@ class msChunkGetListProcessor extends modObjectGetListProcessor
     {
         $array = $object->toArray();
 
-		if (!empty($array['description'])) {
-			$array['name'] = $array['description'];
+        if (!empty($array['description'])) {
+            $array['name'] = $array['description'];
         }
 
-		return $array;
-	}
+        return $array;
+    }
 
 }
 
