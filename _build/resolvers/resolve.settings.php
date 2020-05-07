@@ -153,6 +153,17 @@ if ($transport->xpdo) {
                     $item->remove();
                 }
             }
+
+            /** @var modSystemSetting $setting */
+            if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_chunks_categories'))) {
+                if (!$setting->get('editedon')) {
+                    /** @var modCategory $category */
+                    if ($category = $modx->getObject('modCategory', array('category' => 'miniShop2'))) {
+                        $setting->set('value', $category->get('id'));
+                        $setting->save();
+                    }
+                }
+            }
             break;
 
         case xPDOTransport::ACTION_UNINSTALL:

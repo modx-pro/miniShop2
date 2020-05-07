@@ -14,15 +14,41 @@ class msChunkGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
+        $categories = $this->modx->getOption('ms2_chunks_categories');
+        if (!empty($categories)) {
+            $c->where(array(
+                'category:IN' => explode(',',$categories)
+            ));
+        }
         if ($id = (int)$this->getProperty('id')) {
             $c->where(array('id' => $id));
         }
         if ($query = trim($this->getProperty('query'))) {
-            $c->where(array('name:LIKE' => "%{$query}%"));
+            $c->where(array(
+                'name:LIKE' => "%{$query}%",
+                'OR:description:LIKE' => "%{$query}%",
+            ));
         }
 
         return $c;
     }
+
+
+    /**
+     * @param xPDOObject $object
+     * 
+     * @return array
+     */
+    public function prepareRow(xPDOObject $object)
+    {
+        $array = $object->toArray();
+
+		if (!empty($array['description'])) {
+			$array['name'] = $array['description'];
+        }
+
+		return $array;
+	}
 
 }
 
