@@ -61,7 +61,9 @@ Ext.extend(miniShop2.window.CreatePayment, miniShop2.window.Default, {
             fieldLabel: _('ms2_logo'),
             name: 'logo',
             anchor: '99%',
-            id: config.id + '-logo'
+            id: config.id + '-logo',
+            triggerClass: 'x-form-image-trigger',
+            allowedFileTypes: config.allowedFileTypes || MODx.config.upload_images
         }, {
             xtype: 'textarea',
             fieldLabel: _('ms2_description'),
