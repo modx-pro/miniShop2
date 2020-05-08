@@ -525,7 +525,18 @@ miniShop2.combo.Chunk = function (config) {
         baseParams: {
             action: 'mgr/system/element/chunk/getlist',
             mode: 'chunks'
-        }
+        },
+        tpl: new Ext.XTemplate('\
+            <tpl for=".">\
+                <div class="x-combo-list-item">\
+                    <span>\
+                        <small>({id})</small>\
+                        <b>{name}</b>\
+                    </span>\
+                </div>\
+            </tpl>',
+            {compiled: true}
+        ),
     });
     miniShop2.combo.Chunk.superclass.constructor.call(this, config);
 };

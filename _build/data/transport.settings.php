@@ -37,6 +37,11 @@ $tmp = array(
         'xtype' => 'textarea',
         'area' => 'ms2_main',
     ),
+    'ms2_chunks_categories' => array(
+        'value' => '',
+        'xtype' => 'textfield',
+        'area' => 'ms2_main',
+    ),
 
     'ms2_category_grid_fields' => array(
         'value' => 'id,menuindex,pagetitle,article,price,thumb,new,favorite,popular',

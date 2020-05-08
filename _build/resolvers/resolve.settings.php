@@ -153,6 +153,48 @@ if ($transport->xpdo) {
                     $item->remove();
                 }
             }
+
+            /** @var modSystemSetting $setting */
+            if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_chunks_categories'))) {
+                if (!$setting->get('editedon')) {
+                    /** @var modCategory $category */
+                    if ($category = $modx->getObject('modCategory', array('category' => 'miniShop2'))) {
+                        $setting->set('value', $category->get('id'));
+                        $setting->save();
+                    }
+                }
+            }
+
+            $chunks_descriptions = array(
+                'msProduct.content' => !$lang ? 'Чанк вывода карточки товара.' : 'Chunk for displaying card of miniShop2 product.',
+                'tpl.msProducts.row' => !$lang ? 'Чанк товара miniShop2.' : 'Chunk for listing miniShop2 catalog.',
+
+                'tpl.msCart' => !$lang ? 'Чанк вывода корзины miniShop2.' : 'Chunk for miniShop2 cart.',
+                'tpl.msMiniCart' => !$lang ? 'Чанк вывода мини корзины miniShop2.' : 'Chunk for miniShop2 mini cart.',
+                'tpl.msOrder' => !$lang ? 'Чанк вывода формы оформления заказа miniShop2.' : 'Chunk for displaying order form of miniShop2.',
+                'tpl.msGetOrder' => !$lang ? 'Чанк вывода заказа miniShop2.' : 'Chunk for displaying order of miniShop2.',
+                'tpl.msOptions' => !$lang ? 'Чанк вывода дополнительных свойств товара miniShop2.' : 'Chunk for displaying additional product characteristics of miniShop2 product.',
+                'tpl.msProductOptions' => !$lang ? 'Чанк вывода дополнительных опций товара miniShop2.' : 'Chunk for displaying additional product options of miniShop2 product.',
+                'tpl.msGallery' => !$lang ? 'Чанк вывода галереи товара miniShop2.' : 'Chunk for displaying gallery of miniShop2 product.',
+
+                'tpl.msEmail' => !$lang ? 'Базовый чанк оформления писем miniShop2.' : 'Basic mail chunk of miniShop2 mail.',
+                'tpl.msEmail.new.user' => !$lang ? 'Чанк письма нового заказа пользователю.' : 'User new order mail chunk.',
+                'tpl.msEmail.new.manager' => !$lang ? 'Чанк письма нового заказа менеджеру.' : 'Manager new order mail chunk.',
+                'tpl.msEmail.paid.user' => !$lang ? 'Чанк письма оплаченного заказа пользователю.' : 'User paid order mail chunk.',
+                'tpl.msEmail.paid.manager' => !$lang ? 'Чанк письма оплаченного заказа менеджеру.' : 'Manager paid order mail chunk.',
+                'tpl.msEmail.sent.user' => !$lang ? 'Чанк письма отправленного заказа пользователю.' : 'User sent order mail chunk.',
+                'tpl.msEmail.cancelled.user' => !$lang ? 'Чанк письма отмененного заказа пользователю.' : 'User cancelled order mail chunk.',
+            );
+
+            foreach ($chunks_descriptions as $name => $description) {
+                /** @var modChunk $chunk */
+                if ($chunk = $modx->getObject('modChunk', array('name' => $name))) {
+                    if (!$chunk->get('locked') && empty($chunk->get('description'))) {
+                        $chunk->set('description', $description);
+                        $chunk->save();
+                    }
+                }
+            }
             break;
 
         case xPDOTransport::ACTION_UNINSTALL:

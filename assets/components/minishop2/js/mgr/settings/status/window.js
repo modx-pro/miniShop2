@@ -3,7 +3,7 @@ miniShop2.window.CreateStatus = function (config) {
     this.ident = config.ident || 'mecitem' + Ext.id();
     Ext.applyIf(config, {
         title: _('ms2_menu_create'),
-        width: 600,
+        width: 800,
         baseParams: {
             action: 'mgr/settings/status/create',
         },
