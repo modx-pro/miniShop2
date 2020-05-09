@@ -11,6 +11,7 @@ $_lang['msproduct_save'] = 'Permission to save\update minishop product';
 $_lang['msorder_view'] = 'Permission to view order';
 $_lang['msorder_list'] = 'Permission to list of orders';
 $_lang['msorder_save'] = 'Permission to update order';
+$_lang['msorder_remove'] = 'Permission to remove order';
 
 $_lang['mssetting_view'] = 'Permission to view of settings';
 $_lang['mssetting_list'] = 'Permission to list of settings';

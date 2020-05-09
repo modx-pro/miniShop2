@@ -14,6 +14,7 @@ $tmp = array(
             'msorder_save' => array(),
             'msorder_view' => array(),
             'msorder_list' => array(),
+            'msorder_remove' => array(),
             'mssetting_save' => array(),
             'mssetting_view' => array(),
             'mssetting_list' => array(),

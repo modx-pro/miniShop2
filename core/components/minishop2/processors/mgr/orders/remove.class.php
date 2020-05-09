@@ -4,7 +4,7 @@ class msOrderRemoveProcessor extends modObjectRemoveProcessor
 {
     public $classKey = 'msOrder';
     public $languageTopics = array('minishop2');
-    public $permission = 'msorder_save';
+    public $permission = 'msorder_remove';
 
 
     /**
