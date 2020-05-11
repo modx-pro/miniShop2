@@ -132,11 +132,11 @@ class msProductUpdateManagerController extends msResourceUpdateController
             'preview_url' => $this->previewUrl,
             'locked' => $this->locked,
             'lockedText' => $this->lockedText,
-            'canSave' => $this->canSave,
+            'canSave' => $this->modx->hasPermission('msproduct_save'),
             'canEdit' => $this->canEdit,
             'canCreate' => $this->canCreate,
             'canDuplicate' => $this->canDuplicate,
-            'canDelete' => $this->canDelete,
+            'canDelete' => $this->modx->hasPermission('msproduct_delete'),
             'canPublish' => $this->canPublish,
             'show_tvs' => !empty($this->tvCounts),
             'next_page' => !empty($neighborhood['right'][0])
