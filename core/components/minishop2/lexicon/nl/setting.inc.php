@@ -81,6 +81,8 @@ $_lang['setting_ms2_product_id_as_alias_desc'] = 'If true, aliases for friendly 
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';
+$_lang['setting_ms2_cart_context_init'] = 'Cart context initialization.';
+$_lang['setting_ms2_cart_context_init_desc'] = 'If yes, the basket is the only one in all contexts.';
 $_lang['setting_ms2_order_handler_class'] = 'Order handler class';
 $_lang['setting_ms2_order_handler_class_desc'] = 'The name of the class that implements the logic of an ordering.';
 $_lang['setting_ms2_order_user_groups'] = 'Groups for registering customers';

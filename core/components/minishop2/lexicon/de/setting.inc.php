@@ -40,6 +40,8 @@ $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for genera
 
 $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';
+$_lang['setting_ms2_cart_context_init'] = 'Cart context initialization.';
+$_lang['setting_ms2_cart_context_init_desc'] = 'Wenn ja, ist der Warenkorb der einzige in allen Kontexten';
 $_lang['setting_ms2_order_handler_class'] = 'Order handler class';
 $_lang['setting_ms2_order_handler_class_desc'] = 'The name of the class that implements the logic of an ordering.';
 $_lang['setting_ms2_order_user_groups'] = 'Groups for registering customers';
