@@ -132,7 +132,7 @@ class msCartHandler implements msCartInterface
      */
     public function initialize($ctx = 'web')
     {
-        if ($this->_getSetting('ms2_cart_context_init') == 1){
+        if ($this->_getSetting('ms2_cart_context') == 1){
             $ctx = 'web';
         }
         $this->ctx = $ctx;
@@ -209,7 +209,7 @@ class msCartHandler implements msCartInterface
             if (array_key_exists($key, $this->cart)) {
                 return $this->change($key, $this->cart[$key]['count'] + $count);
             } else {
-                if ($this->_getSetting('ms2_cart_context_init') == 1){
+                if ($this->_getSetting('ms2_cart_context') == 1){
                     $ctx_key = 'web';
                 }
                 else {
