@@ -1,4 +1,4 @@
-<div id="msMiniCart" class="{$total_count > 0 ? 'full' : ''}">
+<div class="msMiniCart{$total_count > 0 ? ' full' : ''}">
     <div class="empty">
         <h5>{'ms2_minicart' | lexicon}</h5>
         {'ms2_minicart_is_empty' | lexicon}

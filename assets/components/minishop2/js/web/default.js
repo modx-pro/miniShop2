@@ -235,6 +235,7 @@
         setup: function () {
             miniShop2.Cart.cart = '#msCart';
             miniShop2.Cart.miniCart = '#msMiniCart';
+            miniShop2.Cart.miniCartClass = '.msMiniCart';
             miniShop2.Cart.miniCartNotEmptyClass = 'full';
             miniShop2.Cart.countInput = 'input[name=count]';
             miniShop2.Cart.totalWeight = '.ms2_total_weight';
@@ -287,9 +288,18 @@
             }
             else {
                 //var $cart = $(miniShop2.Cart.cart);
-                var $miniCart = $(miniShop2.Cart.miniCart);
-                if (status['total_count'] > 0 && !$miniCart.hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
-                    $miniCart.addClass(miniShop2.Cart.miniCartNotEmptyClass);
+                if ($('miniShop2.Cart.miniCart').length > 0) {
+                    var $miniCart = $(miniShop2.Cart.miniCart);
+                    if (status['total_count'] > 0 && !$miniCart.hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
+                        $miniCart.addClass(miniShop2.Cart.miniCartNotEmptyClass);
+                    }
+                }
+                else{
+                    $(miniShop2.Cart.miniCartClass).each((el,it) => {
+                        if (status['total_count'] > 0 && !$(it).hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
+                            $(it).addClass(miniShop2.Cart.miniCartNotEmptyClass);
+                        }
+                    });
                 }
                 $(miniShop2.Cart.totalWeight).text(miniShop2.Utils.formatWeight(status['total_weight']));
                 $(miniShop2.Cart.totalCount).text(status['total_count']);
