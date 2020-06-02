@@ -20,6 +20,15 @@ $tmp = array(
         'menuindex' => 1,
         'action' => 'mgr/settings',
     ),
+    'ms2_system_settings' => array(
+        'description' => 'ms2_system_settings_desc',
+        'parent' => 'minishop2',
+        'menuindex' => 2,
+        'namespace' => 'core',
+        'permissions' => 'settings',
+        'action' => 'system/settings',
+        'params' => '&ns=minishop2',
+    ),
 );
 
 foreach ($tmp as $k => $v) {
