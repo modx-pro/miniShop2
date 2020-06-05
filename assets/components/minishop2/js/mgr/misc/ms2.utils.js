@@ -380,6 +380,56 @@ miniShop2.utils.getExtField = function (config, key, option, context) {
     }
 };
 
+miniShop2.utils.renderBadge = function (value, cell, row) {
+    var color = row.data.color || 'CACACA',
+        textColor = '000000';
+
+    if (row.data.color) {
+        // HEX to RGB
+        var r = g = b = 0;
+        r = '0x' + color[0] + color[1];
+        g = '0x' + color[2] + color[3];
+        b = '0x' + color[4] + color[5];
+
+        r /= 255;
+        g /= 255;
+        b /= 255;
+
+        // RGB to HEX
+        var cmin = Math.min(r,g,b),
+            cmax = Math.max(r,g,b),
+            delta = cmax - cmin,
+            h = s = l = 0;
+    
+        if (delta == 0)
+            h = 0;
+        else if (cmax == r)
+            h = ((g - b) / delta) % 6;
+        else if (cmax == g)
+            h = (b - r) / delta + 2;
+        else
+            h = (r - g) / delta + 4;
+    
+        h = Math.round(h * 60);
+    
+        if (h < 0)
+            h += 360;
+    
+        l = (cmax + cmin) / 2;
+        s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+        s = +(s * 100).toFixed(1);
+        l = +(l * 100).toFixed(1);
+
+        textColor = l > 50 ? '000000' : 'FFFFFF'; 
+    }
+
+
+    //noinspection CssInvalidPropertyValue
+    return row.data.hasOwnProperty('active') && !row.data.active
+        ? value
+        : String.format('<span class="minishop2-row-badge" style="background-color:#{0};color:#{1}">{2}</span>', color, textColor, value);
+};
+
 /*
  miniShop2.getOptCaption = function (field) {
  var opts = miniShop2.config['option_fields'];

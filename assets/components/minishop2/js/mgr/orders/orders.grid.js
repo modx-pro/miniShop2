@@ -37,7 +37,7 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
             cart_cost: {width: 50},
             delivery_cost: {width: 75},
             weight: {width: 50},
-            status: {width: 75},
+            status: {width: 75, renderer: miniShop2.utils.renderBadge},
             delivery: {width: 75},
             payment: {width: 75},
             //address: {width: 50},

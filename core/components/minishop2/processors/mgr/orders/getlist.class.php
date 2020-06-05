@@ -186,10 +186,6 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         if (empty($data['customer'])) {
             $data['customer'] = $data['customer_username'];
         }
-
-        $data['status'] = '<span style="color:#' . $data['color'] . ';">' . $data['status'] . '</span>';
-        unset($data['color']);
-
         if (isset($data['cost'])) {
             $data['cost'] = $this->ms2->formatPrice($data['cost']);
         }

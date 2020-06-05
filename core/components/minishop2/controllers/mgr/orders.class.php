@@ -52,7 +52,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
             'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment', true
         )));
         $grid_fields = array_values(array_unique(array_merge($grid_fields, array(
-            'id', 'user_id', 'num', 'type', 'actions'
+            'id', 'user_id', 'num', 'type', 'actions', 'color'
         ))));
 
         $address_fields = array_map('trim', explode(',', $this->getOption('ms2_order_address_fields')));

@@ -32,7 +32,7 @@ Ext.extend(miniShop2.grid.Status, miniShop2.grid.Default, {
     getColumns: function () {
         return [
             {header: _('ms2_id'), dataIndex: 'id', width: 30},
-            {header: _('ms2_name'), dataIndex: 'name', width: 50, renderer: this._renderColor},
+            {header: _('ms2_name'), dataIndex: 'name', width: 50, renderer: miniShop2.utils.renderBadge},
             {header: _('ms2_email_user'), dataIndex: 'email_user', width: 50, renderer: this._renderBoolean},
             {header: _('ms2_email_manager'), dataIndex: 'email_manager', width: 50, renderer: this._renderBoolean},
             {header: _('ms2_status_final'), dataIndex: 'final', width: 50, renderer: this._renderBoolean},
@@ -165,13 +165,6 @@ Ext.extend(miniShop2.grid.Status, miniShop2.grid.Default, {
                 }
             }, this
         );
-    },
-
-    _renderColor: function (value, cell, row) {
-        //noinspection CssInvalidPropertyValue
-        return row.data['active']
-            ? String.format('<span style="color:#{0}">{1}</span>', row.data['color'], value)
-            : value;
     },
 
     _renderBoolean: function(value, cell, row) {
