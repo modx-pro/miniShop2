@@ -599,11 +599,7 @@ class msOrderHandler implements msOrderInterface
         $formatNum = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
         $formatNumSeparator = trim(preg_replace("/[^,\/\-]/", '', "\/"));
 
-        if ($formatNum){
-            $cur = strftime($formatNum);
-        }else{
-            $cur = date('ym');
-        }
+        $cut = $formatNum ? strftime($formatNum) : date('ym');
         
         $num = 0;
 
