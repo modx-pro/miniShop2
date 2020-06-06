@@ -13,6 +13,7 @@ $_lang['msproduct_save'] = 'Permite crearea\ modificarea produsului magazinului 
 $_lang['msorder_view'] = 'Permite vizualizarea comenzii '; 
 $_lang['msorder_list'] = 'Permite afișarea listei de comenzi'; 
 $_lang['msorder_save'] = 'Permite modificarea comenzii';
+$_lang['msorder_remove'] = 'Permite ștergeți comenzii';
 
 $_lang['mssetting_view'] = 'Permite vizualizarea setărilor'; 
 $_lang['mssetting_list'] = 'Permite afișarea unei liste de setări';

@@ -18,6 +18,7 @@ $policy->fromArray(array(
         'msorder_save' => true,
         'msorder_view' => true,
         'msorder_list' => true,
+        'msorder_remove' => true,
         'mssetting_save' => true,
         'mssetting_view' => true,
         'mssetting_list' => true,
