@@ -48,6 +48,11 @@ a.link, a.ms2-link { color: #005580; }
 .minishop2-row-required div {
     font-weight: bold;
 }
+.minishop2-row-badge {
+    padding: 4px 10px;
+    border-radius: 3px;
+    background-color: #cacaca;
+}
 .tbar-checkbox { text-align: left; }
 .tbar-checkbox label { padding: 2px 0 0 22px !important; line-height: normal; }
 /* Grid actions and menu */
