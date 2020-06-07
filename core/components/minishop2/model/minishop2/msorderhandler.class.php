@@ -596,12 +596,19 @@ class msOrderHandler implements msOrderInterface
      */
     public function getNum()
     {
-        $formatNum = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
-        $formatNumSeparator = trim(preg_replace("/[^,\/\-]/", '', "\/"));
+        $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
+        $separator = trim(
+            preg_replace("/[^,\/\-]/", '',
+                         $this->modx->getOption('ms2_order_format_num_separator', null, '/')
+            )
+        );
+        if (empty($separator)){
+            $separator = '/';
+        }
 
-        $cut = $formatNum ? strftime($formatNum) : date('ym');
-        
-        $num = 0;
+        $cur = $format ? strftime($format) : date('ym');
+
+        $count = $num = 0;
 
         $c = $this->modx->newQuery('msOrder');
         $c->where(array('num:LIKE' => "{$cur}%"));
@@ -610,14 +617,11 @@ class msOrderHandler implements msOrderInterface
         $c->limit(1);
         if ($c->prepare() && $c->stmt->execute()) {
             $num = $c->stmt->fetchColumn();
+            list(, $count) = explode($separator, $num);
         }
-        if (empty($num)) {
-            $num = "{$cur}{$formatNumSeparator}0";
-        }
-        $num = explode($formatNumSeparator, $num);
-        $num = "{$cur}{$formatNumSeparator}" . ($num[1] + 1);
+        $count = intval($count) + 1;
 
-        return $num;
+        return sprintf('%s%s%d', $cur, $separator, $count);
     }
 
 
