@@ -3,6 +3,8 @@
 /** @var array $scriptProperties */
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msOptions');
+$showEmpty = $modx->getOption('showEmpty', $scriptProperties, 1);
+
 if (!empty($input) && empty($product)) {
     $product = $input;
 }
@@ -45,7 +47,7 @@ foreach ($optionKeys as $key) {
     }
     $option['value'] = $product->get($key);
     
-    if (is_array($option['value'])){
+    if (is_array($option['value']) && !$showEmpty){
         $option['value'] = array_values(
             array_filter($option['value'], function($var){
                 return $var !== '';
