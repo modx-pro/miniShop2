@@ -539,6 +539,41 @@ class miniShop2
 
 
     /**
+     * @param array $options
+     * @param array|string $sorting
+     *
+     * @return array
+     */
+    public function sortOptionValues(array $options, $sorting)
+    {
+        if (!empty($sorting)) {
+            $sorting = array_map('trim', is_array($sorting) ? $sorting : explode(',', $sorting));
+            foreach ($sorting as $sort) {
+                @list($key, $order, $type, $first) = explode(':', $sort);
+                if (array_key_exists($key, $options)) {
+                    $order = empty($order) ? SORT_ASC : constant($order);
+                    $type = empty($type) ? SORT_STRING : constant($type);
+
+                    $values = &$options[$key];
+                    if (isset($options[$key]['value'])) {
+                        $values = &$options[$key]['value'];
+                    }
+
+                    array_multisort($values, $order, $type);
+
+                    if (!is_null($first) && ($index = array_search($first, $values)) !== false) {
+                        unset($values[$index]);
+                        array_unshift($values, $first);
+                    }
+                }
+            }
+        }
+
+        return $options;
+    }
+
+
+    /**
      * Loads additional metadata for miniShop2 objects
      */
     public function loadMap()
