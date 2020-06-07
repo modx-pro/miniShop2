@@ -602,9 +602,7 @@ class msOrderHandler implements msOrderInterface
                          $this->modx->getOption('ms2_order_format_num_separator', null, '/')
             )
         );
-        if (empty($separator)){
-            $separator = '/';
-        }
+        $separator = $separator ?: '/';
 
         $cur = $format ? strftime($format) : date('ym');
 
