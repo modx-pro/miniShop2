@@ -209,10 +209,8 @@ class msCartHandler implements msCartInterface
             if (array_key_exists($key, $this->cart)) {
                 return $this->change($key, $this->cart[$key]['count'] + $count);
             } else {
-                if ($this->modx->getOption('ms2_cart_context', null, '', true) == 1){
-                    $ctx_key = 'web';
-                }
-                else {
+                $ctx_key = 'web';
+                if (!$this->modx->getOption('ms2_cart_context', null, '', true)){
                     $ctx_key = $this->modx->context->get('key');
                 }
                 $this->cart[$key] = array(
