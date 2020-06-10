@@ -54,7 +54,8 @@ class Minishop2MgrSettingsManagerController extends msManagerController
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/option/window.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/option/tree.js');
 
-        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/settings.panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/settings/settings.js');
         $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
         $types = $this->miniShop2->loadOptionTypeList();
@@ -72,8 +73,11 @@ class Minishop2MgrSettingsManagerController extends msManagerController
         $config['default_thumb'] = $this->miniShop2->config['defaultThumb'];
         $this->addHtml('<script type="text/javascript">
             miniShop2.config = ' . json_encode($config) . ';
+
+            MODx.perm.msorder_list = '.($this->modx->hasPermission('msorder_list') ? 1 : 0).';
+
             Ext.onReady(function() {
-                MODx.add({xtype: "minishop2-panel-settings"});
+                MODx.add({xtype: "minishop2-page-settings"});
             });
         </script>');
 
