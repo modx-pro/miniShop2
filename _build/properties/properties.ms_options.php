@@ -11,7 +11,7 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
-    'sortOptions' => array(
+    'sortOptionValues' => array(
         'type' => 'textfield',
         'value' => '',
     ),

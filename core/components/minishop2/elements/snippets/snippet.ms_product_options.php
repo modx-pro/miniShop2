@@ -1,6 +1,8 @@
 <?php
 /** @var modX $modx */
 /** @var array $scriptProperties */
+/** @var miniShop2 $miniShop2 */
+$miniShop2 = $modx->getService('miniShop2');
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msOptions');
 if (!empty($input) && empty($product)) {
@@ -53,36 +55,7 @@ foreach ($optionKeys as $key) {
     $options[$key] = $option;
 }
 
-if (!empty($scriptProperties['sortOptions'])) {
-    $sorts = array_map('trim', explode(',', $scriptProperties['sortOptions']));
-    foreach ($sorts as $sort) {
-        $sort = explode(':', $sort);
-        $key = $sort[0];
-
-        $order = SORT_ASC;
-        if (!empty($sort[1])) {
-            $order = constant($sort[1]);
-        }
-        $type = SORT_STRING;
-        if (!empty($sort[2])) {
-            $type = constant($sort[2]);
-        }
-
-        $first = null;
-        if (!empty($sort[3])) {
-            $first = $sort[3];
-        }
-
-        if (array_key_exists($key, $options)) {
-            array_multisort($options[$key]['value'], $order, $type);
-
-            if ($first && ($index = array_search($first, $options[$key]['value'])) !== false) {
-                unset($options[$key]['value'][$index]);
-                array_unshift($options[$key]['value'], $first);
-            }
-        }
-    }
-}
+$options = $miniShop2->sortOptionValues($options, $scriptProperties['sortOptionValues']);
 
 /** @var pdoTools $pdoTools */
 $pdoTools = $modx->getService('pdoTools');
