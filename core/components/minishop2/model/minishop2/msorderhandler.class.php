@@ -599,7 +599,7 @@ class msOrderHandler implements msOrderInterface
         $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
         $separator = trim(
             preg_replace("/[^,\/\-]/", '',
-                         $this->modx->getOption('ms2_order_format_num_separator', null, '/')
+                $this->modx->getOption('ms2_order_format_num_separator', null, '/')
             )
         );
         $separator = $separator ?: '/';
