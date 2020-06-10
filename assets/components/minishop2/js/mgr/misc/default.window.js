@@ -4,7 +4,7 @@ miniShop2.window.Default = function(config) {
     Ext.applyIf(config, {
         title: '',
         url: miniShop2.config['connector_url'],
-        cls: 'modx-window minishop2-window ' || config['cls'],
+        cls: 'minishop2-window ' || config['cls'],
         width: 600,
         autoHeight: true,
         allowDrop: false,
