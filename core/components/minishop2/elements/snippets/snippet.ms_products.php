@@ -196,7 +196,7 @@ if (!empty($rows) && is_array($rows)) {
             if ($row['price'] < $tmp) {
                 $row['old_price'] = $tmp;
             }
-            $row = $product->prepareFields($row);
+            $row = $product->modifyFields($row);
         }
         $row['price'] = $miniShop2->formatPrice($row['price']);
         $row['old_price'] = $miniShop2->formatPrice($row['old_price']);

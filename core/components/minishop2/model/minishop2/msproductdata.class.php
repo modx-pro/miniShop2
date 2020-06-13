@@ -633,7 +633,7 @@ class msProductData extends xPDOSimpleObject
      *
      * @return array $result Prepared fields of product.
      * */
-    public function prepareFields() {
+    public function modifyFields() {
 
         $data = $this->toArray();
         /** @var miniShop2 $miniShop2 */
