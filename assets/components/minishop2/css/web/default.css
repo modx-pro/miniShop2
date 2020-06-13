@@ -23,12 +23,12 @@ div.jGrowl > .ui-state-highlight {
 #msMiniCart.full .empty { display: none; }
 #msMiniCart.full .not_empty { display: block; }
 
-.msMiniCart { font-size: .8em; }
-.msMiniCart h5 { margin: 0; }
-.msMiniCart .empty { display: block; }
-.msMiniCart .not_empty { display: none; }
-.msMiniCart.full .empty { display: none; }
-.msMiniCart.full .not_empty { display: block; }
+#msMiniCart, .msMiniCart { font-size: .8em; }
+#msMiniCart h5, .msMiniCart h5 { margin: 0; }
+#msMiniCart .empty, .msMiniCart .empty { display: block; }
+#msMiniCart .not_empty, .msMiniCart .not_empty { display: none; }
+#msMiniCart.full .empty, .msMiniCart.full .empty { display: none; }
+#msMiniCart.full .not_empty, .msMiniCart.full .not_empty { display: block; }
 
 /* Product */
 #msProduct .old_price, #msCart .old_price, .ms2_product .old_price {
