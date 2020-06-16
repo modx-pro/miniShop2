@@ -288,8 +288,8 @@
             }
             else {
                 //var $cart = $(miniShop2.Cart.cart);
-                if ($('miniShop2.Cart.miniCart').length > 0) {
-                    var $miniCart = $(miniShop2.Cart.miniCart);
+                var $miniCart = $(miniShop2.Cart.miniCart);
+                if ($miniCart.length > 0) {
                     if (status['total_count'] > 0 && !$miniCart.hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
                         $miniCart.addClass(miniShop2.Cart.miniCartNotEmptyClass);
                     }
