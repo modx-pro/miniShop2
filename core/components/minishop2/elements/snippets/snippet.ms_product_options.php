@@ -3,7 +3,7 @@
 /** @var array $scriptProperties */
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msOptions');
-$showEmpty = $modx->getOption('showEmpty', $scriptProperties, 1);
+$showEmpty = $modx->getOption('showEmpty', $scriptProperties, 0);
 
 if (!empty($input) && empty($product)) {
     $product = $input;
