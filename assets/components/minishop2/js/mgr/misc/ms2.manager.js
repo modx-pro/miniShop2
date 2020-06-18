@@ -31,6 +31,9 @@ Ext.override(MODx.window.QuickCreateResource, {
 
                                 if (success && settings) {
                                     for (var prop in settings) {
+                                        if (!settings.hasOwnProperty(prop)) {
+                                            continue;
+                                        }
                                         switch (settings[prop].key) {
                                             case templateSettingKey:
                                                 templateVal = settings[prop].value;
