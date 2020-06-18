@@ -24,6 +24,14 @@ switch ($modx->event->name) {
         }
         break;
 
+    case 'OnManagerPageBeforeRender':
+        /** @var miniShop2 $miniShop2 */
+        if ($miniShop2 = $modx->getService('miniShop2')) {
+            $modx->controller->addLexiconTopic('minishop2:default');
+            $modx->regClientStartupScript($miniShop2->config['jsUrl'] . 'mgr/misc/ms2.manager.js');
+        }
+        break;
+
     case 'OnLoadWebDocument':
         // Handle non-ajax requests
         if (!empty($_REQUEST['ms2_action'])) {
