@@ -288,16 +288,11 @@
             }
             else {
                 //var $cart = $(miniShop2.Cart.cart);
-                var $miniCart = $(miniShop2.Cart.miniCart);
-                if ($miniCart.length > 0) {
-                    if (status['total_count'] > 0 && !$miniCart.hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
-                        $miniCart.addClass(miniShop2.Cart.miniCartNotEmptyClass);
-                    }
-                }
-                else{
-                    $(miniShop2.Cart.miniCartClass).each((el,it) => {
-                        if (status['total_count'] > 0 && !$(it).hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
-                            $(it).addClass(miniShop2.Cart.miniCartNotEmptyClass);
+                var $miniCarts = $(miniShop2.Cart.miniCart).add(miniShop2.Cart.miniCartClass);
+                if (status['total_count'] > 0 && $miniCarts.length > 0) {
+                    $miniCarts.each((index,cart) => {
+                        if (!$(cart).hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
+                            $(cart).addClass(miniShop2.Cart.miniCartNotEmptyClass);
                         }
                     });
                 }
