@@ -84,7 +84,7 @@ foreach (array('where', 'leftJoin', 'innerJoin', 'select', 'groupby') as $v) {
             $tmp = json_decode($tmp, true);
         }
         if (is_array($tmp)) {
-            $$v = array_merge($$v, $tmp);
+            $$v = $tmp + $$v;
         }
     }
     unset($scriptProperties[$v]);
