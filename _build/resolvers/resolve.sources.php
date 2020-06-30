@@ -98,8 +98,16 @@ if ($transport->xpdo) {
                 ),
                 'is_stream' => 1,
             );
+
+            $settings_properties = array('key' => 'ms2_product_source_default');
+            /** @var $setting modSystemSetting */
+            $setting = $modx->getObject('modSystemSetting', $settings_properties) ?: $modx->newObject('modSystemSetting', $settings_properties);
+
+            $c = $modx->newQuery('sources.modMediaSource');
+            $c->where(array('id' => $setting->get('value')));
+            $c->orCondition(array('name' => $properties['name']));
             /** @var $source modMediaSource */
-            if (!$source = $modx->getObject('sources.modMediaSource', array('name' => $properties['name']))) {
+            if (!$source = $modx->getObject('sources.modMediaSource', $c)) {
                 $source = $modx->newObject('sources.modMediaSource', $properties);
             } else {
                 $default = $source->get('properties');
@@ -112,12 +120,9 @@ if ($transport->xpdo) {
             }
             $source->save();
 
-            if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_product_source_default'))) {
-                if (!$setting->get('value')) {
-                    $setting->set('value', $source->get('id'));
-                    $setting->save();
-                }
-            }
+            $setting->set('value', $source->get('id'));
+            $setting->save();
+
             @mkdir(MODX_ASSETS_PATH . 'images/');
             @mkdir(MODX_ASSETS_PATH . 'images/products/');
             break;
