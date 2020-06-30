@@ -601,8 +601,17 @@ class msOrderHandler implements msOrderInterface
      */
     public function getNum()
     {
-        $cur = date('ym');
-        $num = 0;
+        $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
+        $separator = trim(
+            preg_replace("/[^,\/\-]/", '',
+                $this->modx->getOption('ms2_order_format_num_separator', null, '/')
+            )
+        );
+        $separator = $separator ?: '/';
+
+        $cur = $format ? strftime($format) : date('ym');
+
+        $count = $num = 0;
 
         $c = $this->modx->newQuery('msOrder');
         $c->where(array('num:LIKE' => "{$cur}%"));
@@ -611,14 +620,11 @@ class msOrderHandler implements msOrderInterface
         $c->limit(1);
         if ($c->prepare() && $c->stmt->execute()) {
             $num = $c->stmt->fetchColumn();
+            list(, $count) = explode($separator, $num);
         }
-        if (empty($num)) {
-            $num = date('ym') . '/0';
-        }
-        $num = explode('/', $num);
-        $num = $cur . '/' . ($num[1] + 1);
+        $count = intval($count) + 1;
 
-        return $num;
+        return sprintf('%s%s%d', $cur, $separator, $count);
     }
 
 
