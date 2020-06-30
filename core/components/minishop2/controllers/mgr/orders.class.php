@@ -43,6 +43,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/orders/orders.grid.logs.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/orders/orders.grid.products.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/orders/orders.panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/orders/orders.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/orders/orders.window.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/orders/orders.window.product.js');
 
@@ -68,8 +69,11 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         $this->addHtml('
             <script type="text/javascript">
                 miniShop2.config = ' . json_encode($config) . ';
+
+                MODx.perm.mssetting_list = '.($this->modx->hasPermission('mssetting_list') ? 1 : 0).';
+
                 Ext.onReady(function() {
-                    MODx.add({xtype: "minishop2-panel-orders"});
+                    MODx.add({xtype: "minishop2-page-orders"});
                 });
             </script>'
         );
