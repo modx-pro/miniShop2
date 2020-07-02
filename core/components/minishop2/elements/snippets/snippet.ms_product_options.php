@@ -50,7 +50,7 @@ foreach ($optionKeys as $key) {
     if (is_array($option['value']) && !$showEmpty){
         $option['value'] = array_values(
             array_filter($option['value'], function($var){
-                return $var !== '';
+                return $var !== '' && $var !== null;
             })
         );
     }
