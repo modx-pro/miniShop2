@@ -1,5 +1,42 @@
 Changelog for miniShop2.
 
+2.5.1 pl
+==============
+- Fixed clone media source on update if is renamed [PR #438]
+- Added multicontext cart settings [PR #436]
+- Added buttons on orders and settings pages [PR #435]
+- Fixed ui bug header in modal window [PR #434]
+- Added sorting sortOptions in msOptions, msProductOptions [PR #407, #433]
+- Added renderBadge to statuses [PR #432]
+- Added settings link in miniShop2 menu [PR #430]
+- Added msorder_remove permission [PR #421]
+- Added icon for image in vendor modal creation [PR #420]
+- Added usable choice of chunk in the windows for creating/editing statuses [PR #419]
+- Update lexicons [PR #414]
+- Added clone msCategory options on subcategory creation [PR #412]
+- Ext.Loader remove asynchronous loading of strftime-min-1.3.js [PR #411]
+- Added ids to product tabs [PR #408]
+- Added filter on modCategory for options [PR #405]
+- Display field key if caption and lexicon entry is empty [PR #401]
+- Fix miniShop2.combo.Options paging on local mode [PR #400]
+- Added settings for order numeration [PR #393]
+- Fixed deleting link from one-to-one deleting all links [PR #389]
+- Switch context if the order context does not match [PR #388]
+- Fixed paypal error [PR #387]
+- Fixed error 500 if pdoTools not installed [PR #386]
+- Added example for webp in media source [PR #385]
+- Added reloading order object after changes in changeOrderStatus method [PR #384]
+- Change class name to variable in sort processor  [PR #381]
+- Moved product gallery tabs if enabled ticket comments [PR #377]
+- Moved product tabs [PR #376]
+- Fix options bug [PR #374]
+- Fix if impossible to remove the "Vendor" field [PR #372]
+- Added icons for tree from system settings [PR #365]
+- Output context name if it is [PR #364]
+- Notify user on move product in grid [PR #359]
+- Added product cost in cart [PR #358]
+- Fixed miniShop2.combo.Options [PR #355]
+
 2.5.0 pl
 ==============
 - Added translation into Belarusian (thanks @dmse4050)
