@@ -16,8 +16,12 @@ if (!($product instanceof msProduct)) {
     return "[msProductOptions] The resource with id = {$product->id} is not instance of msProduct.";
 }
 
-$ignoreOptions = array_map('trim', explode(',', $modx->getOption('ignoreOptions', $scriptProperties, '')));
-$onlyOptions = array_map('trim', explode(',', $modx->getOption('onlyOptions', $scriptProperties, '')));
+$ignoreOptions = array_diff(array_map('trim', explode(',', $modx->getOption('ignoreOptions', $scriptProperties, ''))), array(''));
+$onlyOptions = array_diff(array_map('trim', explode(',', $modx->getOption('onlyOptions', $scriptProperties, ''))), array(''));
+$sortOptions = array_diff(array_map('trim', explode(',', $modx->getOption('sortOptions', $scriptProperties, ''))), array(''));
+if (empty($sortOptions) && !empty($onlyOptions)) {
+    $sortOptions = $onlyOptions;
+}
 $groups = !empty($groups)
     ? array_map('trim', explode(',', $groups))
     : array();
@@ -53,6 +57,26 @@ foreach ($optionKeys as $key) {
         continue;
     }
     $options[$key] = $option;
+}
+
+if (!empty($sortOptions) && !empty($options)) {
+    $sortOptions = array_map('mb_strtolower', $sortOptions);
+    uksort($options, function($a, $b) use ($sortOptions) {
+        $ai = array_search(mb_strtolower($a, 'utf-8'), $sortOptions, true);
+        $bi = array_search(mb_strtolower($b, 'utf-8'), $sortOptions, true);
+        if ($ai === false && $bi === false) {
+            return 0;
+        } elseif ($ai === false) {
+            return 1;
+        } elseif ($bi === false) {
+            return -1;
+        } elseif ($ai < $bi) {
+            return -1;
+        } elseif ($ai > $bi) {
+            return 1;
+        }
+        return 0;
+    });
 }
 
 $options = $miniShop2->sortOptionValues($options, $scriptProperties['sortOptionValues']);

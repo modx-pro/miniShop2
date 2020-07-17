@@ -19,6 +19,10 @@ $tmp = array(
         'type' => 'textfield',
         'value' => '',
     ),
+    'sortOptions' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
     'sortOptionValues' => array(
         'type' => 'textfield',
         'value' => '',
