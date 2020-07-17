@@ -26,7 +26,7 @@ foreach ($names as $name) {
         if (!is_array($option)) {
             $option = array($option);
         }
-        if (!empty($option[0])) {
+        if (($option[0] != '') and ($option[0] != null)) {
             $options[$name] = $option;
         }
     }
