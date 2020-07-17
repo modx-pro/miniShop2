@@ -634,6 +634,9 @@ class msProductData extends xPDOSimpleObject
      * @return array $result Prepared fields of product.
      * */
     public function modifyFields($data = array()) {
+        if (empty($data)) {
+            $data = $this->toArray();
+        }
         /** @var miniShop2 $miniShop2 */
         $miniShop2 = $this->xpdo->getService('minishop2');
         $params = array(
