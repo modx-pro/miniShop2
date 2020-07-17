@@ -13,6 +13,7 @@ $tmp = array(
             'OnWebPageInit',
             'OnUserSave',
             'msOnChangeOrderStatus',
+            'OnManagerPageBeforeRender',
         ),
     ),
 );
