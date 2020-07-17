@@ -132,8 +132,10 @@ class msCartHandler implements msCartInterface
      */
     public function initialize($ctx = 'web')
     {
+        if ($this->modx->getOption('ms2_cart_context', null, '', true) == 1){
+            $ctx = 'web';
+        }
         $this->ctx = $ctx;
-
         return true;
     }
 
@@ -207,13 +209,17 @@ class msCartHandler implements msCartInterface
             if (array_key_exists($key, $this->cart)) {
                 return $this->change($key, $this->cart[$key]['count'] + $count);
             } else {
+                $ctx_key = 'web';
+                if (!$this->modx->getOption('ms2_cart_context', null, '', true)){
+                    $ctx_key = $this->modx->context->get('key');
+                }
                 $this->cart[$key] = array(
                     'id' => $id,
                     'price' => $price,
                     'weight' => $weight,
                     'count' => $count,
                     'options' => $options,
-                    'ctx' => $this->modx->context->get('key'),
+                    'ctx' => $ctx_key,
                 );
                 $response = $this->ms2->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
                 if (!$response['success']) {

@@ -40,6 +40,8 @@ $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for genera
 
 $_lang['setting_ms2_cart_handler_class'] = 'Classe du gestionnaire de panier';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';
+$_lang['setting_ms2_cart_context'] = 'Utiliser un même panier pour tous les contextes?';
+$_lang['setting_ms2_cart_context_desc'] = 'S\'il est activé, un panier commun est utilisé pour tous les contextes. Si elle est désactivée, chaque contexte utilise son propre panier.';
 $_lang['setting_ms2_order_handler_class'] = 'Order handler class';
 $_lang['setting_ms2_order_handler_class_desc'] = 'The name of the class that implements the logic of an ordering.';
 $_lang['setting_ms2_order_user_groups'] = 'Groups for registering customers';

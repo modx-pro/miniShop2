@@ -77,7 +77,9 @@ $_lang['setting_ms2_product_id_as_alias'] = 'Id produsului ca alias';
 $_lang['setting_ms2_product_id_as_alias_desc'] = 'Dacă este activat, alias-urile pentru denumiri a categoriilor nu se vor genera. În loc de aceasta se vor afișa id-urile lor.'; 
 
 $_lang['setting_ms2_cart_handler_class'] = 'Clasa de prelucrare a coșului '; 
-$_lang['setting_ms2_cart_handler_class_desc'] = 'Denumirea clasei, care realizează logica lucrului cu coșul.'; 
+$_lang['setting_ms2_cart_handler_class_desc'] = 'Denumirea clasei, care realizează logica lucrului cu coșul.';
+$_lang['setting_ms2_cart_context'] = 'Utilizați un singur coș pentru toate contextele?';
+$_lang['setting_ms2_cart_context_desc'] = 'Dacă este activat, atunci este utilizat un coș comun pentru toate contextele. Dacă este oprit, atunci fiecare context folosește propriul coș.';
 $_lang['setting_ms2_order_handler_class'] = 'Clasa de prelucrare a comenzii';   
 $_lang['setting_ms2_order_handler_class_desc'] = 'Denumirea clasei, care realizează logica de prelucrare a comenzii.'; 
 $_lang['setting_ms2_order_user_groups'] = 'Grupurile de înregistrare a cumpărătorilor'; 

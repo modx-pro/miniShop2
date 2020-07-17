@@ -209,6 +209,11 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_cart',
     ),
+    'ms2_cart_context' => array(
+        'value' => '',
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_cart',
+    ),
 
     'ms2_order_format_num' => array(
         'value' => '%y%m',
