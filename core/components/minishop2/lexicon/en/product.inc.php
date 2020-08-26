@@ -130,6 +130,7 @@ $_lang['ms2_product_selected_undelete'] = 'Undelete selected goods';
 //$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Files not found.<br/><br/>You can load them by dragging directly into this pane, or by selecting the button at the top.</p>';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files, you must first create (save) a product';
 $_lang['ms2_gallery_file_name'] = 'File name';
 $_lang['ms2_gallery_file_title'] = 'File title';
 $_lang['ms2_gallery_file_description'] = 'Description';
