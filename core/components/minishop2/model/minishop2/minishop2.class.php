@@ -154,7 +154,7 @@ class miniShop2
                 $response = $this->cart->add(@$data['id'], @$data['count'], @$data['options']);
                 break;
             case 'cart/change':
-                $response = $this->cart->change(@$data['key'], @$data['count']);
+                $response = $this->cart->change(@$data['key'], @$data['count'], @$data['options']);
                 break;
             case 'cart/remove':
                 $response = $this->cart->remove(@$data['key']);

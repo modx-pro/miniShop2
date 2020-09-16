@@ -267,24 +267,34 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function change($key, $count)
+    public function change($key, $count, $options = array())
     {
         $status = array();
+        if (is_string($options)) $options = json_decode($options, true);
+        if (!is_array($options)) $options = array();
+        
         if (array_key_exists($key, $this->cart)) {
-            if ($count <= 0) {
+            $options_cart = $this->cart[$key]['options'];
+
+            if ($count <= 0 && (empty($options) || !array_diff($options_cart, $options))) {
                 return $this->remove($key);
             } else {
                 if ($count > $this->config['max_count']) {
                     return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
                 } else {
+                    
                     $response = $this->ms2->invokeEvent('msOnBeforeChangeInCart',
-                        array('key' => $key, 'count' => $count, 'cart' => $this));
+                        array('key' => $key, 'count' => $count, 'cart' => $this, 'options' => $options));
                     if (!$response['success']) {
                         return $this->error($response['message']);
                     }
 
                     $count = $response['data']['count'];
                     $this->cart[$key]['count'] = $count;
+
+                    $options = $response['data']['options'];
+                    $this->cart[$key]['options'] = array_merge($options_cart, $options);
+
                     $response = $this->ms2->invokeEvent('msOnChangeInCart',
                         array('key' => $key, 'count' => $count, 'cart' => $this));
                     if (!$response['success']) {
