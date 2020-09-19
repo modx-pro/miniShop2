@@ -35,8 +35,16 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                     }
                     else if (tab.id == 'modx-page-settings') {
                         tab.items = this.getCategorySettings(config);
+                        var pageSettingsTab = tab;
+                        item.items.splice(i2, 1);
+                    }
+                    else if (tab.id == 'modx-resource-access-permissions') {
+                        var accessPermissionsTab = tab;
+                        item.items.splice(i2, 1);
                     }
                 }
+                // Move the "Settings" and "Resource Groups" to the end of tabs
+                item.items.push(pageSettingsTab, accessPermissionsTab);
             }
             if (item.id != 'modx-resource-content') {
                 fields.push(item);
