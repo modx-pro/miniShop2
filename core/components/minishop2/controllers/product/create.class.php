@@ -107,7 +107,7 @@ class msProductCreateManagerController extends msResourceCreateController
             'assets_url' => $this->miniShop2->config['assetsUrl'],
             'connector_url' => $this->miniShop2->config['connectorUrl'],
             'show_comments' => false,
-            'show_gallery' => false,
+            'show_gallery' => (bool)$this->getOption('ms2_product_tab_gallery', null, true),
             'show_extra' => (bool)$this->getOption('ms2_product_tab_extra', null, true),
             'show_options' => (bool)$this->getOption('ms2_product_tab_options', null, true),
             'show_links' => (bool)$this->getOption('ms2_product_tab_links', null, true),
