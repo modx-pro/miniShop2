@@ -5,10 +5,13 @@
 $miniShop2 = $modx->getService('miniShop2');
 $miniShop2->initialize($modx->context->key);
 /** @var pdoFetch $pdoFetch */
-if (!$modx->loadClass('pdofetch', MODX_CORE_PATH . 'components/pdotools/model/pdotools/', false, true)) {
+$fqn = $modx->getOption('pdoFetch.class', null, 'pdotools.pdofetch', true);
+$path = $modx->getOption('pdofetch_class_path', null, MODX_CORE_PATH . 'components/pdotools/model/', true);
+if ($pdoClass = $modx->loadClass($fqn, $path, false, true)) {
+    $pdoFetch = new $pdoClass($modx, $scriptProperties);
+} else {
     return false;
 }
-$pdoFetch = new pdoFetch($modx, $scriptProperties);
 $pdoFetch->addTime('pdoTools loaded.');
 
 $extensionsDir = $modx->getOption('extensionsDir', $scriptProperties, 'components/minishop2/img/mgr/extensions/', true);
