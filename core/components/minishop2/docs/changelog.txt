@@ -1,7 +1,13 @@
 Changelog for miniShop2.
 
-2.5.1 pl
+2.6.0 pl
 ==============
+- Updated snippets: msCart, msOrder, msGetOrder and msGallery [PR #461]
+- Changed the display encoding of collector messages [PR# 460]
+- Changed order of tabs for category [PR #459]
+- Added display of the gallery tab when creating a product [PR #455]
+- Added sortOptions property for snippet msProductOptions [PR #447]
+- Expanded functionality of windows for quick creation / updating of product / category [PR #439]
 - Fixed clone media source on update if is renamed [PR #438]
 - Added multicontext cart settings [PR #436]
 - Added buttons on orders and settings pages [PR #435]
