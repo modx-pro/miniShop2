@@ -24,6 +24,7 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                 item.getState = function () {
                     return {activeTab: this.items.indexOf(this.getActiveTab())};
                 };
+                var pageSettingsTab, accessPermissionsTab;
                 for (var i2 in item.items) {
                     if (!item.items.hasOwnProperty(i2)) {
                         continue;
@@ -35,16 +36,17 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
                     }
                     else if (tab.id == 'modx-page-settings') {
                         tab.items = this.getCategorySettings(config);
-                        var pageSettingsTab = tab;
+                        pageSettingsTab = tab;
                         item.items.splice(i2, 1);
                     }
                     else if (tab.id == 'modx-resource-access-permissions') {
-                        var accessPermissionsTab = tab;
+                        accessPermissionsTab = tab;
                         item.items.splice(i2, 1);
                     }
                 }
                 // Move the "Settings" and "Resource Groups" to the end of tabs
-                item.items.push(pageSettingsTab, accessPermissionsTab);
+                pageSettingsTab && item.items.push(pageSettingsTab);
+                accessPermissionsTab && item.items.push(accessPermissionsTab);
             }
             if (item.id != 'modx-resource-content') {
                 fields.push(item);
