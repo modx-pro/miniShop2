@@ -131,6 +131,7 @@ $_lang['ms2_product_selected_undelete'] = 'Verwijderen geselecteerde producten o
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Bestanden niet gevonden.<br/><br/>Je kunt deze uploaden door ze hier naartoe te slepen of via de knop bovenin.</p>';
 $_lang['ms2_gallery_file_name'] = 'Bestandsnaam';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
 $_lang['ms2_gallery_file_title'] = 'Titel bestand';
 $_lang['ms2_gallery_file_description'] = 'Omschrijving';
 $_lang['ms2_gallery_file_size'] = 'Bestandsgrootte';

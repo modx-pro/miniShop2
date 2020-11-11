@@ -131,6 +131,7 @@ $_lang['ms2_product_selected_undelete'] = 'A restabili produsele selectate';
 //$_lang['ms2_disabled_while_creating'] = '<i>Această funcție a fost dezactivată la crearea noului produs.</i>'; 
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Fișierile nu au fost găsite.<br/><br/>Puteți să le descărcați, tragând direct pe acest panou sau selectând butonul din partea de sus.</p>';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
 $_lang['ms2_gallery_file_name'] = 'Denumirea fișierului';
 $_lang['ms2_gallery_file_title'] = 'Denumire';
 $_lang['ms2_gallery_file_description'] = 'Descriere';

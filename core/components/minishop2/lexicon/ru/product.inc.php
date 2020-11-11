@@ -130,6 +130,7 @@ $_lang['ms2_product_selected_undelete'] = 'Восстановить выбран
 //$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файлов не найдено.<br/><br/>Вы можете загрузить их, перетащив прямо на эту панель или выбрав кнопкой вверху.</p>';
+$_lang['ms2_gallery_unavailablemsg'] = 'Для загрузки файлов в Галерею необходимо сначала создать (сохранить) товар.';
 $_lang['ms2_gallery_file_name'] = 'Имя файла';
 $_lang['ms2_gallery_file_title'] = 'Название';
 $_lang['ms2_gallery_file_description'] = 'Описание';

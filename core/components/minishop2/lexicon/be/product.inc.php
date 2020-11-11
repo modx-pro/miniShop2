@@ -131,6 +131,7 @@ $_lang['ms2_product_selected_undelete'] = 'Аднавіць выбраныя т�
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файлаў не знойдзена.<br/><br/>вы можаце загрузіць іх, перацягнуўшы прама на гэтую панэль або выбраўшы кнопкай уверсе.</p>';
 $_lang['ms2_gallery_file_name'] = 'Імя файла';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
 $_lang['ms2_gallery_file_title'] = 'Назва';
 $_lang['ms2_gallery_file_description'] = 'Апісанне';
 $_lang['ms2_gallery_file_size'] = 'Памер файла';

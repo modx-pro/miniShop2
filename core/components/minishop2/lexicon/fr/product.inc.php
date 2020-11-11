@@ -131,6 +131,7 @@ $_lang['ms2_gallery_status'] = 'État';
 $_lang['ms2_gallery_progress'] = 'En cours';
 $_lang['ms2_gallery_inactive'] = 'Inactif';
 $_lang['ms2_gallery_createdon'] = 'Créé le';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
 $_lang['ms2_gallery_createdby'] = 'Créé par';
 $_lang['ms2_gallery_url'] = 'Url';
 $_lang['ms2_gallery_name'] = 'Nom';

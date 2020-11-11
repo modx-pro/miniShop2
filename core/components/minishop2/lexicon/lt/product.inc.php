@@ -131,6 +131,7 @@ $_lang['ms2_gallery_introtext'] = 'Čia galite tvarkyti prekės nuotraukų galer
 $_lang['ms2_gallery_filename'] = 'Failo vardas';
 $_lang['ms2_gallery_title'] = 'Antraštė';
 $_lang['ms2_gallery_description'] = 'Aprašas';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
 $_lang['ms2_gallery_size'] = 'Dydis';
 $_lang['ms2_gallery_status'] = 'Būsena';
 $_lang['ms2_gallery_progress'] = 'Progresas';

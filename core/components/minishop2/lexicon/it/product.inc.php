@@ -131,6 +131,7 @@ $_lang['ms2_product_selected_undelete'] = 'Atstatyti pasirinktas pašalintas pre
 
 $_lang['ms2_gallery_emptymsg'] = 'Užvilkite ir numeskite ant šios lentelės norimus įkelti failus, arba įkelkite juos, pasinaudodami mygtuku viršuje.';
 $_lang['ms2_gallery_file_name'] = 'Nome file';
+$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
 $_lang['ms2_gallery_file_title'] = 'Titolo file';
 $_lang['ms2_gallery_file_description'] = 'Descrizione';
 $_lang['ms2_gallery_file_size'] = 'Dimensione file';
