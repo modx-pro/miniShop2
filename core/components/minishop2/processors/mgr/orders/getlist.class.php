@@ -110,7 +110,7 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         $start = (int)$this->getProperty('start');
 
         $q = clone $c;
-        $q->query['columns'] = ['SQL_CALC_FOUND_ROWS msOrder.id'];
+        $q->query['columns'] = ['SQL_CALC_FOUND_ROWS msOrder.id, fullname as customer'];
         $sortClassKey = $this->getSortClassKey();
         $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '', [$this->getProperty('sort')]);
         if (empty($sortKey)) {
