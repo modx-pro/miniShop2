@@ -4,15 +4,21 @@
     [[+popular:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">[[%ms2_frontend_popular]]</span>`]]
     [[+favorite:isnot=``:then=`<span class="badge badge-secondary badge-pill col-auto">[[%ms2_frontend_favorite]]</span>`]]
 </div>
-<div id="msProduct" class="row align-items-center">
+<div id="msProduct" class="row align-items-center" itemtype="http://schema.org/Product" itemscope>
+    <meta itemprop="name" content="[[*pagetitle]]">
+    <meta itemprop="description" content="[[*description:default=`[[*pagetitle]]`]]">
     <div class="col-12 col-md-6">
         [[!msGallery]]
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" itemtype="http://schema.org/AggregateOffer" itemprop="offers" itemscope>
+        <meta itemprop="category" content="[[#[[*parent]].pagetitle]]">
+        <meta itemprop="offerCount" content="1">
+        <meta itemprop="price" content="[[+price:replace=` ==`]]">
+        <meta itemprop="lowPrice" content="[[+price:replace=` ==`]]">
+        <meta itemprop="priceCurrency" content="RUR">
+
         <form class="form-horizontal ms2_form" method="post">
             <input type="hidden" name="id" value="[[*id]]"/>
-
-
 
             <div class="form-group row align-items-center">
                 <label class="col-6 col-md-3 text-right text-md-left col-form-label">[[%ms2_product_article]]:</label>
