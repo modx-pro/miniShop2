@@ -18,6 +18,7 @@
         </div>
         <div class="col-md-10 d-flex flex-column flex-md-row align-items-center no-gutters" itemtype="http://schema.org/AggregateOffer" itemprop="offers" itemscope>
             <meta itemprop="category" content="{$parent | resource: "pagetitle"}">
+            <meta itemprop="name" content="{$pagetitle}">
             <meta itemprop="offerCount" content="1">
             <meta itemprop="price" content="{$price | replace:" ":""}">
             <meta itemprop="lowPrice" content="{$price | replace:" ":""}">
