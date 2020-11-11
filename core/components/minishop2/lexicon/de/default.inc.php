@@ -96,6 +96,7 @@ $_lang['ms2_frontend_receiver'] = 'Empfänger';
 $_lang['ms2_frontend_email'] = 'Email';
 $_lang['ms2_frontend_phone'] = 'Telefon';
 $_lang['ms2_frontend_index'] = 'PLZ';
+$_lang['ms2_frontend_country'] = 'Land';
 $_lang['ms2_frontend_region'] = 'Bundesland';
 $_lang['ms2_frontend_city'] = 'Stadt';
 $_lang['ms2_frontend_street'] = 'Straße';

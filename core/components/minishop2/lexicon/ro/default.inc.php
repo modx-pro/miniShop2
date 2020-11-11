@@ -118,6 +118,7 @@ $_lang['ms2_frontend_receiver'] = 'Destinatar';
 $_lang['ms2_frontend_email'] = 'Email';
 $_lang['ms2_frontend_phone'] = 'Telefon';
 $_lang['ms2_frontend_index'] = 'Codul poștal';
+$_lang['ms2_frontend_country'] = 'Țară';
 $_lang['ms2_frontend_region'] = 'Regiune';
 $_lang['ms2_frontend_city'] = 'Oraș';
 $_lang['ms2_frontend_street'] = 'Stradă';

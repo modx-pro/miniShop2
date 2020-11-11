@@ -119,6 +119,7 @@ $_lang['ms2_frontend_receiver'] = 'Receiver';
 $_lang['ms2_frontend_email'] = 'Email';
 $_lang['ms2_frontend_phone'] = 'Phone';
 $_lang['ms2_frontend_index'] = 'Zip/Postal code';
+$_lang['ms2_frontend_country'] = 'Country';
 $_lang['ms2_frontend_region'] = 'State/Province';
 $_lang['ms2_frontend_city'] = 'City';
 $_lang['ms2_frontend_street'] = 'Street';

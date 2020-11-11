@@ -117,6 +117,7 @@ $_lang['ms2_frontend_receiver'] = 'Отримувач';
 $_lang['ms2_frontend_email'] = 'Email';
 $_lang['ms2_frontend_phone'] = 'Телефон';
 $_lang['ms2_frontend_index'] = 'Поштовий індекс';
+$_lang['ms2_frontend_country'] = 'Країна';
 $_lang['ms2_frontend_region'] = 'Область';
 $_lang['ms2_frontend_city'] = 'Місто';
 $_lang['ms2_frontend_street'] = 'Вулиця';

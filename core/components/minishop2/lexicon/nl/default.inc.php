@@ -109,6 +109,7 @@ $_lang['ms2_frontend_receiver'] = 'Ontvangen';
 $_lang['ms2_frontend_email'] = 'E-mailadres';
 $_lang['ms2_frontend_phone'] = 'Telefoonnummer';
 $_lang['ms2_frontend_index'] = 'Postcode';
+$_lang['ms2_frontend_country'] = 'Land';
 $_lang['ms2_frontend_region'] = 'Provincie';
 $_lang['ms2_frontend_city'] = 'Stad';
 $_lang['ms2_frontend_street'] = 'Straat';

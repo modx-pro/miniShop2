@@ -102,6 +102,7 @@ $_lang['ms2_frontend_receiver'] = 'Gavėjas';
 $_lang['ms2_frontend_email'] = 'El. paštas';
 $_lang['ms2_frontend_phone'] = 'Telefonas';
 $_lang['ms2_frontend_index'] = 'Pašto kodas';
+$_lang['ms2_frontend_country'] = 'Šalis';
 $_lang['ms2_frontend_region'] = 'Valstija / rajonas';
 $_lang['ms2_frontend_city'] = 'Miestas';
 $_lang['ms2_frontend_street'] = 'Gatvė';
