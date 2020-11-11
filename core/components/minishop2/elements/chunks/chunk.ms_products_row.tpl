@@ -1,4 +1,6 @@
-<div class="ms2_product mb-5 mb-md-3">
+<div class="ms2_product mb-5 mb-md-3" itemtype="http://schema.org/Product" itemscope>
+    <meta itemprop="description" content="{$description = $description ?: $pagetitle}">
+
     <form method="post" class="ms2_form d-flex flex-column flex-md-row align-items-center no-gutters">
         <input type="hidden" name="id" value="{$id}">
         <input type="hidden" name="count" value="1">
@@ -6,15 +8,22 @@
         <div class="col-md-2 text-center text-md-left">
             <a href="{$id | url}">
                 {if $thumb?}
-                    <img src="{$thumb}" class="mw-100" alt="{$pagetitle}" title="{$pagetitle}"/>
+                    <img src="{$thumb}" class="mw-100" alt="{$pagetitle}" title="{$pagetitle}" itemprop="image"/>
                 {else}
                     <img src="{'assets_url' | option}components/minishop2/img/web/ms2_small.png"
-                         srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
-                         class="mw-100" alt="{$pagetitle}" title="{$pagetitle}"/>
+                        srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
+                        class="mw-100" alt="{$pagetitle}" title="{$pagetitle}"/>
                 {/if}
             </a>
         </div>
-        <div class="col-md-10 d-flex flex-column flex-md-row align-items-center no-gutters">
+        <div class="col-md-10 d-flex flex-column flex-md-row align-items-center no-gutters" itemtype="http://schema.org/AggregateOffer" itemprop="offers" itemscope>
+            <meta itemprop="category" content="{$parent | resource: "pagetitle"}">
+            <meta itemprop="name" content="{$pagetitle}">
+            <meta itemprop="offerCount" content="1">
+            <meta itemprop="price" content="{$price | replace:" ":""}">
+            <meta itemprop="lowPrice" content="{$price | replace:" ":""}">
+            <meta itemprop="priceCurrency" content="RUR">
+
             <div class="col-12 col-md-8 mt-2 mt-md-0 flex-grow-1">
                 <div class="d-flex justify-content-around justify-content-md-start">
                     <a href="{$id | url}" class="font-weight-bold">{$pagetitle}</a>
