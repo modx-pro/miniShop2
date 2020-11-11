@@ -102,6 +102,7 @@ $_lang['ms2_frontend_receiver'] = 'Destinataire';
 $_lang['ms2_frontend_email'] = 'Courriel';
 $_lang['ms2_frontend_phone'] = 'Téléphone';
 $_lang['ms2_frontend_index'] = 'Code postal';
+$_lang['ms2_frontend_country'] = 'Pays';
 $_lang['ms2_frontend_region'] = 'Département';
 $_lang['ms2_frontend_city'] = 'Ville';
 $_lang['ms2_frontend_street'] = 'Rue';
