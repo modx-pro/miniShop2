@@ -81,6 +81,10 @@ if (!empty($sortOptions) && !empty($options)) {
 
 $options = $miniShop2->sortOptionValues($options, $scriptProperties['sortOptionValues']);
 
+if (in_array($scriptProperties['return'], array('data', 'array'), true)) {
+    return $options;
+}
+
 /** @var pdoTools $pdoTools */
 $pdoTools = $modx->getService('pdoTools');
 
