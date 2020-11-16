@@ -63,11 +63,13 @@ foreach ($optionKeys as $key) {
     }
 }
 
-if (!empty($sortOptions) && !empty($options)) {
-    $sortOptions = array_map('mb_strtolower', $sortOptions);
-    uksort($options, function($a, $b) use ($sortOptions) {
-        $ai = array_search(mb_strtolower($a, 'utf-8'), $sortOptions, true);
-        $bi = array_search(mb_strtolower($b, 'utf-8'), $sortOptions, true);
+if (!empty($sortGroups) && !empty($options)) {
+    $sortGroups = array_map('mb_strtolower', $sortGroups);
+    uasort($options, function($a, $b) use ($sortGroups) {
+        $ai = array_search(mb_strtolower($a['category'], 'utf-8'), $sortGroups, true);
+        $ai = $ai !== false ? $ai : array_search(mb_strtolower($a['category_name'], 'utf-8'), $sortGroups, true);
+        $bi = array_search(mb_strtolower($b['category'], 'utf-8'), $sortGroups, true);
+        $bi = $bi !== false ? $bi : array_search(mb_strtolower($b['category_name'], 'utf-8'), $sortGroups, true);
         if ($ai === false && $bi === false) {
             return 0;
         } elseif ($ai === false) {
@@ -83,13 +85,11 @@ if (!empty($sortOptions) && !empty($options)) {
     });
 }
 
-if (!empty($sortGroups) && !empty($options)) {
-    $sortGroups = array_map('mb_strtolower', $sortGroups);
-    uasort($options, function($a, $b) use ($sortGroups) {
-        $ai = array_search(mb_strtolower($a['category'], 'utf-8'), $sortGroups, true);
-        $ai = $ai !== false ? $ai : array_search(mb_strtolower($a['category_name'], 'utf-8'), $sortGroups, true);
-        $bi = array_search(mb_strtolower($b['category'], 'utf-8'), $sortGroups, true);
-        $bi = $bi !== false ? $bi : array_search(mb_strtolower($b['category_name'], 'utf-8'), $sortGroups, true);
+if (!empty($sortOptions) && !empty($options)) {
+    $sortOptions = array_map('mb_strtolower', $sortOptions);
+    uksort($options, function($a, $b) use ($sortOptions) {
+        $ai = array_search(mb_strtolower($a, 'utf-8'), $sortOptions, true);
+        $bi = array_search(mb_strtolower($b, 'utf-8'), $sortOptions, true);
         if ($ai === false && $bi === false) {
             return 0;
         } elseif ($ai === false) {
