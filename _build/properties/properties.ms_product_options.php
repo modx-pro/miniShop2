@@ -11,11 +11,19 @@ $tmp = array(
         'type' => 'textfield',
         'value' => 'tpl.msProductOptions',
     ),
+    'ignoreGroups' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
     'ignoreOptions' => array(
         'type' => 'textfield',
         'value' => '',
     ),
     'onlyOptions' => array(
+        'type' => 'textfield',
+        'value' => '',
+    ),
+    'sortGroups' => array(
         'type' => 'textfield',
         'value' => '',
     ),
