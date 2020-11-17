@@ -27,7 +27,8 @@ a.link, a.ms2-link { color: #005580; }
 .minishop2-grid .x-grid-group-hd div.x-grid-group-title { padding: 8px 4px 12px 5px; }
 .minishop2-row-unpublished div,
 .minishop2-row-unpublished span,
-.minishop2-row-unpublished a {
+.minishop2-row-unpublished a,
+.minishop2-row-inactive div {
     font-style: italic;
     color: #aaa !important;
 }
@@ -38,12 +39,12 @@ a.link, a.ms2-link { color: #005580; }
     text-decoration: line-through !important;
 }
 .minishop2-row-unpublished img,
-.minishop2-row-deleted img {
+.minishop2-row-deleted img,
+.minishop2-row-inactive img,
+.minishop2-row-unpublished .minishop2-row-actions,
+.minishop2-row-deleted .minishop2-row-actions,
+.minishop2-row-inactive .minishop2-row-actions {
     opacity: .5;
-}
-.minishop2-row-inactive div {
-    font-style: italic;
-    color: #aaa !important;
 }
 .minishop2-row-required div {
     font-weight: bold;
