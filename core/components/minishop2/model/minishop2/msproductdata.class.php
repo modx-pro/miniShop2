@@ -645,9 +645,9 @@ class msProductData extends xPDOSimpleObject
         );
         $response = $miniShop2->invokeEvent('msOnGetProductFields', $params);
         if ($response['success']) {
-            $result = array_merge($data, $response['data']);
+            $data = array_merge($data, $response['data']);
         }
 
-        return $result;
+        return $data;
     }
 }
