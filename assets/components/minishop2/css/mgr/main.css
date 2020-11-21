@@ -92,7 +92,7 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 /* Windows */
 .minishop2-window .x-form-label-top .x-form-item label.x-form-item-label { padding-top: 15px !important; }
 .minishop2-window .x-panel-mc,
-.minishop2-window .x-tab-panel-bwrap > .x-tab-panel-body > .x-panel { margin-top: -15px; }
+.minishop2-window .x-tab-panel-bwrap > .x-tab-panel-body > .x-panel { margin-top: -14px; }
 .minishop2-window .x-window-body.tabs { padding: 5px 10px 0 10px; }
 .minishop2-window .desc { font-style: italic; padding-top: 5px; color: #555555; }
 /* Tree */
