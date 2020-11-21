@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            {'msProductOptions' | snippet : [
+            {'msOptions' | snippet : [
                 'options' => 'color,size'
             ]}
 
