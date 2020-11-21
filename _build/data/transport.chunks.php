@@ -4,6 +4,7 @@ $chunks = array();
 
 $tmp = array(
     'msProduct.content' => 'ms_product_content',
+    'msProduct.content.fenom' => 'ms_product_content_fenom',
     'tpl.msProducts.row' => 'ms_products_row',
 
     'tpl.msCart' => 'ms_cart',
