@@ -86,6 +86,8 @@ $_lang['ms2_distance_price_help'] = 'Additional cost per unit of distance.<br/>C
 $_lang['ms2_order_requires'] = 'Required fields';
 $_lang['ms2_order_requires_help'] = 'When ordering, custom class can require the filling of these fields';
 $_lang['ms2_rank'] = 'Rank';
+$_lang['ms2_free_delivery_amount'] = 'Free shipping on order amount';
+$_lang['ms2_free_delivery_amount_help'] = 'When the order amount reaches this value, delivery will be free';
 
 $_lang['ms2_orders_selected_status'] = 'Change status of selected orders';
 
