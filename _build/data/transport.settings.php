@@ -240,6 +240,11 @@ $tmp = array(
         'value' => 'product_pagetitle,product_article,weight,price,count,cost',
         'area' => 'ms2_order',
     ),
+    'ms_order_product_options' => array(
+        'xtype' => 'textarea',
+        'value' => 'size,color',
+        'area' => 'ms2_order',
+    ),
 
     'ms2_order_handler_class' => array(
         'value' => 'msOrderHandler',

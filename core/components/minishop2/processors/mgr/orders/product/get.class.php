@@ -5,7 +5,7 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
     public $classKey = 'msOrderProduct';
     public $languageTopics = array('minishop2:default');
     public $permission = 'msorder_view';
-
+    private $product_options = [];
 
     /**
      * @return bool|null|string
@@ -15,6 +15,8 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
         if (!$this->modx->hasPermission($this->permission)) {
             return $this->modx->lexicon('access_denied');
         }
+
+        $this->product_options = array_map('trim', explode(',', $this->modx->getOption('ms_order_product_options')));
 
         return parent::initialize();
     }
@@ -28,6 +30,11 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
         $array = $this->object->toArray('', true);
         if ($tmp = json_decode($array['options'], true)) {
             if (is_array($tmp)) {
+                foreach ($tmp as $key => $value) {
+                    if ($this->check_option_field($value)) {
+                        $array['option-' . $key] = $value;
+                    }
+                }
                 if (PHP_VERSION_ID >= 50400) {
                     $array['options'] = json_encode($tmp, JSON_UNESCAPED_UNICODE);
                 } else {
@@ -62,6 +69,24 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
         });
 
         return mb_decode_numericentity(json_encode($arr), array(0x80, 0xffff, 0, 0xffff), 'UTF-8');
+    }
+
+    private function check_option_field($option)
+    {
+        if (is_array($option)) {
+            return false;
+        }
+
+        if (is_array(json_decode($option, true))) {
+            return false;
+        }
+
+        if (in_array($option, $this->product_options)) {
+            return false;
+        }
+
+
+        return true;
     }
 
 }
