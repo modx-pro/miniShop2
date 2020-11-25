@@ -103,7 +103,7 @@ $xpdo_meta_map['msDelivery']= array (
       'null' => true,
       'default' => 'email,receiver',
     ),
-    'free_delivery_amout' => 
+    'free_delivery_amount' => 
     array (
       'dbtype' => 'decimal',
       'precision' => '12,2',
