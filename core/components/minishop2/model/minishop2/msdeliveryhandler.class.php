@@ -87,7 +87,7 @@ class msDeliveryHandler implements msDeliveryInterface
             $add_price = $cost / 100 * $add_price;
         }
         
-        $free_delivery_amount = $delivery->get('free_delivery_amount') 
+        $free_delivery_amount = $delivery->get('free_delivery_amount'); 
         if($free_delivery_amount > 0 && $free_delivery_amount < $cost) {
             $add_price = 0;
         } 
