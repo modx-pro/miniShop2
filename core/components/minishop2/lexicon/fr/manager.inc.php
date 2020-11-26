@@ -76,8 +76,9 @@ $_lang['ms2_distance_price'] = 'Prix par unité de distance';
 $_lang['ms2_distance_price_help'] = 'Coût supplémentaire par unité de distance.<br/>Peut être utilisé dans des classes personnalisées.';
 $_lang['ms2_order_requires'] = 'Champs requis';
 $_lang['ms2_order_requires_help'] = 'Lors de la commande, une classe personnalisée peut exiger le remplissage d\'un de ses champs';
-
 $_lang['ms2_orders_selected_status'] = 'Changer l\'état de la commande sélectionnée';
+$_lang['ms2_free_delivery_amount'] = 'Livraison gratuite sur le montant de la commande';
+$_lang['ms2_free_delivery_amount_help'] = 'Lorsque le montant de la commande atteint cette valeur, la livraison sera gratuite. Si la classe d\'expédition a été modifiée et / ou si vous avez installé des composants susceptibles d\'affecter la valeur de la commande, ce champ peut ne pas être pris en compte';
 
 $_lang['ms2_link_name'] = 'Nom du lien';
 $_lang['ms2_link_one_to_one'] = 'Un pour un';
