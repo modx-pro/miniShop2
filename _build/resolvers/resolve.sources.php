@@ -28,7 +28,7 @@ if ($transport->xpdo) {
                         'desc' => 'prop_file.baseUrl_desc',
                         'type' => 'textfield',
                         'lexicon' => 'core:source',
-                        'value' => 'assets/images/products/',
+                        'value' => $assets . '/images/products/',
                     ),
                     'imageExtensions' => array(
                         'name' => 'imageExtensions',
