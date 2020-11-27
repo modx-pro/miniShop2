@@ -240,7 +240,7 @@ $tmp = array(
         'value' => 'product_pagetitle,product_article,weight,price,count,cost',
         'area' => 'ms2_order',
     ),
-    'ms_order_product_options' => array(
+    'ms2_order_product_options' => array(
         'xtype' => 'textarea',
         'value' => 'size,color',
         'area' => 'ms2_order',

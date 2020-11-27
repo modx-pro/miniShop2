@@ -61,7 +61,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         $product_fields = array_values(array_unique(array_merge($product_fields, array(
             'id', 'product_id', 'name', 'actions'
         ))));
-        $product_options = array_map('trim', explode(',', $this->getOption('ms_order_product_options')));
+        $product_options = array_map('trim', explode(',', $this->getOption('ms2_order_product_options')));
 
         $config = $this->miniShop2->config;
         $config['order_grid_fields'] = $grid_fields;
