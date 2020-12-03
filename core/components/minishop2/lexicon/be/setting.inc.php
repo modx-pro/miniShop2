@@ -18,6 +18,8 @@ $_lang['setting_ms2_services'] = 'Службы крамы';
 $_lang['setting_ms2_services_desc'] = 'Масіў з зарэгістраванымі класамі для кошыка, замовы, дастаўкі і аплаты. Выкарыстоўваецца іншымі дапаўненнямі для загрузкі свайго функцыяналу.';
 $_lang['setting_ms2_plugins'] = 'Убудовы крамы';
 $_lang['setting_ms2_plugins_desc'] = 'Масіў з зарэгістраванымі ўбудовамі пашырэння аб\'ектаў мадэлі крамы: тавараў, профіляў пакупніка і г.д.';
+$_lang['setting_ms2_chunks_categories'] = 'Катэгорыі для спісу чанкив';
+$_lang['setting_ms2_chunks_categories_desc'] = 'Спіс ID катэгорый праз коску для спісу чанкив.';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Паля табліцы тавараў';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Спіс бачных палёў табліцы з таварамі катэгорыі, праз коску.';
@@ -30,10 +32,10 @@ $_lang['setting_mgr_tree_icon_mscategory'] = 'Абразок катэгорыі'
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Абразок катэгорыі тавараў miniShop2 ў дрэве рэсурсаў';
 $_lang['setting_mgr_tree_icon_msproduct'] = 'Абразок тавару';
 $_lang['setting_mgr_tree_icon_msproduct_desc'] = 'Абразок тавару miniShop2 ў дрэве рэсурсаў';
-$_lang['setting_ms2_add_icon_category'] = 'The category add button icon';
-$_lang['setting_ms2_add_icon_category_desc'] = 'The category add button icon in category page';
-$_lang['setting_ms2_add_icon_product'] = 'The product add button icon';
-$_lang['setting_ms2_add_icon_product_desc'] = 'The product add button icon in category page';
+$_lang['setting_ms2_add_icon_category'] = 'Абразок дадання катэгорыі';
+$_lang['setting_ms2_add_icon_category_desc'] = 'Абразок на кнопцы дадання катэгорыі на старонцы катэгорыі';
+$_lang['setting_ms2_add_icon_product'] = 'Абразок дадання тавару';
+$_lang['setting_ms2_add_icon_product_desc'] = 'Абразок на кнопцы дадання тавару на старонцы катэгорыі';
 
 $_lang['setting_ms2_product_tab_extra'] = 'Ўкладка уласцівасцяў тавару';
 $_lang['setting_ms2_product_tab_extra_desc'] = 'Паказваць ўкладку уласцівасцяў тавару?';
