@@ -75,8 +75,19 @@ Ext.extend(miniShop2.panel.CreateProduct, miniShop2.panel.Product, {
             }
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
+                // Additional "Gallery" tab
                 if (miniShop2.config['show_gallery'] != 0) {
                     item.items.push(this.getGallery(config));
+
+                    // Get the "Resource Groups" tab and move it to the end
+                    var accessPermissionsTab;
+                    var index = item.items.findIndex(function(tab) {
+                        return tab.id == 'modx-resource-access-permissions';
+                    });
+                    if (index != -1) {
+                        accessPermissionsTab = item.items.splice(index, 1);
+                        accessPermissionsTab && item.items.push(accessPermissionsTab);
+                    }
                 }
             }
             fields.push(item);
