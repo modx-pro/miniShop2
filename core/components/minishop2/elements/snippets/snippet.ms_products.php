@@ -173,7 +173,7 @@ $rows = $pdoFetch->run();
 // Process rows
 $output = array();
 if (!empty($rows) && is_array($rows)) {
-    $c = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice', 'msOnGetProductWeight')));
+    $c = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice', 'msOnGetProductWeight', 'msOnGetProductFields')));
     $c->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
     $c->where('modPlugin.disabled = 0');
 
@@ -196,6 +196,7 @@ if (!empty($rows) && is_array($rows)) {
             if ($row['price'] < $tmp) {
                 $row['old_price'] = $tmp;
             }
+            $row = $product->modifyFields($row);
         }
         $row['price'] = $miniShop2->formatPrice($row['price']);
         $row['old_price'] = $miniShop2->formatPrice($row['old_price']);

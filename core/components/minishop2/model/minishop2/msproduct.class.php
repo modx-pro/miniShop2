@@ -456,9 +456,11 @@ class msProduct extends modResource
             if ($pls['price'] < $tmp) {
                 $pls['old_price'] = $tmp;
             }
+            $pls['weight'] = $this->getWeight($pls);
+            $pls = $this->modifyFields($pls);
             $pls['price'] = $miniShop2->formatPrice($pls['price']);
             $pls['old_price'] = $miniShop2->formatPrice($pls['old_price']);
-            $pls['weight'] = $miniShop2->formatWeight($this->getWeight($pls));
+            $pls['weight'] = $miniShop2->formatWeight($pls['weight']);
             unset($pls['id']);
 
             $this->xpdo->setPlaceholders($pls);
@@ -524,5 +526,15 @@ class msProduct extends modResource
     public function getWeight($data = array())
     {
         return $this->loadData()->getWeight($data);
+    }
+
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public function modifyFields($data = array()) {
+        return $this->loadData()->modifyFields($data);
     }
 }

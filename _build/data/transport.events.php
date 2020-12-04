@@ -47,6 +47,7 @@ $tmp = array(
 
     'msOnGetProductPrice',
     'msOnGetProductWeight',
+    'msOnGetProductFields',
 
     'msOnManagerCustomCssJs',
 
