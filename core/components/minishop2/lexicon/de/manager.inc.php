@@ -76,6 +76,8 @@ $_lang['ms2_distance_price'] = 'Preis für 1 St./Entfernung';
 $_lang['ms2_distance_price_help'] = 'Zusätzliche Kosten pro Entfernungseinheit<br/>Kann in benutzerdefinierten Klassen verwendet werden.';
 $_lang['ms2_order_requires'] = 'Pflichtfelder';
 $_lang['ms2_order_requires_help'] = 'Bei der Bestellung ist das Ausfüllen dieser Felder Pflicht';
+$_lang['ms2_free_delivery_amount'] = 'Kostenloser Versand auf Bestellmenge';
+$_lang['ms2_free_delivery_amount_help'] = 'Wenn der Bestellbetrag diesen Wert erreicht, ist die Lieferung kostenlos. Wenn die Versandklasse geändert wurde und / oder Sie Komponenten installiert haben, die sich auf den Bestellwert auswirken können, wird dieses Feld möglicherweise nicht berücksichtigt';
 
 $_lang['ms2_orders_selected_status'] = 'Status geändert';
 

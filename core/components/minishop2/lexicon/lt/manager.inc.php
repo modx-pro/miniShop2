@@ -77,8 +77,9 @@ $_lang['ms2_distance_price'] = 'Įkainis už atstumo vienetą';
 $_lang['ms2_distance_price_help'] = 'Papildomas įkainis už vieną atstumo vienetą.<br/>Gali būti naudojamas nuosavose klasėse.';
 $_lang['ms2_order_requires'] = 'Privalomi laukai';
 $_lang['ms2_order_requires_help'] = 'Užsakymo metu nuosavoje klasėje galima reikalauti užpildyti šiuos laukus';
-
 $_lang['ms2_orders_selected_status'] = 'Keisti pasirinktų užsakymų būseną';
+$_lang['ms2_free_delivery_amount'] = 'Nemokamas pristatymas pagal užsakymo sumą';
+$_lang['ms2_free_delivery_amount_help'] = 'Kai užsakymo suma pasieks šią vertę, pristatymas bus nemokamas. Jei siuntimo klasė buvo pakeista ir (arba) jūs įdiegėte komponentus, kurie gali turėti įtakos užsakymo vertei, į šį lauką gali būti neatsižvelgta.';
 
 $_lang['ms2_link_name'] = 'Sąryšio pavadinimas';
 $_lang['ms2_link_one_to_one'] = 'Viena su viena';

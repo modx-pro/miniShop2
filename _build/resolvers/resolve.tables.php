@@ -48,6 +48,8 @@ if ($transport->xpdo) {
 
             $manager->addField('msOrderProduct', 'name');
 
+            $manager->addField('msDelivery', 'free_delivery_amount');
+            
             $manager->alterField('msDelivery', 'price');
             $manager->addField('msPayment', 'price', array('after' => 'description'));
 
