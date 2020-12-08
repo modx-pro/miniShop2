@@ -191,6 +191,7 @@
         <field key="class" dbtype="varchar" precision="50" phptype="string" null="true"/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
         <field key="requires" dbtype="varchar" precision="255" phptype="string" null="true" default="email,receiver"/>
+        <field key="free_delivery_amount" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
 
         <aggregate alias="Orders" class="msOrder" local="id" foreign="delivery" cardinality="many" owner="local"/>
         <aggregate alias="Payments" class="msDeliveryMember" local="id" foreign="delivery_id" cardinality="many"

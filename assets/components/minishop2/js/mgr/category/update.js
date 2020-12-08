@@ -125,7 +125,8 @@ Ext.extend(miniShop2.panel.UpdateCategory, miniShop2.panel.Category, {
             if (item.id == 'modx-resource-tabs') {
                 var tabs = [
                     this.getProducts(config)
-                ];
+                ],
+                pageSettingsTab, accessPermissionsTab;
                 for (var i2 in item.items) {
                     if (!item.items.hasOwnProperty(i2)) {
                         continue;
@@ -138,10 +139,10 @@ Ext.extend(miniShop2.panel.UpdateCategory, miniShop2.panel.Category, {
                         if (tab.id == 'modx-page-settings') {
                             // Add "Product Options" inside the "Settings" tab
                             tab.items = this.addOptions(config, tab.items);
-                            var pageSettingsTab = tab;
+                            pageSettingsTab = tab;
                         }
                         if (tab.id == 'modx-resource-access-permissions') {
-                            var accessPermissionsTab = tab;
+                            accessPermissionsTab = tab;
                         }
                     }
                 }
@@ -149,7 +150,8 @@ Ext.extend(miniShop2.panel.UpdateCategory, miniShop2.panel.Category, {
                     tabs.push(this.getComments(config));
                 }
                 // Move the "Settings" and "Resource Groups" to the end of tabs
-                tabs.push(pageSettingsTab, accessPermissionsTab);
+                pageSettingsTab && item.items.push(pageSettingsTab);
+                accessPermissionsTab && item.items.push(accessPermissionsTab);
                 item.items = tabs;
             }
             fields.push(item);

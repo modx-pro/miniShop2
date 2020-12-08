@@ -86,9 +86,10 @@ $_lang['ms2_distance_price'] = 'Preț pentru unitate';
 $_lang['ms2_distance_price_help'] = 'Preț suplimentar a livrării pe unitate de distanță. Poate fi utilizat în clase personalizate.';
 $_lang['ms2_order_requires'] = 'Câmpuri obligatorii';
 $_lang['ms2_order_requires_help'] = 'La efectuarea comenzii, clasa personalizată poate să necesite completarea acestor câmpuri.'; 
-$_lang['ms2_rank'] = 'Ordinea';
-
 $_lang['ms2_orders_selected_status'] = 'A schimba statutul';
+$_lang['ms2_rank'] = 'Ordinea';
+$_lang['ms2_free_delivery_amount'] = 'Livrare gratuită la suma comenzii';
+$_lang['ms2_free_delivery_amount_help'] = 'Când suma comenzii atinge această valoare, livrarea va fi gratuită. Dacă clasa de expediere a fost modificată și / sau ați instalat componente care pot afecta valoarea comenzii, este posibil ca acest câmp să nu fie luat în considerare';
 
 $_lang['ms2_link_name'] = 'Denumirea link-ului';
 $_lang['ms2_link_one_to_one'] = 'Unu la altu';

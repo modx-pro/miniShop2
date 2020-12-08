@@ -86,6 +86,8 @@ $_lang['ms2_distance_price_help'] = 'Papildomas įkainis už vieną atstumo vien
 $_lang['ms2_order_requires'] = 'Privalomi laukai';
 $_lang['ms2_order_requires_help'] = 'Užsakymo metu nuosavoje klasėje galima reikalauti užpildyti šiuos laukus';
 $_lang['ms2_rank'] = 'Rank';
+$_lang['ms2_free_delivery_amount'] = 'Spedizione gratuita sull\'importo dell\'ordine';
+$_lang['ms2_free_delivery_amount_help'] = 'Quando l\'importo dell\'ordine raggiunge questo valore, la consegna sarà gratuita. Se la classe di spedizione è stata modificata e/o sono stati installati componenti che potrebbero influire sul valore dell\'ordine, questo campo potrebbe non essere preso in considerazione';
 
 $_lang['ms2_orders_selected_status'] = 'Keisti pasirinktų užsakymų būseną';
 

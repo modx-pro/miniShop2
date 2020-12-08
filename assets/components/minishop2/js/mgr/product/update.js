@@ -119,6 +119,8 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
             }
             var item = originals[i];
             if (item.id == 'modx-resource-tabs') {
+                var accessPermissionsTab;
+
                 // Additional "Gallery" and "Comments" tabs
                 if (miniShop2.config['show_gallery'] != 0) {
                     item.items.push(this.getGallery(config));
@@ -132,8 +134,8 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
                         return tab.id == 'modx-resource-access-permissions';
                     });
                     if (index != -1) {
-                        var resource_groups_tab = item.items.splice(index, 1);
-                        item.items.push(resource_groups_tab);
+                        accessPermissionsTab = item.items.splice(index, 1);
+                        accessPermissionsTab && item.items.push(accessPermissionsTab);
                     }
                 }
             }

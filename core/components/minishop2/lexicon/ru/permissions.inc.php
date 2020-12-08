@@ -19,4 +19,7 @@ $_lang['mssetting_save'] = 'Разрешает создание\изменени
 
 $_lang['msproductfile_save'] = 'Разрешает создание\изменение файлов товара';
 $_lang['msproductfile_generate'] = 'Разрешает генерацию превью картинок товара';
-$_lang['msproductfile_list'] = 'Разрешает вывод списка файлов товара.';
+$_lang['msproductfile_list'] = 'Разрешает вывод списка файлов товара';
+
+$_lang['msproduct_delete'] = 'Разрешает удаление товара';
+$_lang['msproduct_publish'] = 'Разрешает публикацию товара';

@@ -18,6 +18,8 @@ $_lang['setting_ms2_services'] = 'Службы магазина';
 $_lang['setting_ms2_services_desc'] = 'Массив с зарегистрированными классами для корзины, заказа, доставки и оплаты. Используется сторонними дополнениями для загрузки своего функционала.';
 $_lang['setting_ms2_plugins'] = 'Плагины магазина';
 $_lang['setting_ms2_plugins_desc'] = 'Массив с зарегистрированными плагинами расширения объектов модели магазина: товаров, профилей покупателя и т.д.';
+$_lang['setting_ms2_chunks_categories'] = 'Категории для списка чанков';
+$_lang['setting_ms2_chunks_categories_desc'] = 'Список ID категорий через запятую  для списка чанков.';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Поля таблицы товаров';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимых полей таблицы с товарами категории, через запятую.';
@@ -30,6 +32,10 @@ $_lang['setting_mgr_tree_icon_mscategory'] = 'Иконка категории';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Иконка категории товаров miniShop2 в дереве ресурсов';
 $_lang['setting_mgr_tree_icon_msproduct'] = 'Иконка товара';
 $_lang['setting_mgr_tree_icon_msproduct_desc'] = 'Иконка товара miniShop2 в дереве ресурсов';
+$_lang['setting_ms2_add_icon_category'] = 'Иконка добавления категории';
+$_lang['setting_ms2_add_icon_category_desc'] = 'Иконка на кнопке добавления категории на странице категории';
+$_lang['setting_ms2_add_icon_product'] = 'Иконка добавления товара';
+$_lang['setting_ms2_add_icon_product_desc'] = 'Иконка на кнопке добавления товара на странице категории';
 
 $_lang['setting_ms2_product_tab_extra'] = 'Вкладка свойств товара';
 $_lang['setting_ms2_product_tab_extra_desc'] = 'Показывать вкладку свойств товара?';

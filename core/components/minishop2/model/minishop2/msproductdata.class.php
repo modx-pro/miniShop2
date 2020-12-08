@@ -627,4 +627,27 @@ class msProductData extends xPDOSimpleObject
 
         return $weight;
     }
+
+
+    /* Returns prepared product fields.
+     *
+     * @return array $result Prepared fields of product.
+     * */
+    public function modifyFields($data = array()) {
+        if (empty($data)) {
+            $data = $this->toArray();
+        }
+        /** @var miniShop2 $miniShop2 */
+        $miniShop2 = $this->xpdo->getService('minishop2');
+        $params = array(
+            'product' => $this,
+            'data' => $data,
+        );
+        $response = $miniShop2->invokeEvent('msOnGetProductFields', $params);
+        if ($response['success']) {
+            $data = array_merge($data, $response['data']);
+        }
+
+        return $data;
+    }
 }

@@ -237,7 +237,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             $array['preview_url'] = $this->modx->makeUrl($array['id'], $array['context_key']);
 
             // Options
-            if (count($this->options)) {
+            if (is_array($this->options) && count($this->options)) {
+
                 /** @var msOption $option */
                 foreach ($this->options as $option) {
                     $array['options-'.$option->get('key')] = $option->getRowValue($array['id']);
