@@ -205,7 +205,8 @@ class msCartHandler implements msCartInterface
             $weight = $product->getWeight();
             $count = $response['data']['count'];
             $options = $response['data']['options'];
-            $discount = $oldPrice - $price;
+            $discount = $oldPrice > 0 ? $oldPrice - $price : 0;
+
 
             $key = md5($id . $price . $weight . (json_encode($options)));
             if (array_key_exists($key, $this->cart)) {
