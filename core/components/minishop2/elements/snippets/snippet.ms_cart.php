@@ -117,7 +117,7 @@ foreach ($cart as $key => $entry) {
     $product['key'] = $key;
     $product['count'] = $entry['count'];
     $old_price = $product['old_price'];
-    if($product['price'] > $entry['price']) {
+    if ($product['price'] > $entry['price']) {
         $old_price = $product['price'];
     }
     $product['old_price'] = $miniShop2->formatPrice($old_price);
@@ -146,7 +146,7 @@ foreach ($cart as $key => $entry) {
     $total['count'] += $entry['count'];
     $total['cost'] += $entry['count'] * $entry['price'];
     $total['weight'] += $entry['count'] * $entry['weight'];
-    $total['discount'] += $entry['count'] *  ($old_price - $entry['price']);
+    $total['discount'] += $entry['count'] * ($old_price - $entry['price']);
 }
 $total['cost'] = $miniShop2->formatPrice($total['cost']);
 $total['discount'] = $miniShop2->formatPrice($total['discount']);
