@@ -22,6 +22,8 @@ if (empty($return)) {
     $return = 'chunks';
 } elseif ($return == 'ids') {
     $returnIds = true;
+} elseif ($return != 'sql') {
+    $scriptProperties['return'] = 'data';
 }
 
 // Start build "where" expression
@@ -170,7 +172,7 @@ $default = array(
     'groupby' => implode(', ', $groupby),
     'return' => !empty($returnIds)
         ? 'ids'
-        : ($return == 'sql' ? 'sql' : 'data'),
+        : 'data',
     'nestedChunkPrefix' => 'minishop2_',
 );
 // Merge all properties and run!
@@ -207,7 +209,7 @@ if (!empty($rows) && is_array($rows)) {
             if ($row['price'] < $tmp) {
                 $row['old_price'] = $tmp;
             }
-            $row = $product->modifyFields($row);
+//            $row = $product->modifyFields($row);
         }
         $row['price'] = $miniShop2->formatPrice($row['price']);
         $row['old_price'] = $miniShop2->formatPrice($row['old_price']);
