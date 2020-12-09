@@ -107,7 +107,7 @@ foreach ($tmp as $row) {
 
 // Process products in cart
 $products = array();
-$total = array('count' => 0, 'weight' => 0, 'cost' => 0);
+$total = array('count' => 0, 'weight' => 0, 'cost' => 0, 'discount' => 0);
 foreach ($cart as $key => $entry) {
     if (!isset($rows[$entry['id']])) {
         continue;
@@ -116,14 +116,18 @@ foreach ($cart as $key => $entry) {
 
     $product['key'] = $key;
     $product['count'] = $entry['count'];
-    $product['old_price'] = $miniShop2->formatPrice(
-        $product['price'] > $entry['price']
-            ? $product['price']
-            : $product['old_price']
-    );
+    $old_price = $product['old_price'];
+    if ($product['price'] > $entry['price']) {
+        $old_price = $product['price'];
+    }
+    $discount_price = $old_price > 0 ? $old_price - $entry['price'] : 0;
+
+    $product['old_price'] = $miniShop2->formatPrice($old_price);
     $product['price'] = $miniShop2->formatPrice($entry['price']);
     $product['weight'] = $miniShop2->formatWeight($entry['weight']);
     $product['cost'] = $miniShop2->formatPrice($entry['count'] * $entry['price']);
+    $product['discount_price'] = $miniShop2->formatPrice($discount_price);
+    $product['discount_cost'] = $miniShop2->formatPrice($entry['count'] * $discount_price);
 
     // Additional properties of product in cart
     if (!empty($entry['options']) && is_array($entry['options'])) {
@@ -141,8 +145,10 @@ foreach ($cart as $key => $entry) {
     $total['count'] += $entry['count'];
     $total['cost'] += $entry['count'] * $entry['price'];
     $total['weight'] += $entry['count'] * $entry['weight'];
+    $total['discount'] += $entry['count'] * $discount_price;
 }
 $total['cost'] = $miniShop2->formatPrice($total['cost']);
+$total['discount'] = $miniShop2->formatPrice($total['discount']);
 $total['weight'] = $miniShop2->formatWeight($total['weight']);
 
 $output = $pdoFetch->getChunk($tpl, array(

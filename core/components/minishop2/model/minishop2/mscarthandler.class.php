@@ -104,7 +104,7 @@ class msCartHandler implements msCartInterface
      * @param miniShop2 $ms2
      * @param array $config
      */
-    function __construct(miniShop2 & $ms2, array $config = array())
+    function __construct(miniShop2 &$ms2, array $config = array())
     {
         $this->ms2 = &$ms2;
         $this->modx = &$ms2->modx;
@@ -132,7 +132,7 @@ class msCartHandler implements msCartInterface
      */
     public function initialize($ctx = 'web')
     {
-        if ($this->modx->getOption('ms2_cart_context', null, '', true) == 1){
+        if ($this->modx->getOption('ms2_cart_context', null, '', true) == 1) {
             $ctx = 'web';
         }
         $this->ctx = $ctx;
@@ -201,21 +201,27 @@ class msCartHandler implements msCartInterface
                 return $this->error($response['message']);
             }
             $price = $product->getPrice();
+            $oldPrice = $product->get('old_price');
             $weight = $product->getWeight();
             $count = $response['data']['count'];
             $options = $response['data']['options'];
+            $discount_price = $oldPrice > 0 ? $oldPrice - $price : 0;
+            $discount_cost = $discount_price * $count;
 
             $key = md5($id . $price . $weight . (json_encode($options)));
             if (array_key_exists($key, $this->cart)) {
                 return $this->change($key, $this->cart[$key]['count'] + $count);
             } else {
                 $ctx_key = 'web';
-                if (!$this->modx->getOption('ms2_cart_context', null, '', true)){
+                if (!$this->modx->getOption('ms2_cart_context', null, '', true)) {
                     $ctx_key = $this->modx->context->get('key');
                 }
                 $this->cart[$key] = array(
                     'id' => $id,
                     'price' => $price,
+                    'old_price' => $oldPrice,
+                    'discount_price' => $discount_price,
+                    'discount_cost' => $discount_cost,
                     'weight' => $weight,
                     'count' => $count,
                     'options' => $options,
@@ -339,14 +345,17 @@ class msCartHandler implements msCartInterface
             'total_count' => 0,
             'total_cost' => 0,
             'total_weight' => 0,
+            'total_discount' => 0,
         );
         foreach ($this->cart as $item) {
             if (empty($item['ctx']) || $item['ctx'] == $this->ctx) {
                 $status['total_count'] += $item['count'];
                 $status['total_cost'] += $item['price'] * $item['count'];
                 $status['total_weight'] += $item['weight'] * $item['count'];
+                $status['total_discount'] += $item['discount_price'] * $item['count'];
             }
         }
+
         $status = array_merge($data, $status);
 
         $response = $this->ms2->invokeEvent('msOnGetStatusCart', array(
