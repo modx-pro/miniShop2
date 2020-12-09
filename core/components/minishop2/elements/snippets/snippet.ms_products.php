@@ -18,6 +18,12 @@ if (isset($parents) && $parents === '') {
     $scriptProperties['parents'] = $modx->resource->id;
 }
 
+if (empty($return)) {
+    $return = 'chunks';
+} elseif ($return == 'ids') {
+    $returnIds = true;
+}
+
 // Start build "where" expression
 $where = array(
     'class_key' => 'msProduct',
@@ -152,6 +158,7 @@ if (!empty($scriptProperties['sortbyOptions'])) {
     }
 }
 
+/** @noinspection NestedTernaryOperatorInspection */
 $default = array(
     'class' => 'msProduct',
     'where' => $where,
@@ -163,12 +170,16 @@ $default = array(
     'groupby' => implode(', ', $groupby),
     'return' => !empty($returnIds)
         ? 'ids'
-        : 'data',
+        : ($return == 'sql' ? 'sql' : 'data'),
     'nestedChunkPrefix' => 'minishop2_',
 );
 // Merge all properties and run!
 $pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
 $rows = $pdoFetch->run();
+
+if ($return == 'sql') {
+    return $rows;
+}
 
 // Process rows
 $output = array();
@@ -208,8 +219,12 @@ if (!empty($rows) && is_array($rows)) {
         $row = array_merge($row, $options);
         $opt_time += microtime(true) - $opt_time_start;
 
-        $tpl = $pdoFetch->defineChunk($row);
-        $output[] = $pdoFetch->getChunk($tpl, $row);
+        if ($return == 'chunks') {
+            $tpl = $pdoFetch->defineChunk($row);
+            $output[] = $pdoFetch->getChunk($tpl, $row);
+        } else {
+            $output[] = $row;
+        }
     }
     $pdoFetch->addTime('Time to load products options', $opt_time);
 }
@@ -227,25 +242,41 @@ if (!empty($returnIds) && is_string($rows)) {
     } else {
         return $rows;
     }
-} elseif (!empty($toSeparatePlaceholders)) {
-    $output['log'] = $log;
-    $modx->setPlaceholders($output, $toSeparatePlaceholders);
-} else {
-    if (empty($outputSeparator)) {
-        $outputSeparator = "\n";
-    }
-    $output['log'] = $log;
-    $output = implode($outputSeparator, $output);
+}
 
-    if (!empty($tplWrapper) && (!empty($wrapIfEmpty) || !empty($output))) {
-        $output = $pdoFetch->getChunk($tplWrapper, array(
-            'output' => $output,
-        ));
-    }
+if (!empty($log)) {
+    $output['log'] = $log;
+}
 
-    if (!empty($toPlaceholder)) {
-        $modx->setPlaceholder($toPlaceholder, $output);
-    } else {
-        return $output;
-    }
+switch ($return) {
+    case 'json':
+        return json_encode($output);
+        break;
+
+    case 'serialize':
+        return serialize($output);
+        break;
+
+    default:
+        if (!empty($toSeparatePlaceholders)) {
+            $modx->setPlaceholders($output, $toSeparatePlaceholders);
+        } else {
+            if (!isset($outputSeparator)) {
+                $outputSeparator = '';
+            }
+            $output = implode($outputSeparator, $output);
+
+            if (!empty($tplWrapper) && (!empty($wrapIfEmpty) || !empty($output))) {
+                $output = $pdoFetch->getChunk($tplWrapper, array(
+                    'output' => $output,
+                ));
+            }
+
+            if (!empty($toPlaceholder)) {
+                $modx->setPlaceholder($toPlaceholder, $output);
+            } else {
+                return $output;
+            }
+        }
+        break;
 }
