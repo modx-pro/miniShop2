@@ -120,15 +120,14 @@ foreach ($cart as $key => $entry) {
     if ($product['price'] > $entry['price']) {
         $old_price = $product['price'];
     }
+    $discount_price = $old_price > 0 ? $old_price - $entry['price'] : 0;
+
     $product['old_price'] = $miniShop2->formatPrice($old_price);
     $product['price'] = $miniShop2->formatPrice($entry['price']);
     $product['weight'] = $miniShop2->formatWeight($entry['weight']);
-    if ($old_price > 0) {
-        $product['discount'] = $miniShop2->formatPrice($old_price - $entry['price']);
-    } else {
-        $product['discount'] = 0;
-    }
     $product['cost'] = $miniShop2->formatPrice($entry['count'] * $entry['price']);
+    $product['discount_price'] = $miniShop2->formatPrice($discount_price);
+    $product['discount_cost'] = $miniShop2->formatPrice($entry['count'] * $discount_price);
 
     // Additional properties of product in cart
     if (!empty($entry['options']) && is_array($entry['options'])) {
@@ -146,7 +145,7 @@ foreach ($cart as $key => $entry) {
     $total['count'] += $entry['count'];
     $total['cost'] += $entry['count'] * $entry['price'];
     $total['weight'] += $entry['count'] * $entry['weight'];
-    $total['discount'] += $entry['count'] * ($old_price - $entry['price']);
+    $total['discount'] += $entry['count'] * $discount_price;
 }
 $total['cost'] = $miniShop2->formatPrice($total['cost']);
 $total['discount'] = $miniShop2->formatPrice($total['discount']);

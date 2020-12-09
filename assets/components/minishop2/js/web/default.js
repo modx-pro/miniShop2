@@ -241,6 +241,7 @@
             miniShop2.Cart.totalWeight = '.ms2_total_weight';
             miniShop2.Cart.totalCount = '.ms2_total_count';
             miniShop2.Cart.totalCost = '.ms2_total_cost';
+            miniShop2.Cart.totalDiscount = '.ms2_total_discount';
             miniShop2.Cart.cost = '.ms2_cost';
         },
         initialize: function () {
@@ -299,6 +300,7 @@
                 $(miniShop2.Cart.totalWeight).text(miniShop2.Utils.formatWeight(status['total_weight']));
                 $(miniShop2.Cart.totalCount).text(status['total_count']);
                 $(miniShop2.Cart.totalCost).text(miniShop2.Utils.formatPrice(status['total_cost']));
+                $(miniShop2.Cart.totalDiscount).text(miniShop2.Utils.formatPrice(status['total_discount']));
                 if (status['cost'] > 0) {
                     $(miniShop2.Cart.cost, '#' + status['key']).text(miniShop2.Utils.formatPrice(status['cost']));
                 }

@@ -205,8 +205,8 @@ class msCartHandler implements msCartInterface
             $weight = $product->getWeight();
             $count = $response['data']['count'];
             $options = $response['data']['options'];
-            $discount = $oldPrice > 0 ? $oldPrice - $price : 0;
-
+            $discount_price = $oldPrice > 0 ? $oldPrice - $price : 0;
+            $discount_cost = $discount_price * $count;
 
             $key = md5($id . $price . $weight . (json_encode($options)));
             if (array_key_exists($key, $this->cart)) {
@@ -220,7 +220,8 @@ class msCartHandler implements msCartInterface
                     'id' => $id,
                     'price' => $price,
                     'old_price' => $oldPrice,
-                    'discount' => $discount,
+                    'discount_price' => $discount_price,
+                    'discount_cost' => $discount_cost,
                     'weight' => $weight,
                     'count' => $count,
                     'options' => $options,
@@ -351,9 +352,10 @@ class msCartHandler implements msCartInterface
                 $status['total_count'] += $item['count'];
                 $status['total_cost'] += $item['price'] * $item['count'];
                 $status['total_weight'] += $item['weight'] * $item['count'];
-                $status['total_discount'] += $item['discount'] * $item['count'];
+                $status['total_discount'] += $item['discount_price'] * $item['count'];
             }
         }
+
         $status = array_merge($data, $status);
 
         $response = $this->ms2->invokeEvent('msOnGetStatusCart', array(
