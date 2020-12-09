@@ -36,10 +36,19 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
         }
 
         if ($options = $this->getProperty('options')) {
+
+            if (is_array($options)) {
+                $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+            }
+
             $tmp = json_decode($options, true);
+
+            $buildedOptions = $this->buildOptions();
+
             if (!is_array($tmp)) {
                 $this->modx->error->addField('options', $this->modx->lexicon('ms2_err_json'));
             } else {
+                $tmp = array_merge($tmp, $buildedOptions);
                 $this->setProperty('options', $tmp);
             }
         }
@@ -70,6 +79,18 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
         if ($this->order = $this->modx->getObject('msOrder', $this->order->id, false)) {
             $this->order->updateProducts();
         }
+    }
+
+    private function buildOptions()
+    {
+        $options = [];
+        foreach ($this->getProperties() as $key => $value) {
+            $tmp = explode('-', $key);
+            if (is_array($tmp) && count($tmp) === 2 && $tmp[0] === 'option') {
+                $options[$tmp[1]] = $value;
+            }
+        }
+        return $options;
     }
 
 }
