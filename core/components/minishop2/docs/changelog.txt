@@ -1,5 +1,20 @@
 Changelog for miniShop2.
 
+2.7.0-pl (09/12/2020)
+==============
+- Improvement. Discount calculation added to the status method in the cart class [PR #497]
+- Improvement. Added order product's options interface [PR #491]
+- Improvement. Added amount for free shipping [PR #490]
+- Improvement. Changing any product fields by event msOnGetProductFields [PR #417]
+- Fixed problem with "Cannot read property items of undefined" and corrected the order of tabs when creating an item [PR #486]
+- Fixed PHP warning: count() [PR #482]
+- Fixed baseUrl in media source [PR #489]
+- Improvement. Added an example of displaying product content on Fenom [PR #478]
+- Improvement. `ignoreGroups` and `sortGroups` to `msProductOptions` snippet [PR #483]
+- Improvement. Added `return` property to `msProductOptions` snippet [PR #484]
+- Fixed visual bug [PR #480]
+- Improvement. Added transparency to disabled grid lines [PR #485]
+
 2.6.0-pl (12/11/2020)
 ==============
 - Added micro-markup [PR #471]
