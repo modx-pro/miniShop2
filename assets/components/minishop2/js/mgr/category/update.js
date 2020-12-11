@@ -150,8 +150,8 @@ Ext.extend(miniShop2.panel.UpdateCategory, miniShop2.panel.Category, {
                     tabs.push(this.getComments(config));
                 }
                 // Move the "Settings" and "Resource Groups" to the end of tabs
-                pageSettingsTab && item.items.push(pageSettingsTab);
-                accessPermissionsTab && item.items.push(accessPermissionsTab);
+                pageSettingsTab && tabs.push(pageSettingsTab);
+                accessPermissionsTab && tabs.push(accessPermissionsTab);
                 item.items = tabs;
             }
             fields.push(item);
