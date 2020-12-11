@@ -291,7 +291,7 @@
                 //var $cart = $(miniShop2.Cart.cart);
                 var $miniCarts = $(miniShop2.Cart.miniCart).add(miniShop2.Cart.miniCartClass);
                 if (status['total_count'] > 0 && $miniCarts.length > 0) {
-                    $miniCarts.each((index,cart) => {
+                    $miniCarts.each(function (index, cart) {
                         if (!$(cart).hasClass(miniShop2.Cart.miniCartNotEmptyClass)) {
                             $(cart).addClass(miniShop2.Cart.miniCartNotEmptyClass);
                         }
