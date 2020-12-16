@@ -1184,7 +1184,9 @@ class miniShop2
             preg_match("#(.*)[/$]+#", $path, $dirname);
 
             $info = array(
-                'dirname' => $dirname[1] ?: '.',
+                'dirname' => (isset($dirname[1]))
+                    ? $dirname[1]
+                    : '.',
                 'basename' => $file[0],
                 'extension' => (isset($file_ext[2]))
                     ? $file_ext[2]
