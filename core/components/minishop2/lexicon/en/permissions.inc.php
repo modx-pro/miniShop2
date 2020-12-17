@@ -17,9 +17,9 @@ $_lang['mssetting_view'] = 'Permission to view of settings';
 $_lang['mssetting_list'] = 'Permission to list of settings';
 $_lang['mssetting_save'] = 'Permission to save\update settings';
 
-$_lang['msproductfile_save'] = 'Permission to save\update of product files';
+$_lang['msproductfile_save'] = 'Permission to save\update product files';
 $_lang['msproductfile_generate'] = 'Permission to generate thumbnails of product images';
-$_lang['msproductfile_list'] = 'Permission to list of product files';
+$_lang['msproductfile_list'] = 'Permission to list product files';
 
 $_lang['msproduct_delete'] = 'Permission to remove product';
 $_lang['msproduct_publish'] = 'Permission to publish product';

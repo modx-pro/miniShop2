@@ -15,7 +15,7 @@ $_lang['area_ms2_frontend'] = 'Frontend';
 $_lang['area_ms2_payment'] = 'Payments';
 
 $_lang['setting_ms2_services'] = 'Store services';
-$_lang['setting_ms2_services_desc'] = 'Array with registered classes for cart, order, delivery and payment. Used by third-party extras to load their functionality.';
+$_lang['setting_ms2_services_desc'] = 'Array with registered classes for cart, order, shipping and payment. Used by third-party extras to load their functionality.';
 $_lang['setting_ms2_plugins'] = 'Store plugins';
 $_lang['setting_ms2_plugins_desc'] = 'Array with registered plugins for extension objects of store model: products, customer profiles, etc.';
 $_lang['setting_ms2_chunks_categories'] = 'Categories for list chunks';
