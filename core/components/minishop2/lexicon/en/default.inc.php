@@ -94,7 +94,7 @@ $_lang['ms2_product_create'] = 'Add product';
 $_lang['ms2_option_type'] = 'Option type';
 
 $_lang['ms2_frontend_currency'] = 'USD';
-$_lang['ms2_frontend_weight_unit'] = 'g.';
+$_lang['ms2_frontend_weight_unit'] = 'lbs.';
 $_lang['ms2_frontend_count_unit'] = 'Items';
 $_lang['ms2_frontend_add_to_cart'] = 'Add to cart';
 $_lang['ms2_frontend_tags'] = 'Tags';
