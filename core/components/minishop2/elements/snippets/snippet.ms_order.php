@@ -29,6 +29,9 @@ if (empty($status['total_count'])) {
 }
 $cost = $miniShop2->order->getCost();
 $order['cost'] = $miniShop2->formatPrice($cost['data']['cost']);
+$order['cart_cost'] = $miniShop2->formatPrice($cost['data']['cart_cost']);
+$order['delivery_cost'] = $miniShop2->formatPrice($cost['data']['delivery_cost']);
+$order['discount_cost'] = $miniShop2->formatPrice($cost['data']['discount_cost']);
 
 // We need only active methods
 $where = array(
