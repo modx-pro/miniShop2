@@ -78,7 +78,7 @@ $_lang['ms2_status_fixed'] = 'Fixed';
 $_lang['ms2_status_fixed_help'] = '';
 $_lang['ms2_options'] = 'Options';
 $_lang['ms2_add_cost'] = 'Add cost';
-$_lang['ms2_add_cost_help'] = 'The additional cost of delivery or payment. Can be negative, you can specify a percentage.';
+$_lang['ms2_add_cost_help'] = 'The additional cost of shipping or payment. Can be negative, you can specify a percentage.';
 $_lang['ms2_weight_price'] = 'Price for 1 u/w';
 $_lang['ms2_weight_price_help'] = 'Additional cost per unit of weight.<br/>Can be used in custom classes.';
 $_lang['ms2_distance_price'] = 'Price for 1 u/d';
@@ -87,7 +87,7 @@ $_lang['ms2_order_requires'] = 'Required fields';
 $_lang['ms2_order_requires_help'] = 'When ordering, custom class can require the filling of these fields';
 $_lang['ms2_rank'] = 'Rank';
 $_lang['ms2_free_delivery_amount'] = 'Free shipping threshold';
-$_lang['ms2_free_delivery_amount_help'] = 'If the order amount reaches or exceeds this value, delivery will be free';
+$_lang['ms2_free_delivery_amount_help'] = 'If the order amount reaches or exceeds this value, shipping will be free';
 
 $_lang['ms2_orders_selected_status'] = 'Change status of selected orders';
 
