@@ -58,6 +58,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
             'context_key' => $this->contextKey,
             'show_in_tree' => true,
             'isfolder' => true,
+            'OR:class_key:=' => 'msCategory'
         ));
         if (empty($this->startNode) && !empty($this->defaultRootId)) {
             $c->where(array(
