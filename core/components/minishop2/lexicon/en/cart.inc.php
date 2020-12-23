@@ -38,5 +38,6 @@ $_lang['ms2_cart_clean_success'] = 'Cart was successfully cleared';
 $_lang['ms2_cart_is_empty'] = 'Your cart is empty';
 $_lang['ms2_cart_clean'] = 'Clear shopping cart';
 
+$_lang['ms2_order_err_empty'] = 'Can\'t submit an empty order';
 $_lang['ms2_order_err_delivery'] = 'You must select a shipping method';
 $_lang['ms2_order_err_requires'] = 'You must fill in the highlighted fields';
