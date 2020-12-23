@@ -395,6 +395,10 @@ class msOrderHandler implements msOrderInterface
         }
 
         $cart_status = $this->ms2->cart->status();
+        if (empty($cart_status['total_count'])) {
+            return $this->error('ms2_order_err_empty');
+        }
+        
         $delivery_cost = $this->getCost(false, true);
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
         $createdon = date('Y-m-d H:i:s');
