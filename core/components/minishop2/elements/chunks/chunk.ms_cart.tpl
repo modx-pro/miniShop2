@@ -1,5 +1,5 @@
 <div id="msCart">
-    {if !count($products)}
+    {if $products | length == 0}
         <div class="alert alert-warning">
             {'ms2_cart_is_empty' | lexicon}
         </div>
