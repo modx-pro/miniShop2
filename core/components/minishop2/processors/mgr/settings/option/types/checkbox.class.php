@@ -11,9 +11,10 @@ class msCheckboxType extends msOptionType
     public function getField($field)
     {
         return "{
-            xtype:'xcheckbox',
+            xtype: 'xcheckbox',
             boxLabel: '" . $field['caption'] . "',
-            checked: ".(filter_var($field['value'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0).",
+            checked: " . (filter_var($field['value'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0) . ",
+            value: " . (!empty($field['value']) ? 1 : 0) . ",
             convertValue: function (v) {
                 return (
                     v === '1' || v === true || v === 'true' ||
