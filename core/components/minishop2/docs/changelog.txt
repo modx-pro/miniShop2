@@ -1,6 +1,21 @@
 Changelog for miniShop2.
 
-2.7.0-pl (09/12/2020)
+2.8.0-pl (27/01/2021)
+=============
+
+- Checking if the field free_delivery_amount is present [PR #520]
+- Set checkbox value [PR #513]
+- Minor English vernacular improvements [PR #512] [PR #511]
+- Fixed. Correction of displaying a product category if it is not a container [PR #509]
+- Fixed PHP warning: count() error [PR #508]
+- Improvement. Dividing the order amount by the purchase and delivery [PR #507]
+- Removing the console script for converting from ms1 to ms2 [PR #506]
+- Fixing the Notice: Undefinыed offset error when importing a picture with a Russian name through the 'gallery/upload' processor [PR #504]
+- Converting code to cross-browser ECMAScript 5.1 standard [PR #503]
+- Fixed display of settings tabs and resource groups when editing a Category [PR #501]
+- Fixed logic for free delivery calculation [PR #498]
+
+c-pl (09/12/2020)
 ==============
 - Improvement. Discount calculation added to the status method in the cart class [PR #497]
 - Improvement. Added order product's options interface [PR #491]
