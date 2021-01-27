@@ -105,7 +105,7 @@ class msOrderHandler implements msOrderInterface
      * @param miniShop2 $ms2
      * @param array $config
      */
-    function __construct(miniShop2 & $ms2, array $config = array())
+    function __construct(miniShop2 &$ms2, array $config = array())
     {
         $this->ms2 = $ms2;
         $this->modx = $ms2->modx;
@@ -476,10 +476,10 @@ class msOrderHandler implements msOrderInterface
             if ($response !== true) {
                 return $this->error($response, array('msorder' => $order->get('id')));
             }
-            
+
             // Reload order object after changes in changeOrderStatus method
             $order = $this->modx->getObject('msOrder', array('id' => $order->get('id')));
-            
+
             /** @var msPayment $payment */
             if ($payment = $this->modx->getObject('msPayment',
                 array('id' => $order->get('payment'), 'active' => 1))
@@ -567,11 +567,13 @@ class msOrderHandler implements msOrderInterface
             ? $cart['total_cost']
             : 0;
 
+        $delivery_cost = 0;
         /** @var msDelivery $delivery */
         if (!empty($this->order['delivery']) && $delivery = $this->modx->getObject('msDelivery',
                 array('id' => $this->order['delivery']))
         ) {
             $cost = $delivery->getCost($this, $cost);
+            $delivery_cost = $cost - $cart['total_cost'];
         }
 
         /** @var msPayment $payment */
@@ -595,7 +597,12 @@ class msOrderHandler implements msOrderInterface
 
         return $only_cost
             ? $cost
-            : $this->success('', array('cost' => $cost));
+            : $this->success('', array(
+                'cost' => $cost,
+                'cart_cost' => $cart['total_cost'],
+                'discount_cost' => $cart['total_discount'],
+                'delivery_cost' => $delivery_cost
+            ));
     }
 
     /**

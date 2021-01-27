@@ -119,7 +119,11 @@
 
     <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end">
         <h4 class="mb-md-0">{'ms2_frontend_order_cost' | lexicon}:</h4>
-        <h3 class="mb-md-0 ml-md-2"><span id="ms2_order_cost">{$order.cost ?: 0}</span> {'ms2_frontend_currency' | lexicon}</h3>
+        <h3 class="mb-md-0 ml-md-2">
+            <span id="ms2_order_cart_cost">{$order.cart_cost ?: 0}</span> {'ms2_frontend_currency' | lexicon} +
+            <span id="ms2_order_delivery_cost">{$order.delivery_cost ?: 0}</span> {'ms2_frontend_currency' | lexicon} =
+            <span id="ms2_order_cost">{$order.cost ?: 0}</span> {'ms2_frontend_currency' | lexicon}
+        </h3>
 
         <button type="submit" name="ms2_action" value="order/submit" class="btn btn-lg btn-primary ml-md-2 ms2_link">
             {'ms2_frontend_order_submit' | lexicon}

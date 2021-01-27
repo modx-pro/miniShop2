@@ -375,7 +375,9 @@
             miniShop2.Order.paymentInput = 'input[name="payment"]';
             miniShop2.Order.paymentInputUniquePrefix = 'input#payment_';
             miniShop2.Order.deliveryInputUniquePrefix = 'input#delivery_';
-            miniShop2.Order.orderCost = '#ms2_order_cost'
+            miniShop2.Order.orderCost = '#ms2_order_cost';
+            miniShop2.Order.cartCost = '#ms2_order_cart_cost';
+            miniShop2.Order.deliveryCost = '#ms2_order_delivery_cost';
         },
         initialize: function () {
             miniShop2.Order.setup();
@@ -464,6 +466,8 @@
             var callbacks = miniShop2.Order.callbacks;
             callbacks.getcost.response.success = function (response) {
                 $(miniShop2.Order.orderCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['cost']));
+                $(miniShop2.Order.cartCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['cart_cost']));
+                $(miniShop2.Order.deliveryCost, miniShop2.Order.order).text(miniShop2.Utils.formatPrice(response.data['delivery_cost']));
             };
             var data = {};
             data[miniShop2.actionName] = 'order/getcost';
