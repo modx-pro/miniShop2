@@ -48,8 +48,19 @@ if ($transport->xpdo) {
 
             $manager->addField('msOrderProduct', 'name');
 
+            //fix error when modx not updated object map
+            if (!array_key_exists('free_delivery_amount', $modx->map['msDelivery']['fields'])) {
+                $modx->map['msDelivery']['fields']['free_delivery_amount'] = array(
+                    'dbtype' => 'decimal',
+                    'precision' => '12,2',
+                    'phptype' => 'float',
+                    'null' => true,
+                    'default' => 0.0,
+                );
+            }
+
             $manager->addField('msDelivery', 'free_delivery_amount');
-            
+
             $manager->alterField('msDelivery', 'price');
             $manager->addField('msPayment', 'price', array('after' => 'description'));
 
