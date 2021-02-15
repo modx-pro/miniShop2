@@ -47,6 +47,11 @@ Ext.extend(miniShop2.window.CreateProductLink, miniShop2.window.Default, {
             handler: function () {
                 this.submit(false);
             }
+        }, {
+            text: _('save_and_close'),
+            cls: 'primary-button',
+            scope: this,
+            handler: this.submit
         }];
     },
 
