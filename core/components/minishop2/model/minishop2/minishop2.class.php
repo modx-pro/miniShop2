@@ -348,9 +348,9 @@ class miniShop2
     /**
      * Load custom classes from specified directory
      *
+     * @return void
      * @var string $type Type of class
      *
-     * @return void
      */
     public function loadCustomClasses($type)
     {
@@ -578,7 +578,7 @@ class miniShop2
      */
     public function loadMap()
     {
-        if(method_exists($this->pdoTools, 'makePlaceholders')) {
+        if (method_exists($this->pdoTools, 'makePlaceholders')) {
             $plugins = $this->loadPlugins();
             foreach ($plugins as $plugin) {
                 // For legacy plugins
@@ -672,8 +672,7 @@ class miniShop2
                     $customer->addMany($setting);
                     if (!$customer->save()) {
                         $customer = null;
-                    }
-                    else if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
+                    } else if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
                         $groups = array_map('trim', explode(',', $groups));
                         foreach ($groups as $group) {
                             $customer->joinGroup($group);
@@ -771,8 +770,7 @@ class miniShop2
             $lang = $this->modx->getOption('cultureKey', null, 'en', true);
             if ($tmp = $this->modx->getObject('modUserSetting', array('key' => 'cultureKey', 'user' => $order->get('user_id')))) {
                 $lang = $tmp->get('value');
-            }
-            else if ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
+            } else if ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
                 $lang = $tmp->get('value');
             }
             $this->modx->setOption('cultureKey', $lang);
@@ -971,88 +969,6 @@ class miniShop2
         }
 
         return $weight;
-    }
-
-
-    /**
-     * Gets matching resources by tags. This is adapted function from miniShop1 for backward compatibility
-     * @deprecated
-     *
-     * @param array $tags Tags for search
-     * @param int $only_ids Return only ids of matched resources
-     * @param int $strict 0 - goods must have at least one specified tag
-     *                      1 - goods must have all specified tags, but can have more
-     *                      2 - goods must have exactly the same tags.
-     *
-     * @return array $ids Or array with resources with data and tags
-     */
-    function getTagged($tags = array(), $strict = 0, $only_ids = 0)
-    {
-        if (!is_array($tags)) {
-            $tags = explode(',', $tags);
-        }
-
-        $q = $this->modx->newQuery('msProductOption', array('key' => 'tags', 'value:IN' => $tags));
-        $q->select('product_id');
-        $ids = array();
-        if ($q->prepare() && $q->stmt->execute()) {
-            $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
-        }
-        $ids = array_unique($ids);
-
-        // If needed only ids of not strictly matched items - return.
-        if (!$strict && $only_ids) {
-            return $ids;
-        }
-
-        // Filtering ids
-        $count = count($tags);
-
-        /** @var PDOStatement $stmt */
-        if ($strict) {
-            foreach ($ids as $key => $product_id) {
-                if ($strict > 1) {
-                    $found = $this->modx->getCount('msProductOption', array(
-                        'product_id' => $product_id,
-                        'key' => $tags,
-                    ));
-                    if ($found != $count) {
-                        unset($ids[$key]);
-                        continue;
-                    }
-                }
-
-                foreach ($tags as $tag) {
-                    $found = $this->modx->getCount('msProductOption', array(
-                        'product_id' => $product_id,
-                        'key' => $tags,
-                        'value' => $tag,
-                    ));
-                    if (!$found) {
-                        unset($ids[$key]);
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Return strictly ids, if needed
-        $ids = array_unique($ids);
-        if ($only_ids) {
-            return $ids;
-        }
-
-        // Process results
-        $data = array();
-        foreach ($ids as $id) {
-            if (!$only_ids) {
-                if ($res = $this->modx->getObject('msProduct', compact('id'))) {
-                    $data[$id] = $res->toArray();
-                }
-            }
-        }
-
-        return $data;
     }
 
 
