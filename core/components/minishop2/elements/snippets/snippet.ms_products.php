@@ -96,15 +96,34 @@ $joinedOptions = array();
 if (!empty($scriptProperties['optionFilters'])) {
     $filters = json_decode($scriptProperties['optionFilters'], true);
     foreach ($filters as $key => $value) {
+        $tmp = explode(':', $key);
+        $query_operator = '';
+        if(count($tmp) > 1) {
+            $key = $tmp[1];
+            $query_operator = strtolower($tmp[0]);
+        }
+        unset($tmp);
+
         $option = preg_replace('#\:.*#', '', $key);
         $key = str_replace($option, $option . '.value', $key);
+
         if (!in_array($option, $joinedOptions)) {
             $leftJoin[$option] = array(
                 'class' => 'msProductOption',
                 'on' => "`{$option}`.product_id = Data.id AND `{$option}`.key = '{$option}'",
             );
             $joinedOptions[] = $option;
-            $where[$key] = $value;
+        }
+
+        switch ($query_operator) {
+            case 'or':
+                $where['OR:' . $key . ':='] = $value;
+                break;
+            case 'and':
+                $where['AND:' . $key . ':='] = $value;
+                break;
+            default:
+                $where[$key] = $value;
         }
     }
 }
