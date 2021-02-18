@@ -96,13 +96,13 @@ $joinedOptions = array();
 if (!empty($scriptProperties['optionFilters'])) {
     $filters = json_decode($scriptProperties['optionFilters'], true);
     foreach ($filters as $key => $value) {
-        $tmp = explode(':', $key);
-        $query_operator = '';
-        if(count($tmp) > 1) {
-            $key = $tmp[1];
-            $query_operator = strtolower($tmp[0]);
+        $components = explode(':', $key, 2);
+
+        if (count($components) === 2) {
+            if (in_array(strtolower($components[0]), ['or', 'and'])) {
+                [$operator, $key] = $components;
+            }
         }
-        unset($tmp);
 
         $option = preg_replace('#\:.*#', '', $key);
         $key = str_replace($option, $option . '.value', $key);
@@ -115,16 +115,10 @@ if (!empty($scriptProperties['optionFilters'])) {
             $joinedOptions[] = $option;
         }
 
-        switch ($query_operator) {
-            case 'or':
-                $where['OR:' . $key . ':='] = $value;
-                break;
-            case 'and':
-                $where['AND:' . $key . ':='] = $value;
-                break;
-            default:
-                $where[$key] = $value;
-        }
+        $index = isset($operator) && in_array(strtolower($operator), ['or', 'and'], true)
+            ? sprintf('%s:%s', strtoupper($operator), $key)
+            : $key;
+        $where[$index] = $value;
     }
 }
 
