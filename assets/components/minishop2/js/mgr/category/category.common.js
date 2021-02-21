@@ -65,11 +65,12 @@ Ext.extend(miniShop2.panel.Category, MODx.panel.Resource, {
             }
             var item = originals[i];
 
-            if (item.id == 'ta') {
+            if (item.id === 'ta') {
                 item.hideLabel = false;
                 item.fieldLabel = _('content');
+                item.itemCls = 'contentblocks_replacement';
                 item.description = '<b>[[*content]]</b>';
-                if (MODx.config['ms2_category_content_default'] && config['mode'] == 'create') {
+                if (MODx.config['ms2_category_content_default'] && config['mode'] === 'create') {
                     item.value = MODx.config['ms2_category_content_default'];
                 }
                 item.hidden = miniShop2.config.isHideContent;

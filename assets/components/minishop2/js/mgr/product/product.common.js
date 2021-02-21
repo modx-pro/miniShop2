@@ -281,9 +281,10 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
             }
             var item = originals[i];
 
-            if (item.id == 'ta') {
+            if (item.id === 'ta') {
                 item.hideLabel = false;
                 item.fieldLabel = _('content');
+                item.itemCls = 'contentblocks_replacement';
                 item.description = '<b>[[*content]]</b>';
                 item.hidden = miniShop2.config.isHideContent;
             }
