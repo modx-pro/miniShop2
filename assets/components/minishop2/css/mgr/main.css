@@ -116,6 +116,9 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 #minishop2-orders-info .top td span { font-size: 30px; line-height: 30px; }
 #minishop2-orders-info .bottom td { padding-top: 10px; font-size: 10px; }
 #minishop2-orders-info .bottom td span { font-size: 30px; line-height: 30px; }
+/* Order products search field */
+#minishop2-grid-order-products .x-toolbar-layout-ct table{ width: 100%; }
+#minishop2-grid-order-products .x-form-field-wrap.x-form-field-trigger-wrap{ width: 99% !important; }
 /* Products */
 .x-grid3-col-product-title,
 .x-grid3-col-product-image,
