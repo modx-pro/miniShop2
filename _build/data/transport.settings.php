@@ -272,8 +272,23 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ),
+    'ms2_frontend_message_css' => array(
+        'value' => '[[+cssUrl]]web/lib/jquery.jgrowl.min.css',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
     'ms2_frontend_js' => array(
         'value' => '[[+jsUrl]]web/default.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_frontend_message_js' => array(
+        'value' => '[[+jsUrl]]web/lib/jquery.jgrowl.min.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_frontend_message_js_settings' => array(
+        'value' => '[[+jsUrl]]web/message_settings.js',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ),

@@ -47,8 +47,7 @@
         }
         if (name != undefined) {
             obj[name] = func;
-        }
-        else {
+        } else {
             obj.push(func);
         }
         return true;
@@ -149,8 +148,7 @@
         var runCallback = function (callback, bind) {
             if (typeof callback == 'function') {
                 return callback.apply(bind, Array.prototype.slice.call(arguments, 2));
-            }
-            else if (typeof callback == 'object') {
+            } else if (typeof callback == 'object') {
                 for (var i in callback) {
                     if (callback.hasOwnProperty(i)) {
                         var response = callback[i].apply(bind, Array.prototype.slice.call(arguments, 2));
@@ -168,11 +166,9 @@
                 name: 'ctx',
                 value: miniShop2Config.ctx
             });
-        }
-        else if ($.isPlainObject(data)) {
+        } else if ($.isPlainObject(data)) {
             data.ctx = miniShop2Config.ctx;
-        }
-        else if (typeof data == 'string') {
+        } else if (typeof data == 'string') {
             data += '&ctx=' + miniShop2Config.ctx;
         }
 
@@ -183,8 +179,8 @@
         var url = (formActionUrl)
             ? formActionUrl
             : (miniShop2Config.actionUrl)
-                      ? miniShop2Config.actionUrl
-                      : document.location.href;
+                ? miniShop2Config.actionUrl
+                : document.location.href;
         // set request method
         var formMethod = (miniShop2.sendData.$form)
             ? miniShop2.sendData.$form.attr('method')
@@ -206,8 +202,7 @@
                     }
                     runCallback(callbacks.response.success, miniShop2, response);
                     runCallback(userCallbacks.response.success, miniShop2, response);
-                }
-                else {
+                } else {
                     miniShop2.Message.error(response.message);
                     runCallback(callbacks.response.error, miniShop2, response);
                     runCallback(userCallbacks.response.error, miniShop2, response);
@@ -273,10 +268,9 @@
         change: function () {
             var callbacks = miniShop2.Cart.callbacks;
             callbacks.change.response.success = function (response) {
-                if (typeof(response.data.key) == 'undefined') {
+                if (typeof (response.data.key) == 'undefined') {
                     this.Cart.remove_position(miniShop2.Utils.getValueFromSerializedArray('key'));
-                }
-                else {
+                } else {
                     $('#' + miniShop2.Utils.getValueFromSerializedArray('key')).find('');
                 }
                 this.Cart.status(response.data);
@@ -286,8 +280,7 @@
         status: function (status) {
             if (status['total_count'] < 1) {
                 location.reload();
-            }
-            else {
+            } else {
                 //var $cart = $(miniShop2.Cart.cart);
                 var $miniCarts = $(miniShop2.Cart.miniCart).add(miniShop2.Cart.miniCartClass);
                 if (status['total_count'] > 0 && $miniCarts.length > 0) {
@@ -422,8 +415,7 @@
                             $field = $(miniShop2.Order.deliveryInputUniquePrefix + response.data[key]);
                             if (response.data[key] != old_value) {
                                 $field.trigger('click');
-                            }
-                            else {
+                            } else {
                                 miniShop2.Order.getrequired(value);
                                 miniShop2.Order.updatePayments($field.data('payments'));
                                 miniShop2.Order.getcost();
@@ -433,8 +425,7 @@
                             $field = $(miniShop2.Order.paymentInputUniquePrefix + response.data[key]);
                             if (response.data[key] != old_value) {
                                 $field.trigger('click');
-                            }
-                            else {
+                            } else {
                                 miniShop2.Order.getcost();
                             }
                             break;
@@ -448,8 +439,7 @@
                     var $field = $('[name="' + key + '"]', miniShop2.Order.order);
                     if ($field.attr('type') == 'checkbox' || $field.attr('type') == 'radio') {
                         $field.closest(miniShop2.Order.inputParent).addClass('error');
-                    }
-                    else {
+                    } else {
                         $field.addClass('error');
                     }
                 })(key);
@@ -504,20 +494,18 @@
             callbacks.submit.response.success = function (response) {
                 if (response.data['redirect']) {
                     document.location.href = response.data['redirect'];
-                }
-                else if (response.data['msorder']) {
+                } else if (response.data['msorder']) {
                     document.location.href = document.location.origin + document.location.pathname
                         + (document.location.search ? document.location.search + '&' : '?')
                         + 'msorder=' + response.data['msorder'];
-                }
-                else {
+                } else {
                     location.reload();
                 }
             };
             callbacks.submit.response.error = function (response) {
                 setTimeout((function () {
                     $(':button, a', miniShop2.Order.order).attr('disabled', false).prop('disabled', false);
-                }.bind(this)),3 * miniShop2.timeout);
+                }.bind(this)), 3 * miniShop2.timeout);
                 $('[name]', miniShop2.Order.order).removeClass('error').closest(miniShop2.Order.inputParent).removeClass('error');
                 for (var i in response.data) {
                     if (response.data.hasOwnProperty(i)) {
@@ -527,8 +515,7 @@
                         var $field = $('[name="' + key + '"]', miniShop2.Order.order);
                         if ($field.attr('type') == 'checkbox' || $field.attr('type') == 'radio') {
                             $field.closest(miniShop2.Order.inputParent).addClass('error');
-                        }
-                        else {
+                        } else {
                             $field.addClass('error');
                         }
                     }
@@ -559,54 +546,25 @@
 
     miniShop2.Message = {
         initialize: function () {
-            miniShop2.Message.close = function () {
-            };
-            miniShop2.Message.show = function (message) {
-                if (message != '') {
-                    alert(message);
-                }
-            };
-
-            if (typeof($.fn.jGrowl) != 'function') {
-                $.getScript(miniShop2Config.jsUrl + 'lib/jquery.jgrowl.min.js', function () {
-                    miniShop2.Message.initialize();
-                });
-            }
-            else {
-                $.jGrowl.defaults.closerTemplate = '<div>[ ' + miniShop2Config.close_all_message + ' ]</div>';
-                miniShop2.Message.close = function () {
-                    $.jGrowl('close');
-                };
-                miniShop2.Message.show = function (message, options) {
-                    if (message != '') {
-                        $.jGrowl(message, options);
-                    }
-                }
+        },
+        close: function () {
+        },
+        show: function (message) {
+            if (message != '') {
+                alert(message);
             }
         },
         success: function (message) {
-            miniShop2.Message.show(message, {
-                theme: 'ms2-message-success',
-                sticky: false
-            });
         },
         error: function (message) {
-            miniShop2.Message.show(message, {
-                theme: 'ms2-message-error',
-                sticky: false
-            });
         },
         info: function (message) {
-            miniShop2.Message.show(message, {
-                theme: 'ms2-message-info',
-                sticky: false
-            });
         }
     };
 
     miniShop2.Utils = {
         empty: function (val) {
-            return (typeof(val) == 'undefined' || val == 0 || val === null || val === false || (typeof(val) == 'string' && val.replace(/\s+/g, '') == '') || (typeof(val) == 'object' && val.length == 0));
+            return (typeof (val) == 'undefined' || val == 0 || val === null || val === false || (typeof (val) == 'string' && val.replace(/\s+/g, '') == '') || (typeof (val) == 'object' && val.length == 0));
         },
         formatPrice: function (price) {
             var pf = miniShop2Config.price_format;
@@ -652,8 +610,7 @@
 
             if ((j = i.length) > 3) {
                 j = j % 3;
-            }
-            else {
+            } else {
                 j = 0;
             }
 
