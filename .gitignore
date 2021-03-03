@@ -2,4 +2,5 @@ config.core.php
 sftp-config.json
 .idea
 .gitignore
+.DS_Store
 tests/properties.inc.php
