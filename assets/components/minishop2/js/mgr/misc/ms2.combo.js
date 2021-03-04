@@ -167,7 +167,7 @@ miniShop2.combo.Category = function (config) {
     });
     miniShop2.combo.Category.superclass.constructor.call(this, config);
     this.on('expand', function () {
-        if (!!this.pageTb) {
+        if (this.pageTb) {
             this.pageTb.show();
         }
     });
@@ -251,7 +251,7 @@ miniShop2.combo.Vendor = function (config) {
     });
     miniShop2.combo.Vendor.superclass.constructor.call(this, config);
     this.on('expand', function () {
-        if (!!this.pageTb) {
+        if (this.pageTb) {
             this.pageTb.show();
         }
     });

@@ -888,7 +888,7 @@ define("moxie/core/utils/Env", [
 	                // try matching uastring with regexes
 	                for (j = k = 0; j < regex.length; j++) {
 	                    matches = regex[j].exec(this.getUA());
-	                    if (!!matches) {
+	                    if (matches) {
 	                        for (p = 0; p < props.length; p++) {
 	                            match = matches[++k];
 	                            q = props[p];
@@ -922,7 +922,7 @@ define("moxie/core/utils/Env", [
 	                    }
 	                }
 
-	                if(!!matches) break; // break the loop immediately if match found
+	                if(matches) break; // break the loop immediately if match found
 	            }
 	            return result;
 	        },
@@ -5009,13 +5009,13 @@ define("moxie/xhr/XMLHttpRequest", [
 				}
 
 				// 3
-				if (!!~Basic.inArray(method.toUpperCase(), ['CONNECT', 'DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'TRACE', 'TRACK'])) {
+				if (~Basic.inArray(method.toUpperCase(), ['CONNECT', 'DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'TRACE', 'TRACK'])) {
 					_method = method.toUpperCase();
 				}
 
 
 				// 4 - allowing these methods poses a security risk
-				if (!!~Basic.inArray(_method, ['CONNECT', 'TRACE', 'TRACK'])) {
+				if (~Basic.inArray(_method, ['CONNECT', 'TRACE', 'TRACK'])) {
 					throw new x.DOMException(x.DOMException.SECURITY_ERR);
 				}
 
@@ -5206,7 +5206,7 @@ define("moxie/xhr/XMLHttpRequest", [
 				var matches, charset;
 
 				// 1
-				if (!!~Basic.inArray(_p('readyState'), [XMLHttpRequest.LOADING, XMLHttpRequest.DONE])) {
+				if (~Basic.inArray(_p('readyState'), [XMLHttpRequest.LOADING, XMLHttpRequest.DONE])) {
 					throw new x.DOMException(x.DOMException.INVALID_STATE_ERR);
 				}
 
@@ -5577,7 +5577,7 @@ define("moxie/xhr/XMLHttpRequest", [
 
 					_p('response', runtime.exec.call(_xhr, 'XMLHttpRequest', 'getResponse', _p('responseType')));
 
-					if (!!~Basic.inArray(_p('responseType'), ['text', ''])) {
+					if (~Basic.inArray(_p('responseType'), ['text', ''])) {
 						_p('responseText', _p('response'));
 					} else if (_p('responseType') === 'document') {
 						_p('responseXML', _p('response'));
@@ -10163,7 +10163,7 @@ define("moxie/runtime/flash/xhr/XMLHttpRequest", [
 				try { 
 					frs = new FileReaderSync();
 
-					if (!!~Basic.inArray(responseType, ["", "text"])) {
+					if (~Basic.inArray(responseType, ["", "text"])) {
 						return frs.readAsText(blob);
 					} else if ('json' === responseType && !!window.JSON) {
 						return JSON.parse(frs.readAsText(blob));

@@ -250,7 +250,7 @@
                 return;
             }
             miniShop2.$doc.on('change', miniShop2.Cart.cart + ' ' + miniShop2.Cart.countInput, function () {
-                if (!!$(this).val()) {
+                if ($(this).val()) {
                     $(this).closest(miniShop2.form).submit();
                 }
             });
