@@ -99,6 +99,10 @@ $tmp = array(
         'type' => 'combo-boolean',
         'value' => false,
     ),
+    'return' => array(
+        'type' => 'textfield',
+        'value' => 'data',
+    ),
     'showUnpublished' => array(
         'type' => 'combo-boolean',
         'value' => false,

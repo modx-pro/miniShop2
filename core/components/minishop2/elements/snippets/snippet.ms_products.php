@@ -18,6 +18,14 @@ if (isset($parents) && $parents === '') {
     $scriptProperties['parents'] = $modx->resource->id;
 }
 
+if (!empty($returnIds)) {
+    $scriptProperties['return'] = 'ids';
+}
+
+if ($scriptProperties['return'] === 'ids') {
+    $scriptProperties['returnIds'] = true;
+}
+
 // Start build "where" expression
 $where = array(
     'class_key' => 'msProduct',
@@ -174,9 +182,7 @@ $default = array(
     'sortby' => 'msProduct.id',
     'sortdir' => 'ASC',
     'groupby' => implode(', ', $groupby),
-    'return' => !empty($returnIds)
-        ? 'ids'
-        : 'data',
+    'return' => 'data',
     'nestedChunkPrefix' => 'minishop2_',
 );
 // Merge all properties and run!
@@ -233,7 +239,7 @@ if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
 }
 
 // Return output
-if (!empty($returnIds) && is_string($rows)) {
+if (is_string($rows)) {
     $modx->setPlaceholder('msProducts.log', $log);
     if (!empty($toPlaceholder)) {
         $modx->setPlaceholder($toPlaceholder, $rows);
