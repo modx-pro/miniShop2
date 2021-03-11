@@ -130,7 +130,7 @@ class miniShop2
 
                 $data = json_encode(array_merge($message_setting, $js_setting), true);
                 $this->modx->regClientStartupScript(
-                    '<script type="text/javascript">miniShop2Config = ' . $data . ';</script>', true
+                    '<script>miniShop2Config = ' . $data . ';</script>', true
                 );
             }
 

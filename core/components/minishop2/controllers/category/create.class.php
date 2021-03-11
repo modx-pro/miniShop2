@@ -80,7 +80,7 @@ class msCategoryCreateManagerController extends msResourceCreateController
         );
 
         $this->addHtml('
-        <script type="text/javascript">
+        <script>
         // <![CDATA[
             MODx.config.publish_document = "' . $this->canPublish . '";
             MODx.onDocFormRender = "' . $this->onDocFormRender . '";

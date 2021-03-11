@@ -71,7 +71,7 @@ class Minishop2MgrSettingsManagerController extends msManagerController
 
         $config = $this->miniShop2->config;
         $config['default_thumb'] = $this->miniShop2->config['defaultThumb'];
-        $this->addHtml('<script type="text/javascript">
+        $this->addHtml('<script>
             miniShop2.config = ' . json_encode($config) . ';
 
             MODx.perm.msorder_list = '.($this->modx->hasPermission('msorder_list') ? 1 : 0).';

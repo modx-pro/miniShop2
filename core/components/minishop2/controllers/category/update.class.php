@@ -127,7 +127,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         );
 
         $this->addHtml('
-        <script type="text/javascript">
+        <script>
         // <![CDATA[
             MODx.config.publish_document = "' . $this->canPublish . '";
             MODx.onDocFormRender = "' . $this->onDocFormRender . '";
@@ -194,7 +194,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             $this->addLastJavascript($ticketsJsUrl . 'comment/comments.common.js');
             $this->addLastJavascript($ticketsJsUrl . 'comment/comments.grid.js');
             $this->addHtml('
-            <script type="text/javascript">
+            <script>
             // <![CDATA[
             Tickets.config = {
                 assets_url: "' . $ticketsAssetsUrl . '",

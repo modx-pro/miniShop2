@@ -69,7 +69,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         $config['order_product_fields'] = $product_fields;
         $config['order_product_options_fields'] = $product_options;
         $this->addHtml('
-            <script type="text/javascript">
+            <script>
                 miniShop2.config = ' . json_encode($config) . ';
 
                 MODx.perm.mssetting_list = '.($this->modx->hasPermission('mssetting_list') ? 1 : 0).';
