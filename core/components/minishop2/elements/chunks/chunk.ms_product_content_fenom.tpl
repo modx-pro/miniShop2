@@ -19,8 +19,8 @@
     <div class="col-12 col-md-6" itemtype="http://schema.org/AggregateOffer" itemprop="offers" itemscope>
         <meta itemprop="category" content="{$_modx->resource.parent | resource: "pagetitle"}">
         <meta itemprop="offerCount" content="1">
-        <meta itemprop="price" content="{$_modx->resource.price | replace:" ":""}">
-        <meta itemprop="lowPrice" content="{$_modx->resource.price | replace:" ":""}">
+        <meta itemprop="price" content="{$price | replace:" ":""}">
+        <meta itemprop="lowPrice" content="{$price | replace:" ":""}">
         <meta itemprop="priceCurrency" content="RUR">
 
         <form class="form-horizontal ms2_form" method="post">
@@ -29,15 +29,15 @@
             <div class="form-group row align-items-center">
                 <label class="col-6 col-md-3 text-right text-md-left col-form-label">{'ms2_product_article' | lexicon}:</label>
                 <div class="col-6 col-md-9">
-                    {$_modx->resource.article ?: '-'}
+                    {$article ?: '-'}
                 </div>
             </div>
             <div class="form-group row align-items-center">
                 <label class="col-6 col-md-3 text-right text-md-left col-form-label">{'ms2_product_price' | lexicon}:</label>
                 <div class="col-6 col-md-9">
-                    {$_modx->resource.price} {'ms2_frontend_currency' | lexicon}
-                    {if $_modx->resource.old_price != 0}
-                    <span class="old_price ml-2">{$_modx->resource.old_price} {'ms2_frontend_currency' | lexicon}</span>
+                    {$price} {'ms2_frontend_currency' | lexicon}
+                    {if $old_price != 0}
+                    <span class="old_price ml-2">{$old_price} {'ms2_frontend_currency' | lexicon}</span>
                     {/if}
                 </div>
             </div>
@@ -55,14 +55,14 @@
             <div class="form-group row align-items-center">
                 <label class="col-6 col-md-3 text-right text-md-left col-form-label">{'ms2_product_weight' | lexicon}:</label>
                 <div class="col-6 col-md-9">
-                    {$_modx->resource.weight} {'ms2_frontend_weight_unit' | lexicon}
+                    {$weight} {'ms2_frontend_weight_unit' | lexicon}
                 </div>
             </div>
 
             <div class="form-group row align-items-center">
                 <label class="col-6 col-md-3 text-right text-md-left col-form-label">{'ms2_product_made_in' | lexicon}:</label>
                 <div class="col-6 col-md-9">
-                    {$_modx->resource.made_in ?: '-'}
+                    {$made_in ?: '-'}
                 </div>
             </div>
 
