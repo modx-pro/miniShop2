@@ -75,7 +75,6 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .x-menu-list .icon { min-width: 1em; text-align: center; }
 .ext-strict .x-menu-item-icon { top: 5px; }
 .x-menu-list-item:hover .icon { color: inherit !important; }
-.x-menu-list .icon { min-width: 1em; text-align: center; }
 .x-tab-strip li { list-style: none; }
 .x-grid3-col-actions { padding: 5px 0 0 5px !important; }
 .x-grid3-col-actions .action-red, .x-menu .action-red { color: darkred !important; }
