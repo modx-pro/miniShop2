@@ -5,21 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.8.8-pl] - 2021-03-15
 
 ### Added
 
 - Added support for OR, AND operators in the optionFilters parameter in the msProducts snippet [#539]
 - The concept of refactoring the connection of notification scripts [#542]
 - Added "Save and close" button on links window [#533]
+- Added support for the return parameter in msProducts [#553]
 
 ### Changed
+
+- Fix Recoverable error: Object of class msProductData_mysql could not be converted to string [#555]
+- Change variables in fenom chunk [#557]
+- New keep a changelog format
 
 ### Removed
 
 - Removed unused library `jquery.form` [#544]
 - Removed unused old.css file [#552]
 - Removed deprecated backward compatibility method with ms1 [#537]
+- Remove duplicate css [#558]
 
 ## [2.8.1-pl] - 2021-02-14
 
