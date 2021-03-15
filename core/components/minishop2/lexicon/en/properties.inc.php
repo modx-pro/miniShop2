@@ -29,6 +29,7 @@ $_lang['ms2_prop_class'] = 'Name of class for selection. By default, "msProduct"
 $_lang['ms2_prop_tvPrefix'] = 'The prefix for TemplateVar properties, "tv." for example. By default it is empty.';
 $_lang['ms2_prop_outputSeparator'] = 'An optional string to separate each tpl instance.';
 $_lang['ms2_prop_returnIds'] = 'If true, snippet will return comma separated string with ids of results instead of chunks.';
+$_lang['ms2_prop_return'] = 'Method of displaying results.';
 
 $_lang['ms2_prop_showUnpublished'] = 'Show unpublished products.';
 $_lang['ms2_prop_showDeleted'] = 'Show deleted products.';
