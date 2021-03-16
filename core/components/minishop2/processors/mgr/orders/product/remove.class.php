@@ -13,8 +13,8 @@ class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function beforeRemove()
     {
         if (!$this->order = $this->object->getOne('Order')) {
@@ -34,8 +34,8 @@ class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * 
-     */
+    *
+    */
     public function afterRemove()
     {
         // Fix "cache"

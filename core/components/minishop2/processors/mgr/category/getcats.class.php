@@ -9,8 +9,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function initialize()
     {
         if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
@@ -30,8 +30,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         $beforeQuery = $this->beforeQuery();
@@ -46,8 +46,8 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getData()
     {
         $data = array();
@@ -80,10 +80,10 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $data
-     *
-     * @return array
-     */
+    * @param array $data
+    *
+    * @return array
+    */
     public function iterate(array $data)
     {
         $list = array();
@@ -104,10 +104,10 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $c->select('id,parent,pagetitle,context_key');
@@ -126,10 +126,10 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $resourceArray
-     *
-     * @return array
-     */
+    * @param array $resourceArray
+    *
+    * @return array
+    */
     public function prepareResult(array $resourceArray)
     {
         $resourceArray['parents'] = array();

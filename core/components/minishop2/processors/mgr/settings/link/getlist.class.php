@@ -9,8 +9,8 @@ class msLinkGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -22,10 +22,10 @@ class msLinkGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         if ($this->getProperty('combo')) {
@@ -46,10 +46,10 @@ class msLinkGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOObject $object
-     *
-     * @return array
-     */
+    * @param xPDOObject $object
+    *
+    * @return array
+    */
     public function prepareRow(xPDOObject $object)
     {
         if ($this->getProperty('combo')) {

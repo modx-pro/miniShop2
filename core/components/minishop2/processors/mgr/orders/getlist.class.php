@@ -14,8 +14,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $this->ms2 = $this->modx->getService('miniShop2');
@@ -29,10 +29,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $c->leftJoin('modUser', 'User');
@@ -99,10 +99,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
         $total = 0;
@@ -139,8 +139,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getData()
     {
         $c = $this->modx->newQuery($this->classKey);
@@ -156,10 +156,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $data
-     *
-     * @return array
-     */
+    * @param array $data
+    *
+    * @return array
+    */
     public function iterate(array $data)
     {
         $list = array();
@@ -177,10 +177,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $data
-     *
-     * @return array
-     */
+    * @param array $data
+    *
+    * @return array
+    */
     public function prepareArray(array $data)
     {
         if (empty($data['customer'])) {
@@ -237,11 +237,11 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $array
-     * @param bool $count
-     *
-     * @return string
-     */
+    * @param array $array
+    * @param bool $count
+    *
+    * @return string
+    */
     public function outputArray(array $array, $count = false)
     {
         if ($count === false) {

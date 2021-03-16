@@ -8,8 +8,8 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
     private $product_options = [];
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,8 +23,8 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function cleanup()
     {
         $array = $this->object->toArray('', true);
@@ -55,10 +55,10 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
 
 
     /**
-     * @param $arr
-     *
-     * @return string
-     */
+    * @param $arr
+    *
+    * @return string
+    */
     function my_json_encode($arr)
     {
         //convmap since 0x80 char codes so it takes all multibyte codes (above ASCII 127). So such characters are being "hidden" from normal json_encoding

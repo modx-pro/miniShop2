@@ -7,8 +7,8 @@ class msManagerController extends modExtraManagerController
 
 
     /**
-     *
-     */
+    *
+    */
     public function initialize()
     {
         $this->miniShop2 = $this->modx->getService('miniShop2');
@@ -19,8 +19,8 @@ class msManagerController extends modExtraManagerController
 
 
     /**
-     * @param string $script
-     */
+    * @param string $script
+    */
     public function addCss($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
@@ -29,8 +29,8 @@ class msManagerController extends modExtraManagerController
 
 
     /**
-     * @param string $script
-     */
+    * @param string $script
+    */
     public function addJavascript($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
@@ -39,8 +39,8 @@ class msManagerController extends modExtraManagerController
 
 
     /**
-     * @param string $script
-     */
+    * @param string $script
+    */
     public function addLastJavascript($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
@@ -49,11 +49,11 @@ class msManagerController extends modExtraManagerController
 
 
     /**
-     * @param string $key
-     * @param array $options
-     * @param mixed $default
-     * @return mixed
-     */
+    * @param string $key
+    * @param array $options
+    * @param mixed $default
+    * @return mixed
+    */
     public function getOption($key, $options = null, $default = null, $skipEmpty = false)
     {
         $option = $default;

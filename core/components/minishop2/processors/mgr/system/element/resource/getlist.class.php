@@ -8,10 +8,10 @@ class msResourceGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         if ($this->getProperty('combo')) {
@@ -29,10 +29,10 @@ class msResourceGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOObject $object
-     *
-     * @return array
-     */
+    * @param xPDOObject $object
+    *
+    * @return array
+    */
     public function prepareRow(xPDOObject $object)
     {
         if ($this->getProperty('combo')) {

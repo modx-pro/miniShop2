@@ -7,8 +7,8 @@ class msResourceUpdateController extends ResourceUpdateManagerController
 
 
     /**
-     *
-     */
+    *
+    */
     public function initialize()
     {
         $this->miniShop2 = $this->modx->getService('miniShop2');
@@ -20,8 +20,8 @@ class msResourceUpdateController extends ResourceUpdateManagerController
 
 
     /**
-     * @param string $script
-     */
+    * @param string $script
+    */
     public function addCss($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
@@ -30,8 +30,8 @@ class msResourceUpdateController extends ResourceUpdateManagerController
 
 
     /**
-     * @param string $script
-     */
+    * @param string $script
+    */
     public function addJavascript($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
@@ -40,8 +40,8 @@ class msResourceUpdateController extends ResourceUpdateManagerController
 
 
     /**
-     * @param string $script
-     */
+    * @param string $script
+    */
     public function addLastJavascript($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
@@ -50,9 +50,9 @@ class msResourceUpdateController extends ResourceUpdateManagerController
 
 
     /**
-     * Check if content field is hidden
-     * @return bool
-     */
+    * Check if content field is hidden
+    * @return bool
+    */
     public function isHideContent()
     {
         $userGroups = $this->modx->user->getUserGroups();
@@ -81,17 +81,17 @@ class msResourceUpdateController extends ResourceUpdateManagerController
             ),
             'OR:ProfileUserGroup.usergroup:=' => null,
         ), xPDOQuery::SQL_AND, null, 2);
-        
+
         return (bool) $this->modx->getCount('modActionDom', $c);
     }
 
 
     /**
-     * @param string $key
-     * @param array $options
-     * @param mixed $default
-     * @return mixed
-     */
+    * @param string $key
+    * @param array $options
+    * @param mixed $default
+    * @return mixed
+    */
     public function getOption($key, $options = null, $default = null, $skipEmpty = false)
     {
         $option = $default;

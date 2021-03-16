@@ -118,10 +118,10 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     /*
-     onUploadFile: function (uploader, file) {
-     this.updateFile(file);
-     },
-     */
+    onUploadFile: function (uploader, file) {
+    this.updateFile(file);
+    },
+    */
 
     onUploadProgress: function (uploader, file) {
         if (this.progress) {
@@ -183,10 +183,10 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     /*
-     updateFile: function(file) {
-     this.uploadGrid.updateFile(file);
-     },
-     */
+    updateFile: function(file) {
+    this.uploadGrid.updateFile(file);
+    },
+    */
 
 });
 Ext.reg('minishop2-gallery-page', miniShop2.panel.Gallery);

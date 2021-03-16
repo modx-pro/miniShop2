@@ -9,8 +9,8 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function initialize()
     {
         $initialize = parent::initialize();
@@ -23,8 +23,8 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
 
 
     /**
-     * @return xPDOQuery
-     */
+    * @return xPDOQuery
+    */
     public function getResourceQuery()
     {
         $resourceColumns = array(
@@ -79,10 +79,10 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
 
 
     /**
-     * @param modContext $context
-     *
-     * @return array
-     */
+    * @param modContext $context
+    *
+    * @return array
+    */
     public function prepareContextNode(modContext $context)
     {
         $context->prepare();
@@ -102,10 +102,10 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
 
 
     /**
-     * @param modResource $resource
-     *
-     * @return array
-     */
+    * @param modResource $resource
+    *
+    * @return array
+    */
     public function prepareResourceNode(modResource $resource)
     {
         $qtipField = $this->getProperty('qtipField');

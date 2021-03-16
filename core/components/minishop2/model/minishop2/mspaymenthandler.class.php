@@ -4,58 +4,58 @@ interface msPaymentInterface
 {
 
     /**
-     * Send user to payment service
-     *
-     * @param msOrder $order Object with an order
-     *
-     * @return array|boolean $response
-     */
+    * Send user to payment service
+    *
+    * @param msOrder $order Object with an order
+    *
+    * @return array|boolean $response
+    */
     public function send(msOrder $order);
 
 
     /**
-     * Receives payment
-     *
-     * @param msOrder $order Object with an order
-     *
-     * @return array|boolean $response
-     */
+    * Receives payment
+    *
+    * @param msOrder $order Object with an order
+    *
+    * @return array|boolean $response
+    */
     public function receive(msOrder $order);
 
 
     /**
-     * Returns an additional cost depending on the method of payment
-     *
-     * @param msOrderInterface $order
-     * @param msPayment $payment
-     * @param float $cost
-     *
-     * @return integer
-     */
+    * Returns an additional cost depending on the method of payment
+    *
+    * @param msOrderInterface $order
+    * @param msPayment $payment
+    * @param float $cost
+    *
+    * @return integer
+    */
     public function getCost(msOrderInterface $order, msPayment $payment, $cost = 0.0);
 
 
     /**
-     * Returns failure response
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Returns failure response
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function error($message = '', $data = array(), $placeholders = array());
 
 
     /**
-     * Returns success response
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Returns success response
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function success($message = '', $data = array(), $placeholders = array());
 }
 
@@ -71,9 +71,9 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param xPDOObject $object
-     * @param array $config
-     */
+    * @param xPDOObject $object
+    * @param array $config
+    */
     function __construct(xPDOObject $object, $config = array())
     {
         $this->modx = $object->xpdo;
@@ -83,10 +83,10 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param msOrder $order
-     *
-     * @return array|string
-     */
+    * @param msOrder $order
+    *
+    * @return array|string
+    */
     public function send(msOrder $order)
     {
         return $this->success('', array('msorder' => $order->get('id')));
@@ -94,10 +94,10 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param msOrder $order
-     *
-     * @return array|string
-     */
+    * @param msOrder $order
+    *
+    * @return array|string
+    */
     public function receive(msOrder $order)
     {
         return $this->success('');
@@ -105,12 +105,12 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param msOrderInterface $order
-     * @param msPayment $payment
-     * @param float $cost
-     *
-     * @return float|int
-     */
+    * @param msOrderInterface $order
+    * @param msPayment $payment
+    * @param float $cost
+    *
+    * @return float|int
+    */
     public function getCost(msOrderInterface $order, msPayment $payment, $cost = 0.0)
     {
         $add_price = $payment->get('price');
@@ -125,12 +125,12 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function error($message = '', $data = array(), $placeholders = array())
     {
         if (empty($this->ms2)) {
@@ -142,12 +142,12 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function success($message = '', $data = array(), $placeholders = array())
     {
         if (empty($this->ms2)) {
@@ -159,12 +159,12 @@ class msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * Returns hash of order for various checks
-     *
-     * @param msOrder $order
-     *
-     * @return string
-     */
+    * Returns hash of order for various checks
+    *
+    * @param msOrder $order
+    *
+    * @return string
+    */
     public function getOrderHash(msOrder $order)
     {
         return md5(

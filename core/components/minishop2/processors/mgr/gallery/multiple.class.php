@@ -5,8 +5,8 @@ class msProductFileMultipleProcessor extends modProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         if (!$method = $this->getProperty('method', false)) {

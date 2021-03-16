@@ -11,8 +11,8 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -24,8 +24,8 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return array|bool|string
-     */
+    * @return array|bool|string
+    */
     public function beforeSet()
     {
         if (!$this->getProperty('id')) {
@@ -47,8 +47,8 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function afterSave()
     {
         $extension = pathinfo($this->old_name, PATHINFO_EXTENSION);

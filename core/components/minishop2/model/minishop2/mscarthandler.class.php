@@ -4,82 +4,82 @@ interface msCartInterface
 {
 
     /**
-     * Initializes cart to context
-     * Here you can load custom javascript or styles
-     *
-     * @param string $ctx Context for initialization
-     *
-     * @return boolean
-     */
+    * Initializes cart to context
+    * Here you can load custom javascript or styles
+    *
+    * @param string $ctx Context for initialization
+    *
+    * @return boolean
+    */
     public function initialize($ctx = 'web');
 
 
     /**
-     * Adds product to cart
-     *
-     * @param integer $id Id of MODX resource. It must be an msProduct descendant
-     * @param integer $count .A number of product exemplars
-     * @param array $options Additional options of the product: color, size etc.
-     *
-     * @return array|string $response
-     */
+    * Adds product to cart
+    *
+    * @param integer $id Id of MODX resource. It must be an msProduct descendant
+    * @param integer $count .A number of product exemplars
+    * @param array $options Additional options of the product: color, size etc.
+    *
+    * @return array|string $response
+    */
     public function add($id, $count = 1, $options = array());
 
 
     /**
-     * Removes product from cart
-     *
-     * @param string $key The unique key of cart item
-     *
-     * @return array|string $response
-     */
+    * Removes product from cart
+    *
+    * @param string $key The unique key of cart item
+    *
+    * @return array|string $response
+    */
     public function remove($key);
 
 
     /**
-     * Changes products count in cart
-     *
-     * @param string $key The unique key of cart item
-     * @param integer $count .A number of product exemplars
-     *
-     * @return array|string $response
-     */
+    * Changes products count in cart
+    *
+    * @param string $key The unique key of cart item
+    * @param integer $count .A number of product exemplars
+    *
+    * @return array|string $response
+    */
     public function change($key, $count);
 
 
     /**
-     * Cleans the cart
-     *
-     * @return array|string $response
-     */
+    * Cleans the cart
+    *
+    * @return array|string $response
+    */
     public function clean();
 
 
     /**
-     * Returns the cart status: number of items, weight, price.
-     *
-     * @param array $data Additional data to return with status
-     *
-     * @return array $status
-     */
+    * Returns the cart status: number of items, weight, price.
+    *
+    * @param array $data Additional data to return with status
+    *
+    * @return array $status
+    */
     public function status($data = array());
 
 
     /**
-     * Returns the cart items
-     *
-     * @return array $cart
-     */
+    * Returns the cart items
+    *
+    * @return array $cart
+    */
     public function get();
 
 
     /**
-     * Set all the cart items by one array
-     *
-     * @param array $cart
-     *
-     * @return void
-     */
+    * Set all the cart items by one array
+    *
+    * @param array $cart
+    *
+    * @return void
+    */
     public function set($cart = array());
 
 }
@@ -99,11 +99,11 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * msCartHandler constructor.
-     *
-     * @param miniShop2 $ms2
-     * @param array $config
-     */
+    * msCartHandler constructor.
+    *
+    * @param miniShop2 $ms2
+    * @param array $config
+    */
     function __construct(miniShop2 &$ms2, array $config = array())
     {
         $this->ms2 = &$ms2;
@@ -126,10 +126,10 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @param string $ctx
-     *
-     * @return bool
-     */
+    * @param string $ctx
+    *
+    * @return bool
+    */
     public function initialize($ctx = 'web')
     {
         if ($this->modx->getOption('ms2_cart_context', null, '', true) == 1) {
@@ -141,12 +141,12 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @param int $id
-     * @param int $count
-     * @param array $options
-     *
-     * @return array|string
-     */
+    * @param int $id
+    * @param int $count
+    * @param array $options
+    *
+    * @return array|string
+    */
     public function add($id, $count = 1, $options = array())
     {
         if (empty($id) || !is_numeric($id)) {
@@ -177,14 +177,14 @@ class msCartHandler implements msCartInterface
             }
 
             /* You can prevent add of product to cart by adding some text to $modx->event->_output
-              <?php
+            <?php
                     if ($modx->event->name = 'msOnBeforeAddToCart') {
                         $modx->event->output('Error');
                     }
 
             // Also you can modify $count and $options variables by add values to $this->modx->event->returnedValues
                 <?php
-                      if ($modx->event->name = 'msOnBeforeAddToCart') {
+                    if ($modx->event->name = 'msOnBeforeAddToCart') {
                         $values = & $modx->event->returnedValues;
                         $values['count'] = $count + 10;
                         $values['options'] = array('size' => '99');
@@ -242,10 +242,10 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @param string $key
-     *
-     * @return array|string
-     */
+    * @param string $key
+    *
+    * @return array|string
+    */
     public function remove($key)
     {
         if (array_key_exists($key, $this->cart)) {
@@ -268,11 +268,11 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @param string $key
-     * @param int $count
-     *
-     * @return array|string
-     */
+    * @param string $key
+    * @param int $count
+    *
+    * @return array|string
+    */
     public function change($key, $count)
     {
         $status = array();
@@ -310,8 +310,8 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function clean()
     {
         $response = $this->ms2->invokeEvent('msOnBeforeEmptyCart', array('cart' => $this));
@@ -335,10 +335,10 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @param array $data
-     *
-     * @return array
-     */
+    * @param array $data
+    *
+    * @return array
+    */
     public function status($data = array())
     {
         $status = array(
@@ -371,8 +371,8 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function get()
     {
         $cart = array();
@@ -387,8 +387,8 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * @param array $cart
-     */
+    * @param array $cart
+    */
     public function set($cart = array())
     {
         $this->cart = $cart;
@@ -396,14 +396,14 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * Shorthand for MS2 error method
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Shorthand for MS2 error method
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function error($message = '', $data = array(), $placeholders = array())
     {
         return $this->ms2->error($message, $data, $placeholders);
@@ -411,14 +411,14 @@ class msCartHandler implements msCartInterface
 
 
     /**
-     * Shorthand for MS2 success method
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Shorthand for MS2 success method
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function success($message = '', $data = array(), $placeholders = array())
     {
         return $this->ms2->success($message, $data, $placeholders);

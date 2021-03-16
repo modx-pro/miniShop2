@@ -11,8 +11,8 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -24,8 +24,8 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function beforeSet()
     {
         $option_id = $this->getProperty('option_id');

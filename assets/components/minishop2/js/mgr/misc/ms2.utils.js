@@ -400,7 +400,7 @@ miniShop2.utils.renderBadge = function (value, cell, row) {
             cmax = Math.max(r,g,b),
             delta = cmax - cmin,
             h = s = l = 0;
-    
+
         if (delta == 0)
             h = 0;
         else if (cmax == r)
@@ -409,18 +409,18 @@ miniShop2.utils.renderBadge = function (value, cell, row) {
             h = (b - r) / delta + 2;
         else
             h = (r - g) / delta + 4;
-    
+
         h = Math.round(h * 60);
-    
+
         if (h < 0)
             h += 360;
-    
+
         l = (cmax + cmin) / 2;
         s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
         s = +(s * 100).toFixed(1);
         l = +(l * 100).toFixed(1);
 
-        textColor = l > 50 ? '000000' : 'FFFFFF'; 
+        textColor = l > 50 ? '000000' : 'FFFFFF';
     }
 
 
@@ -431,16 +431,16 @@ miniShop2.utils.renderBadge = function (value, cell, row) {
 };
 
 /*
- miniShop2.getOptCaption = function (field) {
- var opts = miniShop2.config['option_fields'];
- if (!opts) {
- return '';
- }
- for (var i = 0, len = opts.length; i < len; i++) {
- if (opts[i]['key'] == field) {
- return opts[i]['caption'];
- }
- }
- return '';
- };
- */
+miniShop2.getOptCaption = function (field) {
+var opts = miniShop2.config['option_fields'];
+if (!opts) {
+return '';
+}
+for (var i = 0, len = opts.length; i < len; i++) {
+if (opts[i]['key'] == field) {
+return opts[i]['caption'];
+}
+}
+return '';
+};
+*/

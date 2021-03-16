@@ -10,8 +10,8 @@ class msOrderGetProcessor extends modObjectGetProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $this->ms2 = $this->modx->getService('miniShop2');
@@ -25,8 +25,8 @@ class msOrderGetProcessor extends modObjectGetProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function cleanup()
     {
         $array = $this->object->toArray();

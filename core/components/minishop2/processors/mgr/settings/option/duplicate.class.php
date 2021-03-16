@@ -9,8 +9,8 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function afterSave()
     {
         $this->duplicateCategories();
@@ -19,8 +19,8 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function duplicateCategories()
     {
         if ($this->getProperty('copy_categories', false)) {
@@ -41,8 +41,8 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function duplicateProducts()
     {
         if ($this->getProperty('copy_values', false)) {

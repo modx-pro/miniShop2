@@ -9,8 +9,8 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -22,10 +22,10 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         if ($query = trim($this->getProperty('query'))) {
@@ -56,10 +56,10 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOObject $object
-     *
-     * @return array
-     */
+    * @param xPDOObject $object
+    *
+    * @return array
+    */
     public function prepareRow(xPDOObject $object)
     {
         if ($this->getProperty('combo')) {
@@ -128,11 +128,11 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $array
-     * @param bool $count
-     *
-     * @return string
-     */
+    * @param array $array
+    * @param bool $count
+    *
+    * @return string
+    */
     public function outputArray(array $array, $count = false)
     {
         if ($this->getProperty('addall')) {

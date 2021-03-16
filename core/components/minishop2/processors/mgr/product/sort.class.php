@@ -7,8 +7,8 @@ class msProductSortProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         /** @var msProduct $target */
@@ -38,9 +38,9 @@ class msProductSortProcessor extends modObjectProcessor
 
 
     /**
-     * @param msProduct $source
-     * @param msProduct $target
-     */
+    * @param msProduct $source
+    * @param msProduct $target
+    */
     public function sort(msProduct $source, msProduct $target)
     {
         $c = $this->modx->newQuery($this->classKey);
@@ -79,8 +79,8 @@ class msProductSortProcessor extends modObjectProcessor
 
 
     /**
-     * @param msProduct $source
-     */
+    * @param msProduct $source
+    */
     public function move(msProduct $source)
     {
         $source->set('parent', $this->_parent);
@@ -90,8 +90,8 @@ class msProductSortProcessor extends modObjectProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function updateIndex()
     {
         // Check if need to update children indexes

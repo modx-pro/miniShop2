@@ -10,8 +10,8 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $from = (int)$this->getProperty('category_from');
@@ -33,8 +33,8 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         $options = $this->object->getMany('CategoryOptions');
@@ -61,8 +61,8 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function cleanup()
     {
         $fields = array();

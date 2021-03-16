@@ -16,11 +16,11 @@ foreach ($files as $file) {
 }
 
 $_lang['minishop2'] = 'miniShop2';
-$_lang['ms2_menu_desc'] = 'Magazin online avansat'; 
+$_lang['ms2_menu_desc'] = 'Magazin online avansat';
 $_lang['ms2_order'] = 'Comandă';
 $_lang['ms2_orders'] = 'Comenzi';
 $_lang['ms2_orders_intro'] = 'Panou de gestionare a comenzilor. Puteți selecta mai multe comenzi simultan prin Shift sau Ctrl (Cmd).';
-$_lang['ms2_orders_desc'] = 'Gestionarea proiectelor'; 
+$_lang['ms2_orders_desc'] = 'Gestionarea proiectelor';
 $_lang['ms2_settings'] = 'Setări';
 $_lang['ms2_settings_intro'] = 'Panou de gestionare a setărilor magazinului. Aici puteți specifica metodele de achitare, livrare și starea comenzilor.';
 $_lang['ms2_settings_desc'] = 'Starea comenzilor, opțiunile de plată și de livrare';
@@ -83,7 +83,7 @@ $_lang['ms2_category_view'] = 'A privi pe site';
 $_lang['ms2_category_new'] = 'Categoria nouă';
 $_lang['ms2_category_option_add'] = 'A adăuga categoria';
 $_lang['ms2_category_option_rank'] = 'Ordinea sortării';
-$_lang['ms2_category_show_nested'] = 'A afișa produsele incluse'; 
+$_lang['ms2_category_show_nested'] = 'A afișa produsele incluse';
 
 $_lang['ms2_product'] = 'Produs';
 $_lang['ms2_product_type'] = 'Produs';
@@ -139,7 +139,7 @@ $_lang['ms2_err_json'] = 'Acest câmp necesită șir JSON';
 $_lang['ms2_err_user_nf'] = 'Utilizatorul nu a fost găsit.';
 $_lang['ms2_err_order_nf'] = 'Comanda cu acest identificator nu a fost găsită.';
 $_lang['ms2_err_status_nf'] = 'Statut cu acest identificator nu a fost găsit.';
-$_lang['ms2_err_delivery_nf'] = 'Metoda de livrare cu acest identificator nu a fost găsită.'; 
+$_lang['ms2_err_delivery_nf'] = 'Metoda de livrare cu acest identificator nu a fost găsită.';
 $_lang['ms2_err_payment_nf'] = 'Metoda de achitare cu acest identificator nu a fost găsită.';
 $_lang['ms2_err_status_final'] = 'A fost instalat statutul final. Nu poate fi schimbat.';
 $_lang['ms2_err_status_fixed'] = 'A fost instalat statutul de fixare. Nu poate fi schimbat la varianta anterioară.';
@@ -147,7 +147,7 @@ $_lang['ms2_err_status_wrong'] = 'Statutul comenzii este incorect.';
 $_lang['ms2_err_status_same'] = 'Acest statut este deja instalat.';
 $_lang['ms2_err_register_globals'] = 'Eroare: parametru php <b>register_globals</b> trebuie să fie dezactivat.';
 $_lang['ms2_err_link_equal'] = 'Incercați să adăugați același link al produsului';
-$_lang['ms2_err_value_duplicate'] = 'Nu ați introdus o valoare sau ați introdus o repetare.'; 
+$_lang['ms2_err_value_duplicate'] = 'Nu ați introdus o valoare sau ați introdus o repetare.';
 
 $_lang['ms2_err_gallery_save'] = 'File-ul nu a fost salvat (vezi sistem log).';
 $_lang['ms2_err_gallery_ns'] = 'Fișierul expediat este gol';

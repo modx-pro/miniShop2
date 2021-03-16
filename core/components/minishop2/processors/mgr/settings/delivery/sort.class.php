@@ -7,8 +7,8 @@ class msDeliverySortProcessor extends modObjectProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -20,8 +20,8 @@ class msDeliverySortProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         if (!$this->modx->getCount($this->classKey, $this->getProperty('target'))) {
@@ -46,11 +46,11 @@ class msDeliverySortProcessor extends modObjectProcessor
 
 
     /**
-     * @param msDelivery $source
-     * @param msDelivery $target
-     *
-     * @return array|string
-     */
+    * @param msDelivery $source
+    * @param msDelivery $target
+    *
+    * @return array|string
+    */
     public function sort(msDelivery $source, msDelivery $target)
     {
         $c = $this->modx->newQuery($this->classKey);
@@ -86,8 +86,8 @@ class msDeliverySortProcessor extends modObjectProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function updateIndex()
     {
         // Check if need to update indexes

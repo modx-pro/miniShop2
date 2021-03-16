@@ -7,8 +7,8 @@ class msOrder extends xPDOSimpleObject
 {
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function updateProducts()
     {
         $delivery_cost = $this->get('delivery_cost');

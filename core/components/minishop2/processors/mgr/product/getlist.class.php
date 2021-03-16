@@ -12,8 +12,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor
     protected $options = array();
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function initialize()
     {
         if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
@@ -39,10 +39,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $c->where(array('class_key' => 'msProduct'));
@@ -116,10 +116,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
         $total = 0;
@@ -156,8 +156,8 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getData()
     {
         $c = $this->modx->newQuery($this->classKey);
@@ -173,10 +173,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $data
-     *
-     * @return array
-     */
+    * @param array $data
+    *
+    * @return array
+    */
     public function iterate(array $data)
     {
         $list = [];
@@ -194,10 +194,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $array
-     *
-     * @return array
-     */
+    * @param array $array
+    *
+    * @return array
+    */
     public function prepareArray(array $array)
     {
         if ($this->getProperty('combo')) {

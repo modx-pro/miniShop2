@@ -7,13 +7,13 @@ class msCustomerProfile extends xPDOObject
 
 
     /**
-     * @param xPDO $xpdo
-     * @param string $className
-     * @param mixed $criteria
-     * @param bool $cacheFlag
-     *
-     * @return msCustomerProfile
-     */
+    * @param xPDO $xpdo
+    * @param string $className
+    * @param mixed $criteria
+    * @param bool $cacheFlag
+    *
+    * @return msCustomerProfile
+    */
     public static function load(xPDO & $xpdo, $className, $criteria, $cacheFlag = true)
     {
         /** @var $instance msCustomerProfile */

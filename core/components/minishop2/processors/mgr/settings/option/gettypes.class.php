@@ -6,9 +6,9 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor
 
 
     /**
-     * Get the data of the query
-     * @return array
-     */
+    * Get the data of the query
+    * @return array
+    */
     public function getData()
     {
         /** @var miniShop2 $ms */
@@ -40,12 +40,12 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor
 
 
     /**
-     * Iterate across the data
-     *
-     * @param array $data
-     *
-     * @return array
-     */
+    * Iterate across the data
+    *
+    * @param array $data
+    *
+    * @return array
+    */
     public function iterate(array $data)
     {
         $list = array();
@@ -66,12 +66,12 @@ class msOptionGetTypesProcessor extends modObjectGetListProcessor
 
 
     /**
-     * Prepare the row for iteration
-     *
-     * @param array $array
-     *
-     * @return array
-     */
+    * Prepare the row for iteration
+    *
+    * @param array $array
+    *
+    * @return array
+    */
     public function prepareArray($array)
     {
         return $array;

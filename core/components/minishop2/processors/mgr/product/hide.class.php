@@ -6,8 +6,8 @@ class msProductHideInTreeProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSet()
     {
         $this->properties = array(

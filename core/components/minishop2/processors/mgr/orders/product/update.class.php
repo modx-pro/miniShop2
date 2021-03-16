@@ -13,8 +13,8 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -26,8 +26,8 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function beforeSet()
     {
         $count = $this->getProperty('count');
@@ -71,8 +71,8 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function afterSave()
     {
         // Fix "cache"

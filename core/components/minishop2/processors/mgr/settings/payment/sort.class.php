@@ -7,8 +7,8 @@ class msPaymentSortProcessor extends modObjectProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -20,8 +20,8 @@ class msPaymentSortProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         if (!$this->modx->getCount($this->classKey, $this->getProperty('target'))) {
@@ -46,11 +46,11 @@ class msPaymentSortProcessor extends modObjectProcessor
 
 
     /**
-     * @param msPayment $source
-     * @param msPayment $target
-     *
-     * @return array|string
-     */
+    * @param msPayment $source
+    * @param msPayment $target
+    *
+    * @return array|string
+    */
     public function sort(msPayment $source, msPayment $target)
     {
         $c = $this->modx->newQuery($this->classKey);
@@ -86,8 +86,8 @@ class msPaymentSortProcessor extends modObjectProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function updateIndex()
     {
         // Check if need to update indexes

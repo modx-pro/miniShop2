@@ -99,11 +99,11 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
     getListeners: function () {
         return {
             /*
-             rowDblClick: function(grid, rowIndex, e) {
-             var row = grid.store.getAt(rowIndex);
-             this.someAction(grid, e, row);
-             }
-             */
+            rowDblClick: function(grid, rowIndex, e) {
+            var row = grid.store.getAt(rowIndex);
+            this.someAction(grid, e, row);
+            }
+            */
         };
     },
 
@@ -223,7 +223,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                                         var singleParent = sourceNodes.every(function(node) {
                                             return node.data.parent == sourceNodes[0].data.parent;
                                         });
-                                        
+
                                         if (singleParent) {
                                             if (sourceNodes[0].data.parent != target.data.parent) {
                                                 if (target.data.category_name == '') {
@@ -263,12 +263,12 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                     if (dd.getDragData(e)) {
                         var sourceNodes = data.selections;
                         var targetNode = dd.getDragData(e).selections[0];
-                        
+
                         if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
                             var singleParent = sourceNodes.every(function(node) {
                                 return node.data.parent == sourceNodes[0].data.parent;
                             });
-                            
+
                             if (singleParent) {
                                 if ((sourceNodes[0].data['id'] == targetNode.data['id'])) {
                                     this._notifySelf(sourceNodes.length, dd);
@@ -282,7 +282,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                                 this._notifyMove(sourceNodes.length, targetNode, dd);
                             }
                         }
-    
+
                         dd.proxy.update(dd.ddel);
                     }
                 }

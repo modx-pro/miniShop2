@@ -11,9 +11,9 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
 
     /**
-     * Returns language topics
-     * @return array
-     */
+    * Returns language topics
+    * @return array
+    */
     public function getLanguageTopics()
     {
         return array('resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager', 'tickets:default');
@@ -21,9 +21,9 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
 
     /**
-     * Check for any permissions or requirements to load page
-     * @return bool
-     */
+    * Check for any permissions or requirements to load page
+    * @return bool
+    */
     public function checkPermissions()
     {
         return $this->modx->hasPermission('edit_document');
@@ -31,8 +31,8 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
 
     /**
-     * Register custom CSS/JS for the page
-     */
+    * Register custom CSS/JS for the page
+    */
     public function loadCustomCssJs()
     {
         $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
@@ -153,10 +153,10 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
 
     /**
-     * Used to set values on the resource record sent to the template for derivative classes
-     *
-     * @return void
-     */
+    * Used to set values on the resource record sent to the template for derivative classes
+    *
+    * @return void
+    */
     public function prepareResource()
     {
         $settings = $this->resource->getProperties('ms2');
@@ -169,8 +169,8 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
 
     /**
-     * Loads component Tickets for displaying comments
-     */
+    * Loads component Tickets for displaying comments
+    */
     public function loadTickets()
     {
         /** @var Tickets $Tickets */
@@ -207,8 +207,8 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
 
     /**
-     * Loads additional scripts for product form from miniShop2 plugins
-     */
+    * Loads additional scripts for product form from miniShop2 plugins
+    */
     function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();

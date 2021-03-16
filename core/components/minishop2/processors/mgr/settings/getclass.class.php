@@ -3,8 +3,8 @@
 class msClassGetListProcessor extends modProcessor
 {
     /**
-     * @return string
-     */
+    * @return string
+    */
     public function process()
     {
         $type = $this->getProperty('type');

@@ -17,10 +17,10 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * @param modMediaSource $mediaSource
-     *
-     * @return bool|string
-     */
+    * @param modMediaSource $mediaSource
+    *
+    * @return bool|string
+    */
     public function prepareSource(modMediaSource $mediaSource = null)
     {
         $this->miniShop2 = $this->xpdo->getService('miniShop2');
@@ -47,10 +47,10 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * @param null $cacheFlag
-     *
-     * @return bool
-     */
+    * @param null $cacheFlag
+    *
+    * @return bool
+    */
     public function save($cacheFlag = null)
     {
         if ($this->isDirty('rank')) {
@@ -63,11 +63,11 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * @param string $file
-     * @param bool $isRaw
-     *
-     * @return string
-     */
+    * @param string $file
+    * @param bool $isRaw
+    *
+    * @return string
+    */
     public function generateHash($file = '', $isRaw = false)
     {
         $raw = '';
@@ -86,10 +86,10 @@ class msProductFile extends xPDOSimpleObject
     }
 
     /**
-     * @param modMediaSource $mediaSource
-     *
-     * @return bool|string
-     */
+    * @param modMediaSource $mediaSource
+    *
+    * @return bool|string
+    */
     public function generateThumbnails(modMediaSource $mediaSource = null)
     {
         if ($this->get('type') != 'image' || $this->get('parent') != 0) {
@@ -150,11 +150,11 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * @param array $options
-     * @param array $info
-     *
-     * @return bool|null
-     */
+    * @param array $options
+    * @param array $info
+    *
+    * @return bool|null
+    */
     public function makeThumbnail($options = array(), array $info)
     {
         if (!class_exists('modPhpThumb')) {
@@ -200,11 +200,11 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * @param $raw_image
-     * @param array $options
-     *
-     * @return bool
-     */
+    * @param $raw_image
+    * @param array $options
+    *
+    * @return bool
+    */
     public function saveThumbnail($raw_image, $options = array())
     {
         $filename = $this->miniShop2->pathinfo($this->get('file'), 'filename') . '.' . $options['f'];
@@ -272,8 +272,8 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * @return array|mixed
-     */
+    * @return array|mixed
+    */
     public function getFirstThumbnail()
     {
         $c = $this->xpdo->newQuery('msProductFile', array(
@@ -294,15 +294,15 @@ class msProductFile extends xPDOSimpleObject
     }
 
     /**
-     * @param array $ancestors
-     *
-     * @return bool
-     */
+    * @param array $ancestors
+    *
+    * @return bool
+    */
     public function remove(array $ancestors = array())
     {
         $this->prepareSource();
         if (!$this->mediaSource->removeObject($this->get('path') . $this->get('file'))) {
-           /* $this->xpdo->log(xPDO::LOG_LEVEL_ERROR,
+            /* $this->xpdo->log(xPDO::LOG_LEVEL_ERROR,
                 'Could not remove file at "' . $this->get('path') . $this->get('file') . '": ' .
                 $this->mediaSource->errors['file']
             );*/
@@ -319,13 +319,13 @@ class msProductFile extends xPDOSimpleObject
 
 
     /**
-     * Recursive file rename
-     *
-     * @param string $new_name
-     * @param string $old_name
-     *
-     * @return bool
-     */
+    * Recursive file rename
+    *
+    * @param string $new_name
+    * @param string $old_name
+    *
+    * @return bool
+    */
     public function rename($new_name, $old_name = '')
     {
         if (empty($old_name)) {

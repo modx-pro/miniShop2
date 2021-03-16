@@ -4,38 +4,38 @@ interface msDeliveryInterface
 {
 
     /**
-     * Returns an additional cost depending on the method of delivery
-     *
-     * @param msOrderInterface $order
-     * @param msDelivery $delivery
-     * @param float $cost
-     *
-     * @return float|integer
-     */
+    * Returns an additional cost depending on the method of delivery
+    *
+    * @param msOrderInterface $order
+    * @param msDelivery $delivery
+    * @param float $cost
+    *
+    * @return float|integer
+    */
     public function getCost(msOrderInterface $order, msDelivery $delivery, $cost = 0.0);
 
 
     /**
-     * Returns failure response
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Returns failure response
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function error($message = '', $data = array(), $placeholders = array());
 
 
     /**
-     * Returns success response
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Returns success response
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function success($message = '', $data = array(), $placeholders = array());
 }
 
@@ -49,9 +49,9 @@ class msDeliveryHandler implements msDeliveryInterface
 
 
     /**
-     * @param xPDOObject $object
-     * @param array $config
-     */
+    * @param xPDOObject $object
+    * @param array $config
+    */
     function __construct(xPDOObject $object, $config = array())
     {
         $this->modx = $object->xpdo;
@@ -60,12 +60,12 @@ class msDeliveryHandler implements msDeliveryInterface
 
 
     /**
-     * @param msOrderInterface $order
-     * @param msDelivery $delivery
-     * @param float $cost
-     *
-     * @return float|int
-     */
+    * @param msOrderInterface $order
+    * @param msDelivery $delivery
+    * @param float $cost
+    *
+    * @return float|int
+    */
     public function getCost(msOrderInterface $order, msDelivery $delivery, $cost = 0.0)
     {
         if (empty($this->ms2)) {
@@ -100,12 +100,12 @@ class msDeliveryHandler implements msDeliveryInterface
 
 
     /**
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function error($message = '', $data = array(), $placeholders = array())
     {
         if (empty($this->ms2)) {
@@ -117,12 +117,12 @@ class msDeliveryHandler implements msDeliveryInterface
 
 
     /**
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function success($message = '', $data = array(), $placeholders = array())
     {
         if (empty($this->ms2)) {

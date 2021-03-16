@@ -10,8 +10,8 @@ class msPaymentCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,8 +23,8 @@ class msPaymentCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSet()
     {
         $required = array('name');
@@ -52,8 +52,8 @@ class msPaymentCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSave()
     {
         $this->object->fromArray(array(

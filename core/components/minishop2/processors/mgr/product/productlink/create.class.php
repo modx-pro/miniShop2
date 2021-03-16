@@ -8,8 +8,8 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -21,8 +21,8 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         if (!$master = $this->getProperty('master')) {
@@ -96,12 +96,12 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @param int $link
-     * @param int $master
-     * @param int $slave
-     *
-     * @return bool
-     */
+    * @param int $link
+    * @param int $master
+    * @param int $slave
+    *
+    * @return bool
+    */
     public function addLink($link = 0, $master = 0, $slave = 0)
     {
         if ($link && $master && $slave) {

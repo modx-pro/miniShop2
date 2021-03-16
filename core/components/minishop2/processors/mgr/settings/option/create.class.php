@@ -10,8 +10,8 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
     public $permission = 'mssetting_save';
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSet()
     {
         $key = $this->getProperty('key');
@@ -30,8 +30,8 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function afterSave()
     {
         if ($categories = json_decode($this->getProperty('categories', false), true)) {

@@ -13,11 +13,11 @@ abstract class msOptionType
 
 
     /**
-     * msOptionType constructor.
-     *
-     * @param msOption $option
-     * @param array $config
-     */
+    * msOptionType constructor.
+    *
+    * @param msOption $option
+    * @param array $config
+    */
     public function __construct(msOption $option, array $config = array())
     {
         $this->option =& $option;
@@ -27,12 +27,12 @@ abstract class msOptionType
 
 
     /**
-     * @param $criteria
-     *
-     * @return mixed|null
-     *
-     * @TODO Maybe vulnerable
-     */
+    * @param $criteria
+    *
+    * @return mixed|null
+    *
+    * @TODO Maybe vulnerable
+    */
     public function getValue($criteria)
     {
         /** @var msProductOption $value */
@@ -42,20 +42,20 @@ abstract class msOptionType
     }
 
     /**
-     * @param $criteria
-     *
-     * @return mixed|null
-     */
+    * @param $criteria
+    *
+    * @return mixed|null
+    */
     public function getRowValue($criteria)
     {
         return $this->getValue($criteria);
     }
 
     /**
-     * @param $field
-     *
-     * @return mixed
-     */
+    * @param $field
+    *
+    * @return mixed
+    */
     public abstract function getField($field);
 
 
@@ -64,8 +64,8 @@ abstract class msOptionType
 class msOption extends xPDOSimpleObject
 {
     /**
-     * @return string
-     */
+    * @return string
+    */
     public function getInputProperties()
     {
         if ($this->get('type') == 'number') {
@@ -77,10 +77,10 @@ class msOption extends xPDOSimpleObject
 
 
     /**
-     * @param $categories
-     *
-     * @return array
-     */
+    * @param $categories
+    *
+    * @return array
+    */
     public function setCategories($categories)
     {
         $result = array();
@@ -111,10 +111,10 @@ class msOption extends xPDOSimpleObject
 
 
     /**
-     * @param $product_id
-     *
-     * @return mixed
-     */
+    * @param $product_id
+    *
+    * @return mixed
+    */
     public function getValue($product_id)
     {
         /** @var miniShop2 $minishop */
@@ -137,10 +137,10 @@ class msOption extends xPDOSimpleObject
     }
 
     /**
-     * @param $product_id
-     *
-     * @return mixed
-     */
+    * @param $product_id
+    *
+    * @return mixed
+    */
     public function getRowValue($product_id)
     {
         /** @var miniShop2 $minishop */
@@ -163,10 +163,10 @@ class msOption extends xPDOSimpleObject
     }
 
     /**
-     * @param $field
-     *
-     * @return mixed|null
-     */
+    * @param $field
+    *
+    * @return mixed|null
+    */
     public function getManagerField($field)
     {
         /** @var miniShop2 $minishop */

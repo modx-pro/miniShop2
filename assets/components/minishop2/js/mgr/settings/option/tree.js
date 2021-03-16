@@ -115,38 +115,38 @@ Ext.extend(miniShop2.tree.OptionCategories, MODx.tree.Tree, {
 Ext.reg('minishop2-tree-option-categories', miniShop2.tree.OptionCategories);
 
 /*
- miniShop2.tree.ModalCategories = function (config) {
- config = config || {};
- if (!config.id) {
- config.id = 'minishop2-modal-categories-tree';
- }
+miniShop2.tree.ModalCategories = function (config) {
+config = config || {};
+if (!config.id) {
+config.id = 'minishop2-modal-categories-tree';
+}
 
- //Ext.applyIf(config, {});
- miniShop2.tree.ModalCategories.superclass.constructor.call(this, config);
- };
- Ext.extend(miniShop2.tree.ModalCategories, miniShop2.tree.OptionCategories, {
+//Ext.applyIf(config, {});
+miniShop2.tree.ModalCategories.superclass.constructor.call(this, config);
+};
+Ext.extend(miniShop2.tree.ModalCategories, miniShop2.tree.OptionCategories, {
 
- getListeners: function () {
- return {
- checkchange: function () {
- var checkedNodes = this.getChecked();
- var categories = [];
- for (var i = 0; i < checkedNodes.length; i++) {
- categories.push(checkedNodes[i].attributes.pk);
- }
+getListeners: function () {
+return {
+checkchange: function () {
+var checkedNodes = this.getChecked();
+var categories = [];
+for (var i = 0; i < checkedNodes.length; i++) {
+categories.push(checkedNodes[i].attributes.pk);
+}
 
- var catField = Ext.getCmp(this.categories);
- if (!catField) {
- return false;
- }
- catField.setValue(Ext.util.JSON.encode(categories));
- },
- afterrender: function () {
- this.mask = new Ext.LoadMask(this.getEl());
- }
- };
- }
+var catField = Ext.getCmp(this.categories);
+if (!catField) {
+return false;
+}
+catField.setValue(Ext.util.JSON.encode(categories));
+},
+afterrender: function () {
+this.mask = new Ext.LoadMask(this.getEl());
+}
+};
+}
 
- });
- Ext.reg('minishop2-tree-modal-categories', miniShop2.tree.ModalCategories);
- */
+});
+Ext.reg('minishop2-tree-modal-categories', miniShop2.tree.ModalCategories);
+*/

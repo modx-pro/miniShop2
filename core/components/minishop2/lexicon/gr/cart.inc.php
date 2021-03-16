@@ -5,7 +5,7 @@
  * @package minishop2
  * @subpackage lexicon
  */
- 
+
 $_lang['ms2_cart'] = 'Καλάθι';
 $_lang['ms2_minicart'] = 'Καλάθι';
 

@@ -13,8 +13,8 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return string
-     */
+    * @return string
+    */
     public function prepareAlias()
     {
         if ($this->workingContext->getOption('ms2_category_id_as_alias')) {
@@ -29,8 +29,8 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSave()
     {
         $this->object->set('isfolder', true);
@@ -40,8 +40,8 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return mixed
-     */
+    * @return mixed
+    */
     public function afterSave()
     {
         if ($this->object->alias == 'empty-resource-alias') {
@@ -53,7 +53,7 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
             $msCategoryParent = $this->modx->getObject($this->classKey, $this->object->parent);
 
             if ($msCategoryParent) {
-                $miniShop2 = $this->modx->getService('miniShop2'); 
+                $miniShop2 = $this->modx->getService('miniShop2');
                 $processorConfig =  array(
                     'category_to'   =>  $this->object->id,
                     'category_from' =>  $this->object->parent

@@ -19,10 +19,10 @@ class msProduct extends modResource
 
 
     /**
-     * msProduct constructor.
-     *
-     * @param xPDO $xpdo
-     */
+    * msProduct constructor.
+    *
+    * @param xPDO $xpdo
+    */
     function __construct(xPDO & $xpdo)
     {
         parent::__construct($xpdo);
@@ -36,13 +36,13 @@ class msProduct extends modResource
 
 
     /**
-     * @param xPDO $xpdo
-     * @param string $className
-     * @param null $criteria
-     * @param bool $cacheFlag
-     *
-     * @return msProduct
-     */
+    * @param xPDO $xpdo
+    * @param string $className
+    * @param null $criteria
+    * @param bool $cacheFlag
+    *
+    * @return msProduct
+    */
     public static function load(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
@@ -56,13 +56,13 @@ class msProduct extends modResource
 
 
     /**
-     * @param xPDO $xpdo
-     * @param string $className
-     * @param null $criteria
-     * @param bool $cacheFlag
-     *
-     * @return array
-     */
+    * @param xPDO $xpdo
+    * @param string $className
+    * @param null $criteria
+    * @param bool $cacheFlag
+    *
+    * @return array
+    */
     public static function loadCollection(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
@@ -76,10 +76,10 @@ class msProduct extends modResource
 
 
     /**
-     * @param xPDO $modx
-     *
-     * @return string
-     */
+    * @param xPDO $modx
+    *
+    * @return string
+    */
     public static function getControllerPath(xPDO &$modx)
     {
         return $modx->getOption('minishop2.core_path', null,
@@ -88,8 +88,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getContextMenuText()
     {
         $this->xpdo->lexicon->load('minishop2:default');
@@ -102,8 +102,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return null|string
-     */
+    * @return null|string
+    */
     public function getResourceTypeName()
     {
         $this->xpdo->lexicon->load('minishop2:default');
@@ -113,12 +113,12 @@ class msProduct extends modResource
 
 
     /**
-     * @param string $k
-     * @param null $v
-     * @param string $vType
-     *
-     * @return bool
-     */
+    * @param string $k
+    * @param null $v
+    * @param string $vType
+    *
+    * @return bool
+    */
     public function set($k, $v = null, $vType = '')
     {
         return isset($this->_originalFieldMeta[$k])
@@ -128,11 +128,11 @@ class msProduct extends modResource
 
 
     /**
-     * @param string $key
-     * @param mixed $val
-     *
-     * @return bool
-     */
+    * @param string $key
+    * @param mixed $val
+    *
+    * @return bool
+    */
     protected function _setRaw($key, $val)
     {
         return isset($this->_originalFieldMeta[$key])
@@ -142,10 +142,10 @@ class msProduct extends modResource
 
 
     /**
-     * @param null $cacheFlag
-     *
-     * @return bool
-     */
+    * @param null $cacheFlag
+    *
+    * @return bool
+    */
     public function save($cacheFlag = null)
     {
         if (!$this->isNew() && parent::get('class_key') != 'msProduct') {
@@ -160,12 +160,12 @@ class msProduct extends modResource
 
 
     /**
-     * @param array|string $k
-     * @param null $format
-     * @param null $formatTemplate
-     *
-     * @return array|mixed|null|xPDOObject
-     */
+    * @param array|string $k
+    * @param null $format
+    * @param null $formatTemplate
+    *
+    * @return array|mixed|null|xPDOObject
+    */
     public function get($k, $format = null, $formatTemplate = null)
     {
 
@@ -204,13 +204,13 @@ class msProduct extends modResource
 
 
     /**
-     * @param string $keyPrefix
-     * @param bool $rawValues
-     * @param bool $excludeLazy
-     * @param bool $includeRelated
-     *
-     * @return array
-     */
+    * @param string $keyPrefix
+    * @param bool $rawValues
+    * @param bool $excludeLazy
+    * @param bool $includeRelated
+    *
+    * @return array
+    */
     public function toArray($keyPrefix = '', $rawValues = false, $excludeLazy = false, $includeRelated = false)
     {
         $original = parent::toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated);
@@ -229,8 +229,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return msProductData|null|object|xPDOObject
-     */
+    * @return msProductData|null|object|xPDOObject
+    */
     public function loadData()
     {
         if (!is_object($this->Data) || !($this->Data instanceof msProductData)) {
@@ -245,8 +245,8 @@ class msProduct extends modResource
 
 
     /**
-     * Loads product vendor
-     */
+    * Loads product vendor
+    */
     public function loadVendor()
     {
         if (!is_object($this->Vendor) || !($this->Vendor instanceof msVendor)) {
@@ -260,8 +260,8 @@ class msProduct extends modResource
 
 
     /**
-     * Loads product options
-     */
+    * Loads product options
+    */
     public function loadOptions()
     {
         if ($this->options === null) {
@@ -276,12 +276,12 @@ class msProduct extends modResource
 
 
     /**
-     * @param string $alias
-     * @param null $criteria
-     * @param bool $cacheFlag
-     *
-     * @return null|xPDOObject
-     */
+    * @param string $alias
+    * @param null $criteria
+    * @param bool $cacheFlag
+    *
+    * @return null|xPDOObject
+    */
     public function & getOne($alias, $criteria = null, $cacheFlag = true)
     {
         $object = in_array($alias, $this->dataRelated)
@@ -293,11 +293,11 @@ class msProduct extends modResource
 
 
     /**
-     * @param xPDOObject $obj
-     * @param string $alias
-     *
-     * @return bool
-     */
+    * @param xPDOObject $obj
+    * @param string $alias
+    *
+    * @return bool
+    */
     public function addOne(& $obj, $alias = '')
     {
         if (empty ($alias)) {
@@ -317,12 +317,12 @@ class msProduct extends modResource
 
 
     /**
-     * @param string $alias
-     * @param null $criteria
-     * @param bool $cacheFlag
-     *
-     * @return array
-     */
+    * @param string $alias
+    * @param null $criteria
+    * @param bool $cacheFlag
+    *
+    * @return array
+    */
     public function & getMany($alias, $criteria = null, $cacheFlag = false)
     {
         $objects = in_array($alias, $this->dataRelated)
@@ -334,11 +334,11 @@ class msProduct extends modResource
 
 
     /**
-     * @param mixed $obj
-     * @param string $alias
-     *
-     * @return bool
-     */
+    * @param mixed $obj
+    * @param string $alias
+    *
+    * @return bool
+    */
     public function addMany(& $obj, $alias = '')
     {
         /* TODO корректно не работает
@@ -359,10 +359,10 @@ class msProduct extends modResource
 
 
     /**
-     * Returns names of fields for msProduct and msProductData
-     *
-     * @return array
-     */
+    * Returns names of fields for msProduct and msProductData
+    *
+    * @return array
+    */
     public function getDataFieldsNames()
     {
         return array_keys($this->loadData()->_fieldMeta);
@@ -370,8 +370,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getResourceFieldsNames()
     {
         return array_keys($this->_originalFieldMeta);
@@ -379,8 +379,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getAllFieldsNames()
     {
         return array_merge($this->getResourceFieldsNames(), $this->getDataFieldsNames());
@@ -388,10 +388,10 @@ class msProduct extends modResource
 
 
     /**
-     * @param array $options
-     *
-     * @return msProduct
-     */
+    * @param array $options
+    *
+    * @return msProduct
+    */
     public function duplicate(array $options = array())
     {
         parent::set('categories', $this->loadData()->get('categories'));
@@ -407,10 +407,10 @@ class msProduct extends modResource
 
 
     /**
-     * Returns array with all neighborhood products
-     *
-     * @return array $arr Array with neighborhood from left and right
-     */
+    * Returns array with all neighborhood products
+    *
+    * @return array $arr Array with neighborhood from left and right
+    */
     public function getNeighborhood()
     {
         $arr = array();
@@ -442,8 +442,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return string
-     */
+    * @return string
+    */
     public function process()
     {
         /** @var msProductData $data */
@@ -481,8 +481,8 @@ class msProduct extends modResource
 
 
     /**
-     *
-     */
+    *
+    */
     public function generateAllThumbnails()
     {
         $this->loadData()->generateAllThumbnails();
@@ -490,8 +490,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return bool|modMediaSource|null|object
-     */
+    * @return bool|modMediaSource|null|object
+    */
     public function initializeMediaSource()
     {
         return $this->loadData()->initializeMediaSource(parent::get('context_key'));
@@ -499,8 +499,8 @@ class msProduct extends modResource
 
 
     /**
-     * @return bool|mixed
-     */
+    * @return bool|mixed
+    */
     public function updateProductImage()
     {
         return $this->loadData()->updateProductImage();
@@ -508,10 +508,10 @@ class msProduct extends modResource
 
 
     /**
-     * @param array $data
-     *
-     * @return mixed|string
-     */
+    * @param array $data
+    *
+    * @return mixed|string
+    */
     public function getPrice($data = array())
     {
         return $this->loadData()->getPrice($data);
@@ -519,10 +519,10 @@ class msProduct extends modResource
 
 
     /**
-     * @param array $data
-     *
-     * @return mixed|string
-     */
+    * @param array $data
+    *
+    * @return mixed|string
+    */
     public function getWeight($data = array())
     {
         return $this->loadData()->getWeight($data);
@@ -530,10 +530,10 @@ class msProduct extends modResource
 
 
     /**
-     * @param array $data
-     *
-     * @return array
-     */
+    * @param array $data
+    *
+    * @return array
+    */
     public function modifyFields($data = array()) {
         return $this->loadData()->modifyFields($data);
     }

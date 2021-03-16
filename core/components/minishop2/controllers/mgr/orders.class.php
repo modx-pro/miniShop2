@@ -7,8 +7,8 @@ if (!class_exists('msManagerController')) {
 class Minishop2MgrOrdersManagerController extends msManagerController
 {
     /**
-     * @return string
-     */
+    * @return string
+    */
     public function getPageTitle()
     {
         return $this->modx->lexicon('ms2_orders') . ' | miniShop2';
@@ -16,8 +16,8 @@ class Minishop2MgrOrdersManagerController extends msManagerController
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getLanguageTopics()
     {
         return array('minishop2:default', 'minishop2:product', 'minishop2:manager');
@@ -25,8 +25,8 @@ class Minishop2MgrOrdersManagerController extends msManagerController
 
 
     /**
-     *
-     */
+    *
+    */
     public function loadCustomCssJs()
     {
         $this->addCss($this->miniShop2->config['cssUrl'] . 'mgr/bootstrap.buttons.css');

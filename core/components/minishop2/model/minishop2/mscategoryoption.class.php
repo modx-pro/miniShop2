@@ -3,12 +3,12 @@ class msCategoryOption extends xPDOObject {
 
 
     /**
-     * Create option values for product in category
-     * 
-     * @param null $cacheFlag
-     *
-     * @return bool
-     */
+    * Create option values for product in category
+    *
+    * @param null $cacheFlag
+    *
+    * @return bool
+    */
     public function save($cacheFlag= null) {
         $save = parent::save();
 
@@ -37,12 +37,12 @@ class msCategoryOption extends xPDOObject {
 
 
     /**
-     * Delete option values for product in category while remove option from category
-     *
-     * @param array $ancestors
-     *
-     * @return bool
-     */
+    * Delete option values for product in category while remove option from category
+    *
+    * @param array $ancestors
+    *
+    * @return bool
+    */
     public function remove(array $ancestors= array ()) {
         $q = $this->xpdo->newQuery('msProduct', array('parent' => $this->get('category_id')));
         $q->select('id');

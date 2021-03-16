@@ -51,10 +51,10 @@ foreach ($optionKeys as $key) {
             $option[$dataKey[1]] = $dataValue;
         }
     }
-    
+
     $skip = (!empty($ignoreGroups) && (in_array($option['category'], $ignoreGroups) || in_array($option['category_name'], $ignoreGroups)))
         || (!empty($groups) && !in_array($option['category'], $groups) && !in_array($option['category_name'], $groups));
-    
+
     if (!$skip) {
         $option['value'] = $product->get($key);
         if (!empty($option['value'])) {

@@ -6,10 +6,10 @@ class msComboMultipleType extends msComboboxType
 {
 
     /**
-     * @param $field
-     *
-     * @return string
-     */
+    * @param $field
+    *
+    * @return string
+    */
     public function getField($field)
     {
         if (isset($field['properties']['values'])) {
@@ -31,10 +31,10 @@ class msComboMultipleType extends msComboboxType
     }
 
     /**
-     * @param $criteria
-     *
-     * @return array
-     */
+    * @param $criteria
+    *
+    * @return array
+    */
     public function getValue($criteria)
     {
         $result = array();
@@ -52,10 +52,10 @@ class msComboMultipleType extends msComboboxType
     }
 
     /**
-     * @param $criteria
-     *
-     * @return array
-     */
+    * @param $criteria
+    *
+    * @return array
+    */
     public function getRowValue($criteria)
     {
         $result = array();

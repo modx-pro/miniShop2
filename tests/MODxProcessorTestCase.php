@@ -13,7 +13,7 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         }
 
         echo "\r\n".$this->processor ." response:\r\n";
-       // var_dump($response);
+        // var_dump($response);
         return $response;
     }
 

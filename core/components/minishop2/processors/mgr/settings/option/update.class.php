@@ -12,8 +12,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -25,8 +25,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSet()
     {
         $key = $this->getProperty('key');
@@ -50,8 +50,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @param array $categories
-     */
+    * @param array $categories
+    */
     public function removeNotAssignedCategories($categories)
     {
         $q = $this->modx->newQuery('msCategoryOption');
@@ -64,8 +64,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function updateOldKeys()
     {
         if ($this->oldKey) {
@@ -80,8 +80,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function updateAssignedCategory()
     {
         $categoryId = $this->getProperty('category_id');
@@ -102,8 +102,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function afterSave()
     {
         if ($categories = json_decode($this->getProperty('categories', false), true)) {

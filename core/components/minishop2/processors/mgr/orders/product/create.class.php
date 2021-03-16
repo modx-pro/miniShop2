@@ -13,8 +13,8 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -26,8 +26,8 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function beforeSet()
     {
         $count = $this->getProperty('count');
@@ -63,8 +63,8 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSave()
     {
         $this->object->fromArray(array(
@@ -76,8 +76,8 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function afterSave()
     {
         // Fix "cache"

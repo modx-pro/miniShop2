@@ -8,8 +8,8 @@ class msProductPublishProcessor extends modResourcePublishProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function checkPermissions()
     {
         return empty($this->permission) || $this->modx->hasPermission($this->permission);

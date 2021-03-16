@@ -4,20 +4,20 @@ class msComboOptionsType extends msOptionType
 {
 
     /**
-     * @param $field
-     *
-     * @return string
-     */
+    * @param $field
+    *
+    * @return string
+    */
     public function getField($field)
     {
         return "{xtype:'minishop2-combo-options'}";
     }
 
     /**
-     * @param $criteria
-     *
-     * @return array
-     */
+    * @param $criteria
+    *
+    * @return array
+    */
     public function getValue($criteria)
     {
         $result = array();
@@ -35,10 +35,10 @@ class msComboOptionsType extends msOptionType
     }
 
     /**
-     * @param $criteria
-     *
-     * @return array
-     */
+    * @param $criteria
+    *
+    * @return array
+    */
     public function getRowValue($criteria)
     {
         $result = array();

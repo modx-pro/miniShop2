@@ -9,8 +9,8 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -22,8 +22,8 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         $canRemove = $this->beforeRemove();
@@ -52,14 +52,14 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
             case 'many_to_many':
                 $q->where(array('master' => $slave, 'OR:slave:=' => $slave));
                 break;
-                
+
             case 'one_to_one':
                 $q->where(array(
                     array('master' => $master, 'AND:slave:=' => $slave),
-                    array('master' => $slave, 'AND:slave:=' => $master) 
+                    array('master' => $slave, 'AND:slave:=' => $master)
                 ),xPDOQuery::SQL_OR );
                 break;
-                
+
             case 'many_to_one':
             case 'one_to_many':
                 $q->where(array('master' => $master, 'slave' => $slave));

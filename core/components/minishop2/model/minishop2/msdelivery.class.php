@@ -13,10 +13,10 @@ class msDelivery extends xPDOSimpleObject
 
 
     /**
-     * msDelivery constructor.
-     *
-     * @param xPDO $xpdo
-     */
+    * msDelivery constructor.
+    *
+    * @param xPDO $xpdo
+    */
     public function __construct(xPDO $xpdo)
     {
         parent::__construct($xpdo);
@@ -25,10 +25,10 @@ class msDelivery extends xPDOSimpleObject
 
 
     /**
-     * Loads delivery handler class
-     *
-     * @return bool
-     */
+    * Loads delivery handler class
+    *
+    * @return bool
+    */
     public function loadHandler()
     {
         require_once dirname(__FILE__) . '/msdeliveryhandler.class.php';
@@ -58,13 +58,13 @@ class msDelivery extends xPDOSimpleObject
 
 
     /**
-     * Returns an additional cost depending on the method of delivery
-     *
-     * @param msOrderInterface|msOrderHandler $order
-     * @param float $cost Current cost of order
-     *
-     * @return float
-     */
+    * Returns an additional cost depending on the method of delivery
+    *
+    * @param msOrderInterface|msOrderHandler $order
+    * @param float $cost Current cost of order
+    *
+    * @return float
+    */
     public function getCost(msOrderInterface $order, $cost = 0.0)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msDeliveryInterface)) {
@@ -78,10 +78,10 @@ class msDelivery extends xPDOSimpleObject
 
 
     /**
-     * Returns id of first active payment method for this delivery
-     *
-     * @return int|mixed
-     */
+    * Returns id of first active payment method for this delivery
+    *
+    * @return int|mixed
+    */
     public function getFirstPayment()
     {
         $id = 0;
@@ -101,10 +101,10 @@ class msDelivery extends xPDOSimpleObject
 
 
     /**
-     * @param array $ancestors
-     *
-     * @return bool
-     */
+    * @param array $ancestors
+    *
+    * @return bool
+    */
     public function remove(array $ancestors = array())
     {
         $this->xpdo->removeCollection('msDeliveryMember', array('delivery_id' => $this->id));

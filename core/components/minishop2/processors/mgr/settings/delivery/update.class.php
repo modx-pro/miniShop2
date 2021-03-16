@@ -10,8 +10,8 @@ class msDeliveryUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,8 +23,8 @@ class msDeliveryUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSet()
     {
         $required = array('name');

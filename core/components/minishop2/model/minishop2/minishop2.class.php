@@ -22,9 +22,9 @@ class miniShop2
 
 
     /**
-     * @param modX $modx
-     * @param array $config
-     */
+    * @param modX $modx
+    * @param array $config
+    */
     function __construct(modX &$modx, array $config = array())
     {
         $this->modx =& $modx;
@@ -67,13 +67,13 @@ class miniShop2
 
 
     /**
-     * Initializes component into different contexts.
-     *
-     * @param string $ctx The context to load. Defaults to web.
-     * @param array $scriptProperties Properties for initialization.
-     *
-     * @return bool
-     */
+    * Initializes component into different contexts.
+    *
+    * @param string $ctx The context to load. Defaults to web.
+    * @param array $scriptProperties Properties for initialization.
+    *
+    * @return bool
+    */
     public function initialize($ctx = 'web', $scriptProperties = array())
     {
         if (isset($this->initialized[$ctx])) {
@@ -153,13 +153,13 @@ class miniShop2
 
 
     /**
-     * Handle frontend requests with actions
-     *
-     * @param $action
-     * @param array $data
-     *
-     * @return array|bool|string
-     */
+    * Handle frontend requests with actions
+    *
+    * @param $action
+    * @param array $data
+    *
+    * @return array|bool|string
+    */
     public function handleRequest($action, $data = array())
     {
         $ctx = !empty($data['ctx'])
@@ -217,10 +217,10 @@ class miniShop2
 
 
     /**
-     * @param string $ctx
-     *
-     * @return bool
-     */
+    * @param string $ctx
+    *
+    * @return bool
+    */
     public function loadServices($ctx = 'web')
     {
         // Default classes
@@ -270,12 +270,12 @@ class miniShop2
 
 
     /**
-     * Register service into miniShop2
-     *
-     * @param $type
-     * @param $name
-     * @param $controller
-     */
+    * Register service into miniShop2
+    *
+    * @param $type
+    * @param $name
+    * @param $controller
+    */
     public function addService($type, $name, $controller)
     {
         $services = $this->_getSetting('ms2_services');
@@ -292,11 +292,11 @@ class miniShop2
 
 
     /**
-     * Remove service from miniShop2
-     *
-     * @param $type
-     * @param $name
-     */
+    * Remove service from miniShop2
+    *
+    * @param $type
+    * @param $name
+    */
     public function removeService($type, $name)
     {
         $services = $this->_getSetting('ms2_services');
@@ -308,12 +308,12 @@ class miniShop2
 
 
     /**
-     * Get all registered services
-     *
-     * @param string $type
-     *
-     * @return array|mixed
-     */
+    * Get all registered services
+    *
+    * @param string $type
+    *
+    * @return array|mixed
+    */
     public function getServices($type = '')
     {
         $services = $this->_getSetting('ms2_services');
@@ -329,11 +329,11 @@ class miniShop2
 
 
     /**
-     * Register plugin into miniShop2
-     *
-     * @param $name
-     * @param $controller
-     */
+    * Register plugin into miniShop2
+    *
+    * @param $name
+    * @param $controller
+    */
     public function addPlugin($name, $controller)
     {
         $plugins = $this->_getSetting('ms2_plugins');
@@ -344,10 +344,10 @@ class miniShop2
 
 
     /**
-     * Remove plugin from miniShop2
-     *
-     * @param $name
-     */
+    * Remove plugin from miniShop2
+    *
+    * @param $name
+    */
     public function removePlugin($name)
     {
         $plugins = $this->_getSetting('ms2_plugins');
@@ -357,10 +357,10 @@ class miniShop2
 
 
     /**
-     * Get all registered plugins
-     *
-     * @return array|mixed
-     */
+    * Get all registered plugins
+    *
+    * @return array|mixed
+    */
     public function getPlugins()
     {
         return $this->_getSetting('ms2_plugins');
@@ -368,12 +368,12 @@ class miniShop2
 
 
     /**
-     * Load custom classes from specified directory
-     *
-     * @return void
-     * @var string $type Type of class
-     *
-     */
+    * Load custom classes from specified directory
+    *
+    * @return void
+    * @var string $type Type of class
+    *
+    */
     public function loadCustomClasses($type)
     {
         // Original classes
@@ -425,10 +425,10 @@ class miniShop2
 
 
     /**
-     * Loads available plugins with parameters
-     *
-     * @return array
-     */
+    * Loads available plugins with parameters
+    *
+    * @return array
+    */
     public function loadPlugins()
     {
         // Original plugins
@@ -491,8 +491,8 @@ class miniShop2
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function loadOptionTypeList()
     {
         $typeDir = $this->config['corePath'] . 'processors/mgr/settings/option/types';
@@ -510,10 +510,10 @@ class miniShop2
 
 
     /**
-     * @param string $type
-     *
-     * @return mixed
-     */
+    * @param string $type
+    *
+    * @return mixed
+    */
     public function loadOptionType($type)
     {
         $this->modx->loadClass('msOption', $this->config['modelPath'] . 'minishop2/');
@@ -541,10 +541,10 @@ class miniShop2
 
 
     /**
-     * @param msOption $option
-     *
-     * @return null|msOptionType
-     */
+    * @param msOption $option
+    *
+    * @return null|msOptionType
+    */
     public function getOptionType($option)
     {
         $className = $this->loadOptionType($option->get('type'));
@@ -561,11 +561,11 @@ class miniShop2
 
 
     /**
-     * @param array $options
-     * @param array|string $sorting
-     *
-     * @return array
-     */
+    * @param array $options
+    * @param array|string $sorting
+    *
+    * @return array
+    */
     public function sortOptionValues(array $options, $sorting)
     {
         if (!empty($sorting)) {
@@ -596,8 +596,8 @@ class miniShop2
 
 
     /**
-     * Loads additional metadata for miniShop2 objects
-     */
+    * Loads additional metadata for miniShop2 objects
+    */
     public function loadMap()
     {
         if (method_exists($this->pdoTools, 'makePlaceholders')) {
@@ -627,10 +627,10 @@ class miniShop2
 
 
     /**
-     * Returns id for current customer. If customer is not exists, registers him and returns id.
-     *
-     * @return integer $id
-     */
+    * Returns id for current customer. If customer is not exists, registers him and returns id.
+    *
+    * @return integer $id
+    */
     public function getCustomerId()
     {
         $customer = null;
@@ -719,13 +719,13 @@ class miniShop2
 
 
     /**
-     * Switch order status
-     *
-     * @param integer $order_id The id of msOrder
-     * @param integer $status_id The id of msOrderStatus
-     *
-     * @return boolean|string
-     */
+    * Switch order status
+    *
+    * @param integer $order_id The id of msOrder
+    * @param integer $status_id The id of msOrderStatus
+    *
+    * @return boolean|string
+    */
     public function changeOrderStatus($order_id, $status_id)
     {
         /** @var msOrder $order */
@@ -858,14 +858,14 @@ class miniShop2
 
 
     /**
-     * Function for sending email
-     *
-     * @param string $email
-     * @param string $subject
-     * @param string $body
-     *
-     * @return void
-     */
+    * Function for sending email
+    *
+    * @param string $email
+    * @param string $subject
+    * @param string $body
+    *
+    * @return void
+    */
     public function sendEmail($email, $subject, $body = '')
     {
         $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
@@ -890,14 +890,14 @@ class miniShop2
 
 
     /**
-     * Function for logging changes of the order
-     *
-     * @param integer $order_id The id of the order
-     * @param string $action The name of action made with order
-     * @param string $entry The value of action
-     *
-     * @return boolean
-     */
+    * Function for logging changes of the order
+    *
+    * @param integer $order_id The id of the order
+    * @param string $action The name of action made with order
+    * @param string $entry The value of action
+    *
+    * @return boolean
+    */
     public function orderLog($order_id, $action = 'status', $entry)
     {
         /** @var msOrder $order */
@@ -926,12 +926,12 @@ class miniShop2
 
 
     /**
-     * Function for formatting dates
-     *
-     * @param string $date Source date
-     *
-     * @return string $date Formatted date
-     */
+    * Function for formatting dates
+    *
+    * @param string $date Source date
+    *
+    * @return string $date Formatted date
+    */
     public function formatDate($date = '')
     {
         $df = $this->modx->getOption('ms2_date_format', null, '%d.%m.%Y %H:%M');
@@ -943,12 +943,12 @@ class miniShop2
 
 
     /**
-     * Function for price format
-     *
-     * @param $price
-     *
-     * @return int|mixed|string
-     */
+    * Function for price format
+    *
+    * @param $price
+    *
+    * @return int|mixed|string
+    */
     public function formatPrice($price = 0)
     {
         if (!$pf = json_decode($this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'), true)) {
@@ -969,12 +969,12 @@ class miniShop2
 
 
     /**
-     * Function for weight format
-     *
-     * @param $weight
-     *
-     * @return int|mixed|string
-     */
+    * Function for weight format
+    *
+    * @param $weight
+    *
+    * @return int|mixed|string
+    */
     public function formatWeight($weight = 0)
     {
         if (!$wf = json_decode($this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'), true)) {
@@ -995,14 +995,14 @@ class miniShop2
 
 
     /**
-     * Shorthand for original modX::invokeEvent() method with some useful additions.
-     *
-     * @param $eventName
-     * @param array $params
-     * @param $glue
-     *
-     * @return array
-     */
+    * Shorthand for original modX::invokeEvent() method with some useful additions.
+    *
+    * @param $eventName
+    * @param array $params
+    * @param $glue
+    *
+    * @return array
+    */
     public function invokeEvent($eventName, array $params = array(), $glue = '<br/>')
     {
         if (isset($this->modx->event->returnedValues)) {
@@ -1032,14 +1032,14 @@ class miniShop2
 
 
     /**
-     * This method returns an error of the order
-     *
-     * @param string $message A lexicon key for error message
-     * @param array $data .Additional data, for example cart status
-     * @param array $placeholders Array with placeholders for lexicon entry
-     *
-     * @return array|string $response
-     */
+    * This method returns an error of the order
+    *
+    * @param string $message A lexicon key for error message
+    * @param array $data .Additional data, for example cart status
+    * @param array $placeholders Array with placeholders for lexicon entry
+    *
+    * @return array|string $response
+    */
     public function error($message = '', $data = array(), $placeholders = array())
     {
         $response = array(
@@ -1055,14 +1055,14 @@ class miniShop2
 
 
     /**
-     * This method returns an success of the order
-     *
-     * @param string $message A lexicon key for success message
-     * @param array $data .Additional data, for example cart status
-     * @param array $placeholders Array with placeholders for lexicon entry
-     *
-     * @return array|string $response
-     */
+    * This method returns an success of the order
+    *
+    * @param string $message A lexicon key for success message
+    * @param array $data .Additional data, for example cart status
+    * @param array $placeholders Array with placeholders for lexicon entry
+    *
+    * @return array|string $response
+    */
     public function success($message = '', $data = array(), $placeholders = array())
     {
         $response = array(
@@ -1078,15 +1078,15 @@ class miniShop2
 
 
     /**
-     * Shorthand for the call of processor
-     *
-     * @access public
-     *
-     * @param string $action Path to processor
-     * @param array $data Data to be transmitted to the processor
-     *
-     * @return mixed The result of the processor
-     */
+    * Shorthand for the call of processor
+    *
+    * @access public
+    *
+    * @param string $action Path to processor
+    * @param array $data Data to be transmitted to the processor
+    *
+    * @return mixed The result of the processor
+    */
     public function runProcessor($action = '', $data = array())
     {
         if (empty($action)) {
@@ -1104,13 +1104,13 @@ class miniShop2
 
 
     /**
-     * Pathinfo function for cyrillic files
-     *
-     * @param $path
-     * @param string $part
-     *
-     * @return array
-     */
+    * Pathinfo function for cyrillic files
+    *
+    * @param $path
+    * @param string $part
+    *
+    * @return array
+    */
     public function pathinfo($path, $part = '')
     {
         // Russian files
@@ -1144,12 +1144,12 @@ class miniShop2
 
 
     /**
-     * General method to get JSON settings
-     *
-     * @param $key
-     *
-     * @return array|mixed
-     */
+    * General method to get JSON settings
+    *
+    * @param $key
+    *
+    * @return array|mixed
+    */
     protected function _getSetting($key)
     {
         if (!$setting = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
@@ -1171,11 +1171,11 @@ class miniShop2
 
 
     /**
-     * General method to update JSON settings
-     *
-     * @param $key
-     * @param $value
-     */
+    * General method to update JSON settings
+    *
+    * @param $key
+    * @param $value
+    */
     protected function _updateSetting($key, $value)
     {
         if (!$setting = $this->modx->getObject('modSystemSetting', array('key' => $key))) {

@@ -1,77 +1,77 @@
 <?php
 $xpdo_meta_map['msCategoryMember']= array (
-  'package' => 'minishop2',
-  'version' => '1.1',
-  'table' => 'ms2_product_categories',
-  'extends' => 'xPDOObject',
-  'fields' => 
-  array (
-    'product_id' => NULL,
-    'category_id' => NULL,
-  ),
-  'fieldMeta' => 
-  array (
-    'product_id' => 
+    'package' => 'minishop2',
+    'version' => '1.1',
+    'table' => 'ms2_product_categories',
+    'extends' => 'xPDOObject',
+    'fields' =>
     array (
-      'dbtype' => 'int',
-      'precision' => '10',
-      'attributes' => 'unsigned',
-      'phptype' => 'integer',
-      'null' => false,
-      'index' => 'pk',
+        'product_id' => NULL,
+        'category_id' => NULL,
     ),
-    'category_id' => 
+    'fieldMeta' =>
     array (
-      'dbtype' => 'int',
-      'precision' => '10',
-      'attributes' => 'unsigned',
-      'phptype' => 'integer',
-      'null' => false,
-      'index' => 'pk',
-    ),
-  ),
-  'indexes' => 
-  array (
-    'product' => 
-    array (
-      'alias' => 'product',
-      'primary' => true,
-      'unique' => true,
-      'type' => 'BTREE',
-      'columns' => 
-      array (
-        'product_id' => 
+        'product_id' =>
         array (
-          'length' => '',
-          'collation' => 'A',
-          'null' => false,
+        'dbtype' => 'int',
+        'precision' => '10',
+        'attributes' => 'unsigned',
+        'phptype' => 'integer',
+        'null' => false,
+        'index' => 'pk',
         ),
-        'category_id' => 
+        'category_id' =>
         array (
-          'length' => '',
-          'collation' => 'A',
-          'null' => false,
+        'dbtype' => 'int',
+        'precision' => '10',
+        'attributes' => 'unsigned',
+        'phptype' => 'integer',
+        'null' => false,
+        'index' => 'pk',
         ),
-      ),
     ),
-  ),
-  'aggregates' => 
-  array (
-    'Product' => 
+    'indexes' =>
     array (
-      'class' => 'msProduct',
-      'local' => 'product_id',
-      'foreign' => 'id',
-      'cardinality' => 'one',
-      'owner' => 'foreign',
+        'product' =>
+        array (
+        'alias' => 'product',
+        'primary' => true,
+        'unique' => true,
+        'type' => 'BTREE',
+        'columns' =>
+        array (
+            'product_id' =>
+            array (
+            'length' => '',
+            'collation' => 'A',
+            'null' => false,
+            ),
+            'category_id' =>
+            array (
+            'length' => '',
+            'collation' => 'A',
+            'null' => false,
+            ),
+        ),
+        ),
     ),
-    'Category' => 
+    'aggregates' =>
     array (
-      'class' => 'msCategory',
-      'local' => 'category_id',
-      'foreign' => 'id',
-      'cardinality' => 'one',
-      'owner' => 'foreign',
+        'Product' =>
+        array (
+        'class' => 'msProduct',
+        'local' => 'product_id',
+        'foreign' => 'id',
+        'cardinality' => 'one',
+        'owner' => 'foreign',
+        ),
+        'Category' =>
+        array (
+        'class' => 'msCategory',
+        'local' => 'category_id',
+        'foreign' => 'id',
+        'cardinality' => 'one',
+        'owner' => 'foreign',
+        ),
     ),
-  ),
 );

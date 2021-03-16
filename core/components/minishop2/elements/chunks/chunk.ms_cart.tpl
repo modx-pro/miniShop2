@@ -21,8 +21,8 @@
                             <img src="{$product.thumb}" alt="{$product.pagetitle}" title="{$product.pagetitle}"/>
                         {else}
                             <img src="{'assets_url' | option}components/minishop2/img/web/ms2_small.png"
-                                 srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
-                                 alt="{$product.pagetitle}" title="{$product.pagetitle}"/>
+                                srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
+                                alt="{$product.pagetitle}" title="{$product.pagetitle}"/>
                         {/if}
                     {/var}
                     <tr id="{$product.key}">

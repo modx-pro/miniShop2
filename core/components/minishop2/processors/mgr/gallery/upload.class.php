@@ -14,8 +14,8 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -36,8 +36,8 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         if (!$data = $this->handleFile()) {
@@ -169,8 +169,8 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|bool
-     */
+    * @return array|bool
+    */
     public function handleFile()
     {
         $tf = tempnam(MODX_BASE_PATH, 'ms_');
@@ -206,10 +206,10 @@ class msProductFileUploadProcessor extends modObjectProcessor
                     'size' => $size,
                 ),
             );
-            
-            
+
+
             $tmp = getimagesize($tf);
-        
+
 
             if (is_array($tmp)) {
                 $data['properties'] = array_merge(
@@ -225,7 +225,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
                 $img = imagecreatefromwebp($tf);
                 $width = imagesx($img);
                 $height = imagesy($img);
-                
+
                 $data['properties'] = array_merge(
                     $data['properties'],
                     array(

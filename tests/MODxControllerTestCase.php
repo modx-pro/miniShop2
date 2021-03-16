@@ -31,14 +31,14 @@ abstract class MODxControllerTestCase extends MODxTestCase {
     /** @var modManagerController $controller */
     public $controller;
     /**
-     * The short path to the controller, ie, "context/update"
-     * @var string $controllerPath
-     */
+    * The short path to the controller, ie, "context/update"
+    * @var string $controllerPath
+    */
     public $controllerPath;
     /**
-     * The name of the controller class to load, ie, "ContextUpdateManagerController"
-     * @var string $controllerName
-     */
+    * The name of the controller class to load, ie, "ContextUpdateManagerController"
+    * @var string $controllerName
+    */
     public $controllerName;
     public function setUp() {
         parent::setUp();

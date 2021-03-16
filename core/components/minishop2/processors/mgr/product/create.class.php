@@ -15,8 +15,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return string
-     */
+    * @return string
+    */
     public function prepareAlias()
     {
         if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
@@ -31,8 +31,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function beforeSet()
     {
         $this->setDefaultProperties(array(
@@ -59,8 +59,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return mixed
-     */
+    * @return mixed
+    */
     public function beforeSave()
     {
         $this->object->set('isfolder', false);
@@ -70,8 +70,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-     * @return mixed
-     */
+    * @return mixed
+    */
     public function afterSave()
     {
         if ($this->object->get('alias') == 'empty-resource-alias') {

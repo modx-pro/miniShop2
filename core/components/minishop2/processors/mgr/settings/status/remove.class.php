@@ -10,8 +10,8 @@ class msOrderStatusRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,8 +23,8 @@ class msOrderStatusRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool|string
-     */
+    * @return bool|string
+    */
     public function beforeRemove()
     {
         if (!$this->object->get('editable')) {

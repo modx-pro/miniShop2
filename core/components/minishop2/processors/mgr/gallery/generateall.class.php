@@ -8,8 +8,8 @@ class msProductFileGenerateAllProcessor extends modObjectProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -21,8 +21,8 @@ class msProductFileGenerateAllProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         $product_id = (int)$this->getProperty('product_id');

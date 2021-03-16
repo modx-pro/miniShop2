@@ -9,10 +9,10 @@ class msCategoryOptionGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $category = (int)$this->getProperty('category', 0);
@@ -36,10 +36,10 @@ class msCategoryOptionGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOObject $object
-     *
-     * @return array
-     */
+    * @param xPDOObject $object
+    *
+    * @return array
+    */
     public function prepareRow(xPDOObject $object)
     {
         $array = $object->toArray();

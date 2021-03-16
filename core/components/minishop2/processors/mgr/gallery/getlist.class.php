@@ -13,8 +13,8 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -56,8 +56,8 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         $beforeQuery = $this->beforeQuery();
@@ -71,8 +71,8 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getData()
     {
         $data = array();
@@ -130,15 +130,15 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
         $c->leftJoin('modMediaSource', 'Source');
         $c->leftJoin($this->classKey, 'Thumb',
-            $this->classKey . '.id = Thumb.parent AND 
+            $this->classKey . '.id = Thumb.parent AND
             Thumb.path LIKE "%/' . $this->thumb . '/"'
         );
         $c->select('Source.name as source_name, Thumb.url as thumbnail');
@@ -149,10 +149,10 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $row
-     *
-     * @return array
-     */
+    * @param array $row
+    *
+    * @return array
+    */
     public function prepareArray(array $row)
     {
 

@@ -10,10 +10,10 @@ class msCategory extends modResource
     protected $optionKeys = null;
 
     /**
-     * msCategory constructor.
-     *
-     * @param xPDO $xpdo
-     */
+    * msCategory constructor.
+    *
+    * @param xPDO $xpdo
+    */
     function __construct(xPDO & $xpdo)
     {
         parent:: __construct($xpdo);
@@ -22,13 +22,13 @@ class msCategory extends modResource
 
 
     /**
-     * @param xPDO $xpdo
-     * @param string $className
-     * @param null $criteria
-     * @param bool $cacheFlag
-     *
-     * @return modAccessibleObject|null|object
-     */
+    * @param xPDO $xpdo
+    * @param string $className
+    * @param null $criteria
+    * @param bool $cacheFlag
+    *
+    * @return modAccessibleObject|null|object
+    */
     public static function load(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
@@ -42,13 +42,13 @@ class msCategory extends modResource
 
 
     /**
-     * @param xPDO $xpdo
-     * @param string $className
-     * @param null $criteria
-     * @param bool $cacheFlag
-     *
-     * @return array
-     */
+    * @param xPDO $xpdo
+    * @param string $className
+    * @param null $criteria
+    * @param bool $cacheFlag
+    *
+    * @return array
+    */
     public static function loadCollection(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
@@ -62,10 +62,10 @@ class msCategory extends modResource
 
 
     /**
-     * @param xPDO $modx
-     *
-     * @return string
-     */
+    * @param xPDO $modx
+    *
+    * @return string
+    */
     public static function getControllerPath(xPDO &$modx)
     {
         return $modx->getOption('minishop2.core_path', null,
@@ -74,8 +74,8 @@ class msCategory extends modResource
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getContextMenuText()
     {
         $this->xpdo->lexicon->load('minishop2:default');
@@ -88,8 +88,8 @@ class msCategory extends modResource
 
 
     /**
-     * @return null|string
-     */
+    * @return null|string
+    */
     public function getResourceTypeName()
     {
         $this->xpdo->lexicon->load('minishop2:default');
@@ -99,10 +99,10 @@ class msCategory extends modResource
 
 
     /**
-     * @param array $node
-     *
-     * @return array
-     */
+    * @param array $node
+    *
+    * @return array
+    */
     public function prepareTreeNode(array $node = array())
     {
         $classes = array_map('trim', explode(' ', $node['cls']));
@@ -116,10 +116,10 @@ class msCategory extends modResource
 
 
     /**
-     * @param array $options
-     *
-     * @return mixed
-     */
+    * @param array $options
+    *
+    * @return mixed
+    */
     public function duplicate(array $options = array())
     {
         $category = parent::duplicate($options);
@@ -140,10 +140,10 @@ class msCategory extends modResource
 
 
     /**
-     * @param null $cacheFlag
-     *
-     * @return bool
-     */
+    * @param null $cacheFlag
+    *
+    * @return bool
+    */
     public function save($cacheFlag = null)
     {
         if (!$this->isNew() && parent::get('class_key') != 'msCategory') {
@@ -167,10 +167,10 @@ class msCategory extends modResource
 
 
     /**
-     * Returns array with all neighborhood products
-     *
-     * @return array $arr Array with neighborhood from left and right
-     */
+    * Returns array with all neighborhood products
+    *
+    * @return array $arr Array with neighborhood from left and right
+    */
     public function getNeighborhood()
     {
         $arr = array();
@@ -203,8 +203,8 @@ class msCategory extends modResource
     }
 
     /**
-     * @return xPDOQuery
-     */
+    * @return xPDOQuery
+    */
     public function prepareOptionListCriteria()
     {
         $categories = array();
@@ -222,10 +222,10 @@ class msCategory extends modResource
     }
 
     /**
-     * @param bool $force
-     *
-     * @return array
-     */
+    * @param bool $force
+    *
+    * @return array
+    */
     public function getOptionKeys($force = false)
     {
         if ($this->optionKeys === null || $force) {
@@ -241,8 +241,8 @@ class msCategory extends modResource
     }
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getOptionFields(array $keys = array())
     {
         $fields = array();

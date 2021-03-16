@@ -6,12 +6,12 @@ class msCategoryOptionUpdateFromGridProcessor extends msCategoryOptionUpdateProc
 {
 
     /**
-     * @param modX $modx
-     * @param string $className
-     * @param array $properties
-     *
-     * @return modProcessor
-     */
+    * @param modX $modx
+    * @param string $className
+    * @param array $properties
+    *
+    * @return modProcessor
+    */
     public static function getInstance(modX &$modx, $className, $properties = array())
     {
 
@@ -23,8 +23,8 @@ class msCategoryOptionUpdateFromGridProcessor extends msCategoryOptionUpdateProc
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $data = $this->getProperty('data');

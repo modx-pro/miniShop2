@@ -13,8 +13,8 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $primaryKey = $this->getProperty($this->primaryKeyField, false);
@@ -34,8 +34,8 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return int|mixed|string
-     */
+    * @return int|mixed|string
+    */
     public function checkFriendlyAlias()
     {
         if ($this->workingContext->getOption('ms2_category_id_as_alias')) {
@@ -50,8 +50,8 @@ class msCategoryUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSave()
     {
         $this->object->set('isfolder', true);

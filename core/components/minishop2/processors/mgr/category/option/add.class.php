@@ -10,8 +10,8 @@ class msCategoryOptionAddProcessor extends modObjectCreateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function beforeSet()
     {
         $option = (int)$this->getProperty('option_id');

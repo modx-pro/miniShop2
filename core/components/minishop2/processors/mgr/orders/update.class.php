@@ -16,8 +16,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
 
@@ -32,8 +32,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function beforeSet()
     {
         foreach (array('status', 'delivery', 'payment') as $v) {
@@ -55,8 +55,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool|string
-     */
+    * @return bool|string
+    */
     public function beforeSave()
     {
         $this->object->set('updatedon', time());
@@ -75,9 +75,9 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * {@inheritDoc}
-     * @return mixed
-     */
+    * {@inheritDoc}
+    * @return mixed
+    */
     public function process() {
         /* Run the beforeSet method before setting the fields, and allow stoppage */
         $canSave = $this->beforeSet();

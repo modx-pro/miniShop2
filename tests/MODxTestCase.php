@@ -28,19 +28,19 @@
  */
 abstract class MODxTestCase extends PHPUnit_Framework_TestCase {
     /**
-     * @var modX $modx
-     */
+    * @var modX $modx
+    */
     public $modx = null;
     /**
-     * @var bool
-     */
+    * @var bool
+    */
     public $debug = false;
 
     public $path;
 
     /**
-     * Ensure all tests have a reference to the MODX object
-     */
+    * Ensure all tests have a reference to the MODX object
+    */
     public function setUp() {
         $this->modx =& MODxTestHarness::getFixture('modX', 'modx');
         if ($this->modx->request) {
@@ -64,25 +64,25 @@ abstract class MODxTestCase extends PHPUnit_Framework_TestCase {
 
     }
     /**
-     * Remove reference at end of test case
-     */
+    * Remove reference at end of test case
+    */
     public function tearDown() {}
     /**
-     * Check a MODX return result for a success flag
-     *
-     * @param modProcessorResponse $result The result response
-     * @return boolean
-     */
+    * Check a MODX return result for a success flag
+    *
+    * @param modProcessorResponse $result The result response
+    * @return boolean
+    */
     public function checkForSuccess(&$result) {
         if (empty($result) || !($result instanceof modProcessorResponse)) return false;
         return !$result->isError();
     }
     /**
-     * Check a MODX processor response and return results
-     *
-     * @param string $result The response
-     * @return array
-     */
+    * Check a MODX processor response and return results
+    *
+    * @param string $result The response
+    * @return array
+    */
     public function getResults(&$result) {
         $response = ltrim(rtrim($result->response,')'),'(');
         $response = json_decode($response, true);

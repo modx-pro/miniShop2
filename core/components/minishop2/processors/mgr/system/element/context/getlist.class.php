@@ -7,10 +7,10 @@ class msContextGetListProcessor extends modObjectGetListProcessor
     public $defaultSortField = 'rank';
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $c->select('key,name');
@@ -34,10 +34,10 @@ class msContextGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOObject $object
-     *
-     * @return array
-     */
+    * @param xPDOObject $object
+    *
+    * @return array
+    */
     public function prepareRow(xPDOObject $object)
     {
         if ($this->getProperty('combo')) {

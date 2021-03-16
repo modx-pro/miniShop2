@@ -24,9 +24,9 @@
     {block 'logo'}
         <a href="{$site_url}">
             <img style="{$style.logo}"
-                 src="{$site_url}{$assets_url}components/minishop2/img/web/ms2_small@2x.png"
-                 alt="{$site_url}"
-                 width="120" height="90"/>
+                src="{$site_url}{$assets_url}components/minishop2/img/web/ms2_small@2x.png"
+                alt="{$site_url}"
+                width="120" height="90"/>
         </a>
     {/block}
     <!-- body -->
@@ -60,20 +60,20 @@
                                                 <td style="{$style.th}">
                                                     {if $product.thumb?}
                                                         <img src="{$site_url}{$product.thumb}"
-                                                             alt="{$product.pagetitle}"
-                                                             title="{$product.pagetitle}"
-                                                             width="120" height="90"/>
+                                                            alt="{$product.pagetitle}"
+                                                            title="{$product.pagetitle}"
+                                                            width="120" height="90"/>
                                                     {else}
                                                         <img src="{$site_url}{$assets_url}components/minishop2/img/web/ms2_small@2x.png"
-                                                             alt="{$product.pagetitle}"
-                                                             title="{$product.pagetitle}"
-                                                             width="120" height="90"/>
+                                                            alt="{$product.pagetitle}"
+                                                            title="{$product.pagetitle}"
+                                                            width="120" height="90"/>
                                                     {/if}
                                                 </td>
                                                 <td style="{$style.th}">
                                                     {if $product.id?}
                                                         <a href="{$product.id | url : ['scheme' => 'full']}"
-                                                           style="{$style.a}">
+                                                            style="{$style.a}">
                                                             {$product.name}
                                                         </a>
                                                     {else}

@@ -7,11 +7,11 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
 {
 
     /**
-     * PayPal constructor.
-     *
-     * @param xPDOObject $object
-     * @param array $config
-     */
+    * PayPal constructor.
+    *
+    * @param xPDOObject $object
+    * @param array $config
+    */
     function __construct(xPDOObject $object, $config = array())
     {
         parent::__construct($object, $config);
@@ -36,10 +36,10 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param msOrder $order
-     *
-     * @return array|string
-     */
+    * @param msOrder $order
+    *
+    * @return array|string
+    */
     public function send(msOrder $order)
     {
         if ($order->get('status') > 1) {
@@ -89,11 +89,11 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * @param msOrder $order
-     * @param array $params
-     *
-     * @return bool
-     */
+    * @param msOrder $order
+    * @param array $params
+    *
+    * @return bool
+    */
     public function receive(msOrder $order, $params = array())
     {
         if (!empty($params['PAYERID'])) {
@@ -107,7 +107,7 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
                 'PAYMENTREQUEST_0_ITEMAMT' => $params['PAYMENTREQUEST_0_ITEMAMT'],
                 'PAYMENTREQUEST_0_SHIPPINGAMT' => $params['PAYMENTREQUEST_0_SHIPPINGAMT'],
             );
- 
+
             /** @var msOrderProduct $item */
             $i = 0;
             if ($this->modx->getOption('ms2_payment_paypal_order_details', null, true)) {
@@ -146,12 +146,12 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * Building query
-     *
-     * @param array $params Query params
-     *
-     * @return array/boolean
-     */
+    * Building query
+    *
+    * @param array $params Query params
+    *
+    * @return array/boolean
+    */
     public function request($params = array())
     {
         $requestParams = array_merge(array(
@@ -191,12 +191,12 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
 
 
     /**
-     * Returns a direct link for continue payment process of existing order
-     *
-     * @param msOrder $order
-     *
-     * @return string
-     */
+    * Returns a direct link for continue payment process of existing order
+    *
+    * @param msOrder $order
+    *
+    * @return string
+    */
     public function getPaymentLink(msOrder $order)
     {
         return $this->config['paymentUrl'] . '?' .

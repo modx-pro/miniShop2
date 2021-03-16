@@ -4,87 +4,87 @@ interface msOrderInterface
 {
 
     /**
-     * Initializes order to context
-     * Here you can load custom javascript or styles
-     *
-     * @param string $ctx Context for initialization
-     *
-     * @return boolean
-     */
+    * Initializes order to context
+    * Here you can load custom javascript or styles
+    *
+    * @param string $ctx Context for initialization
+    *
+    * @return boolean
+    */
     public function initialize($ctx = 'web');
 
 
     /**
-     * Add one field to order
-     *
-     * @param string $key Name of the field
-     * @param string $value .Value of the field
-     *
-     * @return boolean
-     */
+    * Add one field to order
+    *
+    * @param string $key Name of the field
+    * @param string $value .Value of the field
+    *
+    * @return boolean
+    */
     public function add($key, $value);
 
 
     /**
-     * Validates field before it set
-     *
-     * @param string $key The key of the field
-     * @param string $value .Value of the field
-     *
-     * @return boolean|mixed
-     */
+    * Validates field before it set
+    *
+    * @param string $key The key of the field
+    * @param string $value .Value of the field
+    *
+    * @return boolean|mixed
+    */
     public function validate($key, $value);
 
 
     /**
-     * Removes field from order
-     *
-     * @param string $key The key of the field
-     *
-     * @return boolean
-     */
+    * Removes field from order
+    *
+    * @param string $key The key of the field
+    *
+    * @return boolean
+    */
     public function remove($key);
 
 
     /**
-     * Returns the whole order
-     *
-     * @return array $order
-     */
+    * Returns the whole order
+    *
+    * @return array $order
+    */
     public function get();
 
 
     /**
-     * Returns the one field of order
-     *
-     * @param array $order Whole order at one time
-     *
-     * @return array $order
-     */
+    * Returns the one field of order
+    *
+    * @param array $order Whole order at one time
+    *
+    * @return array $order
+    */
     public function set(array $order);
 
 
     /**
-     * Submit the order. It will create record in database and redirect user to payment, if set.
-     *
-     * @return array $status Array with order status
-     */
+    * Submit the order. It will create record in database and redirect user to payment, if set.
+    *
+    * @return array $status Array with order status
+    */
     public function submit();
 
 
     /**
-     * Cleans the order
-     *
-     * @return boolean
-     */
+    * Cleans the order
+    *
+    * @return boolean
+    */
     public function clean();
 
 
     /**
-     * Returns the cost of delivery depending on its settings and the goods in a cart
-     *
-     * @return array $response
-     */
+    * Returns the cost of delivery depending on its settings and the goods in a cart
+    *
+    * @return array $response
+    */
     public function getCost();
 }
 
@@ -102,9 +102,9 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param miniShop2 $ms2
-     * @param array $config
-     */
+    * @param miniShop2 $ms2
+    * @param array $config
+    */
     function __construct(miniShop2 &$ms2, array $config = array())
     {
         $this->ms2 = $ms2;
@@ -124,10 +124,10 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param string $ctx
-     *
-     * @return bool
-     */
+    * @param string $ctx
+    *
+    * @return bool
+    */
     public function initialize($ctx = 'web')
     {
         return true;
@@ -135,11 +135,11 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param string $key
-     * @param string $value
-     *
-     * @return array|string
-     */
+    * @param string $key
+    * @param string $value
+    *
+    * @return array|string
+    */
     public function add($key, $value)
     {
         $response = $this->ms2->invokeEvent('msOnBeforeAddToOrder', array(
@@ -179,11 +179,11 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param string $key
-     * @param string $value
-     *
-     * @return bool|mixed|string
-     */
+    * @param string $key
+    * @param string $value
+    *
+    * @return bool|mixed|string
+    */
     public function validate($key, $value)
     {
         if ($key != 'comment') {
@@ -255,13 +255,13 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * Checks accordance of payment and delivery
-     *
-     * @param $delivery
-     * @param $payment
-     *
-     * @return bool
-     */
+    * Checks accordance of payment and delivery
+    *
+    * @param $delivery
+    * @param $payment
+    *
+    * @return bool
+    */
     public function hasPayment($delivery, $payment)
     {
         $q = $this->modx->newQuery('msPayment', array('id' => $payment, 'active' => 1));
@@ -274,10 +274,10 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param string $key
-     *
-     * @return array|bool|string
-     */
+    * @param string $key
+    *
+    * @return array|bool|string
+    */
     public function remove($key)
     {
         if ($exists = array_key_exists($key, $this->order)) {
@@ -304,8 +304,8 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function get()
     {
         return $this->order;
@@ -313,10 +313,10 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param array $order
-     *
-     * @return array
-     */
+    * @param array $order
+    *
+    * @return array
+    */
     public function set(array $order)
     {
         foreach ($order as $key => $value) {
@@ -328,12 +328,12 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * Returns required fields for delivery
-     *
-     * @param $id
-     *
-     * @return array|string
-     */
+    * Returns required fields for delivery
+    *
+    * @param $id
+    *
+    * @return array|string
+    */
     public function getDeliveryRequiresFields($id = 0)
     {
         if (empty($id)) {
@@ -353,10 +353,10 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param array $data
-     *
-     * @return array|string
-     */
+    * @param array $data
+    *
+    * @return array|string
+    */
     public function submit($data = array())
     {
         $response = $this->ms2->invokeEvent('msOnSubmitOrder', array(
@@ -398,7 +398,7 @@ class msOrderHandler implements msOrderInterface
         if (empty($cart_status['total_count'])) {
             return $this->error('ms2_order_err_empty');
         }
-        
+
         $delivery_cost = $this->getCost(false, true);
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
         $createdon = date('Y-m-d H:i:s');
@@ -525,8 +525,8 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function clean()
     {
         $response = $this->ms2->invokeEvent('msOnBeforeEmptyOrder', array('order' => $this));
@@ -545,11 +545,11 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * @param bool $with_cart
-     * @param bool $only_cost
-     *
-     * @return array|string
-     */
+    * @param bool $with_cart
+    * @param bool $only_cost
+    *
+    * @return array|string
+    */
     public function getCost($with_cart = true, $only_cost = false)
     {
         $response = $this->ms2->invokeEvent('msOnBeforeGetOrderCost', array(
@@ -606,10 +606,10 @@ class msOrderHandler implements msOrderInterface
     }
 
     /**
-     * Return current number of order
-     *
-     * @return string
-     */
+    * Return current number of order
+    *
+    * @return string
+    */
     public function getNum()
     {
         $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
@@ -640,14 +640,14 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * Shorthand for MS2 error method
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Shorthand for MS2 error method
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function error($message = '', $data = array(), $placeholders = array())
     {
         return $this->ms2->error($message, $data, $placeholders);
@@ -655,14 +655,14 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * Shorthand for MS2 success method
-     *
-     * @param string $message
-     * @param array $data
-     * @param array $placeholders
-     *
-     * @return array|string
-     */
+    * Shorthand for MS2 success method
+    *
+    * @param string $message
+    * @param array $data
+    * @param array $placeholders
+    *
+    * @return array|string
+    */
     public function success($message = '', $data = array(), $placeholders = array())
     {
         return $this->ms2->success($message, $data, $placeholders);
@@ -670,12 +670,12 @@ class msOrderHandler implements msOrderInterface
 
 
     /**
-     * Ucfirst function with support of cyrillic
-     *
-     * @param string $str
-     *
-     * @return string
-     */
+    * Ucfirst function with support of cyrillic
+    *
+    * @param string $str
+    *
+    * @return string
+    */
     public function ucfirst($str = '')
     {
         if (strpos($str, '-') !== false) {

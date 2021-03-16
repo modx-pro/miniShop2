@@ -1,13 +1,13 @@
 <phpunit colors="true"
-         convertErrorsToExceptions="false"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="true"
-         verbose="true"
-         bootstrap="MODxTestHarness.php"
-         >
+        convertErrorsToExceptions="false"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        processIsolation="false"
+        stopOnFailure="false"
+        syntaxCheck="true"
+        verbose="true"
+        bootstrap="MODxTestHarness.php"
+        >
     <testsuites>
         <testsuite name="getlist">
             <file>processors/msOptionGetListProcessorTest.php</file>

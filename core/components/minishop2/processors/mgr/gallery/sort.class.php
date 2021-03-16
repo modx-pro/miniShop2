@@ -7,8 +7,8 @@ class msProductFileSortProcessor extends modObjectProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -20,10 +20,10 @@ class msProductFileSortProcessor extends modObjectProcessor
 
 
     /**
-     * It is adapted code from https://github.com/splittingred/Gallery/blob/a51442648fde1066cf04d46550a04265b1ad67da/core/components/gallery/processors/mgr/item/sort.php
-     *
-     * @return array|string
-     */
+    * It is adapted code from https://github.com/splittingred/Gallery/blob/a51442648fde1066cf04d46550a04265b1ad67da/core/components/gallery/processors/mgr/item/sort.php
+    *
+    * @return array|string
+    */
     public function process()
     {
         /** @var msProductFile $source */

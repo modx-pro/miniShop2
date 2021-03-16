@@ -10,8 +10,8 @@ class msVendorRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {

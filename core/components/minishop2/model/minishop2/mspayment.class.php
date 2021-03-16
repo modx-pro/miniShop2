@@ -13,10 +13,10 @@ class msPayment extends xPDOSimpleObject
 
 
     /**
-     * msPayment constructor.
-     *
-     * @param xPDO $xpdo
-     */
+    * msPayment constructor.
+    *
+    * @param xPDO $xpdo
+    */
     public function __construct(xPDO $xpdo)
     {
         parent::__construct($xpdo);
@@ -25,10 +25,10 @@ class msPayment extends xPDOSimpleObject
 
 
     /**
-     * Loads payment handler class
-     *
-     * @return bool
-     */
+    * Loads payment handler class
+    *
+    * @return bool
+    */
     public function loadHandler()
     {
         require_once dirname(__FILE__) . '/mspaymenthandler.class.php';
@@ -58,12 +58,12 @@ class msPayment extends xPDOSimpleObject
 
 
     /**
-     * Send user to payment service
-     *
-     * @param msOrder $order Object with an order
-     *
-     * @return array|boolean $response
-     */
+    * Send user to payment service
+    *
+    * @param msOrder $order Object with an order
+    *
+    * @return array|boolean $response
+    */
     public function send(msOrder $order)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
@@ -77,12 +77,12 @@ class msPayment extends xPDOSimpleObject
 
 
     /**
-     * Receives payment
-     *
-     * @param msOrder $order Object with an order
-     *
-     * @return array|boolean $response
-     */
+    * Receives payment
+    *
+    * @param msOrder $order Object with an order
+    *
+    * @return array|boolean $response
+    */
     public function receive(msOrder $order)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
@@ -96,13 +96,13 @@ class msPayment extends xPDOSimpleObject
 
 
     /**
-     * Returns an additional cost depending on the method of payment
-     *
-     * @param msOrderInterface|msOrderHandler $order
-     * @param float $cost Current cost of order
-     *
-     * @return float|integer
-     */
+    * Returns an additional cost depending on the method of payment
+    *
+    * @param msOrderInterface|msOrderHandler $order
+    * @param float $cost Current cost of order
+    *
+    * @return float|integer
+    */
     public function getCost(msOrderInterface $order, $cost = 0.0)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msDeliveryInterface)) {
@@ -116,10 +116,10 @@ class msPayment extends xPDOSimpleObject
 
 
     /**
-     * @param array $ancestors
-     *
-     * @return bool
-     */
+    * @param array $ancestors
+    *
+    * @return bool
+    */
     public function remove(array $ancestors = array())
     {
         $this->xpdo->removeCollection('msDeliveryMember', array('payment_id' => $this->id));

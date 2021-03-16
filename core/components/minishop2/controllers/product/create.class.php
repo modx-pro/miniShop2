@@ -11,9 +11,9 @@ class msProductCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Returns language topics
-     * @return array
-     */
+    * Returns language topics
+    * @return array
+    */
     public function getLanguageTopics()
     {
         return array('resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager');
@@ -21,8 +21,8 @@ class msProductCreateManagerController extends msResourceCreateController
 
 
     /**
-     * @return int|mixed
-     */
+    * @return int|mixed
+    */
     public function getDefaultTemplate()
     {
         if (!$template = $this->getOption('ms2_template_product_default')) {
@@ -34,9 +34,9 @@ class msProductCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Check for any permissions or requirements to load page
-     * @return bool
-     */
+    * Check for any permissions or requirements to load page
+    * @return bool
+    */
     public function checkPermissions()
     {
         return $this->modx->hasPermission('new_document');
@@ -44,10 +44,10 @@ class msProductCreateManagerController extends msResourceCreateController
 
 
     /**
-     * @param array $scriptProperties
-     *
-     * @return mixed
-     */
+    * @param array $scriptProperties
+    *
+    * @return mixed
+    */
     public function process(array $scriptProperties = array())
     {
         $placeholders = parent::process($scriptProperties);
@@ -61,9 +61,9 @@ class msProductCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Register custom CSS/JS for the page
-     * @return void
-     */
+    * Register custom CSS/JS for the page
+    * @return void
+    */
     public function loadCustomCssJs()
     {
         $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
@@ -161,8 +161,8 @@ class msProductCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Loads additional scripts for product form from miniShop2 plugins
-     */
+    * Loads additional scripts for product form from miniShop2 plugins
+    */
     function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();

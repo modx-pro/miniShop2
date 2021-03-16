@@ -1,48 +1,48 @@
 <?php
 $xpdo_meta_map['msCategory']= array (
-  'package' => 'minishop2',
-  'version' => '1.1',
-  'extends' => 'modResource',
-  'fields' => 
-  array (
-    'class_key' => 'msCategory',
-  ),
-  'fieldMeta' => 
-  array (
-    'class_key' => 
+    'package' => 'minishop2',
+    'version' => '1.1',
+    'extends' => 'modResource',
+    'fields' =>
     array (
-      'dbtype' => 'varchar',
-      'precision' => '100',
-      'phptype' => 'string',
-      'null' => false,
-      'default' => 'msCategory',
+        'class_key' => 'msCategory',
     ),
-  ),
-  'composites' => 
-  array (
-    'OwnProducts' => 
+    'fieldMeta' =>
     array (
-      'class' => 'msProduct',
-      'local' => 'id',
-      'foreign' => 'parent',
-      'cardinality' => 'many',
-      'owner' => 'local',
+        'class_key' =>
+        array (
+        'dbtype' => 'varchar',
+        'precision' => '100',
+        'phptype' => 'string',
+        'null' => false,
+        'default' => 'msCategory',
+        ),
     ),
-    'AlienProducts' => 
+    'composites' =>
     array (
-      'class' => 'msCategoryMember',
-      'local' => 'id',
-      'foreign' => 'category_id',
-      'cardinality' => 'many',
-      'owner' => 'local',
+        'OwnProducts' =>
+        array (
+        'class' => 'msProduct',
+        'local' => 'id',
+        'foreign' => 'parent',
+        'cardinality' => 'many',
+        'owner' => 'local',
+        ),
+        'AlienProducts' =>
+        array (
+        'class' => 'msCategoryMember',
+        'local' => 'id',
+        'foreign' => 'category_id',
+        'cardinality' => 'many',
+        'owner' => 'local',
+        ),
+        'CategoryOptions' =>
+        array (
+        'class' => 'msCategoryOption',
+        'local' => 'id',
+        'foreign' => 'category_id',
+        'cardinality' => 'many',
+        'owner' => 'local',
+        ),
     ),
-    'CategoryOptions' => 
-    array (
-      'class' => 'msCategoryOption',
-      'local' => 'id',
-      'foreign' => 'category_id',
-      'cardinality' => 'many',
-      'owner' => 'local',
-    ),
-  ),
 );

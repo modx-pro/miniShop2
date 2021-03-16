@@ -41,4 +41,3 @@ $_lang['ms2_cart_clean'] = 'Очистить корзину';
 $_lang['ms2_order_err_empty'] = 'Невозможно оформить пустой заказ';
 $_lang['ms2_order_err_delivery'] = 'Вы должны выбрать способ доставки';
 $_lang['ms2_order_err_requires'] = 'Вы должны заполнить требуемые поля';
-

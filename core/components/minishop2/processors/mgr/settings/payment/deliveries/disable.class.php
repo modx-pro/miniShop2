@@ -10,8 +10,8 @@ class msDeliveryMemberRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -19,8 +19,8 @@ class msDeliveryMemberRemoveProcessor extends modObjectRemoveProcessor
         }
 
         /**
-         * @TODO: hardcode
-         */
+        * @TODO: hardcode
+        */
         $this->object = $this->modx->getObject($this->classKey, $this->getProperties());
         if (empty($this->object)) {
             return $this->modx->lexicon($this->objectType . '_err_nfs');
@@ -31,8 +31,8 @@ class msDeliveryMemberRemoveProcessor extends modObjectRemoveProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSave()
     {
         $this->object->fromArray($this->getProperties(), '', true, true);

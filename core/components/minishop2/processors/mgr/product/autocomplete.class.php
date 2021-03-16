@@ -5,8 +5,8 @@ class msProductAutocompleteProcessor extends modObjectProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function process()
     {
         $name = trim($this->getProperty('name'));

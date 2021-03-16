@@ -11,8 +11,8 @@ class msOptionGetProcessor extends modObjectGetProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -24,8 +24,8 @@ class msOptionGetProcessor extends modObjectGetProcessor
 
 
     /**
-     * @return void
-     */
+    * @return void
+    */
     public function beforeOutput()
     {
         $c = $this->modx->newQuery('msCategory');

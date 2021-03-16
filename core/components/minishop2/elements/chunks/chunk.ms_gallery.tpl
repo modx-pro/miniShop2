@@ -19,4 +19,3 @@
             alt="" title=""/>
     {/if}
 </div>
-

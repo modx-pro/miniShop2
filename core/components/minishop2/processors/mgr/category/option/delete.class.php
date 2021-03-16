@@ -8,8 +8,8 @@ class msCategoryOptionDeleteProcessor extends modObjectRemoveProcessor
     public $permission = 'mscategory_save';
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $this->object = $this->modx->getObject($this->classKey, array(
@@ -24,8 +24,8 @@ class msCategoryOptionDeleteProcessor extends modObjectRemoveProcessor
     }
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function afterRemove()
     {
         $sql = "UPDATE {$this->modx->getTableName($this->classKey)} SET `rank`=`rank`-1

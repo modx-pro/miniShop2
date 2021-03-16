@@ -15,8 +15,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $primaryKey = $this->getProperty($this->primaryKeyField, false);
@@ -36,8 +36,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return array|string
-     */
+    * @return array|string
+    */
     public function beforeSet()
     {
         $properties = $this->getProperties();
@@ -51,14 +51,14 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         if (!empty($options)) {
             $this->setProperty('options', $options);
         }
-        
+
         return parent::beforeSet();
     }
 
 
     /**
-     *
-     */
+    *
+    */
     public function handleCheckBoxes()
     {
         parent::handleCheckBoxes();
@@ -70,8 +70,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return int|mixed|string
-     */
+    * @return int|mixed|string
+    */
     public function checkFriendlyAlias()
     {
         if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
@@ -86,8 +86,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSave()
     {
         $this->object->set('isfolder', false);
@@ -97,8 +97,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-     *
-     */
+    *
+    */
     public function fixParents()
     {
         if (!$this->modx->getOption('auto_isfolder', null, true)) {

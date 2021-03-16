@@ -7,9 +7,9 @@ if (!class_exists('msResourceCreateController')) {
 class msCategoryCreateManagerController extends msResourceCreateController
 {
     /**
-     * Returns language topics
-     * @return array
-     */
+    * Returns language topics
+    * @return array
+    */
     public function getLanguageTopics()
     {
         return array('resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager');
@@ -17,9 +17,9 @@ class msCategoryCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Check for any permissions or requirements to load page
-     * @return bool
-     */
+    * Check for any permissions or requirements to load page
+    * @return bool
+    */
     public function checkPermissions()
     {
         return $this->modx->hasPermission('new_document');
@@ -27,9 +27,9 @@ class msCategoryCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Return the default template for this resource
-     * @return int|mixed
-     */
+    * Return the default template for this resource
+    * @return int|mixed
+    */
     public function getDefaultTemplate()
     {
         if (!$template = $this->getOption('ms2_template_category_default')) {
@@ -41,9 +41,9 @@ class msCategoryCreateManagerController extends msResourceCreateController
 
 
     /**
-     * Register custom CSS/JS for the page
-     * @return void
-     */
+    * Register custom CSS/JS for the page
+    * @return void
+    */
     public function loadCustomCssJs()
     {
         $miniShop2 = $this->modx->getService('miniShop2');

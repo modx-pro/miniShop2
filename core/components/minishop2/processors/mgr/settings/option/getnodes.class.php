@@ -8,8 +8,8 @@ class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function initialize()
     {
         if ($categories = $this->getProperty('categories')) {
@@ -38,10 +38,10 @@ class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
 
 
     /**
-     * @param modResource $resource
-     *
-     * @return array
-     */
+    * @param modResource $resource
+    *
+    * @return array
+    */
     public function prepareResourceNode(modResource $resource)
     {
         $node = parent::prepareResourceNode($resource);

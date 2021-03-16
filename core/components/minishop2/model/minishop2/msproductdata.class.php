@@ -11,8 +11,8 @@ class msProductData extends xPDOSimpleObject
     protected $optionKeys = null;
 
     /**
-     *
-     */
+    *
+    */
     public function prepareObject()
     {
         // prepare "array" fields
@@ -32,12 +32,12 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * All json fields of product are synchronized with msProduct Options
-     *
-     * @param null $cacheFlag
-     *
-     * @return bool
-     */
+    * All json fields of product are synchronized with msProduct Options
+    *
+    * @param null $cacheFlag
+    *
+    * @return bool
+    */
     public function save($cacheFlag = null)
     {
         $this->prepareObject();
@@ -51,11 +51,11 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @param xPDO $xpdo
-     * @param $product
-     *
-     * @return array
-     */
+    * @param xPDO $xpdo
+    * @param $product
+    *
+    * @return array
+    */
     public static function loadOptions(xPDO & $xpdo, $product)
     {
         $c = $xpdo->newQuery('msProductOption');
@@ -85,8 +85,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     *
-     */
+    *
+    */
     protected function saveProductOptions()
     {
         $table = $this->xpdo->getTableName('msProductOption');
@@ -146,8 +146,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * Additional product categories
-     */
+    * Additional product categories
+    */
     protected function saveProductCategories()
     {
         $categories = parent::get('categories');
@@ -193,8 +193,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     *
-     */
+    *
+    */
     protected function saveProductLinks()
     {
         $links = parent::get('links');
@@ -217,8 +217,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @return xPDOQuery
-     */
+    * @return xPDOQuery
+    */
     public function prepareOptionListCriteria()
     {
         $categories = array();
@@ -248,8 +248,8 @@ class msProductData extends xPDOSimpleObject
     }
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getArraysValues()
     {
         $arrays = array();
@@ -263,10 +263,10 @@ class msProductData extends xPDOSimpleObject
     }
 
     /**
-     * @param null $values
-     *
-     * @return array|null
-     */
+    * @param null $values
+    *
+    * @return array|null
+    */
     public function prepareOptionValues($values = null) {
         if ($values) {
             if (!is_array($values)) {
@@ -287,10 +287,10 @@ class msProductData extends xPDOSimpleObject
     }
 
     /**
-     * @param bool $force
-     *
-     * @return array
-     */
+    * @param bool $force
+    *
+    * @return array
+    */
     public function getOptionKeys($force = false)
     {
         if ($this->optionKeys === null || $force) {
@@ -310,8 +310,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @return array
-     */
+    * @return array
+    */
     public function getOptionFields()
     {
         $fields = array();
@@ -342,10 +342,10 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @param array $ancestors
-     *
-     * @return bool
-     */
+    * @param array $ancestors
+    *
+    * @return bool
+    */
     public function remove(array $ancestors = array())
     {
         $this->xpdo->removeCollection('msProductOption', array('product_id' => $this->id));
@@ -363,8 +363,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     *
-     */
+    *
+    */
     public function generateAllThumbnails()
     {
         $files = $this->xpdo->getIterator('msProductFile', array(
@@ -380,10 +380,10 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @param string $ctx
-     *
-     * @return bool|modMediaSource|null|object
-     */
+    * @param string $ctx
+    *
+    * @return bool|modMediaSource|null|object
+    */
     public function initializeMediaSource($ctx = '')
     {
         if ($this->mediaSource = $this->xpdo->getObject('sources.modMediaSource', array('id' => $this->get('source')))) {
@@ -402,8 +402,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     *
-     */
+    *
+    */
     public function rankProductImages()
     {
         // Check if need to update files ranks
@@ -444,8 +444,8 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @return bool|mixed
-     */
+    * @return bool|mixed
+    */
     public function updateProductImage()
     {
         $this->rankProductImages();
@@ -492,12 +492,12 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * @param array|string $k
-     * @param null $format
-     * @param null $formatTemplate
-     *
-     * @return array|null
-     */
+    * @param array|string $k
+    * @param null $format
+    * @param null $formatTemplate
+    *
+    * @return array|null
+    */
     public function get($k, $format = null, $formatTemplate = null)
     {
         if (is_array($k)) {
@@ -570,12 +570,12 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * Return product price
-     *
-     * @param array $data Any additional data for price modification
-     *
-     * @return mixed|string
-     */
+    * Return product price
+    *
+    * @param array $data Any additional data for price modification
+    *
+    * @return mixed|string
+    */
     public function getPrice($data = array())
     {
         $price = parent::get('price');
@@ -600,12 +600,12 @@ class msProductData extends xPDOSimpleObject
 
 
     /**
-     * Return product weight.
-     *
-     * @param array $data Any additional data for weight modification
-     *
-     * @return mixed|string
-     */
+    * Return product weight.
+    *
+    * @param array $data Any additional data for weight modification
+    *
+    * @return mixed|string
+    */
     public function getWeight($data = array())
     {
         $weight = parent::get('weight');
@@ -630,9 +630,9 @@ class msProductData extends xPDOSimpleObject
 
 
     /* Returns prepared product fields.
-     *
-     * @return array $result Prepared fields of product.
-     * */
+    *
+    * @return array $result Prepared fields of product.
+    * */
     public function modifyFields($data = array()) {
         if (empty($data)) {
             $data = $this->toArray();

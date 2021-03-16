@@ -10,8 +10,8 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,10 +23,10 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $c->innerJoin('msOrder', 'msOrder', '`msOrderProduct`.`order_id` = `msOrder`.`id`');
@@ -58,10 +58,10 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOObject $object
-     *
-     * @return array
-     */
+    * @param xPDOObject $object
+    *
+    * @return array
+    */
     public function prepareRow(xPDOObject $object)
     {
         $fields = array_map('trim', explode(',', $this->modx->getOption('ms2_order_product_fields', null, '')));

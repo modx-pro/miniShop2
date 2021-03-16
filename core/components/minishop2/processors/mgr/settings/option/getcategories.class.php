@@ -9,10 +9,10 @@ class msOptionGetCategoriesProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param xPDOQuery $c
-     *
-     * @return xPDOQuery
-     */
+    * @param xPDOQuery $c
+    *
+    * @return xPDOQuery
+    */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
 
@@ -23,10 +23,10 @@ class msOptionGetCategoriesProcessor extends modObjectGetListProcessor
 
 
     /**
-     * @param array $list
-     * 
-     * @return array
-     */
+    * @param array $list
+    *
+    * @return array
+    */
     public function afterIteration(array $list)
     {
         array_unshift($list, array(

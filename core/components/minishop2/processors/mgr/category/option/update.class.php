@@ -7,8 +7,8 @@ class msCategoryOptionUpdateProcessor extends modObjectUpdateProcessor
     public $permission = 'mscategory_save';
 
     /**
-     * @return bool|null|string
-     */
+    * @return bool|null|string
+    */
     public function initialize()
     {
         $this->object = $this->modx->getObject($this->classKey, array(
@@ -24,8 +24,8 @@ class msCategoryOptionUpdateProcessor extends modObjectUpdateProcessor
 
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function beforeSet()
     {
         $this->setCheckbox('active');
