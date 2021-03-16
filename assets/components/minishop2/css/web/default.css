@@ -45,3 +45,20 @@ div.jGrowl > .ui-state-highlight {
     word-wrap: normal;
     white-space: pre;
 }
+
+
+    .test33{
+        color: red;
+    }
+
+        .test33{ color: red; }
+
+    .test33{ color: red; }
+        .test33{ color: red; }
+
+    .test33{
+    color: red;
+    }
+
+
+    
