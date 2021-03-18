@@ -100,7 +100,7 @@ if (!empty($scriptProperties['optionFilters'])) {
 
         if (count($components) === 2) {
             if (in_array(strtolower($components[0]), ['or', 'and'])) {
-                [$operator, $key] = $components;
+                list($operator, $key) = $components;
             }
         }
 
