@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "editorconfig": "editorconfig-checker --exclude assets/components/minishop2/js/mgr/misc/plupload",
+    "editorconfig": "editorconfig-checker",
     "test": "npm run editorconfig"
   },
   "devDependencies": {
