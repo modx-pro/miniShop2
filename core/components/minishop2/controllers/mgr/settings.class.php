@@ -82,7 +82,7 @@ class Minishop2MgrSettingsManagerController extends msManagerController
         </script>');
 
         $this->modx->invokeEvent('msOnManagerCustomCssJs', array(
-            'controller' => &$this,
+            'controller' => $this,
             'page' => 'settings',
         ));
     }

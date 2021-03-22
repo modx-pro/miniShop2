@@ -56,7 +56,7 @@ class msProductData extends xPDOSimpleObject
     *
     * @return array
     */
-    public static function loadOptions(xPDO & $xpdo, $product)
+    public static function loadOptions(xPDO $xpdo, $product)
     {
         $c = $xpdo->newQuery('msProductOption');
         $c->rightJoin('msOption', 'msOption', 'msProductOption.key=msOption.key');

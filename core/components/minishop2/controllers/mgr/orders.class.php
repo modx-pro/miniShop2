@@ -81,7 +81,7 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         );
 
         $this->modx->invokeEvent('msOnManagerCustomCssJs', array(
-            'controller' => &$this,
+            'controller' => $this,
             'page' => 'orders',
         ));
     }

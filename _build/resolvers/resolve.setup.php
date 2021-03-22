@@ -5,7 +5,7 @@ if (!$transport->xpdo || !($transport instanceof xPDOTransport)) {
 }
 
 /** @var modX $modx */
-$modx =& $transport->xpdo;
+$modx = $transport->xpdo;
 $packages = array(
     'pdoTools' => array(
         'version' => '2.12.0-pl',

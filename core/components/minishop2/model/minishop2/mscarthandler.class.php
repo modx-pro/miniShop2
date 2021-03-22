@@ -104,10 +104,10 @@ class msCartHandler implements msCartInterface
     * @param miniShop2 $ms2
     * @param array $config
     */
-    function __construct(miniShop2 &$ms2, array $config = array())
+    function __construct(miniShop2 $ms2, array $config = array())
     {
-        $this->ms2 = &$ms2;
-        $this->modx = &$ms2->modx;
+        $this->ms2 = $ms2;
+        $this->modx = $ms2->modx;
 
         $this->config = array_merge(array(
             'cart' => & $_SESSION['minishop2']['cart'],

@@ -20,8 +20,8 @@ abstract class msOptionType
     */
     public function __construct(msOption $option, array $config = array())
     {
-        $this->option =& $option;
-        $this->xpdo =& $option->xpdo;
+        $this->option = $option;
+        $this->xpdo = $option->xpdo;
         $this->config = array_merge($this->config, $config);
     }
 

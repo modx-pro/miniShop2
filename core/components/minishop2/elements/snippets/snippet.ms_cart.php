@@ -138,7 +138,7 @@ foreach ($cart as $key => $entry) {
     }
 
     // Add option values
-    $options = $modx->call('msProductData', 'loadOptions', array(&$modx, $product['id']));
+    $options = $modx->call('msProductData', 'loadOptions', array($modx, $product['id']));
     $products[] = array_merge($product, $options);
 
     // Count total

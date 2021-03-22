@@ -94,6 +94,6 @@ class msCategoryCreateManagerController extends msResourceCreateController
 
         // load RTE
         $this->loadRichTextEditor();
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => &$this, 'page' => 'category_create'));
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => $this, 'page' => 'category_create'));
     }
 }

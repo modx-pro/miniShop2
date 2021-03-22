@@ -39,8 +39,8 @@ class msOrder extends xPDOSimpleObject
         if ($this->xpdo instanceof modX) {
             $this->xpdo->invokeEvent('msOnBeforeSaveOrder', array(
                 'mode' => $isNew ? modSystemEvent::MODE_NEW : modSystemEvent::MODE_UPD,
-                'object' => &$this,
-                'msOrder' => &$this,
+                'object' => $this,
+                'msOrder' => $this,
                 'cacheFlag' => $cacheFlag,
             ));
         }
@@ -50,8 +50,8 @@ class msOrder extends xPDOSimpleObject
         if ($saved && $this->xpdo instanceof modX) {
             $this->xpdo->invokeEvent('msOnSaveOrder', array(
                 'mode' => $isNew ? modSystemEvent::MODE_NEW : modSystemEvent::MODE_UPD,
-                'object' => &$this,
-                'msOrder' => &$this,
+                'object' => $this,
+                'msOrder' => $this,
                 'cacheFlag' => $cacheFlag,
             ));
         }
@@ -64,8 +64,8 @@ class msOrder extends xPDOSimpleObject
         if ($this->xpdo instanceof modX) {
             $this->xpdo->invokeEvent('msOnBeforeRemoveOrder', array(
                 'id' => parent::get('id'),
-                'object' => &$this,
-                'msOrder' => &$this,
+                'object' => $this,
+                'msOrder' => $this,
                 'ancestors' => $ancestors,
             ));
         }
@@ -75,8 +75,8 @@ class msOrder extends xPDOSimpleObject
         if ($this->xpdo instanceof modX) {
             $this->xpdo->invokeEvent('msOnRemoveOrder', array(
                 'id' => parent::get('id'),
-                'object' => &$this,
-                'msOrder' => &$this,
+                'object' => $this,
+                'msOrder' => $this,
                 'ancestors' => $ancestors,
             ));
         }
