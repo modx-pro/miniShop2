@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: test
+name: Editorconfig check
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   lint:
