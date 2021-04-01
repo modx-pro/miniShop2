@@ -1,5 +1,6 @@
 <?php
 
+/** @var modX $modx */
 $menus = array();
 
 $tmp = array(

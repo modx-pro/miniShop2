@@ -1,5 +1,6 @@
 <?php
 
+/** @var modX $modx */
 $chunks = array();
 
 $tmp = array(

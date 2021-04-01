@@ -1,5 +1,6 @@
 <?php
 
+/** @var modX $modx */
 $plugins = array();
 
 $tmp = array(

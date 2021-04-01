@@ -1,5 +1,5 @@
 <?php
-
+/** @var modX $modx */
 $exists = $chunks = false;
 $output = null;
 /** @var array $options */

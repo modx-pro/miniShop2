@@ -1,5 +1,6 @@
 <?php
 
+/** @var modX $modx */
 $templates = array();
 
 $tmp = array(

@@ -1,5 +1,6 @@
 <?php
 
+/** @var modX $modx */
 $policies = array();
 
 /** @var modAccessPolicy $policy */
