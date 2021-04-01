@@ -4,10 +4,6 @@ class msOptionGetTypesProcessorTest extends MODxProcessorTestCase {
 
     public $processor = 'mgr/settings/option/gettypes';
 
-    public function setUp() {
-        parent::setUp();
-    }
-
     public function testGetAllTypes() {
         $response = $this->getResponse(array());
         $this->assertTrue($response['success']);
