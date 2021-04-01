@@ -266,7 +266,7 @@ class msProduct extends modResource
     {
         if ($this->options === null) {
             $this->options = $this->xpdo->call('msProductData', 'loadOptions', array(
-                &$this->xpdo,
+                $this->xpdo,
                 $this->loadData()->get('id'),
             ));
         }

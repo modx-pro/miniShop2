@@ -25,9 +25,9 @@ class miniShop2
     * @param modX $modx
     * @param array $config
     */
-    function __construct(modX &$modx, array $config = array())
+    function __construct(modX $modx, array $config = array())
     {
-        $this->modx =& $modx;
+        $this->modx = $modx;
 
         $corePath = $this->modx->getOption('minishop2.core_path', $config, MODX_CORE_PATH . 'components/minishop2/');
         $assetsPath = $this->modx->getOption('minishop2.assets_path', $config,
@@ -637,7 +637,7 @@ class miniShop2
 
         $response = $this->invokeEvent('msOnBeforeGetOrderCustomer', array(
             'order' => $this->order,
-            'customer' => &$customer,
+            'customer' => $customer,
         ));
         if (!$response['success']) {
             return $response['message'];
@@ -706,7 +706,7 @@ class miniShop2
 
         $response = $this->invokeEvent('msOnGetOrderCustomer', array(
             'order' => $this->order,
-            'customer' => &$customer,
+            'customer' => $customer,
         ));
         if (!$response['success']) {
             return $response['message'];

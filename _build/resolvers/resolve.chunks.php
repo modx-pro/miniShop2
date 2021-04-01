@@ -4,7 +4,7 @@ if (!$transport->xpdo || !($transport instanceof xPDOTransport)) {
     return false;
 }
 /** @var modX $modx */
-$modx =& $transport->xpdo;
+$modx = $transport->xpdo;
 /** @var array $options */
 switch ($options[xPDOTransport::PACKAGE_ACTION]) {
     case xPDOTransport::ACTION_INSTALL:

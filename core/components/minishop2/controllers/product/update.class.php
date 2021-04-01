@@ -165,7 +165,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
 
         // load RTE
         $this->loadRichTextEditor();
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => &$this, 'page' => 'product_update'));
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => $this, 'page' => 'product_update'));
         $this->loadPlugins();
     }
 

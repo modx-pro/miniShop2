@@ -4,7 +4,7 @@
 /** @var array $options */
 /** @var modX $modx */
 if ($transport->xpdo) {
-    $modx =& $transport->xpdo;
+    $modx = $transport->xpdo;
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
             break;

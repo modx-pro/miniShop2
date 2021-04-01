@@ -142,7 +142,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
         // load RTE
         $this->loadRichTextEditor();
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => &$this, 'page' => 'category_update'));
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => $this, 'page' => 'category_update'));
         $this->loadPlugins();
 
         // Load Tickets
