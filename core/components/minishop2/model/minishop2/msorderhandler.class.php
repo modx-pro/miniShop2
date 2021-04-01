@@ -219,7 +219,7 @@ class msOrderHandler implements msOrderInterface
                 }
                 break;
             case 'phone':
-                $value = substr(preg_replace('/[^-+0-9]/iu', '', $value), 0, 15);
+                $value = substr(preg_replace('/[^-+()0-9]/u', '', $value), 0, 16);
                 break;
             case 'delivery':
                 /** @var msDelivery $delivery */
