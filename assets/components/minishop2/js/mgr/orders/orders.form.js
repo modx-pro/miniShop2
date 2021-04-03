@@ -50,6 +50,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             emptyText: _('ms2_orders_form_begin'),
             name: 'date_start',
             format: MODx.config['manager_date_format'] || 'Y-m-d',
+            startDay: +MODx.config['manager_week_start'] || 0,
             listeners: {
                 select: {
                     fn: function () {
@@ -63,6 +64,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             emptyText: _('ms2_orders_form_end'),
             name: 'date_end',
             format: MODx.config['manager_date_format'] || 'Y-m-d',
+            startDay: +MODx.config['manager_week_start'] || 0,
             listeners: {
                 select: {
                     fn: function () {
