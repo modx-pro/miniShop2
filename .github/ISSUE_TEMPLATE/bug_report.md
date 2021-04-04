@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Создайте отчет, чтобы помочь нам улучшить miniShop2 / Create a report to help us improve miniShop2
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: "bug"
+assignees: ""
 ---
 
 ## Сообщение об ошибке / Error message

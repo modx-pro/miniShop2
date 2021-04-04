@@ -1,10 +1,9 @@
 ---
 name: Feature request
 about: Предложить идею, которая делает miniShop2 еще лучше / Suggest an idea that makes miniShop2 even better
-title: ''
-labels: 'Enhancement'
-assignees: ''
-
+title: ""
+labels: "enhancement"
+assignees: ""
 ---
 
 ## Запрос функции / Feature request
