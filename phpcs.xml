@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="miniShop2 Coding Standards">
+    <description>miniShop2 dev PHP_CodeSniffer ruleset</description>
+    <file>_build</file>
+    <file>assets</file>
+    <file>core</file>
+    <file>tests</file>
+
+    <!-- Exclude paths -->
+    <!-- <exclude-pattern></exclude-pattern> -->
+
+    <!-- Show progress, show the error codes for each message (source). -->
+    <arg value="ps" />
+
+    <!-- Ignore vendor files -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <!-- Our base rule: set to PSR12-->
+    <rule ref="PSR12"/>
+</ruleset>
