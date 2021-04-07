@@ -46,7 +46,6 @@ class msResourceGetListProcessor extends modObjectGetListProcessor
 
         return $array;
     }
-
 }
 
 return 'msResourceGetListProcessor';

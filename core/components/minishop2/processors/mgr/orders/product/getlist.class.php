@@ -123,7 +123,6 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
 
         return $data;
     }
-
 }
 
 return 'msOrderProductGetListProcessor';

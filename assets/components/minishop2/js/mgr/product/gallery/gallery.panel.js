@@ -109,8 +109,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
             if (this.uploader.files.length > 0) {
                 this.progress = Ext.MessageBox.progress(_('please_wait'));
                 this.uploader.start();
-            }
-            else if (this.progress) {
+            } else if (this.progress) {
                 this.progress.hide();
             }
             up.refresh();

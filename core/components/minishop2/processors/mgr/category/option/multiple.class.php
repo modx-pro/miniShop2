@@ -30,7 +30,6 @@ class msCategoryOptionMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msCategoryOptionMultipleProcessor';

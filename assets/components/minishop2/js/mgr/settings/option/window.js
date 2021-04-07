@@ -10,7 +10,7 @@ miniShop2.window.CreateOption = function (config) {
     });
     miniShop2.window.CreateOption.superclass.constructor.call(this, config);
 
-    this.on('success', function() {
+    this.on('success', function () {
         var c = Ext.getCmp('minishop2-grid-option-modcategory');
         if (c) {
             c.getStore().load();
@@ -90,50 +90,50 @@ Ext.extend(miniShop2.window.CreateOption, miniShop2.window.Default, {
                         id: config.id + '-caption'
                     }]
                 }]
-            }, {
-                xtype: 'minishop2-combo-option-types',
-                anchor: '99%',
-                id: config.id + '-types',
-                listeners: {
-                    select: {fn: this.onSelectType, scope: this},
-                }
-            }, {
-                xtype: 'panel',
-                anchor: '99%',
-                id: config.id + '-properties-panel',
-            }, {
-                layout: 'column',
+        }, {
+            xtype: 'minishop2-combo-option-types',
+            anchor: '99%',
+            id: config.id + '-types',
+            listeners: {
+                select: {fn: this.onSelectType, scope: this},
+            }
+        }, {
+            xtype: 'panel',
+            anchor: '99%',
+            id: config.id + '-properties-panel',
+        }, {
+            layout: 'column',
+            items: [{
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {msgTarget: 'under'},
                 items: [{
-                    columnWidth: .5,
-                    layout: 'form',
-                    defaults: {msgTarget: 'under'},
-                    items: [{
-                        xtype: 'textfield',
-                        fieldLabel: _('ms2_ft_measure_unit'),
-                        name: 'measure_unit',
-                        allowBlank: true,
-                        anchor: '99%',
-                        id: config.id + '-measure-unit',
-                    }]
-                }, {
-                    columnWidth: .5,
-                    layout: 'form',
-                    defaults: {msgTarget: 'under'},
-                    items: [{
-                        xtype: 'modx-combo-category',
-                        fieldLabel: _('ms2_ft_group'),
-                        name: 'category',
-                        anchor: '99%',
-                        id: config.id + '-category',
-                    }]
+                    xtype: 'textfield',
+                    fieldLabel: _('ms2_ft_measure_unit'),
+                    name: 'measure_unit',
+                    allowBlank: true,
+                    anchor: '99%',
+                    id: config.id + '-measure-unit',
                 }]
             }, {
-                xtype: 'textarea',
-                fieldLabel: _('ms2_ft_description'),
-                name: 'description',
-                anchor: '99%',
-                id: config.id + '-description'
-            }
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {msgTarget: 'under'},
+                items: [{
+                    xtype: 'modx-combo-category',
+                    fieldLabel: _('ms2_ft_group'),
+                    name: 'category',
+                    anchor: '99%',
+                    id: config.id + '-category',
+                }]
+            }]
+        }, {
+            xtype: 'textarea',
+            fieldLabel: _('ms2_ft_description'),
+            name: 'description',
+            anchor: '99%',
+            id: config.id + '-description'
+        }
         ];
     },
 
@@ -209,7 +209,7 @@ Ext.extend(miniShop2.window.AssignOptions, miniShop2.window.Default, {
                         }
                     }
                 }
-            }
+        }
         ];
     }
 

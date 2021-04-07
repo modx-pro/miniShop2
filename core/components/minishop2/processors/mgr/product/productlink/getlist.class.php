@@ -64,8 +64,6 @@ class msProductLinkGetListProcessor extends modObjectGetListProcessor
 
         return $data;
     }
-
-
 }
 
 return 'msProductLinkGetListProcessor';

@@ -38,7 +38,7 @@ Ext.extend(miniShop2.tree.Categories, MODx.tree.Tree, {
         };
     },
 
-    onRender: function() {
+    onRender: function () {
         MODx.tree.Tree.superclass.onRender.apply(this, arguments);
         this.wrap = this.el.wrap({
             id: this.id + '-wrap'
@@ -53,7 +53,7 @@ Ext.extend(miniShop2.tree.Categories, MODx.tree.Tree, {
         });
     },
 
-    _handleCheck: function(id, checked) {
+    _handleCheck: function (id, checked) {
         var value = Ext.util.JSON.decode(this.input.getAttribute('value'));
         value[id] = Number(checked);
 
@@ -85,14 +85,15 @@ Ext.extend(miniShop2.tree.Categories, MODx.tree.Tree, {
         },{
             text: '<i class="x-menu-item-icon icon icon-check-square-o"></i> ' + _('ms2_menu_select_all'),
             handler: function () {
-                var activeNode=this.cm.activeNode;
-                var checkchange=this.getListeners().checkchange;
+                var activeNode = this.cm.activeNode;
+                var checkchange = this.getListeners().checkchange;
 
-                function massCheck(node){
+                function massCheck(node)
+                {
                     node.getUI().toggleCheck(true);
-                    node.expand(false,false,function(node){
+                    node.expand(false,false,function (node) {
                         node.eachChild(massCheck);
-                        if(node==activeNode){
+                        if (node == activeNode) {
                             checkchange();
                         }
                     });
@@ -102,13 +103,14 @@ Ext.extend(miniShop2.tree.Categories, MODx.tree.Tree, {
         },{
             text: '<i class="x-menu-item-icon icon icon-square-o"></i> ' + _('ms2_menu_clear_all'),
             handler: function () {
-                var activeNode=this.cm.activeNode;
-                var checkchange=this.getListeners().checkchange;
+                var activeNode = this.cm.activeNode;
+                var checkchange = this.getListeners().checkchange;
 
-                function massUncheck(node){
+                function massUncheck(node)
+                {
                     node.getUI().toggleCheck(false);
                     node.eachChild(massUncheck);
-                    if(node==activeNode){
+                    if (node == activeNode) {
                         checkchange();
                     }
                 }

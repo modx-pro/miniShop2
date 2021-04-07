@@ -1,14 +1,15 @@
 <?php
-$xpdo_meta_map['msOrder']= array (
+
+$xpdo_meta_map['msOrder'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_orders',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'user_id' => NULL,
-        'createdon' => NULL,
-        'updatedon' => NULL,
+        'user_id' => null,
+        'createdon' => null,
+        'updatedon' => null,
         'num' => '',
         'cost' => 0.0,
         'cart_cost' => 0.0,
@@ -19,8 +20,8 @@ $xpdo_meta_map['msOrder']= array (
         'payment' => 0,
         'address' => 0,
         'context' => 'web',
-        'comment' => NULL,
-        'properties' => NULL,
+        'comment' => null,
+        'properties' => null,
         'type' => 0,
     ),
     'fieldMeta' =>

@@ -1,21 +1,22 @@
 <?php
-$xpdo_meta_map['msVendor']= array (
+
+$xpdo_meta_map['msVendor'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_vendors',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'name' => NULL,
+        'name' => null,
         'resource' => 0,
-        'country' => NULL,
-        'logo' => NULL,
-        'address' => NULL,
-        'phone' => NULL,
-        'fax' => NULL,
-        'email' => NULL,
-        'description' => NULL,
-        'properties' => NULL,
+        'country' => null,
+        'logo' => null,
+        'address' => null,
+        'phone' => null,
+        'fax' => null,
+        'email' => null,
+        'description' => null,
+        'properties' => null,
     ),
     'fieldMeta' =>
     array (

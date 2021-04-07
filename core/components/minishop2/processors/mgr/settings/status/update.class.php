@@ -50,7 +50,6 @@ class msOrderStatusUpdateProcessor extends modObjectUpdateProcessor
 
         return !$this->hasErrors();
     }
-
 }
 
 return 'msOrderStatusUpdateProcessor';

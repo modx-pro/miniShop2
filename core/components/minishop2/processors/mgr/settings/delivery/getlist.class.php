@@ -31,8 +31,7 @@ class msDeliveryGetListProcessor extends modObjectGetListProcessor
         if ($this->getProperty('combo')) {
             $c->select('id,name');
             $c->where(array('active' => 1, 'OR:id:=' => $this->getProperty('id')));
-        }
-        else {
+        } else {
             $c->leftJoin('msDeliveryMember', 'Payments');
             $c->groupby($this->classKey . '.id');
             $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
@@ -104,7 +103,6 @@ class msDeliveryGetListProcessor extends modObjectGetListProcessor
 
         return $data;
     }
-
 }
 
 return 'msDeliveryGetListProcessor';

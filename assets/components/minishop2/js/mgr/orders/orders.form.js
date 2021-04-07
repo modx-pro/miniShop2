@@ -92,7 +92,8 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
         return [{
             xtype: 'displayfield',
             id: 'minishop2-orders-info',
-            html: String.format('\
+            html: String.format(
+                '\
                 <table>\
                     <tr class="top">\
                         <td><span id="minishop2-orders-info-num">0</span><br>{0}</td>\
@@ -103,8 +104,10 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
                         <td><span id="minishop2-orders-info-month-sum">0</span><br>{3}</td>\
                     </tr>\
                 </table>',
-                _('ms2_orders_form_selected_num'), _('ms2_orders_form_selected_sum'),
-                _('ms2_orders_form_month_num'), _('ms2_orders_form_month_sum')
+                _('ms2_orders_form_selected_num'),
+                _('ms2_orders_form_selected_sum'),
+                _('ms2_orders_form_month_num'),
+                _('ms2_orders_form_month_sum')
             ),
         }];
     },
@@ -154,10 +157,10 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
                     form.updateInfo(res.reader['jsonData']);
                 });
             },
-            afterrender: function() {
+            afterrender: function () {
                 var form = this;
-                window.setTimeout(function() {
-                    form.on('resize', function() {
+                window.setTimeout(function () {
+                    form.on('resize', function () {
                         form.updateInfo();
                     });
                 }, 100);
@@ -210,11 +213,10 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
         var store = this.grid.getStore();
         var form = this.getForm();
 
-        form.items.each(function(f) {
+        form.items.each(function (f) {
             if (f.name == 'status') {
                 f.clearValue();
-            }
-            else {
+            } else {
                 f.reset();
             }
         });

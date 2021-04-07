@@ -20,7 +20,6 @@ class msLinkGetProcessor extends modObjectGetProcessor
 
         return parent::initialize();
     }
-
 }
 
 return 'msLinkGetProcessor';

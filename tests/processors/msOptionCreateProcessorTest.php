@@ -1,10 +1,12 @@
 <?php
 
-class msOptionCreateProcessorTest extends MODxProcessorTestCase {
+class msOptionCreateProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/create';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -23,22 +25,23 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
         $product = $this->createTestProduct('UnitTestProduct1', $category->get('id'));
-
     }
 
-    public function testCreateUniqueOption() {
+    public function testCreateUniqueOption()
+    {
         $response = $this->getResponse(array(
             'key' => 'UnitTestUniqueOption'
         ));
         $this->assertTrue($response['success']);
         $data = $response['object'];
-        $this->assertTrue( isset($data['id']));
+        $this->assertTrue(isset($data['id']));
         $this->assertEquals('UnitTestUniqueOption', $data['key']);
-        $this->assertTrue( isset($data['caption']));
-        $this->assertTrue( isset($data['type']));
+        $this->assertTrue(isset($data['caption']));
+        $this->assertTrue(isset($data['type']));
     }
 
-    public function testCreateNonUniqueOption() {
+    public function testCreateNonUniqueOption()
+    {
         $response = $this->getResponse(array(
             'key' => 'UnitTestOption1'
         ));
@@ -46,13 +49,15 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
         $this->assertEquals($this->modx->lexicon('ms2_option_err_ae'), $response['errors'][0]['msg']);
     }
 
-    public function testCreateEmptyNameOption() {
+    public function testCreateEmptyNameOption()
+    {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_name_ns'), $response['errors'][0]['msg']);
     }
 
-    public function testCreateWithCategories() {
+    public function testCreateWithCategories()
+    {
         $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
 
         $response = $this->getResponse(array(
@@ -72,7 +77,8 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
         $this->assertEquals('', $productOpt->get('value'));
     }
 
-    public function testCreateWithNotExistedCategories() {
+    public function testCreateWithNotExistedCategories()
+    {
         $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
         $categories[100500] = array();
         $response = $this->getResponse(array(
@@ -84,6 +90,4 @@ class msOptionCreateProcessorTest extends MODxProcessorTestCase {
         $this->assertTrue($response['success']);
         $this->assertEquals($response['object']['categories'], array_keys($categories));
     }
-
-
 }

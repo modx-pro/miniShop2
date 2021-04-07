@@ -33,23 +33,31 @@ foreach ($tmp as $k => $v) {
         foreach ($v['permissions'] as $k2 => $v2) {
             /** @var modAccessPermission $event */
             $permission = $modx->newObject('modAccessPermission');
-            $permission->fromArray(array_merge(array(
+            $permission->fromArray(
+                array_merge(array(
                     'name' => $k2,
                     'description' => $k2,
                     'value' => true,
-                ), $v2)
-                , '', true, true);
+                ), $v2),
+                '',
+                true,
+                true
+            );
             $permissions[] = $permission;
         }
     }
 
     /** @var $template modAccessPolicyTemplate */
     $template = $modx->newObject('modAccessPolicyTemplate');
-    $template->fromArray(array_merge(array(
+    $template->fromArray(
+        array_merge(array(
             'name' => $k,
             'lexicon' => PKG_NAME_LOWER . ':permissions',
-        ), $v)
-        , '', true, true);
+        ), $v),
+        '',
+        true,
+        true
+    );
 
     if (!empty($permissions)) {
         $template->addMany($permissions);

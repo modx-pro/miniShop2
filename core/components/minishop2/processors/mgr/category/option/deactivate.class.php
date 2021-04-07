@@ -16,7 +16,6 @@ class msCategoryOptionDeActivateProcessor extends msCategoryOptionUpdateProcesso
 
         return true;
     }
-
 }
 
 return 'msCategoryOptionDeActivateProcessor';

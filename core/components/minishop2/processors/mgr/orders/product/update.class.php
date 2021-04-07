@@ -36,7 +36,6 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
         }
 
         if ($options = $this->getProperty('options')) {
-
             if (is_array($options)) {
                 $options = json_encode($options, JSON_UNESCAPED_UNICODE);
             }
@@ -92,7 +91,6 @@ class msOrderProductUpdateProcessor extends modObjectUpdateProcessor
         }
         return $options;
     }
-
 }
 
 return 'msOrderProductUpdateProcessor';

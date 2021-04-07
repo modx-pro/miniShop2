@@ -18,7 +18,6 @@ class msDeliveryRemoveProcessor extends modObjectRemoveProcessor
 
         return parent::initialize();
     }
-
 }
 
 return 'msDeliveryRemoveProcessor';

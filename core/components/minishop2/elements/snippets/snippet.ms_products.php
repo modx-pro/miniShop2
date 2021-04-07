@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
@@ -169,7 +170,6 @@ if (!empty($scriptProperties['sortbyOptions'])) {
             );
             $joinedOptions[] = $option;
         }
-
     }
 }
 

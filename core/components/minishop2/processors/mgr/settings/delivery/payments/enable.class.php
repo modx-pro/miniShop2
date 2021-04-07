@@ -31,7 +31,6 @@ class msPaymentMemberCreateProcessor extends modObjectCreateProcessor
 
         return true;
     }
-
 }
 
 return 'msPaymentMemberCreateProcessor';

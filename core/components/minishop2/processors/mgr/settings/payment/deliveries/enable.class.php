@@ -31,7 +31,6 @@ class msDeliveryMemberCreateProcessor extends modObjectCreateProcessor
 
         return true;
     }
-
 }
 
 return 'msDeliveryMemberCreateProcessor';

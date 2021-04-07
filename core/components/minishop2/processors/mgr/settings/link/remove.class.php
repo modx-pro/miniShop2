@@ -20,7 +20,6 @@ class msLinkRemoveProcessor extends modObjectRemoveProcessor
 
         return parent::initialize();
     }
-
 }
 
 return 'msLinkRemoveProcessor';

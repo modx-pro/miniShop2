@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
@@ -65,7 +66,7 @@ foreach ($optionKeys as $key) {
 
 if (!empty($sortGroups) && !empty($options)) {
     $sortGroups = array_map('mb_strtolower', $sortGroups);
-    uasort($options, function($a, $b) use ($sortGroups) {
+    uasort($options, function ($a, $b) use ($sortGroups) {
         $ai = array_search(mb_strtolower($a['category'], 'utf-8'), $sortGroups, true);
         $ai = $ai !== false ? $ai : array_search(mb_strtolower($a['category_name'], 'utf-8'), $sortGroups, true);
         $bi = array_search(mb_strtolower($b['category'], 'utf-8'), $sortGroups, true);
@@ -87,7 +88,7 @@ if (!empty($sortGroups) && !empty($options)) {
 
 if (!empty($sortOptions) && !empty($options)) {
     $sortOptions = array_map('mb_strtolower', $sortOptions);
-    uksort($options, function($a, $b) use ($sortOptions) {
+    uksort($options, function ($a, $b) use ($sortOptions) {
         $ai = array_search(mb_strtolower($a, 'utf-8'), $sortOptions, true);
         $bi = array_search(mb_strtolower($b, 'utf-8'), $sortOptions, true);
         if ($ai === false && $bi === false) {

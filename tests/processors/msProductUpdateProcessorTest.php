@@ -1,10 +1,12 @@
 <?php
 
-class msProductUpdateProcessorTest extends MODxProcessorTestCase {
+class msProductUpdateProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/product/update';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -27,7 +29,8 @@ class msProductUpdateProcessorTest extends MODxProcessorTestCase {
         $this->createTestProductOption($product->get('id'), 'UnitTestOption1', array('value' => 1));
     }
 
-    public function testNumberKeyOption() {
+    public function testNumberKeyOption()
+    {
         $product = $this->modx->getObject('msProduct', array('pagetitle' => 'UnitTestProduct1'));
         $product->set('4', 'test');
         $this->assertEquals('test', $product->get('4'));

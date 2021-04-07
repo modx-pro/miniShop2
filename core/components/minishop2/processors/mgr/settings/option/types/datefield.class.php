@@ -19,7 +19,7 @@ class msDatefieldType extends msOptionType
             timeWidth: 0,
             ctCls: 'x-no-time',
             dateConfig: {
-                allowBlank: " .($field['required'] ? 0 : 1). ",
+                allowBlank: " . ($field['required'] ? 0 : 1) . ",
             },
             getValue: function() {
                 var v = this.dateValue ? new Date(this.dateValue) : '';

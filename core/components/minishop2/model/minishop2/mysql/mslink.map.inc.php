@@ -1,14 +1,15 @@
 <?php
-$xpdo_meta_map['msLink']= array (
+
+$xpdo_meta_map['msLink'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_links',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'type' => NULL,
-        'name' => NULL,
-        'description' => NULL,
+        'type' => null,
+        'name' => null,
+        'description' => null,
     ),
     'fieldMeta' =>
     array (

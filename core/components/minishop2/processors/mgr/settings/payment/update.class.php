@@ -51,7 +51,8 @@ class msPaymentUpdateProcessor extends modObjectUpdateProcessor
         return !$this->hasErrors();
     }
 
-    public function preparePrice($price = 0) {
+    public function preparePrice($price = 0)
+    {
         $sign = '';
         $price = preg_replace(array('#[^0-9%\-,\.]#', '#,#'), array('', '.'), $price);
         if (strpos($price, '-') !== false) {
@@ -68,7 +69,6 @@ class msPaymentUpdateProcessor extends modObjectUpdateProcessor
 
         return $price;
     }
-
 }
 
 return 'msPaymentUpdateProcessor';

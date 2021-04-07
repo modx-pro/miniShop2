@@ -80,7 +80,6 @@ class msProductFileUpdateProcessor extends modObjectUpdateProcessor
 
         return parent::afterSave();
     }
-
 }
 
 return 'msProductFileUpdateProcessor';

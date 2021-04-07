@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection PhpIncludeInspection */
+
 require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/product/create.class.php';
 /** @noinspection PhpIncludeInspection */
 require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/product/update.class.php';
@@ -23,7 +24,7 @@ class msProduct extends modResource
     *
     * @param xPDO $xpdo
     */
-    function __construct(xPDO & $xpdo)
+    function __construct(xPDO &$xpdo)
     {
         parent::__construct($xpdo);
         parent::set('class_key', 'msProduct');
@@ -43,7 +44,7 @@ class msProduct extends modResource
     *
     * @return msProduct
     */
-    public static function load(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
+    public static function load(xPDO &$xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
             $criteria = $xpdo->getCriteria($className, $criteria, $cacheFlag);
@@ -63,7 +64,7 @@ class msProduct extends modResource
     *
     * @return array
     */
-    public static function loadCollection(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
+    public static function loadCollection(xPDO &$xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
             $criteria = $xpdo->getCriteria($className, $criteria, $cacheFlag);
@@ -82,8 +83,11 @@ class msProduct extends modResource
     */
     public static function getControllerPath(xPDO &$modx)
     {
-        return $modx->getOption('minishop2.core_path', null,
-            $modx->getOption('core_path') . 'components/minishop2/') . 'controllers/product/';
+        return $modx->getOption(
+            'minishop2.core_path',
+            null,
+            $modx->getOption('core_path') . 'components/minishop2/'
+        ) . 'controllers/product/';
     }
 
 
@@ -298,9 +302,9 @@ class msProduct extends modResource
     *
     * @return bool
     */
-    public function addOne(& $obj, $alias = '')
+    public function addOne(&$obj, $alias = '')
     {
-        if (empty ($alias)) {
+        if (empty($alias)) {
             if ($obj->_alias == $obj->_class) {
                 $aliases = $this->_getAliases($obj->_class, 1);
                 if (!empty($aliases)) {
@@ -339,7 +343,7 @@ class msProduct extends modResource
     *
     * @return bool
     */
-    public function addMany(& $obj, $alias = '')
+    public function addMany(&$obj, $alias = '')
     {
         /* TODO корректно не работает
         if (empty ($alias)) {
@@ -534,7 +538,8 @@ class msProduct extends modResource
     *
     * @return array
     */
-    public function modifyFields($data = array()) {
+    public function modifyFields($data = array())
+    {
         return $this->loadData()->modifyFields($data);
     }
 }

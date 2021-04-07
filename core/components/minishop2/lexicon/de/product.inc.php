@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Products German Lexicon Entries for miniShop2
  *

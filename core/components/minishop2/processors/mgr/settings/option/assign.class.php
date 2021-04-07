@@ -51,7 +51,6 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
 
         return true;
     }
-
 }
 
 return 'msOptionAssignProcessor';

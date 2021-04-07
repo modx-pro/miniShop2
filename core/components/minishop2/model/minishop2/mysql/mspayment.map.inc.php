@@ -1,19 +1,20 @@
 <?php
-$xpdo_meta_map['msPayment']= array (
+
+$xpdo_meta_map['msPayment'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_payments',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'name' => NULL,
-        'description' => NULL,
+        'name' => null,
+        'description' => null,
         'price' => '0',
-        'logo' => NULL,
+        'logo' => null,
         'rank' => 0,
         'active' => 1,
-        'class' => NULL,
-        'properties' => NULL,
+        'class' => null,
+        'properties' => null,
     ),
     'fieldMeta' =>
     array (

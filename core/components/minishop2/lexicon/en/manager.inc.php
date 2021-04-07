@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Manager English Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_menu_create'] = 'Create';
 $_lang['ms2_menu_copy'] = 'Copy';
 $_lang['ms2_menu_add'] = 'Add';

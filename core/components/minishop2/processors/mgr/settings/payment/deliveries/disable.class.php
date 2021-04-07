@@ -39,7 +39,6 @@ class msDeliveryMemberRemoveProcessor extends modObjectRemoveProcessor
 
         return true;
     }
-
 }
 
 return 'msDeliveryMemberRemoveProcessor';

@@ -43,7 +43,6 @@ class msLinkUpdateProcessor extends modObjectUpdateProcessor
 
         return !$this->hasErrors();
     }
-
 }
 
 return 'msLinkUpdateProcessor';

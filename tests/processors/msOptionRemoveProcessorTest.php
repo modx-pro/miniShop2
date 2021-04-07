@@ -1,10 +1,12 @@
 <?php
 
-class msOptionRemoveProcessorTest extends MODxProcessorTestCase {
+class msOptionRemoveProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/remove';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -21,22 +23,24 @@ class msOptionRemoveProcessorTest extends MODxProcessorTestCase {
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option1->get('id'), array('rank' => 1));
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option2->get('id'), array('rank' => 2));
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
-
     }
 
-    public function testRemoveNotSpecifiedOption() {
+    public function testRemoveNotSpecifiedOption()
+    {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_ns'), $response['message']);
     }
 
-    public function testRemoveNotExistedOption() {
+    public function testRemoveNotExistedOption()
+    {
         $response = $this->getResponse(array('id' => 100500));
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_nfs'), $response['message']);
     }
 
-    public function testRemoveOption() {
+    public function testRemoveOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
         $cats = $option->getMany('OptionCategories');

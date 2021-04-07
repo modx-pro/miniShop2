@@ -1,13 +1,14 @@
 <?php
-$xpdo_meta_map['msCategoryMember']= array (
+
+$xpdo_meta_map['msCategoryMember'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_product_categories',
     'extends' => 'xPDOObject',
     'fields' =>
     array (
-        'product_id' => NULL,
-        'category_id' => NULL,
+        'product_id' => null,
+        'category_id' => null,
     ),
     'fieldMeta' =>
     array (

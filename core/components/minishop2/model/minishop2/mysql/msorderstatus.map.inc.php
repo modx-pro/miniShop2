@@ -1,13 +1,14 @@
 <?php
-$xpdo_meta_map['msOrderStatus']= array (
+
+$xpdo_meta_map['msOrderStatus'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_order_statuses',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'name' => NULL,
-        'description' => NULL,
+        'name' => null,
+        'description' => null,
         'color' => '000000',
         'email_user' => 0,
         'email_manager' => 0,

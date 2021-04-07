@@ -76,7 +76,6 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
 
         return $this->success('', $this->to_object);
     }
-
 }
 
 return 'msCategoryOptionDuplicateProcessor';

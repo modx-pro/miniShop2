@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Properties Belorussian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_prop_limit'] = 'Ліміт выбаркі вынікаў.';
 $_lang['ms2_prop_offset'] = 'Пропуск вынікаў з пачатку выбаркі';
 $_lang['ms2_prop_depth'] = 'Глыбіня пошуку тавараў ад кожнага з бацькоў.';

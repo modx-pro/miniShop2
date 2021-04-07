@@ -200,14 +200,17 @@ Ext.extend(miniShop2.window.UpdateOrder, miniShop2.window.Default, {
         var n;
         if (tmp.length > 0) {
             for (i = 0; i < tmp.length; i++) {
-                if (i == 0) fields.push(addx(.7, .3));
-                else if (i == 2) fields.push(addx(.3, .7));
-                else if (i % 2 == 0) fields.push(addx());
+                if (i == 0) {
+                    fields.push(addx(.7, .3));
+                } else if (i == 2) {
+                    fields.push(addx(.3, .7));
+                } else if (i % 2 == 0) {
+                    fields.push(addx());
+                }
 
                 if (i <= 1) {
                     n = 0;
-                }
-                else {
+                } else {
                     n = Math.floor(i / 2);
                 }
                 fields[n].items[i % 2].items.push(tmp[i]);

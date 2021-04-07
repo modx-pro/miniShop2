@@ -1,5 +1,6 @@
 <?php
-$xpdo_meta_map['msOrderLog']= array (
+
+$xpdo_meta_map['msOrderLog'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_order_logs',
@@ -8,10 +9,10 @@ $xpdo_meta_map['msOrderLog']= array (
     array (
         'user_id' => 0,
         'order_id' => 0,
-        'timestamp' => NULL,
+        'timestamp' => null,
         'action' => '',
         'entry' => '0',
-        'ip' => NULL,
+        'ip' => null,
     ),
     'fieldMeta' =>
     array (

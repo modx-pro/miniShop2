@@ -33,7 +33,6 @@ class msCategoryOptionUpdateProcessor extends modObjectUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msCategoryOptionUpdateProcessor';

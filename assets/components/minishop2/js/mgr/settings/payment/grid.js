@@ -40,7 +40,7 @@ Ext.extend(miniShop2.grid.Payment, miniShop2.grid.Default, {
                 id: 'actions',
                 width: 50,
                 renderer: miniShop2.utils.renderActions
-            }
+        }
         ];
     },
 
@@ -162,7 +162,8 @@ Ext.extend(miniShop2.grid.Payment, miniShop2.grid.Default, {
                 if (val == 'yes') {
                     this.paymentAction('remove');
                 }
-            }, this
+            },
+            this
         );
     },
 });

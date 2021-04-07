@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 $exists = $chunks = false;
 $output = null;
@@ -38,7 +39,6 @@ if (!$exists) {
         default:
             $output = 'This component requires <b>pdoTools</b> for fast work of snippets.<br/><br/>It will be automatically downloaded and installed?';
     }
-
 }
 
 if ($chunks) {

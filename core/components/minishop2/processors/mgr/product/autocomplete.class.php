@@ -31,8 +31,7 @@ class msProductAutocompleteProcessor extends modObjectProcessor
             foreach ($res as $k => $v) {
                 if ($v[$name] == '') {
                     unset($res[$k]);
-                }
-                elseif ($v[$name] == $query) {
+                } elseif ($v[$name] == $query) {
                     $found = 1;
                 }
             }
@@ -43,7 +42,6 @@ class msProductAutocompleteProcessor extends modObjectProcessor
 
         return $this->outputArray($res);
     }
-
 }
 
 return 'msProductAutocompleteProcessor';

@@ -32,7 +32,6 @@ class msProductFileMultipleProcessor extends modProcessor
             ? $response->getResponse()
             : $this->success();
     }
-
 }
 
 return 'msProductFileMultipleProcessor';

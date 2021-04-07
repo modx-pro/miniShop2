@@ -23,7 +23,8 @@ miniShop2.grid.Products = function (config) {
         defaultNotify: false
     });
     miniShop2.grid.Products.superclass.constructor.call(this, config);
-    if (!this.defaultNotify) { this.ddText = ''; }
+    if (!this.defaultNotify) {
+        this.ddText = ''; }
 };
 Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
 
@@ -158,7 +159,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             }
         }
 
-        var option_columns= [];
+        var option_columns = [];
         if (miniShop2.config['show_options']) {
             option_columns = this.getCategoryOptions(miniShop2.config);
         }
@@ -175,7 +176,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
                     dataIndex: field
                 });
                 fields.push(columns[field]);
-            }else if (option_columns[field]) {
+            } else if (option_columns[field]) {
                 fields.push(option_columns[field]);
             }
         }
@@ -355,8 +356,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
                 row['data']['id'],
                 link
             );
-        }
-        else {
+        } else {
             var category_link = miniShop2.utils.productLink(row.data['category_name'], row.data['parent']);
             return String.format(
                 '<div class="nested-product">\

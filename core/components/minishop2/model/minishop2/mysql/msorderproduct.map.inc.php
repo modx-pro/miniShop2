@@ -1,19 +1,20 @@
 <?php
-$xpdo_meta_map['msOrderProduct']= array (
+
+$xpdo_meta_map['msOrderProduct'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_order_products',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'product_id' => NULL,
-        'order_id' => NULL,
-        'name' => NULL,
+        'product_id' => null,
+        'order_id' => null,
+        'name' => null,
         'count' => 1,
         'price' => 0.0,
         'weight' => 0.0,
         'cost' => 0.0,
-        'options' => NULL,
+        'options' => null,
     ),
     'fieldMeta' =>
     array (

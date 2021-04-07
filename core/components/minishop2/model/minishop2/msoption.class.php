@@ -56,9 +56,7 @@ abstract class msOptionType
     *
     * @return mixed
     */
-    public abstract function getField($field);
-
-
+    abstract public function getField($field);
 }
 
 class msOption extends xPDOSimpleObject
@@ -90,7 +88,8 @@ class msOption extends xPDOSimpleObject
                 $catObj = $this->xpdo->getObject('msCategory', array('id' => $category));
                 if ($catObj) {
                     /** @var msCategoryOption $catFtObj */
-                    $catFtObj = $this->xpdo->getObject('msCategoryOption',
+                    $catFtObj = $this->xpdo->getObject(
+                        'msCategoryOption',
                         array('category_id' => $category, 'option_id' => $this->get('id'))
                     );
                     if (!$catFtObj) {

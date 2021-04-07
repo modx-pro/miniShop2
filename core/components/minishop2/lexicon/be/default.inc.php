@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default Belorussian Lexicon Entries for miniShop2
  *

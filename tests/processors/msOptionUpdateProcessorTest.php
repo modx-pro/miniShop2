@@ -1,10 +1,12 @@
 <?php
 
-class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
+class msOptionUpdateProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/update';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -26,19 +28,22 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
         $this->createTestProductOption($product->get('id'), 'UnitTestOption1', array('value' => 1));
     }
 
-    public function testUpdateNotSpecifiedOption() {
+    public function testUpdateNotSpecifiedOption()
+    {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_ns'), $response['message']);
     }
 
-    public function testUpdateNotExistedOption() {
+    public function testUpdateNotExistedOption()
+    {
         $response = $this->getResponse(array('id' => 100500));
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_nfs'), $response['message']);
     }
 
-    public function testUpdateNonUniqueOption() {
+    public function testUpdateNonUniqueOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $response = $this->getResponse(array(
             'id' =>  $option->get('id'),
@@ -48,7 +53,8 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
         $this->assertEquals($this->modx->lexicon('ms2_option_err_ae'), $response['errors'][0]['msg']);
     }
 
-    public function testUpdateEmptyNameOption() {
+    public function testUpdateEmptyNameOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $response = $this->getResponse(array(
             'id' =>  $option->get('id'),
@@ -58,7 +64,8 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
         $this->assertEquals($this->modx->lexicon('ms2_option_err_name_ns'), $response['errors'][0]['msg']);
     }
 
-    public function testUpdateOption() {
+    public function testUpdateOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
         $response = $this->getResponse(array(
@@ -74,10 +81,10 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
             'type' => '',
             'properties' => null
         ), $response['object']);
-
     }
 
-    public function testUpdateWithCategories() {
+    public function testUpdateWithCategories()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
         $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));
@@ -101,7 +108,8 @@ class msOptionUpdateProcessorTest extends MODxProcessorTestCase {
         $this->assertEquals('1', $productOpt->get('value'));
     }
 
-    public function testUpdateWithNotExistedCategories() {
+    public function testUpdateWithNotExistedCategories()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
         $categories = $this->modx->getCollection('msCategory', array('pagetitle:LIKE' => '%UnitTest%'));

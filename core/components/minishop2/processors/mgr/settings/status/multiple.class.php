@@ -30,7 +30,6 @@ class msOrderStatusMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msOrderStatusMultipleProcessor';

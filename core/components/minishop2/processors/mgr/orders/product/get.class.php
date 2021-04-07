@@ -88,7 +88,6 @@ class msOrderProductGetProcessor extends modObjectGetProcessor
 
         return true;
     }
-
 }
 
 return 'msOrderProductGetProcessor';

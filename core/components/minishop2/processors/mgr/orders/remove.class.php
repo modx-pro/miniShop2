@@ -18,7 +18,6 @@ class msOrderRemoveProcessor extends modObjectRemoveProcessor
 
         return parent::initialize();
     }
-
 }
 
 return 'msOrderRemoveProcessor';

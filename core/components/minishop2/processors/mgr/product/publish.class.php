@@ -14,7 +14,6 @@ class msProductPublishProcessor extends modResourcePublishProcessor
     {
         return empty($this->permission) || $this->modx->hasPermission($this->permission);
     }
-
 }
 
 return 'msProductPublishProcessor';

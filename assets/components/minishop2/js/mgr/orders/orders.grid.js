@@ -26,7 +26,7 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
     getColumns: function () {
         var all = {
             id: {width: 35},
-            customer: {width: 100, renderer: function(val, cell, row) {
+            customer: {width: 100, renderer: function (val, cell, row) {
                 return miniShop2.utils.userLink(val, row.data['user_id'], true);
             }},
             num: {width: 50},
@@ -175,7 +175,8 @@ Ext.extend(miniShop2.grid.Orders, miniShop2.grid.Default, {
                 if (val == 'yes') {
                     this.orderAction('remove');
                 }
-            }, this
+            },
+            this
         );
     },
 

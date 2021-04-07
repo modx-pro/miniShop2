@@ -62,7 +62,6 @@ class msProductGetOptionsProcessor extends modObjectProcessor
 
         return $values;
     }
-
 }
 
 return 'msProductGetOptionsProcessor';

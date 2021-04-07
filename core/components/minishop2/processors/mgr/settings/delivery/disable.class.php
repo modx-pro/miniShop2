@@ -15,7 +15,6 @@ class msDeliveryDisableProcessor extends msDeliveryUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msDeliveryDisableProcessor';

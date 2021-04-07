@@ -61,8 +61,12 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
         $c = $this->prepareQueryAfterCount($c);
 
         $sortClassKey = $this->getSortClassKey();
-        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '',
-            array($this->getProperty('sort')));
+        $sortKey = $this->modx->getSelectColumns(
+            $sortClassKey,
+            $this->getProperty('sortAlias', $sortClassKey),
+            '',
+            array($this->getProperty('sort'))
+        );
         if (empty($sortKey)) {
             $sortKey = $this->getProperty('sort');
         }
@@ -133,8 +137,11 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
     public function prepareResult(array $resourceArray)
     {
         $resourceArray['parents'] = array();
-        $parents = $this->modx->getParentIds($resourceArray['id'], 2,
-            array('context' => $resourceArray['context_key']));
+        $parents = $this->modx->getParentIds(
+            $resourceArray['id'],
+            2,
+            array('context' => $resourceArray['context_key'])
+        );
         if ($parents[count($parents) - 1] == 0) {
             unset($parents[count($parents) - 1]);
         }
@@ -154,7 +161,6 @@ class msCategoryGetCatsProcessor extends modObjectGetListProcessor
 
         return $resourceArray;
     }
-
 }
 
 return 'msCategoryGetCatsProcessor';

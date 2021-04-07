@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 /** @var array $sources */
 $snippets = array();

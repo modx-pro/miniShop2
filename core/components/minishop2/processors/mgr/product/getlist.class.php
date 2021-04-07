@@ -18,8 +18,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
     {
         if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
             $this->item_id = $id;
-        }
-        else {
+        } else {
             $showOptions = (bool)$this->modx->getOption('ms2_category_show_options', null, true);
             if ($showOptions) {
                 $grid_fields = $this->modx->getOption('ms2_category_grid_fields');
@@ -101,10 +100,10 @@ class msProductGetListProcessor extends modObjectGetListProcessor
                         $parents[] = $v;
                     }
                 }
-                $parents= "(" . implode(',', $parents) . ")";
+                $parents = "(" . implode(',', $parents) . ")";
                 $c->query['where'][] = [[
-                    new xPDOQueryCondition(array('sql' => 'msProduct.parent IN '.$parents, 'conjunction' => 'OR')),
-                    new xPDOQueryCondition(array('sql' => 'Member.category_id IN '.$parents, 'conjunction' => 'OR'))
+                    new xPDOQueryCondition(array('sql' => 'msProduct.parent IN ' . $parents, 'conjunction' => 'OR')),
+                    new xPDOQueryCondition(array('sql' => 'Member.category_id IN ' . $parents, 'conjunction' => 'OR'))
                 ]];
             }
         }
@@ -139,13 +138,13 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         }
 
         $ids = [];
-        if ($q->prepare() AND $q->stmt->execute()) {
+        if ($q->prepare() and $q->stmt->execute()) {
             $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
             $total = $this->modx->query('SELECT FOUND_ROWS()')->fetchColumn();
         }
         $ids = empty($ids) ? "(0)" : "(" . implode(',', $ids) . ")";
         $c->query['where'] = [[
-            new xPDOQueryCondition(array('sql' => 'msProduct.id IN '. $ids, 'conjunction' => 'AND')),
+            new xPDOQueryCondition(array('sql' => 'msProduct.id IN ' . $ids, 'conjunction' => 'AND')),
         ]];
         $c->sortby($sortKey, $this->getProperty('dir'));
 
@@ -164,7 +163,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
         $c = $this->prepareQueryBeforeCount($c);
         $c = $this->prepareQueryAfterCount($c);
         $data = [
-            'results' => ($c->prepare() AND $c->stmt->execute()) ? $c->stmt->fetchAll(PDO::FETCH_ASSOC) : [],
+            'results' => ($c->prepare() and $c->stmt->execute()) ? $c->stmt->fetchAll(PDO::FETCH_ASSOC) : [],
             'total'   => (int)$this->getProperty('total'),
         ];
 
@@ -237,12 +236,12 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             $array['preview_url'] = $this->modx->makeUrl($array['id'], $array['context_key']);
 
             // Options
-            if($this->options) {
+            if ($this->options) {
                 $this->options->rewind();
                 if ($this->options->valid()) {
                     /** @var msOption $option */
                     foreach ($this->options as $option) {
-                        $array['options-'.$option->get('key')] = $option->getRowValue($array['id']);
+                        $array['options-' . $option->get('key')] = $option->getRowValue($array['id']);
                     }
                 }
             }
@@ -357,7 +356,6 @@ class msProductGetListProcessor extends modObjectGetListProcessor
 
         return $array;
     }
-
 }
 
 return 'msProductGetListProcessor';

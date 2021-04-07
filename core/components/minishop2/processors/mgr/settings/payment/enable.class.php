@@ -15,7 +15,6 @@ class msPaymentEnableProcessor extends msPaymentUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msPaymentEnableProcessor';

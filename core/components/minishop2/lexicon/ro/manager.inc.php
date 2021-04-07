@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manager Romanian Lexicon Entries for miniShop2
  * translated by Anna
@@ -6,6 +7,7 @@
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_menu_create'] = 'A crea';
 $_lang['ms2_menu_copy'] = 'A copia';
 $_lang['ms2_menu_add'] = 'A adăuga';

@@ -1,2 +1,5 @@
 <?php
-class msDeliveryMember extends xPDOObject {}
+
+class msDeliveryMember extends xPDOObject
+{
+}

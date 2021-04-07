@@ -7,7 +7,7 @@
     <file>tests</file>
 
     <!-- Exclude paths -->
-    <!-- <exclude-pattern></exclude-pattern> -->
+    <exclude-pattern>assets/components/minishop2/js/mgr/misc/plupload/</exclude-pattern>
 
     <!-- Show progress, show the error codes for each message (source). -->
     <arg value="ps" />

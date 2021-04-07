@@ -17,7 +17,7 @@ class msChunkGetListProcessor extends modObjectGetListProcessor
         $categories = $this->modx->getOption('ms2_chunks_categories');
         if (!empty($categories)) {
             $c->where(array(
-                'category:IN' => explode(',',$categories)
+                'category:IN' => explode(',', $categories)
             ));
         }
         if ($id = (int)$this->getProperty('id')) {
@@ -49,7 +49,6 @@ class msChunkGetListProcessor extends modObjectGetListProcessor
 
         return $array;
     }
-
 }
 
 return 'msChunkGetListProcessor';

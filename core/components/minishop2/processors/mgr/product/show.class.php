@@ -16,7 +16,6 @@ class msProductShowInTreeProcessor extends modObjectUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msProductShowInTreeProcessor';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default French Lexicon Entries for miniShop2
  *

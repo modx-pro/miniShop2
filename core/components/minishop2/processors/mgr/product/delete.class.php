@@ -14,7 +14,6 @@ class msProductDeleteProcessor extends modResourceDeleteProcessor
     {
         return empty($this->permission) || $this->modx->hasPermission($this->permission);
     }
-
 }
 
 return 'msProductDeleteProcessor';

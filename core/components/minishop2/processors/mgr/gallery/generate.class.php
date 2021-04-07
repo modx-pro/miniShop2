@@ -50,7 +50,6 @@ class msProductFileGenerateProcessor extends modObjectProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msProductFileGenerateProcessor';

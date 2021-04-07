@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default Russian Lexicon Entries for miniShop2
  *

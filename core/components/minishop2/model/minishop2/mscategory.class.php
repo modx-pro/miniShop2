@@ -1,5 +1,7 @@
 <?php
+
 /** @noinspection PhpIncludeInspection */
+
 require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/category/create.class.php';
 /** @noinspection PhpIncludeInspection */
 require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/category/update.class.php';
@@ -14,7 +16,7 @@ class msCategory extends modResource
     *
     * @param xPDO $xpdo
     */
-    function __construct(xPDO & $xpdo)
+    function __construct(xPDO &$xpdo)
     {
         parent:: __construct($xpdo);
         $this->set('class_key', 'msCategory');
@@ -29,7 +31,7 @@ class msCategory extends modResource
     *
     * @return modAccessibleObject|null|object
     */
-    public static function load(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
+    public static function load(xPDO &$xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
             $criteria = $xpdo->getCriteria($className, $criteria, $cacheFlag);
@@ -49,7 +51,7 @@ class msCategory extends modResource
     *
     * @return array
     */
-    public static function loadCollection(xPDO & $xpdo, $className, $criteria = null, $cacheFlag = true)
+    public static function loadCollection(xPDO &$xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
             $criteria = $xpdo->getCriteria($className, $criteria, $cacheFlag);
@@ -68,8 +70,11 @@ class msCategory extends modResource
     */
     public static function getControllerPath(xPDO &$modx)
     {
-        return $modx->getOption('minishop2.core_path', null,
-            $modx->getOption('core_path') . 'components/minishop2/') . 'controllers/category/';
+        return $modx->getOption(
+            'minishop2.core_path',
+            null,
+            $modx->getOption('core_path') . 'components/minishop2/'
+        ) . 'controllers/category/';
     }
 
 
@@ -250,8 +255,12 @@ class msCategory extends modResource
         $c = $this->prepareOptionListCriteria();
         $c->select(array(
             $this->xpdo->getSelectColumns('msOption', 'msOption'),
-            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '',
-                array('id', 'option_id', 'category_id'), true
+            $this->xpdo->getSelectColumns(
+                'msCategoryOption',
+                'msCategoryOption',
+                '',
+                array('id', 'option_id', 'category_id'),
+                true
             ),
             'Category.category AS category_name',
         ));

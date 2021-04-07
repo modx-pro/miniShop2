@@ -71,8 +71,12 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
         $c = $this->prepareQueryAfterCount($c);
 
         $sortClassKey = $this->getSortClassKey();
-        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '',
-            array($this->getProperty('sort')));
+        $sortKey = $this->modx->getSelectColumns(
+            $sortClassKey,
+            $this->getProperty('sortAlias', $sortClassKey),
+            '',
+            array($this->getProperty('sort'))
+        );
         if (empty($sortKey)) {
             $sortKey = $this->getProperty('sort');
         }
@@ -123,7 +127,6 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
 
         return $data;
     }
-
 }
 
 return 'msOrderLogGetListProcessor';

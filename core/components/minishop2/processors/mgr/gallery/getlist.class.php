@@ -86,8 +86,12 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
 
         $sortClassKey = $this->getSortClassKey();
-        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '',
-            array($this->getProperty('sort')));
+        $sortKey = $this->modx->getSelectColumns(
+            $sortClassKey,
+            $this->getProperty('sortAlias', $sortClassKey),
+            '',
+            array($this->getProperty('sort'))
+        );
         if (empty($sortKey)) {
             $sortKey = $this->getProperty('sort');
         }
@@ -137,7 +141,9 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
         $c->leftJoin('modMediaSource', 'Source');
-        $c->leftJoin($this->classKey, 'Thumb',
+        $c->leftJoin(
+            $this->classKey,
+            'Thumb',
             $this->classKey . '.id = Thumb.parent AND
             Thumb.path LIKE "%/' . $this->thumb . '/"'
         );
@@ -214,7 +220,6 @@ class msProductFileGetListProcessor extends modObjectGetListProcessor
 
         return $row;
     }
-
 }
 
 return 'msProductFileGetListProcessor';

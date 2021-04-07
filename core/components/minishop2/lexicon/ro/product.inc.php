@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Products Romanian Lexicon Entries for miniShop2
 * translated by Anna

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Properties Romanian Lexicon Entries for miniShop2
  * translated by Anna
@@ -6,6 +7,7 @@
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_prop_limit'] = 'Limita rezultatelor eșantioanelor';
 $_lang['ms2_prop_offset'] = 'Trecerea peste rezultatele de la începutul eșantionului';
 $_lang['ms2_prop_depth'] = 'Adâncimea de căutare a produselor de la fiecare părinte.';

@@ -35,7 +35,6 @@ class msCategoryGetListProcessor extends modObjectGetListProcessor
     {
         return $object->toArray();
     }
-
 }
 
 return 'msCategoryGetListProcessor';

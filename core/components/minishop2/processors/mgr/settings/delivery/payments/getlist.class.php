@@ -28,7 +28,9 @@ class msDeliveryPaymentsGetListProcessor extends modObjectGetListProcessor
     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
-        $c->leftJoin('msDeliveryMember', 'Deliveries',
+        $c->leftJoin(
+            'msDeliveryMember',
+            'Deliveries',
             "Deliveries.payment_id = {$this->classKey}.id AND Deliveries.delivery_id = {$this->getProperty('delivery')}"
         );
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey));
@@ -73,7 +75,6 @@ class msDeliveryPaymentsGetListProcessor extends modObjectGetListProcessor
 
         return $data;
     }
-
 }
 
 return 'msDeliveryPaymentsGetListProcessor';

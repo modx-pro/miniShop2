@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Default English Lexicon Entries for miniShop2 cart
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_cart'] = 'Winkelwagen';
 $_lang['ms2_minicart'] = 'Winkelwagen';
 $_lang['ms2_minicart_goods'] = 'Totaal producten:';

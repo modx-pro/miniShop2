@@ -30,7 +30,6 @@ class msDeliveryMemberMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msDeliveryMemberMultipleProcessor';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MODX Revolution
  *
@@ -27,7 +28,8 @@
  * @package modx-test
  * @subpackage modx
  */
-abstract class MODxControllerTestCase extends MODxTestCase {
+abstract class MODxControllerTestCase extends MODxTestCase
+{
     /** @var modManagerController $controller */
     public $controller;
     /**
@@ -40,7 +42,8 @@ abstract class MODxControllerTestCase extends MODxTestCase {
     * @var string $controllerName
     */
     public $controllerName;
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         /* load smarty template engine */
         $templatePath = $this->modx->getOption('manager_path') . 'templates/default/';
@@ -48,13 +51,13 @@ abstract class MODxControllerTestCase extends MODxTestCase {
             'template_dir' => $templatePath,
         ));
         $this->modx->smarty->setCachePath('mgr/smarty/default/');
-        $this->modx->smarty->assign('_config',$this->modx->config);
-        $this->modx->smarty->assignByRef('modx',$this->modx);
-        $this->modx->loadClass('modManagerController',MODX_CORE_PATH.'model/modx/',true,true);
-        require_once MODX_MANAGER_PATH.'controllers/default/'.$this->controllerPath.'.class.php';
+        $this->modx->smarty->assign('_config', $this->modx->config);
+        $this->modx->smarty->assignByRef('modx', $this->modx);
+        $this->modx->loadClass('modManagerController', MODX_CORE_PATH . 'model/modx/', true, true);
+        require_once MODX_MANAGER_PATH . 'controllers/default/' . $this->controllerPath . '.class.php';
         $className = $this->controllerName;
         if (!empty($className)) {
-            $this->controller = new $className($this->modx,array(
+            $this->controller = new $className($this->modx, array(
                 'namespace' => 'core',
                 'namespace_name' => 'core',
                 'namespace_path' => MODX_MANAGER_PATH,
@@ -63,7 +66,8 @@ abstract class MODxControllerTestCase extends MODxTestCase {
             $this->controller->setProperties($_REQUEST);
         }
     }
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
         $this->controller = null;
     }

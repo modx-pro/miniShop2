@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Manager French Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_menu_create'] = 'Créer';
 $_lang['ms2_menu_update'] = 'Mettre à jour';
 $_lang['ms2_menu_remove'] = 'Supprimer';

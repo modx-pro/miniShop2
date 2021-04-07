@@ -18,7 +18,6 @@ class msPaymentRemoveProcessor extends modObjectRemoveProcessor
 
         return parent::initialize();
     }
-
 }
 
 return 'msPaymentRemoveProcessor';

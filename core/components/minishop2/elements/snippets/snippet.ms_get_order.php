@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
@@ -58,10 +59,15 @@ $select = array(
     'msProduct' => !empty($includeContent)
         ? $modx->getSelectColumns('msProduct', 'msProduct')
         : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true),
-    'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'),
-            true) . ',`Data`.`price` as `original_price`',
+    'Data' => $modx->getSelectColumns(
+        'msProductData',
+        'Data',
+        '',
+        array('id'),
+        true
+    ) . ',`Data`.`price` as `original_price`',
     'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
-    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true).', `msOrderProduct`.`id` as `order_product_id`',
+    'OrderProduct' => $modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true) . ', `msOrderProduct`.`id` as `order_product_id`',
 );
 
 // Include products thumbnails
@@ -174,7 +180,7 @@ $pls = array_merge($scriptProperties, array(
 ));
 
 // add "payment" link
-if ($payment AND $class = $payment->get('class')) {
+if ($payment and $class = $payment->get('class')) {
     $status = $modx->getOption('payStatus', $scriptProperties, '1');
     $status = array_map('trim', explode(',', $status));
     if (in_array($order->get('status'), $status)) {

@@ -85,7 +85,6 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
             $this->order->updateProducts();
         }
     }
-
 }
 
 return 'msOrderProductCreateProcessor';

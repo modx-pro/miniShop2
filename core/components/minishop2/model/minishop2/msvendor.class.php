@@ -25,5 +25,4 @@ class msVendor extends xPDOSimpleObject
 
         return parent::remove($ancestors);
     }
-
 }

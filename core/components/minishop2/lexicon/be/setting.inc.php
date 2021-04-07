@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Settings Belorussian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['area_ms2_main'] = 'Асноўныя параметры';
 $_lang['area_ms2_category'] = 'Катэгорыя тавараў';
 $_lang['area_ms2_product'] = 'Тавар';

@@ -30,7 +30,6 @@ class msPaymentMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msPaymentMultipleProcessor';

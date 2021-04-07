@@ -55,7 +55,8 @@ Ext.extend(miniShop2.grid.ComboboxOptions, MODx.grid.LocalGrid, {
             id: 'actions',
             align: 'center',
             renderer: function () {
-                return String.format('\
+                return String.format(
+                    '\
                     <ul class="minishop2-row-actions">\
                         <li>\
                             <button class="btn btn-default icon icon-remove action-red" title="{0}" action="removeOption"></button>\
@@ -108,8 +109,7 @@ Ext.extend(miniShop2.grid.ComboboxOptions, MODx.grid.LocalGrid, {
             this.store.add(new Ext.data.Record({
                 value: ''
             }));
-        }
-        else {
+        } else {
             this.store.add(new Ext.data.Record({
                 value: ''
             }));
@@ -149,11 +149,9 @@ Ext.extend(miniShop2.grid.ComboboxOptions, MODx.grid.LocalGrid, {
         if (this.store.data.length == 1) {
             this.store.getAt(0).set('value', '');
             this.focusValueCell(0);
-        }
-        else if ((this.store.collect('value').length != this.store.data.length) && record.data['value'] == '') {
+        } else if ((this.store.collect('value').length != this.store.data.length) && record.data['value'] == '') {
             this.focusValueCell(this.store.data.length - 1);
-        }
-        else {
+        } else {
             this.store.remove(record);
         }
         this.prepareProperties();

@@ -81,7 +81,7 @@ Ext.extend(miniShop2.panel.CreateProduct, miniShop2.panel.Product, {
 
                     // Get the "Resource Groups" tab and move it to the end
                     var accessPermissionsTab;
-                    var index = item.items.findIndex(function(tab) {
+                    var index = item.items.findIndex(function (tab) {
                         return tab.id == 'modx-resource-access-permissions';
                     });
                     if (index != -1) {
@@ -101,8 +101,8 @@ Ext.extend(miniShop2.panel.CreateProduct, miniShop2.panel.Product, {
             title: _('ms2_tab_product_gallery'),
             disabled: true,
             listeners: {
-                afterrender: function(p) {
-                    Ext.get(p.tabEl).on('click', function() {
+                afterrender: function (p) {
+                    Ext.get(p.tabEl).on('click', function () {
                         MODx.msg.alert(_('warning'), _('ms2_gallery_unavailablemsg'));
                     });
                 }

@@ -1,10 +1,12 @@
 <?php
 
-abstract class MODxProcessorTestCase extends MODxTestCase {
+abstract class MODxProcessorTestCase extends MODxTestCase
+{
 
     public $processor;
 
-    protected function getResponse($data) {
+    protected function getResponse($data)
+    {
         /** @var modProcessorResponse $response */
         $response = $this->modx->runProcessor($this->processor, $data, $this->path);
         $response = $response->getResponse();
@@ -12,12 +14,13 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
             $response = json_decode($response, true);
         }
 
-        echo "\r\n".$this->processor ." response:\r\n";
+        echo "\r\n" . $this->processor . " response:\r\n";
         // var_dump($response);
         return $response;
     }
 
-    protected function createTestCategory($pagetitle, $properties = array()) {
+    protected function createTestCategory($pagetitle, $properties = array())
+    {
         /** @var msCategory $category */
         $category = $this->modx->newObject('msCategory');
         $category->set('pagetitle', $pagetitle);
@@ -29,7 +32,8 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         return $category;
     }
 
-    protected function createTestProduct($pagetitle, $category, $properties = array()) {
+    protected function createTestProduct($pagetitle, $category, $properties = array())
+    {
         /** @var msProduct $product */
         $product = $this->modx->newObject('msProduct');
         $product->set('pagetitle', $pagetitle);
@@ -42,7 +46,8 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         return $product;
     }
 
-    protected function createTestOption($name, $properties = array()) {
+    protected function createTestOption($name, $properties = array())
+    {
         /** @var msOption $option */
         $option = $this->modx->newObject('msOption');
         $option->set('key', $name);
@@ -52,7 +57,8 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         return $option;
     }
 
-    protected function createTestCategoryOption($cat_id, $option_id, $properties = array()) {
+    protected function createTestCategoryOption($cat_id, $option_id, $properties = array())
+    {
         /** @var msCategoryOption $catOption */
         $catOption = $this->modx->newObject('msCategoryOption');
         $catOption->set('category_id', $cat_id);
@@ -63,7 +69,8 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         return $catOption;
     }
 
-    protected function createTestProductOption($product_id, $option_id, $properties = array()) {
+    protected function createTestProductOption($product_id, $option_id, $properties = array())
+    {
         /** @var msProductOption $prodOption */
         $prodOption = $this->modx->newObject('msProductOption');
         $prodOption->set('product_id', $product_id);
@@ -73,28 +80,28 @@ abstract class MODxProcessorTestCase extends MODxTestCase {
         return $prodOption;
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
 
         /* Remove test categories */
-        $category = $this->modx->getIterator('modResource',array('pagetitle:LIKE' => '%UnitTest%'));
+        $category = $this->modx->getIterator('modResource', array('pagetitle:LIKE' => '%UnitTest%'));
         /** @var msCategory $cat */
         foreach ($category as $cat) {
             $cat->remove();
         }
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategory')." AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE " . $this->modx->getTableName('msCategory') . " AUTO_INCREMENT = 0;");
 
         /* Remove test options */
-        $objs = $this->modx->getIterator('msOption',array('key:LIKE' => '%UnitTest%'));
+        $objs = $this->modx->getIterator('msOption', array('key:LIKE' => '%UnitTest%'));
         /** @var xPDOObject $obj */
         foreach ($objs as $obj) {
             $obj->remove();
         }
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msOption')." AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE " . $this->modx->getTableName('msOption') . " AUTO_INCREMENT = 0;");
 
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msProductData')." AUTO_INCREMENT = 0;");
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msCategoryOption')." AUTO_INCREMENT = 0;");
-        $this->modx->query("ALTER TABLE ".$this->modx->getTableName('msProductOption')." AUTO_INCREMENT = 0;");
-
+        $this->modx->query("ALTER TABLE " . $this->modx->getTableName('msProductData') . " AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE " . $this->modx->getTableName('msCategoryOption') . " AUTO_INCREMENT = 0;");
+        $this->modx->query("ALTER TABLE " . $this->modx->getTableName('msProductOption') . " AUTO_INCREMENT = 0;");
     }
 }

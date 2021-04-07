@@ -1,10 +1,12 @@
 <?php
 
-class msOptionGetTypesProcessorTest extends MODxProcessorTestCase {
+class msOptionGetTypesProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/gettypes';
 
-    public function testGetAllTypes() {
+    public function testGetAllTypes()
+    {
         $response = $this->getResponse(array());
         $this->assertTrue($response['success']);
         $data = $response['results'];
@@ -22,10 +24,9 @@ class msOptionGetTypesProcessorTest extends MODxProcessorTestCase {
         foreach ($types as $type => $xtype) {
             $this->assertContains(array(
                 'name' => $type,
-                'caption' => $this->modx->lexicon('ms2_ft_'.$type),
+                'caption' => $this->modx->lexicon('ms2_ft_' . $type),
                 'xtype' => $xtype
             ), $data);
         }
     }
-
 }

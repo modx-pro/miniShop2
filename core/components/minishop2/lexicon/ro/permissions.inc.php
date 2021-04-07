@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Permissions Romanian Lexicon Entries for miniShop2
  * translated by Anna
@@ -7,6 +8,7 @@
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['mscategory_save'] = 'Permite crearea \ modificarea categoriei magazinului';
 $_lang['msproduct_save'] = 'Permite crearea\ modificarea produsului magazinului ';
 

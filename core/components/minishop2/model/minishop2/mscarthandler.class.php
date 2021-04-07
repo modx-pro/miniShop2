@@ -81,7 +81,6 @@ interface msCartInterface
     * @return void
     */
     public function set($cart = array());
-
 }
 
 
@@ -232,8 +231,11 @@ class msCartHandler implements msCartInterface
                     return $this->error($response['message']);
                 }
 
-                return $this->success('ms2_cart_add_success', $this->status(array('key' => $key)),
-                    array('count' => $count));
+                return $this->success(
+                    'ms2_cart_add_success',
+                    $this->status(array('key' => $key)),
+                    array('count' => $count)
+                );
             }
         }
 
@@ -283,16 +285,20 @@ class msCartHandler implements msCartInterface
                 if ($count > $this->config['max_count']) {
                     return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
                 } else {
-                    $response = $this->ms2->invokeEvent('msOnBeforeChangeInCart',
-                        array('key' => $key, 'count' => $count, 'cart' => $this));
+                    $response = $this->ms2->invokeEvent(
+                        'msOnBeforeChangeInCart',
+                        array('key' => $key, 'count' => $count, 'cart' => $this)
+                    );
                     if (!$response['success']) {
                         return $this->error($response['message']);
                     }
 
                     $count = $response['data']['count'];
                     $this->cart[$key]['count'] = $count;
-                    $response = $this->ms2->invokeEvent('msOnChangeInCart',
-                        array('key' => $key, 'count' => $count, 'cart' => $this));
+                    $response = $this->ms2->invokeEvent(
+                        'msOnChangeInCart',
+                        array('key' => $key, 'count' => $count, 'cart' => $this)
+                    );
                     if (!$response['success']) {
                         return $this->error($response['message']);
                     }
@@ -301,8 +307,11 @@ class msCartHandler implements msCartInterface
                 }
             }
 
-            return $this->success('ms2_cart_change_success', $this->status($status),
-                array('count' => $count));
+            return $this->success(
+                'ms2_cart_change_success',
+                $this->status($status),
+                array('count' => $count)
+            );
         } else {
             return $this->error('ms2_cart_change_error', $this->status($status));
         }
@@ -423,5 +432,4 @@ class msCartHandler implements msCartInterface
     {
         return $this->ms2->success($message, $data, $placeholders);
     }
-
 }

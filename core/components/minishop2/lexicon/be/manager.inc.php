@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Manager Belorussian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_menu_create'] = 'Стварыць';
 $_lang['ms2_menu_copy'] = 'Скапіяваць';
 $_lang['ms2_menu_add'] = 'Дадаць';

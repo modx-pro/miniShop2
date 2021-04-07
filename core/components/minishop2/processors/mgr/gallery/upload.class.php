@@ -150,9 +150,11 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
             $generate = $uploaded_file->generateThumbnails($this->mediaSource);
             if ($generate !== true) {
-                $this->modx->log(modX::LOG_LEVEL_ERROR,
+                $this->modx->log(
+                    modX::LOG_LEVEL_ERROR,
                     '[miniShop2] Could not generate thumbnails for image with id = ' . $uploaded_file->get('id') .
-                    '. ' . $generate);
+                    '. ' . $generate
+                );
 
                 return $this->failure($this->modx->lexicon('ms2_err_gallery_thumb'));
             } else {
@@ -162,8 +164,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
             }
         } else {
             return $this->failure($this->modx->lexicon('ms2_err_gallery_save') . ': ' .
-                print_r($this->mediaSource->getErrors(), true)
-            );
+                print_r($this->mediaSource->getErrors(), true));
         }
     }
 
@@ -242,7 +243,6 @@ class msProductFileUploadProcessor extends modObjectProcessor
             return false;
         }
     }
-
 }
 
 return 'msProductFileUploadProcessor';

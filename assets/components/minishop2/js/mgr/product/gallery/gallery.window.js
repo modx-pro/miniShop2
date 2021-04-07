@@ -85,7 +85,7 @@ Ext.extend(miniShop2.window.Image, miniShop2.window.Default, {
                         height: 100
                     }]
                 }]
-            }
+        }
         ];
     }
 

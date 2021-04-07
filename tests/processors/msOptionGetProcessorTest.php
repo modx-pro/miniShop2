@@ -1,10 +1,12 @@
 <?php
 
-class msOptionGetProcessorTest extends MODxProcessorTestCase {
+class msOptionGetProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/get';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -21,22 +23,24 @@ class msOptionGetProcessorTest extends MODxProcessorTestCase {
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option1->get('id'), array('rank' => 1));
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option2->get('id'), array('rank' => 2));
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
-
     }
 
-    public function testGetNotSpecifiedOption() {
+    public function testGetNotSpecifiedOption()
+    {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_ns'), $response['message']);
     }
 
-    public function testgetNotExistedOption() {
+    public function testgetNotExistedOption()
+    {
         $response = $this->getResponse(array('id' => 100500));
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_nfs'), $response['message']);
     }
 
-    public function testGetOption() {
+    public function testGetOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
 
@@ -68,6 +72,5 @@ class msOptionGetProcessorTest extends MODxProcessorTestCase {
         ), $response['object']['categories'][1]);
 
         $this->assertArrayHasKey('properties', $response['object']);
-
     }
 }

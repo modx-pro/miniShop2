@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Permissions English Lexicon Entries to miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['mscategory_save'] = 'Toestemming voor het opslaan\bijwerken van een minishop category';
 $_lang['msproduct_save'] = 'Toestemming voor het opslaan\bijwerken van een minishop product';
 $_lang['msorder_view'] = 'Toestemming voor het bekijken van een order';
