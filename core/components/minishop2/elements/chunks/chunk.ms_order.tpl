@@ -89,8 +89,8 @@
                     </label>
                     <div class="col-md-8">
                         <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
-                               name="{$field}" value="{$form[$field]}"
-                               class="form-control{($field in list $errors) ? ' error' : ''}">
+                            name="{$field}" value="{$form[$field]}"
+                            class="form-control{($field in list $errors) ? ' error' : ''}">
                     </div>
                 </div>
             {/foreach}
