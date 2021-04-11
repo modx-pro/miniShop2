@@ -19,8 +19,11 @@ $xpdo_meta_map['msOrderAddress'] = array(
             'metro' => null,
             'street' => null,
             'building' => null,
+            'entrance' => null,
+            'floor' => null,
             'room' => null,
             'comment' => null,
+            'text_address' => null,
             'properties' => null,
         ),
     'fieldMeta' =>
@@ -108,10 +111,30 @@ $xpdo_meta_map['msOrderAddress'] = array(
                     'phptype' => 'string',
                     'null' => true,
                 ),
+            'entrance' =>
+                array(
+                    'dbtype' => 'varchar',
+                    'precision' => '10',
+                    'phptype' => 'string',
+                    'null' => true,
+                ),
+            'floor' =>
+                array(
+                    'dbtype' => 'varchar',
+                    'precision' => '10',
+                    'phptype' => 'string',
+                    'null' => true,
+                ),
             'room' =>
                 array(
                     'dbtype' => 'varchar',
                     'precision' => '10',
+                    'phptype' => 'string',
+                    'null' => true,
+                ),
+            'text_address' =>
+                array(
+                    'dbtype' => 'text',
                     'phptype' => 'string',
                     'null' => true,
                 ),

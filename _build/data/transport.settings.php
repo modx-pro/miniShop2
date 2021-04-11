@@ -232,7 +232,7 @@ $tmp = array(
     ),
     'ms2_order_address_fields' => array(
         'xtype' => 'textarea',
-        'value' => 'receiver,phone,index,country,region,city,metro,street,building,room,comment',
+        'value' => 'receiver,phone,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address',
         'area' => 'ms2_order',
     ),
     'ms2_order_product_fields' => array(

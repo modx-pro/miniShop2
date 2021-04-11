@@ -9,10 +9,10 @@ if ($transport->xpdo) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
             $modelPath = $modx->getOption(
-                'minishop2.core_path',
-                null,
-                $modx->getOption('core_path') . 'components/minishop2/'
-            ) . 'model/';
+                    'minishop2.core_path',
+                    null,
+                    $modx->getOption('core_path') . 'components/minishop2/'
+                ) . 'model/';
             $modx->addPackage('minishop2', $modelPath);
             $lang = $modx->getOption('manager_language') == 'en' ? 1 : 0;
 
@@ -166,6 +166,18 @@ if ($transport->xpdo) {
                         $setting->save();
                     }
                 }
+            }
+
+            if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_order_address_fields'))) {
+                $value = $setting->get('value');
+                $values = explode(',', $value);
+                $values[] = 'entrance';
+                $values[] = 'floor';
+                $values[] = 'text_address';
+                $values = array_unique($values);
+                $value = implode(',', $values);
+                $setting->set('value', $value);
+                $setting->save();
             }
 
             $chunks_descriptions = array(

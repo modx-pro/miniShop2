@@ -66,6 +66,9 @@ $_lang['ms2_metro'] = 'Metro';
 $_lang['ms2_street'] = 'Street';
 $_lang['ms2_building'] = 'Building';
 $_lang['ms2_room'] = 'Room';
+$_lang['ms2_entrance'] = 'Entrance';
+$_lang['ms2_floor'] = 'Floor';
+$_lang['ms2_text_address'] = 'Address';
 $_lang['ms2_comment'] = 'Comment';
 
 $_lang['ms2_email_user'] = 'Email Customer';

@@ -9,10 +9,10 @@ if ($transport->xpdo) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
             $modelPath = $modx->getOption(
-                'minishop2.core_path',
-                null,
-                $modx->getOption('core_path') . 'components/minishop2/'
-            ) . 'model/';
+                    'minishop2.core_path',
+                    null,
+                    $modx->getOption('core_path') . 'components/minishop2/'
+                ) . 'model/';
             $modx->addPackage('minishop2', $modelPath);
 
             $manager = $modx->getManager();
@@ -76,6 +76,31 @@ if ($transport->xpdo) {
             $manager->addField('msOption', 'description', array('after' => 'caption'));
             $manager->addField('msOption', 'category', array('after' => 'description'));
             $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
+
+            $newAddressFields = ['entrance', 'floor'];
+            foreach ($newAddressFields as $field) {
+                if (!array_key_exists($field, $modx->map['msOrderAddress'][$field])) {
+                    $modx->map['msOrderAddress']['fields'][$field] = array(
+                        'dbtype' => 'varchar',
+                        'precision' => '10',
+                        'phptype' => 'string',
+                        'null' => true,
+                    );
+                }
+            }
+
+            if (!array_key_exists($field, $modx->map['msOrderAddress']['text_address'])) {
+                $modx->map['msOrderAddress']['fields']['text_address'] = array(
+                    'dbtype' => 'text',
+                    'phptype' => 'string',
+                    'null' => true,
+                );
+            }
+
+
+            $manager->addField('msOrderAddress', 'entrance', array('after' => 'building'));
+            $manager->addField('msOrderAddress', 'floor', array('after' => 'entrance'));
+            $manager->addField('msOrderAddress', 'text_address', array('after' => 'comment'));
 
             // Fix for wrong events
             /*

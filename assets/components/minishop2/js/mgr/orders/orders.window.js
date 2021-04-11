@@ -164,8 +164,11 @@ Ext.extend(miniShop2.window.UpdateOrder, miniShop2.window.Default, {
             building: {},
             city: {},
             street: {},
-            room: {}
+            room: {},
+            entrance: {},
+            floor: {},
         };
+        console.log( miniShop2.config['order_address_fields']);
         var fields = [], tmp = [];
         for (var i = 0; i < miniShop2.config['order_address_fields'].length; i++) {
             var field = miniShop2.config['order_address_fields'][i];
@@ -215,6 +218,18 @@ Ext.extend(miniShop2.window.UpdateOrder, miniShop2.window.Default, {
                 }
                 fields[n].items[i % 2].items.push(tmp[i]);
             }
+            if (miniShop2.config['order_address_fields'].in_array('text_address')) {
+                fields.push(
+                    {
+                        xtype: 'textarea',
+                        name: 'addr_text_address',
+                        fieldLabel: _('ms2_text_address'),
+                        anchor: '98%',
+                        style: 'min-height: 50px;border:1px solid #efefef;width:95%;'
+                    }
+                );
+            }
+
             if (miniShop2.config['order_address_fields'].in_array('comment')) {
                 fields.push(
                     {
@@ -226,6 +241,7 @@ Ext.extend(miniShop2.window.UpdateOrder, miniShop2.window.Default, {
                     }
                 );
             }
+
         }
 
         return fields;
