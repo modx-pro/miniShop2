@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Properties Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_prop_limit'] = 'Лимит выборки результатов';
 $_lang['ms2_prop_offset'] = 'Пропуск результатов с начала выборки';
 $_lang['ms2_prop_depth'] = 'Глубина поиска товаров от каждого родителя.';

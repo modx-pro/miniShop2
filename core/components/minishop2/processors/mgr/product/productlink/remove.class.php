@@ -57,7 +57,7 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
                 $q->where(array(
                     array('master' => $master, 'AND:slave:=' => $slave),
                     array('master' => $slave, 'AND:slave:=' => $master)
-                ),xPDOQuery::SQL_OR );
+                ), xPDOQuery::SQL_OR);
                 break;
 
             case 'many_to_one':
@@ -70,7 +70,6 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
 
         return $this->success('');
     }
-
 }
 
 return 'msProductLinkRemoveProcessor';

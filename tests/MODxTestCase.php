@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MODX Revolution
  *
@@ -26,7 +27,8 @@
  *
  * @package modx-test
  */
-abstract class MODxTestCase extends PHPUnit_Framework_TestCase {
+abstract class MODxTestCase extends PHPUnit_Framework_TestCase
+{
     /**
     * @var modX $modx
     */
@@ -41,40 +43,45 @@ abstract class MODxTestCase extends PHPUnit_Framework_TestCase {
     /**
     * Ensure all tests have a reference to the MODX object
     */
-    public function setUp() {
+    public function setUp()
+    {
         $this->modx =& MODxTestHarness::getFixture('modX', 'modx');
         if ($this->modx->request) {
             $this->modx->request->loadErrorHandler();
             $this->modx->error->reset();
         }
         /* setup some basic test-environment options to allow us to simulate a site */
-        $this->modx->setOption('http_host','unit.modx.com');
-        $this->modx->setOption('base_url','/');
-        $this->modx->setOption('site_url','http://unit.modx.com/');
+        $this->modx->setOption('http_host', 'unit.modx.com');
+        $this->modx->setOption('base_url', '/');
+        $this->modx->setOption('site_url', 'http://unit.modx.com/');
 
-        $corePath = $this->modx->getOption('base_path').'extras/minishop/core/components/minishop2/';
-        require_once $corePath.'model/minishop2/minishop2.class.php';
-        $this->modx->setOption('minishop2.assets_path', $this->modx->getOption('base_path').'extras/minishop/assets/components/minishop2/');
-        $this->modx->setOption('minishop2.assets_url', $this->modx->getOption('base_url').'extras/minishop/assets/components/minishop2/');
+        $corePath = $this->modx->getOption('base_path') . 'extras/minishop/core/components/minishop2/';
+        require_once $corePath . 'model/minishop2/minishop2.class.php';
+        $this->modx->setOption('minishop2.assets_path', $this->modx->getOption('base_path') . 'extras/minishop/assets/components/minishop2/');
+        $this->modx->setOption('minishop2.assets_url', $this->modx->getOption('base_url') . 'extras/minishop/assets/components/minishop2/');
         $this->modx->miniShop2 = new miniShop2($this->modx);
 
         $this->modx->lexicon->load('minishop2:default');
 
-        $this->path = array('processors_path' => $this->modx->getOption('processorsPath', $this->modx->miniShop2->config, $corePath.'processors/'));
-
+        $this->path = array('processors_path' => $this->modx->getOption('processorsPath', $this->modx->miniShop2->config, $corePath . 'processors/'));
     }
     /**
     * Remove reference at end of test case
     */
-    public function tearDown() {}
+    public function tearDown()
+    {
+    }
     /**
     * Check a MODX return result for a success flag
     *
     * @param modProcessorResponse $result The result response
     * @return boolean
     */
-    public function checkForSuccess(&$result) {
-        if (empty($result) || !($result instanceof modProcessorResponse)) return false;
+    public function checkForSuccess(&$result)
+    {
+        if (empty($result) || !($result instanceof modProcessorResponse)) {
+            return false;
+        }
         return !$result->isError();
     }
     /**
@@ -83,8 +90,9 @@ abstract class MODxTestCase extends PHPUnit_Framework_TestCase {
     * @param string $result The response
     * @return array
     */
-    public function getResults(&$result) {
-        $response = ltrim(rtrim($result->response,')'),'(');
+    public function getResults(&$result)
+    {
+        $response = ltrim(rtrim($result->response, ')'), '(');
         $response = json_decode($response, true);
         return !empty($response['results']) ? $response['results'] : array();
     }

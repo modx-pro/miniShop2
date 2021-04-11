@@ -267,7 +267,8 @@ class msProductData extends xPDOSimpleObject
     *
     * @return array|null
     */
-    public function prepareOptionValues($values = null) {
+    public function prepareOptionValues($values = null)
+    {
         if ($values) {
             if (!is_array($values)) {
                 $values = array($values);
@@ -320,8 +321,12 @@ class msProductData extends xPDOSimpleObject
 
         $c->select(array(
             $this->xpdo->getSelectColumns('msOption', 'msOption'),
-            $this->xpdo->getSelectColumns('msCategoryOption', 'msCategoryOption', '',
-                array('id', 'option_id', 'category_id'), true
+            $this->xpdo->getSelectColumns(
+                'msCategoryOption',
+                'msCategoryOption',
+                '',
+                array('id', 'option_id', 'category_id'),
+                true
             ),
             'Category.category AS category_name',
         ));
@@ -439,7 +444,6 @@ class msProductData extends xPDOSimpleObject
             $alter = $this->xpdo->prepare("ALTER TABLE {$table} ORDER BY rank ASC");
             $alter->execute();
         }
-
     }
 
 
@@ -633,7 +637,8 @@ class msProductData extends xPDOSimpleObject
     *
     * @return array $result Prepared fields of product.
     * */
-    public function modifyFields($data = array()) {
+    public function modifyFields($data = array())
+    {
         if (empty($data)) {
             $data = $this->toArray();
         }

@@ -15,7 +15,6 @@ class msOrderStatusEnableProcessor extends msOrderStatusUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msOrderStatusEnableProcessor';

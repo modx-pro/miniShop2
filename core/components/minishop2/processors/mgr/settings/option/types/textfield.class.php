@@ -12,7 +12,6 @@ class msTextfieldType extends msOptionType
     {
         return "{xtype:'textfield'}";
     }
-
 }
 
 return 'msTextfieldType';

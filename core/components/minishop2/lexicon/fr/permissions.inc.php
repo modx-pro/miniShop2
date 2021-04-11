@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Permissions French Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['mscategory_save'] = 'Autorisation d`enregistrer\mise à jour minishop catégorie';
 $_lang['msproduct_save'] = 'Autorisation d`enregistrer\mise à jour minishop produit';
 

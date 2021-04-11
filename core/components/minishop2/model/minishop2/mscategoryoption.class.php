@@ -1,5 +1,7 @@
 <?php
-class msCategoryOption extends xPDOObject {
+
+class msCategoryOption extends xPDOObject
+{
 
 
     /**
@@ -9,7 +11,8 @@ class msCategoryOption extends xPDOObject {
     *
     * @return bool
     */
-    public function save($cacheFlag= null) {
+    public function save($cacheFlag = null)
+    {
         $save = parent::save();
 
         /** @var xPDOQuery $q */
@@ -43,7 +46,8 @@ class msCategoryOption extends xPDOObject {
     *
     * @return bool
     */
-    public function remove(array $ancestors= array ()) {
+    public function remove(array $ancestors = array ())
+    {
         $q = $this->xpdo->newQuery('msProduct', array('parent' => $this->get('category_id')));
         $q->select('id');
         if ($q->prepare() && $q->stmt->execute()) {

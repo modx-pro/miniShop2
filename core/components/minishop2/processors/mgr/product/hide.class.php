@@ -16,7 +16,6 @@ class msProductHideInTreeProcessor extends modObjectUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msProductHideInTreeProcessor';

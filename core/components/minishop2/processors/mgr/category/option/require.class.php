@@ -16,7 +16,6 @@ class msCategoryOptionRequireProcessor extends msCategoryOptionUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msCategoryOptionRequireProcessor';

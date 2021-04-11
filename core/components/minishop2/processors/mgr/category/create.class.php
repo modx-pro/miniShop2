@@ -73,5 +73,4 @@ class msCategoryCreateProcessor extends modResourceCreateProcessor
 
         return parent::afterSave();
     }
-
 }

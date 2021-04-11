@@ -21,37 +21,37 @@ Ext.extend(miniShop2.window.CreateLink, miniShop2.window.Default, {
                 name: 'name',
                 anchor: '99%',
                 id: config.id + '-name'
-            }, {
-                xtype: 'minishop2-combo-link-type',
-                fieldLabel: _('ms2_type'),
-                name: 'type',
-                anchor: '99%',
-                id: config.id + '-type',
-                listeners: {
-                    select: {
-                        fn: function (combo) {
-                            this.handleLinkFields(combo);
-                        }, scope: this
-                    },
-                    afterrender: {
-                        fn: function (combo) {
-                            this.handleLinkFields(combo);
-                        }, scope: this
-                    }
+        }, {
+            xtype: 'minishop2-combo-link-type',
+            fieldLabel: _('ms2_type'),
+            name: 'type',
+            anchor: '99%',
+            id: config.id + '-type',
+            listeners: {
+                select: {
+                    fn: function (combo) {
+                        this.handleLinkFields(combo);
+                    }, scope: this
                 },
-                disabled: config.mode == 'update'
-            }, {
-                xtype: 'displayfield',
-                hideLabel: true,
-                cls: 'desc',
-                id: config.id + '-type-desc'
-            }, {
-                xtype: 'textarea',
-                fieldLabel: _('ms2_description'),
-                name: 'description',
-                anchor: '99%',
-                id: config.id + '-description'
-            }
+                afterrender: {
+                    fn: function (combo) {
+                        this.handleLinkFields(combo);
+                    }, scope: this
+                }
+            },
+            disabled: config.mode == 'update'
+        }, {
+            xtype: 'displayfield',
+            hideLabel: true,
+            cls: 'desc',
+            id: config.id + '-type-desc'
+        }, {
+            xtype: 'textarea',
+            fieldLabel: _('ms2_description'),
+            name: 'description',
+            anchor: '99%',
+            id: config.id + '-description'
+        }
         ];
     },
 

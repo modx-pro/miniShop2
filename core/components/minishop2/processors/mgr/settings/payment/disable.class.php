@@ -15,7 +15,6 @@ class msPaymentDisableProcessor extends msPaymentUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msPaymentDisableProcessor';

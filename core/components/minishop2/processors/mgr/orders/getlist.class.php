@@ -122,13 +122,13 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         }
 
         $ids = [];
-        if ($q->prepare() AND $q->stmt->execute()) {
+        if ($q->prepare() and $q->stmt->execute()) {
             $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
             $total = $this->modx->query('SELECT FOUND_ROWS()')->fetchColumn();
         }
         $ids = empty($ids) ? "(0)" : "(" . implode(',', $ids) . ")";
         $c->query['where'] = [[
-            new xPDOQueryCondition(array('sql' => 'msOrder.id IN '. $ids, 'conjunction' => 'AND')),
+            new xPDOQueryCondition(array('sql' => 'msOrder.id IN ' . $ids, 'conjunction' => 'AND')),
         ]];
         $c->sortby($sortKey, $this->getProperty('dir'));
 
@@ -147,7 +147,7 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         $c = $this->prepareQueryBeforeCount($c);
         $c = $this->prepareQueryAfterCount($c);
         $data = [
-            'results' => ($c->prepare() AND $c->stmt->execute()) ? $c->stmt->fetchAll(PDO::FETCH_ASSOC) : [],
+            'results' => ($c->prepare() and $c->stmt->execute()) ? $c->stmt->fetchAll(PDO::FETCH_ASSOC) : [],
             'total'   => (int)$this->getProperty('total'),
         ];
 
@@ -277,7 +277,6 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
         return json_encode($data);
     }
-
 }
 
 return 'msOrderGetListProcessor';

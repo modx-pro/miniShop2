@@ -32,7 +32,8 @@ class msOrder extends xPDOSimpleObject
         return $this->save();
     }
 
-    public function save($cacheFlag= null) {
+    public function save($cacheFlag = null)
+    {
 
         $isNew = $this->isNew();
 

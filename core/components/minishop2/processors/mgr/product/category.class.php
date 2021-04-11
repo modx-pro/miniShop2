@@ -42,7 +42,6 @@ class msProductCategoryMemberProcessor extends modObjectCreateProcessor
 
         return $this->success('');
     }
-
 }
 
 return 'msProductCategoryMemberProcessor';

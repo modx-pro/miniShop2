@@ -56,7 +56,6 @@ class msProductCreateManagerController extends msResourceCreateController
         $this->resourceArray['source'] = (int)$this->getOption('ms2_product_source_default');
 
         return $placeholders;
-
     }
 
 

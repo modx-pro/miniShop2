@@ -43,7 +43,6 @@ class msOrderProductRemoveProcessor extends modObjectRemoveProcessor
             $this->order->updateProducts();
         }
     }
-
 }
 
 return 'msOrderProductRemoveProcessor';

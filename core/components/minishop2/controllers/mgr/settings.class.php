@@ -74,7 +74,7 @@ class Minishop2MgrSettingsManagerController extends msManagerController
         $this->addHtml('<script>
             miniShop2.config = ' . json_encode($config) . ';
 
-            MODx.perm.msorder_list = '.($this->modx->hasPermission('msorder_list') ? 1 : 0).';
+            MODx.perm.msorder_list = ' . ($this->modx->hasPermission('msorder_list') ? 1 : 0) . ';
 
             Ext.onReady(function() {
                 MODx.add({xtype: "minishop2-page-settings"});

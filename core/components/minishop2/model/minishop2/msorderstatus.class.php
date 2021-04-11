@@ -4,4 +4,6 @@
  * @property int id
  * @property int rank
  */
-class msOrderStatus extends xPDOSimpleObject {}
+class msOrderStatus extends xPDOSimpleObject
+{
+}

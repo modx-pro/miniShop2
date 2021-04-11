@@ -120,7 +120,6 @@ class msProductSortProcessor extends modObjectProcessor
             }
         }
     }
-
 }
 
 return 'msProductSortProcessor';

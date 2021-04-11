@@ -1,2 +1,5 @@
 <?php
-class msOrderLog extends xPDOSimpleObject {}
+
+class msOrderLog extends xPDOSimpleObject
+{
+}

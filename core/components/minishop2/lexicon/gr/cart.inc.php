@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default Greek Lexicon Entries for miniShop2 cart
  *

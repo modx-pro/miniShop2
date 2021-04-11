@@ -1,10 +1,12 @@
 <?php
 
-class msOptionAddProcessorTest extends MODxProcessorTestCase {
+class msOptionAddProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/add';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -23,14 +25,14 @@ class msOptionAddProcessorTest extends MODxProcessorTestCase {
         $catOption = $this->createTestCategoryOption($category2->get('id'), $option3->get('id'), array('rank' => 0));
 
         $product = $this->createTestProduct('UnitTestProduct1', $category->get('id'));
-
     }
 
-    public function testAddOption() {
+    public function testAddOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption2'));
         $cat = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory'));
 
-        $t=microtime(true);
+        $t = microtime(true);
         $response = $this->getResponse(array(
             'option_id' => $option->id,
             'category_id' => $cat->id,
@@ -38,7 +40,7 @@ class msOptionAddProcessorTest extends MODxProcessorTestCase {
             'active' => 1,
             'required' => 1,
         ));
-        $t=microtime(true) - $t;
+        $t = microtime(true) - $t;
         $this->assertLessThan(30, $t);
 
         $this->assertTrue($response['success']);

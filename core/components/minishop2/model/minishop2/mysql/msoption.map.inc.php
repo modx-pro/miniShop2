@@ -1,5 +1,6 @@
 <?php
-$xpdo_meta_map['msOption']= array (
+
+$xpdo_meta_map['msOption'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_options',
@@ -8,11 +9,11 @@ $xpdo_meta_map['msOption']= array (
     array (
         'key' => '',
         'caption' => '',
-        'description' => NULL,
-        'measure_unit' => NULL,
-        'category' => NULL,
+        'description' => null,
+        'measure_unit' => null,
+        'category' => null,
         'type' => '',
-        'properties' => NULL,
+        'properties' => null,
     ),
     'fieldMeta' =>
     array (

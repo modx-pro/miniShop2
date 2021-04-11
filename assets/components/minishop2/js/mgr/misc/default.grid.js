@@ -43,7 +43,7 @@ miniShop2.grid.Default = function (config) {
     miniShop2.grid.Default.superclass.constructor.call(this, config);
 
     if (config.enableDragDrop && config.ddAction) {
-        this.on('render', function(grid) {
+        this.on('render', function (grid) {
             grid._initDD(config);
         });
     }
@@ -125,21 +125,17 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                 if (action == 'showMenu') {
                     var ri = this.getStore().find('id', row.id);
                     return this._showMenu(this, ri, e);
-                }
-                else if (typeof this[action] === 'function') {
+                } else if (typeof this[action] === 'function') {
                     this.menu.record = row.data;
                     return this[action](this, e);
                 }
             }
-        }
-        else if (elem.nodeName == 'A' && elem.href.match(/(\?|\&)a=resource/)) {
+        } else if (elem.nodeName == 'A' && elem.href.match(/(\?|\&)a=resource/)) {
             if (e.button == 1 || (e.button == 0 && e.ctrlKey == true)) {
                 // Bypass
-            }
-            else if (elem.target && elem.target == '_blank') {
+            } else if (elem.target && elem.target == '_blank') {
                 // Bypass
-            }
-            else {
+            } else {
                 e.preventDefault();
                 MODx.loadPage('', elem.href);
             }
@@ -147,7 +143,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
         return this.processEvent('click', e);
     },
 
-    refresh: function() {
+    refresh: function () {
         this.getStore().reload();
         if (this.config['enableDragDrop'] == true) {
             this.getSelectionModel().clearSelections(true);
@@ -220,7 +216,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                                     var sourceNodes = data.selections;
                                     if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
                                         var message = '';
-                                        var singleParent = sourceNodes.every(function(node) {
+                                        var singleParent = sourceNodes.every(function (node) {
                                             return node.data.parent == sourceNodes[0].data.parent;
                                         });
 
@@ -257,7 +253,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                     }
                 });
             },
-            notifyOver: function(dd, e, data) {
+            notifyOver: function (dd, e, data) {
                 var returnCls = this.dropAllowed;
                 if (grid.xtype == 'minishop2-grid-products' && !grid.defaultNotify) {
                     if (dd.getDragData(e)) {
@@ -265,7 +261,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                         var targetNode = dd.getDragData(e).selections[0];
 
                         if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
-                            var singleParent = sourceNodes.every(function(node) {
+                            var singleParent = sourceNodes.every(function (node) {
                                 return node.data.parent == sourceNodes[0].data.parent;
                             });
 
@@ -288,7 +284,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                 }
                 return returnCls;
             },
-            _notifyMove: function(count, targetNode, dd) {
+            _notifyMove: function (count, targetNode, dd) {
                 returnCls = 'x-tree-drop-ok-append';
                 if (targetNode.data.category_name == '') {
                     dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_move_current_many') : _('ms2_drag_move_current_one');
@@ -296,11 +292,11 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                     dd.ddel.innerHTML = (count > 1) ? String.format(_('ms2_drag_move_many'), targetNode.data.category_name) : String.format(_('ms2_drag_move_one'), targetNode.data.category_name);
                 }
             },
-            _notifySort: function(count, dd) {
+            _notifySort: function (count, dd) {
                 returnCls = 'x-tree-drop-ok-between';
                 dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_sort_many') : _('ms2_drag_sort_one');
             },
-            _notifySelf: function(count, dd) {
+            _notifySelf: function (count, dd) {
                 dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_self_many') : _('ms2_drag_self_one');
             }
         });

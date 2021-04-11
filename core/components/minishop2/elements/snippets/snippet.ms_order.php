@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
@@ -173,7 +174,6 @@ if (!empty($_POST)) {
             }
         }
     }
-
 }
 
 $output = $pdoFetch->getChunk($tpl, array(

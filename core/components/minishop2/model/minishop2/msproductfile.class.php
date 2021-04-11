@@ -73,8 +73,7 @@ class msProductFile extends xPDOSimpleObject
         $raw = '';
         if ($isRaw) {
             $raw = $file;
-        }
-        else {
+        } else {
             if (file_exists($file)) {
                 $res = fopen($file, 'rb');
                 $raw = fread($res, 8192);
@@ -180,14 +179,11 @@ class msProductFile extends xPDOSimpleObject
         $output = false;
         if ($phpThumb->GenerateThumbnail() && $phpThumb->RenderOutput()) {
             $this->xpdo->log(modX::LOG_LEVEL_INFO, '[miniShop2] phpThumb messages for "' . $this->get('url') .
-                '". ' . print_r($phpThumb->debugmessages, true)
-            );
+                '". ' . print_r($phpThumb->debugmessages, true));
             $output = $phpThumb->outputImageData;
-        }
-        else {
+        } else {
             $this->xpdo->log(modX::LOG_LEVEL_ERROR, '[miniShop2] Could not generate thumbnail for "' .
-                $this->get('url') . '". ' . print_r($phpThumb->debugmessages, true)
-            );
+                $this->get('url') . '". ' . print_r($phpThumb->debugmessages, true));
         }
 
         if (file_exists($phpThumb->sourceFilename)) {
@@ -356,5 +352,4 @@ class msProductFile extends xPDOSimpleObject
 
         return false;
     }
-
 }

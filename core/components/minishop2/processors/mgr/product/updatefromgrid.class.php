@@ -84,7 +84,6 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
 
         return parent::beforeSet();
     }
-
 }
 
 return 'msProductUpdateFromGridProcessor';

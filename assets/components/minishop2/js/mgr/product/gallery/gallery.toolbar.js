@@ -12,14 +12,14 @@ miniShop2.panel.Toolbar = function (config) {
             menu: [{
                 text: '<i class="icon icon-refresh"></i> ' + _('ms2_gallery_file_generate_all'),
                 cls: 'minishop2-btn-action',
-                handler: function() {
+                handler: function () {
                     this.fileAction('generateAllThumbs')
                 },
                 scope: this,
             }, '-', {
-                text: '<i class="icon icon-trash-o action-red"></i> '+ _('ms2_gallery_file_delete_all'),
+                text: '<i class="icon icon-trash-o action-red"></i> ' + _('ms2_gallery_file_delete_all'),
                 cls: 'minishop2-btn-action',
-                handler: function() {
+                handler: function () {
                     this.fileAction('deleteAllFiles')
                 },
                 scope: this,
@@ -62,8 +62,7 @@ Ext.extend(miniShop2.panel.Toolbar, Ext.Toolbar, {
                             }, scope: this
                         }
                     });
-                }
-                else {
+                } else {
                     combo.setValue(source_id);
                 }
             }, this);

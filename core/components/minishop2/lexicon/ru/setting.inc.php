@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Settings Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['area_ms2_main'] = 'Основные настройки';
 $_lang['area_ms2_category'] = 'Категория товаров';
 $_lang['area_ms2_product'] = 'Товар';

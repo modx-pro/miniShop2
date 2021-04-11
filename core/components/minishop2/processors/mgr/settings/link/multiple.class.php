@@ -30,7 +30,6 @@ class msLinkMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msLinkMultipleProcessor';

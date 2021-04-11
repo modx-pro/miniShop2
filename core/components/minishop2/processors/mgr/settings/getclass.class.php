@@ -40,7 +40,6 @@ class msClassGetListProcessor extends modProcessor
 
         return $this->outputArray($available);
     }
-
 }
 
 return 'msClassGetListProcessor';

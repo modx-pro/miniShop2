@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Properties German Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_prop_limit'] = 'Anzahl der zu begrenzenden Ergebnisse';
 $_lang['ms2_prop_offset'] = 'An offset of resources returned by the criteria to skip';
 $_lang['ms2_prop_depth'] = 'Integer value indicating depth to search for resources from each parent.';

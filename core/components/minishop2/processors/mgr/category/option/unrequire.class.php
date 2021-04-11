@@ -16,7 +16,6 @@ class msCategoryOptionUnRequireProcessor extends msCategoryOptionUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msCategoryOptionUnRequireProcessor';

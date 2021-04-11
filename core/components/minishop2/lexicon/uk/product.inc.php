@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Products Ukrainian Lexicon Entries for miniShop2
  *

@@ -46,7 +46,7 @@ Ext.extend(miniShop2.grid.CategoryOption, miniShop2.grid.Default, {
                 id: 'actions',
                 renderer: miniShop2.utils.renderActions,
                 sortable: false
-            }
+        }
         ];
     },
 

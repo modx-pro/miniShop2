@@ -1,10 +1,12 @@
 <?php
 
-class msOptionDuplicateProcessorTest extends MODxProcessorTestCase {
+class msOptionDuplicateProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/duplicate';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -24,22 +26,24 @@ class msOptionDuplicateProcessorTest extends MODxProcessorTestCase {
 
         $product = $this->createTestProduct('UnitTestProduct1', $category->get('id'));
         $prodOption = $this->createTestProductOption($product->get('id'), $option1->get('key'), array('value' => 100500));
-
     }
 
-    public function testDuplicateNotSpecifiedOption() {
+    public function testDuplicateNotSpecifiedOption()
+    {
         $response = $this->getResponse(array());
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_ns'), $response['message']);
     }
 
-    public function testDuplicateNotExistedOption() {
+    public function testDuplicateNotExistedOption()
+    {
         $response = $this->getResponse(array('id' => 100500));
         $this->assertFalse($response['success']);
         $this->assertEquals($this->modx->lexicon('ms2_option_err_nfs'), $response['message']);
     }
 
-    public function testDuplicateOption() {
+    public function testDuplicateOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
         $cats = $this->modx->getCollection('msCategoryOption', array('option_id' => $id));
@@ -63,7 +67,8 @@ class msOptionDuplicateProcessorTest extends MODxProcessorTestCase {
         $this->assertCount(0, $products);
     }
 
-    public function testDuplicateWithCatOption() {
+    public function testDuplicateWithCatOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('id');
         $cats = $this->modx->getCollection('msCategoryOption', array('option_id' => $id));
@@ -80,7 +85,8 @@ class msOptionDuplicateProcessorTest extends MODxProcessorTestCase {
         $this->assertCount(2, $cats);
     }
 
-    public function testDuplicateWithValuesOption() {
+    public function testDuplicateWithValuesOption()
+    {
         $option = $this->modx->getObject('msOption', array('key' => 'UnitTestOption1'));
         $id = $option->get('key');
         $products = $this->modx->getCollection('msProductOption', array('key' => $id));

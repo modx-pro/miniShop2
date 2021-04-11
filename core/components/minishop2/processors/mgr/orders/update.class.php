@@ -78,7 +78,8 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
     * {@inheritDoc}
     * @return mixed
     */
-    public function process() {
+    public function process()
+    {
         /* Run the beforeSet method before setting the fields, and allow stoppage */
         $canSave = $this->beforeSet();
         if ($canSave !== true) {
@@ -99,7 +100,7 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
             $validator = $this->object->getValidator();
             if ($validator->hasMessages()) {
                 foreach ($validator->getMessages() as $message) {
-                    $this->addFieldError($message['field'],$this->modx->lexicon($message['message']));
+                    $this->addFieldError($message['field'], $this->modx->lexicon($message['message']));
                 }
             }
         }
@@ -111,7 +112,7 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
         }
 
         if ($this->saveObject() == false) {
-            return $this->failure($this->modx->lexicon($this->objectType.'_err_save'));
+            return $this->failure($this->modx->lexicon($this->objectType . '_err_save'));
         }
 
         // set "new status"
@@ -129,7 +130,6 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
 
         return $this->cleanup();
     }
-
 }
 
 return 'msOrderUpdateProcessor';

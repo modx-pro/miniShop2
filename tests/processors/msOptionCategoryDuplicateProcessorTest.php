@@ -1,10 +1,12 @@
 <?php
 
-class msOptionCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
+class msOptionCategoryDuplicateProcessorTest extends MODxProcessorTestCase
+{
 
     public $processor = 'mgr/settings/option/category_duplicate';
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $category = $this->createTestCategory('UnitTestEmptyCategory');
@@ -25,10 +27,10 @@ class msOptionCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
 
         $product = $this->createTestProduct('UnitTestProduct1', $category->get('id'));
         $prodOption = $this->createTestProductOption($product->get('id'), $option1->get('id'), array('value' => 100500));
-
     }
 
-    public function testOptionCategoryDuplicate() {
+    public function testOptionCategoryDuplicate()
+    {
         /** @var msCategory $cat1 */
         $cat1 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $cat2 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory3'));
@@ -40,7 +42,8 @@ class msOptionCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
         $this->assertCount(3, $response['object']['options']);
     }
 
-    public function testOptionCategoryDuplicateWithRepeats() {
+    public function testOptionCategoryDuplicateWithRepeats()
+    {
         /** @var msCategory $cat1 */
         $cat1 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
         $cat2 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory'));
@@ -54,7 +57,8 @@ class msOptionCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
         $this->assertCount(3, $response['object']['options']);
     }
 
-    public function testOptionCategoryDuplicateSelf() {
+    public function testOptionCategoryDuplicateSelf()
+    {
         /** @var msCategory $cat1 */
         $c_start = $this->modx->getCount('msCategoryOption');
         $cat1 = $this->modx->getObject('msCategory', array('pagetitle' => 'UnitTestCategory2'));
@@ -67,6 +71,4 @@ class msOptionCategoryDuplicateProcessorTest extends MODxProcessorTestCase {
         $this->assertTrue($response['success']);
         $this->assertCount(3, $response['object']['options']);
     }
-
-
 }

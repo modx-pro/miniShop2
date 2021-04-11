@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Properties French Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_prop_limit'] = 'Limter les résultats a ce nombre.';
 $_lang['ms2_prop_offset'] = 'Décalage dans les résultats retournés';
 $_lang['ms2_prop_depth'] = 'Valeur entière indiquant la profondeur de la recherche à partir de chaque parent.';

@@ -45,7 +45,6 @@ class msCategoryOptionAddProcessor extends modObjectCreateProcessor
 
         return parent::beforeSet();
     }
-
 }
 
 return 'msCategoryOptionAddProcessor';

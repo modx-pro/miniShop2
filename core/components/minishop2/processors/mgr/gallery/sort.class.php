@@ -63,7 +63,6 @@ class msProductFileSortProcessor extends modObjectProcessor
 
         return $this->modx->error->success('', array('thumb' => $thumb));
     }
-
 }
 
 return 'msProductFileSortProcessor';

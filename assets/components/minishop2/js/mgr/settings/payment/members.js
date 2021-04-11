@@ -34,7 +34,7 @@ Ext.extend(miniShop2.grid.PaymentDeliveries, miniShop2.grid.Default, {
                 id: 'actions',
                 width: 35,
                 renderer: miniShop2.utils.renderActions
-            }
+        }
         ];
     },
 

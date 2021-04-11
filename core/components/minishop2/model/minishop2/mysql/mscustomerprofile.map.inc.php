@@ -1,12 +1,13 @@
 <?php
-$xpdo_meta_map['msCustomerProfile']= array (
+
+$xpdo_meta_map['msCustomerProfile'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_customer_profiles',
     'extends' => 'xPDOObject',
     'fields' =>
     array (
-        'id' => NULL,
+        'id' => null,
         'account' => 0.0,
         'spent' => 0.0,
         'createdon' => 'CURRENT_TIMESTAMP',

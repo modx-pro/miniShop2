@@ -1,4 +1,5 @@
 <?php
+
 /** @var xPDOTransport $transport */
 if (!$transport->xpdo || !($transport instanceof xPDOTransport)) {
     return false;

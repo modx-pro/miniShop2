@@ -30,7 +30,9 @@ class miniShop2
         $this->modx = $modx;
 
         $corePath = $this->modx->getOption('minishop2.core_path', $config, MODX_CORE_PATH . 'components/minishop2/');
-        $assetsPath = $this->modx->getOption('minishop2.assets_path', $config,
+        $assetsPath = $this->modx->getOption(
+            'minishop2.assets_path',
+            $config,
             MODX_ASSETS_PATH . 'components/minishop2/'
         );
         $assetsUrl = $this->modx->getOption('minishop2.assets_url', $config, MODX_ASSETS_URL . 'components/minishop2/');
@@ -51,7 +53,9 @@ class miniShop2
             'connector_url' => $connectorUrl,
             'actionUrl' => $actionUrl,
 
-            'defaultThumb' => $this->modx->getOption('ms2_product_thumbnail_default', $config,
+            'defaultThumb' => $this->modx->getOption(
+                'ms2_product_thumbnail_default',
+                $config,
                 $assetsUrl . 'img/mgr/ms2_thumb.png'
             ),
             'ctx' => 'web',
@@ -119,18 +123,21 @@ class miniShop2
                     'actionUrl' => $this->config['actionUrl'],
                     'ctx' => $ctx,
                     'price_format' => json_decode(
-                        $this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'), true
+                        $this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'),
+                        true
                     ),
                     'price_format_no_zeros' => (bool)$this->modx->getOption('ms2_price_format_no_zeros', null, true),
                     'weight_format' => json_decode(
-                        $this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'), true
+                        $this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'),
+                        true
                     ),
                     'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
                 );
 
                 $data = json_encode(array_merge($message_setting, $js_setting), true);
                 $this->modx->regClientStartupScript(
-                    '<script>miniShop2Config = ' . $data . ';</script>', true
+                    '<script>miniShop2Config = ' . $data . ';</script>',
+                    true
                 );
             }
 
@@ -242,8 +249,10 @@ class miniShop2
 
         $this->cart = new $cart_class($this, $this->config);
         if (!($this->cart instanceof msCartInterface) || $this->cart->initialize($ctx) !== true) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR,
-                'Could not initialize miniShop2 cart handler class: "' . $cart_class . '"');
+            $this->modx->log(
+                modX::LOG_LEVEL_ERROR,
+                'Could not initialize miniShop2 cart handler class: "' . $cart_class . '"'
+            );
 
             return false;
         }
@@ -259,8 +268,10 @@ class miniShop2
 
         $this->order = new $order_class($this, $this->config);
         if (!($this->order instanceof msOrderInterface) || $this->order->initialize($ctx) !== true) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR,
-                'Could not initialize miniShop2 order handler class: "' . $order_class . '"');
+            $this->modx->log(
+                modX::LOG_LEVEL_ERROR,
+                'Could not initialize miniShop2 order handler class: "' . $order_class . '"'
+            );
 
             return false;
         }
@@ -420,7 +431,6 @@ class miniShop2
                 }
             }
         }
-
     }
 
 
@@ -552,8 +562,10 @@ class miniShop2
         if (class_exists($className)) {
             return new $className($option);
         } else {
-            $this->modx->log(modX::LOG_LEVEL_ERROR,
-                'Could not initialize miniShop2 option type class: "' . $className . '"');
+            $this->modx->log(
+                modX::LOG_LEVEL_ERROR,
+                'Could not initialize miniShop2 option type class: "' . $className . '"'
+            );
 
             return null;
         }
@@ -667,7 +679,6 @@ class miniShop2
                 }
                 $customer = $this->modx->user;
             } else {
-
                 $c = $this->modx->newQuery('modUser');
                 $c->leftJoin('modUserProfile', 'Profile');
                 $filter = array('username' => $email, 'OR:Profile.email:=' => $email);
@@ -694,7 +705,7 @@ class miniShop2
                     $customer->addMany($setting);
                     if (!$customer->save()) {
                         $customer = null;
-                    } else if ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
+                    } elseif ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
                         $groups = array_map('trim', explode(',', $groups));
                         foreach ($groups as $group) {
                             $customer->joinGroup($group);
@@ -747,8 +758,11 @@ class miniShop2
             $error = 'ms2_err_status_nf';
         } /** @var msOrderStatus $old_status */
         else {
-            if ($old_status = $this->modx->getObject('msOrderStatus',
-                array('id' => $order->get('status'), 'active' => 1))
+            if (
+                $old_status = $this->modx->getObject(
+                    'msOrderStatus',
+                    array('id' => $order->get('status'), 'active' => 1)
+                )
             ) {
                 if ($old_status->get('final')) {
                     $error = 'ms2_err_status_final';
@@ -792,7 +806,7 @@ class miniShop2
             $lang = $this->modx->getOption('cultureKey', null, 'en', true);
             if ($tmp = $this->modx->getObject('modUserSetting', array('key' => 'cultureKey', 'user' => $order->get('user_id')))) {
                 $lang = $tmp->get('value');
-            } else if ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
+            } elseif ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
                 $lang = $tmp->get('value');
             }
             $this->modx->setOption('cultureKey', $lang);
@@ -825,9 +839,10 @@ class miniShop2
                     $tpl = $chunk->get('name');
                 }
                 $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
-                $emails = array_map('trim', explode(',',
-                        $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender')))
-                );
+                $emails = array_map('trim', explode(
+                    ',',
+                    $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))
+                ));
                 if (!empty($subject)) {
                     foreach ($emails as $email) {
                         if (preg_match('#.*?@.*#', $email)) {
@@ -881,7 +896,8 @@ class miniShop2
         $mail->set(modMail::MAIL_FROM, $this->modx->getOption('emailsender'));
         $mail->set(modMail::MAIL_FROM_NAME, $this->modx->getOption('site_name'));
         if (!$mail->send()) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR,
+            $this->modx->log(
+                modX::LOG_LEVEL_ERROR,
                 'An error occurred while trying to send the email: ' . $mail->mailer->ErrorInfo
             );
         }

@@ -45,26 +45,26 @@ Ext.extend(miniShop2.grid.Option, miniShop2.grid.Default, {
                 dataIndex: 'key',
                 width: 100,
                 sortable: true
-            }, {
-                header: _('ms2_ft_caption'),
-                dataIndex: 'caption',
-                width: 100,
-                sortable: true
-            }, {
-                header: _('ms2_ft_type'),
-                dataIndex: 'type',
-                width: 100,
-                sortable: true,
-                renderer: function (v) {
-                    return _('ms2_ft_' + v)
-                }
-            }, {
-                header: _('ms2_actions'),
-                dataIndex: 'actions',
-                id: 'actions',
-                width: 70,
-                renderer: miniShop2.utils.renderActions
+        }, {
+            header: _('ms2_ft_caption'),
+            dataIndex: 'caption',
+            width: 100,
+            sortable: true
+        }, {
+            header: _('ms2_ft_type'),
+            dataIndex: 'type',
+            width: 100,
+            sortable: true,
+            renderer: function (v) {
+                return _('ms2_ft_' + v)
             }
+        }, {
+            header: _('ms2_actions'),
+            dataIndex: 'actions',
+            id: 'actions',
+            width: 70,
+            renderer: miniShop2.utils.renderActions
+        }
         ];
     },
 

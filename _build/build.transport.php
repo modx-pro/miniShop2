@@ -81,7 +81,7 @@ if (!is_array($events)) {
     }
     $modx->log(xPDO::LOG_LEVEL_INFO, 'Packaged in ' . count($events) . ' Plugins events.');
 }
-unset ($events, $event, $attributes);
+unset($events, $event, $attributes);
 
 // Package in default access policy
 $attributes = array(
@@ -126,7 +126,7 @@ if (is_array($templates)) {
 } else {
     $modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in Access Policy Templates.');
 }
-unset ($templates, $template, $attributes);
+unset($templates, $template, $attributes);
 
 // Load menus
 $menus = include $sources['data'] . 'transport.menu.php';

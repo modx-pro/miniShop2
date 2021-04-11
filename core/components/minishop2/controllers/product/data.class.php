@@ -1,2 +1,5 @@
 <?php
-class msProductDataManagerController extends ResourceDataManagerController {}
+
+class msProductDataManagerController extends ResourceDataManagerController
+{
+}

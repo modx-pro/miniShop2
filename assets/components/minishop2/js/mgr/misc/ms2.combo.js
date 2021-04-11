@@ -2,10 +2,10 @@ miniShop2.combo.ComboBoxDefault = function (config) {
     config = config || {};
 
     Ext.applyIf(config, {
-        assertValue : function(){
+        assertValue : function () {
             var val = this.getRawValue(),
                 rec;
-            if(this.valueField && Ext.isDefined(this.value)){
+            if (this.valueField && Ext.isDefined(this.value)) {
                 rec = this.findRecord(this.valueField, this.value);
             }
             /* fix for https://github.com/bezumkin/miniShop2/pull/350
@@ -15,16 +15,16 @@ miniShop2.combo.ComboBoxDefault = function (config) {
             if (rec && rec.get(this.displayField) != val) {
                 rec = null;
             }
-            if(!rec && this.forceSelection){
-                if(val.length > 0 && val != this.emptyText){
+            if (!rec && this.forceSelection) {
+                if (val.length > 0 && val != this.emptyText) {
                     this.el.dom.value = Ext.value(this.lastSelectionText, '');
                     this.applyEmptyText();
-                }else{
+                } else {
                     this.clearValue();
                 }
-            }else{
-                if(rec && this.valueField){
-                    if (this.value == val){
+            } else {
+                if (rec && this.valueField) {
+                    if (this.value == val) {
                         return;
                     }
                     val = rec.get(this.valueField || this.displayField);
@@ -109,7 +109,8 @@ miniShop2.combo.User = function (config) {
             action: 'mgr/system/user/getlist',
             combo: true,
         },
-        tpl: new Ext.XTemplate('\
+        tpl: new Ext.XTemplate(
+            '\
             <tpl for=".">\
                 <div class="x-combo-list-item">\
                     <span>\
@@ -159,11 +160,11 @@ miniShop2.combo.Category = function (config) {
                     <small>({id})</small> <b>{pagetitle}</b>\
                 </span>\
             </div></tpl>', {
-            compiled: true
+    compiled: true
         }),
-        itemSelector: 'div.minishop2-category-list-item',
-        pageSize: 20,
-        editable: true
+    itemSelector: 'div.minishop2-category-list-item',
+    pageSize: 20,
+    editable: true
     });
     miniShop2.combo.Category.superclass.constructor.call(this, config);
     this.on('expand', function () {
@@ -317,39 +318,39 @@ miniShop2.combo.Options = function (config) {
                 key: config.name
             }
         }),
-        mode: 'remote',
-        displayField: 'value',
-        valueField: 'value',
-        triggerAction: 'all',
-        extraItemCls: 'x-tag',
-        expandBtnCls: 'x-form-trigger',
-        clearBtnCls: 'x-form-trigger',
-        displayFieldTpl: config.displayFieldTpl || '{value}',
+    mode: 'remote',
+    displayField: 'value',
+    valueField: 'value',
+    triggerAction: 'all',
+    extraItemCls: 'x-tag',
+    expandBtnCls: 'x-form-trigger',
+    clearBtnCls: 'x-form-trigger',
+    displayFieldTpl: config.displayFieldTpl || '{value}',
         // fix for setValue
-        addValue : function(value){
-            if(Ext.isEmpty(value)){
-                return;
+    addValue : function (value) {
+        if (Ext.isEmpty(value)) {
+            return;
+        }
+        var values = value;
+        if (!Ext.isArray(value)) {
+            value = '' + value;
+            values = value.split(this.valueDelimiter);
+        }
+        Ext.each(values,function (val) {
+            var record = this.findRecord(this.valueField, val);
+            if (record) {
+                this.addRecord(record);
             }
-            var values = value;
-            if(!Ext.isArray(value)){
-                value = '' + value;
-                values = value.split(this.valueDelimiter);
-            }
-            Ext.each(values,function(val){
-                var record = this.findRecord(this.valueField, val);
-                if(record){
-                    this.addRecord(record);
-                }
-                this.remoteLookup.push(val);
-            },this);
-            if(this.mode === 'remote'){
-                var q = this.remoteLookup.join(this.queryValuesDelimiter);
-                this.doQuery(q,false, true);
-            }
-        },
+            this.remoteLookup.push(val);
+        },this);
+        if (this.mode === 'remote') {
+            var q = this.remoteLookup.join(this.queryValuesDelimiter);
+            this.doQuery(q,false, true);
+        }
+    },
         // fix similar queries
-        shouldQuery : function(q){
-            if(this.lastQuery){
+        shouldQuery : function (q) {
+            if (this.lastQuery) {
                 return (q !== this.lastQuery);
             }
             return true;
@@ -360,14 +361,14 @@ miniShop2.combo.Options = function (config) {
                 this.initSorting();
             }
         },
-        setValueEx : function(data){
+        setValueEx : function (data) {
             // fix for setValue
-            if (this.rendered && this.valueField){
-                if (!Ext.isArray(data)){
+            if (this.rendered && this.valueField) {
+                if (!Ext.isArray(data)) {
                     data = [data];
                 }
                 var values = [];
-                Ext.each(data,function(value, i){
+                Ext.each(data,function (value, i) {
                     if (typeof value == 'string' && value != '') {
                         value = {};
                         value[this.valueField] = data[i];
@@ -401,18 +402,18 @@ miniShop2.combo.Options = function (config) {
 };
 Ext.extend(miniShop2.combo.Options, Ext.ux.form.SuperBoxSelect, {
 
-    beforequery: function(o) {
+    beforequery: function (o) {
         // reset sort
         o.combo.store.sortInfo = '';
         if (o.forceAll !== false) {
             exclude = o.combo.getValue().split(o.combo.valueDelimiter);
-        }else {
+        } else {
             exclude = [];
         }
         o.combo.store.baseParams.exclude = Ext.util.JSON.encode(exclude);
     },
 
-    newitem: function(bs, v) {
+    newitem: function (bs, v) {
         bs.addNewItem({value: v});
     },
 
@@ -440,8 +441,7 @@ Ext.extend(miniShop2.combo.Options, Ext.ux.form.SuperBoxSelect, {
             } else {
                 console.log("Unable to find select element");
             }
-        }
-        else {
+        } else {
             console.log("Sortable undefined");
         }
     },
@@ -526,7 +526,8 @@ miniShop2.combo.Chunk = function (config) {
             action: 'mgr/system/element/chunk/getlist',
             mode: 'chunks'
         },
-        tpl: new Ext.XTemplate('\
+        tpl: new Ext.XTemplate(
+            '\
             <tpl for=".">\
                 <div class="x-combo-list-item">\
                     <span>\
@@ -672,8 +673,7 @@ miniShop2.combo.listeners_disable = {
             if (this.store.getTotalCount() == 1 && this.store.getAt(0).id == this.value) {
                 this.readOnly = true;
                 this.addClass('disabled');
-            }
-            else {
+            } else {
                 this.readOnly = false;
                 this.removeClass('disabled');
             }
@@ -767,17 +767,17 @@ MODx.combo.LinkType = function (config) {
             fields: ['type', 'name', 'description'],
             data: this.getTypes()
         }),
-        emptyText: _('ms2_combo_select'),
-        displayField: 'name',
-        valueField: 'type',
-        hiddenName: 'type',
-        mode: 'local',
-        triggerAction: 'all',
-        editable: false,
-        selectOnFocus: false,
-        preventRender: true,
-        forceSelection: true,
-        enableKeyEvents: true
+    emptyText: _('ms2_combo_select'),
+    displayField: 'name',
+    valueField: 'type',
+    hiddenName: 'type',
+    mode: 'local',
+    triggerAction: 'all',
+    editable: false,
+    selectOnFocus: false,
+    preventRender: true,
+    forceSelection: true,
+    enableKeyEvents: true
     });
     MODx.combo.LinkType.superclass.constructor.call(this, config);
 };
@@ -850,11 +850,10 @@ miniShop2.combo.Product = function (config) {
                     </tpl>\
                     <span><small>({id})</small> <b>{pagetitle}</b></span>\
                 </div>\
-            </tpl>', {compiled: true}
-        ),
-        pageSize: 5,
-        emptyText: _('ms2_combo_select'),
-        editable: true,
+            </tpl>', {compiled: true}),
+    pageSize: 5,
+    emptyText: _('ms2_combo_select'),
+    editable: true,
     });
     miniShop2.combo.Product.superclass.constructor.call(this, config);
 };
@@ -883,8 +882,8 @@ miniShop2.combo.ExtraOptions = function (config) {
                     return _("ms2_ft_" + type);
                 }
             }),
-        allowBlank: false,
-        editable: true,
+    allowBlank: false,
+    editable: true,
     });
     miniShop2.combo.ExtraOptions.superclass.constructor.call(this, config);
 };

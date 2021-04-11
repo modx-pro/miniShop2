@@ -39,7 +39,6 @@ class msPaymentMemberRemoveProcessor extends modObjectRemoveProcessor
 
         return true;
     }
-
 }
 
 return 'msPaymentMemberRemoveProcessor';

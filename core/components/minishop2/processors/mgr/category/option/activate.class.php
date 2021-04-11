@@ -15,7 +15,6 @@ class msCategoryOptionActivateProcessor extends msCategoryOptionUpdateProcessor
 
         return true;
     }
-
 }
 
 return 'msCategoryOptionActivateProcessor';

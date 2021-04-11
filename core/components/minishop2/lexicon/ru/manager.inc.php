@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Manager Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_menu_create'] = 'Создать';
 $_lang['ms2_menu_copy'] = 'Копировать';
 $_lang['ms2_menu_add'] = 'Добавить';

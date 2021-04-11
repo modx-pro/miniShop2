@@ -10,14 +10,19 @@ if ($transport->xpdo) {
         case xPDOTransport::ACTION_UPGRADE:
             /** @var modAccessPolicy $policy */
             if ($policy = $modx->getObject('modAccessPolicy', array('name' => 'miniShopManagerPolicy'))) {
-                if ($template = $modx->getObject('modAccessPolicyTemplate',
-                    array('name' => 'miniShopManagerPolicyTemplate'))
+                if (
+                    $template = $modx->getObject(
+                        'modAccessPolicyTemplate',
+                        array('name' => 'miniShopManagerPolicyTemplate')
+                    )
                 ) {
                     $policy->set('template', $template->get('id'));
                     $policy->save();
                 } else {
-                    $modx->log(xPDO::LOG_LEVEL_ERROR,
-                        '[miniShop2] Could not find miniShopManagerPolicyTemplate Access Policy Template!');
+                    $modx->log(
+                        xPDO::LOG_LEVEL_ERROR,
+                        '[miniShop2] Could not find miniShopManagerPolicyTemplate Access Policy Template!'
+                    );
                 }
 
                 /** @var modUserGroup $adminGroup */

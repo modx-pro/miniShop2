@@ -51,8 +51,6 @@ class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
 
         return $node;
     }
-
-
 }
 
 return 'msOptionCategoryGetNodesProcessor';

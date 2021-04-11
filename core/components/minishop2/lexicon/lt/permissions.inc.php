@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Permissions English Lexicon Entries to miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['mscategory_save'] = 'Teisė kurti/redaguoti el. parduotuvės prekių kategorijas';
 $_lang['msproduct_save'] = 'Teisė kurti/redaguoti el. parduotuvės prekes';
 

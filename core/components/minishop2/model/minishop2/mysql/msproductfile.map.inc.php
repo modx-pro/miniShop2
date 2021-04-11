@@ -1,24 +1,25 @@
 <?php
-$xpdo_meta_map['msProductFile']= array (
+
+$xpdo_meta_map['msProductFile'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_product_files',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'product_id' => NULL,
+        'product_id' => null,
         'source' => 1,
         'parent' => 0,
         'name' => '',
-        'description' => NULL,
+        'description' => null,
         'path' => '',
-        'file' => NULL,
-        'type' => NULL,
-        'createdon' => NULL,
+        'file' => null,
+        'type' => null,
+        'createdon' => null,
         'createdby' => 0,
         'rank' => 0,
         'url' => '',
-        'properties' => NULL,
+        'properties' => null,
         'hash' => '',
         'active' => 1,
     ),

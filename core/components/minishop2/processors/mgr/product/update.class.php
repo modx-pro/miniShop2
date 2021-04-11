@@ -105,7 +105,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
             return;
         }
         if (!empty($this->oldParent) && !($this->oldParent instanceof msCategory)) {
-            $oldParentChildrenCount = $this->modx->getCount('modResource',
+            $oldParentChildrenCount = $this->modx->getCount(
+                'modResource',
                 array('parent' => $this->oldParent->get('id'))
             );
             if ($oldParentChildrenCount <= 0 || $oldParentChildrenCount === null) {
@@ -118,7 +119,6 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
             $this->newParent->set('isfolder', true);
         }
     }
-
 }
 
 return 'msProductUpdateProcessor';

@@ -265,7 +265,9 @@ class msOrderHandler implements msOrderInterface
     public function hasPayment($delivery, $payment)
     {
         $q = $this->modx->newQuery('msPayment', array('id' => $payment, 'active' => 1));
-        $q->innerJoin('msDeliveryMember', 'Member',
+        $q->innerJoin(
+            'msDeliveryMember',
+            'Member',
             'Member.payment_id = msPayment.id AND Member.delivery_id = ' . $delivery
         );
 
@@ -481,8 +483,11 @@ class msOrderHandler implements msOrderInterface
             $order = $this->modx->getObject('msOrder', array('id' => $order->get('id')));
 
             /** @var msPayment $payment */
-            if ($payment = $this->modx->getObject('msPayment',
-                array('id' => $order->get('payment'), 'active' => 1))
+            if (
+                $payment = $this->modx->getObject(
+                    'msPayment',
+                    array('id' => $order->get('payment'), 'active' => 1)
+                )
             ) {
                 $response = $payment->send($order);
                 if ($this->config['json_response']) {
@@ -569,16 +574,22 @@ class msOrderHandler implements msOrderInterface
 
         $delivery_cost = 0;
         /** @var msDelivery $delivery */
-        if (!empty($this->order['delivery']) && $delivery = $this->modx->getObject('msDelivery',
-                array('id' => $this->order['delivery']))
+        if (
+            !empty($this->order['delivery']) && $delivery = $this->modx->getObject(
+                'msDelivery',
+                array('id' => $this->order['delivery'])
+            )
         ) {
             $cost = $delivery->getCost($this, $cost);
             $delivery_cost = $cost - $cart['total_cost'];
         }
 
         /** @var msPayment $payment */
-        if (!empty($this->order['payment']) && $payment = $this->modx->getObject('msPayment',
-                array('id' => $this->order['payment']))
+        if (
+            !empty($this->order['payment']) && $payment = $this->modx->getObject(
+                'msPayment',
+                array('id' => $this->order['payment'])
+            )
         ) {
             $cost = $payment->getCost($this, $cost);
         }
@@ -614,7 +625,9 @@ class msOrderHandler implements msOrderInterface
     {
         $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
         $separator = trim(
-            preg_replace("/[^,\/\-]/", '',
+            preg_replace(
+                "/[^,\/\-]/",
+                '',
                 $this->modx->getOption('ms2_order_format_num_separator', null, '/')
             )
         );

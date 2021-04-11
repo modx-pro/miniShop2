@@ -1,4 +1,5 @@
 <?php
+
 define('MODX_API_MODE', true);
 /** @noinspection PhpIncludeInspection */
 require dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/index.php';
@@ -44,7 +45,8 @@ $response = $handler->request(array(
 $context = '';
 $params = array();
 if (!is_array($response)) {
-    $modx->log(modX::LOG_LEVEL_ERROR,
+    $modx->log(
+        modX::LOG_LEVEL_ERROR,
         '[miniShop2] Error on receive details of PayPal operation: ' . $response . '; ' . print_r($_GET, 1)
     );
 } elseif (!empty($response['PAYMENTREQUEST_0_INVNUM'])) {
@@ -53,11 +55,14 @@ if (!is_array($response)) {
         $context = $order->get('context');
         $params['msorder'] = $order->get('id');
     } else {
-        $modx->log(modX::LOG_LEVEL_ERROR,
-            '[miniShop2] Could not retrieve order with id ' . $response['PAYMENTREQUEST_0_INVNUM']);
+        $modx->log(
+            modX::LOG_LEVEL_ERROR,
+            '[miniShop2] Could not retrieve order with id ' . $response['PAYMENTREQUEST_0_INVNUM']
+        );
     }
 } else {
-    $modx->log(modX::LOG_LEVEL_ERROR,
+    $modx->log(
+        modX::LOG_LEVEL_ERROR,
         '[miniShop2] Error on receive details of PayPal operation: ' . print_r($response, 1) . '; ' . print_r($_GET, 1)
     );
 }

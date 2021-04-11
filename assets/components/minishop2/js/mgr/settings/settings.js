@@ -11,7 +11,7 @@ miniShop2.page.Settings = function (config) {
     miniShop2.page.Settings.superclass.constructor.call(this, config);
 };
 Ext.extend(miniShop2.page.Settings, MODx.Component, {
-    getButtons: function(config) {
+    getButtons: function (config) {
         var b = [];
 
         if (MODx.perm.msorder_list) {
@@ -19,7 +19,7 @@ Ext.extend(miniShop2.page.Settings, MODx.Component, {
                 text: _('ms2_orders'),
                 id: 'ms2-abtn-orders',
                 cls: 'primary-button',
-                handler: function() {
+                handler: function () {
                     MODx.loadPage('?', 'a=mgr/orders&namespace=minishop2');
                 }
             });

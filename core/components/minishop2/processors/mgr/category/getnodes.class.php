@@ -46,7 +46,9 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         $this->itemClass = 'modResource';
         $c = $this->modx->newQuery($this->itemClass);
         $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
-        $c->leftJoin('msCategoryMember', 'Member',
+        $c->leftJoin(
+            'msCategoryMember',
+            'Member',
             'modResource.id = Member.category_id AND Member.product_id = ' . $this->resource_id
         );
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
@@ -191,7 +193,6 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
 
         return $itemArray;
     }
-
 }
 
 return 'msCategoryGetNodesProcessor';

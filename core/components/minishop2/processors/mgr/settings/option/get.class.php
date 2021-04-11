@@ -33,8 +33,13 @@ class msOptionGetProcessor extends modObjectGetProcessor
         $c->where(array('msCategoryOption.option_id' => $this->object->get('id')));
         $c->select(array(
             $this->modx->getSelectColumns('msCategory', 'msCategory'),
-            $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption', '',
-                array('id', 'option_id', 'category_id'), true),
+            $this->modx->getSelectColumns(
+                'msCategoryOption',
+                'msCategoryOption',
+                '',
+                array('id', 'option_id', 'category_id'),
+                true
+            ),
         ));
         $categories = $this->modx->getIterator('msCategory', $c);
 

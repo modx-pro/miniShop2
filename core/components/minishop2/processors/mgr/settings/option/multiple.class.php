@@ -41,7 +41,6 @@ class msTypeMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msTypeMultipleProcessor';

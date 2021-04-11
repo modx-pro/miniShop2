@@ -42,7 +42,6 @@ class msCategoryOptionUpdateFromGridProcessor extends msCategoryOptionUpdateProc
 
         return parent::initialize();
     }
-
 }
 
 return 'msCategoryOptionUpdateFromGridProcessor';

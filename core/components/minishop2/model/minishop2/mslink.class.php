@@ -1,2 +1,5 @@
 <?php
-class msLink extends xPDOSimpleObject {}
+
+class msLink extends xPDOSimpleObject
+{
+}

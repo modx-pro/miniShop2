@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Settings German Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['area_ms2_category'] = 'Produktkategorie';
 $_lang['area_ms2_product'] = 'Produkt';
 $_lang['area_ms2_gallery'] = 'Galerie';

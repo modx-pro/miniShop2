@@ -1,6 +1,6 @@
 Ext.override(MODx.window.QuickCreateResource, {
     listeners: {
-        show: function() {
+        show: function () {
             var classKey = this.config.record.class_key,
                 isProduct = classKey == 'msProduct',
                 class_key = isProduct ? 'ms2_product' : 'ms2_category',
@@ -24,8 +24,8 @@ Ext.override(MODx.window.QuickCreateResource, {
                                 action: 'context/setting/getlist',
                                 context_key: this.config.record.context_key
                             },
-                            listeners: {fn: function() {}, scope: this},
-                            callback: function(options, success, response) {
+                            listeners: {fn: function () {}, scope: this},
+                            callback: function (options, success, response) {
                                 var r = JSON.parse(response.responseText),
                                     settings = r.results;
 
@@ -46,7 +46,7 @@ Ext.override(MODx.window.QuickCreateResource, {
                                 }
 
                                 if (templateCmb && templateCmbStore) {
-                                    templateCmbStore.on('load', function() {
+                                    templateCmbStore.on('load', function () {
                                         if (templateCmb.getValue() != templateVal) {
                                             templateCmb.setValue(templateVal);
                                         }
@@ -69,7 +69,7 @@ Ext.override(MODx.window.QuickCreateResource, {
             }
         }
     },
-    _setTitle: function(prefix, title) {
+    _setTitle: function (prefix, title) {
         if (title != 'undefined') {
             this.setTitle(prefix + ' ' + title.toLowerCase());
         }

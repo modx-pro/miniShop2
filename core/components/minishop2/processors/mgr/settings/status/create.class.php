@@ -63,7 +63,6 @@ class msOrderStatusCreateProcessor extends modObjectCreateProcessor
 
         return parent::beforeSave();
     }
-
 }
 
 return 'msOrderStatusCreateProcessor';

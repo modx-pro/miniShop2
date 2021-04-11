@@ -1,5 +1,7 @@
 <?php
+
 /** @noinspection PhpIncludeInspection */
+
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/config.core.php';
 /** @noinspection PhpIncludeInspection */
 require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';

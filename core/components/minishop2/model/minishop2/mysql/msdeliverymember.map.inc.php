@@ -1,13 +1,14 @@
 <?php
-$xpdo_meta_map['msDeliveryMember']= array (
+
+$xpdo_meta_map['msDeliveryMember'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_delivery_payments',
     'extends' => 'xPDOObject',
     'fields' =>
     array (
-        'delivery_id' => NULL,
-        'payment_id' => NULL,
+        'delivery_id' => null,
+        'payment_id' => null,
     ),
     'fieldMeta' =>
     array (

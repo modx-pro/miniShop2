@@ -49,8 +49,11 @@ class Minishop2MgrOrdersManagerController extends msManagerController
 
         $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
-        $grid_fields = array_map('trim', explode(',', $this->getOption('ms2_order_grid_fields', null,
-            'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment', true
+        $grid_fields = array_map('trim', explode(',', $this->getOption(
+            'ms2_order_grid_fields',
+            null,
+            'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment',
+            true
         )));
         $grid_fields = array_values(array_unique(array_merge($grid_fields, array(
             'id', 'user_id', 'num', 'type', 'actions', 'color'
@@ -72,18 +75,16 @@ class Minishop2MgrOrdersManagerController extends msManagerController
             <script>
                 miniShop2.config = ' . json_encode($config) . ';
 
-                MODx.perm.mssetting_list = '.($this->modx->hasPermission('mssetting_list') ? 1 : 0).';
+                MODx.perm.mssetting_list = ' . ($this->modx->hasPermission('mssetting_list') ? 1 : 0) . ';
 
                 Ext.onReady(function() {
                     MODx.add({xtype: "minishop2-page-orders"});
                 });
-            </script>'
-        );
+            </script>');
 
         $this->modx->invokeEvent('msOnManagerCustomCssJs', array(
             'controller' => $this,
             'page' => 'orders',
         ));
     }
-
 }

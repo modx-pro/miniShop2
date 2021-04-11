@@ -349,7 +349,8 @@ foreach ($tmp as $k => $v) {
             'key' => $k,
             'namespace' => 'minishop2',
             'editedon' => date('Y-m-d H:i:s'),
-        ), $v
+        ),
+        $v
     ), '', true, true);
     $settings[] = $setting;
 }

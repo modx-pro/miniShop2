@@ -101,7 +101,7 @@ Ext.extend(miniShop2.panel.Images, MODx.Panel, {
                             }, scope: this
                         }
                     }
-                }
+            }
             ]
         });
     },
@@ -306,7 +306,8 @@ Ext.extend(miniShop2.view.Images, MODx.DataView, {
                         }
                     })
                 }
-            }, this
+            },
+            this
         );
     },
 
@@ -345,7 +346,8 @@ Ext.extend(miniShop2.view.Images, MODx.DataView, {
                         }
                     })
                 }
-            }, this
+            },
+            this
         );
     },
 

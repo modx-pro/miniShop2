@@ -31,7 +31,6 @@ class msComboboxType extends msOptionType
             })
         }";
     }
-
 }
 
 return 'msComboboxType';

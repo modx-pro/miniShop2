@@ -14,7 +14,7 @@ class msCustomerProfile extends xPDOObject
     *
     * @return msCustomerProfile
     */
-    public static function load(xPDO & $xpdo, $className, $criteria, $cacheFlag = true)
+    public static function load(xPDO &$xpdo, $className, $criteria, $cacheFlag = true)
     {
         /** @var $instance msCustomerProfile */
         $instance = parent::load($xpdo, 'msCustomerProfile', $criteria, $cacheFlag);
@@ -37,5 +37,4 @@ class msCustomerProfile extends xPDOObject
 
         return $instance;
     }
-
 }

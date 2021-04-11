@@ -51,7 +51,6 @@ class msContextGetListProcessor extends modObjectGetListProcessor
 
         return $array;
     }
-
 }
 
 return 'msContextGetListProcessor';

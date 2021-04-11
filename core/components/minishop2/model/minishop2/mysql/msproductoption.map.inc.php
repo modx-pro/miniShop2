@@ -1,13 +1,14 @@
 <?php
-$xpdo_meta_map['msProductOption']= array (
+
+$xpdo_meta_map['msProductOption'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_product_options',
     'extends' => 'xPDOObject',
     'fields' =>
     array (
-        'product_id' => NULL,
-        'key' => NULL,
+        'product_id' => null,
+        'key' => null,
         'value' => '',
     ),
     'fieldMeta' =>

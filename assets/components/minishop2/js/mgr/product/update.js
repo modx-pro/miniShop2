@@ -130,7 +130,7 @@ Ext.extend(miniShop2.panel.UpdateProduct, miniShop2.panel.Product, {
                 }
                 // Get the "Resource Groups" tab and move it to the end
                 if (miniShop2.config['show_gallery'] != 0 || miniShop2.config['show_comments'] != 0) {
-                    var index = item.items.findIndex(function(tab) {
+                    var index = item.items.findIndex(function (tab) {
                         return tab.id == 'modx-resource-access-permissions';
                     });
                     if (index != -1) {

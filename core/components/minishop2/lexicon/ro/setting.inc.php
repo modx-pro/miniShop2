@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Settings Romanian Lexicon Entries for miniShop2
  * translated by Anna
@@ -6,6 +7,7 @@
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['area_ms2_main'] = 'Setări de bază';
 $_lang['area_ms2_category'] = 'Categoria produselor';
 $_lang['area_ms2_product'] = 'Produs';

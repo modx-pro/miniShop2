@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MODX Revolution
  *
@@ -21,9 +22,10 @@
  *
  * @package modx-test
  */
-require_once dirname(__FILE__).'/MODxTestCase.php';
-require_once dirname(__FILE__).'/MODxControllerTestCase.php';
-require_once dirname(__FILE__).'/MODxProcessorTestCase.php';
+
+require_once dirname(__FILE__) . '/MODxTestCase.php';
+require_once dirname(__FILE__) . '/MODxControllerTestCase.php';
+require_once dirname(__FILE__) . '/MODxProcessorTestCase.php';
 /**
  * Main MODX test harness.
  *
@@ -33,7 +35,8 @@ require_once dirname(__FILE__).'/MODxProcessorTestCase.php';
  *
  * @package modx-test
  */
-class MODxTestHarness {
+class MODxTestHarness
+{
     /** @var array $fixtures */
     protected static $fixtures = array();
     /** @var array $properties */
@@ -51,7 +54,8 @@ class MODxTestHarness {
     * @param array $options An array of configuration options for the fixture.
     * @return object|null An instance of the specified fixture class or null on failure.
     */
-    public static function &getFixture($class, $name, $new = false, array $options = array()) {
+    public static function &getFixture($class, $name, $new = false, array $options = array())
+    {
         if (!$new && array_key_exists($name, self::$fixtures) && self::$fixtures[$name] instanceof $class) {
             $fixture =& self::$fixtures[$name];
         } else {
@@ -60,14 +64,14 @@ class MODxTestHarness {
             include dirname(__FILE__) . '/properties.inc.php'; // see example in MODX/_build/test/properties.sample.inc.php
             self::$properties = $properties;
             if (array_key_exists('debug', self::$properties)) {
-                self::$debug = (boolean) self::$properties['debug'];
+                self::$debug = (bool) self::$properties['debug'];
             }
             $fixture = null;
-            $driver= self::$properties['xpdo_driver'];
+            $driver = self::$properties['xpdo_driver'];
             switch ($class) {
                 case 'modX':
                     if (!defined('MODX_REQP')) {
-                        define('MODX_REQP',false);
+                        define('MODX_REQP', false);
                     }
                     if (!defined('MODX_CONFIG_KEY')) {
                         define('MODX_CONFIG_KEY', array_key_exists('config_key', self::$properties) ? self::$properties['config_key'] : 'test');
@@ -86,8 +90,8 @@ class MODxTestHarness {
                         }
                         $fixture->initialize(self::$properties['context']);
                         $fixture->user = $fixture->newObject('modUser');
-                        $fixture->user->set('id',$fixture->getOption('modx.test.user.id', null, 1));
-                        $fixture->user->set('username',$fixture->getOption('modx.test.user.username', null, 'test'));
+                        $fixture->user->set('id', $fixture->getOption('modx.test.user.id', null, 1));
+                        $fixture->user->set('username', $fixture->getOption('modx.test.user.username', null, 'test'));
                         $fixture->getRequest();
                         $fixture->getParser();
                         $fixture->request->loadErrorHandler();

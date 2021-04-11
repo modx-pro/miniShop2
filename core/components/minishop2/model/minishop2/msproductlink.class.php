@@ -1,2 +1,5 @@
 <?php
-class msProductLink extends xPDOObject {}
+
+class msProductLink extends xPDOObject
+{
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default German Lexicon Entries for miniShop2 cart
  *

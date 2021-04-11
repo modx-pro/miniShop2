@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Default English Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 include_once('setting.inc.php');
 $files = scandir(dirname(__FILE__));
 foreach ($files as $file) {

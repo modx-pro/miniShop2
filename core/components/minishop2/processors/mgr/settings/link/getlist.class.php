@@ -85,12 +85,10 @@ class msLinkGetListProcessor extends modObjectGetListProcessor
                 'button' => true,
                 'menu' => true,
             );
-
         }
 
         return $data;
     }
-
 }
 
 return 'msLinkGetListProcessor';

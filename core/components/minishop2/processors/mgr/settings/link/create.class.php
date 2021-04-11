@@ -41,7 +41,6 @@ class msLinkCreateProcessor extends modObjectCreateProcessor
 
         return !$this->hasErrors();
     }
-
 }
 
 return 'msLinkCreateProcessor';

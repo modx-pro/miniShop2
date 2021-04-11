@@ -39,7 +39,7 @@ Ext.extend(miniShop2.grid.Link, miniShop2.grid.Default, {
                 renderer: function (value) {
                     return _('ms2_link_' + value);
                 }
-            },
+        },
             {header: _('ms2_description'), dataIndex: 'description', width: 100},
             {
                 header: _('ms2_actions'),
@@ -47,7 +47,7 @@ Ext.extend(miniShop2.grid.Link, miniShop2.grid.Default, {
                 id: 'actions',
                 width: 50,
                 renderer: miniShop2.utils.renderActions
-            }
+        }
         ];
     },
 
@@ -146,7 +146,8 @@ Ext.extend(miniShop2.grid.Link, miniShop2.grid.Default, {
                 if (val == 'yes') {
                     this.linkAction('remove');
                 }
-            }, this
+            },
+            this
         );
     },
 

@@ -1,4 +1,5 @@
 <?php
+
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */

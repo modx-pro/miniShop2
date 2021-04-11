@@ -1,4 +1,5 @@
 <?php
+
 if (!class_exists('msPaymentInterface')) {
     require_once dirname(dirname(dirname(__FILE__))) . '/model/minishop2/mspaymenthandler.class.php';
 }
@@ -23,7 +24,9 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
         $this->config = array_merge(array(
             'paymentUrl' => $paymentUrl,
             'apiUrl' => $this->modx->getOption('ms2_payment_paypal_api_url', null, 'https://api-3t.paypal.com/nvp'),
-            'checkoutUrl' => $this->modx->getOption('ms2_payment_paypal_checkout_url', null,
+            'checkoutUrl' => $this->modx->getOption(
+                'ms2_payment_paypal_checkout_url',
+                null,
                 'https://www.paypal.com/webscr?cmd=_express-checkout&token='
             ),
             'currency' => $this->modx->getOption('ms2_payment_paypal_currency', null, 'USD'),
@@ -79,9 +82,16 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
 
             return $this->success('', array('redirect' => $this->config['checkoutUrl'] . urlencode($token)));
         } else {
-            $this->modx->log(modX::LOG_LEVEL_ERROR,
-                '[miniShop2] Payment error while request. Request: ' . print_r($params,
-                    1) . ', response: ' . print_r($response, 1));
+            $this->modx->log(
+                modX::LOG_LEVEL_ERROR,
+                '[miniShop2] Payment error while request. Request: ' . print_r(
+                    $params,
+                    1
+                ) . ', response: ' . print_r(
+                    $response,
+                    1
+                )
+            );
 
             return $this->success('', array('msorder' => $order->get('id')));
         }
@@ -103,7 +113,7 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
                 'PAYMENTREQUEST_0_AMT' => $params['PAYMENTREQUEST_0_AMT'],
                 'PAYERID' => $params['PAYERID'],
                 'TOKEN' => $params['TOKEN'],
-                'PAYMENTREQUEST_0_CURRENCYCODE' => $params['PAYMENTREQUEST_0_CURRENCYCODE']?: $this->config['currency'],
+                'PAYMENTREQUEST_0_CURRENCYCODE' => $params['PAYMENTREQUEST_0_CURRENCYCODE'] ?: $this->config['currency'],
                 'PAYMENTREQUEST_0_ITEMAMT' => $params['PAYMENTREQUEST_0_ITEMAMT'],
                 'PAYMENTREQUEST_0_SHIPPINGAMT' => $params['PAYMENTREQUEST_0_SHIPPINGAMT'],
             );
@@ -130,7 +140,8 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
             if (!empty($response['ACK']) && $response['ACK'] == 'Success') {
                 $this->ms2->changeOrderStatus($order->get('id'), 2); // Set status "paid"
             } else {
-                $this->modx->log(modX::LOG_LEVEL_ERROR,
+                $this->modx->log(
+                    modX::LOG_LEVEL_ERROR,
                     '[miniShop2] Could not finalize operation: Request: ' . print_r($params, true) .
                     ', response: ' . print_r($response, true)
                 );
@@ -206,5 +217,4 @@ class PayPal extends msPaymentHandler implements msPaymentInterface
             'mscode' => $this->getOrderHash($order),
         ));
     }
-
 }

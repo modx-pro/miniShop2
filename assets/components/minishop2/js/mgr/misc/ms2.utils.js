@@ -7,8 +7,7 @@ miniShop2.utils.formatDate = function (string) {
             : new Date(string.replace(/(\d+)-(\d+)-(\d+)/, '$2/$3/$1'));
 
         return date.strftime(MODx.config['ms2_date_format']);
-    }
-    else {
+    } else {
         return '&nbsp;';
     }
 };
@@ -16,8 +15,7 @@ miniShop2.utils.formatDate = function (string) {
 miniShop2.utils.userLink = function (value, id, blank) {
     if (!value) {
         return '';
-    }
-    else if (!id) {
+    } else if (!id) {
         return value;
     }
 
@@ -32,8 +30,7 @@ miniShop2.utils.userLink = function (value, id, blank) {
 miniShop2.utils.productLink = function (value, id, blank) {
     if (!value) {
         return '';
-    }
-    else if (!id) {
+    } else if (!id) {
         return value;
     }
 
@@ -48,8 +45,7 @@ miniShop2.utils.productLink = function (value, id, blank) {
 miniShop2.utils.renderImage = function (value) {
     if (Ext.isEmpty(value)) {
         value = miniShop2.config['default_thumb'];
-    }
-    else {
+    } else {
         if (!/\/\//.test(value)) {
             if (!/^\//.test(value)) {
                 value = '/' + value;
@@ -65,8 +61,7 @@ miniShop2.utils.renderBoolean = function (value) {
     if (value == 0 || value == false || value == undefined) {
         color = 'red';
         text = _('no');
-    }
-    else {
+    } else {
         color = 'green';
         text = _('yes');
     }
@@ -90,8 +85,7 @@ miniShop2.utils.getMenu = function (actions, grid, selected) {
                 menu.push('-');
             }
             continue;
-        }
-        else if (menu.length > 0 && !has_delete && (/^remove/i.test(a['action']) || /^delete/i.test(a['action']))) {
+        } else if (menu.length > 0 && !has_delete && (/^remove/i.test(a['action']) || /^delete/i.test(a['action']))) {
             menu.push('-');
             has_delete = true;
         }
@@ -99,8 +93,7 @@ miniShop2.utils.getMenu = function (actions, grid, selected) {
         if (selected.length > 1) {
             if (!a['multiple']) {
                 continue;
-            }
-            else if (typeof(a['multiple']) == 'string') {
+            } else if (typeof(a['multiple']) == 'string') {
                 a['title'] = a['multiple'];
             }
         }
@@ -110,8 +103,7 @@ miniShop2.utils.getMenu = function (actions, grid, selected) {
             if (typeof(a['cls']['menu']) != 'undefined') {
                 icon += ' ' + a['cls']['menu'];
             }
-        }
-        else {
+        } else {
             cls = a['cls'] ? a['cls'] : '';
         }
         title = a['title'] ? a['title'] : a['title'];
@@ -121,9 +113,11 @@ miniShop2.utils.getMenu = function (actions, grid, selected) {
             handler: action,
             text: String.format(
                 '<span class="{0}"><i class="x-menu-item-icon {1}"></i>{2}</span>',
-                cls, icon, title
+                cls,
+                icon,
+                title
             ),
-            scope: grid
+        scope: grid
         });
     }
 
@@ -147,8 +141,7 @@ miniShop2.utils.renderActions = function (value, props, row) {
             if (typeof(a['cls']['button']) != 'undefined') {
                 icon += ' ' + a['cls']['button'];
             }
-        }
-        else {
+        } else {
             cls = a['cls'] ? a['cls'] : '';
         }
         action = a['action'] ? a['action'] : '';
@@ -156,7 +149,10 @@ miniShop2.utils.renderActions = function (value, props, row) {
 
         item = String.format(
             '<li class="{0}"><button class="btn btn-default {1}" action="{2}" title="{3}"></button></li>',
-            cls, icon, action, title
+            cls,
+            icon,
+            action,
+            title
         );
 
         res.push(item);
@@ -175,16 +171,14 @@ miniShop2.utils.Hash = {
             var pos = window.location.href.indexOf('?');
             hashes = (pos != -1) ? decodeURIComponent(window.location.href.substr(pos + 1)) : '';
             splitter = '&';
-        }
-        else {
+        } else {
             hashes = decodeURIComponent(window.location.hash.substr(1));
             splitter = '/';
         }
 
         if (hashes.length == 0) {
             return vars;
-        }
-        else {
+        } else {
             hashes = hashes.split(splitter);
         }
 
@@ -193,8 +187,7 @@ miniShop2.utils.Hash = {
                 hash = hashes[i].split('=');
                 if (typeof hash[1] == 'undefined') {
                     vars['anchor'] = hash[0];
-                }
-                else {
+                } else {
                     vars[hash[0]] = hash[1];
                 }
             }
@@ -215,8 +208,7 @@ miniShop2.utils.Hash = {
                 hash = '?' + hash.substr(1);
             }
             window.history.pushState(hash, '', document.location.pathname + hash);
-        }
-        else {
+        } else {
             window.location.hash = hash.substr(1);
         }
     },
@@ -245,11 +237,9 @@ miniShop2.utils.Hash = {
 miniShop2.utils.formatSize = function (size) {
     if (size >= 1048576) {
         size = Math.round(size / 1048576).toFixed(2) + ' Mb';
-    }
-    else if (size >= 1024) {
+    } else if (size >= 1024) {
         size = Math.round(size / 1024) + ' Kb';
-    }
-    else {
+    } else {
         size += ' B';
     }
 
@@ -288,11 +278,9 @@ miniShop2.utils.getExtField = function (config, key, option, context) {
     var help = '';
     if (_('resource_' + key + '_help')) {
         help = '<br/>' + _('resource_' + key + '_help');
-    }
-    else if (_('ms2_product_' + key + '_help')) {
+    } else if (_('ms2_product_' + key + '_help')) {
         help = '<br/>' + _('ms2_product_' + key + '_help');
-    }
-    else if (option.description) {
+    } else if (option.description) {
         help = '<br/>' + option.description;
     }
 
@@ -318,7 +306,7 @@ miniShop2.utils.getExtField = function (config, key, option, context) {
     switch (field.xtype) {
         case 'minishop2-combo-options':
             if (context.indexOf('column') > 0) {
-                field.disabled =true;
+                field.disabled = true;
                 field.xtype = 'textfield';
             }
             break;
@@ -339,9 +327,9 @@ miniShop2.utils.getExtField = function (config, key, option, context) {
         case 'xcheckbox':
             field.hideLabel = true;
             field.boxLabel = field.fieldLabel;
-            field.checked = field.value? 1: 0;
+            field.checked = field.value ? 1 : 0;
             if (context.indexOf('column') > 0) {
-                field.xtype ='modx-combo-boolean';
+                field.xtype = 'modx-combo-boolean';
                 field.renderer = 'boolean';
             }
             break;
@@ -370,7 +358,8 @@ miniShop2.utils.getExtField = function (config, key, option, context) {
                 header: field.fieldLabel,
                 editor: field
             });
-            return (function(o,a,b){return o[a]=b,o})({},option.key,column);
+            return (function (o,a,b) {
+                return o[a] = b,o})({},option.key,column);
         case 'extra-field':
         case 'data-field':
             return field;
@@ -401,19 +390,21 @@ miniShop2.utils.renderBadge = function (value, cell, row) {
             delta = cmax - cmin,
             h = s = l = 0;
 
-        if (delta == 0)
+        if (delta == 0) {
             h = 0;
-        else if (cmax == r)
+        } else if (cmax == r) {
             h = ((g - b) / delta) % 6;
-        else if (cmax == g)
+        } else if (cmax == g) {
             h = (b - r) / delta + 2;
-        else
+        } else {
             h = (r - g) / delta + 4;
+        }
 
         h = Math.round(h * 60);
 
-        if (h < 0)
+        if (h < 0) {
             h += 360;
+        }
 
         l = (cmax + cmin) / 2;
         s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));

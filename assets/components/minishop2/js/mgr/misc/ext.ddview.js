@@ -8,8 +8,7 @@ Ext.extend(miniShop2.DragZone, Ext.dd.DragZone, {
         var target = e.getTarget(this.view.itemSelector);
         if (!target) {
             return false;
-        }
-        else if (!this.view.isSelected(target)) {
+        } else if (!this.view.isSelected(target)) {
             this.view.onClick(e);
         }
 

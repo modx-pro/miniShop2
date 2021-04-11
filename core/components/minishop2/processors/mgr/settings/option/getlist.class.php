@@ -33,8 +33,13 @@ class msOptionGetListProcessor extends modObjectGetListProcessor
             $c->leftJoin('msCategoryOption', 'msCategoryOption', 'msCategoryOption.option_id=msOption.id');
             $c->select(array(
                 $this->modx->getSelectColumns('msOption', 'msOption'),
-                $this->modx->getSelectColumns('msCategoryOption', 'msCategoryOption', '', array('id', 'option_id'),
-                    true),
+                $this->modx->getSelectColumns(
+                    'msCategoryOption',
+                    'msCategoryOption',
+                    '',
+                    array('id', 'option_id'),
+                    true
+                ),
             ));
         }
 

@@ -14,7 +14,6 @@ class msProductUnDeleteProcessor extends modResourceUnDeleteProcessor
     {
         return empty($this->permission) || $this->modx->hasPermission($this->permission);
     }
-
 }
 
 return 'msProductUnDeleteProcessor';

@@ -30,7 +30,6 @@ class msProductLinkMultipleProcessor extends modProcessor
 
         return $this->success();
     }
-
 }
 
 return 'msProductLinkMultipleProcessor';

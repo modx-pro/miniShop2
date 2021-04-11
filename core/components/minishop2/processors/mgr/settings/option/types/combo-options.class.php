@@ -50,7 +50,6 @@ class msComboOptionsType extends msOptionType
 
         return $result;
     }
-
 }
 
 return 'msComboOptionsType';

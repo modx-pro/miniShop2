@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Settings Ukrainian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['area_ms2_main'] = 'Основні налаштування';
 $_lang['area_ms2_category'] = 'Категорія товарів';
 $_lang['area_ms2_product'] = 'Товар';

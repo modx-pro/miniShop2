@@ -159,7 +159,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
         Ext.onReady(function() {
             MODx.load(' . json_encode($ready) . ');
         });
-        MODx.perm.tree_show_resource_ids = '.($this->modx->hasPermission('tree_show_resource_ids') ? 1 : 0).';
+        MODx.perm.tree_show_resource_ids = ' . ($this->modx->hasPermission('tree_show_resource_ids') ? 1 : 0) . ';
         // ]]>
         </script>');
 

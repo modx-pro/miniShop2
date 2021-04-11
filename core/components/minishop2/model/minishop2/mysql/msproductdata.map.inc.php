@@ -1,25 +1,26 @@
 <?php
-$xpdo_meta_map['msProductData']= array (
+
+$xpdo_meta_map['msProductData'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_products',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'article' => NULL,
+        'article' => null,
         'price' => 0.0,
         'old_price' => 0.0,
         'weight' => 0.0,
-        'image' => NULL,
-        'thumb' => NULL,
+        'image' => null,
+        'thumb' => null,
         'vendor' => 0,
         'made_in' => '',
         'new' => 0,
         'popular' => 0,
         'favorite' => 0,
-        'tags' => NULL,
-        'color' => NULL,
-        'size' => NULL,
+        'tags' => null,
+        'color' => null,
+        'size' => null,
         'source' => 1,
     ),
     'fieldMeta' =>

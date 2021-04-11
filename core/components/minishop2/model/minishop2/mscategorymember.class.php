@@ -1,2 +1,5 @@
 <?php
-class msCategoryMember extends xPDOObject {}
+
+class msCategoryMember extends xPDOObject
+{
+}

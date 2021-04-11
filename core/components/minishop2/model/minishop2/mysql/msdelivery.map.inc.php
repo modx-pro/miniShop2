@@ -1,21 +1,22 @@
 <?php
-$xpdo_meta_map['msDelivery']= array (
+
+$xpdo_meta_map['msDelivery'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_deliveries',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'name' => NULL,
-        'description' => NULL,
+        'name' => null,
+        'description' => null,
         'price' => '0',
         'weight_price' => 0.0,
         'distance_price' => 0.0,
-        'logo' => NULL,
+        'logo' => null,
         'rank' => 0,
         'active' => 1,
-        'class' => NULL,
-        'properties' => NULL,
+        'class' => null,
+        'properties' => null,
         'requires' => 'email,receiver',
         'free_delivery_amount' => 0.0,
     ),

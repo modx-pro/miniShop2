@@ -33,7 +33,7 @@ Ext.extend(miniShop2.grid.ProductLinks, miniShop2.grid.Default, {
                 sortable: true,
                 renderer: this._renderMaster,
                 scope: this,
-            },
+        },
             {
                 header: _('ms2_link_slave'),
                 dataIndex: 'slave_pagetitle',
@@ -41,7 +41,7 @@ Ext.extend(miniShop2.grid.ProductLinks, miniShop2.grid.Default, {
                 sortable: true,
                 renderer: this._renderSlave,
                 scope: this
-            },
+        },
             {header: '', dataIndex: 'actions', width: 35, id: 'actions', renderer: miniShop2.utils.renderActions}
         ];
     },
@@ -116,7 +116,8 @@ Ext.extend(miniShop2.grid.ProductLinks, miniShop2.grid.Default, {
                 if (val == 'yes') {
                     this.linkAction('remove');
                 }
-            }, this
+            },
+            this
         );
     },
 
@@ -136,7 +137,7 @@ Ext.extend(miniShop2.grid.ProductLinks, miniShop2.grid.Default, {
             : miniShop2.utils.productLink(value, row.data.slave);
     },
 
-    _getSelectedIds: function() {
+    _getSelectedIds: function () {
         var ids = [];
         var selected = this.getSelectionModel().getSelections();
 

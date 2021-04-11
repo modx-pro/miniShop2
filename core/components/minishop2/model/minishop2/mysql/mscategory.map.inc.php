@@ -1,5 +1,6 @@
 <?php
-$xpdo_meta_map['msCategory']= array (
+
+$xpdo_meta_map['msCategory'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'extends' => 'modResource',

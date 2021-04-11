@@ -1,26 +1,27 @@
 <?php
-$xpdo_meta_map['msOrderAddress']= array (
+
+$xpdo_meta_map['msOrderAddress'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_order_addresses',
     'extends' => 'xPDOSimpleObject',
     'fields' =>
     array (
-        'user_id' => NULL,
-        'createdon' => NULL,
-        'updatedon' => NULL,
-        'receiver' => NULL,
-        'phone' => NULL,
-        'country' => NULL,
-        'index' => NULL,
-        'region' => NULL,
-        'city' => NULL,
-        'metro' => NULL,
-        'street' => NULL,
-        'building' => NULL,
-        'room' => NULL,
-        'comment' => NULL,
-        'properties' => NULL,
+        'user_id' => null,
+        'createdon' => null,
+        'updatedon' => null,
+        'receiver' => null,
+        'phone' => null,
+        'country' => null,
+        'index' => null,
+        'region' => null,
+        'city' => null,
+        'metro' => null,
+        'street' => null,
+        'building' => null,
+        'room' => null,
+        'comment' => null,
+        'properties' => null,
     ),
     'fieldMeta' =>
     array (

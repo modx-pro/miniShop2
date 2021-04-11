@@ -1,2 +1,5 @@
 <?php
-class msCategoryDataManagerController extends ResourceDataManagerController {}
+
+class msCategoryDataManagerController extends ResourceDataManagerController
+{
+}

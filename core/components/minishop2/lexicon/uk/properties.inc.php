@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Properties Ukrainian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
  */
+
 $_lang['ms2_prop_limit'] = 'Ліміт вибірки результатів.';
 $_lang['ms2_prop_offset'] = 'Пропуск результатів з початку виборки';
 $_lang['ms2_prop_depth'] = 'Глибина пошуку товарів від кожного батьківського ресурсу.';

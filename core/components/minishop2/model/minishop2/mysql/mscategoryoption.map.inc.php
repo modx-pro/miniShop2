@@ -1,5 +1,6 @@
 <?php
-$xpdo_meta_map['msCategoryOption']= array (
+
+$xpdo_meta_map['msCategoryOption'] = array (
     'package' => 'minishop2',
     'version' => '1.1',
     'table' => 'ms2_category_options',
@@ -11,7 +12,7 @@ $xpdo_meta_map['msCategoryOption']= array (
         'rank' => 0,
         'active' => 0,
         'required' => 0,
-        'value' => NULL,
+        'value' => null,
     ),
     'fieldMeta' =>
     array (

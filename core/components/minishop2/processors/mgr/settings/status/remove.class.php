@@ -33,7 +33,6 @@ class msOrderStatusRemoveProcessor extends modObjectRemoveProcessor
 
         return parent::beforeRemove();
     }
-
 }
 
 return 'msOrderStatusRemoveProcessor';

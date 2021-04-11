@@ -57,10 +57,10 @@ class msResourceCreateController extends ResourceCreateManagerController
     {
         $userGroups = $this->modx->user->getUserGroups();
         $c = $this->modx->newQuery('modActionDom');
-        $c->innerJoin('modFormCustomizationSet','FCSet');
-        $c->innerJoin('modFormCustomizationProfile','Profile','FCSet.profile = Profile.id');
-        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup','Profile.id = ProfileUserGroup.profile');
-        $c->leftJoin('modFormCustomizationProfile','UGProfile','UGProfile.id = ProfileUserGroup.profile');
+        $c->innerJoin('modFormCustomizationSet', 'FCSet');
+        $c->innerJoin('modFormCustomizationProfile', 'Profile', 'FCSet.profile = Profile.id');
+        $c->leftJoin('modFormCustomizationProfileUserGroup', 'ProfileUserGroup', 'Profile.id = ProfileUserGroup.profile');
+        $c->leftJoin('modFormCustomizationProfile', 'UGProfile', 'UGProfile.id = ProfileUserGroup.profile');
         $c->where(array(
             'modActionDom.action:IN' => ['resource/*', 'resource/create'],
             'modActionDom.name' => 'modx-resource-content',
@@ -95,25 +95,21 @@ class msResourceCreateController extends ResourceCreateManagerController
     public function getOption($key, $options = null, $default = null, $skipEmpty = false)
     {
         $option = $default;
-        if (!empty($key) AND is_string($key)) {
+        if (!empty($key) and is_string($key)) {
             if (is_array($options) && array_key_exists($key, $options)) {
                 $option = $options[$key];
-            }
-            elseif ($options = $this->modx->_userConfig AND array_key_exists($key, $options)) {
+            } elseif ($options = $this->modx->_userConfig and array_key_exists($key, $options)) {
                 $option = $options[$key];
-            }
-            elseif ($options = $this->context->config AND array_key_exists($key, $options)) {
+            } elseif ($options = $this->context->config and array_key_exists($key, $options)) {
                 $option = $options[$key];
-            }
-            else {
+            } else {
                 $option = $this->modx->getOption($key);
             }
         }
-        if ($skipEmpty AND empty($option)) {
+        if ($skipEmpty and empty($option)) {
             $option = $default;
         }
 
         return $option;
     }
-
 }

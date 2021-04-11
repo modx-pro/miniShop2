@@ -1,7 +1,7 @@
 <?php
+
 /** @var modX $modx */
 switch ($modx->event->name) {
-
     case 'OnMODXInit':
         // Load extensions
         /** @var miniShop2 $miniShop2 */

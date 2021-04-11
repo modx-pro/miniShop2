@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Products French Lexicon Entries for miniShop2
  *

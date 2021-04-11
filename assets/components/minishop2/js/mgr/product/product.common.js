@@ -17,8 +17,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
             var item = originals[i];
             if (item.id == 'modx-resource-header') {
                 item.html = '<h2>' + _('ms2_product_new') + '</h2>';
-            }
-            else if (item.id == 'modx-resource-tabs') {
+            } else if (item.id == 'modx-resource-tabs') {
                 item.stateful = MODx.config['ms2_product_remember_tabs'] == 1;
                 item.stateId = 'minishop2-product-' + config.mode + '-tabpanel';
                 item.stateEvents = ['tabchange'];
@@ -109,8 +108,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                     var field = fields[0].items[0].items[i];
                     if (field.id == 'modx-resource-pagetitle' || field.id == 'modx-resource-longtitle') {
                         left.push(field);
-                    }
-                    else {
+                    } else {
                         other.push(field);
                     }
                 }
@@ -172,8 +170,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                 tmp = this.getExtField(config, field, tmp);
                 if (i % 2) {
                     col2.push(tmp);
-                }
-                else {
+                } else {
                     col1.push(tmp);
                 }
             }
@@ -343,8 +340,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                             ].concat(field.items[0].items[0].items);
                             moved.checkboxes = field;
                             continue;
-                        }
-                        else {
+                        } else {
                             break;
                         }
                 }
@@ -373,8 +369,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
             if (typeof(item) == 'object') {
                 if (item.id == id) {
                     return callback(item);
-                }
-                else {
+                } else {
                     this.findField(item, id, callback);
                 }
             }

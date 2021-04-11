@@ -19,20 +19,20 @@ Ext.extend(miniShop2.window.AddOption, miniShop2.window.Default, {
                 anchor: '99%',
                 name: 'option_id',
                 hiddenName: 'option_id'
-            }, {
-                xtype: 'textfield',
-                anchor: '99%',
-                name: 'value',
-                fieldLabel: _('ms2_default_value')
-            }, {
-                xtype: 'checkboxgroup',
-                fieldLabel: _('ms2_options'),
-                columns: 1,
-                items: [
-                    {xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active'},
-                    {xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required'}
-                ]
-            }
+        }, {
+            xtype: 'textfield',
+            anchor: '99%',
+            name: 'value',
+            fieldLabel: _('ms2_default_value')
+        }, {
+            xtype: 'checkboxgroup',
+            fieldLabel: _('ms2_options'),
+            columns: 1,
+            items: [
+                {xtype: 'xcheckbox', boxLabel: _('ms2_active'), name: 'active'},
+                {xtype: 'xcheckbox', boxLabel: _('ms2_required'), name: 'required'}
+            ]
+        }
         ];
     },
 
@@ -72,7 +72,7 @@ Ext.extend(miniShop2.window.CopyCategory, miniShop2.window.Default, {
                 anchor: '99%',
                 name: 'category_from',
                 hiddenName: 'category_from'
-            }
+        }
         ];
     },
 

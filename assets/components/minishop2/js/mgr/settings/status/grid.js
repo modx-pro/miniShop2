@@ -44,7 +44,7 @@ Ext.extend(miniShop2.grid.Status, miniShop2.grid.Default, {
                 id: 'actions',
                 width: 50,
                 renderer: miniShop2.utils.renderActions
-            }
+        }
         ];
     },
 
@@ -163,18 +163,18 @@ Ext.extend(miniShop2.grid.Status, miniShop2.grid.Default, {
                 if (val == 'yes') {
                     this.statusAction('remove');
                 }
-            }, this
+            },
+            this
         );
     },
 
-    _renderBoolean: function(value, cell, row) {
+    _renderBoolean: function (value, cell, row) {
         var color, text;
 
         if (value == 0 || value == false || value == undefined) {
             color = 'red';
             text = _('no');
-        }
-        else {
+        } else {
             color = 'green';
             text = _('yes');
         }
