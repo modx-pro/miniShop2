@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added wiretapping of initiated context for work from API [#578]
 - Added counting of the number of items in the cart [#579]
 - Replace ssl certificat for paypal [#573]
 
@@ -20,10 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactoring PSR-12 errors [#577]
 
 ## [2.8.3-pl] - 2021-04-01
-
-### Added
-
-- Added wiretapping of initiated context for work from API [#578]
 
 ### Changed
 
