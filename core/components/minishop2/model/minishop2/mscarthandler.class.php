@@ -131,7 +131,8 @@ class msCartHandler implements msCartInterface
     */
     public function initialize($ctx = 'web')
     {
-        if ($this->modx->getOption('ms2_cart_context', null, '', true) == 1) {
+        $ms2_cart_context = (bool)$this->modx->getOption('ms2_cart_context', null, '0', true);
+        if ($ms2_cart_context) {
             $ctx = 'web';
         }
         $this->ctx = $ctx;
@@ -212,8 +213,9 @@ class msCartHandler implements msCartInterface
                 return $this->change($key, $this->cart[$key]['count'] + $count);
             } else {
                 $ctx_key = 'web';
-                if (!$this->modx->getOption('ms2_cart_context', null, '', true)) {
-                    $ctx_key = $this->modx->context->get('key');
+                $ms2_cart_context = (bool)$this->modx->getOption('ms2_cart_context', null, '0', true);
+                if (!$ms2_cart_context) {
+                    $ctx_key = $this->ctx;
                 }
                 $this->cart[$key] = array(
                     'id' => $id,
