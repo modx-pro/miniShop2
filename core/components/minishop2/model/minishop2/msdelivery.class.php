@@ -7,9 +7,9 @@
 class msDelivery extends xPDOSimpleObject
 {
     /** @var msDeliveryHandler $handler */
-    var $handler;
+    public $handler;
     /** @var miniShop2 $ms2 */
-    var $ms2;
+    public $ms2;
 
 
     /**

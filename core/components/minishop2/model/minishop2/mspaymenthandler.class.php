@@ -67,14 +67,14 @@ class msPaymentHandler implements msPaymentInterface
     /** @var miniShop2 $ms2 */
     public $ms2;
     /** @var array $config */
-    public $config;
+    public $config = array();
 
 
     /**
     * @param xPDOObject $object
     * @param array $config
     */
-    function __construct(xPDOObject $object, $config = array())
+    public function __construct(xPDOObject $object, $config = array())
     {
         $this->modx = $object->xpdo;
         $this->ms2 = $object->xpdo->getService('miniShop2');

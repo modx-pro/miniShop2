@@ -16,7 +16,7 @@ class msCategory extends modResource
     *
     * @param xPDO $xpdo
     */
-    function __construct(xPDO &$xpdo)
+    public function __construct(xPDO &$xpdo)
     {
         parent:: __construct($xpdo);
         $this->set('class_key', 'msCategory');

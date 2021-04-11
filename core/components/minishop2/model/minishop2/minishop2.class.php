@@ -19,13 +19,17 @@ class miniShop2
     public $optionTypes = array();
     /** @var array $plugins */
     public $plugins = array();
+    /**
+     * @var array
+     */
+    public $config = array();
 
 
     /**
     * @param modX $modx
     * @param array $config
     */
-    function __construct(modX $modx, array $config = array())
+    public function __construct(modX $modx, array $config = array())
     {
         $this->modx = $modx;
 
