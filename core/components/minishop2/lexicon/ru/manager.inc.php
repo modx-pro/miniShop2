@@ -68,7 +68,7 @@ $_lang['ms2_building'] = 'Здание';
 $_lang['ms2_room'] = 'Комната';
 $_lang['ms2_entrance'] = 'Подъезд';
 $_lang['ms2_floor'] = 'Этаж';
-$_lang['ms2_text_address'] = 'Адрес';
+$_lang['ms2_text_address'] = 'Адрес одной строкой';
 $_lang['ms2_comment'] = 'Комментарий';
 
 $_lang['ms2_email_user'] = 'Письмо покупателю';
