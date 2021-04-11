@@ -9,8 +9,8 @@
                     </label>
                     <div class="col-md-8">
                         <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
-                               name="{$field}" value="{$form[$field]}"
-                               class="form-control{($field in list $errors) ? ' error' : ''}">
+                            name="{$field}" value="{$form[$field]}"
+                            class="form-control{($field in list $errors) ? ' error' : ''}">
                     </div>
                 </div>
             {/foreach}
@@ -21,7 +21,7 @@
                 </label>
                 <div class="col-md-8">
                     <textarea name="comment" id="comment" placeholder="{'ms2_frontend_comment' | lexicon}"
-                              class="form-control{('comment' in list $errors) ? ' error' : ''}">{$form.comment}</textarea>
+                        class="form-control{('comment' in list $errors) ? ' error' : ''}">{$form.comment}</textarea>
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
                         <div class="checkbox">
                             <label class="col-form-label delivery input-parent">
                                 <input type="radio" name="delivery" value="{$delivery.id}" id="delivery_{$delivery.id}"
-                                       data-payments="{$delivery.payments | json_encode}"
-                                        {$checked ? 'checked' : ''}>
+                                    data-payments="{$delivery.payments | json_encode}"
+                                    {$checked ? 'checked' : ''}>
                                 {if $delivery.logo?}
                                     <img src="{$delivery.logo}" alt="{$delivery.name}" title="{$delivery.name}"/>
                                 {else}
@@ -101,7 +101,7 @@
                 </label>
                 <div class="col-md-8">
                     <textarea name="text_address" id="text_address" placeholder="{'ms2_frontend_text_address' | lexicon}"
-                              class="form-control{('text_address' in list $errors) ? ' error' : ''}">{$form.text_address}</textarea>
+                        class="form-control{('text_address' in list $errors) ? ' error' : ''}">{$form.text_address}</textarea>
                 </div>
             </div>
 
