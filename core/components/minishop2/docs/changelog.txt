@@ -6,16 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [2.9-pl] - TDB
+## [2.9.0-pl] - TDB
 
 ### Added
 
+- Added counting of the number of items in the cart [#579]
 - Replace ssl certificat for paypal [#573]
 
 ### Changed
 
-- Fixed the logic of registration of the order status label in the order history [#576]
+- Fixed the logic of registration of the order status label in the order history [#576], [#580]
 - Bringing the code to the PSR12 standard [#574]
+- Refactoring PSR-12 errors [#577]
 
 ## [2.8.3-pl] - 2021-04-01
 
