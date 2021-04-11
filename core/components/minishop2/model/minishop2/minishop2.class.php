@@ -19,6 +19,10 @@ class miniShop2
     public $optionTypes = array();
     /** @var array $plugins */
     public $plugins = array();
+    /**
+     * @var array
+     */
+    public $config = array();
 
 
     /**

@@ -67,7 +67,7 @@ class msPaymentHandler implements msPaymentInterface
     /** @var miniShop2 $ms2 */
     public $ms2;
     /** @var array $config */
-    public $config;
+    public $config = array();
 
 
     /**
