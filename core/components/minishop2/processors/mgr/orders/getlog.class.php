@@ -122,7 +122,7 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
     public function prepareArray(array $data)
     {
         if (!empty($data['color'])) {
-            $data['entry'] = '<span style="color:#' . $data['color'] . ';">' . $data['entry'] . '</span>';
+            $data['entry'] = '<span>' . $data['entry'] . '</span>';
         }
 
         return $data;

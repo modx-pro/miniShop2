@@ -38,7 +38,7 @@ Ext.extend(miniShop2.grid.Logs, miniShop2.grid.Default, {
                 width: 75
         },
             {header: _('ms2_action'), dataIndex: 'action', width: 50},
-            {header: _('ms2_entry'), dataIndex: 'entry', width: 50}
+            {header: _('ms2_entry'), dataIndex: 'entry', width: 50, renderer: miniShop2.utils.renderBadge}
         ];
     },
 
