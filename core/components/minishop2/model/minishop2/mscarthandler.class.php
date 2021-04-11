@@ -355,6 +355,7 @@ class msCartHandler implements msCartInterface
             'total_cost' => 0,
             'total_weight' => 0,
             'total_discount' => 0,
+            'total_positions' => count($this->cart),
         );
         foreach ($this->cart as $item) {
             if (empty($item['ctx']) || $item['ctx'] == $this->ctx) {
