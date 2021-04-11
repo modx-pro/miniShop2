@@ -105,7 +105,7 @@ class msOrderHandler implements msOrderInterface
     * @param miniShop2 $ms2
     * @param array $config
     */
-    function __construct(miniShop2 $ms2, array $config = array())
+    public function __construct(miniShop2 $ms2, array $config = array())
     {
         $this->ms2 = $ms2;
         $this->modx = $ms2->modx;

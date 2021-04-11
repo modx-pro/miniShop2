@@ -24,7 +24,7 @@ class msProduct extends modResource
     *
     * @param xPDO $xpdo
     */
-    function __construct(xPDO &$xpdo)
+    public function __construct(xPDO &$xpdo)
     {
         parent::__construct($xpdo);
         parent::set('class_key', 'msProduct');

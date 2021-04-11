@@ -25,7 +25,7 @@ class miniShop2
     * @param modX $modx
     * @param array $config
     */
-    function __construct(modX $modx, array $config = array())
+    public function __construct(modX $modx, array $config = array())
     {
         $this->modx = $modx;
 
