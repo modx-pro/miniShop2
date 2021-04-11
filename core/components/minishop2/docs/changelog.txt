@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.8.3-pl] - 2021-04-01
 
+### Added
+
+- Added wiretapping of initiated context for work from API [#578]
+
 ### Changed
 
 - Regular expression update to validate phone number [#563]
