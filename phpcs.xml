@@ -16,12 +16,7 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
 
     <!-- Our base rule: set to PSR12-->
-    <rule ref="PSR12"/>
-
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="0"/>
-        </properties>
+    <rule ref="PSR12">
+        <exclude name="Generic.Files.LineLength"/>
     </rule>
 </ruleset>
