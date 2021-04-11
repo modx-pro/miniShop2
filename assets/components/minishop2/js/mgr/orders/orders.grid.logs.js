@@ -20,7 +20,7 @@ miniShop2.grid.Logs = function (config) {
 Ext.extend(miniShop2.grid.Logs, miniShop2.grid.Default, {
 
     getFields: function () {
-        return ['id', 'user_id', 'username', 'fullname', 'timestamp', 'action', 'entry'];
+        return ['id', 'user_id', 'username', 'fullname', 'timestamp', 'action', 'entry', 'color'];
     },
 
     getColumns: function () {
