@@ -5,7 +5,7 @@
  */
 class msProductData extends xPDOSimpleObject
 {
-    var $source;
+    public $source;
     /** @var modMediaSource $mediaSource */
     public $mediaSource;
     protected $optionKeys = null;
