@@ -169,14 +169,9 @@ if ($transport->xpdo) {
             }
 
             if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_order_address_fields'))) {
-                $value = $setting->get('value');
-                $values = explode(',', $value);
-                $values[] = 'entrance';
-                $values[] = 'floor';
-                $values[] = 'text_address';
-                $values = array_unique($values);
-                $value = implode(',', $values);
-                $setting->set('value', $value);
+                $fields = explode(',', $setting->get('value'));
+                $fields = array_unique(array_merge($fields, ['entrance', 'floor', 'text_address']));
+                $setting->set('value', implode(',', $fields));
                 $setting->save();
             }
 
