@@ -600,11 +600,13 @@ class msOrderHandler implements msOrderInterface
             'with_cart' => $with_cart,
             'only_cost' => $only_cost,
             'cost' => $cost,
+            'delivery_cost' => $delivery_cost,
         ));
         if (!$response['success']) {
             return $this->error($response['message']);
         }
         $cost = $response['data']['cost'];
+        $delivery_cost = $response['data']['delivery_cost'];
 
         return $only_cost
             ? $cost
