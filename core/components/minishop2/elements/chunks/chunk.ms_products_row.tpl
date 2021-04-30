@@ -1,5 +1,6 @@
 <div class="ms2_product mb-5 mb-md-3" itemtype="http://schema.org/Product" itemscope>
     <meta itemprop="description" content="{$description = $description ?: $pagetitle}">
+    <meta itemprop="name" content="{$pagetitle}">
 
     <form method="post" class="ms2_form d-flex flex-column flex-md-row align-items-center no-gutters">
         <input type="hidden" name="id" value="{$id}">
