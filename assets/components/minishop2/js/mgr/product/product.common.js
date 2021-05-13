@@ -162,6 +162,7 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
         var tmp;
         for (var i = 0; i < available.length; i++) {
             var field = available[i];
+            this.active_fields = [];
             if ((enabled.length > 0 && enabled.indexOf(field) === -1) || this.active_fields.indexOf(field) !== -1) {
                 continue;
             }
