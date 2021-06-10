@@ -81,16 +81,15 @@ class msDeliveryHandler implements msDeliveryInterface
         $cart_weight = $cart['total_weight'];
         $cost += $weight_price * $cart_weight;
 
-        $add_price = $delivery->get('price');
-        if (preg_match('/%$/', $add_price)) {
-            $add_price = str_replace('%', '', $add_price);
-            $add_price = $cost / 100 * $add_price;
-        }
-
-        $cart = $this->ms2->cart->status();
         $free_delivery_amount = $delivery->get('free_delivery_amount');
         if ($free_delivery_amount > 0 && $free_delivery_amount <= $cart['total_cost']) {
             $add_price = 0;
+        } else {
+            $add_price = $delivery->get('price');
+            if (preg_match('/%$/', $add_price)) {
+                $add_price = str_replace('%', '', $add_price);
+                $add_price = $cost / 100 * $add_price;
+            }
         }
 
         $cost += $add_price;
