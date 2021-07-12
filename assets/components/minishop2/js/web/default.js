@@ -294,7 +294,7 @@
                 $(miniShop2.Cart.totalCount).text(status['total_count']);
                 $(miniShop2.Cart.totalCost).text(miniShop2.Utils.formatPrice(status['total_cost']));
                 $(miniShop2.Cart.totalDiscount).text(miniShop2.Utils.formatPrice(status['total_discount']));
-                if (status['cost'] > 0) {
+                if (typeof(status['cost']) === 'number') {
                     $(miniShop2.Cart.cost, '#' + status['key']).text(miniShop2.Utils.formatPrice(status['cost']));
                 }
                 if ($(miniShop2.Order.orderCost, miniShop2.Order.order).length) {
