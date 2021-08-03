@@ -13,12 +13,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added wiretapping of initiated context for work from API [#578]
 - Added counting of the number of items in the cart [#579]
 - Replace ssl certificat for paypal [#573]
+- Added delivery_cost parameter for msOnGetOrderCost event [#585]
+- Added the ability to set week start in orders [#570]
+- Added support for zero cost
 
 ### Changed
 
 - Fixed the logic of registration of the order status label in the order history [#576], [#580]
 - Bringing the code to the PSR12 standard [#574]
 - Refactoring PSR-12 errors [#577]
+- Added a name field for micro-markup [#588]
+- Fixed error Cannot read property 'Search' of undefined [#591]
 
 ## [2.8.3-pl] - 2021-04-01
 
