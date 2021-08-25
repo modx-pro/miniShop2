@@ -5,14 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.1-pl] - TDB
 
-## [2.9.0-pl] - TDB
+## [2.9.0-pl] - 2021-08-25
 
 ### Added
 
 - Added wiretapping of initiated context for work from API [#578]
 - Added counting of the number of items in the cart [#579]
-- Replace ssl certificat for paypal [#573]
+- Replace ssl certificate for PayPal [#573]
 - Added delivery_cost parameter for msOnGetOrderCost event [#585]
 - Added the ability to set week start in orders [#570]
 - Added support for zero cost
@@ -24,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactoring PSR-12 errors [#577]
 - Added a name field for micro-markup [#588]
 - Fixed error Cannot read property 'Search' of undefined [#591]
+- getCost method optimized [#602]
+- Fixed error create ms2_options table
 
 ## [2.8.3-pl] - 2021-04-01
 
