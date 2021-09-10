@@ -237,7 +237,7 @@ $tmp = array(
     ),
     'ms2_order_product_fields' => array(
         'xtype' => 'textarea',
-        'value' => 'product_pagetitle,product_article,weight,price,count,cost',
+        'value' => 'product_pagetitle,vendor_name,product_article,weight,price,count,cost',
         'area' => 'ms2_order',
     ),
     'ms2_order_product_options' => array(
