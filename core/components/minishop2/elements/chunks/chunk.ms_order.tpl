@@ -9,8 +9,8 @@
                     </label>
                     <div class="col-md-8">
                         <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
-                                name="{$field}" value="{$form[$field]}"
-                                class="form-control{($field in list $errors) ? ' error' : ''}">
+                            name="{$field}" value="{$form[$field]}"
+                            class="form-control{($field in list $errors) ? ' error' : ''}">
                     </div>
                 </div>
             {/foreach}
@@ -21,7 +21,7 @@
                 </label>
                 <div class="col-md-8">
                     <textarea name="comment" id="comment" placeholder="{'ms2_frontend_comment' | lexicon}"
-                            class="form-control{('comment' in list $errors) ? ' error' : ''}">{$form.comment}</textarea>
+                        class="form-control{('comment' in list $errors) ? ' error' : ''}">{$form.comment}</textarea>
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
                         <div class="checkbox">
                             <label class="col-form-label delivery input-parent">
                                 <input type="radio" name="delivery" value="{$delivery.id}" id="delivery_{$delivery.id}"
-                                        data-payments="{$delivery.payments | json_encode}"
-                                        {$checked ? 'checked' : ''}>
+                                    data-payments="{$delivery.payments | json_encode}"
+                                    {$checked ? 'checked' : ''}>
                                 {if $delivery.logo?}
                                     <img src="{$delivery.logo}" alt="{$delivery.name}" title="{$delivery.name}"/>
                                 {else}
@@ -82,31 +82,29 @@
 
         <div class="col-12 col-md-6">
             <h4>{'ms2_frontend_address' | lexicon}:</h4>
-            {foreach ['index','region','city'] as $field}
+            {foreach ['index','region','city', 'street', 'building', 'entrance','floor', 'room'] as $field}
                 <div class="form-group row input-parent">
                     <label class="col-md-4 col-form-label" for="{$field}">
                         {('ms2_frontend_' ~ $field) | lexicon} <span class="required-star">*</span>
                     </label>
                     <div class="col-md-8">
                         <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
-                                name="{$field}" value="{$form[$field]}"
-                                class="form-control{($field in list $errors) ? ' error' : ''}">
+                            name="{$field}" value="{$form[$field]}"
+                            class="form-control{($field in list $errors) ? ' error' : ''}">
                     </div>
                 </div>
             {/foreach}
+
             <div class="form-group row input-parent">
-                <label class="col-md-4 col-form-label" for="street">
-                    {'ms2_frontend_street' | lexicon}</label> <span class="required-star">*</span>
-                <div class="col-md-8 row no-gutters">
-                    {foreach ['street' => 6, 'building' => 3, 'room' => 3] as $field => $col}
-                        <div class="col-{$col}">
-                            <input type="text" id="{$field}" placeholder="{('ms2_frontend_' ~ $field) | lexicon}"
-                                    name="{$field}" value="{$form[$field]}"
-                                    class="form-control{($field in list $errors) ? ' error' : ''}">
-                        </div>
-                    {/foreach}
+                <label class="col-md-4 col-form-label" for="text_address">
+                    {'ms2_frontend_text_address' | lexicon} <span class="required-star">*</span>
+                </label>
+                <div class="col-md-8">
+                    <textarea name="text_address" id="text_address" placeholder="{'ms2_frontend_text_address' | lexicon}"
+                        class="form-control{('text_address' in list $errors) ? ' error' : ''}">{$form.text_address}</textarea>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -117,7 +115,8 @@
 
     <hr class="mt-4 mb-4"/>
 
-    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end">
+
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end mb-5">
         <h4 class="mb-md-0">{'ms2_frontend_order_cost' | lexicon}:</h4>
         <h3 class="mb-md-0 ml-md-2">
             <span id="ms2_order_cart_cost">{$order.cart_cost ?: 0}</span> {'ms2_frontend_currency' | lexicon} +

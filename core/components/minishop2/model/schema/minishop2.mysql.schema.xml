@@ -348,8 +348,11 @@
         <field key="metro" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="street" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="building" dbtype="varchar" precision="10" phptype="string" null="true"/>
+        <field key="entrance" dbtype="varchar" precision="10" phptype="string" null="true"/>
+        <field key="floor" dbtype="varchar" precision="10" phptype="string" null="true"/>
         <field key="room" dbtype="varchar" precision="10" phptype="string" null="true"/>
         <field key="comment" dbtype="text" phptype="string" null="true"/>
+        <field key="text_address" dbtype="text" phptype="string" null="true"/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
 
         <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">

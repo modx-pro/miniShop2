@@ -130,6 +130,9 @@ $fields = array(
     'street' => 'address',
     'building' => 'extended[building]',
     'room' => 'extended[room]',
+    'entrance' => 'extended[entrance]',
+    'floor' => 'extended[floor]',
+    'text_address' => 'extended[address]',
 );
 // Apply custom fields
 if (!empty($userFields)) {

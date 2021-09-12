@@ -168,6 +168,13 @@ if ($transport->xpdo) {
                 }
             }
 
+            if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_order_address_fields'))) {
+                $fields = explode(',', $setting->get('value'));
+                $fields = array_unique(array_merge($fields, ['entrance', 'floor', 'text_address']));
+                $setting->set('value', implode(',', $fields));
+                $setting->save();
+            }
+
             $chunks_descriptions = array(
                 'msProduct.content' => !$lang ? 'Чанк вывода карточки товара.' : 'Chunk for displaying card of miniShop2 product.',
                 'tpl.msProducts.row' => !$lang ? 'Чанк товара miniShop2.' : 'Chunk for listing miniShop2 catalog.',

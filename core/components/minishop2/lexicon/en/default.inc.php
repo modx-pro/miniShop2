@@ -126,6 +126,9 @@ $_lang['ms2_frontend_city'] = 'City';
 $_lang['ms2_frontend_street'] = 'Street';
 $_lang['ms2_frontend_building'] = 'Building';
 $_lang['ms2_frontend_room'] = 'Room';
+$_lang['ms2_frontend_entrance'] = 'Entrance';
+$_lang['ms2_frontend_floor'] = 'Floor';
+$_lang['ms2_frontend_text_address'] = 'Address';
 
 $_lang['ms2_frontend_order_cost'] = 'Total cost';
 $_lang['ms2_frontend_order_submit'] = 'Checkout!';

@@ -77,6 +77,31 @@ if ($transport->xpdo) {
             $manager->addField('msOption', 'category', array('after' => 'description'));
             $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
 
+            $newAddressFields = ['entrance', 'floor'];
+            foreach ($newAddressFields as $field) {
+                if (!array_key_exists($field, $modx->map['msOrderAddress'][$field])) {
+                    $modx->map['msOrderAddress']['fields'][$field] = array(
+                        'dbtype' => 'varchar',
+                        'precision' => '10',
+                        'phptype' => 'string',
+                        'null' => true,
+                    );
+                }
+            }
+
+            if (!array_key_exists($field, $modx->map['msOrderAddress']['text_address'])) {
+                $modx->map['msOrderAddress']['fields']['text_address'] = array(
+                    'dbtype' => 'text',
+                    'phptype' => 'string',
+                    'null' => true,
+                );
+            }
+
+
+            $manager->addField('msOrderAddress', 'entrance', array('after' => 'building'));
+            $manager->addField('msOrderAddress', 'floor', array('after' => 'entrance'));
+            $manager->addField('msOrderAddress', 'text_address', array('after' => 'comment'));
+
             // Fix for wrong events
             /*
             if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
