@@ -76,7 +76,7 @@ class msProductFile extends xPDOSimpleObject
         } else {
             if (file_exists($file)) {
                 $res = fopen($file, 'rb');
-                $raw = fread($res, 8192);
+                $raw = fread($res, 80000);
                 fclose($res);
             }
         }

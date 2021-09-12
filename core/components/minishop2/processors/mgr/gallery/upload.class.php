@@ -187,7 +187,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
                 if ($stream = fopen($file, 'r')) {
                     if ($res = fopen($tf, 'w')) {
                         while (!feof($stream)) {
-                            fwrite($res, fread($stream, 8192));
+                            fwrite($res, fread($stream, 80000));
                         }
                         fclose($res);
                     }
