@@ -33,6 +33,8 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
         $c->leftJoin('msProduct', 'msProduct', '`msOrderProduct`.`product_id` = `msProduct`.`id`');
         $c->leftJoin('msProductData', 'msProductData', '`msOrderProduct`.`product_id` = `msProductData`.`id`');
         $c->leftJoin('msCategory', 'msCategory', '`msProduct`.`parent` = `msCategory`.`id`');
+        $c->leftJoin('msVendor', 'msVendor', '`msProductData`.`vendor` = `msVendor`.`id`');
+        $c->select($this->modx->getSelectColumns('msVendor', 'msVendor', 'vendor_', array('id'), true));
         $c->where(array(
             'order_id' => $this->getProperty('order_id'),
         ));
