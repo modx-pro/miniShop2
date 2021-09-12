@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.9.1-pl] - TDB
+## [2.9.1-pl] - 2021-09-12
+
+### Added
+
+- Added msVendor fields in the list of order items [#612]
+- Added frequently used fields to the address table [#581]
+
+### Changed
+
+- Bug fixed This image is already in the product gallery
 
 ## [2.9.0-pl] - 2021-08-25
 
