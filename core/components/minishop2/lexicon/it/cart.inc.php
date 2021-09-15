@@ -27,7 +27,6 @@ $_lang['ms2_cart_add_error'] = 'Error when adding to the cart';
 $_lang['ms2_cart_add_err_id'] = 'Error when adding to the cart: id of product is not set';
 $_lang['ms2_cart_add_err_nf'] = 'Error when adding to the cart: product not found';
 $_lang['ms2_cart_add_err_count'] = 'Error when adding to the cart: wrong count "[[+count]]"';
-$_lang['ms2_cart_add_err_product'] = 'Error when adding to the cart: wrong type of product';
 
 $_lang['ms2_cart_remove_success'] = 'Il prodotto è stato rimosso dal carrello';
 $_lang['ms2_cart_remove_error'] = 'Error when removing product from cart';
