@@ -27,7 +27,6 @@ $_lang['ms2_cart_add_error'] = 'Klaida pridedant prekę į krepšelį';
 $_lang['ms2_cart_add_err_id'] = 'Klaida pridedant prekę į krepšelį: nepateiktas prekės id';
 $_lang['ms2_cart_add_err_nf'] = 'Klaida pridedant prekę į krepšelį: prekė nerasta';
 $_lang['ms2_cart_add_err_count'] = 'Klaida pridedant prekę į krepšelį: netinkamas kiekis „[[+count]]“';
-$_lang['ms2_cart_add_err_product'] = 'Klaida pridedant prekę į krepšelį: netinkamas prekės tipas';
 
 $_lang['ms2_cart_remove_success'] = 'Prekė pašalinta iš krepšelio';
 $_lang['ms2_cart_remove_error'] = 'Klaida šalinant prekę iš krepšelio';
