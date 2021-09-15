@@ -24,7 +24,6 @@ $_lang['ms2_cart_add_error'] = 'Het toevoegen is niet gelukt';
 $_lang['ms2_cart_add_err_id'] = 'Fout bij het toevoegen: id van het product niet gevonden';
 $_lang['ms2_cart_add_err_nf'] = 'Fout bij het toevoegen: product niet gevonden';
 $_lang['ms2_cart_add_err_count'] = 'Fout bij het toevoegen: verkeerde telling "[[+count]]"';
-$_lang['ms2_cart_add_err_product'] = 'Fout bij het toevoegen: verkeerd type product';
 $_lang['ms2_cart_remove_success'] = 'Product is verwijderd uit winkelwagen';
 $_lang['ms2_cart_remove_error'] = 'Fout bij het verwijderen van het product uit de winkelwagen';
 $_lang['ms2_cart_change_success'] = 'Hoeveelheid succesvol aangepast: [[+count]]';
