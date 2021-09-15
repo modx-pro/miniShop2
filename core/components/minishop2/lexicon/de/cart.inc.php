@@ -27,7 +27,6 @@ $_lang['ms2_cart_add_error'] = 'Beim Hinzufügen zum Warenkorb ist ein Fehler au
 $_lang['ms2_cart_add_err_id'] = 'Beim Hinzufügen zum Warenkorb ist ein Fehler aufgetreten: Die ID des Produktes ist nicht vergeben.';
 $_lang['ms2_cart_add_err_nf'] = 'Beim Hinzufügen zum Warenkorb ist ein Fehler aufgetreten: Produkt wurde nicht gefunden.';
 $_lang['ms2_cart_add_err_count'] = 'Beim Hinzufügen zum Warenkorb ist ein Fehler aufgetreten: Falsche Anzahl "[[+count]]"';
-$_lang['ms2_cart_add_err_product'] = 'Beim Hinzufügen zum Warenkorb ist ein Fehler aufgetreten: Falscher Produkttyp';
 
 $_lang['ms2_cart_remove_success'] = 'Produkt wurde aus dem Warenkorb entfernt';
 $_lang['ms2_cart_remove_error'] = 'Beim Entfernen aus dem Warenkorb ist ein Fehler aufgetreten';
