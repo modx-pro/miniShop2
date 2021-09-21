@@ -42,17 +42,7 @@ Ext.extend(miniShop2.page.CreateCategory, MODx.page.CreateResource, {
             ? 'resource/update'
             : 'welcome';
 
-        var fp = Ext.getCmp(this.config.formpanel);
-        if (fp && fp.isDirty() && MODx.config['confirm_navigation'] == 1) {
-            Ext.Msg.confirm(_('warning'), _('resource_cancel_dirty_confirm'), function (e) {
-                if (e == 'yes') {
-                    fp.warnUnsavedChanges = false;
-                    MODx.loadPage(action, 'id=' + id)
-                }
-            }, this);
-        } else {
-            MODx.loadPage(action, 'id=' + id)
-        }
+        MODx.loadPage(action, 'id=' + id)
     },
 
 });
