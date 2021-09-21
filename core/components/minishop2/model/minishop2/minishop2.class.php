@@ -57,11 +57,7 @@ class miniShop2
             'connector_url' => $connectorUrl,
             'actionUrl' => $actionUrl,
 
-            'defaultThumb' => $this->modx->getOption(
-                'ms2_product_thumbnail_default',
-                $config,
-                $assetsUrl . 'img/mgr/ms2_thumb.png'
-            ),
+            'defaultThumb' => trim($this->modx->getOption('ms2_product_thumbnail_default', null, true)),
             'ctx' => 'web',
             'json_response' => false,
         ), $config);
