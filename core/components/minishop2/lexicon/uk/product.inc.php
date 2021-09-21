@@ -119,8 +119,6 @@ $_lang['ms2_product_prev'] = 'Попередній товар';
 $_lang['ms2_product_next'] = 'Наступний товар';
 $_lang['ms2_product_help'] = 'Допомога';
 
-
-$_lang['ms2_product_dirty_confirm'] = 'У вас є відкладені зміни. Ви дійсно бажаєте відмінити?';
 $_lang['ms2_product_duplicate_confirm'] = 'Ви впевнені, що бажаєте зробити копію цього товару?';
 $_lang['ms2_product_delete_desc'] = 'Ви дійсно бажаєте видалити цей товар?';
 $_lang['ms2_product_selected_publish'] = 'Увімкнути вибрані товари';

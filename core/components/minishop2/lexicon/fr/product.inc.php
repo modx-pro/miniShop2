@@ -112,8 +112,6 @@ $_lang['ms2_product_prev'] = 'Article précédent';
 $_lang['ms2_product_next'] = 'Article suivant';
 $_lang['ms2_product_help'] = 'Aide';
 
-
-$_lang['ms2_product_dirty_confirm'] = 'Vous avez des modification en attente, êtes vous sûr de vouloir annuler ?';
 $_lang['ms2_product_duplicate_confirm'] = 'Ếtes vous sûr de vouloir faire une copie de cet article ?';
 $_lang['ms2_product_delete_desc'] = 'Voulez vous vraiement supprimer cet article ?';
 $_lang['ms2_product_selected_publish'] = 'Publier l\'article sélectionné';
