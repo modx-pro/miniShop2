@@ -68,13 +68,6 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'area' => 'ms2_category',
     ),
-    /*
-    'ms2_category_remember_grid' => array(
-        'value' => true,
-        'xtype' => 'combo-boolean',
-        'area' => 'ms2_category',
-    ),
-    */
     'ms2_category_id_as_alias' => array(
         'value' => false,
         'xtype' => 'combo-boolean',
@@ -90,13 +83,6 @@ $tmp = array(
         'xtype' => 'modx-combo-template',
         'area' => 'ms2_category',
     ),
-    /*
-    'ms2_product_main_fields' => array(
-        'value' => 'pagetitle,longtitle,introtext,price,old_price,article,weight,content,publishedon,pub_date,unpub_date,template,parent,alias,menutitle,searchable,cacheable,richtext,uri_override,uri,hidemenu,show_in_tree',
-        'xtype' => 'textarea',
-        'area' => 'ms2_product',
-    ),
-    */
     'ms2_product_extra_fields' => array(
         'value' => 'price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite',
         'xtype' => 'textarea',
@@ -127,13 +113,6 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_product',
     ),
-    /*
-    'ms2_product_vertical_tabs' => array(
-        'value' => true,
-        'xtype' => 'combo-boolean',
-        'area' => 'ms2_product',
-    ),
-    */
     'ms2_product_remember_tabs' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
@@ -154,25 +133,11 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_product',
     ),
-    /*
-    'ms2_price_snippet' => array(
-        'value' => '',
-        'xtype' => 'textfield',
-        'area' => 'ms2_product'
-    )
-    */
     'ms2_price_format_no_zeros' => array(
         'value' => true,
         'xtype' => 'combo-boolean',
         'area' => 'ms2_product',
     ),
-    /*
-    'ms2_weight_snippet' => array(
-        'value' => '',
-        'xtype' => 'textfield',
-        'area' => 'ms2_product'
-    )
-    */
     'ms2_weight_format_no_zeros' => array(
         'value' => true,
         'xtype' => 'combo-boolean',

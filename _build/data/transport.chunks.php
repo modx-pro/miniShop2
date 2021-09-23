@@ -28,6 +28,7 @@ $tmp = array(
 foreach ($tmp as $k => $v) {
     /** @var modChunk $chunk */
     $chunk = $modx->newObject('modChunk');
+    /** @var array $sources */
     $chunk->fromArray(array(
         'id' => 0,
         'name' => $k,

@@ -32,21 +32,6 @@ if ($transport->xpdo) {
                 ),
             ));
             break;
-
-        case xPDOTransport::ACTION_UNINSTALL:
-            /*
-            $c = $modx->newQuery('modResource');
-            $c->command('UPDATE');
-            $c->set(array(
-                'class_key' => 'modDocument',
-                'show_in_tree' => true,
-            ));
-            $c->where(array('class_key:IN' => array('msCategory', 'msProduct')));
-            if ($c->prepare()) {
-                $c->stmt->execute();
-            }
-            */
-            break;
     }
 }
 return true;

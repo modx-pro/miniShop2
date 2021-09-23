@@ -1,7 +1,7 @@
 <?php
 
 if (!class_exists('msResourceUpdateController')) {
-    require_once dirname(dirname(__FILE__)) . '/resource_update.class.php';
+    require_once dirname(__FILE__, 2) . '/resource_update.class.php';
 }
 
 class msCategoryUpdateManagerController extends msResourceUpdateController
@@ -209,7 +209,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
     /**
     * Loads additional scripts for product form from miniShop2 plugins
     */
-    function loadPlugins()
+    public function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();
         foreach ($plugins as $plugin) {
