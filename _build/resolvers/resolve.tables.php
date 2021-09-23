@@ -79,7 +79,7 @@ if ($transport->xpdo) {
 
             $newAddressFields = ['entrance', 'floor'];
             foreach ($newAddressFields as $field) {
-                if (!array_key_exists($field, $modx->map['msOrderAddress'][$field])) {
+                if (!array_key_exists($field, $modx->map['msOrderAddress']['fields'])) {
                     $modx->map['msOrderAddress']['fields'][$field] = array(
                         'dbtype' => 'varchar',
                         'precision' => '10',
