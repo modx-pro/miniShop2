@@ -160,7 +160,7 @@ class msCartHandler implements msCartInterface
             $options = array();
         }
 
-        $filter = array('id' => $id);
+        $filter = array('id' => $id, 'class_key' => 'msProduct');
         if (!$this->config['allow_deleted']) {
             $filter['deleted'] = 0;
         }
