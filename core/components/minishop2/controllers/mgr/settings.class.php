@@ -1,7 +1,7 @@
 <?php
 
 if (!class_exists('msManagerController')) {
-    require_once dirname(dirname(__FILE__)) . '/manager.class.php';
+    require_once dirname(__FILE__, 2) . '/manager.class.php';
 }
 
 class Minishop2MgrSettingsManagerController extends msManagerController

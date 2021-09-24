@@ -1,7 +1,7 @@
 <?php
 
 if (!class_exists('msResourceCreateController')) {
-    require_once dirname(dirname(__FILE__)) . '/resource_create.class.php';
+    require_once dirname(__FILE__, 2) . '/resource_create.class.php';
 }
 
 class msProductCreateManagerController extends msResourceCreateController
@@ -162,7 +162,7 @@ class msProductCreateManagerController extends msResourceCreateController
     /**
     * Loads additional scripts for product form from miniShop2 plugins
     */
-    function loadPlugins()
+    public function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();
         foreach ($plugins as $plugin) {

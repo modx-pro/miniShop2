@@ -1,7 +1,7 @@
 <?php
 
 if (!class_exists('msResourceCreateController')) {
-    require_once dirname(dirname(__FILE__)) . '/resource_create.class.php';
+    require_once dirname(__FILE__, 2) . '/resource_create.class.php';
 }
 
 class msCategoryCreateManagerController extends msResourceCreateController

@@ -22,6 +22,7 @@ $tmp = array(
 foreach ($tmp as $k => $v) {
     /** @var modPlugin $plugin */
     $plugin = $modx->newObject('modPlugin');
+    /** @var array $sources */
     $plugin->fromArray(array(
         'id' => 0,
         'name' => $k,

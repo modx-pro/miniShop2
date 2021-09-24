@@ -1,7 +1,7 @@
 <?php
 
 if (!class_exists('msResourceUpdateController')) {
-    require_once dirname(dirname(__FILE__)) . '/resource_update.class.php';
+    require_once dirname(__FILE__, 2) . '/resource_update.class.php';
 }
 
 class msProductUpdateManagerController extends msResourceUpdateController
@@ -211,7 +211,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
     /**
     * Additional preparation of the resource fields
     */
-    function prepareFields()
+    public function prepareFields()
     {
         $data = array_keys($this->modx->getFieldMeta('msProductData'));
         foreach ($this->resourceArray as $k => $v) {
@@ -235,7 +235,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
     /**
     * Loads additional scripts for product form from miniShop2 plugins
     */
-    function loadPlugins()
+    public function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();
         foreach ($plugins as $plugin) {
@@ -251,7 +251,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
     *
     * @return array
     */
-    function getSourceProperties()
+    public function getSourceProperties()
     {
         $properties = array();
         /** @var $source modMediaSource */

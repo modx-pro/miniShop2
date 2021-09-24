@@ -69,6 +69,7 @@ switch ($modx->event->name) {
 
     case 'OnUserSave':
         // Save referrer id
+        /** @var string $mode */
         if ($mode == modSystemEvent::MODE_NEW) {
             /** @var modUser $user */
             $cookieVar = $modx->getOption('ms2_referrer_cookie_var', null, 'msreferrer', true);
@@ -92,6 +93,7 @@ switch ($modx->event->name) {
         }
 
         /** @var modUser $user */
+        /** @var msOrder $order */
         if ($user = $order->getOne('User')) {
             $q = $modx->newQuery('msOrder', array('type' => 0));
             $q->innerJoin('modUser', 'modUser', array('modUser.id = msOrder.user_id'));

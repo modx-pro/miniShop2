@@ -32,8 +32,6 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             }
         }
         break;
-    case xPDOTransport::ACTION_UNINSTALL:
-        break;
 }
 
 return true;

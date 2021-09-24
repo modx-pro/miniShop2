@@ -9,4 +9,4 @@ if (!empty($_REQUEST['action'])) {
 }
 
 /** @noinspection PhpIncludeInspection */
-require dirname(dirname(dirname(dirname(__FILE__)))) . '/index.php';
+require dirname(__FILE__, 4) . '/index.php';

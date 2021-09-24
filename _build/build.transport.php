@@ -15,7 +15,7 @@ if (file_exists('build.model.php')) {
 }
 
 // Define sources
-$root = dirname(dirname(__FILE__)) . '/';
+$root = dirname(__FILE__, 2) . '/';
 $sources = array(
     'root' => $root,
     'build' => $root . '_build/',
@@ -287,7 +287,7 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
             $r = preg_split('/([0-9]+)/', $sig[2], -1, PREG_SPLIT_DELIM_CAPTURE);
             if (is_array($r) && !empty($r)) {
                 $package->set('release', $r[0]);
-                $package->set('release_index', (isset($r[1]) ? $r[1] : '0'));
+                $package->set('release_index', ($r[1] ?? '0'));
             } else {
                 $package->set('release', $sig[2]);
             }
