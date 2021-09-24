@@ -119,8 +119,6 @@ $_lang['ms2_product_prev'] = 'Ankstesnė prekė';
 $_lang['ms2_product_next'] = 'Kita prekė';
 $_lang['ms2_product_help'] = 'Pagalba';
 
-
-$_lang['ms2_product_dirty_confirm'] = 'Yra neįrašytų pakeitimų, ar tikrai norite jų atsisakyti?';
 $_lang['ms2_product_duplicate_confirm'] = 'Ar tikrai norite kurti šios prekės kopiją?';
 $_lang['ms2_product_delete_desc'] = 'Ar tikrai norite pašalinti šią prekę?';
 $_lang['ms2_product_selected_publish'] = 'Publikuoti pasirinktas prekes';

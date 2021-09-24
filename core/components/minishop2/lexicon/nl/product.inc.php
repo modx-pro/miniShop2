@@ -119,8 +119,6 @@ $_lang['ms2_product_prev'] = 'Vorige product';
 $_lang['ms2_product_next'] = 'Volgende product';
 $_lang['ms2_product_help'] = 'Hulp';
 
-
-$_lang['ms2_product_dirty_confirm'] = 'Je hebt onopgeslagen wijzigingen; weet je zeker dat je wilt annuleren?';
 $_lang['ms2_product_duplicate_confirm'] = 'Weet je zeker dat je een kopie wilt maken van dit product?';
 $_lang['ms2_product_delete_desc'] = 'Weet je zeker dat je dit product wilt verwijderen?';
 $_lang['ms2_product_selected_publish'] = 'Publiceer geselecteerde producten';

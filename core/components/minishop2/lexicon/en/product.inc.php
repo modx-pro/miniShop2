@@ -119,8 +119,6 @@ $_lang['ms2_product_prev'] = 'Previous product';
 $_lang['ms2_product_next'] = 'Next product';
 $_lang['ms2_product_help'] = 'Help';
 
-
-$_lang['ms2_product_dirty_confirm'] = 'You have changes pending; are you sure you want to cancel?';
 $_lang['ms2_product_duplicate_confirm'] = 'Are you sure you want to make a copy of this product?';
 $_lang['ms2_product_delete_desc'] = 'Do you really want to delete this product?';
 $_lang['ms2_product_selected_publish'] = 'Publish selected goods';

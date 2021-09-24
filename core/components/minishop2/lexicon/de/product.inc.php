@@ -112,8 +112,6 @@ $_lang['ms2_product_prev'] = 'Vorheriges Produkt';
 $_lang['ms2_product_next'] = 'Nächstes Produkt';
 $_lang['ms2_product_help'] = 'Hilfe';
 
-
-$_lang['ms2_product_dirty_confirm'] = 'Änderungen wurden vorgenommen; wirklich abbrechen?';
 $_lang['ms2_product_duplicate_confirm'] = 'Produkt wirklich duplizieren?';
 $_lang['ms2_product_delete_desc'] = 'Dieses Produkt wirklich löschen?';
 $_lang['ms2_product_selected_publish'] = 'Ausgewählte Produkte veröffentlichen';
