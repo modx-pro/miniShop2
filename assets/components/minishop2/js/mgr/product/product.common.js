@@ -115,11 +115,12 @@ Ext.extend(miniShop2.panel.Product, MODx.panel.Resource, {
                 fields[0].items[0].items = [{
                     layout: 'column',
                     items: [{
-                        columnWidth: .7,
+                        columnWidth: (config.record['thumb'] || miniShop2.config.default_thumb) ? 0.7 : 1,
                         layout: 'form',
                         items: left
                     }, {
                         columnWidth: .3,
+                        hidden: (config.record['thumb'] || miniShop2.config.default_thumb) ? false : true,
                         layout: 'form',
                         items: [{
                             xtype: 'displayfield',

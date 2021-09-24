@@ -108,6 +108,11 @@ $tmp = array(
         'xtype' => 'modx-combo-source',
         'area' => 'ms2_product',
     ),
+    'ms2_product_thumbnail_default' => array(
+        'value' => '{assets_url}components/minishop2/img/mgr/ms2_thumb.png',
+        'xtype' => 'textfield',
+        'area' => 'ms2_product',
+    ),
     'ms2_product_thumbnail_size' => array(
         'value' => 'small',
         'xtype' => 'textfield',
