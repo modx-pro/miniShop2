@@ -27,7 +27,6 @@ $_lang['ms2_cart_add_error'] = 'Erreur lors de l\'ajout dans le panier';
 $_lang['ms2_cart_add_err_id'] = 'Erreur lors de l\'ajout dans le panier: id de l\'article n\'est pas définit';
 $_lang['ms2_cart_add_err_nf'] = 'Erreur lors de l\'ajout dans le panier: article non trouvé';
 $_lang['ms2_cart_add_err_count'] = 'Erreur lors de l\'ajout dans le panier: trop d\'articles - [[+count]]';
-$_lang['ms2_cart_add_err_product'] = 'Erreur lors de l\'ajout dans le panier: type d\'article incorrect';
 
 $_lang['ms2_cart_remove_success'] = 'L\'article a été supprimé du panier';
 $_lang['ms2_cart_remove_error'] = 'Erreur lors de la suppression de l\'article du panier';

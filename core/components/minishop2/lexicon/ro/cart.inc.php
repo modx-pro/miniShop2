@@ -28,7 +28,6 @@ $_lang['ms2_cart_add_error'] = 'Eroare la adăugarea în coș';
 $_lang['ms2_cart_add_err_id'] = 'Eroare la adăugarea în coș: nu a fost specificat identificatorul produsului';
 $_lang['ms2_cart_add_err_nf'] = 'Eroare la adăugarea în coș: produsul nu a fost găsit';
 $_lang['ms2_cart_add_err_count'] = 'Eroare la adăugarea în coș: suma incorectă"[[+count]]"';
-$_lang['ms2_cart_add_err_product'] = 'Eroare la adăugarea în coș: tipul produsului este incorect';
 
 $_lang['ms2_cart_remove_success'] = 'Produsul a fost eliminat cu succes din coș';
 $_lang['ms2_cart_remove_error'] = 'Eroare la eliminarea produsului';
