@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.2-pl] - 2021-09-28
+
+### Added
+
+- Added the ability to set / remove product previews [#617]
+
+### Changed
+
+- Removed duplicate code [#619]
+- Removed a broken check for resource changes [#618]
+- Fixed correct http code 403 in case of unauthorized access to the file [#622]
+- Default msProduct class when added to cart [#613]
+- Improved overall code readability [#620]
+-- Optimized dirname method when connecting files
+-- Optimized definition of constants
+-- Added PHPDOC
+-- Removed commented code and some empty blocks
+-- Added access specifier to methods
+
 ## [2.9.1-pl] - 2021-09-12
 
 ### Added
