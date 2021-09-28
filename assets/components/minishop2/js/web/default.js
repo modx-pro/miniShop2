@@ -100,9 +100,9 @@
                 var $form = $(this);
                 var action = '';
                 if(e.originalEvent){
-                	action = e.originalEvent.submitter.value;
+                    action = e.originalEvent.submitter.value;
                 }else if(p.action){
-                	action = p.action;
+                    action = p.action;
                 }
                 if (action) {
                     var formData = $form.serializeArray();
