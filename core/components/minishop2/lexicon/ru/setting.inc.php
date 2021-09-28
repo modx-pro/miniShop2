@@ -22,6 +22,10 @@ $_lang['setting_ms2_plugins'] = 'Плагины магазина';
 $_lang['setting_ms2_plugins_desc'] = 'Массив с зарегистрированными плагинами расширения объектов модели магазина: товаров, профилей покупателя и т.д.';
 $_lang['setting_ms2_chunks_categories'] = 'Категории для списка чанков';
 $_lang['setting_ms2_chunks_categories_desc'] = 'Список ID категорий через запятую  для списка чанков.';
+$_lang['setting_ms2_tmp_storage'] = 'Хранилище временных данных';
+$_lang['setting_ms2_tmp_storage_desc'] = "
+Для хранения корзины и полей заказа в сессии укажите <strong>session</strong>.
+Для хранения в базе данных укажите <strong>db</strong>";
 
 $_lang['setting_ms2_category_grid_fields'] = 'Поля таблицы товаров';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимых полей таблицы с товарами категории, через запятую.';

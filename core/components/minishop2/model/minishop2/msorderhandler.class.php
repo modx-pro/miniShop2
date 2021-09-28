@@ -99,6 +99,9 @@ class msOrderHandler implements msOrderInterface
     public $config = array();
     /** @var array $order */
     protected $order;
+    protected $storage;
+    /** @var msStorageCartHandler $msStorageCartController */
+    protected $msStorageOrderController;
 
 
     /**
@@ -110,9 +113,14 @@ class msOrderHandler implements msOrderInterface
         $this->ms2 = $ms2;
         $this->modx = $ms2->modx;
 
-        $this->config = array_merge(array(
-            'order' => & $_SESSION['minishop2']['order'],
-        ), $config);
+        $this->storage = $this->modx->getOption('ms2_tmp_storage', null, 'session');
+        if ($this->storage === 'db') {
+            require_once dirname(__FILE__) . '/msstorageorderhandler.class.php';
+            $this->msStorageOrderController = new msStorageOrderHandler($this->ms2);
+        }
+
+        $this->config = [];
+        $this->config = array_merge($this->config, $config);
 
         $this->order = &$this->config['order'];
         $this->modx->lexicon->load('minishop2:order');
@@ -130,6 +138,13 @@ class msOrderHandler implements msOrderInterface
     */
     public function initialize($ctx = 'web')
     {
+        if ($this->storage === 'session') {
+            $this->order = & $_SESSION['minishop2']['order'];
+        }
+        if ($this->storage === 'db') {
+            $this->msStorageOrderController->initialize($ctx);
+            $this->order = $this->msStorageOrderController->get();
+        }
         return true;
     }
 
@@ -153,10 +168,16 @@ class msOrderHandler implements msOrderInterface
         $value = $response['data']['value'];
 
         if (empty($value)) {
+            if ($this->storage === 'db') {
+                $this->msStorageOrderController->add($key, '');
+            }
             $this->order[$key] = $validated = '';
         } else {
             $validated = $this->validate($key, $value);
             if ($validated !== false) {
+                if ($this->storage === 'db') {
+                    $this->msStorageOrderController->add($key, $validated);
+                }
                 $this->order[$key] = $validated;
                 $response = $this->ms2->invokeEvent('msOnAddToOrder', array(
                     'key' => $key,
@@ -168,6 +189,9 @@ class msOrderHandler implements msOrderInterface
                 }
                 $validated = $response['data']['value'];
             } else {
+                if ($this->storage === 'db') {
+                    $this->msStorageOrderController->add($key, '');
+                }
                 $this->order[$key] = '';
             }
         }
@@ -291,6 +315,9 @@ class msOrderHandler implements msOrderInterface
                 return $this->error($response['message']);
             }
 
+            if ($this->storage === 'db') {
+                $this->msStorageOrderController->remove($key);
+            }
             unset($this->order[$key]);
             $response = $this->ms2->invokeEvent('msOnRemoveFromOrder', array(
                 'key' => $key,
@@ -310,6 +337,9 @@ class msOrderHandler implements msOrderInterface
     */
     public function get()
     {
+        if ($this->storage === 'db') {
+            $this->msStorageOrderController->get();
+        }
         return $this->order;
     }
 
@@ -538,8 +568,10 @@ class msOrderHandler implements msOrderInterface
         if (!$response['success']) {
             return $this->error($response['message']);
         }
-
-        $this->order = array();
+        if ($this->storage === 'db') {
+            $this->msStorageOrderController->clean();
+        }
+        $this->order = [];
         $response = $this->ms2->invokeEvent('msOnEmptyOrder', array('order' => $this));
         if (!$response['success']) {
             return $this->error($response['message']);

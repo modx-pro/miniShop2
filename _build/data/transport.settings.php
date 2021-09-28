@@ -42,6 +42,11 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_main',
     ),
+    'ms2_tmp_storage' => array(
+        'value' => 'session',
+        'xtype' => 'textfield',
+        'area' => 'ms2_main',
+    ),
 
     'ms2_category_grid_fields' => array(
         'value' => 'id,menuindex,pagetitle,article,price,thumb,new,favorite,popular',

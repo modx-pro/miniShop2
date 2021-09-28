@@ -22,6 +22,10 @@ $_lang['setting_ms2_plugins'] = 'Store plugins';
 $_lang['setting_ms2_plugins_desc'] = 'Array with registered plugins for extension objects of store model: products, customer profiles, etc.';
 $_lang['setting_ms2_chunks_categories'] = 'Categories for list chunks';
 $_lang['setting_ms2_chunks_categories_desc'] = 'List of category IDs for list chunks by comma separated.';
+$_lang['setting_ms2_tmp_storage'] = 'Хранилище временных данных';
+$_lang['setting_ms2_tmp_storage_desc'] = "
+To store the shopping cart and order fields in the session, specify <strong>session</strong>.
+To store in the database, specify <strong>db</strong>";
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';

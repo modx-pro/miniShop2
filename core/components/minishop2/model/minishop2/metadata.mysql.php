@@ -20,6 +20,9 @@ $xpdo_meta_map = array(
             9 => 'msOrderProduct',
             10 => 'msLink',
             11 => 'msOption',
+            12 => 'msStorageCart',
+            13 => 'msStorageCartItem',
+            14 => 'msStorageOrder',
         ),
     'xPDOObject' =>
         array(
