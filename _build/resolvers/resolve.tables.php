@@ -35,6 +35,9 @@ if ($transport->xpdo) {
                 'msCustomerProfile',
                 'msOption',
                 'msCategoryOption',
+                'msStorageCart',
+                'msStorageCartItem',
+                'msStorageOrder'
             );
             foreach ($tmp as $v) {
                 $manager->createObjectContainer($v);
