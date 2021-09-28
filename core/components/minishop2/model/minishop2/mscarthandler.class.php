@@ -247,6 +247,7 @@ class msCartHandler implements msCartInterface
                     'count' => $count,
                     'options' => $options,
                     'ctx' => $ctx_key,
+                    'key' => $key
                 ];
                 if ($this->storage === 'db') {
                     $this->msStorageCartController->add($cartItem);

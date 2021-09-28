@@ -51,16 +51,17 @@ class msStorageCartHandler
                 'createdon' => time()
             ];
             $msStorageCart = $this->modx->newObject('msStorageCart', $cart);
-            $msStorageCart->save();
+        } else {
+            $msStorageCart->set('updatedon', time());
         }
-        //TODO Здесь вероятно уместно запустить обновление корзины, если она существует.
+        $msStorageCart->save();
         $data['cart_id'] = $msStorageCart->get('id');
         $data['user_id'] = $this->storage_user_id;
         $data['createdon'] = time();
         //key is reserved word for DB, rename it to product_key
         $data['product_key'] = $data['key'];
         unset($data['key']);
-        //id is reserved field for DB, rename it to product_id
+        //id field is already exists in DB, rename it to product_id
         $data['product_id'] = $data['id'];
         unset($data['id']);
         $msStorageCartItem = $this->modx->newObject('msStorageCartItem', $data);

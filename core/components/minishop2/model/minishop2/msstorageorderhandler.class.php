@@ -67,7 +67,7 @@ class msStorageOrderHandler
             ];
             $msStorageOrder = $this->modx->newObject('msStorageOrder', $order);
         } else {
-            $msStorageOrder->set('publishedon', time());
+            $msStorageOrder->set('updatedon', time());
             $msStorageOrder->set($key, $value);
         }
         $msStorageOrder->save();
@@ -81,7 +81,7 @@ class msStorageOrderHandler
         /** @var msStorageOrder $msStorageOrder */
         $msStorageOrder = $this->modx->getObject('msStorageOrder', ['user_id' => $this->storage_user_id]);
         if ($msStorageOrder) {
-            $msStorageOrder->set('publishedon', time());
+            $msStorageOrder->set('updatedon', time());
             $msStorageOrder->set($key);
             $msStorageOrder->save();
         }

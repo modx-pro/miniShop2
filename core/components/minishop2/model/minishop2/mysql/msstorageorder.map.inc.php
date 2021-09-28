@@ -131,12 +131,12 @@ $xpdo_meta_map['msStorageOrder'] = [
         ],
         'comment' => [
             'dbtype' => 'text',
-            'phptype' => 'json',
+            'phptype' => 'string',
             'null' => true,
         ],
         'text_address' => [
             'dbtype' => 'text',
-            'phptype' => 'json',
+            'phptype' => 'string',
             'null' => true,
         ],
         'properties' => [
