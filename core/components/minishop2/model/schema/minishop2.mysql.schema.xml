@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model package="minishop2" baseClass="xPDOObject" platform="mysql" defaultEngine="InnoDB" phpdoc-package="minishop2"
-       phpdoc-subpackage="" version="1.1">
-
-
+<model package="minishop2" baseClass="xPDOObject" platform="mysql" defaultEngine="InnoDB" phpdoc-package="minishop2" phpdoc-subpackage="" version="1.1">
     <object class="msCategory" extends="modResource">
         <field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msCategory"/>
 
         <composite alias="OwnProducts" class="msProduct" local="id" foreign="parent" cardinality="many" owner="local"/>
-        <composite alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many"
-                   owner="local"/>
-        <composite alias="CategoryOptions" class="msCategoryOption" local="id" foreign="category_id" cardinality="many"
-                   owner="local"/>
+        <composite alias="AlienProducts" class="msCategoryMember" local="id" foreign="category_id" cardinality="many" owner="local"/>
+        <composite alias="CategoryOptions" class="msCategoryOption" local="id" foreign="category_id" cardinality="many" owner="local"/>
     </object>
-
 
     <object class="msProduct" extends="modResource">
         <field key="class_key" dbtype="varchar" precision="100" phptype="string" null="false" default="msProduct"/>
 
         <aggregate alias="Category" class="msCategory" local="parent" foreign="id" cardinality="one" owner="foreign"/>
         <composite alias="Data" class="msProductData" local="id" foreign="id" cardinality="one" owner="local"/>
-        <composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many"
-                   owner="local"/>
-        <composite alias="Options" class="msProductOption" local="id" foreign="product_id" cardinality="many"
-                   owner="local"/>
+        <composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many" owner="local"/>
+        <composite alias="Options" class="msProductOption" local="id" foreign="product_id" cardinality="many" owner="local"/>
     </object>
-
 
     <object class="msProductData" table="ms2_products" extends="xPDOSimpleObject">
         <field key="article" dbtype="varchar" precision="50" phptype="string" null="true"/>
@@ -33,20 +24,15 @@
         <field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0"/>
         <field key="image" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true"/>
-        <field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
+        <field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
         <field key="made_in" dbtype="varchar" precision="100" phptype="string" null="true" default=""/>
-        <field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true"
-               default="0"/>
-        <field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true"
-               default="0"/>
-        <field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true"
-               default="0"/>
+        <field key="new" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0"/>
+        <field key="popular" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0"/>
+        <field key="favorite" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0"/>
         <field key="tags" dbtype="text" phptype="json" null="true"/>
         <field key="color" dbtype="text" phptype="json" null="true"/>
         <field key="size" dbtype="text" phptype="json" null="true"/>
-        <field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="1"/>
+        <field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="1"/>
 
         <index alias="article" name="article" primary="false" unique="false" type="BTREE">
             <column key="article" length="" collation="A" null="false"/>
@@ -73,12 +59,9 @@
             <column key="made_in" length="" collation="A" null="false"/>
         </index>
 
-        <composite alias="Options" class="msProductOption" local="id" foreign="product_id" cardinality="many"
-                   owner="local"/>
-        <composite alias="Files" class="msProductFile" local="id" foreign="product_id" cardinality="many"
-                   owner="local"/>
-        <composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many"
-                   owner="local"/>
+        <composite alias="Options" class="msProductOption" local="id" foreign="product_id" cardinality="many" owner="local"/>
+        <composite alias="Files" class="msProductFile" local="id" foreign="product_id" cardinality="many" owner="local"/>
+        <composite alias="Categories" class="msCategoryMember" local="id" foreign="product_id" cardinality="many" owner="local"/>
         <aggregate alias="Product" class="msProduct" local="id" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Vendor" class="msVendor" local="vendor" foreign="id" cardinality="one" owner="foreign"/>
     </object>
@@ -86,8 +69,7 @@
 
     <object class="msVendor" table="ms2_vendors" extends="xPDOSimpleObject">
         <field key="name" dbtype="varchar" precision="100" phptype="string" null="false"/>
-        <field key="resource" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
+        <field key="resource" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
         <field key="country" dbtype="varchar" precision="100" phptype="string" null="true"/>
         <field key="logo" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="address" dbtype="text" phptype="string" null="true"/>
@@ -103,10 +85,8 @@
 
 
     <object class="msCategoryMember" table="ms2_product_categories" extends="xPDOObject">
-        <field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
-               index="pk"/>
-        <field key="category_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
-               index="pk"/>
+        <field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
+        <field key="category_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
 
         <index alias="product" name="product" primary="true" unique="true" type="BTREE">
             <column key="product_id" length="" collation="A" null="false"/>
@@ -114,8 +94,7 @@
         </index>
 
         <aggregate alias="Product" class="msProduct" local="product_id" foreign="id" cardinality="one" owner="foreign"/>
-        <aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one"
-                   owner="foreign"/>
+        <aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one" owner="foreign"/>
     </object>
 
 
@@ -136,20 +115,16 @@
 
     <object class="msProductFile" table="ms2_product_files" extends="xPDOSimpleObject">
         <field key="product_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
-        <field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="1"/>
-        <field key="parent" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
+        <field key="source" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="1"/>
+        <field key="parent" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
         <field key="name" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
         <field key="description" dbtype="text" phptype="string" null="true"/>
         <field key="path" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
         <field key="file" dbtype="varchar" precision="255" phptype="string" null="false"/>
         <field key="type" dbtype="varchar" precision="50" phptype="string" null="true"/>
         <field key="createdon" dbtype="datetime" phptype="datetime" null="true"/>
-        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
-        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0"/>
         <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
         <field key="hash" dbtype="char" precision="40" phptype="string" null="true" default="" index="index"/>
@@ -185,8 +160,7 @@
         <field key="weight_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="distance_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="logo" dbtype="varchar" precision="255" phptype="string" null="true"/>
-        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0"/>
         <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
         <field key="class" dbtype="varchar" precision="50" phptype="string" null="true"/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
@@ -194,8 +168,7 @@
         <field key="free_delivery_amount" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
 
         <aggregate alias="Orders" class="msOrder" local="id" foreign="delivery" cardinality="many" owner="local"/>
-        <aggregate alias="Payments" class="msDeliveryMember" local="id" foreign="delivery_id" cardinality="many"
-                   owner="local"/>
+        <aggregate alias="Payments" class="msDeliveryMember" local="id" foreign="delivery_id" cardinality="many" owner="local"/>
     </object>
 
 
@@ -204,34 +177,27 @@
         <field key="description" dbtype="text" phptype="string" null="true"/>
         <field key="price" dbtype="varchar" precision="11" phptype="string" null="true" default="0"/>
         <field key="logo" dbtype="varchar" precision="255" phptype="string" null="true"/>
-        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
-        <field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
-               default="1"/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0"/>
+        <field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="1"/>
         <field key="class" dbtype="varchar" precision="50" phptype="string" null="true"/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
 
         <aggregate alias="Orders" class="msOrder" local="id" foreign="payment" cardinality="many" owner="local"/>
-        <aggregate alias="Deliveries" class="msDeliveryMember" local="id" foreign="payment_id" cardinality="many"
-                   owner="local"/>
+        <aggregate alias="Deliveries" class="msDeliveryMember" local="id" foreign="payment_id" cardinality="many" owner="local"/>
     </object>
 
 
     <object class="msDeliveryMember" table="ms2_delivery_payments" extends="xPDOObject">
-        <field key="delivery_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
-               index="pk"/>
-        <field key="payment_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
-               index="pk"/>
+        <field key="delivery_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
+        <field key="payment_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
 
         <index alias="delivery" name="delivery" primary="true" unique="true" type="BTREE">
             <column key="delivery_id" length="" collation="A" null="false"/>
             <column key="payment_id" length="" collation="A" null="false"/>
         </index>
 
-        <aggregate alias="Delivery" class="msDelivery" local="delivery_id" foreign="id" cardinality="one"
-                   owner="foreign"/>
-        <aggregate alias="Payment" class="msPayment" local="payment_id" foreign="id" cardinality="one"
-                   owner="foreign"/>
+        <aggregate alias="Delivery" class="msDelivery" local="delivery_id" foreign="id" cardinality="one" owner="foreign"/>
+        <aggregate alias="Payment" class="msPayment" local="payment_id" foreign="id" cardinality="one" owner="foreign"/>
     </object>
 
 
@@ -244,19 +210,14 @@
         <field key="cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="delivery_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0"/>
-        <field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
-        <field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
-        <field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
-        <field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
-               default="0"/>
+        <field key="status" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
+        <field key="delivery" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
+        <field key="payment" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
+        <field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
         <field key="context" dbtype="varchar" precision="100" phptype="string" null="true" default="web"/>
         <field key="comment" dbtype="text" phptype="string" null="true"/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
-        <field key="type" dbtype="tinyint" precision="3" phptype="integer" attributes="unsigned" null="true"
-               default="0"/>
+        <field key="type" dbtype="tinyint" precision="3" phptype="integer" attributes="unsigned" null="true" default="0"/>
 
         <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
             <column key="user_id" length="" collation="A" null="false"/>
@@ -269,17 +230,13 @@
         </index>
 
         <aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign"/>
-        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign"
-                   cardinality="one"/>
-        <aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="id" owner="foreign"
-                   cardinality="one"/>
+        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one"/>
+        <aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="id" owner="foreign" cardinality="one"/>
         <aggregate alias="Status" class="msOrderStatus" local="status" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Delivery" class="msDelivery" local="delivery" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Payment" class="msPayment" local="payment" foreign="id" cardinality="one" owner="foreign"/>
-        <aggregate alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one"
-                   owner="foreign"/>
-        <composite alias="Products" class="msOrderProduct" local="id" foreign="order_id" cardinality="many"
-                   owner="local"/>
+        <aggregate alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one" owner="foreign"/>
+        <composite alias="Products" class="msOrderProduct" local="id" foreign="order_id" cardinality="many" owner="local"/>
         <composite alias="Log" class="msOrderLog" local="id" foreign="order_id" cardinality="many" owner="local"/>
     </object>
 
@@ -297,8 +254,7 @@
         <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
         <field key="final" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
         <field key="fixed" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
-        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true"
-               default="0"/>
+        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true" default="0"/>
         <field key="editable" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
 
         <index alias="active" name="active" primary="false" unique="false" type="BTREE">
@@ -310,10 +266,8 @@
 
 
     <object class="msOrderLog" table="ms2_order_logs" extends="xPDOSimpleObject">
-        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
-               default="0"/>
-        <field key="order_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"
-               default="0"/>
+        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0"/>
+        <field key="order_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" default="0"/>
         <field key="timestamp" dbtype="datetime" phptype="datetime" null="true"/>
         <field key="action" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
         <field key="entry" dbtype="varchar" precision="255" phptype="string" null="false" default="0"/>
@@ -327,10 +281,8 @@
         </index>
 
         <aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one"/>
-        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign"
-                   cardinality="one"/>
-        <aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey"
-                   owner="foreign" cardinality="one"/>
+        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one"/>
+        <aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one"/>
         <aggregate alias="Order" class="msOrder" local="order_id" foreign="id" owner="foreign" cardinality="one"/>
     </object>
 
@@ -360,10 +312,8 @@
         </index>
 
         <aggregate alias="User" class="modUser" local="user_id" foreign="id" owner="foreign" cardinality="one"/>
-        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign"
-                   cardinality="one"/>
-        <aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey"
-                   owner="foreign" cardinality="one"/>
+        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one"/>
+        <aggregate alias="CustomerProfile" class="msCustomerProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one"/>
     </object>
 
 
@@ -404,8 +354,7 @@
 
     <object class="msProductLink" table="ms2_product_links" extends="xPDOObject">
         <field key="link" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk"/>
-        <field key="master" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"
-               index="pk"/>
+        <field key="master" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk"/>
         <field key="slave" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" index="pk"/>
 
         <index alias="link" name="type" primary="true" unique="true" type="BTREE">
@@ -425,10 +374,8 @@
         <field key="account" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="spent" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="createdon" dbtype="timestamp" phptype="datetime" null="true" default="CURRENT_TIMESTAMP"/>
-        <field key="referrer_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true"
-               default="0" index="index"/>
-        <field key="referrer_code" dbtype="varchar" precision="50" phptype="string" null="true" default=""
-               index="index"/>
+        <field key="referrer_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="0" index="index"/>
+        <field key="referrer_code" dbtype="varchar" precision="50" phptype="string" null="true" default="" index="index"/>
 
         <index alias="id" name="id" primary="true" unique="true" type="BTREE">
             <column key="id" length="" collation="A" null="false"/>
@@ -448,8 +395,7 @@
 
     <object class="msOption" table="ms2_options" extends="xPDOSimpleObject">
         <field key="key" dbtype="varchar" precision="191" phptype="string" null="false" default="" index="index"/>
-        <field key="caption" dbtype="varchar" precision="191" phptype="string" null="false" default=""
-               index="fulltext"/>
+        <field key="caption" dbtype="varchar" precision="191" phptype="string" null="false" default="" index="fulltext"/>
         <field key="description" dbtype="text" phptype="string" null="true"/>
         <field key="measure_unit" dbtype="tinytext" phptype="string" null="true"/>
         <field key="category" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
@@ -469,12 +415,9 @@
             <column key="type" length="" collation="A" null="false"/>
         </index>
 
-        <composite alias="OptionCategories" class="msCategoryOption" local="id" foreign="option_id" cardinality="many"
-                   owner="local"/>
-        <composite alias="OptionProducts" class="msProductOption" local="key" foreign="key" cardinality="many"
-                   owner="local"/>
-        <aggregate alias="Category" class="modCategory" local="category" foreign="id" owner="foreign"
-                   cardinality="one"/>
+        <composite alias="OptionCategories" class="msCategoryOption" local="id" foreign="option_id" cardinality="many" owner="local"/>
+        <composite alias="OptionProducts" class="msProductOption" local="key" foreign="key" cardinality="many" owner="local"/>
+        <aggregate alias="Category" class="modCategory" local="category" foreign="id" owner="foreign" cardinality="one"/>
         <validation>
             <rule field="key" name="invalid" type="preg_match"
                   rule="/^(?!\W+)(?!\d)[a-zA-Z0-9\x2d-\x2f\x7f-\xff-_]+(?!\s)$/" message="ms2_option_err_invalid_key"/>
@@ -488,10 +431,8 @@
         <field key="option_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="pk"/>
         <field key="category_id" dbtype="int" precision="10" phptype="integer" null="false" default="" index="pk"/>
         <field key="rank" dbtype="int" precision="10" phptype="integer" null="false" default="0" index="index"/>
-        <field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false"
-               default="0" index="index"/>
-        <field key="required" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false"
-               default="0" index="index"/>
+        <field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" index="index"/>
+        <field key="required" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="false" default="0" index="index"/>
         <field key="value" dbtype="text" phptype="string" null="true" index="fulltext"/>
 
         <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
@@ -512,8 +453,7 @@
             <column key="value" length="" collation="A" null="false"/>
         </index>
 
-        <aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one"
-                   owner="foreign"/>
+        <aggregate alias="Category" class="msCategory" local="category_id" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Option" class="msOption" local="option_id" foreign="id" cardinality="one" owner="foreign"/>
     </object>
 
@@ -528,8 +468,7 @@
 
         <aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign"/>
 
-        <composite alias="Items" class="msStorageCartItem" local="id" foreign="cart_id" cardinality="many"
-                   owner="local"/>
+        <composite alias="Items" class="msStorageCartItem" local="id" foreign="cart_id" cardinality="many" owner="local"/>
     </object>
 
     <object class="msStorageCartItem" table="ms2_storage_cart_items" extends="xPDOSimpleObject">
@@ -541,12 +480,12 @@
         <field key="old_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0.0"/>
         <field key="discount_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0.0"/>
         <field key="discount_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0.0"/>
-        <field key="weight" dbtype="decimal" precision="13,3"  phptype="float" null="true" default="0.0"/>
+        <field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0.0"/>
         <field key="count" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="1"/>
         <field key="options" dbtype="text" phptype="json" null="true"/>
         <field key="ctx" dbtype="varchar" precision="191" phptype="string" null="true" default="web"/>
-        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
-        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true"/>
 
 
         <index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE">
@@ -583,8 +522,7 @@
         <field key="properties" dbtype="text" phptype="json" null="true"/>
         <field key="payment_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
         <field key="delivery_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
-        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
-        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true"/>
     </object>
 </model>
-
