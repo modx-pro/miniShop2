@@ -95,11 +95,15 @@
             .ajaxStop(function () {
                 miniShop2.ajaxProgress = false;
             })
-            .on('submit', miniShop2.form, function (e) {
+            .on('submit', miniShop2.form, function (e, p) {
                 e.preventDefault();
                 var $form = $(this);
-                var action = $form.find(miniShop2.action).val();
-
+                var action = '';
+                if(e.originalEvent){
+                	action = e.originalEvent.submitter.value;
+                }else if(p.action){
+                	action = p.action;
+                }
                 if (action) {
                     var formData = $form.serializeArray();
                     formData.push({
@@ -246,7 +250,7 @@
             }
             miniShop2.$doc.on('change', miniShop2.Cart.cart + ' ' + miniShop2.Cart.countInput, function () {
                 if (!!$(this).val()) {
-                    $(this).closest(miniShop2.form).submit();
+                    $(this).closest(miniShop2.form).trigger('submit', {action:'cart/change'});
                 }
             });
         },
