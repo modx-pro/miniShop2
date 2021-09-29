@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '2.9.2-pl';
+    public $version = '3.0.0-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -232,10 +232,10 @@ class miniShop2
     {
         // Default classes
         if (!class_exists('msCartHandler')) {
-            require_once dirname(__FILE__) . '/mscarthandler.class.php';
+            require_once dirname(__FILE__, 3) . '/handlers/mscarthandler.class.php';
         }
         if (!class_exists('msOrderHandler')) {
-            require_once dirname(__FILE__) . '/msorderhandler.class.php';
+            require_once dirname(__FILE__, 3) . '/handlers/msorderhandler.class.php';
         }
 
         // Custom cart class
