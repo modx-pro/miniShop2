@@ -380,6 +380,7 @@
         <field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0"/>
         <field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="options" dbtype="text" phptype="json" null="true"/>
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
 
         <index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE">
             <column key="product_id" length="" collation="A" null="false"/>

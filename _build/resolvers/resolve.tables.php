@@ -76,6 +76,9 @@ if ($transport->xpdo) {
             $manager->addField('msOrder', 'session_id');
             $manager->addIndex('msOrder', 'session_id');
 
+            $manager->addField('msOrderProduct', 'properties');
+            $manager->addIndex('msOrderProduct', 'properties');
+
             $manager->addField('msOption', 'description', array('after' => 'caption'));
             $manager->addField('msOption', 'category', array('after' => 'description'));
             $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
