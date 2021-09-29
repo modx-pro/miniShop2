@@ -4,82 +4,82 @@ interface msCartInterface
 {
 
     /**
-    * Initializes cart to context
-    * Here you can load custom javascript or styles
-    *
-    * @param string $ctx Context for initialization
-    *
-    * @return boolean
-    */
+     * Initializes cart to context
+     * Here you can load custom javascript or styles
+     *
+     * @param string $ctx Context for initialization
+     *
+     * @return boolean
+     */
     public function initialize($ctx = 'web');
 
 
     /**
-    * Adds product to cart
-    *
-    * @param integer $id Id of MODX resource. It must be an msProduct descendant
-    * @param integer $count .A number of product exemplars
-    * @param array $options Additional options of the product: color, size etc.
-    *
-    * @return array|string $response
-    */
+     * Adds product to cart
+     *
+     * @param integer $id Id of MODX resource. It must be an msProduct descendant
+     * @param integer $count .A number of product exemplars
+     * @param array $options Additional options of the product: color, size etc.
+     *
+     * @return array|string $response
+     */
     public function add($id, $count = 1, $options = array());
 
 
     /**
-    * Removes product from cart
-    *
-    * @param string $key The unique key of cart item
-    *
-    * @return array|string $response
-    */
+     * Removes product from cart
+     *
+     * @param string $key The unique key of cart item
+     *
+     * @return array|string $response
+     */
     public function remove($key);
 
 
     /**
-    * Changes products count in cart
-    *
-    * @param string $key The unique key of cart item
-    * @param integer $count .A number of product exemplars
-    *
-    * @return array|string $response
-    */
+     * Changes products count in cart
+     *
+     * @param string $key The unique key of cart item
+     * @param integer $count .A number of product exemplars
+     *
+     * @return array|string $response
+     */
     public function change($key, $count);
 
 
     /**
-    * Cleans the cart
-    *
-    * @return array|string $response
-    */
+     * Cleans the cart
+     *
+     * @return array|string $response
+     */
     public function clean();
 
 
     /**
-    * Returns the cart status: number of items, weight, price.
-    *
-    * @param array $data Additional data to return with status
-    *
-    * @return array $status
-    */
+     * Returns the cart status: number of items, weight, price.
+     *
+     * @param array $data Additional data to return with status
+     *
+     * @return array $status
+     */
     public function status($data = array());
 
 
     /**
-    * Returns the cart items
-    *
-    * @return array $cart
-    */
+     * Returns the cart items
+     *
+     * @return array $cart
+     */
     public function get();
 
 
     /**
-    * Set all the cart items by one array
-    *
-    * @param array $cart
-    *
-    * @return void
-    */
+     * Set all the cart items by one array
+     *
+     * @param array $cart
+     *
+     * @return void
+     */
     public function set($cart = array());
 }
 
@@ -95,21 +95,26 @@ class msCartHandler implements msCartInterface
     /** @var array $cart */
     protected $cart;
     protected $ctx = 'web';
+    protected $storage = 'session';
+    protected $storageHandler;
 
 
     /**
-    * msCartHandler constructor.
-    *
-    * @param miniShop2 $ms2
-    * @param array $config
-    */
+     * msCartHandler constructor.
+     *
+     * @param miniShop2 $ms2
+     * @param array $config
+     */
     public function __construct(miniShop2 $ms2, array $config = array())
     {
         $this->ms2 = $ms2;
         $this->modx = $ms2->modx;
 
+        $this->storage = $this->modx->getOption('ms2_tmp_storage', null, 'session');
+        $this->storageInit();
+
         $this->config = array_merge(array(
-            'cart' => & $_SESSION['minishop2']['cart'],
+            'cart' => $this->storage->get(),
             'max_count' => $this->modx->getOption('ms2_cart_max_count', null, 1000, true),
             'allow_deleted' => false,
             'allow_unpublished' => false,
@@ -125,10 +130,10 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @param string $ctx
-    *
-    * @return bool
-    */
+     * @param string $ctx
+     *
+     * @return bool
+     */
     public function initialize($ctx = 'web')
     {
         $ms2_cart_context = (bool)$this->modx->getOption('ms2_cart_context', null, '0', true);
@@ -141,12 +146,12 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @param int $id
-    * @param int $count
-    * @param array $options
-    *
-    * @return array|string
-    */
+     * @param int $id
+     * @param int $count
+     * @param array $options
+     *
+     * @return array|string
+     */
     public function add($id, $count = 1, $options = array())
     {
         if (empty($id) || !is_numeric($id)) {
@@ -214,7 +219,8 @@ class msCartHandler implements msCartInterface
                 if (!$ms2_cart_context) {
                     $ctx_key = $this->ctx;
                 }
-                $this->cart[$key] = array(
+
+                $cartItem = array(
                     'id' => $id,
                     'price' => $price,
                     'old_price' => $oldPrice,
@@ -224,7 +230,9 @@ class msCartHandler implements msCartInterface
                     'count' => $count,
                     'options' => $options,
                     'ctx' => $ctx_key,
+                    'product_key' => $key
                 );
+                $this->cart = $this->storage->add($cartItem);
                 $response = $this->ms2->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
                 if (!$response['success']) {
                     return $this->error($response['message']);
@@ -243,10 +251,10 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @param string $key
-    *
-    * @return array|string
-    */
+     * @param string $key
+     *
+     * @return array|string
+     */
     public function remove($key)
     {
         if (array_key_exists($key, $this->cart)) {
@@ -254,7 +262,7 @@ class msCartHandler implements msCartInterface
             if (!$response['success']) {
                 return $this->error($response['message']);
             }
-            unset($this->cart[$key]);
+            $this->cart = $this->storageHandler->remove($key);
 
             $response = $this->ms2->invokeEvent('msOnRemoveFromCart', array('key' => $key, 'cart' => $this));
             if (!$response['success']) {
@@ -269,11 +277,11 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @param string $key
-    * @param int $count
-    *
-    * @return array|string
-    */
+     * @param string $key
+     * @param int $count
+     *
+     * @return array|string
+     */
     public function change($key, $count)
     {
         $status = array();
@@ -293,7 +301,7 @@ class msCartHandler implements msCartInterface
                     }
 
                     $count = $response['data']['count'];
-                    $this->cart[$key]['count'] = $count;
+                    $this->cart = $this->storageHandler->change($key, $count);
                     $response = $this->ms2->invokeEvent(
                         'msOnChangeInCart',
                         array('key' => $key, 'count' => $count, 'cart' => $this)
@@ -318,8 +326,8 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function clean()
     {
         $response = $this->ms2->invokeEvent('msOnBeforeEmptyCart', array('cart' => $this));
@@ -327,11 +335,7 @@ class msCartHandler implements msCartInterface
             return $this->error($response['message']);
         }
 
-        foreach ($this->cart as $key => $item) {
-            if (empty($item['ctx']) || $item['ctx'] == $this->ctx) {
-                unset($this->cart[$key]);
-            }
-        }
+        $this->cart = $this->storageHandler->clean($this->ctx);
 
         $response = $this->ms2->invokeEvent('msOnEmptyCart', array('cart' => $this));
         if (!$response['success']) {
@@ -343,10 +347,10 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @param array $data
-    *
-    * @return array
-    */
+     * @param array $data
+     *
+     * @return array
+     */
     public function status($data = array())
     {
         $status = array(
@@ -380,8 +384,8 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function get()
     {
         $cart = array();
@@ -396,23 +400,34 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * @param array $cart
-    */
+     * @param array $cart
+     */
     public function set($cart = array())
     {
-        $this->cart = $cart;
+        $this->cart = $this->storageHandler->set($cart);
+    }
+
+
+    protected function storageInit()
+    {
+        switch ($this->storage) {
+            case 'session':
+                require_once dirname(__FILE__) . '/storage/session.class.php';
+                $this->storageHandler = new Session($this->modx);
+                break;
+        }
     }
 
 
     /**
-    * Shorthand for MS2 error method
-    *
-    * @param string $message
-    * @param array $data
-    * @param array $placeholders
-    *
-    * @return array|string
-    */
+     * Shorthand for MS2 error method
+     *
+     * @param string $message
+     * @param array $data
+     * @param array $placeholders
+     *
+     * @return array|string
+     */
     public function error($message = '', $data = array(), $placeholders = array())
     {
         return $this->ms2->error($message, $data, $placeholders);
@@ -420,14 +435,14 @@ class msCartHandler implements msCartInterface
 
 
     /**
-    * Shorthand for MS2 success method
-    *
-    * @param string $message
-    * @param array $data
-    * @param array $placeholders
-    *
-    * @return array|string
-    */
+     * Shorthand for MS2 success method
+     *
+     * @param string $message
+     * @param array $data
+     * @param array $placeholders
+     *
+     * @return array|string
+     */
     public function success($message = '', $data = array(), $placeholders = array())
     {
         return $this->ms2->success($message, $data, $placeholders);
