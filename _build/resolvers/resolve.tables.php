@@ -9,10 +9,10 @@ if ($transport->xpdo) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
             $modelPath = $modx->getOption(
-                'minishop2.core_path',
-                null,
-                $modx->getOption('core_path') . 'components/minishop2/'
-            ) . 'model/';
+                    'minishop2.core_path',
+                    null,
+                    $modx->getOption('core_path') . 'components/minishop2/'
+                ) . 'model/';
             $modx->addPackage('minishop2', $modelPath);
 
             $manager = $modx->getManager();
@@ -73,6 +73,9 @@ if ($transport->xpdo) {
             $manager->addField('msOrder', 'type');
             $manager->addIndex('msOrder', 'type');
 
+            $manager->addField('msOrder', 'session_id');
+            $manager->addIndex('msOrder', 'session_id');
+
             $manager->addField('msOption', 'description', array('after' => 'caption'));
             $manager->addField('msOption', 'category', array('after' => 'description'));
             $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
@@ -101,16 +104,6 @@ if ($transport->xpdo) {
             $manager->addField('msOrderAddress', 'entrance', array('after' => 'building'));
             $manager->addField('msOrderAddress', 'floor', array('after' => 'entrance'));
             $manager->addField('msOrderAddress', 'text_address', array('after' => 'comment'));
-
-            // Fix for wrong events
-            /*
-            if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
-                $modx->removeCollection('modEvent', array(
-                    'groupname' => 'miniShop2',
-                    'name:IN' => array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
-                ));
-            }
-            */
             $modx->setLogLevel($level);
             break;
         case xPDOTransport::ACTION_UNINSTALL:

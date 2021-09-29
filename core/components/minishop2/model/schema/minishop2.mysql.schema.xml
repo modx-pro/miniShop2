@@ -237,6 +237,7 @@
 
     <object class="msOrder" table="ms2_orders" extends="xPDOSimpleObject">
         <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="session_id" dbtype="varchar" precision="32" phptype="string" null="false" default=""/>
         <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
         <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
         <field key="num" dbtype="varchar" precision="20" phptype="string" null="true" default=""/>
@@ -260,6 +261,9 @@
 
         <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
             <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="session_id" name="session_id" primary="false" unique="false" type="BTREE">
+            <column key="session_id" length="" collation="A" null="false"/>
         </index>
         <index alias="status" name="status" primary="false" unique="false" type="BTREE">
             <column key="status" length="" collation="A" null="false"/>

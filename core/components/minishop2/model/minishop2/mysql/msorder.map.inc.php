@@ -8,6 +8,7 @@ $xpdo_meta_map['msOrder'] = array(
     'fields' =>
         array(
             'user_id' => null,
+            'session_id' => null,
             'createdon' => null,
             'updatedon' => null,
             'num' => '',
@@ -33,6 +34,14 @@ $xpdo_meta_map['msOrder'] = array(
                     'attributes' => 'unsigned',
                     'phptype' => 'integer',
                     'null' => false,
+                ),
+            'session_id' =>
+                array(
+                    'dbtype' => 'varchar',
+                    'precision' => '32',
+                    'phptype' => 'string',
+                    'null' => true,
+                    'default' => '',
                 ),
             'createdon' =>
                 array(
@@ -163,6 +172,22 @@ $xpdo_meta_map['msOrder'] = array(
                     'columns' =>
                         array(
                             'user_id' =>
+                                array(
+                                    'length' => '',
+                                    'collation' => 'A',
+                                    'null' => false,
+                                ),
+                        ),
+                ),
+            'session_id' =>
+                array(
+                    'alias' => 'session_id',
+                    'primary' => false,
+                    'unique' => false,
+                    'type' => 'BTREE',
+                    'columns' =>
+                        array(
+                            'session_id' =>
                                 array(
                                     'length' => '',
                                     'collation' => 'A',
