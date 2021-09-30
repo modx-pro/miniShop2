@@ -52,26 +52,31 @@ class DB
         $weight = 0;
         $status = 0;
 
-        $msOrder = $this->modx->newObject('msOrder');
-        $orderData = [
-            'user_id' => $this->modx->getLoginUserID($this->ctx),
-            'session_id' => session_id(),
-            'createdon' => time(),
-            'cost' => $cost,
-            'cart_cost' => $cartCost,
-            'weight' => $weight,
-            'status' => $status,
-            'context' => $cartItem['ctx'],
-        ];
-        $msOrder->fromArray($orderData);
+        $msOrder = $this->getMsOrder();
+        if (!$msOrder) {
+            $msOrder = $this->modx->newObject('msOrder');
+            $orderData = [
+                'user_id' => $this->modx->getLoginUserID($this->ctx),
+                'session_id' => session_id(),
+                'createdon' => time(),
+                'cost' => $cost,
+                'cart_cost' => $cartCost,
+                'weight' => $weight,
+                'status' => $status,
+                'context' => $cartItem['ctx'],
+            ];
+            $msOrder->fromArray($orderData);
 
-        // Adding address
-        /** @var msOrderAddress $address */
-        $address = $this->modx->newObject('msOrderAddress', [
-            'user_id' => $this->modx->getLoginUserID($this->ctx),
-            'createdon' => time(),
-        ]);
-        $msOrder->addOne($address);
+            // Adding address
+            /** @var msOrderAddress $address */
+            $address = $this->modx->newObject('msOrderAddress', [
+                'user_id' => $this->modx->getLoginUserID($this->ctx),
+                'createdon' => time(),
+            ]);
+            $msOrder->addOne($address);
+        } else {
+            $msOrder->set('updatedon', time());
+        }
 
         // Adding products
         $products = [];
@@ -79,7 +84,7 @@ class DB
             'msProduct',
             array(
                 'id' => $cartItem['id'],
-                'class_key' => 'published',
+                'class_key' => 'msProduct',
                 'deleted' => 0,
             )
         );
