@@ -280,8 +280,8 @@
         <aggregate alias="Status" class="msOrderStatus" local="status" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Delivery" class="msDelivery" local="delivery" foreign="id" cardinality="one" owner="foreign"/>
         <aggregate alias="Payment" class="msPayment" local="payment" foreign="id" cardinality="one" owner="foreign"/>
-        <aggregate alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one"
-                owner="foreign"/>
+        <composite alias="Address" class="msOrderAddress" local="address" foreign="id" cardinality="one"
+                owner="local"/>
         <composite alias="Products" class="msOrderProduct" local="id" foreign="order_id" cardinality="many"
                 owner="local"/>
         <composite alias="Log" class="msOrderLog" local="id" foreign="order_id" cardinality="many" owner="local"/>

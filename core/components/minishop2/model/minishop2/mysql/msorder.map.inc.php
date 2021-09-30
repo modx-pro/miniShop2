@@ -246,6 +246,14 @@ $xpdo_meta_map['msOrder'] = array(
                     'cardinality' => 'many',
                     'owner' => 'local',
                 ),
+            'Address' =>
+                array(
+                    'class' => 'msOrderAddress',
+                    'local' => 'address',
+                    'foreign' => 'id',
+                    'cardinality' => 'one',
+                    'owner' => 'foreign',
+                ),
         ),
     'aggregates' =>
         array(
@@ -293,14 +301,6 @@ $xpdo_meta_map['msOrder'] = array(
                 array(
                     'class' => 'msPayment',
                     'local' => 'payment',
-                    'foreign' => 'id',
-                    'cardinality' => 'one',
-                    'owner' => 'foreign',
-                ),
-            'Address' =>
-                array(
-                    'class' => 'msOrderAddress',
-                    'local' => 'address',
                     'foreign' => 'id',
                     'cardinality' => 'one',
                     'owner' => 'foreign',
