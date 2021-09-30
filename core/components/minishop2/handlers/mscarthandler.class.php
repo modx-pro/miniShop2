@@ -114,7 +114,7 @@ class msCartHandler implements msCartInterface
         $this->storageInit();
 
         $this->config = array_merge(array(
-            'cart' => $this->storage->get(),
+            'cart' => $this->storageHandler->get(),
             'max_count' => $this->modx->getOption('ms2_cart_max_count', null, 1000, true),
             'allow_deleted' => false,
             'allow_unpublished' => false,
@@ -141,6 +141,7 @@ class msCartHandler implements msCartInterface
             $ctx = 'web';
         }
         $this->ctx = $ctx;
+        $this->storageHandler->setContext($this->ctx);
         return true;
     }
 
@@ -230,9 +231,9 @@ class msCartHandler implements msCartInterface
                     'count' => $count,
                     'options' => $options,
                     'ctx' => $ctx_key,
-                    'product_key' => $key
+                    'key' => $key
                 );
-                $this->cart = $this->storage->add($cartItem);
+                $this->cart = $this->storageHandler->add($cartItem);
                 $response = $this->ms2->invokeEvent('msOnAddToCart', array('key' => $key, 'cart' => $this));
                 if (!$response['success']) {
                     return $this->error($response['message']);
@@ -414,6 +415,10 @@ class msCartHandler implements msCartInterface
             case 'session':
                 require_once dirname(__FILE__) . '/storage/session.class.php';
                 $this->storageHandler = new Session($this->modx);
+                break;
+            case 'db':
+                require_once dirname(__FILE__) . '/storage/db.class.php';
+                $this->storageHandler = new DB($this->modx);
                 break;
         }
     }

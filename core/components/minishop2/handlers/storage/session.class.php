@@ -3,6 +3,7 @@
 class Session
 {
     protected $modx;
+    protected $ctx = 'web';
 
     public function __construct(modX $modx)
     {
@@ -22,7 +23,7 @@ class Session
 
     public function add($cartItem)
     {
-        $key = $cartItem['product_key'];
+        $key = $cartItem['key'];
         $_SESSION['minishop2']['cart'][$key] = $cartItem;
         return $this->get();
     }
@@ -47,5 +48,10 @@ class Session
             }
         }
         return $this->get();
+    }
+
+    public function setContext($ctx)
+    {
+        $this->ctx = $ctx;
     }
 }
