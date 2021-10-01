@@ -50,10 +50,10 @@ class DB
         $cost = 0;
         $cartCost = 0;
         $weight = 0;
-        $status = 0;
 
         $msOrder = $this->getMsOrder();
         if (!$msOrder) {
+            $status = 0;
             $msOrder = $this->modx->newObject('msOrder');
             $orderData = [
                 'user_id' => $this->modx->getLoginUserID($this->ctx),
@@ -76,6 +76,11 @@ class DB
             $msOrder->addOne($address);
         } else {
             $msOrder->set('updatedon', time());
+            $orderProducts = $msOrder->getMany('Products');
+            foreach ($orderProducts as $product) {
+                $cartCost += $product->get('price') * $product->get('count');
+                $weight += $product->get('weight');
+            }
         }
 
         // Adding products
@@ -103,8 +108,15 @@ class DB
         ];
         $product->fromArray(array_merge($cartItem, $productData));
         $products[] = $product;
-
         $msOrder->addMany($products);
+
+        $cartCost += $cartItem['price'] * $cartItem['count'];
+        $weight += $cartItem['weight'];
+        $cost = $cartCost;
+
+        $msOrder->set('cost', $cost);
+        $msOrder->set('cart_cost', $cartCost);
+        $msOrder->set('weight', $weight);
         $msOrder->save();
 
         return $this->get();
