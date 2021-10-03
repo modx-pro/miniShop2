@@ -118,6 +118,16 @@ class OrderDBHandler
         return $msOrder;
     }
 
+    public function setDeliveryCost($delivery_cost)
+    {
+        $cart_cost = $this->msOrder->get('cart_cost');
+        $cost = $cart_cost + $delivery_cost;
+
+        $this->msOrder->set('delivery_cost', $delivery_cost);
+        $this->msOrder->set('cost', $cost);
+        $this->msOrder->save();
+    }
+
     private function getStorageOrder()
     {
         $where = ['status' => 0];

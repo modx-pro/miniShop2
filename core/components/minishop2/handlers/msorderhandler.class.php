@@ -554,6 +554,9 @@ class msOrderHandler implements msOrderInterface
         ) {
             $cost = $delivery->getCost($this, $cost);
             $delivery_cost = $cost - $cart['total_cost'];
+            if ($this->storage === 'db') {
+                $this->storageHandler->setDeliveryCost($delivery_cost);
+            }
         }
 
         /** @var msPayment $payment */
