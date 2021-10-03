@@ -130,7 +130,7 @@ class OrderDBHandler
 
     private function getStorageOrder()
     {
-        $where = ['status' => 0];
+        $where = ['status' => 999];
         $user_id = $this->modx->getLoginUserID($this->ctx);
         if ($user_id > 0) {
             //TODO реализовать вопрос склеивания корзин анонима и залогиненного юзера

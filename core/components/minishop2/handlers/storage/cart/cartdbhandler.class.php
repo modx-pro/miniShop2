@@ -53,7 +53,7 @@ class CartDBHandler
 
         $msOrder = $this->getMsOrder();
         if (!$msOrder) {
-            $status = 0;
+            $status = 999;
             $msOrder = $this->modx->newObject('msOrder');
             $orderData = [
                 'user_id' => $this->modx->getLoginUserID($this->ctx),
@@ -209,7 +209,7 @@ class CartDBHandler
 
     private function getMsOrder()
     {
-        $where = ['status' => 0];
+        $where = ['status' => 999];
         $user_id = $this->modx->getLoginUserID($this->ctx);
         if ($user_id > 0) {
             //TODO реализовать вопрос склеивания корзин анонима и залогиненного юзера

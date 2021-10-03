@@ -14,7 +14,7 @@ if ($transport->xpdo) {
                 $modx->getOption('core_path') . 'components/minishop2/'
             ) . 'model/';
             $modx->addPackage('minishop2', $modelPath);
-            $lang = $modx->getOption('manager_language') == 'en' ? 1 : 0;
+            $lang = $modx->getOption('manager_language') === 'en' ? 1 : 0;
 
             $statuses = array(
                 1 => array(
@@ -27,6 +27,7 @@ if ($transport->xpdo) {
                     'body_user' => 'tpl.msEmail.new.user',
                     'body_manager' => 'tpl.msEmail.new.manager',
                     'final' => 0,
+                    'fixed' => 1,
                 ),
                 2 => array(
                     'name' => !$lang ? 'Оплачен' : 'Paid',
@@ -38,6 +39,7 @@ if ($transport->xpdo) {
                     'body_user' => 'tpl.msEmail.paid.user',
                     'body_manager' => 'tpl.msEmail.paid.manager',
                     'final' => 0,
+                    'fixed' => 1,
                 ),
                 3 => array(
                     'name' => !$lang ? 'Отправлен' : 'Sent',
@@ -49,6 +51,7 @@ if ($transport->xpdo) {
                     'body_user' => 'tpl.msEmail.sent.user',
                     'body_manager' => '',
                     'final' => 1,
+                    'fixed' => 1,
                 ),
                 4 => array(
                     'name' => !$lang ? 'Отменён' : 'Cancelled',
@@ -60,6 +63,19 @@ if ($transport->xpdo) {
                     'body_user' => 'tpl.msEmail.cancelled.user',
                     'body_manager' => '',
                     'final' => 1,
+                    'fixed' => 1,
+                ),
+                999 => array(
+                    'name' => !$lang ? 'Оформляется' : 'Processed',
+                    'color' => 'CACACA',
+                    'email_user' => 0,
+                    'email_manager' => 0,
+                    'subject_user' => '',
+                    'subject_manager' => '',
+                    'body_user' => '',
+                    'body_manager' => '',
+                    'final' => 0,
+                    'fixed' => 0,
                 ),
             );
 
@@ -69,7 +85,6 @@ if ($transport->xpdo) {
                         'editable' => 0,
                         'active' => 1,
                         'rank' => $id - 1,
-                        'fixed' => 1,
                     ), $properties));
                     $status->set('id', $id);
                     /*@var modChunk $chunk */
