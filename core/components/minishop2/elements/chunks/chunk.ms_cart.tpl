@@ -102,7 +102,7 @@
             </table>
         </div>
 
-        <form method="post">
+        <form method="post" class="ms2_form">
             <button type="submit" name="ms2_action" value="cart/clean" class="btn btn-danger">
                 {'ms2_cart_clean' | lexicon}
             </button>
