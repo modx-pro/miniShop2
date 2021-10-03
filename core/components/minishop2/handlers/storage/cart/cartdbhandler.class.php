@@ -3,11 +3,17 @@
 class CartDBHandler
 {
     protected $modx;
+    protected $ms2;
     protected $ctx = 'web';
+    /**
+     * @var msOrder $msOrder
+     */
+    protected $msOrder;
 
-    public function __construct(modX $modx)
+    public function __construct(modX $modx, miniShop2 $ms2)
     {
         $this->modx = $modx;
+        $this->ms2 = $ms2;
     }
 
     public function get()
@@ -18,7 +24,8 @@ class CartDBHandler
         if (!$msOrder) {
             return $output;
         }
-        $products = $msOrder->getMany('Products');
+        $this->msOrder = $msOrder;
+        $products = $this->msOrder->getMany('Products');
         foreach ($products as $product) {
             $properties = $product->get('properties');
             $cartItem = [
@@ -41,6 +48,10 @@ class CartDBHandler
 
     public function set($cart)
     {
+        $this->clean();
+        foreach ($cart as $cartItem) {
+            $this->add($cartItem);
+        }
         return $this->get();
     }
 
@@ -191,7 +202,7 @@ class CartDBHandler
         return $this->get();
     }
 
-    public function clean($ctx)
+    public function clean($ctx = '')
     {
         $msOrder = $this->getMsOrder();
         if ($msOrder) {
