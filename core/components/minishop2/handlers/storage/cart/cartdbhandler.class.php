@@ -1,6 +1,6 @@
 <?php
 
-class DB
+class CartDBHandler
 {
     protected $modx;
     protected $ctx = 'web';

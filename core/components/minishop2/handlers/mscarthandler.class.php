@@ -413,12 +413,12 @@ class msCartHandler implements msCartInterface
     {
         switch ($this->storage) {
             case 'session':
-                require_once dirname(__FILE__) . '/storage/cart/session.class.php';
-                $this->storageHandler = new Session($this->modx);
+                require_once dirname(__FILE__) . '/storage/cart/cartsessionhandler.class.php';
+                $this->storageHandler = new CartSessionHandler($this->modx);
                 break;
             case 'db':
-                require_once dirname(__FILE__) . '/storage/cart/db.class.php';
-                $this->storageHandler = new DB($this->modx);
+                require_once dirname(__FILE__) . '/storage/cart/cartdbhandler.class.php';
+                $this->storageHandler = new CartDBHandler($this->modx);
                 break;
         }
     }

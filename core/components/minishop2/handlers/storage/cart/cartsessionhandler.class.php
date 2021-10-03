@@ -1,6 +1,6 @@
 <?php
 
-class Session
+class CartSessionHandler
 {
     protected $modx;
     protected $ctx = 'web';
