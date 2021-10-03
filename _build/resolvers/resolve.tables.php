@@ -107,6 +107,7 @@ if ($transport->xpdo) {
             $manager->addField('msOrderAddress', 'entrance', array('after' => 'building'));
             $manager->addField('msOrderAddress', 'floor', array('after' => 'entrance'));
             $manager->addField('msOrderAddress', 'text_address', array('after' => 'comment'));
+            $manager->addField('msOrderAddress', 'email', array('after' => 'phone'));
             $modx->setLogLevel($level);
             break;
         case xPDOTransport::ACTION_UNINSTALL:
