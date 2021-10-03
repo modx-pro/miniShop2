@@ -1,10 +1,18 @@
 <?php
 
-class OrderSessionHandler
+class OrderDBHandler
 {
     protected $modx;
     protected $ctx = 'web';
     protected $ms2;
+    /**
+     * @var msOrder $msOrder
+     */
+    protected $msOrder;
+    /**
+     * @var msOrderAddress $address
+     */
+    protected $address;
 
     public function __construct(modX $modx, miniShop2 $ms2)
     {
@@ -19,81 +27,116 @@ class OrderSessionHandler
 
     public function get()
     {
-        return $_SESSION['minishop2']['order'];
-    }
+        $output = [];
+        $msOrder = $this->getStorageOrder();
+        if ($msOrder) {
+            $this->msOrder = $msOrder;
+            $this->address = $msOrder->getOne('Address');
+            if ($this->address) {
+                $output = $this->address->toArray();
+                $excludeFields = ['id', 'createdon', 'updatedon', 'user_id', 'properties'];
+                foreach ($excludeFields as $field) {
+                    unset($output[$field]);
+                }
+                $output['delivery'] = $msOrder->get('delivery');
+                $output['payment'] = $msOrder->get('payment');
+            }
+        }
 
-    public function set($order)
-    {
-        $_SESSION['minishop2']['order'] = $order;
-        return $this->get();
+        return $output;
     }
 
     public function add($key, $value = '')
     {
-        $_SESSION['minishop2']['order'][$key] = $value;
+        switch ($key) {
+            case 'delivery':
+            case 'payment':
+                $this->msOrder->set($key, $value);
+                break;
+            default:
+                $this->address->set($key, $value);
+                $this->address->set('updatedon', time());
+                $this->address->save();
+        }
+        $this->msOrder->set('updatedon', time());
+        $this->msOrder->save();
         return $this->get();
     }
 
     public function remove($key)
     {
-        unset($_SESSION['minishop2']['order'][$key]);
+        switch ($key) {
+            case 'delivery':
+            case 'payment':
+                $this->msOrder->set($key);
+                break;
+            default:
+                $this->address->set($key);
+                $this->address->save();
+        }
+        $this->msOrder->set('updatedon', time());
+        $this->msOrder->save();
         return $this->get();
     }
 
     public function clean()
     {
-        unset($_SESSION['minishop2']['order']);
-        return $this->get();
+        $fields = $this->get();
+        foreach ($fields as $key => $value) {
+            switch ($key) {
+                case 'delivery':
+                case 'payment':
+                    $this->msOrder->set($key);
+                    break;
+                default:
+                    $this->address->set($key);
+                    $this->address->save();
+            }
+        }
+        $this->msOrder->set('updatedon', time());
+        $this->msOrder->save();
+        return [];
     }
 
-    public function getMsOrder($data)
+    public function getForSubmit($data)
     {
-        $order = $this->get();
-        $createdon = date('Y-m-d H:i:s');
-        /** @var msOrder $msOrder */
-        $msOrder = $this->modx->newObject('msOrder');
-        $msOrder->fromArray(array(
+        $msOrder = $this->getStorageOrder();
+        $msOrder->fromArray([
             'user_id' => $data['user_id'],
-            'createdon' => $createdon,
+            'updatedon' => time(),
             'num' => $data['num'],
-            'delivery' => $order['delivery'],
-            'payment' => $order['payment'],
-            'cart_cost' => $data['cart_cost'],
-            'weight' => $data['cart_status']['total_weight'],
             'delivery_cost' => $data['delivery_cost'],
             'cost' => $data['cart_cost'] + $data['delivery_cost'],
-            'status' => 0,
-            'context' => $this->ctx,
-        ));
+        ]);
 
-        // Adding address
-        /** @var msOrderAddress $address */
-        $address = $this->modx->newObject('msOrderAddress');
-        $address->fromArray(array_merge($order, array(
+        $msOrder->Address->fromArray([
             'user_id' => $data['user_id'],
-            'createdon' => $createdon,
-        )));
+            'updatedon' => time(),
+        ]);
         $msOrder->addOne($address);
+        $msOrder->save();
+        return $msOrder;
+    }
 
-        // Adding products
-        $cart = $this->ms2->cart->get();
-        $products = array();
-        foreach ($cart as $v) {
-            if ($tmp = $this->modx->getObject('msProduct', array('id' => $v['id']))) {
-                $name = $tmp->get('pagetitle');
-            } else {
-                $name = '';
-            }
-            /** @var msOrderProduct $product */
-            $product = $this->modx->newObject('msOrderProduct');
-            $product->fromArray(array_merge($v, array(
-                'product_id' => $v['id'],
-                'name' => $name,
-                'cost' => $v['price'] * $v['count'],
-            )));
-            $products[] = $product;
+    private function getStorageOrder()
+    {
+        $where = [];
+        $user_id = $this->modx->getLoginUserID($this->ctx);
+        if ($user_id > 0) {
+            //TODO реализовать вопрос склеивания корзин анонима и залогиненного юзера
+            $where['user_id'] = $user_id;
+        } else {
+            $where['session_id'] = session_id();
         }
-        $msOrder->addMany($products);
+        $q = $this->modx->newQuery('msOrder');
+        $q->sortby('updatedon', 'DESC');
+        $q->where($where);
+        /** @var msOrder $msOrder */
+        $msOrder = $this->modx->getObject('msOrder', $q);
+        if (!$msOrder) {
+            $this->modx->log(MODX::LOG_LEVEL_ERROR, 'msOrder not found with params' . print_r($where, 1));
+        }
+
         return $msOrder;
     }
 }

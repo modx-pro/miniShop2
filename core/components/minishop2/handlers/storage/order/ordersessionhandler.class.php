@@ -22,12 +22,6 @@ class OrderSessionHandler
         return $_SESSION['minishop2']['order'];
     }
 
-    public function set($order)
-    {
-        $_SESSION['minishop2']['order'] = $order;
-        return $this->get();
-    }
-
     public function add($key, $value = '')
     {
         $_SESSION['minishop2']['order'][$key] = $value;
@@ -46,7 +40,7 @@ class OrderSessionHandler
         return $this->get();
     }
 
-    public function getMsOrder($data)
+    public function getForSubmit($data)
     {
         $order = $this->get();
         $createdon = date('Y-m-d H:i:s');

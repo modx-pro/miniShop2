@@ -135,7 +135,7 @@ class msOrderHandler implements msOrderInterface
      */
     public function initialize($ctx = 'web')
     {
-        $this->storageHandler->setContext($this->ctx);
+        $this->storageHandler->setContext($ctx);
         return true;
     }
 
@@ -413,7 +413,8 @@ class msOrderHandler implements msOrderInterface
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
         $num = $this->getNum();
 
-        $msOrder = $this->storageHandler->getMsOrder(
+        /** @var msOrder $msOrder */
+        $msOrder = $this->storageHandler->getForSubmit(
             compact('user_id', 'num', 'cart_cost', 'cart_status', 'delivery_cost')
         );
 
@@ -434,8 +435,10 @@ class msOrderHandler implements msOrderInterface
                 return $this->error($response['message']);
             }
 
-            $this->ms2->cart->clean();
-            $this->clean();
+            if ($this->storage === 'session') {
+                $this->ms2->cart->clean();
+                $this->clean();
+            }
             if (empty($_SESSION['minishop2']['orders'])) {
                 $_SESSION['minishop2']['orders'] = array();
             }
@@ -448,6 +451,7 @@ class msOrderHandler implements msOrderInterface
             }
 
             // Reload order object after changes in changeOrderStatus method
+            /** @var msOrder $msOrder */
             $msOrder = $this->modx->getObject('msOrder', array('id' => $msOrder->get('id')));
 
             /** @var msPayment $payment */
@@ -594,8 +598,8 @@ class msOrderHandler implements msOrderInterface
                 $this->storageHandler = new OrderSessionHandler($this->modx, $this->ms2);
                 break;
             case 'db':
-//                require_once dirname(__FILE__) . '/storage/order/cartdbhandler.class.php';
-//                $this->storageHandler = new DB($this->modx);
+                require_once dirname(__FILE__) . '/storage/order/orderdbhandler.class.php';
+                $this->storageHandler = new OrderDBHandler($this->modx, $this->ms2);
                 break;
         }
     }
