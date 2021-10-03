@@ -142,11 +142,6 @@ class OrderDBHandler
         $q->sortby('updatedon', 'DESC');
         $q->where($where);
         /** @var msOrder $msOrder */
-        $msOrder = $this->modx->getObject('msOrder', $q);
-        if (!$msOrder) {
-            $this->modx->log(MODX::LOG_LEVEL_ERROR, 'msOrder not found with params' . print_r($where, 1));
-        }
-
-        return $msOrder;
+        return $this->modx->getObject('msOrder', $q);
     }
 }

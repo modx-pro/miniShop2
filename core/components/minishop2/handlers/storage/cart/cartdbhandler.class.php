@@ -41,7 +41,6 @@ class CartDBHandler
 
     public function set($cart)
     {
-
         return $this->get();
     }
 

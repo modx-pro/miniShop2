@@ -67,7 +67,7 @@ if ($transport->xpdo) {
                 ),
                 999 => array(
                     'name' => !$lang ? 'Оформляется' : 'Processed',
-                    'color' => 'CACACA',
+                    'color' => 'C0C0C0',
                     'email_user' => 0,
                     'email_manager' => 0,
                     'subject_user' => '',
