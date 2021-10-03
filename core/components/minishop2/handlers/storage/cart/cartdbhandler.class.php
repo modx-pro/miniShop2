@@ -128,7 +128,10 @@ class CartDBHandler
         if (!$msOrder) {
             return [];
         }
+        $cartCost = 0;
+        $weight = 0;
         $products = $msOrder->getMany('Products');
+
         foreach ($products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
@@ -142,7 +145,18 @@ class CartDBHandler
                 $product->set('properties', $properties);
                 $product->save();
             }
+
+            $cartCost += $product->get('cost');
+            $weight += $product->get('weight');
         }
+
+        $cost = $cartCost;
+        $msOrder->set('cost', $cost);
+        $msOrder->set('cart_cost', $cartCost);
+        $msOrder->set('weight', $weight);
+        $msOrder->set('updatedon', time());
+        $msOrder->save();
+
         return $this->get();
     }
 
@@ -152,16 +166,28 @@ class CartDBHandler
         if (!$msOrder) {
             return [];
         }
+        $cartCost = 0;
+        $weight = 0;
         $products = $msOrder->getMany('Products');
         foreach ($products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
                 $product->remove();
+            } else {
+                $cartCost += $product->get('cost');
+                $weight += $product->get('weight');
             }
         }
         $count = $this->modx->getCount('msOrderProduct', ['order_id' => $msOrder->get('id')]);
         if ($count === 0) {
             $msOrder->remove();
+        } else {
+            $cost = $cartCost;
+            $msOrder->set('cost', $cost);
+            $msOrder->set('cart_cost', $cartCost);
+            $msOrder->set('weight', $weight);
+            $msOrder->set('updatedon', time());
+            $msOrder->save();
         }
         return $this->get();
     }
@@ -183,7 +209,7 @@ class CartDBHandler
 
     private function getMsOrder()
     {
-        $where = [];
+        $where = ['status' => 0];
         $user_id = $this->modx->getLoginUserID($this->ctx);
         if ($user_id > 0) {
             //TODO реализовать вопрос склеивания корзин анонима и залогиненного юзера
