@@ -18,8 +18,8 @@ class CartDBHandler extends BaseDBController
             return $output;
         }
         $this->msOrder = $msOrder;
-        $products = $this->msOrder->getMany('Products');
-        foreach ($products as $product) {
+        $this->products = $this->msOrder->getMany('Products');
+        foreach ($this->products as $product) {
             $properties = $product->get('properties');
             $cartItem = [
                 'id' => $product->get('product_id'),
@@ -54,10 +54,10 @@ class CartDBHandler extends BaseDBController
         $cartCost = 0;
         $weight = 0;
 
-        $msOrder = $this->getStorageOrder();
-        if (!$msOrder) {
+        $this->msOrder = $this->getStorageOrder();
+        if (!$this->msOrder) {
             $status = 999;
-            $msOrder = $this->modx->newObject('msOrder');
+            $this->msOrder = $this->modx->newObject('msOrder');
             $orderData = [
                 'user_id' => $this->modx->getLoginUserID($this->ctx),
                 'session_id' => session_id(),
@@ -68,7 +68,7 @@ class CartDBHandler extends BaseDBController
                 'status' => $status,
                 'context' => $cartItem['ctx'],
             ];
-            $msOrder->fromArray($orderData);
+            $this->msOrder->fromArray($orderData);
 
             // Adding address
             /** @var msOrderAddress $address */
@@ -76,11 +76,11 @@ class CartDBHandler extends BaseDBController
                 'user_id' => $this->modx->getLoginUserID($this->ctx),
                 'createdon' => time(),
             ]);
-            $msOrder->addOne($address);
+            $this->msOrder->addOne($address);
         } else {
-            $msOrder->set('updatedon', time());
-            $orderProducts = $msOrder->getMany('Products');
-            foreach ($orderProducts as $product) {
+            $this->msOrder->set('updatedon', time());
+            $this->products = $this->msOrder->getMany('Products');
+            foreach ($this->products as $product) {
                 $cartCost += $product->get('price') * $product->get('count');
                 $weight += $product->get('weight');
             }
@@ -111,31 +111,26 @@ class CartDBHandler extends BaseDBController
         ];
         $product->fromArray(array_merge($cartItem, $productData));
         $products[] = $product;
-        $msOrder->addMany($products);
+        $this->msOrder->addMany($products);
 
         $cartCost += $cartItem['price'] * $cartItem['count'];
         $weight += $cartItem['weight'];
         $cost = $cartCost;
 
-        $msOrder->set('cost', $cost);
-        $msOrder->set('cart_cost', $cartCost);
-        $msOrder->set('weight', $weight);
-        $msOrder->save();
+        $this->msOrder->set('cost', $cost);
+        $this->msOrder->set('cart_cost', $cartCost);
+        $this->msOrder->set('weight', $weight);
+        $this->msOrder->save();
 
         return $this->get();
     }
 
     public function change($key, $count)
     {
-        $msOrder = $this->getStorageOrder();
-        if (!$msOrder) {
-            return [];
-        }
         $cartCost = 0;
         $weight = 0;
-        $products = $msOrder->getMany('Products');
 
-        foreach ($products as $product) {
+        foreach ($this->products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
                 $properties['count'] = $count;
@@ -154,25 +149,20 @@ class CartDBHandler extends BaseDBController
         }
 
         $cost = $cartCost;
-        $msOrder->set('cost', $cost);
-        $msOrder->set('cart_cost', $cartCost);
-        $msOrder->set('weight', $weight);
-        $msOrder->set('updatedon', time());
-        $msOrder->save();
+        $this->msOrder->set('cost', $cost);
+        $this->msOrder->set('cart_cost', $cartCost);
+        $this->msOrder->set('weight', $weight);
+        $this->msOrder->set('updatedon', time());
+        $this->msOrder->save();
 
         return $this->get();
     }
 
     public function remove($key)
     {
-        $msOrder = $this->getStorageOrder();
-        if (!$msOrder) {
-            return [];
-        }
         $cartCost = 0;
         $weight = 0;
-        $products = $msOrder->getMany('Products');
-        foreach ($products as $product) {
+        foreach ($this->products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
                 $product->remove();
@@ -181,25 +171,24 @@ class CartDBHandler extends BaseDBController
                 $weight += $product->get('weight');
             }
         }
-        $count = $this->modx->getCount('msOrderProduct', ['order_id' => $msOrder->get('id')]);
+        $count = $this->modx->getCount('msOrderProduct', ['order_id' => $this->msOrder->get('id')]);
         if ($count === 0) {
-            $msOrder->remove();
+            $this->msOrder->remove();
         } else {
             $cost = $cartCost;
-            $msOrder->set('cost', $cost);
-            $msOrder->set('cart_cost', $cartCost);
-            $msOrder->set('weight', $weight);
-            $msOrder->set('updatedon', time());
-            $msOrder->save();
+            $this->msOrder->set('cost', $cost);
+            $this->msOrder->set('cart_cost', $cartCost);
+            $this->msOrder->set('weight', $weight);
+            $this->msOrder->set('updatedon', time());
+            $this->msOrder->save();
         }
         return $this->get();
     }
 
     public function clean($ctx = '')
     {
-        $msOrder = $this->getStorageOrder();
-        if ($msOrder) {
-            $msOrder->remove();
+        if ($this->msOrder) {
+            $this->msOrder->remove();
         }
 
         return $this->get();

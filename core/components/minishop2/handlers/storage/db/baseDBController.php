@@ -9,6 +9,7 @@ class BaseDBController
      * @var msOrder $msOrder
      */
     protected $msOrder;
+    protected $products;
     /**
      * @var msOrderAddress $address
      */
