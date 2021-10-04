@@ -89,7 +89,7 @@ if ($transport->xpdo) {
                 }
             }
 
-            if (!array_key_exists($field, $modx->map['msOrderAddress']['text_address'])) {
+            if (!array_key_exists($field, $modx->map['msOrderAddress']['fields'])) {
                 $modx->map['msOrderAddress']['fields']['text_address'] = array(
                     'dbtype' => 'text',
                     'phptype' => 'string',
