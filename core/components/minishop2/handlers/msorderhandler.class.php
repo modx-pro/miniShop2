@@ -597,11 +597,11 @@ class msOrderHandler implements msOrderInterface
     {
         switch ($this->storage) {
             case 'session':
-                require_once dirname(__FILE__) . '/storage/order/ordersessionhandler.class.php';
+                require_once dirname(__FILE__) . '/storage/session/ordersessionhandler.class.php';
                 $this->storageHandler = new OrderSessionHandler($this->modx, $this->ms2);
                 break;
             case 'db':
-                require_once dirname(__FILE__) . '/storage/order/orderdbhandler.class.php';
+                require_once dirname(__FILE__) . '/storage/db/orderdbhandler.class.php';
                 $this->storageHandler = new OrderDBHandler($this->modx, $this->ms2);
                 break;
         }
