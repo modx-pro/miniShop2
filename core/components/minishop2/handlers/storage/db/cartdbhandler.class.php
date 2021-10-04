@@ -1,26 +1,19 @@
 <?php
 
-class CartDBHandler
-{
-    protected $modx;
-    protected $ms2;
-    protected $ctx = 'web';
-    /**
-     * @var msOrder $msOrder
-     */
-    protected $msOrder;
+require_once 'baseDBController.php';
 
+class CartDBHandler extends BaseDBController
+{
     public function __construct(modX $modx, miniShop2 $ms2)
     {
-        $this->modx = $modx;
-        $this->ms2 = $ms2;
+        parent::__construct($modx, $ms2);
     }
 
     public function get()
     {
         $output = [];
 
-        $msOrder = $this->getMsOrder();
+        $msOrder = $this->getStorageOrder();
         if (!$msOrder) {
             return $output;
         }
@@ -61,7 +54,7 @@ class CartDBHandler
         $cartCost = 0;
         $weight = 0;
 
-        $msOrder = $this->getMsOrder();
+        $msOrder = $this->getStorageOrder();
         if (!$msOrder) {
             $status = 999;
             $msOrder = $this->modx->newObject('msOrder');
@@ -134,7 +127,7 @@ class CartDBHandler
 
     public function change($key, $count)
     {
-        $msOrder = $this->getMsOrder();
+        $msOrder = $this->getStorageOrder();
         if (!$msOrder) {
             return [];
         }
@@ -172,7 +165,7 @@ class CartDBHandler
 
     public function remove($key)
     {
-        $msOrder = $this->getMsOrder();
+        $msOrder = $this->getStorageOrder();
         if (!$msOrder) {
             return [];
         }
@@ -204,33 +197,11 @@ class CartDBHandler
 
     public function clean($ctx = '')
     {
-        $msOrder = $this->getMsOrder();
+        $msOrder = $this->getStorageOrder();
         if ($msOrder) {
             $msOrder->remove();
         }
 
         return $this->get();
-    }
-
-    public function setContext($ctx)
-    {
-        $this->ctx = $ctx;
-    }
-
-    private function getMsOrder()
-    {
-        $where = ['status' => 999];
-        $user_id = $this->modx->getLoginUserID($this->ctx);
-        if ($user_id > 0) {
-            //TODO реализовать вопрос склеивания корзин анонима и залогиненного юзера
-            $where['user_id'] = $user_id;
-        } else {
-            $where['session_id'] = session_id();
-        }
-
-        $q = $this->modx->newQuery('msOrder');
-        $q->sortby('updatedon', 'DESC');
-        $q->where($where);
-        return $this->modx->getObject('msOrder', $q);
     }
 }
