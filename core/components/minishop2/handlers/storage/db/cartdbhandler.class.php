@@ -42,11 +42,11 @@ class CartDBHandler extends BaseDBController
     public function set($cart)
     {
         $msOrder = $this->getStorageOrder();
-        if ($msOrder) {
-            $this->msOrder = $msOrder;
-            $this->products = $this->msOrder->getMany('Products');
+        if (!$msOrder) {
+            return [];
         }
-
+        $this->msOrder = $msOrder;
+        $this->products = $this->msOrder->getMany('Products');
         $this->removeOrderProductNotInCart($cart);
         foreach ($cart as $key => $cartItem) {
             $orderProductIsExists = $this->orderProductIsExists($key);
