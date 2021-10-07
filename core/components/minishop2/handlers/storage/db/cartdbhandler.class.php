@@ -41,18 +41,23 @@ class CartDBHandler extends BaseDBController
 
     public function set($cart)
     {
+        $msOrder = $this->getStorageOrder();
+        if ($msOrder) {
+            $this->msOrder = $msOrder;
+            $this->products = $this->msOrder->getMany('Products');
+        }
+
         $this->removeOrderProductNotInCart($cart);
         foreach ($cart as $key => $cartItem) {
             $orderProductIsExists = $this->orderProductIsExists($key);
             if ($orderProductIsExists) {
                 $this->updateOrderProduct($key, $cartItem);
-                $this->msOrder->set('updatedon', time());
-                //TODO Нужно запустить restrict cart
             } else {
                 $this->add($cartItem);
             }
         }
         $this->msOrder->save();
+        $this->restrictOrder();
 
         return $this->get();
     }
@@ -82,8 +87,6 @@ class CartDBHandler extends BaseDBController
                 'createdon' => time(),
             ]);
             $this->msOrder->addOne($address);
-        } else {
-            $this->products = $this->msOrder->getMany('Products');
         }
 
         // Adding products
@@ -113,6 +116,7 @@ class CartDBHandler extends BaseDBController
         $products[] = $product;
         $this->msOrder->addMany($products);
         $this->msOrder->save();
+        $this->products = $this->msOrder->getMany('Products');
 
         $this->restrictOrder();
 
@@ -125,23 +129,25 @@ class CartDBHandler extends BaseDBController
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
                 $properties['count'] = $count;
+                $price = $product->get('price');
                 $product->set('properties', $properties);
+                $product->set('count', $count);
+                $product->set('cost', $price * $count);
                 $product->save();
             }
         }
         $this->msOrder->save();
-
         $this->restrictOrder();
-
         return $this->get();
     }
 
     public function remove($key)
     {
-        foreach ($this->products as $product) {
+        foreach ($this->products as $k => $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
                 $product->remove();
+                unset($this->products[$k]);
             }
         }
         $count = $this->modx->getCount('msOrderProduct', ['order_id' => $this->msOrder->get('id')]);
@@ -165,11 +171,15 @@ class CartDBHandler extends BaseDBController
 
     private function removeOrderProductNotInCart($cart)
     {
-        foreach ($this->products as $product) {
+        if (count($this->products) === 0) {
+            return;
+        }
+        foreach ($this->products as $k => $product) {
             $properties = $product->get('properties');
             $key = $properties['key'];
             if (!isset($cart[$key])) {
                 $product->remove();
+                unset($this->products[$k]);
             }
         }
     }
@@ -217,8 +227,8 @@ class CartDBHandler extends BaseDBController
             $weight += $product->get('weight');
         }
 
-        $cost = $cartCost;
-        //TODO Здесь по идее еще нужен перерасчет стоимости доставки
+        $delivery_cost = $this->msOrder->get('delivery_cost');
+        $cost = $cartCost + $delivery_cost;
         $this->msOrder->set('cost', $cost);
         $this->msOrder->set('cart_cost', $cartCost);
         $this->msOrder->set('weight', $weight);
