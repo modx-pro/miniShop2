@@ -4,7 +4,7 @@
 const PKG_NAME = 'miniShop2';
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-const PKG_VERSION = '2.9.2';
+const PKG_VERSION = '2.9.3';
 const PKG_RELEASE = 'pl';
 const PKG_AUTO_INSTALL = true;
 
