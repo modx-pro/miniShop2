@@ -114,6 +114,22 @@ $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
+$_lang['setting_ms2_frontend_message_css'] = 'Notification library styles';
+$_lang['setting_ms2_frontend_message_css_desc'] = "The path to the CSS file for your notification library. By default to jgrowl. <br>
+If you want to use your own library, specify the path to its css directory here, or clear the parameter and load them manually through the site template.";
+
+$_lang['setting_ms2_frontend_message_js'] = 'Notification library scripts';
+$_lang['setting_ms2_frontend_message_js_desc'] = "The path to the JS file of your notification library. By default to jgrowl. <br>
+If you want to use your own library, specify the path to its JS directory here, or clear the parameter and load them manually through the site template.";
+
+$_lang['setting_ms2_frontend_message_js_settings'] = 'Notification library settings';
+$_lang['setting_ms2_frontend_message_js_settings_desc'] = "The path to the file with the implementation of the notification template based on your library. <br>
+By default to jgrowl settings. <br>
+If you want to use your own library, specify the path to its settings here, or clear the parameter and load them manually through the site template.";
+
+
+
+
 
 $_lang['setting_ms2_payment_paypal_api_url'] = 'PayPal api url';
 $_lang['setting_ms2_payment_paypal_checkout_url'] = 'PayPal checkout url';
