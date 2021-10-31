@@ -39,12 +39,10 @@ class msDeliveryCreateProcessor extends modObjectCreateProcessor
             $this->modx->error->addField('name', $this->modx->lexicon('ms2_err_ae'));
         }
 
-        $prices = array('price', 'distance_price', 'weight_price');
+        $prices = array('price', 'distance_price', 'weight_price', 'free_delivery_amount');
         foreach ($prices as $field) {
-            if ($tmp = $this->getProperty($field)) {
-                $tmp = $this->preparePrice($tmp);
-                $this->setProperty($field, $tmp);
-            }
+            $tmp = $this->preparePrice($tmp);
+            $this->setProperty($field, $tmp);
         }
 
         return !$this->hasErrors();
