@@ -122,15 +122,20 @@ $rows = $pdoFetch->run();
 
 $products = array();
 $cart_count = 0;
+$cart_discount_cost = 0;
 foreach ($rows as $product) {
-    $product['old_price'] = $miniShop2->formatPrice(
-        $product['original_price'] > $product['price']
-            ? $product['original_price']
-            : $product['old_price']
-    );
+    $old_price = $product['original_price'] > $product['price']
+        ? $product['original_price']
+        : $product['old_price'];
+
+    $discount_price = $old_price > 0 ? $old_price - $product['price'] : 0;
+
+    $product['old_price'] = $miniShop2->formatPrice($old_price);
     $product['price'] = $miniShop2->formatPrice($product['price']);
     $product['cost'] = $miniShop2->formatPrice($product['cost']);
     $product['weight'] = $miniShop2->formatWeight($product['weight']);
+    $product['discount_price'] = $miniShop2->formatPrice($discount_price);
+    $product['discount_cost'] = $miniShop2->formatPrice($product['count'] * $discount_price);
 
     $product['id'] = (int)$product['id'];
     if (empty($product['name'])) {
@@ -152,6 +157,7 @@ foreach ($rows as $product) {
 
     // Count total
     $cart_count += $product['count'];
+    $cart_discount_cost += $product['count'] * $discount_price;
 }
 
 $pls = array_merge($scriptProperties, array(
@@ -176,6 +182,7 @@ $pls = array_merge($scriptProperties, array(
         'weight' => $miniShop2->formatWeight($order->get('weight')),
         'cart_weight' => $miniShop2->formatWeight($order->get('weight')),
         'cart_count' => $cart_count,
+        'cart_discount' => $cart_discount_cost
     ),
 ));
 
