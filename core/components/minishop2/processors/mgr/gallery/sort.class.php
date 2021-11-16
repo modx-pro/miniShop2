@@ -40,19 +40,19 @@ class msProductFileSortProcessor extends modObjectProcessor
 
         if ($source->get('rank') < $target->get('rank')) {
             $this->modx->exec("UPDATE {$this->modx->getTableName('msProductFile')}
-                SET rank = rank - 1 WHERE
-                    product_id = " . $product_id . "
-                    AND rank <= {$target->get('rank')}
-                    AND rank > {$source->get('rank')}
-                    AND rank > 0
+                SET `rank` = `rank` - 1 WHERE
+                    `product_id` = " . $product_id . "
+                    AND `rank` <= {$target->get('rank')}
+                    AND `rank` > {$source->get('rank')}
+                    AND `rank` > 0
             ");
             $newRank = $target->get('rank');
         } else {
             $this->modx->exec("UPDATE {$this->modx->getTableName('msProductFile')}
-                SET rank = rank + 1 WHERE
-                    product_id = " . $product_id . "
-                    AND rank >= {$target->get('rank')}
-                    AND rank < {$source->get('rank')}
+                SET `rank` = `rank` + 1 WHERE
+                    `product_id` = " . $product_id . "
+                    AND `rank` >= {$target->get('rank')}
+                    AND `rank` < {$source->get('rank')}
             ");
             $newRank = $target->get('rank');
         }
