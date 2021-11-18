@@ -559,7 +559,7 @@ miniShop2.combo.Resource = function (config) {
         hideMode: 'offsets',
         url: miniShop2.config['connector_url'],
         baseParams: {
-            action: 'mgr/system/element/resource/getlist',
+            action: 'mgr/resources/getlist',
             combo: true
         }
     });
@@ -567,6 +567,31 @@ miniShop2.combo.Resource = function (config) {
 };
 Ext.extend(miniShop2.combo.Resource, miniShop2.combo.ComboBoxDefault);
 Ext.reg('minishop2-combo-resource', miniShop2.combo.Resource);
+
+
+
+miniShop2.combo.VendorResource = function (config) {
+    config = config || {};
+    Ext.applyIf(config, {
+        name: 'vendorresource',
+        hiddenName: 'vendorresource',
+        displayField: 'pagetitle',
+        valueField: 'id',
+        editable: true,
+        fields: ['id', 'pagetitle'],
+        pageSize: 20,
+        emptyText: _('ms2_combo_select'),
+        hideMode: 'offsets',
+        url: miniShop2.config['connector_url'],
+        baseParams: {
+            action: 'mgr/vendorresources/getlist',
+            combo: true
+        }
+    });
+    miniShop2.combo.VendorResource.superclass.constructor.call(this, config);
+};
+Ext.extend(miniShop2.combo.VendorResource, miniShop2.combo.ComboBoxDefault);
+Ext.reg('minishop2-combo-vendor-resource', miniShop2.combo.VendorResource);
 
 
 miniShop2.combo.Context = function (config) {

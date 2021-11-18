@@ -55,7 +55,7 @@ Ext.extend(miniShop2.window.CreateVendor, miniShop2.window.Default, {
                     columnWidth: .6,
                     layout: 'form',
                     items: [{
-                        xtype: 'minishop2-combo-resource',
+                        xtype: 'minishop2-combo-vendor-resource',
                         fieldLabel: _('ms2_resource'),
                         name: 'resource',
                         anchor: '99%',
