@@ -147,9 +147,9 @@ class miniShop2
                 'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
             );
 
-            $data = json_encode(array_merge($message_setting, $js_setting), true);            
+            $data = json_encode(array_merge($message_setting, $js_setting), true);
             $html = '<script>miniShop2Config = ' . $data . ';</script>';
-            
+
             $this->modx->regClientStartupScript($html, true);
 
         }
