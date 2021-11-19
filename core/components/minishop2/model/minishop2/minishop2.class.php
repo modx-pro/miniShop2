@@ -98,7 +98,7 @@ class miniShop2
                 }
                 $this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
             }
-            
+
             // Register JS
             $js = trim($this->modx->getOption('ms2_frontend_js'));
             if (!empty($js) && preg_match('/\.js/i', $js)) {
@@ -113,7 +113,7 @@ class miniShop2
             if (!empty($message_css) && preg_match('/\.css/i', $message_css)) {
                 $this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $message_css));
             }
-            
+
             // Register notify plugin JS
             $message_js = trim($this->modx->getOption('ms2_frontend_message_js'));
             if (!empty($message_js) && preg_match('/\.js/i', $message_js)) {
@@ -124,7 +124,7 @@ class miniShop2
             if (!empty($message_settings_js) && preg_match('/\.js/i', $message_settings_js)) {
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $message_settings_js));
             }
-            
+
             //Register JS config var
             $message_setting = array(
                 'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
@@ -151,7 +151,7 @@ class miniShop2
             $html = '<script>miniShop2Config = ' . $data . ';</script>';
             
             $this->modx->regClientStartupScript($html, true);
-            
+
         }
         $load = $this->loadServices($ctx);
         $this->initialized[$ctx] = $load;
