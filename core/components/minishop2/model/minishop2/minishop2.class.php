@@ -151,8 +151,8 @@ class miniShop2
             $html = '<script>miniShop2Config = ' . $data . ';</script>';
 
             $this->modx->regClientStartupScript($html, true);
-
         }
+
         $load = $this->loadServices($ctx);
         $this->initialized[$ctx] = $load;
 
