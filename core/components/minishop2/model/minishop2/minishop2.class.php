@@ -710,7 +710,7 @@ class miniShop2
                         foreach ($groups as $group) {
                             $grouprole = explode(':', $group);
                             if ($grouprole[1]) {
-                                if (is_numeric($grouprole[1])){
+                                if (is_numeric($grouprole[1])) {
                                     $role = (int)$grouprole[1];
                                 } else {
                                     $role = $grouprole[1];
