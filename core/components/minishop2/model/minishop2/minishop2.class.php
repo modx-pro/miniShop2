@@ -708,7 +708,10 @@ class miniShop2
                     } elseif ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
                         $groups = array_map('trim', explode(',', $groups));
                         foreach ($groups as $group) {
-                            $customer->joinGroup($group);
+                            $grouprole = explode(':', $group);
+                            $role = null;
+                            if ($grouprole[1]) $role = $grouprole[1];
+                            $customer->joinGroup($grouprole[0],$role);
                         }
                     }
                 }
