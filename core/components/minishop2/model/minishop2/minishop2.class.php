@@ -710,8 +710,11 @@ class miniShop2
                         foreach ($groups as $group) {
                             $grouprole = explode(':', $group);
                             $role = null;
-                            if ($grouprole[1]) $role = $grouprole[1];
-                            $customer->joinGroup($grouprole[0],$role);
+                            if ($grouprole[1])
+                                $role = (int)$grouprole[1];
+                            else
+                                $role = null;
+                            $customer->joinGroup($grouprole[0], $role);
                         }
                     }
                 }
