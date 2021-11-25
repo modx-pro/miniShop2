@@ -709,11 +709,11 @@ class miniShop2
                         $groups = array_map('trim', explode(',', $groups));
                         foreach ($groups as $group) {
                             $grouprole = explode(':', $group);
-                            $role = null;
-                            if ($grouprole[1])
+                            if ($grouprole[1]) {
                                 $role = (int)$grouprole[1];
-                            else
+                            } else {
                                 $role = null;
+                            }
                             $customer->joinGroup($grouprole[0], $role);
                         }
                     }
