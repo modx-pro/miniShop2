@@ -917,7 +917,7 @@ class miniShop2
      */
     public function orderLog($order_id, $action, $entry)
     {
-        if (trim($action) {
+        if (trim($action)) {
             $action = 'status'
         }
         
