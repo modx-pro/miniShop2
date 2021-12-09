@@ -917,10 +917,9 @@ class miniShop2
      */
     public function orderLog($order_id, $action, $entry)
     {
-        if (trim($action)) {
+        if (!trim($action)) {
             $action = 'status'
         }
-        
         /** @var msOrder $order */
         if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
             return false;
