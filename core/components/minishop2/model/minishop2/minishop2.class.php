@@ -915,8 +915,12 @@ class miniShop2
      *
      * @return boolean
      */
-    public function orderLog($order_id, $action = 'status', $entry)
+    public function orderLog($order_id, $action, $entry)
     {
+        if (trim($action) {
+            $action = 'status'
+        }
+        
         /** @var msOrder $order */
         if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
             return false;
