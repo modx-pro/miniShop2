@@ -383,6 +383,7 @@
                     .on('change', miniShop2.Order.order + ' input,' + miniShop2.Order.order + ' textarea', function () {
                         var $this = $(this);
                         var key = $this.attr('name');
+                        if (!key) return;
                         var value = $this.val();
                         miniShop2.Order.add(key, value);
                     });
