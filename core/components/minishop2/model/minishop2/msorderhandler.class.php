@@ -591,7 +591,11 @@ class msOrderHandler implements msOrderInterface
                 array('id' => $this->order['payment'])
             )
         ) {
+            $cost_without_payment = $cost;
             $cost = $payment->getCost($this, $cost);
+            if ($cost_without_payment != $cost) {
+                $payment_cost = $cost - $cost_without_payment;
+            }
         }
 
         $response = $this->ms2->invokeEvent('msOnGetOrderCost', array(
@@ -601,12 +605,14 @@ class msOrderHandler implements msOrderInterface
             'only_cost' => $only_cost,
             'cost' => $cost,
             'delivery_cost' => $delivery_cost,
+            'payment_cost' => $payment_cost,
         ));
         if (!$response['success']) {
             return $this->error($response['message']);
         }
         $cost = $response['data']['cost'];
         $delivery_cost = $response['data']['delivery_cost'];
+        $payment_cost = $response['data']['payment_cost'];
 
         return $only_cost
             ? $cost
@@ -614,7 +620,8 @@ class msOrderHandler implements msOrderInterface
                 'cost' => $cost,
                 'cart_cost' => $cart['total_cost'],
                 'discount_cost' => $cart['total_discount'],
-                'delivery_cost' => $delivery_cost
+                'delivery_cost' => $delivery_cost,
+                'payment_cost' => $payment_cost,
             ));
     }
 
