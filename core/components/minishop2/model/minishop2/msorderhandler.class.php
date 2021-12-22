@@ -584,6 +584,7 @@ class msOrderHandler implements msOrderInterface
             $delivery_cost = $cost - $cart['total_cost'];
         }
 
+        $payment_cost = 0;
         /** @var msPayment $payment */
         if (
             !empty($this->order['payment']) && $payment = $this->modx->getObject(
