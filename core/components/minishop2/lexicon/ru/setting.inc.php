@@ -16,6 +16,12 @@ $_lang['area_ms2_order'] = 'Заказы';
 $_lang['area_ms2_frontend'] = 'Сайт';
 $_lang['area_ms2_payment'] = 'Платежи';
 
+$_lang['setting_ms2_queue'] = 'Использовать очередь для писем?';
+$_lang['setting_ms2_queue_desc'] = 'Если вколючено, то отправка писем будет осуществляться с помощью очереди. Не забудьте добавить в крон файлик /assets/components/minishop2/queue/mail.php';
+
+$_lang['setting_ms2_queue_limit'] = 'Количество отправляемых писем за одну итерацию';
+$_lang['setting_ms2_queue_limit_desc'] = 'Установите в зависимости от мощности вашего хостинга';
+
 $_lang['setting_ms2_services'] = 'Службы магазина';
 $_lang['setting_ms2_services_desc'] = 'Массив с зарегистрированными классами для корзины, заказа, доставки и оплаты. Используется сторонними дополнениями для загрузки своего функционала.';
 $_lang['setting_ms2_plugins'] = 'Плагины магазина';

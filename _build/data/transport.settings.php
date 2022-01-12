@@ -43,6 +43,17 @@ $tmp = array(
         'area' => 'ms2_main',
     ),
 
+    'ms2_queue' => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_main',
+    ),
+    'ms2_queue_limit' => array(
+        'value' => 10,
+        'xtype' => 'textfield',
+        'area' => 'ms2_main',
+    ),
+
     'ms2_category_grid_fields' => array(
         'value' => 'id,menuindex,pagetitle,article,price,thumb,new,favorite,popular',
         'xtype' => 'textarea',

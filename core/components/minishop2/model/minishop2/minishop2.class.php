@@ -887,22 +887,26 @@ class miniShop2
         $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
         $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', array(), 10);
 
-        /** @var modPHPMailer $mail */
-        $mail = $this->modx->getService('mail', 'mail.modPHPMailer');
-        $mail->setHTML(true);
+        if ($this->modx->getOption('ms2_queue')){
+            $this->queue($email, $subject, $body);
+        }else{
+            /** @var modPHPMailer $mail */
+            $mail = $this->modx->getService('mail', 'mail.modPHPMailer');
+            $mail->setHTML(true);
 
-        $mail->address('to', trim($email));
-        $mail->set(modMail::MAIL_SUBJECT, trim($subject));
-        $mail->set(modMail::MAIL_BODY, $body);
-        $mail->set(modMail::MAIL_FROM, $this->modx->getOption('emailsender'));
-        $mail->set(modMail::MAIL_FROM_NAME, $this->modx->getOption('site_name'));
-        if (!$mail->send()) {
-            $this->modx->log(
-                modX::LOG_LEVEL_ERROR,
-                'An error occurred while trying to send the email: ' . $mail->mailer->ErrorInfo
-            );
+            $mail->address('to', trim($email));
+            $mail->set(modMail::MAIL_SUBJECT, trim($subject));
+            $mail->set(modMail::MAIL_BODY, $body);
+            $mail->set(modMail::MAIL_FROM, $this->modx->getOption('emailsender'));
+            $mail->set(modMail::MAIL_FROM_NAME, $this->modx->getOption('site_name'));
+            if (!$mail->send()) {
+                $this->modx->log(
+                    modX::LOG_LEVEL_ERROR,
+                    'An error occurred while trying to send the email: ' . $mail->mailer->ErrorInfo
+                );
+            }
+            $mail->reset();
         }
-        $mail->reset();
     }
 
 
@@ -1201,5 +1205,24 @@ class miniShop2
         }
         $setting->set('value', json_encode($value));
         $setting->save();
+    }
+
+    public function queue($email, $subject, $body){
+        /**
+         * @var $registry modDbRegister
+         * @var $ms2registry modDbRegister
+         */
+        $this->modx->getService('registry', 'registry.modRegistry');
+        $this->modx->registry->getRegister('minishop2', 'registry.modDbRegister');
+        $topic_key = 'minishop2_email_' . md5(time().trim($subject));
+        $this->modx->registry->minishop2->subscribe("/$topic_key/");
+        $arQueue = [
+            'to' => trim($email),
+            'mail_subject' => trim($subject),
+            'mail_body' => $body,
+            'mail_from' => $this->modx->getOption('emailsender'),
+            'mail_from_name' => $this->modx->getOption('site_name')
+        ];
+        $this->modx->registry->minishop2->send("/$topic_key/" , json_encode($arQueue), ['kill' => true]);
     }
 }
