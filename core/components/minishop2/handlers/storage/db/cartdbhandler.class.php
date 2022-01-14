@@ -169,7 +169,7 @@ class CartDBHandler extends BaseDBController
         return $this->get();
     }
 
-    private function removeOrderProductNotInCart($cart)
+    protected function removeOrderProductNotInCart($cart)
     {
         if (count($this->products) === 0) {
             return;
@@ -184,7 +184,7 @@ class CartDBHandler extends BaseDBController
         }
     }
 
-    private function orderProductIsExists($key)
+    protected function orderProductIsExists($key)
     {
         foreach ($this->products as $product) {
             $properties = $product->get('properties');
@@ -196,7 +196,7 @@ class CartDBHandler extends BaseDBController
         return false;
     }
 
-    private function updateOrderProduct($key, $data)
+    protected function updateOrderProduct($key, $data)
     {
         /** @var msOrderProduct $product */
         foreach ($this->products as $product) {
@@ -217,7 +217,7 @@ class CartDBHandler extends BaseDBController
         }
     }
 
-    private function restrictOrder()
+    protected function restrictOrder()
     {
         $cartCost = 0;
         $weight = 0;
