@@ -29,6 +29,7 @@ class CartDBHandler extends BaseDBController
                 'discount_cost' => $properties['discount_cost'],
                 'weight' => $product->get('weight'),
                 'count' => $product->get('count'),
+                'cost' => $product->get('cost'),
                 'options' => $product->get('options'),
                 'ctx' => $properties['ctx'],
                 'key' => $properties['key'],
@@ -202,9 +203,13 @@ class CartDBHandler extends BaseDBController
         foreach ($this->products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
-                $msOrderProductProperties = $data['properties'];
-                unset($data['properties']);
-                $msOrderProductProperties = array_merge($msOrderProductProperties, $data);
+                if (isset($data['properties'])) {
+                    $msOrderProductProperties = $data['properties'];
+                    unset($data['properties']);
+                    $msOrderProductProperties = array_merge($msOrderProductProperties, $data);
+                } else {
+                    $msOrderProductProperties = $data;
+                }
                 $product->fromArray([
                     'price' => $data['price'],
                     'cost' => $data['cost'],
