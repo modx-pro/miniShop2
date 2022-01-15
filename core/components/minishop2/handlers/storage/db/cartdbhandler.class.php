@@ -224,6 +224,7 @@ class CartDBHandler extends BaseDBController
 
     protected function restrictOrder()
     {
+        $this->get();
         $cartCost = 0;
         $weight = 0;
 
