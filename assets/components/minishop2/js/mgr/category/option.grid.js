@@ -39,7 +39,7 @@ Ext.extend(miniShop2.grid.CategoryOption, miniShop2.grid.Default, {
             {header: _('ms2_ft_caption'), dataIndex: 'caption', width: 75, sortable: true},
             {header: _('ms2_ft_type'), dataIndex: 'type', width: 75, renderer: this._renderType},
             {header: _('ms2_default_value'), dataIndex: 'value', width: 75, editor: {xtype: 'textfield'}},
-            {header: _('ms2_ft_rank'), dataIndex: 'rank', width: 50, editor: {xtype: 'numberfield'}, hidden: true},
+            {header: _('ms2_ft_rank'), dataIndex: 'rank', width: 50, editor: {xtype: 'numberfield'}, hidden: true, sortable: true},
             {
                 header: _('ms2_actions'),
                 width: 75,
