@@ -14,8 +14,16 @@ class CartDBHandler extends BaseDBController
         $output = [];
 
         $msOrder = $this->getStorageOrder();
+
         if (!$msOrder) {
             return $output;
+        }
+
+        //Необходимо для корректного перехода между сессиями гостя и логина
+        if (isset($_SESSION['prev_session_id'])) {
+            $msOrder->set('session_id', session_id());
+            $msOrder->save();
+            unset($_SESSION['prev_session_id']);
         }
         $this->msOrder = $msOrder;
         $this->products = $this->msOrder->getMany('Products');
@@ -24,15 +32,15 @@ class CartDBHandler extends BaseDBController
             $cartItem = [
                 'id' => $product->get('product_id'),
                 'price' => $product->get('price'),
-                'old_price' => $properties['old_price'],
-                'discount_price' => $properties['discount_price'],
-                'discount_cost' => $properties['discount_cost'],
+                'old_price' => $properties['old_price'] ?? 0,
+                'discount_price' => $properties['discount_price'] ?? 0,
+                'discount_cost' => $properties['discount_cost'] ?? 0,
                 'weight' => $product->get('weight'),
                 'count' => $product->get('count'),
-                'cost' => $product->get('cost'),
                 'options' => $product->get('options'),
                 'ctx' => $properties['ctx'],
                 'key' => $properties['key'],
+                'properties' => $properties
             ];
             $output[$properties['key']] = $cartItem;
         }
@@ -42,11 +50,10 @@ class CartDBHandler extends BaseDBController
 
     public function set($cart)
     {
-        $msOrder = $this->getStorageOrder();
-        if (!$msOrder) {
-            return [];
+        $this->msOrder = $this->getStorageOrder();
+        if (!$this->msOrder) {
+            $this->createMsOrder();
         }
-        $this->msOrder = $msOrder;
         $this->products = $this->msOrder->getMany('Products');
         $this->removeOrderProductNotInCart($cart);
         foreach ($cart as $key => $cartItem) {
@@ -67,27 +74,7 @@ class CartDBHandler extends BaseDBController
     {
         $this->msOrder = $this->getStorageOrder();
         if (!$this->msOrder) {
-            $status = 999;
-            $this->msOrder = $this->modx->newObject('msOrder');
-            $orderData = [
-                'user_id' => $this->modx->getLoginUserID($this->ctx),
-                'session_id' => session_id(),
-                'createdon' => time(),
-                'cost' => 0,
-                'cart_cost' => 0,
-                'weight' => 0,
-                'status' => $status,
-                'context' => $cartItem['ctx'],
-            ];
-            $this->msOrder->fromArray($orderData);
-
-            // Adding address
-            /** @var msOrderAddress $address */
-            $address = $this->modx->newObject('msOrderAddress', [
-                'user_id' => $this->modx->getLoginUserID($this->ctx),
-                'createdon' => time(),
-            ]);
-            $this->msOrder->addOne($address);
+            $this->createMsOrder();
         }
 
         // Adding products
@@ -107,13 +94,19 @@ class CartDBHandler extends BaseDBController
         }
         /** @var msOrderProduct $product */
         $product = $this->modx->newObject('msOrderProduct');
+
         $productData = [
             'product_id' => $cartItem['id'],
             'name' => $name,
+            'count' => $cartItem['count'],
+            'price' => $cartItem['price'],
+            'weight' => $cartItem['weight'],
             'cost' => $cartItem['price'] * $cartItem['count'],
+            'options' => $cartItem['options'],
             'properties' => $cartItem
         ];
         $product->fromArray(array_merge($cartItem, $productData));
+
         $products[] = $product;
         $this->msOrder->addMany($products);
         $this->msOrder->save();
@@ -154,6 +147,8 @@ class CartDBHandler extends BaseDBController
         $count = $this->modx->getCount('msOrderProduct', ['order_id' => $this->msOrder->get('id')]);
         if ($count === 0) {
             $this->msOrder->remove();
+            $this->products = null;
+            $this->msOrder = null;
         } else {
             $this->msOrder->save();
             $this->restrictOrder();
@@ -172,7 +167,7 @@ class CartDBHandler extends BaseDBController
 
     protected function removeOrderProductNotInCart($cart)
     {
-        if (count($this->products) === 0) {
+        if (empty($this->products)) {
             return;
         }
         foreach ($this->products as $k => $product) {
@@ -187,6 +182,9 @@ class CartDBHandler extends BaseDBController
 
     protected function orderProductIsExists($key)
     {
+        if (empty($this->products)) {
+            return false;
+        }
         foreach ($this->products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
@@ -203,16 +201,12 @@ class CartDBHandler extends BaseDBController
         foreach ($this->products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
-                if (isset($data['properties'])) {
-                    $msOrderProductProperties = $data['properties'];
-                    unset($data['properties']);
-                    $msOrderProductProperties = array_merge($msOrderProductProperties, $data);
-                } else {
-                    $msOrderProductProperties = $data;
-                }
+                $msOrderProductProperties = $data['properties'];
+                unset($data['properties']);
+                $msOrderProductProperties = array_merge($msOrderProductProperties, $data);
                 $product->fromArray([
                     'price' => $data['price'],
-                    'cost' => $data['cost'],
+                    'cost' => $data['cost'] ?? $data['price'] * $data['count'],
                     'count' => $data['count'],
                     'options' => $data['options'],
                     'properties' => $msOrderProductProperties,
@@ -224,7 +218,6 @@ class CartDBHandler extends BaseDBController
 
     protected function restrictOrder()
     {
-        $this->get();
         $cartCost = 0;
         $weight = 0;
 
@@ -239,6 +232,32 @@ class CartDBHandler extends BaseDBController
         $this->msOrder->set('cart_cost', $cartCost);
         $this->msOrder->set('weight', $weight);
         $this->msOrder->set('updatedon', time());
+        $this->msOrder->save();
+    }
+
+    protected function createMsOrder()
+    {
+        $status = 999;
+        $this->msOrder = $this->modx->newObject('msOrder');
+        $orderData = [
+            'user_id' => $this->modx->getLoginUserID($this->ctx),
+            'session_id' => session_id(),
+            'createdon' => time(),
+            'cost' => 0,
+            'cart_cost' => 0,
+            'weight' => 0,
+            'status' => $status,
+            'context' => $this->ctx,
+        ];
+        $this->msOrder->fromArray($orderData);
+
+        // Adding address
+        /** @var msOrderAddress $address */
+        $address = $this->modx->newObject('msOrderAddress', [
+            'user_id' => $this->modx->getLoginUserID($this->ctx),
+            'createdon' => time(),
+        ]);
+        $this->msOrder->addOne($address);
         $this->msOrder->save();
     }
 }
