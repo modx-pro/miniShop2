@@ -25,7 +25,7 @@ if (!$queue) {
 }
 $q = $modx->newQuery('registry.db.modDbRegisterTopic');
 $q->where(['queue' => $queue->get('id')]);
-$q->limit($modx->getOption('ms2_queue_limit', '' ,10));
+$q->limit($modx->getOption('ms2_queue_limit', '', 10));
 $topics = $modx->getIterator('modDbRegisterTopic', $q);
 $emails = [];
 foreach ($topics as $topic) {
