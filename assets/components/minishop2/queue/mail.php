@@ -7,8 +7,7 @@
 if (file_exists(dirname(__FILE__, 6) . '/config.core.php')) {
     /** @noinspection PhpIncludeInspection */
     require_once dirname(__FILE__, 6) . '/config.core.php';
-} 
-else {
+} else {
     require_once dirname(__FILE__, 5) . '/config.core.php';
 }
 /** @noinspection PhpIncludeInspection */
