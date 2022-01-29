@@ -706,8 +706,8 @@ class miniShop2
                     if (!$customer->save()) {
                         $customer = null;
                     } elseif ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
-                        $groups = array_map('trim', explode(',', $groups));
-                        foreach ($groups as $group) {
+                        $grouproles = array_map('trim', explode(',', $groups));
+                        foreach ($grouproles as $grouprole) {
                             $grouprole = explode(':', $group);
                             if ($grouprole[1]) {
                                 if (is_numeric($grouprole[1])) {
