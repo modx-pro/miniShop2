@@ -54,5 +54,4 @@ $BUILD_RESOLVERS = array(
     'settings',
     'chunks',
     'setup',
-    'upgrade',
 );
