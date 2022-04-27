@@ -33,9 +33,13 @@ switch ($modx->event->name) {
         break;
 
     case 'OnLoadWebDocument':
+        $miniShop2 = $modx->getService('miniShop2');
+        if ($miniShop2) {
+            $miniShop2->registerFrontend();
+        }
         // Handle non-ajax requests
         if (!empty($_REQUEST['ms2_action'])) {
-            if ($miniShop2 = $modx->getService('miniShop2')) {
+            if ($miniShop2) {
                 $miniShop2->handleRequest($_REQUEST['ms2_action'], @$_POST);
             }
         }

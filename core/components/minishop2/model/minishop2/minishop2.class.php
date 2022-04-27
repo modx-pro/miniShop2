@@ -87,6 +87,14 @@ class miniShop2
         $this->config['ctx'] = $ctx;
         $this->modx->lexicon->load('minishop2:default');
 
+        $load = $this->loadServices($ctx);
+        $this->initialized[$ctx] = $load;
+
+        return $load;
+    }
+
+    public function registerFrontend($ctx = 'web')
+    {
         if ($ctx != 'mgr' && (!defined('MODX_API_MODE') || !MODX_API_MODE)) {
             $config = $this->pdoTools->makePlaceholders($this->config);
 
@@ -152,10 +160,6 @@ class miniShop2
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $message_settings_js));
             }
         }
-        $load = $this->loadServices($ctx);
-        $this->initialized[$ctx] = $load;
-
-        return $load;
     }
 
 
