@@ -267,6 +267,11 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ),
+    'ms2_register_frontend' => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_frontend',
+    ),
 
     'ms2_payment_paypal_api_url' => array(
         'value' => 'https://api-3t.paypal.com/nvp',

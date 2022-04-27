@@ -131,7 +131,8 @@ $_lang['setting_ms2_frontend_message_js_settings_desc'] = "The path to the file 
 By default to jgrowl settings. <br>
 If you want to use your own library, specify the path to its settings here, or clear the parameter and load them manually through the site template.";
 
-
+$_lang['setting_ms2_register_frontend'] = 'Allow to add js & css files for ms2 to DOM';
+$_lang['setting_ms2_register_frontend_desc'] = "Allow to add js & css files for ms2 to DOM";
 
 
 
