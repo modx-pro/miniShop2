@@ -31,7 +31,7 @@ class msDelivery extends xPDOSimpleObject
     */
     public function loadHandler()
     {
-        require_once dirname(__FILE__) . '/msdeliveryhandler.class.php';
+        require_once dirname(__FILE__, 3) . '/handlers/msdeliveryhandler.class.php';
 
         if (!$class = $this->get('class')) {
             $class = 'msDeliveryHandler';

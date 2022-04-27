@@ -119,8 +119,8 @@ $xpdo_meta_map['msOrderStatus'] = array(
                 ),
             'rank' =>
                 array(
-                    'dbtype' => 'tinyint',
-                    'precision' => '1',
+                    'dbtype' => 'int',
+                    'precision' => '10',
                     'phptype' => 'integer',
                     'attributes' => 'unsigned',
                     'null' => true,

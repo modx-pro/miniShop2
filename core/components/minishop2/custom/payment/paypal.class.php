@@ -1,7 +1,7 @@
 <?php
 
 if (!class_exists('msPaymentInterface')) {
-    require_once dirname(dirname(dirname(__FILE__))) . '/model/minishop2/mspaymenthandler.class.php';
+    require_once dirname(__FILE__, 3) . '/handlers/mspaymenthandler.class.php';
 }
 
 class PayPal extends msPaymentHandler implements msPaymentInterface

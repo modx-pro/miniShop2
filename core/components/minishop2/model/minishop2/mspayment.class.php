@@ -31,7 +31,7 @@ class msPayment extends xPDOSimpleObject
     */
     public function loadHandler()
     {
-        require_once dirname(__FILE__) . '/mspaymenthandler.class.php';
+        require_once dirname(__FILE__, 3) . '/handlers/mspaymenthandler.class.php';
 
         if (!$class = $this->get('class')) {
             $class = 'msPaymentHandler';

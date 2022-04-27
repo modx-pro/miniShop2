@@ -12,6 +12,7 @@ $xpdo_meta_map['msOrderAddress'] = array(
             'updatedon' => null,
             'receiver' => null,
             'phone' => null,
+            'email' => null,
             'country' => null,
             'index' => null,
             'region' => null,
@@ -59,6 +60,13 @@ $xpdo_meta_map['msOrderAddress'] = array(
                 array(
                     'dbtype' => 'varchar',
                     'precision' => '20',
+                    'phptype' => 'string',
+                    'null' => true,
+                ),
+            'email' =>
+                array(
+                    'dbtype' => 'varchar',
+                    'precision' => '191',
                     'phptype' => 'string',
                     'null' => true,
                 ),

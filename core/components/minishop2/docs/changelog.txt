@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0-pl] - 2022-04-27
+
+### Added
+- New catalog handlers to store the main controllers: msCartHandler, msOrderHandler, msDeliveryHandler, msPaymentHandler
+- System settings: ms2_tmp_storage, ms2_register_frontend
+- Database fields ms2_orders.session_id, ms2_order_addresses.email ms2_order_products.properties
+- New controllers for db storage, session storage
+- New order status Processed
+- Method RegisterFrontend
+
+### Changed
+
+- Composite msOrder.Address change owner from foreign to local
+- Clear controllers msCartHandler, msOrderHandler, msDeliveryHandler, msPaymentHandler.  Content replaced by stub
+- Resolver table.  New mechanism for managing database tables and fields
+- Field's type  ms2_order_statuses.rank  changed from tinyint to int
+- Plugin minishop2.  Added Method RegisterFrontend to section OnLoadWebDocument
+
+### Removed
+- Resolver Upgrade
+
 ## [2.9.3-pl] - 2021-10-16
 
 ### Added

@@ -15,6 +15,7 @@ $xpdo_meta_map['msOrderProduct'] = array(
             'weight' => 0.0,
             'cost' => 0.0,
             'options' => null,
+            'properties' => null,
         ),
     'fieldMeta' =>
         array(
@@ -75,6 +76,12 @@ $xpdo_meta_map['msOrderProduct'] = array(
                     'default' => 0.0,
                 ),
             'options' =>
+                array(
+                    'dbtype' => 'text',
+                    'phptype' => 'json',
+                    'null' => true,
+                ),
+            'properties' =>
                 array(
                     'dbtype' => 'text',
                     'phptype' => 'json',

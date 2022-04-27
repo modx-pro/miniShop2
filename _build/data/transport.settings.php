@@ -42,6 +42,11 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_main',
     ),
+    'ms2_tmp_storage' => array(
+        'value' => 'session',
+        'xtype' => 'textfield',
+        'area' => 'ms2_main',
+    ),
 
     'ms2_category_grid_fields' => array(
         'value' => 'id,menuindex,pagetitle,article,price,thumb,new,favorite,popular',
@@ -260,6 +265,11 @@ $tmp = array(
     'ms2_frontend_message_js_settings' => array(
         'value' => '[[+jsUrl]]web/message_settings.js',
         'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_register_frontend' => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
         'area' => 'ms2_frontend',
     ),
 

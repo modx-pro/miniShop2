@@ -5,116 +5,112 @@
 /** @var modX $modx */
 if ($transport->xpdo) {
     $modx = $transport->xpdo;
+
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
-            $modelPath = $modx->getOption(
-                'minishop2.core_path',
-                null,
-                $modx->getOption('core_path') . 'components/minishop2/'
-            ) . 'model/';
-            $modx->addPackage('minishop2', $modelPath);
-
+            $modx->addPackage('minishop2', MODX_CORE_PATH . 'components/minishop2/model/');
             $manager = $modx->getManager();
-            $tmp = array(
-                'msProductData',
-                'msVendor',
-                'msCategoryMember',
-                'msProductOption',
-                'msProductFile',
-                'msOrder',
-                'msOrderStatus',
-                'msOrderLog',
-                'msPayment',
-                'msDelivery',
-                'msDeliveryMember',
-                'msOrderAddress',
-                'msOrderProduct',
-                'msLink',
-                'msProductLink',
-                'msCustomerProfile',
-                'msOption',
-                'msCategoryOption',
-            );
-            foreach ($tmp as $v) {
-                $manager->createObjectContainer($v);
+            $objects = [];
+            $schemaFile = MODX_CORE_PATH . 'components/minishop2/model/schema/minishop2.mysql.schema.xml';
+            if (is_file($schemaFile)) {
+                $schema = new SimpleXMLElement($schemaFile, 0, true);
+                if (isset($schema->object)) {
+                    foreach ($schema->object as $obj) {
+                        $objects[] = (string)$obj['class'];
+                    }
+                }
+                unset($schema);
             }
+            foreach ($objects as $class) {
+                $table = $modx->getTableName($class);
+                $sql = "SHOW TABLES LIKE '" . trim($table, '`') . "'";
+                $stmt = $modx->prepare($sql);
+                $newTable = true;
+                if ($stmt->execute() && $stmt->fetchAll()) {
+                    $newTable = false;
+                }
+                // If the table is just created
+                if ($newTable) {
+                    $manager->createObjectContainer($class);
+                } else {
+                    // If the table exists
 
-            $level = $modx->getLogLevel();
-            $modx->setLogLevel(xPDO::LOG_LEVEL_FATAL);
+                    // 1. Operate with tables
+                    $tableFields = [];
+                    $c = $modx->prepare("SHOW COLUMNS IN {$modx->getTableName($class)}");
+                    $c->execute();
+                    while ($cl = $c->fetch(PDO::FETCH_ASSOC)) {
+                        $tableFields[$cl['Field']] = $cl['Field'];
+                    }
+                    foreach ($modx->getFields($class) as $field => $v) {
+                        if (in_array($field, $tableFields)) {
+                            unset($tableFields[$field]);
+                            $manager->alterField($class, $field);
+                            $modx->log(modX::LOG_LEVEL_INFO, "Altered field \"{$field}\" of the table \"{$class}\"");
+                        } else {
+                            $manager->addField($class, $field);
+                            $modx->log(modX::LOG_LEVEL_INFO, "Added field \"{$field}\" of the table \"{$class}\"");
+                        }
+                    }
+                    foreach ($tableFields as $field) {
+                        $manager->removeField($class, $field);
+                        $modx->log(modX::LOG_LEVEL_INFO, "Removed field \"{$field}\" of the table \"{$class}\"");
+                    }
 
-            $manager->addField('msProductFile', 'properties');
-            $manager->addField('msProductFile', 'hash');
-            $manager->addIndex('msProductFile', 'hash');
-            $manager->addField('msProductFile', 'active');
-            $manager->addIndex('msProductFile', 'active');
+                    // 2. Operate with indexes
+                    $indexes = [];
+                    $c = $modx->prepare("SHOW INDEX FROM {$modx->getTableName($class)}");
+                    $c->execute();
+                    while ($row = $c->fetch(PDO::FETCH_ASSOC)) {
+                        $name = $row['Key_name'];
+                        if (!isset($indexes[$name])) {
+                            $indexes[$name] = [$row['Column_name']];
+                        } else {
+                            $indexes[$name][] = $row['Column_name'];
+                        }
+                    }
+                    foreach ($indexes as $name => $values) {
+                        sort($values);
+                        $indexes[$name] = implode(':', $values);
+                    }
+                    $map = $modx->getIndexMeta($class);
 
-            $manager->addField('msOrderProduct', 'name');
+                    // Remove old indexes
+                    foreach ($indexes as $key => $index) {
+                        if (!isset($map[$key])) {
+                            if ($manager->removeIndex($class, $key)) {
+                                $modx->log(modX::LOG_LEVEL_INFO, "Removed index \"{$key}\" of the table \"{$class}\"");
+                            }
+                        }
+                    }
 
-            //fix error when modx not updated object map
-            if (!array_key_exists('free_delivery_amount', $modx->map['msDelivery']['fields'])) {
-                $modx->map['msDelivery']['fields']['free_delivery_amount'] = array(
-                    'dbtype' => 'decimal',
-                    'precision' => '12,2',
-                    'phptype' => 'float',
-                    'null' => true,
-                    'default' => 0.0,
-                );
-            }
-
-            $manager->addField('msDelivery', 'free_delivery_amount');
-
-            $manager->alterField('msDelivery', 'price');
-            $manager->addField('msPayment', 'price', array('after' => 'description'));
-
-            $manager->addField('msCustomerProfile', 'spent', array('after' => 'account'));
-            $manager->addIndex('msCustomerProfile', 'spent');
-
-            $manager->addField('msOrder', 'type');
-            $manager->addIndex('msOrder', 'type');
-
-            $manager->addField('msOption', 'description', array('after' => 'caption'));
-            $manager->addField('msOption', 'category', array('after' => 'description'));
-            $manager->addField('msOption', 'measure_unit', array('after' => 'description'));
-
-            $newAddressFields = ['entrance', 'floor'];
-            foreach ($newAddressFields as $field) {
-                if (!array_key_exists($field, $modx->map['msOrderAddress']['fields'])) {
-                    $modx->map['msOrderAddress']['fields'][$field] = array(
-                        'dbtype' => 'varchar',
-                        'precision' => '10',
-                        'phptype' => 'string',
-                        'null' => true,
-                    );
+                    // Add or alter existing
+                    foreach ($map as $key => $index) {
+                        ksort($index['columns']);
+                        $index = implode(':', array_keys($index['columns']));
+                        if (!isset($indexes[$key])) {
+                            if ($manager->addIndex($class, $key)) {
+                                $modx->log(modX::LOG_LEVEL_INFO, "Added index \"{$key}\" in the table \"{$class}\"");
+                            }
+                        } else {
+                            if ($index != $indexes[$key]) {
+                                if ($manager->removeIndex($class, $key) && $manager->addIndex($class, $key)) {
+                                    $modx->log(
+                                        modX::LOG_LEVEL_INFO,
+                                        "Updated index \"{$key}\" of the table \"{$class}\""
+                                    );
+                                }
+                            }
+                        }
+                    }
                 }
             }
-
-            if (!array_key_exists($field, $modx->map['msOrderAddress']['fields'])) {
-                $modx->map['msOrderAddress']['fields']['text_address'] = array(
-                    'dbtype' => 'text',
-                    'phptype' => 'string',
-                    'null' => true,
-                );
-            }
-
-
-            $manager->addField('msOrderAddress', 'entrance', array('after' => 'building'));
-            $manager->addField('msOrderAddress', 'floor', array('after' => 'entrance'));
-            $manager->addField('msOrderAddress', 'text_address', array('after' => 'comment'));
-
-            // Fix for wrong events
-            /*
-            if ($modx->getObject('modEvent', array('name' => '1', 'groupname' => 'miniShop2'))) {
-                $modx->removeCollection('modEvent', array(
-                    'groupname' => 'miniShop2',
-                    'name:IN' => array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27)
-                ));
-            }
-            */
-            $modx->setLogLevel($level);
             break;
+
         case xPDOTransport::ACTION_UNINSTALL:
             break;
     }
 }
+
 return true;

@@ -22,6 +22,10 @@ $_lang['setting_ms2_plugins'] = 'Store plugins';
 $_lang['setting_ms2_plugins_desc'] = 'Array with registered plugins for extension objects of store model: products, customer profiles, etc.';
 $_lang['setting_ms2_chunks_categories'] = 'Categories for list chunks';
 $_lang['setting_ms2_chunks_categories_desc'] = 'List of category IDs for list chunks by comma separated.';
+$_lang['setting_ms2_tmp_storage'] = 'Хранилище корзины и временных полей заказа';
+$_lang['setting_ms2_tmp_storage_desc'] = "
+To store the shopping cart and temporary order fields in the session, specify<strong>session</strong><br>
+To store in the database specify <strong>db</strong>";
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
@@ -127,7 +131,8 @@ $_lang['setting_ms2_frontend_message_js_settings_desc'] = "The path to the file 
 By default to jgrowl settings. <br>
 If you want to use your own library, specify the path to its settings here, or clear the parameter and load them manually through the site template.";
 
-
+$_lang['setting_ms2_register_frontend'] = 'Allow to add js & css files for ms2 to DOM';
+$_lang['setting_ms2_register_frontend_desc'] = "Allow to add js & css files for ms2 to DOM";
 
 
 
