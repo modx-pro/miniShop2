@@ -1,4 +1,4 @@
-ms2_tmp_storage<?php
+<?php
 
 /**
  * Settings Russian Lexicon Entries for miniShop2
