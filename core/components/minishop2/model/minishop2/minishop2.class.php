@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '3.0.0-pl';
+    public $version = '3.0.1-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -120,34 +120,34 @@ class miniShop2
                     $js .= '?v=' . substr(md5($this->version), 0, 10);
                 }
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
-
-                $message_setting = array(
-                    'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
-                );
-
-                $js_setting = array(
-                    'cssUrl' => $this->config['cssUrl'] . 'web/',
-                    'jsUrl' => $this->config['jsUrl'] . 'web/',
-                    'actionUrl' => $this->config['actionUrl'],
-                    'ctx' => $ctx,
-                    'price_format' => json_decode(
-                        $this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'),
-                        true
-                    ),
-                    'price_format_no_zeros' => (bool)$this->modx->getOption('ms2_price_format_no_zeros', null, true),
-                    'weight_format' => json_decode(
-                        $this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'),
-                        true
-                    ),
-                    'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
-                );
-
-                $data = json_encode(array_merge($message_setting, $js_setting), true);
-                $this->modx->regClientStartupScript(
-                    '<script>miniShop2Config = ' . $data . ';</script>',
-                    true
-                );
             }
+
+            $message_setting = array(
+                'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
+            );
+
+            $js_setting = array(
+                'cssUrl' => $this->config['cssUrl'] . 'web/',
+                'jsUrl' => $this->config['jsUrl'] . 'web/',
+                'actionUrl' => $this->config['actionUrl'],
+                'ctx' => $ctx,
+                'price_format' => json_decode(
+                    $this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'),
+                    true
+                ),
+                'price_format_no_zeros' => (bool)$this->modx->getOption('ms2_price_format_no_zeros', null, true),
+                'weight_format' => json_decode(
+                    $this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'),
+                    true
+                ),
+                'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
+            );
+
+            $data = json_encode(array_merge($message_setting, $js_setting), true);
+            $this->modx->regClientStartupScript(
+                '<script>miniShop2Config = ' . $data . ';</script>',
+                true
+            );
 
             // Register notify plugin JS
             $message_js = trim($this->modx->getOption('ms2_frontend_message_js'));

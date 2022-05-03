@@ -119,6 +119,10 @@ class CartDBHandler extends BaseDBController
 
     public function change($key, $count)
     {
+        if (empty($this->products)) {
+            return $this->get();
+        }
+
         foreach ($this->products as $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
@@ -137,6 +141,9 @@ class CartDBHandler extends BaseDBController
 
     public function remove($key)
     {
+        if (empty($this->products)) {
+            return $this->get();
+        }
         foreach ($this->products as $k => $product) {
             $properties = $product->get('properties');
             if ($key === $properties['key']) {
