@@ -311,6 +311,35 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         w.show();
     },
 
+    generatePreview: function(){
+        var ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: miniShop2.config['connector_url'],
+            params: {
+                action: 'mgr/gallery/generateall',
+                product_id: ids,
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        //noinspection JSUnresolvedFunction
+                        this.reloadTree();
+                        //noinspection JSUnresolvedFunction
+                        this.refresh();
+                    }, scope: this
+                },
+                failure: {
+                    fn: function (response) {
+                        MODx.msg.alert(_('error'), response.message);
+                    }, scope: this
+                },
+            }
+        })
+    },
+
     reloadTree: function (ids) {
         if (ids == undefined || typeof(ids) != 'object') {
             ids = this._getSelectedIds();
