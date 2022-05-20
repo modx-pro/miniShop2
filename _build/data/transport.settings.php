@@ -189,6 +189,11 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'area' => 'ms2_cart',
     ),
+    'ms2_cart_max_count' => array(
+        'value' => 1000,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_cart',
+    ),
 
     'ms2_order_format_num' => array(
         'value' => '%y%m',
