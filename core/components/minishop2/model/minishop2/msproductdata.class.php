@@ -416,7 +416,7 @@ class msProductData extends xPDOSimpleObject
             'product_id' => $this->get('id'),
             'parent' => 0,
         ));
-        $c->select('MAX(rank) + 1 as max');
+        $c->select('MAX(`rank`) + 1 as max');
         $c->select('COUNT(id) as total');
         $c->having('max <> total');
         if ($c->prepare() && $c->stmt->execute()) {
@@ -431,17 +431,17 @@ class msProductData extends xPDOSimpleObject
             'parent' => 0,
         ));
         $c->select('id');
-        $c->sortby('rank ASC, createdon', 'ASC');
+        $c->sortby('`rank` ASC, createdon', 'ASC');
 
         if ($c->prepare() && $c->stmt->execute()) {
             $table = $this->xpdo->getTableName('msProductFile');
-            $update = $this->xpdo->prepare("UPDATE {$table} SET rank = ? WHERE (id = ? OR parent = ?)");
+            $update = $this->xpdo->prepare("UPDATE {$table} SET `rank` = ? WHERE (id = ? OR parent = ?)");
             $ids = $c->stmt->fetchAll(PDO::FETCH_COLUMN);
             foreach ($ids as $k => $id) {
                 $update->execute(array($k, $id, $id));
             }
 
-            $alter = $this->xpdo->prepare("ALTER TABLE {$table} ORDER BY rank ASC");
+            $alter = $this->xpdo->prepare("ALTER TABLE {$table} ORDER BY `rank` ASC");
             $alter->execute();
         }
     }
@@ -459,7 +459,7 @@ class msProductData extends xPDOSimpleObject
             'type' => 'image',
             //'active' => true,
         ));
-        $c->sortby('rank', 'ASC');
+        $c->sortby($this->xpdo->escape('rank'), 'ASC');
         $c->limit(1);
         /** @var msProductFile $file */
         $file = $this->xpdo->getObject('msProductFile', $c);
