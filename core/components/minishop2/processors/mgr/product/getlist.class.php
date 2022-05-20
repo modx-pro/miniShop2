@@ -259,6 +259,15 @@ class msProductGetListProcessor extends modObjectGetListProcessor
                     'menu' => true,
                 );
             }
+            //Regenerate image
+            $array['actions'][] = array(
+                'cls' => '',
+                'icon' => 'icon icon-refresh',
+                'title' => $this->modx->lexicon('ms2_gallery_file_generate_thumbs'),
+                'action' => 'generatePreview',
+                'button' => false,
+                'menu' => true,
+            );
             // Edit
             $array['actions'][] = array(
                 'cls' => '',

@@ -5,3 +5,4 @@ sftp-config.json
 .gitignore
 .DS_Store
 tests/properties.inc.php
+package-lock.json

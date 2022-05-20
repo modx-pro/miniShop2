@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.2-pl] - 2022-05-20
+
+### Added
+- msCartHandler, msOrderHandler, msDeliveryHandler, msPaymentHandler deprecated file notifications now listen to the log_deprecated system setting
+- Escaping of the rank field to support mysql 8
+- Added the ability to update image previews in the product grid
+
 ## [3.0.1-pl] - 2022-05-04
 
 ### Changed

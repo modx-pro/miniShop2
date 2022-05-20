@@ -62,7 +62,7 @@ if (!empty($includeThumbs)) {
         }
         $leftJoin[$thumb] = array(
             'class' => 'msProductFile',
-            'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.rank = 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%'",
+            'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.`rank` = 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%'",
         );
         $select[$thumb] = "`{$thumb}`.url as `{$thumb}`";
         $groupby[] = "`{$thumb}`.url";

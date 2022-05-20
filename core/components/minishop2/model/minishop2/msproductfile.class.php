@@ -53,9 +53,9 @@ class msProductFile extends xPDOSimpleObject
     */
     public function save($cacheFlag = null)
     {
-        if ($this->isDirty('rank')) {
+        if ($this->isDirty($this->xpdo->escape('rank'))) {
             $table = $this->xpdo->getTableName('msProductFile');
-            $this->xpdo->exec("UPDATE {$table} SET rank = {$this->get('rank')} WHERE parent = {$this->id}");
+            $this->xpdo->exec("UPDATE {$table} SET `rank` = {$this->get($this->xpdo->escape('rank'))} WHERE parent = {$this->id}");
         }
 
         return parent::save($cacheFlag);
@@ -222,7 +222,7 @@ class msProductFile extends xPDOSimpleObject
             'path' => $path,
             'source' => $this->mediaSource->get('id'),
             'type' => $this->get('type'),
-            'rank' => $this->get('rank'),
+            'rank' => $this->get($this->xpdo->escape('rank')),
             'createdon' => date('Y-m-d H:i:s'),
             'createdby' => $this->xpdo->user->id,
             'active' => 1,
@@ -278,7 +278,7 @@ class msProductFile extends xPDOSimpleObject
             'type' => 'image',
         ));
         $c->limit(1);
-        $c->sortby('rank ASC,id', 'ASC');
+        $c->sortby('`rank` ASC,`id`', 'ASC');
         $c->select('id,url');
 
         $res = array();
