@@ -710,9 +710,19 @@ class miniShop2
                     if (!$customer->save()) {
                         $customer = null;
                     } elseif ($groups = $this->modx->getOption('ms2_order_user_groups', null, false)) {
-                        $groups = array_map('trim', explode(',', $groups));
-                        foreach ($groups as $group) {
-                            $customer->joinGroup($group);
+                        $groupRoles = array_map('trim', explode(',', $groups));
+                        foreach ($groupRoles as $groupRole) {
+                            $groupRole = explode(':', $groupRole);
+                            if (count($groupRole) > 1 && !empty($groupRole[1])) {
+                                if (is_numeric($groupRole[1])) {
+                                    $roleId = (int)$groupRole[1];
+                                } else {
+                                    $roleId = $groupRole[1];
+                                }
+                            } else {
+                                $roleId = null;
+                            }
+                            $customer->joinGroup($groupRole[0], $roleId);
                         }
                     }
                 }
