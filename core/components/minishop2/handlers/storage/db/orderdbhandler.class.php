@@ -32,6 +32,9 @@ class OrderDBHandler extends BaseDBController
 
     public function add($key, $value = '')
     {
+        if (empty($this->msOrder)) {
+            return $this->get();
+        }
         switch ($key) {
             case 'delivery':
             case 'payment':
@@ -49,6 +52,9 @@ class OrderDBHandler extends BaseDBController
 
     public function remove($key)
     {
+        if (empty($this->msOrder)) {
+            return $this->get();
+        }
         switch ($key) {
             case 'delivery':
             case 'payment':
@@ -65,6 +71,9 @@ class OrderDBHandler extends BaseDBController
 
     public function clean()
     {
+        if (empty($this->msOrder)) {
+            return [];
+        }
         $fields = $this->get();
         foreach ($fields as $key => $value) {
             switch ($key) {

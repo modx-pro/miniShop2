@@ -1,4 +1,4 @@
 <?php
 
-//Deprecated: use handlers from catalog core/components/minishop2/handlers/
+$this->modx->log(1, 'Deprecated: use handlers from catalog core/components/minishop2/handlers/');
 require_once dirname(__FILE__, 3) . '/handlers/msorderhandler.class.php';

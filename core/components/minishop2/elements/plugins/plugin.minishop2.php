@@ -33,6 +33,7 @@ switch ($modx->event->name) {
         break;
 
     case 'OnLoadWebDocument':
+        /** @var miniShop2 $miniShop2 */
         $miniShop2 = $modx->getService('miniShop2');
         $registerFrontend = $modx->getOption('ms2_register_frontend', null, '1');
         if ($miniShop2 && $registerFrontend) {
