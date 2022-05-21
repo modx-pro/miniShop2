@@ -1,5 +1,7 @@
 <?php
 
+require MODX_CORE_PATH . 'components/minishop2/processors/mgr/gallery/removecatalogs.class.php';
+
 class msProductFileRemoveProcessor extends modObjectRemoveProcessor
 {
     public $classKey = 'msProductFile';
@@ -37,6 +39,9 @@ class msProductFileRemoveProcessor extends modObjectRemoveProcessor
         /** @var miniShop2 $miniShop2 */
         if (empty($thumb) && $miniShop2 = $this->modx->getService('miniShop2')) {
             $thumb = $miniShop2->config['defaultThumb'];
+        }
+        if(!$product->getMany('Files')){
+            RemoveCatalogs::process($this->modx, $product->get('id'));
         }
 
         return $this->success('', array('thumb' => $thumb));
