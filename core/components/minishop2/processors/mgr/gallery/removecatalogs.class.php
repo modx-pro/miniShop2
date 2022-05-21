@@ -9,7 +9,6 @@ class RemoveCatalogs
         $imgPath = MODX_BASE_PATH . $source['properties']['basePath']['value'] . $id;
         if(file_exists($imgPath)){
             RemoveCatalogs::remove_dir($imgPath);
-            $modx->log(1, print_r($imgPath,1));
         }
 
     }
