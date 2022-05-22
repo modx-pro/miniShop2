@@ -2,7 +2,7 @@
 
 class removeCatalogs
 {
-    public static function process(Modx &$modx, int $id)
+    public static function process(Modx $modx, int $id)
     {
         $source = $modx->getObject('modMediaSource', $modx->getOption('ms2_product_source_default'));
         $props = $source->get('properties');
