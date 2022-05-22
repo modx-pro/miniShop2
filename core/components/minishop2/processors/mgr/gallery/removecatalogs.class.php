@@ -1,26 +1,12 @@
 <?php
 
-class RemoveCatalogs
+class removeCatalogs
 {
-    public static function process(Modx $modx, int $id)
+    public static function process(Modx &$modx, int $id)
     {
         $source = $modx->getObject('modMediaSource', $modx->getOption('ms2_product_source_default'));
-        $source = $source->toArray();
-        $imgPath = MODX_BASE_PATH . $source['properties']['basePath']['value'] . $id;
-        if(file_exists($imgPath)){
-            RemoveCatalogs::remove_dir($imgPath);
-        }
-
+        $props = $source->get('properties');
+        $imgPath = MODX_BASE_PATH . $props['basePath']['value'] . $id;
+        $modx->runProcessor('browser/directory/remove', array('dir' => $imgPath));
     }
-
-    public static function remove_dir($dir)
-    {
-        if ($objs = glob($dir . '/*')) {
-            foreach($objs as $obj) {
-                is_dir($obj) ? RemoveCatalogs::remove_dir($obj) : unlink($obj);
-            }
-        }
-        rmdir($dir);
-    }
-
 }

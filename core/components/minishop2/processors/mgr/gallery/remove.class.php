@@ -41,7 +41,7 @@ class msProductFileRemoveProcessor extends modObjectRemoveProcessor
             $thumb = $miniShop2->config['defaultThumb'];
         }
         if(!$product->getMany('Files')){
-            RemoveCatalogs::process($this->modx, $product->get('id'));
+            removeCatalogs::process($this->modx, $product->get('id'));
         }
 
         return $this->success('', array('thumb' => $thumb));
