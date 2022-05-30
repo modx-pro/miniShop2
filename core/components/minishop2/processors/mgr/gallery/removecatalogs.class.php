@@ -1,6 +1,6 @@
 <?php
 
-class removeCatalogs
+class RemoveCatalogs
 {
     public static function process(modX $modx, int $id)
     {

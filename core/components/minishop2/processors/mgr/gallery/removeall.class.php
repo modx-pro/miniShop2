@@ -47,8 +47,8 @@ class msProductFileRemoveAllProcessor extends modObjectProcessor
             return $this->success('', array('thumb' => $thumb));
         }
 
-        if(!$product->getMany('Files')){
-            removeCatalogs::process($this->modx, $product->get('id'));
+        if(!empty($product->getMany('Files'))){
+            RemoveCatalogs::process($this->modx, $product->get('id'));
         }
 
         return $this->success();
