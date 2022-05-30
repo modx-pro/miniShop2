@@ -46,19 +46,15 @@ class OrderSessionHandler
         $createdon = date('Y-m-d H:i:s');
         /** @var msOrder $msOrder */
         $msOrder = $this->modx->newObject('msOrder');
-        $msOrder->fromArray(array(
-            'user_id' => $data['user_id'],
+
+        $orderData = array_merge($order, $data, [
             'createdon' => $createdon,
-            'num' => $data['num'],
-            'delivery' => $order['delivery'],
-            'payment' => $order['payment'],
-            'cart_cost' => $data['cart_cost'],
             'weight' => $data['cart_status']['total_weight'],
-            'delivery_cost' => $data['delivery_cost'],
             'cost' => $data['cart_cost'] + $data['delivery_cost'],
             'status' => 0,
             'context' => $this->ctx,
-        ));
+        ]);
+        $msOrder->fromArray($orderData);
 
         // Adding address
         /** @var msOrderAddress $address */
