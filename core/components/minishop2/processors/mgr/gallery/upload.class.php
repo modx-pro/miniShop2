@@ -144,7 +144,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
             if (empty($rank)) {
                 $imagesTable = $this->modx->getTableName($this->classKey);
-                $sql = "UPDATE {$imagesTable} SET rank = rank + 1 WHERE product_id ='" . $this->product->id . "' AND id !='" . $uploaded_file->get('id') . "'";
+                $sql = "UPDATE {$imagesTable} SET `rank` = `rank` + 1 WHERE product_id ='" . $this->product->id . "' AND id !='" . $uploaded_file->get('id') . "'";
                 $this->modx->exec($sql);
             }
 

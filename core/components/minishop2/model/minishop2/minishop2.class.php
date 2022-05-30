@@ -783,7 +783,7 @@ class miniShop2
                     $error = 'ms2_err_status_final';
                 } else {
                     if ($old_status->get('fixed')) {
-                        if ($status->get($this->modx->escape('rank')) <= $old_status->get($this->modx->escape('rank'))) {
+                        if ($status->get('rank') <= $old_status->get('rank')) {
                             $error = 'ms2_err_status_fixed';
                         }
                     }
