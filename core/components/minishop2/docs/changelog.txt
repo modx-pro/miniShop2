@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.4-pl] - 2022-06-09
+
+### Added
+Removal of empty directories of images #685
+
+### Changed
+Fix escaping rank field for msProductFile #690
+Fix first thumbnail generator #691
+load minishop2:default lexicon in registerFrontend #688
+
 ## [3.0.3-pl] - 2022-05-30
 
 ### Changed

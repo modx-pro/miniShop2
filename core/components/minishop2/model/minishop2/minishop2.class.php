@@ -96,6 +96,8 @@ class miniShop2
     public function registerFrontend($ctx = 'web')
     {
         if ($ctx != 'mgr' && (!defined('MODX_API_MODE') || !MODX_API_MODE)) {
+            $this->modx->lexicon->load('minishop2:default');
+
             $config = $this->pdoTools->makePlaceholders($this->config);
 
             // Register CSS
