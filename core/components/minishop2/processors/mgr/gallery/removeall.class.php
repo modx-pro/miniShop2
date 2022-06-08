@@ -1,5 +1,7 @@
 <?php
 
+require_once 'removecatalogs.class.php';
+
 class msProductFileRemoveAllProcessor extends modObjectProcessor
 {
     public $classKey = 'msProductFile';
@@ -43,6 +45,10 @@ class msProductFileRemoveAllProcessor extends modObjectProcessor
                 $thumb = $miniShop2->config['defaultThumb'];
             }
             return $this->success('', array('thumb' => $thumb));
+        }
+
+        if (empty($product->getMany('Files'))) {
+            RemoveCatalogs::process($this->modx, $product_id);
         }
 
         return $this->success();
