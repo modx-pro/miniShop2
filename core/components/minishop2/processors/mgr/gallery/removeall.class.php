@@ -1,6 +1,6 @@
 <?php
 
-require MODX_CORE_PATH . 'components/minishop2/processors/mgr/gallery/removecatalogs.class.php';
+require_once 'removecatalogs.class.php';
 
 class msProductFileRemoveAllProcessor extends modObjectProcessor
 {
