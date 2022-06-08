@@ -277,7 +277,7 @@ class msProductFile extends xPDOSimpleObject
             'type' => 'image',
         ));
         $c->limit(1);
-        $c->sortby('`rank` ASC,`id`', 'ASC');
+        $c->sortby('`rank`', 'ASC');
         $c->select('id,url');
 
         $res = array();
