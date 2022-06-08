@@ -459,7 +459,7 @@ class msProductData extends xPDOSimpleObject
             'type' => 'image',
             //'active' => true,
         ));
-        $c->sortby($this->xpdo->escape('rank'), 'ASC');
+        $c->sortby('`rank`', 'ASC');
         $c->limit(1);
         /** @var msProductFile $file */
         $file = $this->xpdo->getObject('msProductFile', $c);
