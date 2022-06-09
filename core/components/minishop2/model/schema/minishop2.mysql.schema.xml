@@ -301,7 +301,7 @@
         <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
         <field key="final" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
         <field key="fixed" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
-        <field  Key="rank" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+        <field key="rank" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
             default="0"/>
         <field key="editable" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
 
