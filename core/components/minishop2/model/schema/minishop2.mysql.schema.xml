@@ -254,7 +254,7 @@
         <field key="address" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
             default="0"/>
         <field key="context" dbtype="varchar" precision="100" phptype="string" null="true" default="web"/>
-        <field key="comment" dbtype="text" phptype="string" null="true"/>
+        <field key="order_comment" dbtype="text" phptype="string" null="true"/>
         <field key="properties" dbtype="text" phptype="json" null="true"/>
         <field key="type" dbtype="tinyint" precision="3" phptype="integer" attributes="unsigned" null="true"
             default="0"/>

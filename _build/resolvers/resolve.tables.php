@@ -5,11 +5,21 @@
 /** @var modX $modx */
 if ($transport->xpdo) {
     $modx = $transport->xpdo;
-
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
-            $modx->addPackage('minishop2', MODX_CORE_PATH . 'components/minishop2/model/');
+            if ($options[xPDOTransport::PACKAGE_ACTION] === xPDOTransport::ACTION_UPGRADE) {
+                /** @var miniShop2 $miniShop2 */
+                $miniShop2 = $modx->getService('minishop2', 'miniShop2', MODX_CORE_PATH . 'components/minishop2/');
+                if ($miniShop2->version < '3.0.5') {
+                    $sql = "ALTER TABLE {$modx->getTableName('msOrder')} CHANGE COLUMN `comment` `order_comment` TEXT NULL";
+                    $modx->exec($sql);
+                }
+            }
+            if ($options[xPDOTransport::PACKAGE_ACTION] === xPDOTransport::ACTION_INSTALL) {
+                $modx->addPackage('minishop2', MODX_CORE_PATH . 'components/minishop2/model/');
+            }
+
             $manager = $modx->getManager();
             $objects = [];
             $schemaFile = MODX_CORE_PATH . 'components/minishop2/model/schema/minishop2.mysql.schema.xml';

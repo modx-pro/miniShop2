@@ -4,8 +4,8 @@
 const PKG_NAME = 'miniShop2';
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-const PKG_VERSION = '3.0.4';
-const PKG_RELEASE = 'pl2';
+const PKG_VERSION = '3.0.5';
+const PKG_RELEASE = 'pl';
 const PKG_AUTO_INSTALL = true;
 
 // Define paths
