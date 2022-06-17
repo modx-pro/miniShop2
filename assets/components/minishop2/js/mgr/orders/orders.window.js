@@ -147,7 +147,7 @@ Ext.extend(miniShop2.window.UpdateOrder, miniShop2.window.Default, {
                 columnWidth: .5,
                 layout: 'form',
                 items: [
-                    {xtype: 'textarea', name: 'comment', fieldLabel: _('ms2_comment'), anchor: '100%', height: 170}
+                    {xtype: 'textarea', name: 'order_comment', fieldLabel: _('ms2_order_comment'), anchor: '100%', height: 170}
                 ]
             }]
         }];
