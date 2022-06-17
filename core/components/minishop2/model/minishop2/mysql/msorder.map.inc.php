@@ -21,7 +21,7 @@ $xpdo_meta_map['msOrder'] = array(
             'payment' => 0,
             'address' => 0,
             'context' => 'web',
-            'comment' => null,
+            'order_comment' => null,
             'properties' => null,
             'type' => 0,
         ),
@@ -139,7 +139,7 @@ $xpdo_meta_map['msOrder'] = array(
                     'null' => true,
                     'default' => 'web',
                 ),
-            'comment' =>
+            'order_comment' =>
                 array(
                     'dbtype' => 'text',
                     'phptype' => 'string',
