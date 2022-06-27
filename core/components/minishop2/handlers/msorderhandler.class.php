@@ -455,46 +455,40 @@ class msOrderHandler implements msOrderInterface
             $msOrder = $this->modx->getObject('msOrder', array('id' => $msOrder->get('id')));
 
             /** @var msPayment $payment */
-            if (
-                $payment = $this->modx->getObject(
-                    'msPayment',
-                    array('id' => $msOrder->get('payment'), 'active' => 1)
-                )
-            ) {
+            $payment = $this->modx->getObject(
+                'msPayment',
+                array('id' => $msOrder->get('payment'), 'active' => 1)
+            );
+            if ($payment) {
                 $response = $payment->send($msOrder);
                 if ($this->config['json_response']) {
                     @session_write_close();
-                    exit(is_array($response) ? json_encode($response) : $response);
-                } else {
-                    if (!empty($response['data']['redirect'])) {
-                        $this->modx->sendRedirect($response['data']['redirect']);
-                    } elseif (!empty($response['data']['msorder'])) {
-                        $this->modx->sendRedirect(
-                            $this->modx->context->makeUrl(
-                                $this->modx->resource->id,
-                                array('msorder' => $response['data']['msorder'])
-                            )
-                        );
-                    } else {
-                        $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id));
-                    }
-
-                    return $this->success();
+                    echo is_array($response) ? json_encode($response) : $response;
+                    die();
                 }
+                if (!empty($response['data']['redirect'])) {
+                    $this->modx->sendRedirect($response['data']['redirect']);
+                }
+                if (!empty($response['data']['msorder'])) {
+                    $redirect = $this->modx->context->makeUrl(
+                        $this->modx->resource->id,
+                        array('msorder' => $response['data']['msorder'])
+                    );
+                    $this->modx->sendRedirect($redirect);
+                }
+
+                $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id));
             } else {
                 if ($this->ms2->config['json_response']) {
                     return $this->success('', array('msorder' => $msOrder->get('id')));
-                } else {
-                    $this->modx->sendRedirect(
-                        $this->modx->context->makeUrl(
-                            $this->modx->resource->id,
-                            array('msorder' => $response['data']['msorder'])
-                        )
-                    );
-
-                    return $this->success();
                 }
+                $redirect = $this->modx->context->makeUrl(
+                    $this->modx->resource->id,
+                    array('msorder' => $response['data']['msorder'])
+                );
+                $this->modx->sendRedirect($redirect);
             }
+            return $this->success();
         }
 
         return $this->error();
