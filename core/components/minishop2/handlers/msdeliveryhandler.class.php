@@ -76,7 +76,6 @@ class msDeliveryHandler implements msDeliveryInterface
         }
         $cart = $this->ms2->cart->status();
         $weight_price = $delivery->get('weight_price');
-        //$distance_price = $delivery->get('distance_price');
 
         $cart_weight = $cart['total_weight'];
         $cost += $weight_price * $cart_weight;
