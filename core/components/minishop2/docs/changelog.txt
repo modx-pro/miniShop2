@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Improved readability of the code without changing the logic
 Fixed potential unknown variable error in  Order.submit method
 
+### Removed
+- PayPal payment module
+
 ## [3.0.5-pl] - 2022-06-16
 
 ### Changed
