@@ -174,7 +174,8 @@ class msCartHandler implements msCartInterface
             $filter['published'] = 1;
         }
         /** @var msProduct $product */
-        if ($product = $this->modx->getObject('msProduct', $filter)) {
+        $product = $this->modx->getObject('msProduct', $filter);
+        if ($product) {
             if ($count > $this->config['max_count'] || $count <= 0) {
                 return $this->error('ms2_cart_add_err_count', $this->status(), array('count' => $count));
             }
@@ -408,7 +409,9 @@ class msCartHandler implements msCartInterface
         $this->cart = $this->storageHandler->set($cart);
     }
 
-
+    /**
+     * Set controller for Cart
+     */
     protected function storageInit()
     {
         switch ($this->storage) {
