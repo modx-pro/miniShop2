@@ -476,15 +476,14 @@ class msOrderHandler implements msOrderInterface
                     );
                     $this->modx->sendRedirect($redirect);
                 }
-
                 $this->modx->sendRedirect($this->modx->context->makeUrl($this->modx->resource->id));
             } else {
-                if ($this->ms2->config['json_response']) {
+                if ($this->config['json_response']) {
                     return $this->success('', array('msorder' => $msOrder->get('id')));
                 }
                 $redirect = $this->modx->context->makeUrl(
                     $this->modx->resource->id,
-                    array('msorder' => $response['data']['msorder'])
+                    array('msorder' => $msOrder->get('id'))
                 );
                 $this->modx->sendRedirect($redirect);
             }
@@ -587,6 +586,9 @@ class msOrderHandler implements msOrderInterface
             ));
     }
 
+    /**
+     * Set controller for Order
+     */
     protected function storageInit()
     {
         switch ($this->storage) {
