@@ -134,18 +134,6 @@ $_lang['setting_ms2_frontend_message_js_settings_desc'] = "Путь к файл�
 $_lang['setting_ms2_register_frontend'] = 'Добавлять js и css из комплекта ms2 файлы в DOM дерево';
 $_lang['setting_ms2_register_frontend_desc'] = 'Разрешить добавление в DOM дерево ссылок на js и css файлы из комплекта ms2';
 
-
-$_lang['setting_ms2_payment_paypal_api_url'] = 'Url api запросов PayPal';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'Url оплаты PayPal';
-$_lang['setting_ms2_payment_paypal_currency'] = 'Валюта на PayPal';
-$_lang['setting_ms2_payment_paypal_user'] = 'Логин продавца PayPal';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'Пароль продавца PayPal';
-$_lang['setting_ms2_payment_paypal_signature'] = 'Подпись продавца PayPal';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'Страница успешной оплаты PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'Страница отказа от оплаты PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'Отмена заказа PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'Если включено, заказ будет отменён при отказе от оплаты';
-
 $_lang['setting_ms2_order_format_num'] = 'Формат нумерации заказа';
 $_lang['setting_ms2_order_format_num_desc'] = 'Формат нумерации заказа. Доступные значения в формате PHP strftime()';
 $_lang['setting_ms2_order_format_num_separator'] = 'Разделитель для нумерации заказа';
