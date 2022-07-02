@@ -13,7 +13,11 @@ div.jGrowl > .ui-state-highlight {
 #msCart th.count,
 #msCart th.weight,
 #msCart th.price,
-#msCart th.remove { width: 15%; }
+#msCart th.remove,
+.ms-count,
+.ms-weight,
+.ms-price,
+.ms-remove { width: 15%; }
 .js #msCart [type="submit"][value="cart/change"] { display: none; }
 
 #msMiniCart, .msMiniCart { font-size: .8em; }
