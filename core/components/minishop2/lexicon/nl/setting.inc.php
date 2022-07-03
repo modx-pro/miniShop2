@@ -111,17 +111,6 @@ $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop.
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
 
-$_lang['setting_ms2_payment_paypal_api_url'] = 'PayPal api url';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'PayPal checkout url';
-$_lang['setting_ms2_payment_paypal_currency'] = 'PayPal currency';
-$_lang['setting_ms2_payment_paypal_user'] = 'PayPal user';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'PayPal password';
-$_lang['setting_ms2_payment_paypal_signature'] = 'PayPal signature';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'PayPal successful page id';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal cancel page id';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal cancel order';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'If true, order will be cancelled if customer cancel payment.';
-
 $_lang['setting_ms2_order_grid_fields'] = 'Fields of the orders table';
 $_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
 $_lang['setting_ms2_order_address_fields'] = 'Fields of order address';

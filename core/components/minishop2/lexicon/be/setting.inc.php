@@ -113,17 +113,6 @@ $_lang['setting_ms2_frontend_css_desc'] = 'Шлях да файла са сты�
 $_lang['setting_ms2_frontend_js'] = 'Скрыпты франтэнда';
 $_lang['setting_ms2_frontend_js_desc'] = 'Шлях да файла са скрыптамі крамы. Калі вы хочаце выкарыстоўваць уласныя скрыпты — пазначце шлях да іх тут, або ачысціце параметр і загрузіце іх уручную праз шаблон сайта.';
 
-$_lang['setting_ms2_payment_paypal_api_url'] = 'Url API запытаў PayPal';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'Url аплаты PayPal';
-$_lang['setting_ms2_payment_paypal_currency'] = 'Валюта на PayPal';
-$_lang['setting_ms2_payment_paypal_user'] = 'Лагін прадаўца PayPal';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'Пароль прадаўца PayPal';
-$_lang['setting_ms2_payment_paypal_signature'] = 'Подпіс прадаўца PayPal';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'Старонка паспяховай аплаты PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'Старонка адмовы ад аплаты PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'Адмена заказа PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'Калі ўключана, заказ будзе адменены пры адмове ад аплаты.';
-
 $_lang['setting_ms2_order_grid_fields'] = 'Палі табліцы заказаў';
 $_lang['setting_ms2_order_grid_fields_desc'] = 'Спіс палёў, якія будуць паказаны ў табліцы заказаў. Даступныя: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
 $_lang['setting_ms2_order_address_fields'] = 'Палі адрасу дастаўкі';

@@ -65,14 +65,3 @@ $_lang['setting_ms2_frontend_css'] = 'Styles du frontal web';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
 $_lang['setting_ms2_frontend_js'] = 'Scripts du frontal web';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
-
-$_lang['setting_ms2_payment_paypal_api_url'] = 'URL de l\'API PayPal';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'URL de caisse PayPal';
-$_lang['setting_ms2_payment_paypal_currency'] = 'Device PayPal';
-$_lang['setting_ms2_payment_paypal_user'] = 'Utilisateur PayPal';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'Mot de passe PayPal';
-$_lang['setting_ms2_payment_paypal_signature'] = 'Signature PayPal';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'PayPal successful page id';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal cancel page id';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal cancel order';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'If true, order will be cancelled if customer cancel payment.';

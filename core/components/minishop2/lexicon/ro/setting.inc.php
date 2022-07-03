@@ -108,17 +108,6 @@ $_lang['setting_ms2_frontend_css_desc'] = 'Calea spre fișier cu stilurile magaz
 $_lang['setting_ms2_frontend_js'] = 'Scripturile front-end-ului ';
 $_lang['setting_ms2_frontend_js_desc'] = 'Calea spre fișierul cu scripturile magazinului. Dacă doriți să utilizați scripturile proprii- specificați calea spre ele sau ștergeți parametrul și încărcați-le manual prin intermediul șablonului site-ului.';
 
-$_lang['setting_ms2_payment_paypal_api_url'] = 'Url api a solicitărilor PayPal';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'Url achitării PayPal';
-$_lang['setting_ms2_payment_paypal_currency'] = 'Valuta pe PayPal';
-$_lang['setting_ms2_payment_paypal_user'] = 'Login-ul vînzătorului PayPal';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'Parola vînzătorului PayPal';
-$_lang['setting_ms2_payment_paypal_signature'] = 'Semnătura vînzătorului PayPal';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'Pagina achitării reușite PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'Pagina anulării achitării PayPal ';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'Anularea comenzii PayPal';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = ' Dacă este dezactivat, la refuzul achitării comanda va fi anulată ';
-
 $_lang['setting_ms2_order_grid_fields'] = 'Cîmpurile tabelului comenzilor';
 $_lang['setting_ms2_order_grid_fields_desc'] = 'Lista cîmpurilor care vor fi afișate în tabelul comenzilor. Sunt disponibile: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
 $_lang['setting_ms2_order_address_fields'] = 'Cîmpurile adresei livrării';

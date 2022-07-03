@@ -1,7 +1,7 @@
 <?php
 
-define('MODX_API_MODE', true);
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/config/config.inc.php';
+const MODX_API_MODE = true;
+require_once dirname(__FILE__, 4) . '/config/config.inc.php';
 require_once MODX_BASE_PATH . 'index.php';
 
 if (XPDO_CLI_MODE) {
@@ -21,6 +21,7 @@ if (XPDO_CLI_MODE) {
 }
 
 // Load main services
+/** @var modX $modx */
 $modx->setLogTarget(XPDO_CLI_MODE ? 'ECHO' : 'HTML');
 $modx->setLogLevel($is_debug ? modX::LOG_LEVEL_INFO : modX::LOG_LEVEL_ERROR);
 $modx->getService('error', 'error.modError');
@@ -115,7 +116,7 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
     // Duplicate check
     $q = $modx->newQuery($data['class_key']);
     $q->select($data['class_key'] . '.id');
-    if (strtolower($data['class_key']) == 'msproduct') {
+    if (strtolower($data['class_key']) === 'msproduct') {
         $q->innerJoin('msProductData', 'Data', $data['class_key'] . '.id = Data.id');
         $is_product = true;
     }

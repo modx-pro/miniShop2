@@ -130,19 +130,6 @@ if ($transport->xpdo) {
                 $payment->save();
             }
 
-            /** @var msPayment $payment */
-            if (!$payment = $modx->getObject('msPayment', 2)) {
-                $payment = $modx->newObject('msPayment');
-                $payment->fromArray(array(
-                    'id' => 2,
-                    'name' => 'PayPal',
-                    'active' => $lang,
-                    'class' => 'PayPal',
-                    'rank' => 1,
-                ), '', true);
-                $payment->save();
-            }
-
             /** @var msDeliveryMember $member */
             if (!$member = $modx->getObject('msDeliveryMember', array('payment_id' => 1, 'delivery_id' => 1))) {
                 $member = $modx->newObject('msDeliveryMember');

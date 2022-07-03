@@ -66,13 +66,3 @@ $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop.
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
 
-$_lang['setting_ms2_payment_paypal_api_url'] = 'PayPal API URL';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'PayPal Checkout URL';
-$_lang['setting_ms2_payment_paypal_currency'] = 'PayPal Währung';
-$_lang['setting_ms2_payment_paypal_user'] = 'PayPal Benutzer';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'PayPal Passwort';
-$_lang['setting_ms2_payment_paypal_signature'] = 'PayPal Signatur';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'PayPal Seiten-ID bei Erfolg';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal Seiten-ID bei Abbruch';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal Bestellung canceln';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'Falls "true" wird die Bestellung storniert, sobald der Kunde die Zahlung storniert.';
