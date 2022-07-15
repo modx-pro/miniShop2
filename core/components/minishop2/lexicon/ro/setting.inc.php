@@ -2,7 +2,6 @@
 
 /**
  * Settings Romanian Lexicon Entries for miniShop2
- * translated by Anna
  *
  * @package minishop2
  * @subpackage lexicon
@@ -13,14 +12,19 @@ $_lang['area_ms2_category'] = 'Categoria produselor';
 $_lang['area_ms2_product'] = 'Produs';
 $_lang['area_ms2_gallery'] = 'Galerie';
 $_lang['area_ms2_cart'] = 'Coș';
-$_lang['area_ms2_order'] = 'comenzi';
+$_lang['area_ms2_order'] = 'Comenzi';
 $_lang['area_ms2_frontend'] = 'Site';
-$_lang['area_ms2_payment'] = 'Plăți';
+$_lang['area_ms2_payment'] = 'Metode de plată';
 
-$_lang['setting_ms2_services'] = 'Serviciile magazinului';
+$_lang['setting_ms2_services'] = 'Servicii magazin';
 $_lang['setting_ms2_services_desc'] = 'Array cu clase înregistrate pentru coș de cumpărături, comandă, livrare și plată. Se folosește de componente externe pentru încărcarea funcționalului său.';
 $_lang['setting_ms2_plugins'] = 'Plugin-urile magazinului';
 $_lang['setting_ms2_plugins_desc'] = 'Array cu plugin-urile înregistrate de lărgire a obiectelor modelelor magazinului: produselor, profilurilor cumpărătorului etc.';
+$_lang['setting_ms2_chunks_categories'] = 'Categorii pentru o listă de chunks';
+$_lang['setting_ms2_chunks_categories_desc'] = 'O listă de ID-uri de categorie, separate prin virgulă, pentru o listă de chunks.';
+$_lang['setting_ms2_tmp_storage'] = 'Depozitare coș și câmpuri temporare de comandă';
+$_lang['setting_ms2_tmp_storage_desc'] = "Pentru a stoca coșul și câmpurile de comandă temporară în sesiune, specificați <strong>session</strong><br>
+Pentru stocarea bazei de date, specificați <strong>db</strong>";
 
 $_lang['setting_ms2_category_grid_fields'] = 'Câmpurile tabelului de produse';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Lista câmpurilor vizibile a tabelului cu produsele categorii, separate prin virgulă.';
@@ -33,6 +37,10 @@ $_lang['setting_mgr_tree_icon_mscategory'] = 'Pictograma categoriei';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Pictograma categoriei produselor minIShop2 în arborele resurselor';
 $_lang['setting_mgr_tree_icon_msproduct'] = 'Pictograma produsului';
 $_lang['setting_mgr_tree_icon_msproduct_desc'] = 'Pictograma produsului minIShop2 în arborele resurselor';
+$_lang['setting_ms2_add_icon_category'] = 'Pictograma pentru adăugarea unei categorii';
+$_lang['setting_ms2_add_icon_category_desc'] = 'Pictograma de pe butonul de adăugare a unei categorii de pe pagina de categorii';
+$_lang['setting_ms2_add_icon_product'] = 'Pictograma pentru adăugarea unui produs';
+$_lang['setting_ms2_add_icon_product_desc'] = 'Pictogramă pe butonul de adăugare a produsului pe pagina de categorie';
 
 $_lang['setting_ms2_product_tab_extra'] = 'Tab-ul proprietăților produsului';
 $_lang['setting_ms2_product_tab_extra_desc'] = 'A afișa tab-ul proprietăților produsului?';
@@ -84,6 +92,8 @@ $_lang['setting_ms2_cart_context'] = 'Utilizați un singur coș pentru toate con
 $_lang['setting_ms2_cart_context_desc'] = 'Dacă este activat, atunci este utilizat un coș comun pentru toate contextele. Dacă este oprit, atunci fiecare context folosește propriul coș.';
 $_lang['setting_ms2_order_handler_class'] = 'Clasa de prelucrare a comenzii';
 $_lang['setting_ms2_order_handler_class_desc'] = 'Denumirea clasei, care realizează logica de prelucrare a comenzii.';
+$_lang['setting_ms2_cart_max_count'] = 'Numărul maxim de articole în coș';
+$_lang['setting_ms2_cart_max_count_desc'] = 'Setarea implicită este 1000. În cazul în care această valoare este depășită, se va afișa o notificare. ';
 $_lang['setting_ms2_order_user_groups'] = 'Grupurile de înregistrare a cumpărătorilor';
 $_lang['setting_ms2_order_user_groups_desc'] = 'Lista grupurilor, separate prin virgulă, în care doriți să adăugați cumpărători noi la prelucrarea comenzii.';
 $_lang['setting_ms2_email_manager'] = 'Email-urile managerilor ';
@@ -108,12 +118,33 @@ $_lang['setting_ms2_frontend_css_desc'] = 'Calea spre fișier cu stilurile magaz
 $_lang['setting_ms2_frontend_js'] = 'Scripturile front-end-ului ';
 $_lang['setting_ms2_frontend_js_desc'] = 'Calea spre fișierul cu scripturile magazinului. Dacă doriți să utilizați scripturile proprii- specificați calea spre ele sau ștergeți parametrul și încărcați-le manual prin intermediul șablonului site-ului.';
 
+$_lang['setting_ms2_frontend_message_css'] = 'Stiluri de bibliotecă de notificări';
+$_lang['setting_ms2_frontend_message_css_desc'] = "Calea către fișierul CSS al bibliotecii de notificări. Implicit la jgrowl. <br>
+Dacă doriți să utilizați propria bibliotecă - specificați aici calea către directorul său css sau ștergeți setarea și încărcați-le manual prin șablonul site-ului.";
+
+$_lang['setting_ms2_frontend_message_js'] = 'Scripturi de bibliotecă de notificări';
+$_lang['setting_ms2_frontend_message_js_desc'] = "Calea către fișierul JS al bibliotecii de notificări. Implicit la jgrowl. <br>
+Dacă doriți să utilizați propria bibliotecă - specificați calea către directorul său JS aici sau ștergeți setarea și încărcați-le manual prin șablonul site-ului.";
+
+$_lang['setting_ms2_frontend_message_js_settings'] = 'Setări bibliotecă de notificări';
+$_lang['setting_ms2_frontend_message_js_settings_desc'] = "Calea către fișierul cu implementarea șablonului de notificare pe baza bibliotecii dvs. <br>
+Implicit la setările jgrowl. <br>
+Dacă doriți să utilizați propria bibliotecă - specificați aici calea către setările acesteia sau ștergeți parametrul și încărcați-le manual prin șablonul site-ului.";
+$_lang['setting_ms2_register_frontend'] = 'Adăugați js și css din fișierele MS2 în DOM';
+$_lang['setting_ms2_register_frontend_desc'] = 'Permiteți adăugarea de linkuri la fișierele js și css din pachetul ms2 în DOM';
+
+$_lang['setting_ms2_order_format_num'] = 'Formatul de numerotare a comenzii';
+$_lang['setting_ms2_order_format_num_desc'] = 'Formatul de numerotare a comenzii. Valori disponibile în format PHP strftime().';
+$_lang['setting_ms2_order_format_num_separator'] = 'Separator pentru numerotarea comenzii';
+$_lang['setting_ms2_order_format_num_separator_desc'] = 'Separator pentru numerotarea comenzii. Valori disponibile: "/", "," и "-"';
 $_lang['setting_ms2_order_grid_fields'] = 'Cîmpurile tabelului comenzilor';
 $_lang['setting_ms2_order_grid_fields_desc'] = 'Lista cîmpurilor care vor fi afișate în tabelul comenzilor. Sunt disponibile: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
 $_lang['setting_ms2_order_address_fields'] = 'Cîmpurile adresei livrării';
 $_lang['setting_ms2_order_address_fields_desc'] = 'Lista cîmpurilor livrării, care vor fi afișate în al treilea tab a paginii comenzii. Sunt accesibile: "receiver,phone,index,country,region,metro,building,city,street,room". Dacă parametrul este gol, tab-ul va fi ascuns.';
 $_lang['setting_ms2_order_product_fields'] = 'Câmpurile tabelului cumpărăturilor';
 $_lang['setting_ms2_order_product_fields_desc'] = 'Lista cîmpurilor tabelului produselor comandate. Sunt accesibile: "count,price,weight,cost,options". Cîmpurile produsului sunt afișate cu prefixul  "product_", de exemplu "product_pagetitle,product_article". Suplimentar, puteți specifica valori din câmpul de opțiuni cu prefixul "option_", de exemplu: "option_color,option_size".';
+$_lang['setting_ms2_order_product_options'] = 'Câmpurile de opțiuni de produs dintr-o comandă';
+$_lang['setting_ms2_order_product_options_desc'] = 'Lista de opțiuni de produs editabile în fereastra de comandă. Culoare implicită, dimensiune';
 
 $_lang['ms2_source_thumbnails_desc'] = 'Array codificat în JSON cu parametrii pentru generarea copiilor reduse ale imaginilor.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Lățimea maximă a imaginii pentru încărcare. Cele de dimensiuni mai mari vor fi micșorate la această valoare.';
