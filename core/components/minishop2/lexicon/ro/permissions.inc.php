@@ -2,8 +2,6 @@
 
 /**
  * Permissions Romanian Lexicon Entries for miniShop2
- * translated by Anna
- *
  *
  * @package minishop2
  * @subpackage lexicon
@@ -24,3 +22,6 @@ $_lang['mssetting_save'] = 'Permite crearea\ modificarea setărilor';
 $_lang['msproductfile_save'] = 'Permite crearea\ modificarea fișierelor produsului';
 $_lang['msproductfile_generate'] = 'Permite generarea miniaturilor a produsului';
 $_lang['msproductfile_list'] = 'Permite afișarea unei liste de fișiere a produsului.';
+
+$_lang['msproduct_delete'] = 'Permite eliminarea unui produs';
+$_lang['msproduct_publish'] = 'Permite publicarea produsului';

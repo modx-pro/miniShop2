@@ -154,7 +154,7 @@ $_lang['ms2_err_register_globals'] = 'Ошибка: php параметр <b>regi
 $_lang['ms2_err_link_equal'] = 'Вы пытаетесь добавить товару ссылку на самого себя';
 $_lang['ms2_err_value_duplicate'] = 'Вы не ввели значение или ввели повтор.';
 
-$_lang['ms2_err_gallery_save'] = 'Не могу сохранить файл не был сохранён (см. системный журнал).';
+$_lang['ms2_err_gallery_save'] = 'Файл не был сохранён (см. системный журнал).';
 $_lang['ms2_err_gallery_ns'] = 'Передан пустой файл';
 $_lang['ms2_err_gallery_ext'] = 'Неверное расширение файла';
 $_lang['ms2_err_gallery_exists'] = 'Такое изображение уже есть в галерее товара.';

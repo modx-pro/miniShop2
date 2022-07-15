@@ -2,7 +2,6 @@
 
 /**
  * Properties Romanian Lexicon Entries for miniShop2
- * translated by Anna
  *
  * @package minishop2
  * @subpackage lexicon
@@ -32,6 +31,7 @@ $_lang['ms2_prop_class'] = 'Numele clasei pentru eșantionare. Implicit, "msProd
 $_lang['ms2_prop_tvPrefix'] = 'Frefix pentru TV placeholderi, de exemplu "tv.". Implicit acest parametru este gol.';
 $_lang['ms2_prop_outputSeparator'] = 'Șir opțional pentru divizarea rezultatelor lucrului.';
 $_lang['ms2_prop_returnIds'] = 'Returnarea cîmpului cu id-ul produsului, în loc de chank-uri.';
+$_lang['ms2_prop_return'] = 'Metoda de afișare a rezultatelor';
 
 $_lang['ms2_prop_showUnpublished'] = 'A afișa produsele nepublicate.';
 $_lang['ms2_prop_showDeleted'] = 'A arăta produsele șterse.';
@@ -55,11 +55,16 @@ $_lang['ms2_prop_optionName'] = 'Denumirea opțiunii pentru afișare.';
 $_lang['ms2_prop_filetype'] = 'Tipul fișierelor pentru eșantionare. Puteți utiliza "image" pentru a specifica imagini și extensii pentru alte fișiere. De exemplu: "image,pdf,xls,doc".';
 $_lang['ms2_prop_optionFilters'] = 'Filtre după opțiunile produselor. Se transmit de șirul JSON, de exemplu, {"optionkey:>":10}';
 $_lang['ms2_prop_sortbyOptions'] = 'Specificați ce opțiuni și cum să sortați printre cele enumerate în & sortby. Se transmit în rind, de exemplu, "optionkey:integer,optionkey2:datetime"';
+$_lang['ms2_prop_sortGroups'] = 'Specifică ordinea de sortare a grupurilor de opțiuni. Acceptă atât nume de identificare, cât și nume de text ale grupurilor. Transmisă sub forma unui șir de caractere, de exemplu: "22,23,24" sau "Dimensiuni, Electronice, Diverse".';
+$_lang['ms2_prop_sortOptions'] = 'Specifică ordinea în care sunt sortate opțiunile. Transmisă sub forma unui șir de caractere, de exemplu: "dimensiune, culoare".';
+$_lang['ms2_prop_sortOptionValues'] = 'Specifică ordinea în care sunt sortate valorile opțiunilor. Transmisă sub forma unui șir de caractere, de exemplu: "size:SORT_DESC:SORT_NUMERIC:100,color:SORT_ASC:SORT_STRING"';
 $_lang['ms2_prop_valuesSeparator'] = 'Separator pentru valori a opțiunilor multiple';
+$_lang['ms2_prop_ignoreGroups'] = 'Grupurile ale căror opțiuni nu trebuie să fie afișate în listă, separate prin virgule.';
 $_lang['ms2_prop_ignoreOptions'] = 'Opțiuni care nu trebuie să fie afișate în listă, separate prin virgule.';
 $_lang['ms2_prop_onlyOptions'] = 'A afișa numai această listă de opțiuni, separate prin virgule.';
 $_lang['ms2_prop_hideEmpty'] = 'A nu afișa opțiuni cu valori goale.';
 $_lang['ms2_prop_groups'] = 'A afișa opțiuni numai pentru grupurile specificate (denumirea sau identificatorul categoriei, separate prin virgule, "0" înseamnă fără grupuri)';
 $_lang['ms2_prop_tplValue'] = 'Șablon pentru o valoare (numai pentru opțiuni multiple)';
+
 $_lang['ms2_prop_userFields'] = 'Array asociativ corespunderii cîmpurilor comenzii cu cîmpurile profilului în format "cîmpul comenzii" => "cîmpul profilului"';
 $_lang['ms2_prop_wrapIfEmpty'] = 'Activează afișarea wrapper-ului chank-ului (tplWrapper) chiar dacă nu sunt rezultate.';
