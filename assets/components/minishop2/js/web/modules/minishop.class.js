@@ -1,6 +1,3 @@
-import msCart from "./mscart.class.js";
-import msOrder from "./msorder.class.js";
-
 export default class MiniShop {
     constructor(miniShop2Config) {
         this.miniShop2Config = miniShop2Config;
@@ -33,12 +30,50 @@ export default class MiniShop {
         };
 
         this.timeout = 300;
-        this.Cart = new msCart(this);
-        this.Order = new msOrder(this);
         this.initialize();
     }
 
-    initialize() {
+    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, error_msg, response){
+        const classPath = this.miniShop2Config.hasOwnProperty(pathPropertyName) ? this.miniShop2Config[pathPropertyName] : defaultPath,
+            className = this.miniShop2Config.hasOwnProperty(classnamePropertyName) ? this.miniShop2Config[classnamePropertyName] : defaultClassName,
+            config = response ? response[className] : this;
+        try {
+            const { default: ModuleName } = await import(classPath);
+            this[property] = new ModuleName(config);
+
+        } catch (e) {
+            console.error(e, error_msg);
+        }
+    }
+
+    async initialize() {
+        this.setHandler(
+            'Cart',
+            'cartClassPath',
+            'cartClassName',
+            './mscart.class.js',
+            'msCart',
+            'Произошла ошибка при загрузке модуля корзины');
+
+        this.setHandler(
+            'Order',
+            'orderClassPath',
+            'orderClassName',
+            './msorder.class.js',
+            'msOrder',
+            'Произошла ошибка при загрузке модуля отправки заказа');
+
+        this.sendAjax('assets/components/minishop2/js/web/message_setting.json', new FormData, (response) => {
+            this.setHandler(
+                'Message',
+                'notifyClassPath',
+                'notifyClassName',
+                './msizitoast.class.js',
+                'msIziToast',
+                'Произошла ошибка при загрузке модуля уведомлений',
+                response);
+        });
+
         document.addEventListener('submit', e => {
             e.preventDefault();
             const $form = e.target,
@@ -237,6 +272,7 @@ export default class MiniShop {
 
         return price;
     }
+
     formatWeight(weight) {
         var wf = this.miniShop2Config.weight_format;
         weight = this.number_format(weight, wf[0], wf[1], wf[2]);
@@ -248,6 +284,7 @@ export default class MiniShop {
 
         return weight;
     }
+
     number_format(number, decimals, dec_point, thousands_sep) {
         // original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
         // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
@@ -298,5 +335,20 @@ export default class MiniShop {
         }else{
             return Array.prototype.slice.call(ctx.querySelectorAll(selectors));
         }
+    }
+
+    sendAjax(url, params, callback, method) {
+        method = method || 'GET';
+        const request = new XMLHttpRequest();
+        url = url || document.location.href;
+        request.open(method, url, true);
+        request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        request.responseType = 'json';
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState === 4 && request.status === 200) {
+                callback(request.response);
+            }
+        });
+        request.send(params);
     }
 }
