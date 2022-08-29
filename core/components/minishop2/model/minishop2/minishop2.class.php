@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '3.0.1-pl';
+    public $version = '3.0.6-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -96,6 +96,8 @@ class miniShop2
     public function registerFrontend($ctx = 'web')
     {
         if ($ctx != 'mgr' && (!defined('MODX_API_MODE') || !MODX_API_MODE)) {
+            $this->modx->lexicon->load('minishop2:default');
+
             $config = $this->pdoTools->makePlaceholders($this->config);
 
             // Register CSS
@@ -108,25 +110,35 @@ class miniShop2
             }
 
             // Register notify plugin CSS
-            $message_css = trim($this->modx->getOption('ms2_frontend_message_css'));
+            /*$message_css = trim($this->modx->getOption('ms2_frontend_message_css'));
             if (!empty($message_css) && preg_match('/\.css/i', $message_css)) {
                 $this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $message_css));
-            }
+            }*/
 
             // Register JS
-            $js = trim($this->modx->getOption('ms2_frontend_js'));
+           /* $js = trim($this->modx->getOption('ms2_frontend_js'));
             if (!empty($js) && preg_match('/\.js/i', $js)) {
                 if (preg_match('/\.js$/i', $js)) {
                     $js .= '?v=' . substr(md5($this->version), 0, 10);
                 }
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
-            }
+            }*/
 
-            $message_setting = array(
+           /* $message_setting = array(
                 'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
-            );
+            );*/
 
+            $notifySettingsPath = str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_frontend_message_js_settings', null, '[[+jsUrl]]web/message_setting.json'));
             $js_setting = array(
+                'cartClassPath' => $this->modx->getOption('ms2_cart_js_class_path', null, './mscart.class.js'),
+                'cartClassName' => $this->modx->getOption('ms2_cart_js_class_path', null, 'msCart'),
+                'orderClassPath' => $this->modx->getOption('ms2_order_js_class_path', null, './msorder.class.js'),
+                'orderClassName' => $this->modx->getOption('ms2_order_js_class_name', null, 'msOrder'),
+                'notifyClassPath' => $this->modx->getOption('ms2_notify_js_class_path', null, './msizitoast.class.js'),
+                'notifyClassName' => $this->modx->getOption('ms2_notify_js_class_name', null, 'msIziToast'),
+                'notifySettingsPath' => $notifySettingsPath,
+
+
                 'cssUrl' => $this->config['cssUrl'] . 'web/',
                 'jsUrl' => $this->config['jsUrl'] . 'web/',
                 'actionUrl' => $this->config['actionUrl'],
@@ -143,22 +155,23 @@ class miniShop2
                 'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
             );
 
-            $data = json_encode(array_merge($message_setting, $js_setting), true);
+            //$data = json_encode(array_merge($message_setting, $js_setting), true);
+            $data = json_encode($js_setting, true);
             $this->modx->regClientStartupScript(
                 '<script>miniShop2Config = ' . $data . ';</script>',
                 true
             );
 
             // Register notify plugin JS
-            $message_js = trim($this->modx->getOption('ms2_frontend_message_js'));
+            /*$message_js = trim($this->modx->getOption('ms2_frontend_message_js'));
             if (!empty($message_js) && preg_match('/\.js/i', $message_js)) {
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $message_js));
-            }
+            }*/
 
-            $message_settings_js = trim($this->modx->getOption('ms2_frontend_message_js_settings'));
+          /*  $message_settings_js = trim($this->modx->getOption('ms2_frontend_message_js_settings'));
             if (!empty($message_settings_js) && preg_match('/\.js/i', $message_settings_js)) {
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $message_settings_js));
-            }
+            }*/
         }
     }
 
@@ -783,7 +796,7 @@ class miniShop2
                     $error = 'ms2_err_status_final';
                 } else {
                     if ($old_status->get('fixed')) {
-                        if ($status->get($this->modx->escape('rank')) <= $old_status->get($this->modx->escape('rank'))) {
+                        if ($status->get('rank') <= $old_status->get('rank')) {
                             $error = 'ms2_err_status_fixed';
                         }
                     }

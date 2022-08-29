@@ -63,15 +63,17 @@ export default class MiniShop {
             'msOrder',
             'Произошла ошибка при загрузке модуля отправки заказа');
 
-        this.sendAjax('assets/components/minishop2/js/web/message_setting.json', new FormData, (response) => {
-            this.setHandler(
-                'Message',
-                'notifyClassPath',
-                'notifyClassName',
-                './msizitoast.class.js',
-                'msIziToast',
-                'Произошла ошибка при загрузке модуля уведомлений',
-                response);
+        this.sendAjax(this.miniShop2Config.notifySettingsPath, new FormData, (response) => {
+            if(response){
+                this.setHandler(
+                    'Message',
+                    'notifyClassPath',
+                    'notifyClassName',
+                    './msizitoast.class.js',
+                    'msIziToast',
+                    'Произошла ошибка при загрузке модуля уведомлений',
+                    response);
+            }
         });
 
         document.addEventListener('submit', e => {
