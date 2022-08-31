@@ -247,6 +247,10 @@ $builder->setPackageAttributes(array(
     'setup-options' => array(
         'source' => $sources['build'] . 'setup.options.php',
     ),
+    'requires' => [
+        'php' => '>=7.0.0',
+        'modx' => '<3.0.0',
+    ],
 ));
 $modx->log(modX::LOG_LEVEL_INFO, 'Added package attributes and setup options.');
 
