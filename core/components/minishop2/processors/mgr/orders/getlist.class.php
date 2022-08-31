@@ -14,8 +14,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         $this->ms2 = $this->modx->getService('miniShop2');
@@ -29,10 +29,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $c->leftJoin('modUser', 'User');
@@ -40,21 +40,25 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         $c->leftJoin('msOrderStatus', 'Status');
         $c->leftJoin('msDelivery', 'Delivery');
         $c->leftJoin('msPayment', 'Payment');
+        $c->leftJoin('msOrderAddress', 'Address');
 
         $query = trim($this->getProperty('query'));
         if (!empty($query)) {
             if (is_numeric($query)) {
                 $c->andCondition(array(
                     'id' => $query,
+                    'OR:Address.phone:LIKE' => "%{$query}%",
                     //'OR:User.id' => $query,
                 ));
             } else {
                 $c->where(array(
                     'num:LIKE' => "{$query}%",
-                    'OR:comment:LIKE' => "%{$query}%",
+                    'OR:order_comment:LIKE' => "%{$query}%",
+                    'OR:Address.comment:LIKE' => "%{$query}%",
                     'OR:User.username:LIKE' => "%{$query}%",
                     'OR:UserProfile.fullname:LIKE' => "%{$query}%",
                     'OR:UserProfile.email:LIKE' => "%{$query}%",
+                    'OR:Address.phone:LIKE' => "%{$query}%",
                 ));
             }
         }
@@ -99,10 +103,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
         $total = 0;
@@ -139,8 +143,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function getData()
     {
         $c = $this->modx->newQuery($this->classKey);
@@ -156,10 +160,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @param array $data
-    *
-    * @return array
-    */
+     * @param array $data
+     *
+     * @return array
+     */
     public function iterate(array $data)
     {
         $list = array();
@@ -177,10 +181,10 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @param array $data
-    *
-    * @return array
-    */
+     * @param array $data
+     *
+     * @return array
+     */
     public function prepareArray(array $data)
     {
         if (empty($data['customer'])) {
@@ -237,11 +241,11 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
 
 
     /**
-    * @param array $array
-    * @param bool $count
-    *
-    * @return string
-    */
+     * @param array $array
+     * @param bool $count
+     *
+     * @return string
+     */
     public function outputArray(array $array, $count = false)
     {
         if ($count === false) {
