@@ -53,7 +53,8 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
             } else {
                 $c->where(array(
                     'num:LIKE' => "{$query}%",
-                    'OR:comment:LIKE' => "%{$query}%",
+                    'OR:order_comment:LIKE' => "%{$query}%",
+                    'OR:Address.comment:LIKE' => "%{$query}%",
                     'OR:User.username:LIKE' => "%{$query}%",
                     'OR:UserProfile.fullname:LIKE' => "%{$query}%",
                     'OR:UserProfile.email:LIKE' => "%{$query}%",
