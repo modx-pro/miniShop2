@@ -203,6 +203,7 @@ if ($payment and $class = $payment->get('class')) {
     }
 }
 
+$pls['scriptProperties'] = $scriptProperties;
 $output = $pdoFetch->getChunk($tpl, $pls);
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {

@@ -1,5 +1,4 @@
 <?php
-
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
@@ -62,7 +61,7 @@ if (!empty($includeThumbs)) {
         foreach ($thumbs as $thumb) {
             $leftJoin[$thumb] = array(
                 'class' => 'msProductFile',
-                'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.parent != 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%' AND `{$thumb}`.`rank` = 0",
+                'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.parent != 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%' AND `{$thumb}`.rank = 0",
             );
             $select[$thumb] = "`{$thumb}`.url as '{$thumb}'";
         }
@@ -155,6 +154,7 @@ $total['weight'] = $miniShop2->formatWeight($total['weight']);
 $output = $pdoFetch->getChunk($tpl, array(
     'total' => $total,
     'products' => $products,
+    'scriptProperties' => $scriptProperties
 ));
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {

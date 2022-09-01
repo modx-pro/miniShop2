@@ -123,6 +123,7 @@ foreach ($rows as $row) {
 
 $output = $pdoFetch->getChunk($tpl, array(
     'files' => $files,
+    'scriptProperties' => $scriptProperties
 ));
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {

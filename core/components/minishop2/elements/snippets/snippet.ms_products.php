@@ -259,6 +259,7 @@ if (is_string($rows)) {
     if (!empty($tplWrapper) && (!empty($wrapIfEmpty) || !empty($output))) {
         $output = $pdoFetch->getChunk($tplWrapper, array(
             'output' => $output,
+            'scriptProperties' => $scriptProperties
         ));
     }
 

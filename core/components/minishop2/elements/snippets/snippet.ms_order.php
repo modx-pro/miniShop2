@@ -185,6 +185,7 @@ $output = $pdoFetch->getChunk($tpl, array(
     'deliveries' => $deliveries,
     'payments' => $payments,
     'errors' => $errors,
+    'scriptProperties' => $scriptProperties
 ));
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
