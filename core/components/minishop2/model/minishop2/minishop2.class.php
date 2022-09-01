@@ -116,13 +116,14 @@ class miniShop2
             }*/
 
             // Register JS
-           /* $js = trim($this->modx->getOption('ms2_frontend_js'));
+            $js = trim($this->modx->getOption('ms2_frontend_js'));
             if (!empty($js) && preg_match('/\.js/i', $js)) {
                 if (preg_match('/\.js$/i', $js)) {
                     $js .= '?v=' . substr(md5($this->version), 0, 10);
                 }
-                $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
-            }*/
+                $js = str_replace($config['pl'], $config['vl'], $js);
+                $this->modx->regClientScript('<script type="module" src="'.$js.'"></script>',1);
+            }
 
            /* $message_setting = array(
                 'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
