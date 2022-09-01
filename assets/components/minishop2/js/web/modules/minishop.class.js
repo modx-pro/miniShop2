@@ -22,12 +22,7 @@ export default class MiniShop {
         this.actionName = 'ms2_action';
         this.action = '[type="submit"][name=' + this.actionName + ']';
         this.form = '.ms2_form';
-
-        this.sendData = {
-            $form: null,
-            action: null,
-            formData: null
-        };
+        this.formData = null;
 
         this.timeout = 300;
         this.initialize();
@@ -80,38 +75,36 @@ export default class MiniShop {
             e.preventDefault();
             const $form = e.target,
                 action = $form.querySelector(this.action).value;
+
             if (action) {
                 const formData = new FormData($form);
                 formData.append(this.actionName, action);
-                this.sendData = {
-                    $form: $form,
-                    action: action,
-                    formData: formData
-                };
-                this.controller();
+                this.formData = formData;
+
+                this.controller(action);
             }
         });
     }
 
-    controller() {
-        switch (this.sendData.action) {
+    controller(action) {
+        switch (action) {
             case 'cart/add':
-                this.Cart.add(this.sendData);
+                this.Cart.add(this.formData);
                 break;
             case 'cart/remove':
-                this.Cart.remove(this.sendData);
+                this.Cart.remove(this.formData);
                 break;
             case 'cart/change':
-                this.Cart.change(this.sendData);
+                this.Cart.change(this.formData);
                 break;
             case 'cart/clean':
-                this.Cart.clean(this.sendData);
+                this.Cart.clean(this.formData);
                 break;
             case 'order/submit':
-                this.Order.submit(this.sendData);
+                this.Order.submit(this.formData);
                 break;
             case 'order/clean':
-                this.Order.clean(this.sendData);
+                this.Order.clean(this.formData);
                 break;
             default:
                 return;
@@ -206,20 +199,12 @@ export default class MiniShop {
         }
 
         // set action url
-        const formActionUrl = (this.sendData.$form)
-            ? this.sendData.$form.getAttribute('action')
-            : false;
-        const url = (formActionUrl)
-            ? formActionUrl
-            : (this.miniShop2Config.actionUrl)
+        const url = (this.miniShop2Config.actionUrl)
                 ? this.miniShop2Config.actionUrl
                 : document.location.href;
         // set request method
-        const formMethod = (this.sendData.$form)
-            ? this.sendData.$form.getAttribute('method')
-            : false;
-        const method = (formMethod)
-            ? formMethod
+        const method = (this.miniShop2Config.formMethod)
+            ? this.miniShop2Config.formMethod
             : 'post';
 
         const options = {

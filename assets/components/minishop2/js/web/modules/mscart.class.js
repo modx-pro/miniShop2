@@ -36,33 +36,33 @@ export default class msCart {
         });
     }
 
-    add(sendData) {
+    add(formData) {
         const callbacks = this.callbacks;
         callbacks.add.response.success = function (response) {
             this.status(response.data);
         }.bind(this);
-        this.minishop.send(sendData.formData, this.callbacks.add, this.minishop.Callbacks.Cart.add);
+        this.minishop.send(formData, this.callbacks.add, this.minishop.Callbacks.Cart.add);
     }
 
-    remove(sendData) {
+    remove(formData) {
         const callbacks = this.callbacks;
         callbacks.remove.response.success = function (response) {
-            this.remove_position(this.getValueFromSerializedArray('key'));
+            this.remove_position(formData.get('key'));
             this.status(response.data);
         }.bind(this);
-        this.minishop.send(sendData.formData, this.callbacks.remove, this.minishop.Callbacks.Cart.remove);
+        this.minishop.send(formData, this.callbacks.remove, this.minishop.Callbacks.Cart.remove);
     }
 
-    change(sendData) {
+    change(formData) {
         const callbacks = this.callbacks;
-        this.sendData = this.minishop.sendData;
+        this.formData = this.minishop.formData;
         callbacks.change.response.success = function (response) {
             if (typeof (response.data.key) == 'undefined') {
-                this.remove_position(this.sendData.formData.get('key'));
+                this.remove_position(this.formData.get('key'));
             }
             this.status(response.data);
         }.bind(this);
-        this.minishop.send(sendData.formData, this.callbacks.change, this.minishop.Callbacks.Cart.change);
+        this.minishop.send(formData, this.callbacks.change, this.minishop.Callbacks.Cart.change);
     }
 
     status(status) {
@@ -97,13 +97,13 @@ export default class msCart {
         }
     }
 
-    clean(sendData) {
+    clean(formData) {
         const callbacks = this.callbacks;
         callbacks.clean.response.success = function (response) {
             this.status(response.data);
         }.bind(this);
 
-        this.minishop.send(sendData.formData, this.callbacks.clean, this.minishop.Callbacks.Cart.clean);
+        this.minishop.send(formData, this.callbacks.clean, this.minishop.Callbacks.Cart.clean);
     }
 
     remove_position(key) {

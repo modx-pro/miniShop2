@@ -13,12 +13,12 @@ export default class msIziToast extends msNotify{
     }
 
     success(message){
-        this.showMessage('success', message);
+        message ? this.showMessage('success', message) : '';
     }
     error(message) {
-        this.showMessage('error', message);
+        message ? this.showMessage('error', message) : '';
     }
     info(message) {
-        this.showMessage('info', message);
+        message ? this.showMessage('info', message) : '';
     }
 }

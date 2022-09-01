@@ -180,7 +180,7 @@ export default class msOrder {
         this.minishop.send(formData, this.callbacks.clean, this.minishop.Callbacks.Order.clean);
     }
 
-    submit(sendData) {
+    submit(formData) {
         this.minishop.Message.close();
         const callbacks = this.callbacks;
         callbacks.submit.before = function () {
@@ -226,7 +226,7 @@ export default class msOrder {
                 }
             }
         }.bind(this);
-        return this.minishop.send(sendData.formData, this.callbacks.submit, this.minishop.Callbacks.Order.submit);
+        return this.minishop.send(formData, this.callbacks.submit, this.minishop.Callbacks.Order.submit);
     }
 
     getrequired(value) {
