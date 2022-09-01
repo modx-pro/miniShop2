@@ -1,16 +1,4 @@
 {
-  "msSwal2": {
-    "handlerClassName": "Swal",
-    "jsPath": "assets/components/minishop2/js/web/lib/sweetalert2/sweetalert2.min.js",
-    "cssPath": "assets/components/minishop2/css/web/lib/sweetalert2/sweetalert2.min.css",
-    "handlerOptions" : {
-      "position": "top-end",
-      "title": "",
-      "showConfirmButton": false,
-      "toast": true,
-      "timer": 1500
-    }
-  },
   "msIziToast": {
     "jsPath": "assets/components/minishop2/js/web/lib/izitoast/iziToast.min.js",
     "cssPath": "assets/components/minishop2/css/web/lib/izitoast/iziToast.min.css",

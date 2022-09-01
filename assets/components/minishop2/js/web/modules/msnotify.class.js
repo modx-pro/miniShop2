@@ -23,7 +23,7 @@ export default class msNotify {
     close() {}
 
     show(message) {
-        if (message != '') {
+        if (message !== '') {
             alert(message);
         }
     }
