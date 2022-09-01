@@ -29,8 +29,10 @@ export default class MiniShop {
     }
 
     async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, error_msg, response){
-        const classPath = this.miniShop2Config.hasOwnProperty(pathPropertyName) ? this.miniShop2Config[pathPropertyName] : defaultPath,
-            className = this.miniShop2Config.hasOwnProperty(classnamePropertyName) ? this.miniShop2Config[classnamePropertyName] : defaultClassName,
+        const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
+                this.miniShop2Config[pathPropertyName] : defaultPath,
+            className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
+                this.miniShop2Config[classnamePropertyName] : defaultClassName,
             config = response ? response[className] : this;
         try {
             const { default: ModuleName } = await import(classPath);
@@ -58,18 +60,31 @@ export default class MiniShop {
             'msOrder',
             'Произошла ошибка при загрузке модуля отправки заказа');
 
-        this.sendAjax(this.miniShop2Config.notifySettingsPath, new FormData, (response) => {
-            if(response){
-                this.setHandler(
-                    'Message',
-                    'notifyClassPath',
-                    'notifyClassName',
-                    './msizitoast.class.js',
-                    'msIziToast',
-                    'Произошла ошибка при загрузке модуля уведомлений',
-                    response);
-            }
-        });
+        if(this.miniShop2Config.notifySettingsPath){
+            this.sendAjax(this.miniShop2Config.notifySettingsPath, new FormData, (response) => {
+                if(response){
+                    if(this.miniShop2Config.notifyClassPath && this.miniShop2Config.notifyClassName){
+                        this.setHandler(
+                            'Message',
+                            'notifyClassPath',
+                            'notifyClassName',
+                            './msizitoast.class.js',
+                            'msIziToast',
+                            'Произошла ошибка при загрузке модуля уведомлений',
+                            response);
+                    }
+                }
+            });
+        }else{
+            this.setHandler(
+                'Message',
+                'notifyClassPath',
+                'notifyClassName',
+                './msnotify.class.js',
+                'msNotify',
+                'Произошла ошибка при загрузке модуля уведомлений');
+        }
+
 
         document.addEventListener('submit', e => {
             e.preventDefault();

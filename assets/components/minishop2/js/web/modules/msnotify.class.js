@@ -20,20 +20,16 @@ export default class msNotify {
         }
     }
 
-    close() {}
-
-    show(message) {
+    show(type, message) {
         if (message !== '') {
             alert(message);
         }
     }
 
-    success(message) {
+    success(message){
+        message ? this.show('success', message) : '';
     }
-
     error(message) {
-    }
-
-    info(message) {
+        message ? this.show('error', message) : '';
     }
 }
