@@ -1,6 +1,3 @@
-import msCart from "./mscart.class.js";
-import msOrder from "./msorder.class.js";
-
 export default class MiniShop {
     constructor(miniShop2Config) {
         this.miniShop2Config = miniShop2Config;
@@ -25,56 +22,104 @@ export default class MiniShop {
         this.actionName = 'ms2_action';
         this.action = '[type="submit"][name=' + this.actionName + ']';
         this.form = '.ms2_form';
-
-        this.sendData = {
-            $form: null,
-            action: null,
-            formData: null
-        };
+        this.formData = null;
 
         this.timeout = 300;
-        this.Cart = new msCart(this);
-        this.Order = new msOrder(this);
         this.initialize();
     }
 
-    initialize() {
+    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, error_msg, response){
+        const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
+                this.miniShop2Config[pathPropertyName] : defaultPath,
+            className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
+                this.miniShop2Config[classnamePropertyName] : defaultClassName,
+            config = response ? response[className] : this;
+        try {
+            const { default: ModuleName } = await import(classPath);
+            this[property] = new ModuleName(config);
+
+        } catch (e) {
+            console.error(e, error_msg);
+        }
+    }
+
+    async initialize() {
+        this.setHandler(
+            'Cart',
+            'cartClassPath',
+            'cartClassName',
+            './mscart.class.js',
+            'msCart',
+            'Произошла ошибка при загрузке модуля корзины');
+
+        this.setHandler(
+            'Order',
+            'orderClassPath',
+            'orderClassName',
+            './msorder.class.js',
+            'msOrder',
+            'Произошла ошибка при загрузке модуля отправки заказа');
+
+        if(this.miniShop2Config.notifySettingsPath){
+            this.sendAjax(this.miniShop2Config.notifySettingsPath, new FormData, (response) => {
+                if(response){
+                    if(this.miniShop2Config.notifyClassPath && this.miniShop2Config.notifyClassName){
+                        this.setHandler(
+                            'Message',
+                            'notifyClassPath',
+                            'notifyClassName',
+                            './msizitoast.class.js',
+                            'msIziToast',
+                            'Произошла ошибка при загрузке модуля уведомлений',
+                            response);
+                    }
+                }
+            });
+        }else{
+            this.setHandler(
+                'Message',
+                'notifyClassPath',
+                'notifyClassName',
+                './msnotify.class.js',
+                'msNotify',
+                'Произошла ошибка при загрузке модуля уведомлений');
+        }
+
+
         document.addEventListener('submit', e => {
             e.preventDefault();
             const $form = e.target,
                 action = $form.querySelector(this.action).value;
+
             if (action) {
                 const formData = new FormData($form);
                 formData.append(this.actionName, action);
-                this.sendData = {
-                    $form: $form,
-                    action: action,
-                    formData: formData
-                };
-                this.controller();
+                this.formData = formData;
+
+                this.controller(action);
             }
         });
     }
 
-    controller() {
-        switch (this.sendData.action) {
+    controller(action) {
+        switch (action) {
             case 'cart/add':
-                this.Cart.add(this.sendData);
+                this.Cart.add(this.formData);
                 break;
             case 'cart/remove':
-                this.Cart.remove(this.sendData);
+                this.Cart.remove(this.formData);
                 break;
             case 'cart/change':
-                this.Cart.change(this.sendData);
+                this.Cart.change(this.formData);
                 break;
             case 'cart/clean':
-                this.Cart.clean(this.sendData);
+                this.Cart.clean(this.formData);
                 break;
             case 'order/submit':
-                this.Order.submit(this.sendData);
+                this.Order.submit(this.formData);
                 break;
             case 'order/clean':
-                this.Order.clean(this.sendData);
+                this.Order.clean(this.formData);
                 break;
             default:
                 return;
@@ -169,20 +214,12 @@ export default class MiniShop {
         }
 
         // set action url
-        const formActionUrl = (this.sendData.$form)
-            ? this.sendData.$form.getAttribute('action')
-            : false;
-        const url = (formActionUrl)
-            ? formActionUrl
-            : (this.miniShop2Config.actionUrl)
+        const url = (this.miniShop2Config.actionUrl)
                 ? this.miniShop2Config.actionUrl
                 : document.location.href;
         // set request method
-        const formMethod = (this.sendData.$form)
-            ? this.sendData.$form.getAttribute('method')
-            : false;
-        const method = (formMethod)
-            ? formMethod
+        const method = (this.miniShop2Config.formMethod)
+            ? this.miniShop2Config.formMethod
             : 'post';
 
         const options = {
@@ -237,6 +274,7 @@ export default class MiniShop {
 
         return price;
     }
+
     formatWeight(weight) {
         var wf = this.miniShop2Config.weight_format;
         weight = this.number_format(weight, wf[0], wf[1], wf[2]);
@@ -248,6 +286,7 @@ export default class MiniShop {
 
         return weight;
     }
+
     number_format(number, decimals, dec_point, thousands_sep) {
         // original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
         // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
@@ -298,5 +337,20 @@ export default class MiniShop {
         }else{
             return Array.prototype.slice.call(ctx.querySelectorAll(selectors));
         }
+    }
+
+    sendAjax(url, params, callback, method) {
+        method = method || 'GET';
+        const request = new XMLHttpRequest();
+        url = url || document.location.href;
+        request.open(method, url, true);
+        request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        request.responseType = 'json';
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState === 4 && request.status === 200) {
+                callback(request.response);
+            }
+        });
+        request.send(params);
     }
 }
