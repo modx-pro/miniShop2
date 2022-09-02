@@ -12,5 +12,5 @@ $cart = $miniShop2->cart->status();
 $cart['total_cost'] = $miniShop2->formatPrice($cart['total_cost']);
 $cart['total_weight'] = $miniShop2->formatWeight($cart['total_weight']);
 $cart['total_discount'] = $miniShop2->formatPrice($cart['total_discount']);
-
+$cart['scriptProperties'] = $scriptProperties;
 return $miniShop2->pdoTools->getChunk($tpl, $cart);

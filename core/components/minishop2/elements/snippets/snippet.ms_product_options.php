@@ -117,4 +117,5 @@ $pdoTools = $modx->getService('pdoTools');
 
 return $pdoTools->getChunk($tpl, array(
     'options' => $options,
+    'scriptProperties' => $scriptProperties
 ));

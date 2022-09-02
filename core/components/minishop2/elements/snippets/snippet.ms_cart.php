@@ -1,5 +1,4 @@
 <?php
-
 /** @var modX $modx */
 /** @var array $scriptProperties */
 /** @var miniShop2 $miniShop2 */
@@ -155,6 +154,7 @@ $total['weight'] = $miniShop2->formatWeight($total['weight']);
 $output = $pdoFetch->getChunk($tpl, array(
     'total' => $total,
     'products' => $products,
+    'scriptProperties' => $scriptProperties
 ));
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
