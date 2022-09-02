@@ -120,6 +120,23 @@ $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
+
+$_lang['setting_ms2_cart_js_class_name'] = 'Name of the JS cart management class';
+$_lang['setting_ms2_cart_js_class_name_desc'] = 'the class should be exported by default';
+$_lang['setting_ms2_cart_js_class_path'] = 'Path to the JS cart management';
+$_lang['setting_ms2_cart_js_class_path_desc'] = 'the path is specified relative to the assets/components/minishop2/js/web/modules folder';
+
+$_lang['setting_ms2_order_js_class_name'] = 'Name of the JS class for ordering';
+$_lang['setting_ms2_order_js_class_name_desc'] = 'the class should be exported by default';
+$_lang['setting_ms2_order_js_class_path'] = 'Path to the JS class for ordering';
+$_lang['setting_ms2_order_js_class_path_desc'] = 'the path is specified relative to the assets/components/minishop2/js/web/modules folder';
+
+$_lang['setting_ms2_notify_js_class_name'] = 'Name of the JS class for displaying notifications';
+$_lang['setting_ms2_notify_js_class_name_desc'] = 'the class should be exported by default';
+$_lang['setting_ms2_notify_js_class_path'] = 'Path to the JS class for displaying notifications';
+$_lang['setting_ms2_notify_js_class_path_desc'] = 'the path is specified relative to the assets/components/minishop2/js/web/modules folder';
+
+
 $_lang['setting_ms2_frontend_message_css'] = 'Notification library styles';
 $_lang['setting_ms2_frontend_message_css_desc'] = "The path to the CSS file for your notification library. By default to jgrowl. <br>
 If you want to use your own library, specify the path to its css directory here, or clear the parameter and load them manually through the site template.";
@@ -136,18 +153,6 @@ If you want to use your own library, specify the path to its settings here, or c
 $_lang['setting_ms2_register_frontend'] = 'Allow to add js & css files for ms2 to DOM';
 $_lang['setting_ms2_register_frontend_desc'] = "Allow to add js & css files for ms2 to DOM";
 
-
-
-$_lang['setting_ms2_payment_paypal_api_url'] = 'PayPal api url';
-$_lang['setting_ms2_payment_paypal_checkout_url'] = 'PayPal checkout url';
-$_lang['setting_ms2_payment_paypal_currency'] = 'PayPal currency';
-$_lang['setting_ms2_payment_paypal_user'] = 'PayPal user';
-$_lang['setting_ms2_payment_paypal_pwd'] = 'PayPal password';
-$_lang['setting_ms2_payment_paypal_signature'] = 'PayPal signature';
-$_lang['setting_ms2_payment_paypal_success_id'] = 'PayPal successful page id';
-$_lang['setting_ms2_payment_paypal_cancel_id'] = 'PayPal cancel page id';
-$_lang['setting_ms2_payment_paypal_cancel_order'] = 'PayPal cancel order';
-$_lang['setting_ms2_payment_paypal_cancel_order_desc'] = 'If true, order will be cancelled if customer cancel payment.';
 
 $_lang['setting_ms2_order_grid_fields'] = 'Fields of the orders table';
 $_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';

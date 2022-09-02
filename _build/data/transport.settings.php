@@ -268,10 +268,43 @@ $tmp = array(
         'area' => 'ms2_frontend',
     ),
     'ms2_frontend_message_js_settings' => array(
-        'value' => '[[+jsUrl]]web/message_settings.js',
+        'value' => '[[+jsUrl]]web/message_settings.json',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ),
+
+    'ms2_cart_js_class_path' => array(
+        'value' => './mscart.class.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_cart_js_class_name' => array(
+        'value' => 'msCart',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_order_js_class_path' => array(
+        'value' => './msorder.class.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_order_js_class_name' => array(
+        'value' => 'msOrder',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_notify_js_class_path' => array(
+        'value' => './msnotify.class.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_notify_js_class_name' => array(
+        'value' => 'msNotify',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+
+
     'ms2_register_frontend' => array(
         'value' => true,
         'xtype' => 'combo-boolean',

@@ -32,4 +32,6 @@ export default class msNotify {
     error(message) {
         message ? this.show('error', message) : '';
     }
+
+    close(){}
 }

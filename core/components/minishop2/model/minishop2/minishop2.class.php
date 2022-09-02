@@ -129,14 +129,14 @@ class miniShop2
                 'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
             );*/
 
-            $notifySettingsPath = str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_frontend_message_js_settings', null, '[[+jsUrl]]web/message_setting.json'));
+            $notifySettingsPath = str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_frontend_message_js_settings', null, ''));
             $js_setting = array(
-                'cartClassPath' => $this->modx->getOption('ms2_cart_js_class_path', null, './mscart.class.js'),
-                'cartClassName' => $this->modx->getOption('ms2_cart_js_class_path', null, 'msCart'),
-                'orderClassPath' => $this->modx->getOption('ms2_order_js_class_path', null, './msorder.class.js'),
-                'orderClassName' => $this->modx->getOption('ms2_order_js_class_name', null, 'msOrder'),
-                'notifyClassPath' => $this->modx->getOption('ms2_notify_js_class_path', null, './msizitoast.class.js'),
-                'notifyClassName' => $this->modx->getOption('ms2_notify_js_class_name', null, 'msIziToast'),
+                'cartClassPath' => $this->modx->getOption('ms2_cart_js_class_path', null, ''),
+                'cartClassName' => $this->modx->getOption('ms2_cart_js_class_name', null, ''),
+                'orderClassPath' => $this->modx->getOption('ms2_order_js_class_path', null, ''),
+                'orderClassName' => $this->modx->getOption('ms2_order_js_class_name', null, ''),
+                'notifyClassPath' => $this->modx->getOption('ms2_notify_js_class_path', null, ''),
+                'notifyClassName' => $this->modx->getOption('ms2_notify_js_class_name', null, ''),
                 'notifySettingsPath' => $notifySettingsPath,
 
 
