@@ -120,6 +120,23 @@ $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
+
+$_lang['setting_ms2_cart_js_class_name'] = 'Name of the JS cart management class';
+$_lang['setting_ms2_cart_js_class_name_desc'] = 'the class should be exported by default';
+$_lang['setting_ms2_cart_js_class_path'] = 'Path to the JS cart management';
+$_lang['setting_ms2_cart_js_class_path_desc'] = 'the path is specified relative to the assets/components/minishop2/js/web/modules folder';
+
+$_lang['setting_ms2_order_js_class_name'] = 'Name of the JS class for ordering';
+$_lang['setting_ms2_order_js_class_name_desc'] = 'the class should be exported by default';
+$_lang['setting_ms2_order_js_class_path'] = 'Path to the JS class for ordering';
+$_lang['setting_ms2_order_js_class_path_desc'] = 'the path is specified relative to the assets/components/minishop2/js/web/modules folder';
+
+$_lang['setting_ms2_notify_js_class_name'] = 'Name of the JS class for displaying notifications';
+$_lang['setting_ms2_notify_js_class_name_desc'] = 'the class should be exported by default';
+$_lang['setting_ms2_notify_js_class_path'] = 'Path to the JS class for displaying notifications';
+$_lang['setting_ms2_notify_js_class_path_desc'] = 'the path is specified relative to the assets/components/minishop2/js/web/modules folder';
+
+
 $_lang['setting_ms2_frontend_message_css'] = 'Notification library styles';
 $_lang['setting_ms2_frontend_message_css_desc'] = "The path to the CSS file for your notification library. By default to jgrowl. <br>
 If you want to use your own library, specify the path to its css directory here, or clear the parameter and load them manually through the site template.";

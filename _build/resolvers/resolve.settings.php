@@ -177,6 +177,11 @@ if ($transport->xpdo) {
                 $setting->save();
             }
 
+        if ($setting = $modx->getObject('modSystemSetting', array('key' => 'ms2_frontend_message_js_settings'))) {
+            $setting->set('value', '[[+jsUrl]]web/message_settings.json');
+            $setting->save();
+        }
+
             $chunks_descriptions = array(
                 'msProduct.content' => !$lang ? 'Чанк вывода карточки товара.' : 'Chunk for displaying card of miniShop2 product.',
                 'tpl.msProducts.row' => !$lang ? 'Чанк товара miniShop2.' : 'Chunk for listing miniShop2 catalog.',

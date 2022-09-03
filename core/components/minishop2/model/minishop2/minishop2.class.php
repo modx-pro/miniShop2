@@ -110,10 +110,10 @@ class miniShop2
             }
 
             // Register notify plugin CSS
-            $message_css = trim($this->modx->getOption('ms2_frontend_message_css'));
+            /*$message_css = trim($this->modx->getOption('ms2_frontend_message_css'));
             if (!empty($message_css) && preg_match('/\.css/i', $message_css)) {
                 $this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $message_css));
-            }
+            }*/
 
             // Register JS
             $js = trim($this->modx->getOption('ms2_frontend_js'));
@@ -121,14 +121,25 @@ class miniShop2
                 if (preg_match('/\.js$/i', $js)) {
                     $js .= '?v=' . substr(md5($this->version), 0, 10);
                 }
-                $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
+                $js = str_replace($config['pl'], $config['vl'], $js);
+                $this->modx->regClientScript('<script type="module" src="'.$js.'"></script>',1);
             }
 
-            $message_setting = array(
+           /* $message_setting = array(
                 'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
-            );
+            );*/
 
+            $notifySettingsPath = str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_frontend_message_js_settings', null, ''));
             $js_setting = array(
+                'cartClassPath' => $this->modx->getOption('ms2_cart_js_class_path', null, ''),
+                'cartClassName' => $this->modx->getOption('ms2_cart_js_class_name', null, ''),
+                'orderClassPath' => $this->modx->getOption('ms2_order_js_class_path', null, ''),
+                'orderClassName' => $this->modx->getOption('ms2_order_js_class_name', null, ''),
+                'notifyClassPath' => $this->modx->getOption('ms2_notify_js_class_path', null, ''),
+                'notifyClassName' => $this->modx->getOption('ms2_notify_js_class_name', null, ''),
+                'notifySettingsPath' => $notifySettingsPath,
+
+
                 'cssUrl' => $this->config['cssUrl'] . 'web/',
                 'jsUrl' => $this->config['jsUrl'] . 'web/',
                 'actionUrl' => $this->config['actionUrl'],
@@ -145,22 +156,23 @@ class miniShop2
                 'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
             );
 
-            $data = json_encode(array_merge($message_setting, $js_setting), true);
+            //$data = json_encode(array_merge($message_setting, $js_setting), true);
+            $data = json_encode($js_setting, true);
             $this->modx->regClientStartupScript(
                 '<script>miniShop2Config = ' . $data . ';</script>',
                 true
             );
 
             // Register notify plugin JS
-            $message_js = trim($this->modx->getOption('ms2_frontend_message_js'));
+            /*$message_js = trim($this->modx->getOption('ms2_frontend_message_js'));
             if (!empty($message_js) && preg_match('/\.js/i', $message_js)) {
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $message_js));
-            }
+            }*/
 
-            $message_settings_js = trim($this->modx->getOption('ms2_frontend_message_js_settings'));
+          /*  $message_settings_js = trim($this->modx->getOption('ms2_frontend_message_js_settings'));
             if (!empty($message_settings_js) && preg_match('/\.js/i', $message_settings_js)) {
                 $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $message_settings_js));
-            }
+            }*/
         }
     }
 
