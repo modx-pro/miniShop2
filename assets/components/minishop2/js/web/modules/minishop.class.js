@@ -28,14 +28,15 @@ export default class MiniShop {
         this.initialize();
     }
 
-    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, error_msg, response){
+    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, error_msg, response) {
         const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
                 this.miniShop2Config[pathPropertyName] : defaultPath,
             className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
                 this.miniShop2Config[classnamePropertyName] : defaultClassName,
             config = response ? response[className] : this;
+        console.log(className);
         try {
-            const { default: ModuleName } = await import(classPath);
+            const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
 
         } catch (e) {
@@ -60,29 +61,19 @@ export default class MiniShop {
             'msOrder',
             'Произошла ошибка при загрузке модуля отправки заказа');
 
-        if(this.miniShop2Config.notifySettingsPath){
+        if (this.miniShop2Config.notifySettingsPath) {
             this.sendAjax(this.miniShop2Config.notifySettingsPath, new FormData, (response) => {
-                if(response){
-                    if(this.miniShop2Config.notifyClassPath && this.miniShop2Config.notifyClassName){
-                        this.setHandler(
-                            'Message',
-                            'notifyClassPath',
-                            'notifyClassName',
-                            './msizitoast.class.js',
-                            'msIziToast',
-                            'Произошла ошибка при загрузке модуля уведомлений',
-                            response);
-                    }
+                if (response) {
+                    this.setHandler(
+                        'Message',
+                        'notifyClassPath',
+                        'notifyClassName',
+                        './msnotify.class.js',
+                        'msNotify',
+                        'Произошла ошибка при загрузке модуля уведомлений',
+                        response);
                 }
             });
-        }else{
-            this.setHandler(
-                'Message',
-                'notifyClassPath',
-                'notifyClassName',
-                './msnotify.class.js',
-                'msNotify',
-                'Произошла ошибка при загрузке модуля уведомлений');
         }
 
 
@@ -126,7 +117,7 @@ export default class MiniShop {
         }
     }
 
-    callbacksObjectTemplate(){
+    callbacksObjectTemplate() {
         return {
             // return false to prevent send data
             before: [],
@@ -142,7 +133,7 @@ export default class MiniShop {
         }
     }
 
-    addCallback(path, name, func){
+    addCallback(path, name, func) {
         if (typeof func != 'function') {
             return false;
         }
@@ -165,7 +156,7 @@ export default class MiniShop {
         return true;
     }
 
-    removeCallback(path, name){
+    removeCallback(path, name) {
         path = path.split('.');
         let obj = this.Callbacks;
         for (let i = 0; i < path.length; i++) {
@@ -181,7 +172,7 @@ export default class MiniShop {
         return false;
     }
 
-    runCallback(callback, bind){
+    runCallback(callback, bind) {
         if (typeof callback == 'function') {
             return callback.apply(bind, Array.prototype.slice.call(arguments, 2));
         } else if (typeof callback == 'object') {
@@ -215,8 +206,8 @@ export default class MiniShop {
 
         // set action url
         const url = (this.miniShop2Config.actionUrl)
-                ? this.miniShop2Config.actionUrl
-                : document.location.href;
+            ? this.miniShop2Config.actionUrl
+            : document.location.href;
         // set request method
         const method = (this.miniShop2Config.formMethod)
             ? this.miniShop2Config.formMethod
@@ -234,7 +225,7 @@ export default class MiniShop {
         }
         // send
         const xhr = await fetch(url, options);
-        if(xhr.ok){
+        if (xhr.ok) {
             const response = await xhr.json();
             if (response.success) {
                 if (response.message) {
@@ -242,16 +233,14 @@ export default class MiniShop {
                 }
                 self.runCallback(callbacks.response.success, self, response);
                 self.runCallback(userCallbacks.response.success, self, response);
-            }
-            else{
+            } else {
                 self.Message.error(response.message);
                 this.runCallback(callbacks.response.error, self, response);
                 this.runCallback(userCallbacks.response.error, self, response);
             }
             this.runCallback(callbacks.ajax.done, self, xhr);
             this.runCallback(userCallbacks.ajax.done, self, xhr);
-        }
-        else{
+        } else {
             this.runCallback(callbacks.ajax.fail, self, xhr);
             this.runCallback(userCallbacks.ajax.fail, self, xhr);
         }
@@ -323,18 +312,18 @@ export default class MiniShop {
         return km + kw + kd;
     }
 
-    querySelectorsArray(selectors, ctx){
-        if(!ctx){
+    querySelectorsArray(selectors, ctx) {
+        if (!ctx) {
             ctx = document;
         }
-        if(Array.isArray(selectors)){
+        if (Array.isArray(selectors)) {
             let result = [];
-            for(let i = 0; i < selectors.length; i++){
+            for (let i = 0; i < selectors.length; i++) {
                 let tmp = Array.prototype.slice.call(ctx.querySelectorAll(selectors[i]));
                 result = result.concat(tmp);
             }
             return result;
-        }else{
+        } else {
             return Array.prototype.slice.call(ctx.querySelectorAll(selectors));
         }
     }

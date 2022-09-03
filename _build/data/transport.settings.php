@@ -294,12 +294,12 @@ $tmp = array(
         'area' => 'ms2_frontend',
     ),
     'ms2_notify_js_class_path' => array(
-        'value' => './msnotify.class.js',
+        'value' => './msizitoast.class.js',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ),
     'ms2_notify_js_class_name' => array(
-        'value' => 'msNotify',
+        'value' => 'msIziToast',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ),
