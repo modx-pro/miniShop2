@@ -20,7 +20,7 @@ export default class MiniShop {
         this.Callbacks.add = this.addCallback.bind(this);
         this.Callbacks.remove = this.removeCallback.bind(this);
         this.actionName = 'ms2_action';
-        this.action = '[type="submit"][name=' + this.actionName + ']';
+        this.action = '[name=' + this.actionName + ']';
         this.form = '.ms2_form';
         this.formData = null;
 
@@ -34,7 +34,6 @@ export default class MiniShop {
             className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
                 this.miniShop2Config[classnamePropertyName] : defaultClassName,
             config = response ? response[className] : this;
-        console.log(className);
         try {
             const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
