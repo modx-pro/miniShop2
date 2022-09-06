@@ -20,10 +20,10 @@ export default class MiniShop {
         this.Callbacks.add = this.addCallback.bind(this);
         this.Callbacks.remove = this.removeCallback.bind(this);
         this.actionName = 'ms2_action';
-        this.action = '[name=' + this.actionName + ']';
+        this.action = '[type="submit"][name=' + this.actionName + ']';
         this.form = '.ms2_form';
         this.formData = null;
-
+        this.Message = null;
         this.timeout = 300;
         this.initialize();
     }
@@ -34,9 +34,11 @@ export default class MiniShop {
             className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
                 this.miniShop2Config[classnamePropertyName] : defaultClassName,
             config = response ? response[className] : this;
+
         try {
             const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
+            console.log(this[property]);
 
         } catch (e) {
             console.error(e, error_msg);
@@ -44,6 +46,14 @@ export default class MiniShop {
     }
 
     async initialize() {
+        /*try {
+            const {default: msNotify} = await import('./msnotify.class.js');
+            this['Message'] = new msNotify(this.miniShop2Config);
+
+        } catch (e) {
+            console.error(e, error_msg);
+        }*/
+
         this.setHandler(
             'Cart',
             'cartClassPath',

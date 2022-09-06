@@ -21,8 +21,6 @@ export default class msCart {
         this.totalDiscount = document.querySelectorAll('.ms2_total_discount');
         this.cost = '.ms2_cost';
         this.eventSubmit = new Event('submit', {bubbles: true,cancelable: true,});
-        const numberFieldsSelector = this.config.numberFieldsSelector || 'input[type="number"]';
-        this.numberFields = document.querySelectorAll(numberFieldsSelector);
         this.initialize();
     }
 
@@ -30,13 +28,10 @@ export default class msCart {
         if (!this.cart) {
             return;
         }
-        if(this.numberFields.length){
-            this.numberFields.forEach(el => {
-                new CustomInputNumber(el, {min : 0});
-            });
-        }
+
         this.countInput.forEach((el) => {
             const self = this;
+            new CustomInputNumber(el, {min : 0});
             el.addEventListener('change', () =>{
                 if (el.value) {
                     el.closest(self.minishop.form).dispatchEvent(self.eventSubmit);

@@ -29,64 +29,18 @@ export default class CustomInputNumber {
     }
 
     addMarkup() {
-        const markup = {'wrapper': '', 'plus': '', 'field': '', 'minus': ''},
-            rowmarkup = {
-                wrapper: {
-                    tagName: 'div',
-                    classNames: ['input-number-wrap'],
-                    type: ''
-                },
-                plus: {
-                    tagName: 'button',
-                    classNames: ['input-number-plus', 'input-number-btn', 'btn', 'btn-sm', 'btn-secondary'],
-                    type: 'button'
-                },
-                field: {
-                    tagName: 'input',
-                    classNames: ['input-number-emulator'],
-                    type: 'text',
-                    value: parseFloat(this.element.value) || 0,
-                    placeholder: this.config.placeholder
-                },
-                minus: {
-                    tagName: 'button',
-                    classNames: ['input-number-minus', 'input-number-btn', 'btn', 'btn-sm', 'btn-secondary'],
-                    type: 'button'
-                }
-            };
-
-
-        this.element.classList.add('input-visually-hidden');
-        for (let k in rowmarkup) {
-            markup[k] = this.createElement(rowmarkup[k]);
-        }
-        markup.wrapper.appendChild(markup.minus);
-        markup.wrapper.appendChild(markup.field);
-        markup.wrapper.appendChild(markup.plus);
-        this.element.after(markup.wrapper);
+        const markup = {'wrapper': '', 'plus': '', 'field': '', 'minus': ''};
+        markup.wrapper = this.element.closest('.input-number-wrap');
+        markup.minus = markup.wrapper.querySelector('.input-number-minus');
+        markup.field = this.element;
+        markup.plus = markup.wrapper.querySelector('.input-number-plus');
         return markup;
     }
 
-    createElement(tagConfig) {
-        let tag = document.createElement(tagConfig.tagName);
-        tagConfig.classNames.map(name => tag.classList.add(name));
-        if (tagConfig.placeholder) {
-            tag.placeholder = tagConfig.placeholder;
-        }
-        if (tagConfig.value) {
-            tag.value = tagConfig.value;
-        }
-        if (tagConfig.type) {
-            tag.type = tagConfig.type;
-        }
-        return tag;
-    }
-
     addListeners() {
-        const $this = this;
-        $this.markup.plus.addEventListener('click', () => $this.numberUp());
-        $this.markup.minus.addEventListener('click', () => $this.numberDown());
-        $this.markup.field.addEventListener('change', () => $this.numberInput());
+        this.markup.plus.addEventListener('click', () => this.numberUp());
+        this.markup.minus.addEventListener('click', () => this.numberDown());
+        this.markup.field.addEventListener('change', () => this.numberInput());
     }
 
     numberUp() {
@@ -123,8 +77,7 @@ export default class CustomInputNumber {
     numberInput() {
         let config = this.config,
             field = this.markup.field,
-            inputValue = parseFloat(field.value) || config.min,
-            oldValue = this.element.value;
+            inputValue = parseFloat(field.value) || config.min;
 
         if (inputValue % config.step !== 0) {
             inputValue = Math.round(inputValue / config.step) * config.step;
@@ -137,10 +90,6 @@ export default class CustomInputNumber {
         }
         field.value = inputValue;
         this.element.value = field.value;
-
-        if (oldValue !== inputValue) {
-            this.triggerEvent(config);
-        }
     }
 
     triggerEvent(config) {

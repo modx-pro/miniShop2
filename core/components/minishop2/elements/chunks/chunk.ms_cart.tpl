@@ -52,9 +52,11 @@
                         <td class="ms-count">
                             <form method="post" class="ms2_form" role="form">
                                 <input type="hidden" name="key" value="{$product.key}"/>
-                                <input type="hidden" name="ms2_action" value="cart/change"/>
-                                <div class="form-group">
-                                    <input type="number" name="count" value="{$product.count}" class=""/>
+                                <button type="submit" class="input-visually-hidden" name="ms2_action" value="cart/change"/></button>
+                                <div class="form-group input-number-wrap">
+                                    <button class="input-number-minus input-number-btn btn btn-sm btn-secondary" type="button">-</button>
+                                    <input class="input-number-emulator" value="{$product.count}" name="count" type="text">
+                                    <button class="input-number-plus input-number-btn btn btn-sm btn-secondary" type="button">+</button>
                                 </div>
                             </form>
                         </td>
@@ -96,7 +98,6 @@
                 </tr>
             </table>
         </div>
-
         <form method="post" class="ms2_form">
             <button type="submit" name="ms2_action" value="cart/clean" class="btn btn-danger">
                 {'ms2_cart_clean' | lexicon}
