@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.7-pl] - 2022-09-06
+
+### Added
+- MODX and PHP version check before installation
+- Snippet options are now available in wrapper chunks
+- The ability to search for an order in the admin panel by phone number
+- Email field to order address window
+
+### Changed
+
+- Css styles reserved for global layout classes (header, footer, title, count, weight, price, image) in msCart and msGetOrder chunks.
+
 ## [3.0.6-pl] - 2022-06-29
 
 ### Changed
