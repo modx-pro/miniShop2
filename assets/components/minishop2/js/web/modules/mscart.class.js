@@ -3,6 +3,7 @@ import CustomInputNumber from './custominputnumber.class.js';
 export default class msCart {
     constructor(minishop) {
         this.config = minishop.miniShop2Config;
+        this.config.inputNumber = this.config.inputNumber || {};
         this.minishop = minishop;
         this.callbacks = {
             add: this.config.callbacksObjectTemplate(),
@@ -31,7 +32,7 @@ export default class msCart {
 
         this.countInput.forEach((el) => {
             const self = this;
-            new CustomInputNumber(el, {min : 0});
+            new CustomInputNumber(el, this.config.inputNumber);
             el.addEventListener('change', () =>{
                 if (el.value) {
                     el.closest(self.minishop.form).dispatchEvent(self.eventSubmit);

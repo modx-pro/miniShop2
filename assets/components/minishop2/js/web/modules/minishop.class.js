@@ -38,22 +38,12 @@ export default class MiniShop {
         try {
             const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
-            console.log(this[property]);
-
         } catch (e) {
             console.error(e, error_msg);
         }
     }
 
     async initialize() {
-        /*try {
-            const {default: msNotify} = await import('./msnotify.class.js');
-            this['Message'] = new msNotify(this.miniShop2Config);
-
-        } catch (e) {
-            console.error(e, error_msg);
-        }*/
-
         this.setHandler(
             'Cart',
             'cartClassPath',
