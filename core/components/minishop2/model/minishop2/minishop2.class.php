@@ -1175,6 +1175,42 @@ class miniShop2
             : $info;
     }
 
+    /**
+     * Return number for new order
+     *
+     * @return string
+     */
+    public function getNextOrderNum()
+    {
+        $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
+        $separator = trim(
+            preg_replace(
+                "/[^,\/\-]/",
+                '',
+                $this->modx->getOption('ms2_order_format_num_separator', null, '/')
+            )
+        );
+        $separator = $separator ?: '/';
+
+        $cur = $format ? strftime($format) : date('ym');
+
+        $count = $num = 0;
+
+        $c = $this->modx->newQuery('msOrder');
+        $c->where(array('num:LIKE' => "{$cur}%"));
+        $c->select('num');
+        $c->sortby('id', 'DESC');
+        $c->limit(1);
+        if ($c->prepare() && $c->stmt->execute()) {
+            $num = $c->stmt->fetchColumn();
+            list(, $count) = explode($separator, $num);
+        }
+        $count = (int)$count + 1;
+
+        return sprintf('%s%s%d', $cur, $separator, $count);
+    }
+
+
 
     /**
      * General method to get JSON settings
