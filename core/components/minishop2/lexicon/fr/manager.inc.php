@@ -81,6 +81,7 @@ $_lang['ms2_order_requires_help'] = 'Lors de la commande, une classe personnalis
 $_lang['ms2_orders_selected_status'] = 'Changer l\'état de la commande sélectionnée';
 $_lang['ms2_free_delivery_amount'] = 'Livraison gratuite sur le montant de la commande';
 $_lang['ms2_free_delivery_amount_help'] = 'Lorsque le montant de la commande atteint cette valeur, la livraison sera gratuite. Si la classe d\'expédition a été modifiée et / ou si vous avez installé des composants susceptibles d\'affecter la valeur de la commande, ce champ peut ne pas être pris en compte';
+$_lang['ms2_orders_create_order'] = 'Créer commande';
 
 $_lang['ms2_link_name'] = 'Nom du lien';
 $_lang['ms2_link_one_to_one'] = 'Un pour un';
