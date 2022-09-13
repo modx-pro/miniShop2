@@ -34,6 +34,7 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     {
         $this->object->set('num', $this->ms2->getNextOrderNum());
         $this->object->set('user_id', $this->modx->user->get('id'));
+        $this->object->set('status', 999); // draft status
         $this->object->set('createdon', time());
 
         return parent::beforeSave();
@@ -80,10 +81,6 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
         if ($this->saveObject() === false) {
             return $this->failure($this->modx->lexicon($this->objectType . '_err_save'));
         }
-
-        // Trying to set status "new". If it fails - the author will handle it on a front
-        $this->ms2->changeOrderStatus($this->object->get('id'), 1); // same id in msOrderHandler
-        $this->object = $this->modx->getObject($this->classKey, $this->object->get('id'), false);
 
         $this->afterSave();
         $this->fireAfterSaveEvent();
