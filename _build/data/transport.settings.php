@@ -277,6 +277,53 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'area' => 'ms2_frontend',
     ),
+
+
+    'ms2_toggle_js_type' => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_vanila_js' => array(
+        'value' => '[[+jsUrl]]web/vanilajs/default.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_frontend_notify_js_settings' => array(
+        'value' => '[[+jsUrl]]web/vanilajs/message_settings.json',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_cart_js_class_path' => array(
+        'value' => '[[+jsUrl]]web/vanilajs/modules/mscart.class.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_cart_js_class_name' => array(
+        'value' => 'msCart',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_order_js_class_path' => array(
+        'value' => '[[+jsUrl]]web/vanilajs/modules/msorder.class.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_order_js_class_name' => array(
+        'value' => 'msOrder',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_notify_js_class_path' => array(
+        'value' => '[[+jsUrl]]web/vanilajs/modules/msizitoast.class.js',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
+    'ms2_notify_js_class_name' => array(
+        'value' => 'msIziToast',
+        'xtype' => 'textfield',
+        'area' => 'ms2_frontend',
+    ),
 );
 
 /** @var modX $modx */
