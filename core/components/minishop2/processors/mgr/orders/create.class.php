@@ -11,9 +11,6 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     public $permission = 'msorder_save';
     /** @var  miniShop2 $ms2 */
     protected $ms2;
-    /** @var Closure */
-    protected $getNextOrderNum;
-
     /**
     * @return bool|null|string
     */
@@ -21,10 +18,6 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     {
         $this->ms2 = $this->modx->getService('miniShop2');
         $this->ms2->initialize($this->modx->context->key); // it will be "mgr"
-        $this->getNextOrderNum = Closure::bind(function () {
-            /** @var msOrderHandler $this */
-            return $this->getNum(); // a little hack for using protected method
-        }, null, $this->ms2->order);
 
         if (!$this->modx->hasPermission($this->permission)) {
             return $this->modx->lexicon('access_denied');
@@ -38,7 +31,7 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     */
     public function beforeSave()
     {
-        $this->object->set('num', call_user_func($this->getNextOrderNum));
+        $this->object->set('num', $this->ms2->order->getNewOrderNum());
         $this->object->set('user_id', $this->modx->user->get('id'));
         $this->object->set('status', 999); // draft status
         $this->object->set('createdon', time());
