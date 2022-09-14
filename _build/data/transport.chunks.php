@@ -9,12 +9,14 @@ $tmp = array(
     'tpl.msProducts.row' => 'ms_products_row',
 
     'tpl.msCart' => 'ms_cart',
+    'tpl.msCartNew' => 'ms_cart_new',
     'tpl.msMiniCart' => 'ms_minicart',
     'tpl.msOrder' => 'ms_order',
     'tpl.msGetOrder' => 'ms_get_order',
     'tpl.msOptions' => 'ms_options',
     'tpl.msProductOptions' => 'ms_product_options',
     'tpl.msGallery' => 'ms_gallery',
+    'tpl.msGalleryNew' => 'ms_gallery_new',
 
     'tpl.msEmail' => 'ms_email',
     'tpl.msEmail.new.user' => 'ms_email_new_user',
