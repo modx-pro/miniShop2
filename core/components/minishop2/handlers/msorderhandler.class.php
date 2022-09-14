@@ -411,7 +411,7 @@ class msOrderHandler implements msOrderInterface
 
         $delivery_cost = $this->getCost(false, true);
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
-        $num = $this->ms2->getNextOrderNum();
+        $num = $this->getNum();
 
         /** @var msOrder $msOrder */
         $msOrder = $this->storageHandler->getForSubmit(
@@ -602,6 +602,42 @@ class msOrderHandler implements msOrderInterface
                 break;
         }
     }
+
+    /**
+     * Return current number of order
+     *
+     * @return string
+     */
+    protected function getNum()
+    {
+        $format = htmlspecialchars($this->modx->getOption('ms2_order_format_num', null, '%y%m'));
+        $separator = trim(
+            preg_replace(
+                "/[^,\/\-]/",
+                '',
+                $this->modx->getOption('ms2_order_format_num_separator', null, '/')
+            )
+        );
+        $separator = $separator ?: '/';
+
+        $cur = $format ? strftime($format) : date('ym');
+
+        $count = $num = 0;
+
+        $c = $this->modx->newQuery('msOrder');
+        $c->where(array('num:LIKE' => "{$cur}%"));
+        $c->select('num');
+        $c->sortby('id', 'DESC');
+        $c->limit(1);
+        if ($c->prepare() && $c->stmt->execute()) {
+            $num = $c->stmt->fetchColumn();
+            list(, $count) = explode($separator, $num);
+        }
+        $count = intval($count) + 1;
+
+        return sprintf('%s%s%d', $cur, $separator, $count);
+    }
+
 
     /**
      * Shorthand for MS2 error method
