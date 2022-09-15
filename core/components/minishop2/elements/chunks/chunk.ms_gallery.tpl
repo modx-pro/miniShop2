@@ -1,12 +1,6 @@
 <div id="msGallery">
-    {if $files?}
-        <div class="fotorama"
-            data-nav="thumbs"
-            data-width="100%"
-            data-thumbheight="45"
-            data-allowfullscreen="true"
-            data-swipe="true"
-            data-autoplay="5000">
+    {if $files}
+        <div>
             {foreach $files as $file}
                 <a href="{$file['url']}" target="_blank">
                     <img src="{$file['small']}" alt="{$file['description']}" title="{$file['name']}">
