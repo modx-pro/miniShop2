@@ -28,7 +28,8 @@ class BaseDBController
 
     protected function getStorageOrder()
     {
-        $where = ['status' => 999];
+        $status_draft = $this->modx->getOption('ms2_status_draft', null, 5);
+        $where = ['status' => $status_draft];
         $user_id = $this->modx->getLoginUserID($this->ctx);
         if ($user_id > 0) {
             //TODO реализовать вопрос склеивания корзин анонима и залогиненного юзера

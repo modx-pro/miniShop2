@@ -262,7 +262,9 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
         $selected->stmt->execute();
 
         $month = $this->modx->newQuery($this->classKey);
-        $month->where(array('status:IN' => array(2, 3), 'type' => 0));
+        $statuses = $this->modx->getOption('ms2_status_for_stat', null, '2,3');
+        $statuses = array_map('trim', explode(',', $statuses));
+        $month->where(array('status:IN' => $statuses, 'type' => 0));
         $month->where('createdon BETWEEN NOW() - INTERVAL 30 DAY AND NOW()');
         $month->select('SUM(msOrder.cost) as sum, COUNT(msOrder.id) as total');
         $month->prepare();
