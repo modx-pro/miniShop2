@@ -152,9 +152,7 @@ if ($transport->xpdo) {
             break;
 
         case xPDOTransport::ACTION_UNINSTALL:
-            $modx->removeCollection('modSystemSetting', [
-                'namespace' => 'minishop2',
-            ]);
+            $modx->removeCollection('msOrderStatus', []);
             break;
     }
 }
