@@ -29,7 +29,7 @@ export default class MiniShop {
             this.miniShop2Config.actionUrl = document.location.href;
         }
         if (!this.miniShop2Config.formMethod) {
-            this.miniShop2Config.formMethod = 'post';
+            this.miniShop2Config.formMethod = 'POST';
         }
         this.initialize();
     }
@@ -68,7 +68,7 @@ export default class MiniShop {
             'Произошла ошибка при загрузке модуля отправки заказа');
 
         if (this.miniShop2Config.notifySettingsPath) {
-            const response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath});
+            const response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
             if (response.ok) {
                 const messageSettings = await response.json();
                 if(messageSettings){
@@ -201,7 +201,10 @@ export default class MiniShop {
             url = params.url || this.miniShop2Config.actionUrl,
             method = params.method || this.miniShop2Config.formMethod;
 
-        const options = {method, headers, body};
+        let options = {method, headers, body};
+        if(method == 'GET'){
+            options = {method, headers};
+        }
 
         return fetch(url, options);
     }
