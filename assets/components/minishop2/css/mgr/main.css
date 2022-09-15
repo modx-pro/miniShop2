@@ -101,6 +101,7 @@ a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
 .minishop2-window .x-tree-root-ct input { vertical-align: top; }
 /* Orders */
 #minishop2-form-orders { padding-top: 10px; padding-bottom: 0; }
+#minishop2-form-orders .x-toolbar-left-row td:first-of-type .x-btn {margin-left: 1px;}
 #minishop2-grid-orders { padding-top: 0px; }
 #minishop2-orders-info {
     background: #f9f9f9;

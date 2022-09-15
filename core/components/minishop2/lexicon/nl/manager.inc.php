@@ -138,6 +138,7 @@ $_lang['ms2_orders_form_month_num'] = 'Afgerond binnen 30 dagen';
 $_lang['ms2_orders_form_month_sum'] = 'Voor de som vanm €';
 $_lang['ms2_orders_form_submit'] = 'Verstuur';
 $_lang['ms2_orders_form_reset'] = 'Reset';
+$_lang['ms2_orders_create_order'] = 'Creëer order';
 $_lang['ms2_tab_category'] = 'Categorie';
 $_lang['ms2_tab_products'] = 'Producten';
 $_lang['ms2_tab_options'] = 'Product opties';

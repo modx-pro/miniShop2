@@ -82,6 +82,7 @@ $_lang['ms2_order_requires_help'] = 'Užsakymo metu nuosavoje klasėje galima re
 $_lang['ms2_orders_selected_status'] = 'Keisti pasirinktų užsakymų būseną';
 $_lang['ms2_free_delivery_amount'] = 'Nemokamas pristatymas pagal užsakymo sumą';
 $_lang['ms2_free_delivery_amount_help'] = 'Kai užsakymo suma pasieks šią vertę, pristatymas bus nemokamas. Jei siuntimo klasė buvo pakeista ir (arba) jūs įdiegėte komponentus, kurie gali turėti įtakos užsakymo vertei, į šį lauką gali būti neatsižvelgta.';
+$_lang['ms2_orders_create_order'] = 'Sukurti užsakymą';
 
 $_lang['ms2_link_name'] = 'Sąryšio pavadinimas';
 $_lang['ms2_link_one_to_one'] = 'Viena su viena';

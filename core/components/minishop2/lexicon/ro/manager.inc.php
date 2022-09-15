@@ -152,6 +152,7 @@ $_lang['ms2_orders_form_month_num'] = 'Executat în 30 zile';
 $_lang['ms2_orders_form_month_sum'] = 'în sumă, RUB.';
 $_lang['ms2_orders_form_submit'] = 'Trimiteți';
 $_lang['ms2_orders_form_reset'] = 'Resetare';
+$_lang['ms2_orders_create_order'] = 'Creați ordine';
 
 $_lang['ms2_tab_category'] = 'Categorie';
 $_lang['ms2_tab_products'] = 'Produse';

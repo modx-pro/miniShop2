@@ -80,7 +80,7 @@ $_lang['ms2_order_requires'] = 'Pflichtfelder';
 $_lang['ms2_order_requires_help'] = 'Bei der Bestellung ist das Ausfüllen dieser Felder Pflicht';
 $_lang['ms2_free_delivery_amount'] = 'Kostenloser Versand auf Bestellmenge';
 $_lang['ms2_free_delivery_amount_help'] = 'Wenn der Bestellbetrag diesen Wert erreicht, ist die Lieferung kostenlos. Wenn die Versandklasse geändert wurde und / oder Sie Komponenten installiert haben, die sich auf den Bestellwert auswirken können, wird dieses Feld möglicherweise nicht berücksichtigt';
-
+$_lang['ms2_orders_create_order'] = 'Bestellung anlegen';
 $_lang['ms2_orders_selected_status'] = 'Status geändert';
 
 $_lang['ms2_link_name'] = 'Linkname';
@@ -94,3 +94,4 @@ $_lang['ms2_link_many_to_many'] = 'Many to many';
 $_lang['ms2_link_many_to_many_desc'] = 'Equal union of many goods. All the goods of the group are connected with each other and with the addition of a new connection to one product, all other will have the same. Typical applications: link by one parameter, such as color, size, language, version, etc.';
 $_lang['ms2_link_master'] = 'Eltern-Produkt';
 $_lang['ms2_link_slave'] = 'Kind-Produkt';
+

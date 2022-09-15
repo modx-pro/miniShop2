@@ -324,7 +324,7 @@ class msOrderHandler implements msOrderInterface
 
         $delivery_cost = $this->getCost(false, true);
         $cart_cost = $this->getCost(true, true) - $delivery_cost;
-        $num = $this->getNum();
+        $num = $this->getNewOrderNum();
 
         /** @var msOrder $msOrder */
         $msOrder = $this->storageHandler->getForSubmit(
@@ -498,6 +498,15 @@ class msOrderHandler implements msOrderInterface
                 'discount_cost' => $cart['total_discount'],
                 'delivery_cost' => $delivery_cost
             ));
+    }
+
+    /**
+     * Returns number for new order
+     * @return string
+     */
+    public function getNewOrderNum()
+    {
+        return $this->getNum();
     }
 
     /**

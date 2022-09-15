@@ -147,6 +147,7 @@ $_lang['ms2_orders_form_month_num'] = 'Виконано за 30 днів';
 $_lang['ms2_orders_form_month_sum'] = 'на суму, грн.';
 $_lang['ms2_orders_form_submit'] = 'Відправити';
 $_lang['ms2_orders_form_reset'] = 'Скинути';
+$_lang['ms2_orders_create_order'] = 'Створити замовлення';
 
 $_lang['ms2_tab_category'] = 'Категорія';
 $_lang['ms2_tab_products'] = 'Товари';

@@ -148,6 +148,7 @@ $_lang['ms2_orders_form_month_num'] = 'Выканана за 30 дзён';
 $_lang['ms2_orders_form_month_sum'] = 'на суму, руб.';
 $_lang['ms2_orders_form_submit'] = 'Адправіць';
 $_lang['ms2_orders_form_reset'] = 'Скінуць';
+$_lang['ms2_orders_create_order'] = 'Стварыць заказ';
 
 $_lang['ms2_tab_category'] = 'Катэгорыя';
 $_lang['ms2_tab_products'] = 'Прадукты';
