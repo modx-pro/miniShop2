@@ -31,14 +31,20 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     */
     public function beforeSave()
     {
+        /** @var msOrderAddress $address */
+        $address = $this->modx->newObject('msOrderAddress', [
+            'user_id' => $this->modx->user->get('id'),
+            'createdon' => time()
+        ]);
+
         $this->object->set('num', $this->ms2->order->getNewOrderNum());
         $this->object->set('user_id', $this->modx->user->get('id'));
-        $this->object->set('status', 999); // draft status
+        $this->object->set('status', $this->modx->getOption('ms2_status_draft', null, 5));
         $this->object->set('createdon', time());
+        $this->object->addOne($address);
 
         return parent::beforeSave();
     }
-
 
     /**
     * {@inheritDoc}
