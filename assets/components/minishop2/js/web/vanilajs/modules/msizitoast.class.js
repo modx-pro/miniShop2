@@ -2,7 +2,8 @@ import msNotify from "./msnotify.class.js";
 
 export default class msIziToast extends msNotify {
     show(type, message) {
-        if (window[this.config.handlerClassName]) {
+        type = type || 'error';
+        if (window[this.config.handlerClassName] && message) {
             const options = Object.assign(this.config.handlerOptions, {title: message});
             try {
                 window[this.config.handlerClassName][type](options);
