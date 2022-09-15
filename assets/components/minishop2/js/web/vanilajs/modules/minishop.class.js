@@ -29,7 +29,7 @@ export default class MiniShop {
             this.miniShop2Config.actionUrl = document.location.href;
         }
         if (!this.miniShop2Config.formMethod) {
-            this.miniShop2Config.formMethod = 'post';
+            this.miniShop2Config.formMethod = 'POST';
         }
         this.initialize();
     }
