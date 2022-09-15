@@ -153,6 +153,38 @@ $_lang['ms2_source_maxUploadHeight_desc'] = 'Максимальная высот
 $_lang['ms2_source_maxUploadSize_desc'] = 'Максимальный размер загружаемых изображений (в байтах).';
 $_lang['ms2_source_imageNameType_desc'] = 'Этот параметр указывает, как нужно переименовать файл при загрузке. Hash - это генерация уникального имени, в зависимости от содержимого файла. Friendly - генерация имени по алгоритму дружественных url страниц сайта (они управляются системными настройками).';
 
+
+// Настройки для альфа релиза miniShop2 4.0.0.beta
+$_lang['setting_ms2_frontend_css'] = 'Стили фронтенда';
+$_lang['setting_ms2_frontend_css_desc'] = 'Путь к файлу со стилями магазина. Если вы хотите использовать собственные стили - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+$_lang['setting_ms2_frontend_js'] = 'Скрипты фронтенда';
+$_lang['setting_ms2_frontend_js_desc'] = 'Путь к файлу со скриптами магазина. Если вы хотите использовать собственные скрипты - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+
+$_lang['setting_ms2_cart_js_class_name'] = 'Название JS класса управления корзиной';
+$_lang['setting_ms2_cart_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_cart_js_class_path'] = 'Путь к JS управления корзиной';
+$_lang['setting_ms2_cart_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_order_js_class_name'] = 'Название JS класса для оформления заказа';
+$_lang['setting_ms2_order_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_order_js_class_path'] = 'Путь к JS классу для оформления заказа';
+$_lang['setting_ms2_order_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_notify_js_class_name'] = 'Название JS класса для показа уведомлений';
+$_lang['setting_ms2_notify_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_notify_js_class_path'] = 'Путь к JS классу для показа уведомлений';
+$_lang['setting_ms2_notify_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_toggle_js_type'] = 'Включить новый JavaScript?';
+$_lang['setting_ms2_toggle_js_type_desc'] = 'если выбрано ДА будут подключены скрипты без зависимости от jQuery, написанные с использованием возможностей стандарта ES6';
+
+$_lang['setting_ms2_vanila_js'] = 'Новые скрипты фронтенда';
+$_lang['setting_ms2_vanila_js_desc'] = 'путь к файлу инициализации новых скриптов магазина. Если хотите указать свои параметры инициализации - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+
+$_lang['setting_ms2_frontend_notify_js_settings'] = 'Настройки уведомлений для новой версии скриптов';
+$_lang['setting_ms2_frontend_notify_js_settings_desc'] = 'путь к файлу с настройками. обратите внимание файл в формате JSON';
+
+
 $_lang['setting_ms2_status_draft'] = 'ID статуса заказа Черновик';
 $_lang['setting_ms2_status_draft_desc'] = 'Какой статус нужно устанавливать для заказа-черновика';
 $_lang['setting_ms2_status_new'] = 'ID первоначального статуса заказа';
