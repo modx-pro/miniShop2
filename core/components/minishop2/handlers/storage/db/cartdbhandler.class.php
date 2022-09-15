@@ -244,7 +244,7 @@ class CartDBHandler extends BaseDBController
 
     protected function createMsOrder()
     {
-        $status = 999;
+        $status_draft = $this->modx->getOption('ms2_status_draft', null, 5);
         $this->msOrder = $this->modx->newObject('msOrder');
         $orderData = [
             'user_id' => $this->modx->getLoginUserID($this->ctx),
@@ -253,7 +253,7 @@ class CartDBHandler extends BaseDBController
             'cost' => 0,
             'cart_cost' => 0,
             'weight' => 0,
-            'status' => $status,
+            'status' => $status_draft,
             'context' => $this->ctx,
         ];
         $this->msOrder->fromArray($orderData);

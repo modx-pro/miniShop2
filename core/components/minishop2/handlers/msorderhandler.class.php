@@ -445,7 +445,8 @@ class msOrderHandler implements msOrderInterface
             $_SESSION['minishop2']['orders'][] = $msOrder->get('id');
 
             // Trying to set status "new"
-            $response = $this->ms2->changeOrderStatus($msOrder->get('id'), 1);
+            $status_new = $this->modx->getOption('ms2_status_new', null, 1);
+            $response = $this->ms2->changeOrderStatus($msOrder->get('id'), $status_new);
             if ($response !== true) {
                 return $this->error($response, array('msorder' => $msOrder->get('id')));
             }

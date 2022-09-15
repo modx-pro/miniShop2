@@ -15,6 +15,7 @@ $_lang['area_ms2_cart'] = 'Cart';
 $_lang['area_ms2_order'] = 'Order';
 $_lang['area_ms2_frontend'] = 'Frontend';
 $_lang['area_ms2_payment'] = 'Payments';
+$_lang['area_ms2_statuses'] = 'Statuses';
 
 $_lang['setting_ms2_services'] = 'Store services';
 $_lang['setting_ms2_services_desc'] = 'Array with registered classes for cart, order, shipping and payment. Used by third-party extras to load their functionality.';
@@ -149,3 +150,12 @@ $_lang['ms2_source_maxUploadWidth_desc'] = 'Maximum width of image for upload. A
 $_lang['ms2_source_maxUploadHeight_desc'] = 'Maximum height of image for upload. All images, that exceeds this parameter, will be resized to fit.';
 $_lang['ms2_source_maxUploadSize_desc'] = 'Maximum size of file for upload (in bytes).';
 $_lang['ms2_source_imageNameType_desc'] = 'This setting specifies how to rename a file after upload. Hash is the generation of a unique name depending on the contents of the file. Friendly - generation behalf of the algorithm friendly URLs of pages of the site (they are managed by system settings).';
+
+$_lang['setting_ms2_status_draft'] = 'ID of order status Draft';
+$_lang['setting_ms2_status_draft_desc'] = 'What status should be set for a draft order';
+$_lang['setting_ms2_status_new'] = 'Initial order status ID';
+$_lang['setting_ms2_status_new_desc'] = 'What status should be set for a new order';
+$_lang['setting_ms2_status_paid'] = 'Paid order status ID';
+$_lang['setting_ms2_status_paid_desc'] = 'What status should be set for after order payment';
+$_lang['setting_ms2_status_for_stat'] = 'Status IDs for statistics';
+$_lang['setting_ms2_status_for_stat_desc'] = 'Statuses, separated by commas, to build statistics of COMPLETED orders';
