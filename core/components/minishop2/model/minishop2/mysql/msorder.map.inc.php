@@ -19,7 +19,6 @@ $xpdo_meta_map['msOrder'] = array(
             'status' => 0,
             'delivery' => 0,
             'payment' => 0,
-            'address' => 0,
             'context' => 'web',
             'order_comment' => null,
             'properties' => null,
@@ -114,15 +113,6 @@ $xpdo_meta_map['msOrder'] = array(
                     'default' => 0,
                 ),
             'payment' =>
-                array(
-                    'dbtype' => 'int',
-                    'precision' => '10',
-                    'attributes' => 'unsigned',
-                    'phptype' => 'integer',
-                    'null' => true,
-                    'default' => 0,
-                ),
-            'address' =>
                 array(
                     'dbtype' => 'int',
                     'precision' => '10',
@@ -249,8 +239,8 @@ $xpdo_meta_map['msOrder'] = array(
             'Address' =>
                 array(
                     'class' => 'msOrderAddress',
-                    'local' => 'address',
-                    'foreign' => 'id',
+                    'local' => 'id',
+                    'foreign' => 'order_id',
                     'cardinality' => 'one',
                     'owner' => 'foreign',
                 ),

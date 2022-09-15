@@ -7,6 +7,7 @@ $xpdo_meta_map['msOrderAddress'] = array(
     'extends' => 'xPDOSimpleObject',
     'fields' =>
         array(
+            'order_id' => null,
             'user_id' => null,
             'createdon' => null,
             'updatedon' => null,
@@ -29,6 +30,14 @@ $xpdo_meta_map['msOrderAddress'] = array(
         ),
     'fieldMeta' =>
         array(
+            'order_id' =>
+                array(
+                    'dbtype' => 'int',
+                    'precision' => '10',
+                    'attributes' => 'unsigned',
+                    'phptype' => 'integer',
+                    'null' => false,
+                ),
             'user_id' =>
                 array(
                     'dbtype' => 'int',
@@ -161,6 +170,22 @@ $xpdo_meta_map['msOrderAddress'] = array(
         ),
     'indexes' =>
         array(
+            'order_id' =>
+                array(
+                    'alias' => 'order_id',
+                    'primary' => false,
+                    'unique' => false,
+                    'type' => 'BTREE',
+                    'columns' =>
+                        array(
+                            'order_id' =>
+                                array(
+                                    'length' => '',
+                                    'collation' => 'A',
+                                    'null' => false,
+                                ),
+                        ),
+                ),
             'user_id' =>
                 array(
                     'alias' => 'user_id',
