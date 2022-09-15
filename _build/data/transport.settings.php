@@ -277,6 +277,27 @@ $tmp = array(
         'xtype' => 'combo-boolean',
         'area' => 'ms2_frontend',
     ),
+
+    'ms2_status_draft' => array(
+        'value' => 0,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_statuses',
+    ),
+    'ms2_status_new' => array(
+        'value' => 0,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_statuses',
+    ),
+    'ms2_status_paid' => array(
+        'value' => 0,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_statuses',
+    ),
+    'ms2_status_for_stat' => array(
+        'value' => '2,3',
+        'xtype' => 'textfield',
+        'area' => 'ms2_statuses',
+    ),
 );
 
 /** @var modX $modx */

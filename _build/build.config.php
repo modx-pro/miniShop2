@@ -53,5 +53,6 @@ $BUILD_RESOLVERS = array(
     'sources',
     'settings',
     'chunks',
+    'statuses',
     'setup',
 );
