@@ -29,8 +29,10 @@ export default class MiniShop {
             this.miniShop2Config.actionUrl = document.location.href;
         }
         if (!this.miniShop2Config.formMethod) {
-            this.miniShop2Config.formMethod = 'POST';
+            this.miniShop2Config.formMethod = 'post';
         }
+        this.msLoadEvent = new CustomEvent('minishop-loaded', {bubbles: true, cancelable: false});
+
         this.initialize();
     }
 
@@ -51,6 +53,24 @@ export default class MiniShop {
 
     async initialize() {
 
+        if (this.miniShop2Config.notifySettingsPath) {
+            const response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            if (response.ok) {
+                const messageSettings = await response.json();
+                if(messageSettings){
+                    this.setHandler(
+                        'Message',
+                        'notifyClassPath',
+                        'notifyClassName',
+                        './msnotify.class.js',
+                        'msNotify',
+                        'Произошла ошибка при загрузке модуля уведомлений',
+                        messageSettings);
+
+                }
+            }
+        }
+
         this.setHandler(
             'Cart',
             'cartClassPath',
@@ -67,61 +87,23 @@ export default class MiniShop {
             'msOrder',
             'Произошла ошибка при загрузке модуля отправки заказа');
 
-        if (this.miniShop2Config.notifySettingsPath) {
-            const response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
-            if (response.ok) {
-                const messageSettings = await response.json();
-                if(messageSettings){
-                    this.setHandler(
-                        'Message',
-                        'notifyClassPath',
-                        'notifyClassName',
-                        './msnotify.class.js',
-                        'msNotify',
-                        'Произошла ошибка при загрузке модуля уведомлений',
-                        messageSettings);
-                }
-            }
-        }
-
         document.addEventListener('submit', e => {
             e.preventDefault();
             const $form = e.target,
                 action = $form.querySelector(this.action) ? $form.querySelector(this.action).value : '';
 
             if (action) {
-                const formData = new FormData($form);
+                const formData = new FormData($form),
+                    actionComponents = action.split('/'),
+                    object = actionComponents[0].replace(actionComponents[0].substring(0,1), actionComponents[0].substring(0,1).toUpperCase()),
+                    method = actionComponents[1];
                 formData.append(this.actionName, action);
                 this.formData = formData;
-
-                this.controller(action);
+                this[object][method](this.formData);
             }
         });
-    }
 
-    controller(action) {
-        switch (action) {
-            case 'cart/add':
-                this.Cart.add(this.formData);
-                break;
-            case 'cart/remove':
-                this.Cart.remove(this.formData);
-                break;
-            case 'cart/change':
-                this.Cart.change(this.formData);
-                break;
-            case 'cart/clean':
-                this.Cart.clean(this.formData);
-                break;
-            case 'order/submit':
-                this.Order.submit(this.formData);
-                break;
-            case 'order/clean':
-                this.Order.clean(this.formData);
-                break;
-            default:
-                return;
-        }
+        document.dispatchEvent(this.msLoadEvent);
     }
 
     callbacksObjectTemplate() {
