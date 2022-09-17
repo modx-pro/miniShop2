@@ -212,7 +212,7 @@ $tmp = [
     ],
     'ms2_order_address_fields' => [
         'xtype' => 'textarea',
-        'value' => 'receiver,phone,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address',
+        'value' => 'receiver,phone,email,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address',
         'area' => 'ms2_order',
     ],
     'ms2_order_product_fields' => [
