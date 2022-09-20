@@ -1,4 +1,4 @@
-export default class msNotify {
+export default class MsNotify {
     constructor(config) {
         this.config = config;
         this.initialize();

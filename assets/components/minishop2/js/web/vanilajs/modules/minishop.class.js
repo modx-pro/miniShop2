@@ -1,20 +1,23 @@
 export default class MiniShop {
     constructor(miniShop2Config) {
-        this.miniShop2Config = miniShop2Config;
+        this.miniShop2Config = Object.assign(miniShop2Config, {
+            actionUrl: document.location.href,
+            formMethod: 'POST',
+        });
         this.miniShop2Config.callbacksObjectTemplate = this.callbacksObjectTemplate;
         this.Callbacks = this.miniShop2Config.Callbacks = {
             Cart: {
                 add: this.miniShop2Config.callbacksObjectTemplate(),
                 remove: this.miniShop2Config.callbacksObjectTemplate(),
                 change: this.miniShop2Config.callbacksObjectTemplate(),
-                clean: this.miniShop2Config.callbacksObjectTemplate()
+                clean: this.miniShop2Config.callbacksObjectTemplate(),
             },
             Order: {
                 add: this.miniShop2Config.callbacksObjectTemplate(),
                 getcost: this.miniShop2Config.callbacksObjectTemplate(),
                 clean: this.miniShop2Config.callbacksObjectTemplate(),
                 submit: this.miniShop2Config.callbacksObjectTemplate(),
-                getrequired: this.miniShop2Config.callbacksObjectTemplate()
+                getrequired: this.miniShop2Config.callbacksObjectTemplate(),
             },
         };
         this.Callbacks.add = this.addCallback.bind(this);
@@ -25,16 +28,10 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
-        if (!this.miniShop2Config.actionUrl) {
-            this.miniShop2Config.actionUrl = document.location.href;
-        }
-        if (!this.miniShop2Config.formMethod) {
-            this.miniShop2Config.formMethod = 'POST';
-        }
         this.initialize();
     }
 
-    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, error_msg, response) {
+    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, errorMsg, response) {
         const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
                 this.miniShop2Config[pathPropertyName] : defaultPath,
             className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
@@ -42,15 +39,14 @@ export default class MiniShop {
             config = response ? response[className] : this;
 
         try {
-            const {default: ModuleName} = await import(classPath);
+            const { default: ModuleName } = await import(classPath);
             this[property] = new ModuleName(config);
         } catch (e) {
-            console.error(e, error_msg);
+            console.error(e, errorMsg);
         }
     }
 
     async initialize() {
-
         this.setHandler(
             'Cart',
             'cartClassPath',
@@ -68,10 +64,10 @@ export default class MiniShop {
             'Произошла ошибка при загрузке модуля отправки заказа');
 
         if (this.miniShop2Config.notifySettingsPath) {
-            const response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            const response = await this.sendResponse({ url: this.miniShop2Config.notifySettingsPath, method: 'GET' });
             if (response.ok) {
                 const messageSettings = await response.json();
-                if(messageSettings){
+                if (messageSettings) {
                     this.setHandler(
                         'Message',
                         'notifyClassPath',
@@ -86,11 +82,11 @@ export default class MiniShop {
 
         document.addEventListener('submit', e => {
             e.preventDefault();
-            const $form = e.target,
-                action = $form.querySelector(this.action) ? $form.querySelector(this.action).value : '';
+            const form = e.target;
+            const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
 
             if (action) {
-                const formData = new FormData($form);
+                const formData = new FormData(form);
                 formData.append(this.actionName, action);
                 this.formData = formData;
 
@@ -130,13 +126,13 @@ export default class MiniShop {
             before: [],
             response: {
                 success: [],
-                error: []
+                error: [],
             },
             ajax: {
                 done: [],
                 fail: [],
-                always: []
-            }
+                always: [],
+            },
         }
     }
 
@@ -197,13 +193,13 @@ export default class MiniShop {
 
     sendResponse(params) {
         const body = params.body || new FormData(),
-            headers = params.headers || {"X-Requested-With": "XMLHttpRequest"},
+            headers = params.headers || { 'X-Requested-With': 'XMLHttpRequest' },
             url = params.url || this.miniShop2Config.actionUrl,
             method = params.method || this.miniShop2Config.formMethod;
 
-        let options = {method, headers, body};
-        if(method == 'GET'){
-            options = {method, headers};
+        let options = { method, headers, body };
+        if (method === 'GET') {
+            options = { method, headers };
         }
 
         return fetch(url, options);
@@ -218,42 +214,41 @@ export default class MiniShop {
         if (Array.isArray(data)) {
             data.push({
                 name: 'ctx',
-                value: this.miniShop2Config.ctx
+                value: this.miniShop2Config.ctx,
             });
         } else if (data instanceof FormData) {
             data.append('ctx', this.miniShop2Config.ctx);
-        } else if (typeof data == 'string') {
+        } else if (typeof data === 'string') {
             data += '&ctx=' + this.miniShop2Config.ctx;
         }
 
-        const xhr = await this.sendResponse({body : data, headers});
-        const self = this;
-        if (xhr.ok) {
-            const response = await xhr.json();
-            if (response.success) {
-                if (response.message) {
-                    self.Message.success(response.message);
+        const response = await this.sendResponse({ body: data, headers });
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+                if (result.message) {
+                    this.Message.success(result.message);
                 }
-                self.runCallback(callbacks.response.success, self, response);
-                self.runCallback(userCallbacks.response.success, self, response);
+                this.runCallback(callbacks.response.success, this, result);
+                this.runCallback(userCallbacks.response.success, this, result);
             } else {
-                self.Message.error(response.message);
-                this.runCallback(callbacks.response.error, self, response);
-                this.runCallback(userCallbacks.response.error, self, response);
+                this.Message.error(result.message);
+                this.runCallback(callbacks.response.error, this, result);
+                this.runCallback(userCallbacks.response.error, this, result);
             }
-            this.runCallback(callbacks.ajax.done, self, xhr);
-            this.runCallback(userCallbacks.ajax.done, self, xhr);
+            this.runCallback(callbacks.ajax.done, this, response);
+            this.runCallback(userCallbacks.ajax.done, this, response);
         } else {
-            this.runCallback(callbacks.ajax.fail, self, xhr);
-            this.runCallback(userCallbacks.ajax.fail, self, xhr);
+            this.runCallback(callbacks.ajax.fail, this, response);
+            this.runCallback(userCallbacks.ajax.fail, this, response);
         }
-        this.runCallback(callbacks.ajax.always, self, xhr);
-        this.runCallback(userCallbacks.ajax.always, self, xhr);
+        this.runCallback(callbacks.ajax.always, this, response);
+        this.runCallback(userCallbacks.ajax.always, this, response);
     }
 
     formatPrice(price) {
-        var pf = this.miniShop2Config.price_format;
-        price = this.number_format(price, pf[0], pf[1], pf[2]);
+        const pf = this.miniShop2Config.price_format;
+        price = this.numberFormat(price, pf[0], pf[1], pf[2]);
 
         if (this.miniShop2Config.price_format_no_zeros && pf[0] > 0) {
             price = price.replace(/(0+)$/, '');
@@ -264,8 +259,8 @@ export default class MiniShop {
     }
 
     formatWeight(weight) {
-        var wf = this.miniShop2Config.weight_format;
-        weight = this.number_format(weight, wf[0], wf[1], wf[2]);
+        const wf = this.miniShop2Config.weight_format;
+        weight = this.numberFormat(weight, wf[0], wf[1], wf[2]);
 
         if (this.miniShop2Config.weight_format_no_zeros && wf[0] > 0) {
             weight = weight.replace(/(0+)$/, '');
@@ -275,7 +270,7 @@ export default class MiniShop {
         return weight;
     }
 
-    number_format(number, decimals, dec_point, thousands_sep) {
+    numberFormat(number, decimals, decPoint, thousandsSep) {
         // original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
         // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
         // bugfix by: Michael White (http://crestidg.com)
@@ -285,11 +280,11 @@ export default class MiniShop {
         if (isNaN(decimals = Math.abs(decimals))) {
             decimals = 2;
         }
-        if (dec_point == undefined) {
-            dec_point = ',';
+        if (decPoint == undefined) {
+            decPoint = ',';
         }
-        if (thousands_sep == undefined) {
-            thousands_sep = '.';
+        if (thousandsSep == undefined) {
+            thousandsSep = '.';
         }
 
         i = parseInt(number = (+number || 0).toFixed(decimals)) + '';
@@ -301,11 +296,11 @@ export default class MiniShop {
         }
 
         km = j
-            ? i.substr(0, j) + thousands_sep
+            ? i.substring(0, j) + thousandsSep
             : '';
-        kw = i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep);
+        kw = i.substring(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandsSep);
         kd = (decimals
-            ? dec_point + Math.abs(number - i).toFixed(decimals).replace(/-/, '0').slice(2)
+            ? decPoint + Math.abs(number - i).toFixed(decimals).replace(/-/, '0').slice(2)
             : '');
 
         return km + kw + kd;
