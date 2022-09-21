@@ -93,7 +93,10 @@ if ($transport->xpdo) {
                 $id = $properties['id'];
                 unset($properties['id']);
 
-                $status = $modx->getObject('msOrderStatus', ['id' => $id]);
+                $status = $modx->getObject('msOrderStatus', [
+                    'id' => $id,
+                    'OR:name:=' => $properties['name']
+                ]);
                 if (!$status) {
                     $status = $modx->newObject('msOrderStatus', array_merge([
                         'editable' => 0,
