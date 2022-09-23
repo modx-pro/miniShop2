@@ -299,7 +299,7 @@ $tmp = [
         'area' => 'ms2_frontend',
     ],
     'ms2_cart_js_class_name' => [
-        'value' => 'msCart',
+        'value' => 'MsCart',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ],
@@ -309,7 +309,7 @@ $tmp = [
         'area' => 'ms2_frontend',
     ],
     'ms2_order_js_class_name' => [
-        'value' => 'msOrder',
+        'value' => 'MsOrder',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ],
@@ -319,7 +319,7 @@ $tmp = [
         'area' => 'ms2_frontend',
     ],
     'ms2_notify_js_class_name' => [
-        'value' => 'msIziToast',
+        'value' => 'MsIziToast',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ],
