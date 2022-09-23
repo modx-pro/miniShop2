@@ -52,7 +52,7 @@ export default class msCart {
     remove(formData) {
         const callbacks = this.callbacks;
         callbacks.remove.response.success = (response) => {
-            this.remove_position(formData.get('key'));
+            this.removePosition(formData.get('key'));
             this.status(response.data);
         };
         this.minishop.send(formData, this.callbacks.remove, this.minishop.Callbacks.Cart.remove);
@@ -63,7 +63,7 @@ export default class msCart {
         this.formData = this.minishop.formData;
         callbacks.change.response.success = (response) => {
             if (typeof (response.data.key) == 'undefined') {
-                this.remove_position(this.formData.get('key'));
+                this.removePosition(this.formData.get('key'));
             }
             this.status(response.data);
         };
@@ -111,7 +111,7 @@ export default class msCart {
         this.minishop.send(formData, this.callbacks.clean, this.minishop.Callbacks.Cart.clean);
     }
 
-    remove_position(key) {
+    removePosition(key) {
         document.querySelector('[id="' + key + '"]').remove();
     }
 }
