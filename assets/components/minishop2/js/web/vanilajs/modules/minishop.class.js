@@ -86,38 +86,20 @@ export default class MiniShop {
             const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
 
             if (action) {
-                const formData = new FormData(form);
+                const formData = new FormData(form),
+                    components = this.getObjectMethod(action);
                 formData.append(this.actionName, action);
                 this.formData = formData;
-
-                this.controller(action);
+                this[components.object][components.method](this.formData);
             }
         });
     }
 
-    controller(action) {
-        switch (action) {
-            case 'cart/add':
-                this.Cart.add(this.formData);
-                break;
-            case 'cart/remove':
-                this.Cart.remove(this.formData);
-                break;
-            case 'cart/change':
-                this.Cart.change(this.formData);
-                break;
-            case 'cart/clean':
-                this.Cart.clean(this.formData);
-                break;
-            case 'order/submit':
-                this.Order.submit(this.formData);
-                break;
-            case 'order/clean':
-                this.Order.clean(this.formData);
-                break;
-            default:
-                return;
-        }
+    getObjectMethod(action) {
+        const actionComponents = action.split('/'),
+            object = actionComponents[0].replace(actionComponents[0].substring(0, 1), actionComponents[0].substring(0, 1).toUpperCase()),
+            method = actionComponents[1];
+        return {object, method};
     }
 
     callbacksObjectTemplate() {
