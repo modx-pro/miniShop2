@@ -208,15 +208,13 @@ export default class MiniShop {
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
-                if (result.message) {
-                    this.Message.success(result.message);
-                }
                 this.runCallback(callbacks.response.success, this, result);
                 this.runCallback(userCallbacks.response.success, this, result);
+                result.message ? this.Message.success(result.message) : '';
             } else {
-                this.Message.error(result.message);
                 this.runCallback(callbacks.response.error, this, result);
                 this.runCallback(userCallbacks.response.error, this, result);
+                result.message ? this.Message.error(result.message) : '';
             }
             this.runCallback(callbacks.ajax.done, this, response);
             this.runCallback(userCallbacks.ajax.done, this, response);
