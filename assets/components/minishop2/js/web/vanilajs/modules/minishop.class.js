@@ -28,6 +28,7 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
+        this.msLoadEvent = new CustomEvent('minishop-loaded', {bubbles: true, cancelable: false});
         this.initialize();
     }
 
@@ -93,6 +94,8 @@ export default class MiniShop {
                 this[components.object][components.method](this.formData);
             }
         });
+
+        document.dispatchEvent(this.msLoadEvent);
     }
 
     getObjectMethod(action) {
@@ -208,15 +211,15 @@ export default class MiniShop {
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
+                this.runCallback(callbacks.response.success, this, result);
+                this.runCallback(userCallbacks.response.success, this, result);
                 if (result.message) {
                     this.Message.success(result.message);
                 }
-                this.runCallback(callbacks.response.success, this, result);
-                this.runCallback(userCallbacks.response.success, this, result);
             } else {
-                this.Message.error(result.message);
                 this.runCallback(callbacks.response.error, this, result);
                 this.runCallback(userCallbacks.response.error, this, result);
+                this.Message.error(result.message);
             }
             this.runCallback(callbacks.ajax.done, this, response);
             this.runCallback(userCallbacks.ajax.done, this, response);
