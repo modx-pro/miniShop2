@@ -52,7 +52,7 @@ export default class MiniShop {
             'cartClassPath',
             'cartClassName',
             './mscart.class.js',
-            'msCart',
+            'MsCart',
             'Произошла ошибка при загрузке модуля корзины');
 
         this.setHandler(
@@ -60,7 +60,7 @@ export default class MiniShop {
             'orderClassPath',
             'orderClassName',
             './msorder.class.js',
-            'msOrder',
+            'MsOrder',
             'Произошла ошибка при загрузке модуля отправки заказа');
 
         if (this.miniShop2Config.notifySettingsPath) {
@@ -73,7 +73,7 @@ export default class MiniShop {
                         'notifyClassPath',
                         'notifyClassName',
                         './msnotify.class.js',
-                        'msNotify',
+                        'MsNotify',
                         'Произошла ошибка при загрузке модуля уведомлений',
                         messageSettings);
                 }
