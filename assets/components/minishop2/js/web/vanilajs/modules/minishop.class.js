@@ -88,7 +88,6 @@ export default class MiniShop {
             if (action) {
                 const formData = new FormData(form),
                     components = this.getObjectMethod(action);
-                console.log(components);
                 formData.append(this.actionName, action);
                 this.formData = formData;
                 this[components.object][components.method](this.formData);
