@@ -111,7 +111,7 @@ export default class MsOrder {
                 }
             }
 
-            field.value = response.data[key];
+            field.value = response.data[key] || '';
             field.classList.remove('error');
             field.closest(this.inputParent).classList.remove('error');
         }
