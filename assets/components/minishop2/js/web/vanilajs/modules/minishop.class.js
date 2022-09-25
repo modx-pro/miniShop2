@@ -96,6 +96,7 @@ export default class MiniShop {
             }
         });
 
+        window.miniShop2 = this;
         document.dispatchEvent(this.msLoadEvent);
     }
 
