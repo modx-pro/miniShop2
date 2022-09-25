@@ -106,3 +106,9 @@
         </form>
     {/if}
 </div>
+
+<div class="ms-input-number-wrap">
+    <button class="ms-input-number-btn ms-input-number-minus btn btn-sm btn-secondary" type="button">&#8722;</button>
+    <input class="ms-input-number-emulator" value="{$product.count}" name="count" type="text">
+    <button class="ms-input-number-btn ms-input-number-plus btn btn-sm btn-secondary" type="button">&#43;</button>
+</div>

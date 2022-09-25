@@ -48,22 +48,6 @@ export default class MiniShop {
     }
 
     async initialize() {
-        this.setHandler(
-            'Cart',
-            'cartClassPath',
-            'cartClassName',
-            './mscart.class.js',
-            'msCart',
-            'Произошла ошибка при загрузке модуля корзины');
-
-        this.setHandler(
-            'Order',
-            'orderClassPath',
-            'orderClassName',
-            './msorder.class.js',
-            'msOrder',
-            'Произошла ошибка при загрузке модуля отправки заказа');
-
         if (this.miniShop2Config.notifySettingsPath) {
             const response = await this.sendResponse({ url: this.miniShop2Config.notifySettingsPath, method: 'GET' });
             if (response.ok) {
@@ -80,6 +64,22 @@ export default class MiniShop {
                 }
             }
         }
+
+        this.setHandler(
+            'Cart',
+            'cartClassPath',
+            'cartClassName',
+            './mscart.class.js',
+            'msCart',
+            'Произошла ошибка при загрузке модуля корзины');
+
+        this.setHandler(
+            'Order',
+            'orderClassPath',
+            'orderClassName',
+            './msorder.class.js',
+            'msOrder',
+            'Произошла ошибка при загрузке модуля отправки заказа');
 
         document.addEventListener('submit', e => {
             e.preventDefault();

@@ -1,4 +1,4 @@
-import MsNotify from './msnotify.class.js';
+import MsNotify from '../../components/minishop2/js/web/vanilajs/modules/msnotify.class.js';
 
 export default class MsSwal2 extends MsNotify {
     show(type, message) {
