@@ -12,8 +12,7 @@ export default class MsCart {
         }
 
         this.cart = document.querySelector('#msCart');
-        this.miniCart = document.querySelector('#msMiniCart');
-        this.miniCarts = document.querySelectorAll('.msMiniCart');
+        this.miniCarts = document.querySelectorAll('#msMiniCart, .msMiniCart');
         this.miniCartNotEmptyClass = 'full';
 
         this.totalWeight = document.querySelectorAll('.ms2_total_weight');
@@ -72,7 +71,7 @@ export default class MsCart {
             location.reload();
         }
 
-        this.allMiniCarts.forEach(cart => cart.classList.add(this.miniCartNotEmptyClass));
+        this.miniCarts.forEach(cart => cart.classList.add(this.miniCartNotEmptyClass));
 
         this.totalWeight.forEach(el => { el.innerText = this.minishop.formatWeight(status.total_weight); });
         this.totalCount.forEach(el => { el.innerText = status.total_count; });
@@ -93,9 +92,5 @@ export default class MsCart {
 
     removePosition(key) {
         document.getElementById(key)?.remove();
-    }
-
-    get allMiniCarts () {
-        return this.miniCart ? [...this.miniCarts, this.miniCart] : this.miniCarts;
     }
 }
