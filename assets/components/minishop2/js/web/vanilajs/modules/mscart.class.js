@@ -73,10 +73,7 @@ export default class MsCart {
             location.reload();
         }
 
-        const allMiniCarts = [...this.miniCarts, this.miniCart];
-        if (allMiniCarts.length) {
-            allMiniCarts.forEach(cart => cart.classList.add(this.miniCartNotEmptyClass));
-        }
+        this.allMiniCarts.forEach(cart => cart.classList.add(this.miniCartNotEmptyClass));
 
         this.totalWeight.forEach(el => { el.innerText = this.minishop.formatWeight(status.total_weight); });
         this.totalCount.forEach(el => { el.innerText = status.total_count; });
@@ -97,5 +94,9 @@ export default class MsCart {
 
     removePosition(key) {
         document.getElementById(key)?.remove();
+    }
+
+    get allMiniCarts () {
+        return this.miniCart ? [...this.miniCarts, this.miniCart] : this.miniCarts;
     }
 }
