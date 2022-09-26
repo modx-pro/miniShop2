@@ -28,7 +28,6 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
-        this.msLoadEvent = new CustomEvent('minishop-loaded', {bubbles: true, cancelable: false});
 
         this.initialize();
     }
@@ -95,9 +94,6 @@ export default class MiniShop {
                 this[components.object][components.method](this.formData);
             }
         });
-
-        window.miniShop2 = this;
-        document.dispatchEvent(this.msLoadEvent);
     }
 
     getObjectMethod(action) {
