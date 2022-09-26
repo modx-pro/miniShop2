@@ -117,7 +117,7 @@ class miniShop2
                         $js .= '?v=' . substr(md5($this->version), 0, 10);
                     }
                     $js = str_replace($config['pl'], $config['vl'], $js);
-                    $this->modx->regClientScript('<script type="module" src="'.$js.'"></script>',1);
+                    $this->modx->regClientStartupScript('<script type="module" src="'.$js.'"></script>',1);
                 }
 
                 $js_setting = array(
