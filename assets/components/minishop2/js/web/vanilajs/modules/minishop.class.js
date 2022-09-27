@@ -1,9 +1,19 @@
 export default class MiniShop {
     constructor(miniShop2Config) {
-        this.miniShop2Config = Object.assign(miniShop2Config, {
+        const defaults = {
+            notifyClassPath: './msnotify.class.js',
+            notifyClassName: 'MsNotify',
+            cartClassPath: './mscart.class.js',
+            cartClassName: 'MsCart',
+            orderClassPath: './msorder.class.js',
+            orderClassName: 'MsOrder',
+            moduleImportErrorMsg: 'Произошла ошибка при загрузке модуля',
+            properties: ['Message', 'Cart', 'Order'],
             actionUrl: document.location.href,
             formMethod: 'POST',
-        });
+        };
+        this.miniShop2Config = Object.assign(defaults, miniShop2Config);
+
         this.miniShop2Config.callbacksObjectTemplate = this.callbacksObjectTemplate;
         this.Callbacks = this.miniShop2Config.Callbacks = {
             Cart: {
@@ -32,54 +42,35 @@ export default class MiniShop {
         this.initialize();
     }
 
-    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, errorMsg, response) {
-        const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
-                this.miniShop2Config[pathPropertyName] : defaultPath,
-            className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
-                this.miniShop2Config[classnamePropertyName] : defaultClassName,
-            config = response ? response[className] : this;
+    async setHandler(property){
+        let prefix = property.toLowerCase(),
+            response = false,
+            messageSettings = false;
+        if(prefix === 'message'){
+            prefix = 'notify';
+            response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            if (response.ok) {
+                messageSettings = await response.json();
+            }
+        }
+        const classPath = this.miniShop2Config[prefix + 'ClassPath'];
+        const className = this.miniShop2Config[prefix + 'ClassName'];
+        const config = messageSettings ? messageSettings[className] : this;
 
         try {
-            const { default: ModuleName } = await import(classPath);
+            const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
         } catch (e) {
-            console.error(e, errorMsg);
+            throw new Error(this.miniShop2Config.moduleImportErrorMsg);
         }
     }
 
     async initialize() {
-        if (this.miniShop2Config.notifySettingsPath) {
-            const response = await this.sendResponse({ url: this.miniShop2Config.notifySettingsPath, method: 'GET' });
-            if (response.ok) {
-                const messageSettings = await response.json();
-                if (messageSettings) {
-                    this.setHandler(
-                        'Message',
-                        'notifyClassPath',
-                        'notifyClassName',
-                        './msnotify.class.js',
-                        'MsNotify',
-                        'Произошла ошибка при загрузке модуля уведомлений',
-                        messageSettings);
-                }
-            }
-        }
+        if(!this.miniShop2Config.properties.length) { throw new Error('Не передан массив имён обработчиков'); }
 
-        this.setHandler(
-            'Cart',
-            'cartClassPath',
-            'cartClassName',
-            './mscart.class.js',
-            'MsCart',
-            'Произошла ошибка при загрузке модуля корзины');
-
-        this.setHandler(
-            'Order',
-            'orderClassPath',
-            'orderClassName',
-            './msorder.class.js',
-            'MsOrder',
-            'Произошла ошибка при загрузке модуля отправки заказа');
+        await this.miniShop2Config.properties.forEach(property => {
+            this.setHandler(property);
+        });
 
         document.addEventListener('submit', e => {
             e.preventDefault();
