@@ -1,9 +1,19 @@
 export default class MiniShop {
     constructor(miniShop2Config) {
-        this.miniShop2Config = Object.assign(miniShop2Config, {
+        const defaults = {
+            notifyClassPath: './msnotify.class.js',
+            notifyClassName: 'MsNotify',
+            cartClassPath: './mscart.class.js',
+            cartClassName: 'MsCart',
+            orderClassPath: './msorder.class.js',
+            orderClassName: 'MsOrder',
+            moduleImportErrorMsg: 'Произошла ошибка при загрузке модуля',
+            properties: ['Message', 'Cart', 'Order'],
             actionUrl: document.location.href,
             formMethod: 'POST',
-        });
+        };
+        this.miniShop2Config = Object.assign(defaults, miniShop2Config);
+
         this.miniShop2Config.callbacksObjectTemplate = this.callbacksObjectTemplate;
         this.Callbacks = this.miniShop2Config.Callbacks = {
             Cart: {
@@ -28,96 +38,64 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
+
         this.initialize();
     }
 
-    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, errorMsg, response) {
-        const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
-                this.miniShop2Config[pathPropertyName] : defaultPath,
-            className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
-                this.miniShop2Config[classnamePropertyName] : defaultClassName,
-            config = response ? response[className] : this;
+    async setHandler(property){
+        let prefix = property.toLowerCase(),
+            response = false,
+            messageSettings = false;
+        if(prefix === 'message'){
+            prefix = 'notify';
+            response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            if (response.ok) {
+                messageSettings = await response.json();
+            }
+        }
+        const classPath = this.miniShop2Config[prefix + 'ClassPath'];
+        const className = this.miniShop2Config[prefix + 'ClassName'];
+        const config = messageSettings ? messageSettings[className] : this;
 
         try {
-            const { default: ModuleName } = await import(classPath);
+            const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
         } catch (e) {
-            console.error(e, errorMsg);
+            throw new Error(this.miniShop2Config.moduleImportErrorMsg);
         }
     }
 
     async initialize() {
-        this.setHandler(
-            'Cart',
-            'cartClassPath',
-            'cartClassName',
-            './mscart.class.js',
-            'msCart',
-            'Произошла ошибка при загрузке модуля корзины');
+        if(!this.miniShop2Config.properties.length) { throw new Error('Не передан массив имён обработчиков'); }
 
-        this.setHandler(
-            'Order',
-            'orderClassPath',
-            'orderClassName',
-            './msorder.class.js',
-            'msOrder',
-            'Произошла ошибка при загрузке модуля отправки заказа');
-
-        if (this.miniShop2Config.notifySettingsPath) {
-            const response = await this.sendResponse({ url: this.miniShop2Config.notifySettingsPath, method: 'GET' });
-            if (response.ok) {
-                const messageSettings = await response.json();
-                if (messageSettings) {
-                    this.setHandler(
-                        'Message',
-                        'notifyClassPath',
-                        'notifyClassName',
-                        './msnotify.class.js',
-                        'msNotify',
-                        'Произошла ошибка при загрузке модуля уведомлений',
-                        messageSettings);
-                }
-            }
-        }
-
-        document.addEventListener('submit', e => {
-            e.preventDefault();
-            const form = e.target;
-            const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
-
-            if (action) {
-                const formData = new FormData(form);
-                formData.append(this.actionName, action);
-                this.formData = formData;
-
-                this.controller(action);
-            }
+        await this.miniShop2Config.properties.forEach(property => {
+            this.setHandler(property);
         });
+
+        const forms = document.querySelectorAll(this.form);
+        if(forms.length){
+            forms.forEach(form => {
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
+
+                    if (action) {
+                        const formData = new FormData(form),
+                            components = this.getObjectMethod(action);
+                        formData.append(this.actionName, action);
+                        this.formData = formData;
+                        this[components.object][components.method](this.formData);
+                    }
+                });
+            });
+        }
     }
 
-    controller(action) {
-        switch (action) {
-            case 'cart/add':
-                this.Cart.add(this.formData);
-                break;
-            case 'cart/remove':
-                this.Cart.remove(this.formData);
-                break;
-            case 'cart/change':
-                this.Cart.change(this.formData);
-                break;
-            case 'cart/clean':
-                this.Cart.clean(this.formData);
-                break;
-            case 'order/submit':
-                this.Order.submit(this.formData);
-                break;
-            case 'order/clean':
-                this.Order.clean(this.formData);
-                break;
-            default:
-                return;
-        }
+    getObjectMethod(action) {
+        const actionComponents = action.split('/'),
+            object = actionComponents[0].replace(actionComponents[0].substring(0, 1), actionComponents[0].substring(0, 1).toUpperCase()),
+            method = actionComponents[1];
+        return {object, method};
     }
 
     callbacksObjectTemplate() {
