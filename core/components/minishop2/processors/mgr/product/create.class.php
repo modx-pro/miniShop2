@@ -15,8 +15,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function prepareAlias()
     {
         if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
@@ -31,8 +31,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function beforeSet()
     {
         $this->setDefaultProperties(array(
@@ -56,13 +56,19 @@ class msProductCreateProcessor extends modResourceCreateProcessor
         }
         $this->setProperty('options', $options);
 
+        if ($properties['vendor']) {
+            if ($vendor_id = $this->createVendor($properties['vendor'])) {
+                $this->setProperty('vendor', $vendor_id);
+            }
+        }
+
         return parent::beforeSet();
     }
 
 
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function beforeSave()
     {
         $this->object->set('isfolder', false);
@@ -72,8 +78,8 @@ class msProductCreateProcessor extends modResourceCreateProcessor
 
 
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function afterSave()
     {
         if ($this->object->get('alias') == 'empty-resource-alias') {
@@ -90,6 +96,21 @@ class msProductCreateProcessor extends modResourceCreateProcessor
         }
 
         return parent::afterSave();
+    }
+
+
+    /**
+     * @return int
+     */
+    public function createVendor($name)
+    {
+        if (!$this->modx->getObject('msVendor', ['id' => $name])) {
+            $vendor = $this->modx->newObject('msVendor');
+            $vendor->set('name', $name);
+            $vendor->save();
+
+            return $vendor->get('id');
+        }
     }
 }
 
