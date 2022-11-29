@@ -132,13 +132,18 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
      */
     public function createVendor($name)
     {
-        if (!$this->modx->getObject('msVendor', ['id' => $name])) {
+        $criteria = [
+            'id' => $name,
+            'OR:name:=' => $name
+        ];
+
+        if (!$vendor = $this->modx->getObject('msVendor', $criteria)) {
             $vendor = $this->modx->newObject('msVendor');
             $vendor->set('name', $name);
             $vendor->save();
-
-            return $vendor->get('id');
         }
+
+        return $vendor->get('id');
     }
 }
 
