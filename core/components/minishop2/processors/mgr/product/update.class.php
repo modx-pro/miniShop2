@@ -2,6 +2,7 @@
 
 require_once MODX_CORE_PATH . 'model/modx/modprocessor.class.php';
 require_once MODX_CORE_PATH . 'model/modx/processors/resource/update.class.php';
+require_once dirname(__FILE__) . '/getvendor.php';
 
 class msProductUpdateProcessor extends modResourceUpdateProcessor
 {
@@ -53,7 +54,9 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         }
 
         if ($properties['vendor']) {
-            if ($vendor_id = $this->createVendor($properties['vendor'])) {
+            $getVendor = new GetVendor();
+            $vendor_id = $getVendor::getVendorId($this->modx, $properties['vendor']);
+            if ($vendor_id) {
                 $this->setProperty('vendor', $vendor_id);
             }
         }
@@ -124,26 +127,6 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
         if (!empty($this->newParent)) {
             $this->newParent->set('isfolder', true);
         }
-    }
-
-
-    /**
-     * @return int
-     */
-    public function createVendor($name)
-    {
-        $criteria = [
-            'id' => $name,
-            'OR:name:=' => $name
-        ];
-
-        if (!$vendor = $this->modx->getObject('msVendor', $criteria)) {
-            $vendor = $this->modx->newObject('msVendor');
-            $vendor->set('name', $name);
-            $vendor->save();
-        }
-
-        return $vendor->get('id');
     }
 }
 
