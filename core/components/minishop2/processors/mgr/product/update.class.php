@@ -2,6 +2,7 @@
 
 require_once MODX_CORE_PATH . 'model/modx/modprocessor.class.php';
 require_once MODX_CORE_PATH . 'model/modx/processors/resource/update.class.php';
+require_once dirname(__FILE__) . '/getvendor.php';
 
 class msProductUpdateProcessor extends modResourceUpdateProcessor
 {
@@ -15,8 +16,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         $primaryKey = $this->getProperty($this->primaryKeyField, false);
@@ -36,8 +37,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function beforeSet()
     {
         $properties = $this->getProperties();
@@ -52,13 +53,21 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
             $this->setProperty('options', $options);
         }
 
+        if ($properties['vendor']) {
+            $getVendor = new GetVendor();
+            $vendor_id = $getVendor::getVendorId($this->modx, $properties['vendor']);
+            if ($vendor_id) {
+                $this->setProperty('vendor', $vendor_id);
+            }
+        }
+
         return parent::beforeSet();
     }
 
 
     /**
-    *
-    */
+     *
+     */
     public function handleCheckBoxes()
     {
         parent::handleCheckBoxes();
@@ -70,8 +79,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-    * @return int|mixed|string
-    */
+     * @return int|mixed|string
+     */
     public function checkFriendlyAlias()
     {
         if ($this->workingContext->getOption('ms2_product_id_as_alias')) {
@@ -86,8 +95,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSave()
     {
         $this->object->set('isfolder', false);
@@ -97,8 +106,8 @@ class msProductUpdateProcessor extends modResourceUpdateProcessor
 
 
     /**
-    *
-    */
+     *
+     */
     public function fixParents()
     {
         if (!$this->modx->getOption('auto_isfolder', null, true)) {
