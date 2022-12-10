@@ -206,17 +206,17 @@ if (!empty($rows) && is_array($rows)) {
 
     // Adding extra parameters into special place so we can put them in a results
     /** @var modSnippet $snippet */
-    $addplace = $tmprops = [];
+    $additionalPlaceholders = $properties = [];
     if (isset($this) && $this instanceof modSnippet && $this->get('properties')) {
-        $tmprops = $this->get('properties');
+        $properties = $this->get('properties');
     }
-    elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'msProduct'])) {
-        $tmprops = $snippet->get('properties');
+    elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'pdoResources'])) {
+        $properties = $snippet->get('properties');
     }
-    if (!empty($tmprops)) {
+    if (!empty($properties)) {
         foreach ($scriptProperties as $k => $v) {
-            if (!isset($tmprops[$k])) {
-                $addplace[$k] = $v;
+            if (!isset($properties[$k])) {
+                $additionalPlaceholders[$k] = $v;
             }
         }
     }
@@ -242,7 +242,7 @@ if (!empty($rows) && is_array($rows)) {
 
         $opt_time_start = microtime(true);
         $options = $modx->call('msProductData', 'loadOptions', array($modx, $row['id']));
-        $row = array_merge($row, $options,$addplace);
+        $row = array_merge($additionalPlaceholders, $row, $options);
         $opt_time += microtime(true) - $opt_time_start;
 
         $tpl = $pdoFetch->defineChunk($row);
@@ -275,10 +275,7 @@ if (is_string($rows)) {
     $output = implode($outputSeparator, $output);
 
     if (!empty($tplWrapper) && (!empty($wrapIfEmpty) || !empty($output))) {
-        $output = $pdoFetch->getChunk($tplWrapper, array(
-            'output' => $output,
-            'scriptProperties' => $scriptProperties
-        ));
+        $output = $pdoFetch->getChunk($tplWrapper, array_merge($additionalPlaceholders, ['output' => $output, 'scriptProperties' => $scriptProperties]));
     }
 
     if (!empty($toPlaceholder)) {
