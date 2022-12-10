@@ -210,7 +210,7 @@ if (!empty($rows) && is_array($rows)) {
     if (isset($this) && $this instanceof modSnippet && $this->get('properties')) {
         $properties = $this->get('properties');
     }
-    elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'pdoResources'])) {
+    elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'msProduct'])) {
         $properties = $snippet->get('properties');
     }
     if (!empty($properties)) {
