@@ -339,6 +339,11 @@ $tmp = [
         'xtype' => 'numberfield',
         'area' => 'ms2_statuses',
     ],
+    'ms2_status_canceled' => [
+        'value' => 0,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_statuses',
+    ],
     'ms2_status_for_stat' => [
         'value' => '2,3',
         'xtype' => 'textfield',

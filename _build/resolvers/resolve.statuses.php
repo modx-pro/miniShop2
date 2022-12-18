@@ -134,6 +134,10 @@ if ($transport->xpdo) {
                     case 'Paid':
                         $key = 'ms2_status_paid';
                         break;
+                    case 'Отменен':
+                    case 'cancelled':
+                        $key = 'ms2_status_canceled';
+                        break;
                     case 'Черновик':
                     case 'Draft':
                         $key = 'ms2_status_draft';
