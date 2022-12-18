@@ -190,7 +190,7 @@ $pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
 $rows = $pdoFetch->run();
 
 // Process rows
-$output = array();
+$output = $additionalPlaceholders = array();
 if (!empty($rows) && is_array($rows)) {
     $c = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice', 'msOnGetProductWeight', 'msOnGetProductFields')));
     $c->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
@@ -206,11 +206,10 @@ if (!empty($rows) && is_array($rows)) {
 
     // Adding extra parameters into special place so we can put them in a results
     /** @var modSnippet $snippet */
-    $additionalPlaceholders = $properties = [];
+    $properties = [];
     if (isset($this) && $this instanceof modSnippet && $this->get('properties')) {
         $properties = $this->get('properties');
-    }
-    elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'msProduct'])) {
+    } elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'msProduct'])) {
         $properties = $snippet->get('properties');
     }
     if (!empty($properties)) {
@@ -220,8 +219,6 @@ if (!empty($rows) && is_array($rows)) {
             }
         }
     }
-    
-    
     $opt_time = 0;
     foreach ($rows as $k => $row) {
         if ($modifications) {
