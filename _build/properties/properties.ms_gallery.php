@@ -48,6 +48,10 @@ $tmp = array(
         'value' => '',
         'desc' => 'ms2_prop_filetype',
     ),
+    'return' => array(
+        'type' => 'textfield',
+        'value' => 'tpl',
+    ),
 );
 
 foreach ($tmp as $k => $v) {
