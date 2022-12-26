@@ -21,28 +21,28 @@ $tpl = $modx->getOption('tpl', $scriptProperties, 'tpl.msGallery');
 
 /** @var msProduct $product */
 $product = !empty($product) && $product != $modx->resource->id
-    ? $modx->getObject('msProduct', array('id' => $product))
+    ? $modx->getObject('msProduct', ['id' => $product])
     : $modx->resource;
-if (!$product || !($product instanceof msProduct)) {
+if (!($product instanceof msProduct)) {
     return "[msGallery] The resource with id = {$product->id} is not instance of msProduct.";
 }
 
-$where = array(
+$where = [
     'product_id' => $product->id,
     'parent' => 0,
-);
+];
 if (!empty($filetype)) {
     $where['type:IN'] = array_map('trim', explode(',', $filetype));
 }
 if (empty($showInactive)) {
     $where['active'] = 1;
 }
-$select = array(
+$select = [
     'msProductFile' => '*',
-);
+];
 
 // Add user parameters
-foreach (array('where') as $v) {
+foreach (['where'] as $v) {
     if (!empty($scriptProperties[$v])) {
         $tmp = $scriptProperties[$v];
         if (!is_array($tmp)) {
@@ -56,7 +56,7 @@ foreach (array('where') as $v) {
 }
 $pdoFetch->addTime('Conditions prepared');
 
-$default = array(
+$default = [
     'class' => 'msProductFile',
     'where' => $where,
     'select' => $select,
@@ -66,14 +66,14 @@ $default = array(
     'fastMode' => false,
     'return' => 'data',
     'nestedChunkPrefix' => 'minishop2_',
-);
+];
 // Merge all properties and run!
 $pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
 $rows = $pdoFetch->run();
 
 $pdoFetch->addTime('Fetching thumbnails');
 
-$resolution = array();
+$resolution = [];
 /** @var msProductData $data */
 if ($data = $product->getOne('Data')) {
     if ($data->initializeMediaSource()) {
@@ -94,10 +94,10 @@ if ($data = $product->getOne('Data')) {
 }
 
 // Processing rows
-$files = array();
+$files = [];
 foreach ($rows as $row) {
     if (isset($row['type']) && $row['type'] == 'image') {
-        $c = $modx->newQuery('msProductFile', array('parent' => $row['id']));
+        $c = $modx->newQuery('msProductFile', ['parent' => $row['id']]);
         $c->select('product_id,url');
         $tstart = microtime(true);
         if ($c->prepare() && $c->stmt->execute()) {
@@ -121,10 +121,14 @@ foreach ($rows as $row) {
     $files[] = $row;
 }
 
-$output = $pdoFetch->getChunk($tpl, array(
+if (!empty($return) && strtolower($return) === 'data') {
+    return $files;
+}
+
+$output = $pdoFetch->getChunk($tpl, [
     'files' => $files,
     'scriptProperties' => $scriptProperties
-));
+]);
 
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
     $output .= '<pre class="msGalleryLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
