@@ -230,6 +230,7 @@ class msCartHandler implements msCartInterface
                         return $this->error($response['message']);
                     }
                     $status['key'] = $key;
+                    $status['price'] = $this->cart[$key]['price'];
                     $status['cost'] = $count * $this->cart[$key]['price'];
                 }
             }
