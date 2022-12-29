@@ -36,8 +36,9 @@ switch ($modx->event->name) {
         /** @var miniShop2 $miniShop2 */
         $miniShop2 = $modx->getService('miniShop2');
         $registerFrontend = $modx->getOption('ms2_register_frontend', null, '1');
+        $contextKey = $modx->context instanceof modContext || $modx->context instanceof \MODX\Revolution\modContext ? $modx->context->get('key') : 'web';
         if ($miniShop2 && $registerFrontend) {
-            $miniShop2->registerFrontend();
+            $miniShop2->registerFrontend($contextKey);
         }
         // Handle non-ajax requests
         if (!empty($_REQUEST['ms2_action'])) {
