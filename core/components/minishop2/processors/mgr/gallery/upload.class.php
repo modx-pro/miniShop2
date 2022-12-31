@@ -14,8 +14,8 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
 
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -36,8 +36,8 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
 
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         if (!$data = $this->handleFile()) {
@@ -125,6 +125,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
             'createdby' => $this->modx->user->id,
             'hash' => $data['hash'],
             'properties' => $data['properties'],
+            'description' => $this->getProperty('description'),
         ));
 
         $this->mediaSource->createContainer($uploaded_file->get('path'), '/');
@@ -153,7 +154,7 @@ class msProductFileUploadProcessor extends modObjectProcessor
                 $this->modx->log(
                     modX::LOG_LEVEL_ERROR,
                     '[miniShop2] Could not generate thumbnails for image with id = ' . $uploaded_file->get('id') .
-                    '. ' . $generate
+                        '. ' . $generate
                 );
 
                 return $this->failure($this->modx->lexicon('ms2_err_gallery_thumb'));
@@ -170,8 +171,8 @@ class msProductFileUploadProcessor extends modObjectProcessor
 
 
     /**
-    * @return array|bool
-    */
+     * @return array|bool
+     */
     public function handleFile()
     {
         $tf = tempnam(MODX_BASE_PATH, 'ms_');
