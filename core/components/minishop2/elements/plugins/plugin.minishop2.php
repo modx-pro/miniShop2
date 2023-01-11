@@ -37,7 +37,7 @@ switch ($modx->event->name) {
         $miniShop2 = $modx->getService('miniShop2');
         $registerFrontend = $modx->getOption('ms2_register_frontend', null, '1');
         if ($miniShop2 && $registerFrontend) {
-            $miniShop2->registerFrontend();
+            $miniShop2->registerFrontend($modx->context->get('key'));
         }
         // Handle non-ajax requests
         if (!empty($_REQUEST['ms2_action'])) {
