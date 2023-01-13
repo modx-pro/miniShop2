@@ -133,6 +133,8 @@ $_lang['ms2_ft_combobox'] = 'Выпадальны спіс';
 $_lang['ms2_ft_combo-boolean'] = 'Так/Не';
 $_lang['ms2_ft_combo-multiple'] = 'Множны спіс';
 $_lang['ms2_ft_combo-options'] = 'Супервыбар';
+$_lang['ms2_ft_combo-colors'] = 'Множны спіс колерау';
+
 $_lang['ms2_ft_checkbox'] = 'Сцяжок';
 $_lang['ms2_ft_datefield'] = 'Дата';
 
