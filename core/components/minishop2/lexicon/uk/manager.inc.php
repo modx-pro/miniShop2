@@ -132,6 +132,7 @@ $_lang['ms2_ft_combobox'] = 'Випадаючий список';
 $_lang['ms2_ft_combo-boolean'] = 'Так/Ні';
 $_lang['ms2_ft_combo-multiple'] = 'Множинний список';
 $_lang['ms2_ft_combo-options'] = 'Список з автодоповненням';
+$_lang['ms2_ft_combo-colors'] = 'Множинний список колір';
 $_lang['ms2_ft_checkbox'] = 'Галочка';
 $_lang['ms2_ft_datefield'] = 'Дата';
 

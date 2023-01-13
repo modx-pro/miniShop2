@@ -137,6 +137,7 @@ $_lang['ms2_ft_combobox'] = 'Listă derulantă';
 $_lang['ms2_ft_combo-boolean'] = 'Da/Nu';
 $_lang['ms2_ft_combo-multiple'] = 'Listă multiplă';
 $_lang['ms2_ft_combo-options'] = ' Listă de sugestii de auto-completare';
+$_lang['ms2_ft_combo-colors'] = 'Lista de culori Multiple';
 $_lang['ms2_ft_checkbox'] = 'Checkbox';
 $_lang['ms2_ft_datefield'] = 'Data';
 
