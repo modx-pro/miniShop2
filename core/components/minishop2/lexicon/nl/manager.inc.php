@@ -124,7 +124,6 @@ $_lang['ms2_ft_combobox'] = 'Combobox';
 $_lang['ms2_ft_combo-boolean'] = 'Ja/Nee';
 $_lang['ms2_ft_combo-multiple'] = 'Multiple combobox';
 $_lang['ms2_ft_combo-options'] = 'Superboxselect';
-$_lang['ms2_ft_combo-colors'] = 'Veelvoudige kleurenlijst';
 $_lang['ms2_ft_checkbox'] = 'Checkbox';
 $_lang['ms2_ft_datefield'] = 'Datefield';
 $_lang['ms2_orders_form_begin'] = 'Haal orders op vanaf';
