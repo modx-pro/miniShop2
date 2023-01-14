@@ -95,5 +95,3 @@ $_lang['ms2_link_many_to_many'] = 'Daug su daug';
 $_lang['ms2_link_many_to_many_desc'] = 'Daugiau nei dviejų lygiaverčių prekių susiejimas. Visos prekės susiejamos tarpusavyje ir susiejus bent vieną jų su nauja preke, bus automatiškai susiejamos ir kitos. Tipiniai panaudojimo būdai: vieno modelio skirtingų spalvų, dydžių, kalbų, versijų ir pan. prekėms susieti.';
 $_lang['ms2_link_master'] = 'Pagrindinė prekė';
 $_lang['ms2_link_slave'] = 'Antrinė prekė';
-
-$_lang['ms2_ft_combo-colors'] = 'Kelių spalvų sąrašas';
