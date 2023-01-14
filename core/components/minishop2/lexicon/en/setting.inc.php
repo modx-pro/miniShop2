@@ -100,6 +100,9 @@ $_lang['setting_ms2_order_handler_class'] = 'Order handler class';
 $_lang['setting_ms2_order_handler_class_desc'] = 'The name of the class that implements the logic of an ordering.';
 $_lang['setting_ms2_order_user_groups'] = 'Groups for registering customers';
 $_lang['setting_ms2_order_user_groups_desc'] = 'Comma-separated list of user groups for adding new users when they orders.';
+$_lang['setting_ms2_ordform_phone_length'] = 'The length of the phone field in the order';
+$_lang['setting_ms2_ordform_phone_length_desc'] = 'When validating the phone field. The maximum length of the phone field in the order form. Characters exceeding this value are deleted.';
+
 $_lang['setting_ms2_email_manager'] = 'Managers mailboxes';
 $_lang['setting_ms2_email_manager_desc'] = 'Comma-separated list of mailboxes of managers, for sending notifications about changes of the status of the order';
 $_lang['setting_ms2_date_format'] = 'Format of dates';

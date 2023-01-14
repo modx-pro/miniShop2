@@ -246,6 +246,11 @@ $tmp = [
         'xtype' => 'textfield',
         'area' => 'ms2_order',
     ],
+    'ms2_ordform_phone_length' => [
+        'value' => 16,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_order',
+    ],
 
     'ms2_frontend_css' => [
         'value' => '[[+cssUrl]]web/default.css',

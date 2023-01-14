@@ -146,6 +146,8 @@ $_lang['setting_ms2_order_product_fields'] = 'Поля таблицы покуп
 $_lang['setting_ms2_order_product_fields_desc'] = 'Список полей таблицы заказанных товаров. Доступны: "count,price,weight,cost,options". Поля товара указываются с префиксом "product_", например "product_pagetitle,product_article". Дополнительно можно указывать значения из поля options с префиксом "option_", например: "option_color,option_size".';
 $_lang['setting_ms2_order_product_options'] = 'Поля опций продукта в заказе';
 $_lang['setting_ms2_order_product_options_desc'] = 'Перечень редактируемых опций товара в окне заказа. По умолчанию color, size';
+$_lang['setting_ms2_ordform_phone_length'] = 'Длинна поля телефон в заказе';
+$_lang['setting_ms2_ordform_phone_length_desc'] = 'При валидации поля phone. Максимальная длинна поля телефон в форме заказа. Превышающее это значение символы удаляются.';
 
 $_lang['ms2_source_thumbnails_desc'] = 'Закодированный в JSON массив с параметрами генерации уменьшенных копий изображений.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Максимальная ширина изображения для загрузки. Всё, что больше, будет ужато до этого значения.';
