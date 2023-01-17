@@ -6,9 +6,9 @@ miniShop2.grid.ComboboxColors = function (config) {
 
     Ext.applyIf(config, {
         autoHeight: false,
-        height: 200,
+        height: 230,
         style: 'padding-top: 5px;',
-        hideHeaders: true,
+        hideHeaders: false,
         anchor: '100%',
         layout: 'anchor',
         viewConfig: {
@@ -25,29 +25,7 @@ miniShop2.grid.ComboboxColors = function (config) {
     miniShop2.grid.ComboboxColors.superclass.constructor.call(this, config);
 };
 var nameCell = '';
-var existcolors = [
-    {"name": "Черный", "value": "#000000"},
-    {"name": "Белый", "value": "#FFFFFF"},
-    {"name": "Красный", "value": "#FF0000"},
-    {"name": "Оранжевый", "value": "#FFA500"},
-    {"name": "Желтый", "value": "#FFFF00"},
-    {"name": "Зеленый", "value": "#008000"},
-    {"name": "Голубой", "value": "#42AAFF"},
-    {"name": "Синий", "value": "#0000FF"},
-    {"name": "Фиолетовый", "value": "#800080"},
-    {"name": "Коричневый", "value": "#964B00"},
-    {"name": "Бордовый", "value": "#800000"},
-    {"name": "Малиновый", "value": "#DC143C"},
-    {"name": "Пурпурный", "value": "#FF00FF"},
-    {"name": "Розовый", "value": "#FFC0CB"},
-    {"name": "Циан", "value": "#00FFFF"},
-    {"name": "Бирюзовый", "value": "#30D5C8"},
-    {"name": "Оливковое", "value": "#808000"},
-    {"name": "Хаки", "value": "#806B2A"},
-    {"name": "Лайм", "value": "#00FF00"},
-    {"name": "Серебряный", "value": "#C0C0C0"},
-    {"name": "Серый", "value": "#808080"}
-];
+var existcolors = [];
 
 Ext.extend(miniShop2.grid.ComboboxColors, MODx.grid.LocalGrid, {
 
@@ -97,7 +75,7 @@ Ext.extend(miniShop2.grid.ComboboxColors, MODx.grid.LocalGrid, {
                 }
                 var color, text = '#ffffff';
                 var r = g = b = 0;
-                if ((value.length < 4 || value.length > 7) || (value.length > 4 && value.length < 7)) {
+                if (value.indexOf('#') == -1 && (value.length < 4 || value.length > 7) || (value.length > 4 && value.length < 7)) {
                     return value;
                 }
                 if (value.length == 7) {
