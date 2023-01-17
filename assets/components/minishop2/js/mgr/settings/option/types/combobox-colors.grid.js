@@ -70,7 +70,7 @@ Ext.extend(miniShop2.grid.ComboboxColors, MODx.grid.LocalGrid, {
                 }
             },
             renderer: function (value, cell, row) {
-                if(value === undefined) {
+                if (value === undefined) {
                     return value;
                 }
                 var color, text = '#ffffff';
