@@ -28,11 +28,11 @@ $_lang['setting_ms2_tmp_storage_desc'] = "Для хранения корзины
 Для хранения в базе данных укажите <strong>db</strong>";
 
 $_lang['setting_ms2_category_grid_fields'] = 'Поля таблицы товаров';
-$_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимых полей таблицы с товарами категории, через запятую.';
+$_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимых полей таблицы с товарами категории, через запятую. Доступны: "id,menuindex,pagetitle,article,price,thumb,new,favorite,popular".';
 $_lang['setting_ms2_product_main_fields'] = 'Основные поля панели товара';
 $_lang['setting_ms2_product_main_fields_desc'] = 'Список полей панели товара, через запятую. Например: "pagetitle,longtitle,content".';
 $_lang['setting_ms2_product_extra_fields'] = 'Дополнительные поля товара';
-$_lang['setting_ms2_product_extra_fields_desc'] = 'Список дополнительных полей товара, использующихся в магазине, через запятую. Например: "price,old_price,weight".';
+$_lang['setting_ms2_product_extra_fields_desc'] = 'Список дополнительных полей товара, использующихся в магазине, через запятую. Доступны: "price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite".';
 
 $_lang['setting_mgr_tree_icon_mscategory'] = 'Иконка категории';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Иконка категории товаров miniShop2 в дереве ресурсов';
@@ -139,13 +139,13 @@ $_lang['setting_ms2_order_format_num_desc'] = 'Формат нумерации �
 $_lang['setting_ms2_order_format_num_separator'] = 'Разделитель для нумерации заказа';
 $_lang['setting_ms2_order_format_num_separator_desc'] = 'Разделитель для нумерации заказа. Доступные значения: "/", "," и "-"';
 $_lang['setting_ms2_order_grid_fields'] = 'Поля таблицы заказов';
-$_lang['setting_ms2_order_grid_fields_desc'] = 'Список полей, которые будут показаны в таблице заказов. Доступны: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Список полей, которые будут показаны в таблице заказов. Доступны: "id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment".';
 $_lang['setting_ms2_order_address_fields'] = 'Поля адреса доставки';
-$_lang['setting_ms2_order_address_fields_desc'] = 'Список полей доставки, которые будут показаны на третьей вкладке карточки заказа. Доступны: "receiver,phone,index,country,region,metro,building,city,street,room,entrance,floor,text_address". Если параметр пуст, вкладка будет скрыта.';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Список полей доставки, которые будут показаны на третьей вкладке карточки заказа. Доступны: "receiver,phone,email,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address". Если параметр пуст, вкладка будет скрыта.';
 $_lang['setting_ms2_order_product_fields'] = 'Поля таблицы покупок';
-$_lang['setting_ms2_order_product_fields_desc'] = 'Список полей таблицы заказанных товаров. Доступны: "count,price,weight,cost,options". Поля товара указываются с префиксом "product_", например "product_pagetitle,product_article". Дополнительно можно указывать значения из поля options с префиксом "option_", например: "option_color,option_size".';
+$_lang['setting_ms2_order_product_fields_desc'] = 'Список полей таблицы заказанных товаров. Доступны: "product_pagetitle,vendor_name,product_article,weight,price,count,cost". Поля товара указываются с префиксом "product_", например "product_pagetitle,product_article". Дополнительно можно указывать значения из поля options с префиксом "option_", например: "option_color,option_size".';
 $_lang['setting_ms2_order_product_options'] = 'Поля опций продукта в заказе';
-$_lang['setting_ms2_order_product_options_desc'] = 'Перечень редактируемых опций товара в окне заказа. По умолчанию color, size';
+$_lang['setting_ms2_order_product_options_desc'] = 'Перечень редактируемых опций товара в окне заказа. По умолчанию: "color,size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'Закодированный в JSON массив с параметрами генерации уменьшенных копий изображений.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Максимальная ширина изображения для загрузки. Всё, что больше, будет ужато до этого значения.';

@@ -29,11 +29,11 @@ To store the shopping cart and temporary order fields in the session, specify<st
 To store in the database specify <strong>db</strong>";
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
-$_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
+$_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category. Available: "id,menuindex,pagetitle,article,price,thumb,new,favorite,popular".';
 $_lang['setting_ms2_product_main_fields'] = 'Main fields of the panel of the product';
 $_lang['setting_ms2_product_main_fields_desc'] = 'Comma separated list of fields in the panel of the product. For example: "pagetitle,longtitle,content".';
 $_lang['setting_ms2_product_extra_fields'] = 'Extra fields of the panel of the product';
-$_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of fields in the panel of the product, that needed in your shop. For example: "price,old_price,weight".';
+$_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of fields in the panel of the product, that needed in your shop. Available: "price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite".';
 
 $_lang['setting_mgr_tree_icon_mscategory'] = 'The icon of category';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'The icon of category with miniShop2 products';
@@ -139,11 +139,13 @@ $_lang['setting_ms2_register_frontend_desc'] = "Allow to add js & css files for 
 
 
 $_lang['setting_ms2_order_grid_fields'] = 'Fields of the orders table';
-$_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment".';
 $_lang['setting_ms2_order_address_fields'] = 'Fields of order address';
-$_lang['setting_ms2_order_address_fields_desc'] = 'Comma separated list of address of order, which will be shown on the third tab. Available: "receiver,phone,index,country,region,metro,building,city,street,room,entrance,floor,text_address". If empty, this tab will be hidden.';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Comma separated list of address of order, which will be shown on the third tab. Available:  "receiver,phone,email,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address". If empty, this tab will be hidden.';
 $_lang['setting_ms2_order_product_fields'] = 'Field of the purchased products';
-$_lang['setting_ms2_order_product_fields_desc'] = 'which will be shown list of ordered products. Available: "count,price,weight,cost,options". Product fields specified with the prefix "product_", for example "product_pagetitle,product_article". Additionaly, you can specify a values from the options field with the prefix "option_", for example: "option_color,option_size".';
+$_lang['setting_ms2_order_product_fields_desc'] = 'Which will be shown list of ordered products. Available: "product_pagetitle,vendor_name,product_article,weight,price,count,cost". Product fields specified with the prefix "product_", for example "product_pagetitle,product_article". Additionaly, you can specify a values from the options field with the prefix "option_", for example: "option_color,option_size".';
+$_lang['setting_ms2_order_product_options'] = 'Product option fields in an order';
+$_lang['setting_ms2_order_product_options_desc'] = 'Comma separated list of product  option fields in the order window. By default: "color,size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Maximum width of image for upload. All images, that exceeds this parameter, will be resized to fit..';
