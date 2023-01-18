@@ -24,11 +24,11 @@ $_lang['setting_ms2_chunks_categories'] = 'Категорії для списк�
 $_lang['setting_ms2_chunks_categories_desc'] = 'Список ID категорій через кому для списку чанкі.';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Поля таблиці товарів';
-$_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимих полів таблиці з товарами категорії, через кому.';
+$_lang['setting_ms2_category_grid_fields_desc'] = 'Список видимих полів таблиці з товарами категорії, через кому. Доступні: "id,menuindex,pagetitle,article,price,thumb,new,favorite,popular".';
 $_lang['setting_ms2_product_main_fields'] = 'Основні поля панелі товару';
 $_lang['setting_ms2_product_main_fields_desc'] = 'Список полів панелі товару, через кому. Наприклад: "pagetitle,longtitle,content".';
 $_lang['setting_ms2_product_extra_fields'] = 'Додаткові поля товару';
-$_lang['setting_ms2_product_extra_fields_desc'] = 'Список додаткових полів товару, що використовуються в магазині, через кому. Наприклад: "price,old_price,weight".';
+$_lang['setting_ms2_product_extra_fields_desc'] = 'Список додаткових полів товару, що використовуються в магазині, через кому. Доступні: "price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite".';
 
 $_lang['setting_mgr_tree_icon_mscategory'] = 'Іконка категорії';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Іконка категорії товарів miniShop2 в дереві ресурсів';
@@ -114,11 +114,13 @@ $_lang['setting_ms2_frontend_js'] = 'Скрипти фронтенду';
 $_lang['setting_ms2_frontend_js_desc'] = 'Шлях до файлу зі скриптами магазину. Якщо ви бажаєте використовувати власні стилі - вкажіть шлях до них тут, або очистіть параметр і завантажте їх вручну через шаблон сайту.';
 
 $_lang['setting_ms2_order_grid_fields'] = 'Поля таблиці замовлень';
-$_lang['setting_ms2_order_grid_fields_desc'] = 'Список полів, що будуть показані в таблиці замовлень. Доступні: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Список полів, що будуть показані в таблиці замовлень. Доступні: "id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment".';
 $_lang['setting_ms2_order_address_fields'] = 'Поля адреси доставки';
-$_lang['setting_ms2_order_address_fields_desc'] = 'Список полів доставки, що будуть показані на третій вкладці картки замовлення. Доступні: "receiver,phone,index,country,region,metro,building,city,street,room". Якщо параметр пустий, вкладка буде схована.';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Список полів доставки, що будуть показані на третій вкладці картки замовлення. Доступні: "receiver,phone,email,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address". Якщо параметр пустий, вкладка буде схована.';
 $_lang['setting_ms2_order_product_fields'] = 'Поля таблиці покупок';
-$_lang['setting_ms2_order_product_fields_desc'] = 'Список полів таблиці замовлених товарів. Доступні: "count,price,weight,cost,options". Поля товару вказуються з префіксом "product_", наприклад "product_pagetitle,product_article". Додатково можна вказувати значення з поля options з префіксом "option_", наприклад: "option_color,option_size".';
+$_lang['setting_ms2_order_product_fields_desc'] = 'Список полів таблиці замовлених товарів. Доступні: "product_pagetitle,vendor_name,product_article,weight,price,count,cost". Поля товару вказуються з префіксом "product_", наприклад "product_pagetitle,product_article". Додатково можна вказувати значення з поля options з префіксом "option_", наприклад: "option_color,option_size".';
+$_lang['setting_ms2_order_product_options'] = 'Поля опцій продукту на замовлення';
+$_lang['setting_ms2_order_product_options_desc'] = 'Перелік редагованих опцій товару у вікні замовлення. Типово: "color,size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'Закодований в JSON масив з параметрами генерації зменшених копій зображень.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Максимальна ширина зображення для завантаження. Все,  що більше, буде стиснуто до цього значення.';

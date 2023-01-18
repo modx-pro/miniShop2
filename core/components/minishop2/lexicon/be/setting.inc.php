@@ -24,11 +24,11 @@ $_lang['setting_ms2_chunks_categories'] = 'Катэгорыі для спісу 
 $_lang['setting_ms2_chunks_categories_desc'] = 'Спіс ID катэгорый праз коску для спісу чанкив.';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Паля табліцы тавараў';
-$_lang['setting_ms2_category_grid_fields_desc'] = 'Спіс бачных палёў табліцы з таварамі катэгорыі, праз коску.';
+$_lang['setting_ms2_category_grid_fields_desc'] = 'Спіс бачных палёў табліцы з таварамі катэгорыі, праз коску. Даступныя: "id,menuindex,pagetitle,article,price,thumb,new,favorite,popular".';
 $_lang['setting_ms2_product_main_fields'] = 'Асноўныя паля панэлі тавару';
 $_lang['setting_ms2_product_main_fields_desc'] = 'Спіс палёў панэлі тавару, праз коску. Напрыклад: "pagetitle,longtitle,content".';
 $_lang['setting_ms2_product_extra_fields'] = 'Дадатковыя паля тавару';
-$_lang['setting_ms2_product_extra_fields_desc'] = 'Спіс дадатковых палёў тавару, якія выкарыстоўваюцца ў краме, праз коску. Напрыклад: "price,old_price,weight".';
+$_lang['setting_ms2_product_extra_fields_desc'] = 'Спіс дадатковых палёў тавару, якія выкарыстоўваюцца ў краме, праз коску. Даступныя: "price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite".';
 
 $_lang['setting_mgr_tree_icon_mscategory'] = 'Абразок катэгорыі';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'Абразок катэгорыі тавараў miniShop2 ў дрэве рэсурсаў';
@@ -114,11 +114,13 @@ $_lang['setting_ms2_frontend_js'] = 'Скрыпты франтэнда';
 $_lang['setting_ms2_frontend_js_desc'] = 'Шлях да файла са скрыптамі крамы. Калі вы хочаце выкарыстоўваць уласныя скрыпты — пазначце шлях да іх тут, або ачысціце параметр і загрузіце іх уручную праз шаблон сайта.';
 
 $_lang['setting_ms2_order_grid_fields'] = 'Палі табліцы заказаў';
-$_lang['setting_ms2_order_grid_fields_desc'] = 'Спіс палёў, якія будуць паказаны ў табліцы заказаў. Даступныя: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Спіс палёў, якія будуць паказаны ў табліцы заказаў. Даступныя: "id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment".';
 $_lang['setting_ms2_order_address_fields'] = 'Палі адрасу дастаўкі';
-$_lang['setting_ms2_order_address_fields_desc'] = 'Спіс палёў дастаўкі, якія будуць паказаны на трэцяй ўкладцы карткі замовы. Даступныя: "receiver,phone,index,country,region,metro,building,city,street,room". Калі параметр пусты, ўкладка будзе схаваная.';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Спіс палёў дастаўкі, якія будуць паказаны на трэцяй ўкладцы карткі замовы. Даступныя: "receiver,phone,email,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address". Калі параметр пусты, ўкладка будзе схаваная.';
 $_lang['setting_ms2_order_product_fields'] = 'Палі табліцы пакупак';
-$_lang['setting_ms2_order_product_fields_desc'] = 'Спіс палёў табліцы замоўленых тавараў. Даступныя: "count,price,weight,cost,options". Палі тавару паказваюцца з прэфіксам "product_", напрыклад "product_pagetitle,product_article". Дадаткова можна паказваць значэння з поля options з прэфіксам "option_", напрыклад: "option_color,option_size".';
+$_lang['setting_ms2_order_product_fields_desc'] = 'Спіс палёў табліцы замоўленых тавараў. Даступныя: "product_pagetitle,vendor_name,product_article,weight,price,count,cost". Палі тавару паказваюцца з прэфіксам "product_", напрыклад "product_pagetitle,product_article". Дадаткова можна паказваць значэння з поля options з прэфіксам "option_", напрыклад: "option_color,option_size".';
+$_lang['setting_ms2_order_product_options'] = 'Палі опцый прадукта ў замове';
+$_lang['setting_ms2_order_product_options_desc'] = 'Пералік рэдагуемых опцый тавара ў акне замовы. Па змаўчанні: "color,size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'Закадаваны ў JSON масіў з параметрамі генерацыі паменшаных копій малюнкаў.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Максімальная шырыня малюнку для загрузкі. Усё, што больш, будзе сціснута да гэтага значэння.';
