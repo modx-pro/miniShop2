@@ -27,6 +27,8 @@ $_lang['setting_ms2_tmp_storage'] = 'Хранилище корзины и вре
 $_lang['setting_ms2_tmp_storage_desc'] = "
 To store the shopping cart and temporary order fields in the session, specify<strong>session</strong><br>
 To store in the database specify <strong>db</strong>";
+$_lang['setting_ms2_use_scheduler'] = 'Use scheduler';
+$_lang['setting_ms2_use_scheduler_desc'] = 'Before using, make sure you have the Scheduler extra installed';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';

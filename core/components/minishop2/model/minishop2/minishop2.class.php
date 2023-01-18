@@ -893,6 +893,18 @@ class miniShop2
                 }
             }
 
+            $useScheduler = $this->modx->getOption('ms2_use_scheduler', null, false);
+            $task = null;
+            if ($useScheduler) {
+                /** @var Scheduler $scheduler */
+                $path = $this->modx->getOption('scheduler.core_path', null, $this->modx->getOption('core_path') . 'components/scheduler/');
+                $scheduler = $this->modx->getService('scheduler', 'Scheduler', $path . 'model/scheduler/');
+                $task = $scheduler->getTask('minishop2', 'ms2_send_email');
+                if (!$task) {
+                    $task = $this->createEmailTask();
+                }
+            }
+
             if ($status->get('email_manager')) {
                 $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
                 $tpl = '';
@@ -906,8 +918,16 @@ class miniShop2
                 ));
                 if (!empty($subject)) {
                     foreach ($emails as $email) {
-                        if (preg_match('#.*?@.*#', $email)) {
-                            $this->sendEmail($email, $subject, $body);
+                        if (preg_match('#.*?@#', $email)) {
+                            if ($useScheduler && $task instanceof sTask) {
+                                $task->schedule('+1 minute', [
+                                    'email' => $email,
+                                    'subject' => $subject,
+                                    'body' => $body
+                                ]);
+                            } else {
+                                $this->sendEmail($email, $subject, $body);
+                            }
                         }
                     }
                 }
@@ -922,8 +942,16 @@ class miniShop2
                     }
                     $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
                     $email = $profile->get('email');
-                    if (!empty($subject) && preg_match('#.*?@.*#', $email)) {
-                        $this->sendEmail($email, $subject, $body);
+                    if (!empty($subject) && preg_match('#.*?@#', $email)) {
+                        if ($useScheduler && $task instanceof sTask) {
+                            $task->schedule('+1 minute', [
+                                'email' => $email,
+                                'subject' => $subject,
+                                'body' => $body
+                            ]);
+                        } else {
+                            $this->sendEmail($email, $subject, $body);
+                        }
                     }
                 }
             }
@@ -940,10 +968,11 @@ class miniShop2
      * @param string $subject
      * @param string $body
      *
-     * @return void
+     * @return bool
      */
     public function sendEmail($email, $subject, $body = '')
     {
+        $result = true;
         $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
         $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', array(), 10);
 
@@ -961,8 +990,10 @@ class miniShop2
                 modX::LOG_LEVEL_ERROR,
                 'An error occurred while trying to send the email: ' . $mail->mailer->ErrorInfo
             );
+            $result = false;
         }
         $mail->reset();
+        return $result;
     }
 
 
@@ -1261,5 +1292,25 @@ class miniShop2
         }
         $setting->set('value', json_encode($value));
         $setting->save();
+    }
+
+    /**
+     * Creating Sheduler's task for sending email
+     * @return false|object|null
+     */
+    private function createEmailTask()
+    {
+        $task = $this->modx->newObject('sFileTask');
+        $task->fromArray([
+            'class_key' => 'sFileTask',
+            'content' => '/cli/sendEmail.php',
+            'namespace' => 'minishop2',
+            'reference' => 'ms2_send_email',
+            'description' => 'Отправка письма'
+        ]);
+        if (!$task->save()) {
+            return false;
+        }
+        return $task;
     }
 }
