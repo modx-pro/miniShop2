@@ -920,7 +920,7 @@ class miniShop2
                     foreach ($emails as $email) {
                         if (preg_match('#.*?@#', $email)) {
                             if ($useScheduler && $task instanceof sTask) {
-                                $task->schedule('+1 minute', [
+                                $task->schedule('+1 second', [
                                     'email' => $email,
                                     'subject' => $subject,
                                     'body' => $body
@@ -944,7 +944,7 @@ class miniShop2
                     $email = $profile->get('email');
                     if (!empty($subject) && preg_match('#.*?@#', $email)) {
                         if ($useScheduler && $task instanceof sTask) {
-                            $task->schedule('+1 minute', [
+                            $task->schedule('+1 second', [
                                 'email' => $email,
                                 'subject' => $subject,
                                 'body' => $body
