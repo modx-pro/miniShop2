@@ -1306,7 +1306,7 @@ class miniShop2
             'content' => '/cli/sendEmail.php',
             'namespace' => 'minishop2',
             'reference' => 'ms2_send_email',
-            'description' => 'Отправка письма'
+            'description' => 'MiniShop2 Email'
         ]);
         if (!$task->save()) {
             return false;
