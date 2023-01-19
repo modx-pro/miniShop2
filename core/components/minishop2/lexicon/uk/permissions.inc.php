@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Permissions Ukrainian Lexicon Entries for miniShop2
+ * Permissions Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
