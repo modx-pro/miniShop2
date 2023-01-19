@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings Romanian Lexicon Entries for miniShop2
+ * Settings Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -15,6 +15,7 @@ $_lang['area_ms2_cart'] = 'Coș';
 $_lang['area_ms2_order'] = 'Comenzi';
 $_lang['area_ms2_frontend'] = 'Site';
 $_lang['area_ms2_payment'] = 'Metode de plată';
+$_lang['area_ms2_statuses'] = 'Статусы';
 
 $_lang['setting_ms2_services'] = 'Servicii magazin';
 $_lang['setting_ms2_services_desc'] = 'Array cu clase înregistrate pentru coș de cumpărături, comandă, livrare și plată. Se folosește de componente externe pentru încărcarea funcționalului său.';
@@ -25,6 +26,8 @@ $_lang['setting_ms2_chunks_categories_desc'] = 'O listă de ID-uri de categorie,
 $_lang['setting_ms2_tmp_storage'] = 'Depozitare coș și câmpuri temporare de comandă';
 $_lang['setting_ms2_tmp_storage_desc'] = "Pentru a stoca coșul și câmpurile de comandă temporară în sesiune, specificați <strong>session</strong><br>
 Pentru stocarea bazei de date, specificați <strong>db</strong>";
+$_lang['setting_ms2_use_scheduler'] = 'Использовать менеджер очередей';
+$_lang['setting_ms2_use_scheduler_desc'] = 'Перед использованием убедитесь, что у вас установлен компонент Scheduler';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Câmpurile tabelului de produse';
 $_lang['setting_ms2_category_grid_fields_desc'] = 'Lista câmpurilor vizibile a tabelului cu produsele categorii, separate prin virgulă.';
@@ -81,8 +84,8 @@ $_lang['setting_ms2_product_vertical_tabs'] = 'Tab-uri verticale pe pagina produ
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'Cum de afișat pagina produsului? Dezactivarea acestei opțiuni va permite să potriviți pagina produsului pe ecrane de dimensiuni mici. Nu este recomandat.';
 $_lang['setting_ms2_product_remember_tabs'] = 'Memorizarea tab-ului produsului';
 $_lang['setting_ms2_product_remember_tabs_desc'] = 'Dacă este activat, tab-ul activ al panoului produsului se va memoriza și se va restabili la încărcarea paginii.';
-//$_lang['setting_ms2_product_thumbnail_size'] = 'Dimensiunea previzualizării implicite';
-//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Aici puteți specifica dimensiunea unei copii a imaginii de dimensiuni mici pentru inserarea cîmpului "thumb" a produsului. Desigur, această dimensiune trebuie să existe și în setările sursei media, pentru a genera astfel de preview. În caz contrar, veți primi logo-ul minIShop2 în loc de imagini produsului în panou de administrare.';
+//$_lang['setting_ms2_product_thumbnail_size'] = 'Размер превью по умолчанию';
+//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Здесь вы можете указать размер заранее уменьшенной копии изображения для вставки поля "thumb" товара. Конечно, этот размер должен существовать и в настройках источника медиа, чтобы генерировались такие превью. В противном случае вы получите логотип minIShop2 вместо изображения товара в админке.';
 $_lang['setting_ms2_product_id_as_alias'] = 'Id produsului ca alias';
 $_lang['setting_ms2_product_id_as_alias_desc'] = 'Dacă este activat, alias-urile pentru denumiri a categoriilor nu se vor genera. În loc de aceasta se vor afișa id-urile lor.';
 
@@ -151,3 +154,44 @@ $_lang['ms2_source_maxUploadWidth_desc'] = 'Lățimea maximă a imaginii pentru 
 $_lang['ms2_source_maxUploadHeight_desc'] = ' Înălțimea maximă a imaginii pentru încărcare. Cele de dimensiuni mai mari vor fi micșorate la această valoare.';
 $_lang['ms2_source_maxUploadSize_desc'] = 'Dimensiunea maximă a imaginilor încărcate (în biți).';
 $_lang['ms2_source_imageNameType_desc'] = 'Acest parametru afișează modul de redenumire a fișierului la încărcare. Hash este generarea unui nume unic, în funcție de conținutul fișierului. Friendly - generarea unui nume prin algoritmul friendly url a paginilor site-ului (acestea sunt controlate de setările de sistem).';
+
+// Настройки для альфа релиза miniShop2 4.0.0.beta
+$_lang['setting_ms2_frontend_css'] = 'Stilurile front-end-ului';
+$_lang['setting_ms2_frontend_css_desc'] = 'Calea spre fișier cu stilurile magazinului. Dacă doriți să utilizați stilurile proprii – specificați calea spre ei aici sau ștergeți acest parametru și încărcați-le manual prin șablonul site-ului.';
+$_lang['setting_ms2_frontend_js'] = 'Scripturile front-end-ului ';
+$_lang['setting_ms2_frontend_js_desc'] = 'Calea spre fișierul cu scripturile magazinului. Dacă doriți să utilizați scripturile proprii- specificați calea spre ele sau ștergeți parametrul și încărcați-le manual prin intermediul șablonului site-ului.';
+
+$_lang['setting_ms2_cart_js_class_name'] = 'Название JS класса управления корзиной';
+$_lang['setting_ms2_cart_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_cart_js_class_path'] = 'Путь к JS управления корзиной';
+$_lang['setting_ms2_cart_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_order_js_class_name'] = 'Название JS класса для оформления заказа';
+$_lang['setting_ms2_order_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_order_js_class_path'] = 'Путь к JS классу для оформления заказа';
+$_lang['setting_ms2_order_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_notify_js_class_name'] = 'Название JS класса для показа уведомлений';
+$_lang['setting_ms2_notify_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_notify_js_class_path'] = 'Путь к JS классу для показа уведомлений';
+$_lang['setting_ms2_notify_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_toggle_js_type'] = 'Включить новый JavaScript?';
+$_lang['setting_ms2_toggle_js_type_desc'] = 'если выбрано ДА будут подключены скрипты без зависимости от jQuery, написанные с использованием возможностей стандарта ES6';
+
+$_lang['setting_ms2_vanila_js'] = 'Новые скрипты фронтенда';
+$_lang['setting_ms2_vanila_js_desc'] = 'путь к файлу инициализации новых скриптов магазина. Если хотите указать свои параметры инициализации - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+
+$_lang['setting_ms2_frontend_notify_js_settings'] = 'Настройки уведомлений для новой версии скриптов';
+$_lang['setting_ms2_frontend_notify_js_settings_desc'] = 'путь к файлу с настройками. обратите внимание файл в формате JSON';
+
+$_lang['setting_ms2_status_draft'] = 'ID статуса заказа Черновик';
+$_lang['setting_ms2_status_draft_desc'] = 'Какой статус нужно устанавливать для заказа-черновика';
+$_lang['setting_ms2_status_new'] = 'ID первоначального статуса заказа';
+$_lang['setting_ms2_status_new_desc'] = 'Какой статус нужно устанавливать для нового совершенного заказа';
+$_lang['setting_ms2_status_paid'] = 'ID статуса оплаченного заказа';
+$_lang['setting_ms2_status_paid_desc'] = 'Какой статус нужно устанавливать после оплаты заказа';
+$_lang['setting_ms2_status_canceled'] = 'ID статуса отмены заказа';
+$_lang['setting_ms2_status_canceled_desc'] = 'Какой статус нужно устанавливать при отмене заказа';
+$_lang['setting_ms2_status_for_stat'] = 'ID статусов для статистики';
+$_lang['setting_ms2_status_for_stat_desc'] = 'Статусы через запятую, для построения статистики ВЫПОЛНЕННЫХ заказов';
