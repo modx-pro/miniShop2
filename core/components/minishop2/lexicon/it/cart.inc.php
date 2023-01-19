@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default English Lexicon Entries for miniShop2 cart
+ * Default Russian Lexicon Entries for miniShop2 cart
  *
  * @package minishop2
  * @subpackage lexicon
@@ -38,5 +38,6 @@ $_lang['ms2_cart_clean_success'] = 'Carrello cancellato con successo';
 $_lang['ms2_cart_is_empty'] = 'Il tuo carrello è vuoto';
 $_lang['ms2_cart_clean'] = 'Svuota il carrello';
 
+$_lang['ms2_order_err_empty'] = 'Невозможно оформить пустой заказ';
 $_lang['ms2_order_err_delivery'] = 'Devi selezionare un metodo di consegna';
 $_lang['ms2_order_err_requires'] = 'Devi compilare i campi evidenziati';
