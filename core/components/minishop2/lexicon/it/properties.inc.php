@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Properties English Lexicon Entries for miniShop2
+ * Properties Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
@@ -12,7 +12,7 @@ $_lang['ms2_prop_offset'] = 'An offset of resources returned by the criteria to 
 $_lang['ms2_prop_depth'] = 'Integer value indicating depth to search for resources from each parent.';
 $_lang['ms2_prop_sortby'] = 'The field to sort by. For sorting by product fields you need to add prefix "Data.", for example: "&sortby=`Data.price`"';
 $_lang['ms2_prop_sortdir'] = 'The direction to sort by';
-$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from';
+$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from.';
 $_lang['ms2_prop_tpl'] = 'Il tpl chunk da utilizzare per ogni riga.';
 $_lang['ms2_prop_toPlaceholder'] = 'If not empty, the snippet will save output to placeholder with that name, instead of return it to screen.';
 $_lang['ms2_prop_toSeparatePlaceholders'] = 'If set, will assign EACH result to a separate placeholder named by this param suffixed with a sequential number (starting from 0).';
@@ -20,8 +20,8 @@ $_lang['ms2_prop_showLog'] = 'Display additional information about snippet work.
 $_lang['ms2_prop_parents'] = 'Container list, separated by commas, to search results. By default, the query is limited to the current parent. If set to 0, query not limited.';
 $_lang['ms2_prop_resources'] = 'Comma-delimited list of ids to include in the results. Prefix an id with a dash to exclude the resource from the result.';
 $_lang['ms2_prop_fastMode'] = 'If enabled, then in chunk will be only received values ​​from the database. All raw tags of MODX, such as filters, snippets calls will be cut.';
+$_lang['ms2_prop_where'] = 'Строка, закодированная в JSON, с дополнительными условиями выборки.';
 $_lang['ms2_prop_includeContent'] = 'Retrieve field "content" from products.';
-$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from.';
 $_lang['ms2_prop_includeTVs'] = 'An optional comma-delimited list of TemplateVar names to include in selection. For example "action,time" give you placeholders [[+action]] and [[+time]].';
 $_lang['ms2_prop_includeThumbs'] = 'An optional comma-delimited list of Thumbnail sizes to include in selection. For example: "small,medium" give you placeholders [[+small]] and [[+medium]]. Thumbnails must be generted in gallery of product.';
 $_lang['ms2_prop_link'] = 'Id of link of goods, which is automatically assigned when you create a new link in the settings.';
@@ -31,6 +31,7 @@ $_lang['ms2_prop_class'] = 'Name of class for selection. By default, "msProduct"
 $_lang['ms2_prop_tvPrefix'] = 'The prefix for TemplateVar properties, "tv." for example. By default it is empty.';
 $_lang['ms2_prop_outputSeparator'] = 'An optional string to separate each tpl instance.';
 $_lang['ms2_prop_returnIds'] = 'If true, snippet will return comma separated string with ids of results instead of chunks.';
+$_lang['ms2_prop_return'] = 'Способ вывода результатов';
 
 $_lang['ms2_prop_showUnpublished'] = 'Mostra beni non pubblicati.';
 $_lang['ms2_prop_showDeleted'] = 'Mostra i prodotti cancellati.';
@@ -54,7 +55,11 @@ $_lang['ms2_prop_optionName'] = 'Name of the option for displaying.';
 $_lang['ms2_prop_filetype'] = 'Type of files for select. You can use "image" for images and extensions for other files. For example "image,pdf,xls,doc".';
 $_lang['ms2_prop_optionFilters'] = 'Filters by product options via JSON, e.g. {"optionkey:>":10}';
 $_lang['ms2_prop_sortbyOptions'] = 'Lists options from &sortby for sorting with type via string, e.g. "optionkey:integer,optionkey2:datetime"';
+$_lang['ms2_prop_sortGroups'] = 'Указывает порядок сортировки групп опций. Принимает как id-шники, так и текстовые названия групп. Передаются строкой, например: "22,23,24" или "Размеры,Электроника,Разное".';
+$_lang['ms2_prop_sortOptions'] = 'Указывает порядок сортировки опций. Передаются строкой, например: "size,color".';
+$_lang['ms2_prop_sortOptionValues'] = 'Указывает порядок сортировки значений опций. Передаются строкой, например: "size:SORT_DESC:SORT_NUMERIC:100,color:SORT_ASC:SORT_STRING"';
 $_lang['ms2_prop_valuesSeparator'] = 'Separator between values in multiple options';
+$_lang['ms2_prop_ignoreGroups'] = 'Группы, опции которых не нужно выводить в списке, через запятую.';
 $_lang['ms2_prop_ignoreOptions'] = 'Options that should be ignored by snippet, comma-separated list';
 $_lang['ms2_prop_onlyOptions'] = 'Show only this comma-separated list of options.';
 $_lang['ms2_prop_hideEmpty'] = 'Hide options with empty value.';
