@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings Russian Lexicon Entries for miniShop2
+ * Settings Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -157,10 +157,10 @@ $_lang['ms2_source_maxUploadSize_desc'] = 'Maximum size of file for upload (in b
 $_lang['ms2_source_imageNameType_desc'] = 'This setting specifies how to rename a file after upload. Hash is the generation of a unique name depending on the contents of the file. Friendly - generation behalf of the algorithm friendly URLs of pages of the site (they are managed by system settings).';
 
 // Настройки для альфа релиза miniShop2 4.0.0.beta
-$_lang['setting_ms2_frontend_css'] = 'Стили фронтенда';
-$_lang['setting_ms2_frontend_css_desc'] = 'Путь к файлу со стилями магазина. Если вы хотите использовать собственные стили - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
-$_lang['setting_ms2_frontend_js'] = 'Скрипты фронтенда';
-$_lang['setting_ms2_frontend_js_desc'] = 'Путь к файлу со скриптами магазина. Если вы хотите использовать собственные скрипты - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+$_lang['setting_ms2_frontend_css'] = 'Frontend styles';
+$_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
+$_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
+$_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
 
 $_lang['setting_ms2_cart_js_class_name'] = 'Название JS класса управления корзиной';
 $_lang['setting_ms2_cart_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
