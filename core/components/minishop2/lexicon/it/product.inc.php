@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Products English Lexicon Entries for miniShop2
- *
- * @package minishop2
- * @subpackage lexicon
- */
+* Products Lexicon Entries
+*
+* @package minishop2
+* @subpackage lexicon
+*/
 
 $_lang['ms2_product_tab_main'] = 'Pagina web';
 $_lang['ms2_product_tab_extra'] = 'Proprietà del prodotto';
@@ -32,8 +32,8 @@ $_lang['ms2_product_link_attributes'] = 'Attributi Link';
 $_lang['ms2_product_menutitle'] = 'Titolo menu';
 $_lang['ms2_product_menuindex'] = 'Indice menu';
 
-$_lang['ms2_product_published'] = 'Pubblicato';
 $_lang['ms2_product_deleted'] = 'Eliminato';
+$_lang['ms2_product_published'] = 'Pubblicato';
 $_lang['ms2_product_pub_date'] = 'Data Pubblicazione';
 $_lang['ms2_product_unpub_date'] = 'Data di ritiro';
 
@@ -73,7 +73,7 @@ $_lang['ms2_product_old_price'] = 'Prezzo precedente';
 $_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Peso';
 $_lang['ms2_product_weight_help'] = '';
-$_lang['ms2_product_color'] = 'Colore';
+$_lang['ms2_product_color'] = 'Colori';
 $_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Likutis';
 $_lang['ms2_product_remains_help'] = '';
@@ -91,8 +91,8 @@ $_lang['ms2_product_tags'] = 'Tags';
 $_lang['ms2_product_tags_help'] = 'Bet kokios šios prekės gairės.';
 $_lang['ms2_product_size'] = 'Dydžiai';
 $_lang['ms2_product_size_help'] = 'Bet kokie šios prekės dydžiai.';
-$_lang['ms2_product_color'] = 'Colori';
-$_lang['ms2_product_color_help'] = 'Tutti i colori del prodotto.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
 $_lang['ms2_product_new'] = 'Naujiena';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Rekomenduojama';
@@ -126,11 +126,11 @@ $_lang['ms2_product_selected_unpublish'] = 'Nebepublikuoti pasirinktų prekių';
 $_lang['ms2_product_selected_delete'] = 'Šalinti pasirinktas prekes';
 $_lang['ms2_product_selected_undelete'] = 'Atstatyti pasirinktas pašalintas prekes';
 
-//$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
 $_lang['ms2_gallery_emptymsg'] = 'Užvilkite ir numeskite ant šios lentelės norimus įkelti failus, arba įkelkite juos, pasinaudodami mygtuku viršuje.';
-$_lang['ms2_gallery_file_name'] = 'Nome file';
 $_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
+$_lang['ms2_gallery_file_name'] = 'Nome file';
 $_lang['ms2_gallery_file_title'] = 'Titolo file';
 $_lang['ms2_gallery_file_description'] = 'Descrizione';
 $_lang['ms2_gallery_file_size'] = 'Dimensione file';
@@ -153,16 +153,3 @@ $_lang['ms2_gallery_file_delete_multiple'] = 'Šalinti failus';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Ar tikrai norite pašalinti šiuos failus ir visas jų miniatiūras?<br/>Šis veiksmas negrįžtamas.';
 
 $_lang['ms2_gallery_errors'] = 'Įkeliant failus, pasitaikė klaidų';
-
-$_lang['ms2_drag_self_one'] = 'Cancel';
-$_lang['ms2_drag_self_many'] = 'Cancel';
-$_lang['ms2_drag_move_one'] = 'Move product to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one_success'] = 'Product was successfully moved to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many'] = 'Move products to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many_success'] = 'Products was successfully moved to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_current_one'] = 'Move product to current category';
-$_lang['ms2_drag_move_current_once_success'] = 'Product was successfully moved to current category';
-$_lang['ms2_drag_move_current_many'] = 'Move products to current category';
-$_lang['ms2_drag_move_current_many_success'] = 'Products was successfully moved to current category';
-$_lang['ms2_drag_sort_one'] = 'Sort product';
-$_lang['ms2_drag_sort_many'] = 'Sorts product';
