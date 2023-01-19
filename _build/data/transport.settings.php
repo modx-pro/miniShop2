@@ -47,6 +47,11 @@ $tmp = [
         'xtype' => 'textfield',
         'area' => 'ms2_main',
     ],
+    'ms2_use_scheduler' => [
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area' => 'ms2_main',
+    ],
 
     'ms2_category_grid_fields' => [
         'value' => 'id,menuindex,pagetitle,article,price,thumb,new,favorite,popular',
