@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default English Lexicon Entries for miniShop2 cart
+ * Cart Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
