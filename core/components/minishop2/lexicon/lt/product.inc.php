@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Products English Lexicon Entries for miniShop2
- *
- * @package minishop2
- * @subpackage lexicon
- */
+* Products Russian Lexicon Entries for miniShop2
+*
+* @package minishop2
+* @subpackage lexicon
+*/
 
 $_lang['ms2_product_tab_main'] = 'Tinklalapis';
 $_lang['ms2_product_tab_extra'] = 'Prekės savybės';
@@ -32,8 +32,8 @@ $_lang['ms2_product_link_attributes'] = 'Saito savybės';
 $_lang['ms2_product_menutitle'] = 'Pavadinimas meniu';
 $_lang['ms2_product_menuindex'] = 'Pozicija meniu';
 
-$_lang['ms2_product_published'] = 'Publikuota';
 $_lang['ms2_product_deleted'] = 'Pašalinta';
+$_lang['ms2_product_published'] = 'Publikuota';
 $_lang['ms2_product_pub_date'] = 'Publikavimo data';
 $_lang['ms2_product_unpub_date'] = 'Publikavimo nutraukimo data';
 
@@ -54,23 +54,26 @@ $_lang['ms2_product_publishedon_help'] = 'Šio ištekliaus publikavimo data.';
 $_lang['ms2_product_publishedby'] = 'Publikavo';
 $_lang['ms2_product_publishedby_help'] = 'Ši išteklių publikavęs naudotojas.';
 
-$_lang['ms2_product_menutitle'] = 'Pavadinimas meniu';
+$_lang['ms2_product_menutitle'] = 'Пункт меню';
 $_lang['ms2_product_hidemenu'] = 'Nerodyti meniu';
 $_lang['ms2_product_uri_override'] = 'Fiksuotas adresas';
 $_lang['ms2_product_uri'] = 'Adresas';
+$_lang['ms2_product_hide_children_in_tree'] = 'Скрыть потомков в дереве';
+$_lang['ms2_product_hide_children_in_tree_help'] = 'Эта настройка скроет все дочерние товары и категории в дереве ресурса, независимо от их свойства "show_in_tree".';
+$_lang['ms2_product_hide_in_tree'] = 'Скрыть в дереве';
 $_lang['ms2_product_show_in_tree'] = 'Rodyti medyje';
 $_lang['ms2_product_show_in_tree_help'] = 'Numatytuoju atveju prekės MODX išteklių medyje yra nerodomos spartos sumetimais, tačiau jeigu norite, atskiras prekes medyje galite rodyti.';
 $_lang['ms2_product_syncsite'] = 'Valyti podėlį';
 
 $_lang['ms2_product_article'] = 'Prekės kodas';
-$_lang['ms2_product_article_help'] = 'Kodas, identifikuojantis prekę šioje parduotuvėje';
+$_lang['ms2_product_article_help'] = '';
 $_lang['ms2_product_price'] = 'Kaina';
 $_lang['ms2_product_price_help'] = '';
 $_lang['ms2_product_old_price'] = 'Sena kaina';
 $_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Svoris';
 $_lang['ms2_product_weight_help'] = '';
-$_lang['ms2_product_color'] = 'Spalva';
+$_lang['ms2_product_color'] = 'Spalvos';
 $_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Likutis';
 $_lang['ms2_product_remains_help'] = '';
@@ -83,13 +86,13 @@ $_lang['ms2_product_thumb_help'] = '';
 $_lang['ms2_product_vendor'] = 'Gamintojas';
 $_lang['ms2_product_vendor_help'] = '';
 $_lang['ms2_product_made_in'] = 'Kilmės šalis';
-$_lang['ms2_product_made_in__help'] = '';
+$_lang['ms2_product_made_in_help'] = '';
 $_lang['ms2_product_tags'] = 'Gairės';
 $_lang['ms2_product_tags_help'] = 'Bet kokios šios prekės gairės.';
 $_lang['ms2_product_size'] = 'Dydžiai';
 $_lang['ms2_product_size_help'] = 'Bet kokie šios prekės dydžiai.';
-$_lang['ms2_product_color'] = 'Spalvos';
-$_lang['ms2_product_color_help'] = 'Bet kokios šios prekės spalvos.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
 $_lang['ms2_product_new'] = 'Naujiena';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Rekomenduojama';
@@ -109,6 +112,7 @@ $_lang['ms2_product_delete'] = 'Šalinti';
 $_lang['ms2_product_undelete'] = 'Atstatyti pašalintą';
 $_lang['ms2_product_publish'] = 'Publikuoti';
 $_lang['ms2_product_unpublish'] = 'Nebepublikuoti';
+$_lang['ms2_product_duplicate'] = 'Копировать';
 $_lang['ms2_product_cancel'] = 'Atsisakyti';
 $_lang['ms2_product_back'] = 'Aukštyn';
 $_lang['ms2_product_prev'] = 'Ankstesnė prekė';
@@ -122,42 +126,30 @@ $_lang['ms2_product_selected_unpublish'] = 'Nebepublikuoti pasirinktų prekių';
 $_lang['ms2_product_selected_delete'] = 'Šalinti pasirinktas prekes';
 $_lang['ms2_product_selected_undelete'] = 'Atstatyti pasirinktas pašalintas prekes';
 
-
-$_lang['ms2_disabled_while_creating'] = '<i>Ši funkcija kuriant naują prekę negalima</i>';
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
 $_lang['ms2_gallery_emptymsg'] = 'Užvilkite ir numeskite ant šios lentelės norimus įkelti failus, arba įkelkite juos, pasinaudodami mygtuku viršuje.';
-$_lang['ms2_gallery_introtext'] = 'Čia galite tvarkyti prekės nuotraukų galeriją. Naujas nuotraukas galite įkelti, tiesiog užvilkdami ir numesdami jas ant lentelės. Pirmoji nuotrauka galerijoje bus laikoma pagrindine prekės nuotrauka.';
-$_lang['ms2_gallery_filename'] = 'Failo vardas';
-$_lang['ms2_gallery_title'] = 'Antraštė';
-$_lang['ms2_gallery_description'] = 'Aprašas';
 $_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
-$_lang['ms2_gallery_size'] = 'Dydis';
-$_lang['ms2_gallery_status'] = 'Būsena';
-$_lang['ms2_gallery_progress'] = 'Progresas';
-$_lang['ms2_gallery_inactive'] = 'Neaktyvi';
-$_lang['ms2_gallery_createdon'] = 'Įkelta';
-$_lang['ms2_gallery_createdby'] = 'Įkėlė';
-$_lang['ms2_gallery_url'] = 'Adresas';
-$_lang['ms2_gallery_name'] = 'Pavadinimas';
-$_lang['ms2_gallery_status'] = 'Būsena';
-$_lang['ms2_gallery_button_upload'] = 'Rinktis failus';
-$_lang['ms2_gallery_status_aborted'] = '<i class="bicon-remove"></i> Nutraukta';
-$_lang['ms2_gallery_status_error'] = '<i class="bicon-remove"></i> Klaida';
-$_lang['ms2_gallery_status_sending'] = '<i class="bicon-repeat"></i> Siunčiama';
-$_lang['ms2_gallery_status_done'] = '<i class="bicon-remove"></i> Atlikta';
-$_lang['ms2_gallery_uploads_clear'] = 'Valyti';
-$_lang['ms2_gallery_generate_thumbs'] = 'Perkurti visas miniatiūras';
+$_lang['ms2_gallery_file_name'] = 'Имя файла';
+$_lang['ms2_gallery_file_title'] = 'Название';
+$_lang['ms2_gallery_file_description'] = 'Описание';
+$_lang['ms2_gallery_file_size'] = 'Размер';
+$_lang['ms2_gallery_file_createdon'] = 'Дата создания';
+$_lang['ms2_gallery_file_createdby'] = 'Автор';
+$_lang['ms2_gallery_file_url'] = 'Ссылка';
+$_lang['ms2_gallery_file_source'] = 'Источник файла';
 
-$_lang['ms2_gallery_image_generate_thumbs'] = 'Perkurti miniatiūras';
+$_lang['ms2_gallery_button_upload'] = 'Rinktis failus';
+
+$_lang['ms2_gallery_file_show'] = 'Открыть в новом окне';
 $_lang['ms2_gallery_file_update'] = 'Keisti savybes';
+$_lang['ms2_gallery_file_generate_all'] = 'Обновить все';
+$_lang['ms2_gallery_file_generate_thumbs'] = 'Обновить превьюшки';
+$_lang['ms2_gallery_file_generate_thumbs_confirm'] = 'Вы действительно хотите обновить превью всех файлов?';
 $_lang['ms2_gallery_file_delete'] = 'Šalinti failą';
+$_lang['ms2_gallery_file_delete_all'] = 'Удалить все';
 $_lang['ms2_gallery_file_delete_confirm'] = 'Ar tikrai norite pašalinti šį failą ir visas jo miniatiūras?<br/>Šis veiksmas negrįžtamas.';
 $_lang['ms2_gallery_file_delete_multiple'] = 'Šalinti failus';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Ar tikrai norite pašalinti šiuos failus ir visas jų miniatiūras?<br/>Šis veiksmas negrįžtamas.';
-
-$_lang['ms2_gallery_status_code_1'] = '<i class="bicon-repeat"></i> Eilėje';
-$_lang['ms2_gallery_status_code_2'] = '<i class="bicon-repeat"></i> Įkeliamas';
-$_lang['ms2_gallery_status_code_4'] = '<i class="bicon-remove"></i> Klaida';
-$_lang['ms2_gallery_status_code_5'] = '<i class="bicon-ok"></i> Atlikta';
 
 $_lang['ms2_gallery_errors'] = 'Įkeliant failus, pasitaikė klaidų';
