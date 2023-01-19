@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Properties Romanian Lexicon Entries for miniShop2
+ * Properties Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -12,7 +12,7 @@ $_lang['ms2_prop_offset'] = 'Trecerea peste rezultatele de la începutul eșanti
 $_lang['ms2_prop_depth'] = 'Adâncimea de căutare a produselor de la fiecare părinte.';
 $_lang['ms2_prop_sortby'] = 'Sortarea eșantionului. Pentru a sorta după câmpurile de produse, trebuie să adăugați prefixul "Data.", de exemplu: "&sortby=`Data.price`"';
 $_lang['ms2_prop_sortdir'] = 'Direcția de sortare';
-$_lang['ms2_prop_where'] = 'Parametri suplimentari de eșantionare codificați în JSON.';
+$_lang['ms2_prop_where'] = 'Șir codificat în JSON cu condiții suplimentare de eșantionare.';
 $_lang['ms2_prop_tpl'] = 'Chunk-ul părții vizuale pentru fiecare rezultat ';
 $_lang['ms2_prop_toPlaceholder'] = 'Dacă nu este gol, snippetul va salva toate datele în placeholder cu acest nume, în loc de afișare pe ecran';
 $_lang['ms2_prop_toSeparatePlaceholders'] = 'Dacă veți introduce cuvînt în acest parametru, atunci TOATE rezultatele vor fi plasate în placeholderi diferiți, începând cu acest cuvânt și terminând cu numărul de ordine a rîndului, de la 0. De exemplu al liniei, pornind de la zero. De exemplu, indicînd în parametru "myPl", veți primi placeholderi [[+myPl0]], [[+myPl1]] etc. ';
@@ -20,7 +20,7 @@ $_lang['ms2_prop_showLog'] = 'A afișa informație suplimentară despre funcțio
 $_lang['ms2_prop_parents'] = 'Lista categoriilor, separate prin virgulă, pentru rezultatele căutării. În mod implicit, eșantionarea este limitată la părintele curent. Dacă puneți 0 - eșantionul nu este limitat.';
 $_lang['ms2_prop_resources'] = 'Lista produselor, separate prin virgulă, pentru afișarea în rezultate. Dacă id produsului se începe cu minus, atunci acest produs se exclude din eșantionare.';
 $_lang['ms2_prop_fastMode'] = 'Dacă este activat – în chank ale rezultatului se vor afișa doar valorile din baza de date. Toate tagg-urile MODX neprelucrate , precum filtre, activarea snippet-elor – vor fi șterse. ';
-$_lang['ms2_prop_where'] = 'Șir codificat în JSON cu condiții suplimentare de eșantionare.';
+$_lang['ms2_prop_where'] = 'Строка, закодированная в JSON, с дополнительными условиями выборки.';
 $_lang['ms2_prop_includeContent'] = 'A alege cîmpul "content" al produsului .';
 $_lang['ms2_prop_includeTVs'] = 'Lista parametrilor TV pentru eșantionare, separate prin virgule. De exemplu: " action,time " vor da placeholderi [[+action]] și [[+time]].';
 $_lang['ms2_prop_includeThumbs'] = 'Lista dimensiunilor miniaturilor pentru eșantionare, separate prin virgule. De exemplu "small, medium" vor da placeholderi  [[+small]] și [[+medium]]. Imaginile trebuie generate dinainte în galeria de produse.';
