@@ -1,0 +1,3 @@
+files:
+  - source: core/components/minishop2/lexicon/ru/*.inc.php
+    translation: core/components/minishop2/lexicon/%two_letters_code%/%original_file_name%
