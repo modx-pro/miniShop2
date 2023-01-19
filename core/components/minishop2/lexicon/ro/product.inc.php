@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Products Romanian Lexicon Entries for miniShop2
+* Products Russian Lexicon Entries for miniShop2
 *
 * @package minishop2
 * @subpackage lexicon
@@ -29,7 +29,7 @@ $_lang['ms2_product_richtext'] = 'Editor';
 $_lang['ms2_product_searchable'] = 'Participă la căutare';
 $_lang['ms2_product_cacheable'] = 'În cache';
 $_lang['ms2_product_link_attributes'] = 'Atributele link-ului';
-$_lang['ms2_product_menutitle'] = 'Punct din meniu';
+$_lang['ms2_product_menutitle'] = 'Punct de meniu';
 $_lang['ms2_product_menuindex'] = 'Poziție în meniu';
 
 $_lang['ms2_product_deleted'] = 'Eliminat';
@@ -54,7 +54,7 @@ $_lang['ms2_product_publishedon_help'] = 'Data publicării resursei.';
 $_lang['ms2_product_publishedby'] = 'Cine a publicat';
 $_lang['ms2_product_publishedby_help'] = 'Utilizatorul care a publicat resursa.';
 
-$_lang['ms2_product_menutitle'] = 'Punct de meniu';
+$_lang['ms2_product_menutitle'] = 'Пункт меню';
 $_lang['ms2_product_hidemenu'] = 'Nu apare în meniu';
 $_lang['ms2_product_uri_override'] = 'Redefini link-ul';
 $_lang['ms2_product_uri'] = 'Link-ul';
@@ -73,7 +73,7 @@ $_lang['ms2_product_old_price'] = 'Preț vechi';
 $_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Greutate';
 $_lang['ms2_product_weight_help'] = '';
-$_lang['ms2_product_color'] = 'Culoare';
+$_lang['ms2_product_color'] = 'Culori';
 $_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Soldul';
 $_lang['ms2_product_remains_help'] = '';
@@ -91,8 +91,8 @@ $_lang['ms2_product_tags'] = 'Tagg-uri';
 $_lang['ms2_product_tags_help'] = 'Orice tagg-uri a produsului.';
 $_lang['ms2_product_size'] = 'Dimensiuni';
 $_lang['ms2_product_size_help'] = 'Dimensiunile produsului, dacă sunt.';
-$_lang['ms2_product_color'] = 'Culori';
-$_lang['ms2_product_color_help'] = 'Culorile produsului, dacă sunt.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
 $_lang['ms2_product_new'] = 'Nou';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Favorit';
@@ -126,7 +126,7 @@ $_lang['ms2_product_selected_unpublish'] = 'Dezactivați produselor selectate';
 $_lang['ms2_product_selected_delete'] = 'Ștergeți produsele selectate';
 $_lang['ms2_product_selected_undelete'] = 'Restabiliți produsele selectate';
 
-//$_lang['ms2_disabled_while_creating'] = '<i>Această funcție a fost dezactivată la crearea noului produs.</i>';
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Fișierile nu au fost găsite.<br/><br/>Puteți să le descărcați, tragând direct pe acest panou sau selectând butonul din partea de sus.</p>';
 $_lang['ms2_gallery_unavailablemsg'] = 'Pentru a încărca fișiere în Galerie, trebuie mai întâi să creați (salvați) un produs.';
@@ -143,7 +143,7 @@ $_lang['ms2_gallery_button_upload'] = 'Selectați fișierele';
 
 $_lang['ms2_gallery_file_show'] = 'Deschideți în fereastră nouă';
 $_lang['ms2_gallery_file_update'] = 'Modificarea proprietăților';
-$_lang['ms2_gallery_file_generate_all'] = 'Actualizați toate'; 
+$_lang['ms2_gallery_file_generate_all'] = 'Actualizați toate';
 $_lang['ms2_gallery_file_generate_thumbs'] = 'Actualizați miniaturile';
 $_lang['ms2_gallery_file_generate_thumbs_confirm'] = 'Sunteți sigur că doriți să actualizați previzualizările tuturor fișierelor?';
 $_lang['ms2_gallery_file_delete'] = 'Ștergeți fișierul';
