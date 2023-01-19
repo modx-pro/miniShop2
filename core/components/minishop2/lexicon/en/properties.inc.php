@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Properties English Lexicon Entries for miniShop2
+ * Properties Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -12,7 +12,7 @@ $_lang['ms2_prop_offset'] = 'An offset of resources returned by the criteria to 
 $_lang['ms2_prop_depth'] = 'Integer value indicating depth to search for resources from each parent.';
 $_lang['ms2_prop_sortby'] = 'The field to sort by. For sorting by product fields you need to add prefix "Data.", for example: "&sortby=`Data.price`"';
 $_lang['ms2_prop_sortdir'] = 'The direction to sort by';
-$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from';
+$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from.';
 $_lang['ms2_prop_tpl'] = 'The chunk tpl to use for each row.';
 $_lang['ms2_prop_toPlaceholder'] = 'If not empty, the snippet will save output to placeholder with that name, instead of return it to screen.';
 $_lang['ms2_prop_toSeparatePlaceholders'] = 'If set, will assign EACH result to a separate placeholder named by this param suffixed with a sequential number (starting from 0).';
@@ -20,8 +20,8 @@ $_lang['ms2_prop_showLog'] = 'Display additional information about snippet work.
 $_lang['ms2_prop_parents'] = 'Container list, separated by commas, to search results. By default, the query is limited to the current parent. If set to 0, query not limited.';
 $_lang['ms2_prop_resources'] = 'Comma-delimited list of ids to include in the results. Prefix an id with a dash to exclude the resource from the result.';
 $_lang['ms2_prop_fastMode'] = 'If enabled, then in chunk will be only received values ​​from the database. All raw tags of MODX, such as filters, snippets calls will be cut.';
+$_lang['ms2_prop_where'] = 'Строка, закодированная в JSON, с дополнительными условиями выборки.';
 $_lang['ms2_prop_includeContent'] = 'Retrieve field "content" from products.';
-$_lang['ms2_prop_where'] = 'A JSON-style expression of criteria to build any additional where clauses from.';
 $_lang['ms2_prop_includeTVs'] = 'An optional comma-delimited list of TemplateVar names to include in selection. For example "action,time" give you placeholders [[+action]] and [[+time]].';
 $_lang['ms2_prop_includeThumbs'] = 'An optional comma-delimited list of Thumbnail sizes to include in selection. For example: "small,medium" give you placeholders [[+small]] and [[+medium]]. Thumbnails must be generted in gallery of product.';
 $_lang['ms2_prop_link'] = 'Product link ID, which is automatically assigned when you create a new link in the settings.';
