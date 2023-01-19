@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Romanian Lexicon Entries for miniShop2
+ * Default Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
