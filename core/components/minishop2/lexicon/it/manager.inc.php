@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Manager English Lexicon Entries for miniShop2
+ * Manager Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
@@ -66,7 +66,11 @@ $_lang['ms2_metro'] = 'Metro stotelė';
 $_lang['ms2_street'] = 'Gatvė';
 $_lang['ms2_building'] = 'Namas';
 $_lang['ms2_room'] = 'Butas';
+$_lang['ms2_entrance'] = 'Подъезд';
+$_lang['ms2_floor'] = 'Этаж';
+$_lang['ms2_text_address'] = 'Адрес одной строкой';
 $_lang['ms2_comment'] = 'Komentaras';
+$_lang['ms2_order_comment'] = 'Комментарий оператора';
 
 $_lang['ms2_email_user'] = 'Siųsti laišką pirkėjui';
 $_lang['ms2_email_manager'] = 'Siųsti laišką vadybininkui';
@@ -75,9 +79,9 @@ $_lang['ms2_subject_manager'] = 'Laiško vadybininkui tema';
 $_lang['ms2_body_user'] = 'Laiško pirkėjui tekstas';
 $_lang['ms2_body_manager'] = 'Laiško vadybininkui tekstas';
 $_lang['ms2_status_final'] = 'Galutinė';
-$_lang['ms2_status_final_help'] = '';
+$_lang['ms2_status_final_help'] = 'Если статус является итоговым - его нельзя переключить на другой.';
 $_lang['ms2_status_fixed'] = 'Fiksuojanti';
-$_lang['ms2_status_fixed_help'] = '';
+$_lang['ms2_status_fixed_help'] = 'Фиксирующий статус запрещает переключение на статусы, которые идут в таблице раньше него.';
 $_lang['ms2_options'] = 'Parinktys';
 $_lang['ms2_add_cost'] = 'Mokestis';
 $_lang['ms2_add_cost_help'] = 'Mokestis, pridedamas prie kainos, pasirinkus šį mokėjimo ar pristatymo būdą. Gali būti neigiamas. Galima nurodyti procentais.';
