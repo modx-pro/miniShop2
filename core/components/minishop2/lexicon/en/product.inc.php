@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Products English Lexicon Entries for miniShop2
- *
- * @package minishop2
- * @subpackage lexicon
- */
+* Products Lexicon Entries
+*
+* @package minishop2
+* @subpackage lexicon
+*/
 
 $_lang['ms2_product_tab_main'] = 'Web page';
 $_lang['ms2_product_tab_extra'] = 'Product properties';
@@ -29,11 +29,11 @@ $_lang['ms2_product_richtext'] = 'Richtext';
 $_lang['ms2_product_searchable'] = 'Searchable';
 $_lang['ms2_product_cacheable'] = 'Cacheable';
 $_lang['ms2_product_link_attributes'] = 'Link Attributes';
-$_lang['ms2_product_menutitle'] = 'Menu Title';
+$_lang['ms2_product_menutitle'] = 'Menu title';
 $_lang['ms2_product_menuindex'] = 'Menu Index';
 
-$_lang['ms2_product_published'] = 'Published';
 $_lang['ms2_product_deleted'] = 'Deleted';
+$_lang['ms2_product_published'] = 'Published';
 $_lang['ms2_product_pub_date'] = 'Publish Date';
 $_lang['ms2_product_unpub_date'] = 'Unpublish date';
 
@@ -73,7 +73,7 @@ $_lang['ms2_product_old_price'] = 'Old price';
 $_lang['ms2_product_old_price_help'] = '';
 $_lang['ms2_product_weight'] = 'Weight';
 $_lang['ms2_product_weight_help'] = '';
-$_lang['ms2_product_color'] = 'Color';
+$_lang['ms2_product_color'] = 'Colors';
 $_lang['ms2_product_color_help'] = '';
 $_lang['ms2_product_remains'] = 'Remains';
 $_lang['ms2_product_remains_help'] = '';
@@ -91,8 +91,8 @@ $_lang['ms2_product_tags'] = 'Tags';
 $_lang['ms2_product_tags_help'] = 'Any tags of the product.';
 $_lang['ms2_product_size'] = 'Sizes';
 $_lang['ms2_product_size_help'] = 'Any sizes of the product.';
-$_lang['ms2_product_color'] = 'Colors';
-$_lang['ms2_product_color_help'] = 'Any colors of the product.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
 $_lang['ms2_product_new'] = 'New';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Favorite';
@@ -126,7 +126,7 @@ $_lang['ms2_product_selected_unpublish'] = 'Unpublish selected goods';
 $_lang['ms2_product_selected_delete'] = 'Delete selected goods';
 $_lang['ms2_product_selected_undelete'] = 'Undelete selected goods';
 
-//$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Files not found.<br/><br/>You can load them by dragging directly into this pane, or by selecting the button at the top.</p>';
 $_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
@@ -153,16 +153,3 @@ $_lang['ms2_gallery_file_delete_multiple'] = 'Delete files';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Are you sure you want to delete this files with all of its thumbnails? <br/> This operation is irreversible.';
 
 $_lang['ms2_gallery_errors'] = 'Errors on upload';
-
-$_lang['ms2_drag_self_one'] = 'Cancel';
-$_lang['ms2_drag_self_many'] = 'Cancel';
-$_lang['ms2_drag_move_one'] = 'Move product to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one_success'] = 'Product was successfully moved to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many'] = 'Move products to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many_success'] = 'Products was successfully moved to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_current_one'] = 'Move product to current category';
-$_lang['ms2_drag_move_current_once_success'] = 'Product was successfully moved to current category';
-$_lang['ms2_drag_move_current_many'] = 'Move products to current category';
-$_lang['ms2_drag_move_current_many_success'] = 'Products was successfully moved to current category';
-$_lang['ms2_drag_sort_one'] = 'Sort product';
-$_lang['ms2_drag_sort_many'] = 'Sort products';
