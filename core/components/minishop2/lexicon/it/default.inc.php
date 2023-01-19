@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default English Lexicon Entries for miniShop2
+ * Default Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -24,6 +24,8 @@ $_lang['ms2_orders_desc'] = 'Gestisci i tuoi ordini';
 $_lang['ms2_settings'] = 'Nuostatos';
 $_lang['ms2_settings_intro'] = 'Pagrindinės parduotuvės nuostatos. Čia aprašomi apmokėjimo ir pristatymo būdai bei galimos užsakymų būsenos';
 $_lang['ms2_settings_desc'] = 'Užsakymų būsenos, apmokėjimo ir pristatymo būdai';
+$_lang['ms2_system_settings'] = 'Системные настройки';
+$_lang['ms2_system_settings_desc'] = 'Системные настройки miniShop2';
 $_lang['ms2_payment'] = 'Pagamento';
 $_lang['ms2_payments'] = 'Pagamenti';
 $_lang['ms2_payments_intro'] = 'Galite kurti bet kokius apmokėjimo būdus. Apmokėjimo logiką (pirkėjo nukreipimą į reikiamą tarnybą, mokesčio priėmimą ir pan.) turi įgyvendinti nurodyta klasė.<br/>Apmokėjimo būdams parametras „klasė“ privalomas.';
@@ -124,6 +126,9 @@ $_lang['ms2_frontend_city'] = 'Miestas';
 $_lang['ms2_frontend_street'] = 'Gatvė';
 $_lang['ms2_frontend_building'] = 'Namas';
 $_lang['ms2_frontend_room'] = 'Butas';
+$_lang['ms2_frontend_entrance'] = 'Подъезд';
+$_lang['ms2_frontend_floor'] = 'Этаж';
+$_lang['ms2_frontend_text_address'] = 'Адрес одной строкой';
 
 $_lang['ms2_frontend_order_cost'] = 'Galutinė kaina';
 $_lang['ms2_frontend_order_submit'] = 'Užsakyti!';
@@ -135,6 +140,7 @@ $_lang['ms2_err_unknown'] = 'Nežinoma klaida';
 $_lang['ms2_err_ns'] = 'Šis laukas privalomas';
 $_lang['ms2_err_ae'] = 'Šio lauko reikšmė turi būti unikali';
 $_lang['ms2_err_json'] = 'Šio lauko reikšmė turi būti JSON eilutė';
+
 $_lang['ms2_err_user_nf'] = 'Utente non trovato.';
 $_lang['ms2_err_order_nf'] = 'Nurodytas užsakymas nerastas.';
 $_lang['ms2_err_status_nf'] = 'Nurodyta būsena nerasta.';
@@ -151,8 +157,8 @@ $_lang['ms2_err_value_duplicate'] = 'Non hai inserito un valore o hai inserito u
 $_lang['ms2_err_gallery_save'] = 'Failo įrašyti nepavyko';
 $_lang['ms2_err_gallery_ns'] = 'Failo perskaityti nepavyko';
 $_lang['ms2_err_gallery_ext'] = 'Netinkamas failo prievardis';
-$_lang['ms2_err_gallery_thumb'] = 'Nepavyko sugeneruoti miniatiūrų. Žr. sistemos žurnalą.';
 $_lang['ms2_err_gallery_exists'] = 'Toks paveikslas jau yra prekių galerijoje.';
+$_lang['ms2_err_gallery_thumb'] = 'Nepavyko sugeneruoti miniatiūrų. Žr. sistemos žurnalą.';
 $_lang['ms2_err_wrong_image'] = 'Il file non è un\'immagine valida.';
 
 $_lang['ms2_email_subject_new_user'] = 'Jūs atlikote užsakymą Nr. [[+num]] svetainėje [[++site_name]]';
