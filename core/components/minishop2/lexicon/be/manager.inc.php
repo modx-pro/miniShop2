@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Manager Belorussian Lexicon Entries for miniShop2
+ * Manager Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -66,7 +66,11 @@ $_lang['ms2_metro'] = 'Станцыя метро';
 $_lang['ms2_street'] = 'Вуліца';
 $_lang['ms2_building'] = 'Дом';
 $_lang['ms2_room'] = 'Кватэра';
+$_lang['ms2_entrance'] = 'Подъезд';
+$_lang['ms2_floor'] = 'Этаж';
+$_lang['ms2_text_address'] = 'Адрес одной строкой';
 $_lang['ms2_comment'] = 'Каментарый';
+$_lang['ms2_order_comment'] = 'Комментарий оператора';
 
 $_lang['ms2_email_user'] = 'Ліст пакупніку';
 $_lang['ms2_email_manager'] = 'Ліст мэнэджару';
@@ -75,9 +79,9 @@ $_lang['ms2_subject_manager'] = 'Тэма лісты мэнэджару';
 $_lang['ms2_body_user'] = 'Чанк ліста пакупніку';
 $_lang['ms2_body_manager'] = 'Чанк ліста мэнэджару';
 $_lang['ms2_status_final'] = 'Агульны';
-$_lang['ms2_status_final_help'] = '';
+$_lang['ms2_status_final_help'] = 'Если статус является итоговым - его нельзя переключить на другой.';
 $_lang['ms2_status_fixed'] = 'Фіксаваныя';
-$_lang['ms2_status_fixed_help'] = '';
+$_lang['ms2_status_fixed_help'] = 'Фиксирующий статус запрещает переключение на статусы, которые идут в таблице раньше него.';
 $_lang['ms2_options'] = 'Опцыі';
 $_lang['ms2_add_cost'] = 'Дад. кошт';
 $_lang['ms2_add_cost_help'] = 'Дадатковы кошт дастаўкі або аплаты. Можа быць адмоўнай, можна паказваць працэнты.';
