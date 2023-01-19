@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Manager Ukrainian Lexicon Entries for miniShop2
+ * Manager Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
@@ -66,7 +66,11 @@ $_lang['ms2_metro'] = 'Станція метро';
 $_lang['ms2_street'] = 'Вулиця';
 $_lang['ms2_building'] = 'Будинок';
 $_lang['ms2_room'] = 'Квартира';
+$_lang['ms2_entrance'] = 'Подъезд';
+$_lang['ms2_floor'] = 'Этаж';
+$_lang['ms2_text_address'] = 'Адрес одной строкой';
 $_lang['ms2_comment'] = 'Коментар';
+$_lang['ms2_order_comment'] = 'Комментарий оператора';
 
 $_lang['ms2_email_user'] = 'Лист покупцю';
 $_lang['ms2_email_manager'] = 'Лист менеджеру';
@@ -75,9 +79,9 @@ $_lang['ms2_subject_manager'] = 'Тема листа менеджеру';
 $_lang['ms2_body_user'] = 'Чанк листа покупцю';
 $_lang['ms2_body_manager'] = 'Чанк листа менеджеру';
 $_lang['ms2_status_final'] = 'Підсумковий';
-$_lang['ms2_status_final_help'] = '';
+$_lang['ms2_status_final_help'] = 'Если статус является итоговым - его нельзя переключить на другой.';
 $_lang['ms2_status_fixed'] = 'Фіксуючий';
-$_lang['ms2_status_fixed_help'] = '';
+$_lang['ms2_status_fixed_help'] = 'Фиксирующий статус запрещает переключение на статусы, которые идут в таблице раньше него.';
 $_lang['ms2_options'] = 'Опції';
 $_lang['ms2_add_cost'] = 'Дод. вартість';
 $_lang['ms2_add_cost_help'] = 'Додаткова вартість доставки або оплати. Може бути відʼємною або у відсотках.';
@@ -87,10 +91,11 @@ $_lang['ms2_distance_price'] = 'Вартість од/відст.';
 $_lang['ms2_distance_price_help'] = 'Додаткова вартість доставки за одиницю відстані.<br/>Може бути використано в кастомних класах.';
 $_lang['ms2_order_requires'] = 'Обовʼязкове поле';
 $_lang['ms2_order_requires_help'] = 'При оформленні замовлення, кастомний клас може вимагати заповнення цих полів.';
-$_lang['ms2_orders_selected_status'] = 'Змінити статус';
 $_lang['ms2_rank'] = 'Порядок';
 $_lang['ms2_free_delivery_amount'] = 'Безкоштовна доставка від суми замовлення';
 $_lang['ms2_free_delivery_amount_help'] = 'При досягненні суми замовлення даного значення, доставка буде безкоштовною. Якщо клас доставки змінений і/або у вас встановлені компоненти, які можуть вплинути на вартість замовлення, то дане поле може не враховуватися';
+
+$_lang['ms2_orders_selected_status'] = 'Змінити статус';
 
 $_lang['ms2_link_name'] = 'Назва звʼязку';
 $_lang['ms2_link_one_to_one'] = 'Один до одного';
