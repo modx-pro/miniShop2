@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings Russian Lexicon Entries for miniShop2
+ * Settings Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -156,10 +156,10 @@ $_lang['ms2_source_maxUploadSize_desc'] = 'Dimensiunea maximă a imaginilor înc
 $_lang['ms2_source_imageNameType_desc'] = 'Acest parametru afișează modul de redenumire a fișierului la încărcare. Hash este generarea unui nume unic, în funcție de conținutul fișierului. Friendly - generarea unui nume prin algoritmul friendly url a paginilor site-ului (acestea sunt controlate de setările de sistem).';
 
 // Настройки для альфа релиза miniShop2 4.0.0.beta
-$_lang['setting_ms2_frontend_css'] = 'Стили фронтенда';
-$_lang['setting_ms2_frontend_css_desc'] = 'Путь к файлу со стилями магазина. Если вы хотите использовать собственные стили - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
-$_lang['setting_ms2_frontend_js'] = 'Скрипты фронтенда';
-$_lang['setting_ms2_frontend_js_desc'] = 'Путь к файлу со скриптами магазина. Если вы хотите использовать собственные скрипты - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+$_lang['setting_ms2_frontend_css'] = 'Stilurile front-end-ului';
+$_lang['setting_ms2_frontend_css_desc'] = 'Calea spre fișier cu stilurile magazinului. Dacă doriți să utilizați stilurile proprii – specificați calea spre ei aici sau ștergeți acest parametru și încărcați-le manual prin șablonul site-ului.';
+$_lang['setting_ms2_frontend_js'] = 'Scripturile front-end-ului ';
+$_lang['setting_ms2_frontend_js_desc'] = 'Calea spre fișierul cu scripturile magazinului. Dacă doriți să utilizați scripturile proprii- specificați calea spre ele sau ștergeți parametrul și încărcați-le manual prin intermediul șablonului site-ului.';
 
 $_lang['setting_ms2_cart_js_class_name'] = 'Название JS класса управления корзиной';
 $_lang['setting_ms2_cart_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
