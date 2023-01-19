@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Products Russian Lexicon Entries for miniShop2
+* Products Lexicon Entries
 *
 * @package minishop2
 * @subpackage lexicon
@@ -54,7 +54,7 @@ $_lang['ms2_product_publishedon_help'] = 'Šio ištekliaus publikavimo data.';
 $_lang['ms2_product_publishedby'] = 'Publikavo';
 $_lang['ms2_product_publishedby_help'] = 'Ši išteklių publikavęs naudotojas.';
 
-$_lang['ms2_product_menutitle'] = 'Пункт меню';
+$_lang['ms2_product_menutitle'] = 'Pavadinimas meniu';
 $_lang['ms2_product_hidemenu'] = 'Nerodyti meniu';
 $_lang['ms2_product_uri_override'] = 'Fiksuotas adresas';
 $_lang['ms2_product_uri'] = 'Adresas';
