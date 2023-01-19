@@ -899,9 +899,14 @@ class miniShop2
                 /** @var Scheduler $scheduler */
                 $path = $this->modx->getOption('scheduler.core_path', null, $this->modx->getOption('core_path') . 'components/scheduler/');
                 $scheduler = $this->modx->getService('scheduler', 'Scheduler', $path . 'model/scheduler/');
-                $task = $scheduler->getTask('minishop2', 'ms2_send_email');
-                if (!$task) {
-                    $task = $this->createEmailTask();
+                if ($scheduler) {
+                    $task = $scheduler->getTask('minishop2', 'ms2_send_email');
+                    if (!$task) {
+                        $task = $this->createEmailTask();
+                    }
+                } else {
+                    $useScheduler = false;
+                    $this->modx->log(1, 'not found Scheduler extra');
                 }
             }
 
@@ -1303,7 +1308,7 @@ class miniShop2
         $task = $this->modx->newObject('sFileTask');
         $task->fromArray([
             'class_key' => 'sFileTask',
-            'content' => '/cli/sendEmail.php',
+            'content' => '/tasks/sendEmail.php',
             'namespace' => 'minishop2',
             'reference' => 'ms2_send_email',
             'description' => 'MiniShop2 Email'
