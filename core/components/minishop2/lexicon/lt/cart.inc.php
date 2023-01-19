@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default English Lexicon Entries for miniShop2 cart
+ * Cart Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -38,5 +38,6 @@ $_lang['ms2_cart_clean_success'] = 'Krepšelis ištuštintas';
 $_lang['ms2_cart_is_empty'] = 'Jūsų krepšelis tuščias';
 $_lang['ms2_cart_clean'] = 'Tuštinti krepšelį';
 
+$_lang['ms2_order_err_empty'] = 'Невозможно оформить пустой заказ';
 $_lang['ms2_order_err_delivery'] = 'Privalote pasirinkti pristatymo būdą';
 $_lang['ms2_order_err_requires'] = 'Privalote užpildyti paryškintus laukus';
