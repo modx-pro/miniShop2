@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Settings English Lexicon Entries for miniShop2
+ * Settings Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -27,15 +27,15 @@ $_lang['setting_ms2_tmp_storage'] = 'Хранилище корзины и вре
 $_lang['setting_ms2_tmp_storage_desc'] = "
 To store the shopping cart and temporary order fields in the session, specify<strong>session</strong><br>
 To store in the database specify <strong>db</strong>";
-$_lang['setting_ms2_use_scheduler'] = 'Use scheduler';
-$_lang['setting_ms2_use_scheduler_desc'] = 'Before using, make sure you have the Scheduler extra installed';
+$_lang['setting_ms2_use_scheduler'] = 'Использовать менеджер очередей';
+$_lang['setting_ms2_use_scheduler_desc'] = 'Перед использованием убедитесь, что у вас установлен компонент Scheduler';
 
 $_lang['setting_ms2_category_grid_fields'] = 'Fields of the table with goods';
-$_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category. Available: "id,menuindex,pagetitle,article,price,thumb,new,favorite,popular".';
+$_lang['setting_ms2_category_grid_fields_desc'] = 'Comma separated list of visible fields in the table of goods in category.';
 $_lang['setting_ms2_product_main_fields'] = 'Main fields of the panel of the product';
 $_lang['setting_ms2_product_main_fields_desc'] = 'Comma separated list of fields in the panel of the product. For example: "pagetitle,longtitle,content".';
 $_lang['setting_ms2_product_extra_fields'] = 'Extra fields of the panel of the product';
-$_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of fields in the panel of the product, that needed in your shop. Available: "price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite".';
+$_lang['setting_ms2_product_extra_fields_desc'] = 'Comma separated list of fields in the panel of the product, that needed in your shop. For example: "price,old_price,weight".';
 
 $_lang['setting_mgr_tree_icon_mscategory'] = 'The icon of category';
 $_lang['setting_mgr_tree_icon_mscategory_desc'] = 'The icon of category with miniShop2 products';
@@ -85,10 +85,8 @@ $_lang['setting_ms2_product_vertical_tabs'] = 'Vertical tabs at product page';
 $_lang['setting_ms2_product_vertical_tabs_desc'] = 'How to display product page in manager? Disabling this option allows you to fit the product page on the screen with a small horizontal size. Not recommended.';
 $_lang['setting_ms2_product_remember_tabs'] = 'Remember product active tab';
 $_lang['setting_ms2_product_remember_tabs_desc'] = 'If true, active tab of product panel will be remembered and restored on reload page.';
-$_lang['setting_ms2_product_thumbnail_default'] = 'Default thumbnail path';
-$_lang['setting_ms2_product_thumbnail_default_desc'] = 'Here you can specify the product thumbnail path, by default the miniShop2 logo is set. If you leave this field empty, the product thumbnail will be hidden until the product images are uploaded to the gallery.';
-//$_lang['setting_ms2_product_thumbnail_size'] = 'Default thumbnail size';
-//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Size of default pre-generated thumbnail for field "thumb" in msProduct table. Of course, this size should exist in the settings of your media source that generates the previews. Otherwise you will receive  miniShop2 logo instead of product image in manager.';
+//$_lang['setting_ms2_product_thumbnail_size'] = 'Размер превью по умолчанию';
+//$_lang['setting_ms2_product_thumbnail_size_desc'] = 'Здесь вы можете указать размер заранее уменьшенной копии изображения для вставки поля "thumb" товара. Конечно, этот размер должен существовать и в настройках источника медиа, чтобы генерировались такие превью. В противном случае вы получите логотип minIShop2 вместо изображения товара в админке.';
 $_lang['setting_ms2_product_id_as_alias'] = 'Use id of product as alias';
 $_lang['setting_ms2_product_id_as_alias_desc'] = 'If true, aliases for friendly urls of products will don be generated. Id will be set as alias.';
 
@@ -96,10 +94,10 @@ $_lang['setting_ms2_cart_handler_class'] = 'Cart handler class';
 $_lang['setting_ms2_cart_handler_class_desc'] = 'The name of the class that implements the logic of a cart.';
 $_lang['setting_ms2_cart_context'] = 'Use a single basket for all contexts?';
 $_lang['setting_ms2_cart_context_desc'] = 'If enabled, a common cart is used for all contexts. If disabled, then each context has its own shopping cart.';
-$_lang['setting_ms2_cart_max_count'] = 'Maximum number of products in cart for one operation';
-$_lang['setting_ms2_cart_max_count_desc'] = 'Default is 1000. If this value is exceeded, will be displayed a notification.';
 $_lang['setting_ms2_order_handler_class'] = 'Order handler class';
 $_lang['setting_ms2_order_handler_class_desc'] = 'The name of the class that implements the logic of an ordering.';
+$_lang['setting_ms2_cart_max_count'] = 'Maximum number of products in cart for one operation';
+$_lang['setting_ms2_cart_max_count_desc'] = 'Default is 1000. If this value is exceeded, will be displayed a notification.';
 $_lang['setting_ms2_order_user_groups'] = 'Groups for registering customers';
 $_lang['setting_ms2_order_user_groups_desc'] = 'Comma-separated list of user groups for adding new users when they orders.';
 $_lang['setting_ms2_email_manager'] = 'Managers mailboxes';
@@ -123,6 +121,7 @@ $_lang['setting_ms2_frontend_css'] = 'Frontend styles';
 $_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
 $_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
 $_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
+
 $_lang['setting_ms2_frontend_message_css'] = 'Notification library styles';
 $_lang['setting_ms2_frontend_message_css_desc'] = "The path to the CSS file for your notification library. By default to jgrowl. <br>
 If you want to use your own library, specify the path to its css directory here, or clear the parameter and load them manually through the site template.";
@@ -135,25 +134,57 @@ $_lang['setting_ms2_frontend_message_js_settings'] = 'Notification library setti
 $_lang['setting_ms2_frontend_message_js_settings_desc'] = "The path to the file with the implementation of the notification template based on your library. <br>
 By default to jgrowl settings. <br>
 If you want to use your own library, specify the path to its settings here, or clear the parameter and load them manually through the site template.";
-
 $_lang['setting_ms2_register_frontend'] = 'Allow to add js & css files for ms2 to DOM';
-$_lang['setting_ms2_register_frontend_desc'] = "Allow to add js & css files for ms2 to DOM";
+$_lang['setting_ms2_register_frontend_desc'] = 'Allow to add js & css files for ms2 to DOM';
 
-
+$_lang['setting_ms2_order_format_num'] = 'Формат нумерации заказа';
+$_lang['setting_ms2_order_format_num_desc'] = 'Формат нумерации заказа. Доступные значения в формате PHP strftime()';
+$_lang['setting_ms2_order_format_num_separator'] = 'Разделитель для нумерации заказа';
+$_lang['setting_ms2_order_format_num_separator_desc'] = 'Разделитель для нумерации заказа. Доступные значения: "/", "," и "-"';
 $_lang['setting_ms2_order_grid_fields'] = 'Fields of the orders table';
-$_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "id,num,customer,status,cost,weight,delivery,payment,createdon,updatedon,comment".';
+$_lang['setting_ms2_order_grid_fields_desc'] = 'Comma separated list of fields in the table of orders. Available: "createdon,updatedon,num,cost,cart_cost,delivery_cost,weight,status,delivery,payment,customer,receiver".';
 $_lang['setting_ms2_order_address_fields'] = 'Fields of order address';
-$_lang['setting_ms2_order_address_fields_desc'] = 'Comma separated list of address of order, which will be shown on the third tab. Available:  "receiver,phone,email,index,country,region,city,metro,street,building,entrance,floor,room,comment,text_address". If empty, this tab will be hidden.';
+$_lang['setting_ms2_order_address_fields_desc'] = 'Comma separated list of address of order, which will be shown on the third tab. Available: "receiver,phone,index,country,region,metro,building,city,street,room,entrance,floor,text_address". If empty, this tab will be hidden.';
 $_lang['setting_ms2_order_product_fields'] = 'Field of the purchased products';
-$_lang['setting_ms2_order_product_fields_desc'] = 'Which will be shown list of ordered products. Available: "product_pagetitle,vendor_name,product_article,weight,price,count,cost". Product fields specified with the prefix "product_", for example "product_pagetitle,product_article". Additionaly, you can specify a values from the options field with the prefix "option_", for example: "option_color,option_size".';
-$_lang['setting_ms2_order_product_options'] = 'Product option fields in an order';
-$_lang['setting_ms2_order_product_options_desc'] = 'Comma separated list of product  option fields in the order window. By default: "color,size".';
+$_lang['setting_ms2_order_product_fields_desc'] = 'which will be shown list of ordered products. Available: "count,price,weight,cost,options". Product fields specified with the prefix "product_", for example "product_pagetitle,product_article". Additionaly, you can specify a values from the options field with the prefix "option_", for example: "option_color,option_size".';
+$_lang['setting_ms2_order_product_options'] = 'Поля опций продукта в заказе';
+$_lang['setting_ms2_order_product_options_desc'] = 'Перечень редактируемых опций товара в окне заказа. По умолчанию: "color,size".';
 
 $_lang['ms2_source_thumbnails_desc'] = 'JSON encoded array of options for generating thumbnails.';
 $_lang['ms2_source_maxUploadWidth_desc'] = 'Maximum width of image for upload. All images, that exceeds this parameter, will be resized to fit..';
 $_lang['ms2_source_maxUploadHeight_desc'] = 'Maximum height of image for upload. All images, that exceeds this parameter, will be resized to fit.';
 $_lang['ms2_source_maxUploadSize_desc'] = 'Maximum size of file for upload (in bytes).';
 $_lang['ms2_source_imageNameType_desc'] = 'This setting specifies how to rename a file after upload. Hash is the generation of a unique name depending on the contents of the file. Friendly - generation behalf of the algorithm friendly URLs of pages of the site (they are managed by system settings).';
+
+// Настройки для альфа релиза miniShop2 4.0.0.beta
+$_lang['setting_ms2_frontend_css'] = 'Frontend styles';
+$_lang['setting_ms2_frontend_css_desc'] = 'Path to file with styles of the shop. If you want to use your own styles - specify them here, or clean this parameter and load them in site template.';
+$_lang['setting_ms2_frontend_js'] = 'Frontend scripts';
+$_lang['setting_ms2_frontend_js_desc'] = 'Path to file with scripts of the shop. If you want to use your own sscripts - specify them here, or clean this parameter and load them in site template.';
+
+$_lang['setting_ms2_cart_js_class_name'] = 'Название JS класса управления корзиной';
+$_lang['setting_ms2_cart_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_cart_js_class_path'] = 'Путь к JS управления корзиной';
+$_lang['setting_ms2_cart_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_order_js_class_name'] = 'Название JS класса для оформления заказа';
+$_lang['setting_ms2_order_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_order_js_class_path'] = 'Путь к JS классу для оформления заказа';
+$_lang['setting_ms2_order_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_notify_js_class_name'] = 'Название JS класса для показа уведомлений';
+$_lang['setting_ms2_notify_js_class_name_desc'] = 'класс должен быть экспортирован по умолчанию';
+$_lang['setting_ms2_notify_js_class_path'] = 'Путь к JS классу для показа уведомлений';
+$_lang['setting_ms2_notify_js_class_path_desc'] = 'путь указывается относительно папки assets/components/minishop2/js/web/modules';
+
+$_lang['setting_ms2_toggle_js_type'] = 'Включить новый JavaScript?';
+$_lang['setting_ms2_toggle_js_type_desc'] = 'если выбрано ДА будут подключены скрипты без зависимости от jQuery, написанные с использованием возможностей стандарта ES6';
+
+$_lang['setting_ms2_vanila_js'] = 'Новые скрипты фронтенда';
+$_lang['setting_ms2_vanila_js_desc'] = 'путь к файлу инициализации новых скриптов магазина. Если хотите указать свои параметры инициализации - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+
+$_lang['setting_ms2_frontend_notify_js_settings'] = 'Настройки уведомлений для новой версии скриптов';
+$_lang['setting_ms2_frontend_notify_js_settings_desc'] = 'путь к файлу с настройками. обратите внимание файл в формате JSON';
 
 $_lang['setting_ms2_status_draft'] = 'ID of order status Draft';
 $_lang['setting_ms2_status_draft_desc'] = 'What status should be set for a draft order';
