@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default French Lexicon Entries for miniShop2 cart
+ * Cart Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -38,5 +38,6 @@ $_lang['ms2_cart_clean_success'] = 'Le panier a été vidé avec succés';
 $_lang['ms2_cart_is_empty'] = 'Votre panier est vide';
 $_lang['ms2_cart_clean'] = 'Nettoyage du panier';
 
+$_lang['ms2_order_err_empty'] = 'Невозможно оформить пустой заказ';
 $_lang['ms2_order_err_delivery'] = 'Vous devez choisir une méthode de livraison';
 $_lang['ms2_order_err_requires'] = 'Vous devez remplir les champs neccessaires';
