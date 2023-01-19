@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Products Russian Lexicon Entries for miniShop2
+* Products Lexicon Entries
 *
 * @package minishop2
 * @subpackage lexicon
@@ -54,7 +54,7 @@ $_lang['ms2_product_publishedon_help'] = 'Дата опублікування р
 $_lang['ms2_product_publishedby'] = 'Хто опублікував';
 $_lang['ms2_product_publishedby_help'] = 'Користувач, котрий опублікував ресурс.';
 
-$_lang['ms2_product_menutitle'] = 'Пункт меню';
+$_lang['ms2_product_menutitle'] = 'Заголовок меню';
 $_lang['ms2_product_hidemenu'] = 'Не показувати у меню';
 $_lang['ms2_product_uri_override'] = 'Заморозити URI';
 $_lang['ms2_product_uri'] = 'Посилання';
