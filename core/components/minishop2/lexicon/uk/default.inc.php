@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default Ukrainian Lexicon Entries for miniShop2
+ * Default Russian Lexicon Entries for miniShop2
  *
  * @package minishop2
  * @subpackage lexicon
@@ -24,6 +24,8 @@ $_lang['ms2_orders_desc'] = 'Управління замовленнями';
 $_lang['ms2_settings'] = 'Налаштування';
 $_lang['ms2_settings_intro'] = 'Панель керування налаштуваннями магазину. Тут ви можете вказати способи оплати, доставки та статуси замовлень.';
 $_lang['ms2_settings_desc'] = 'Статуси замовлень, параметри оплати і доставки';
+$_lang['ms2_system_settings'] = 'Системные настройки';
+$_lang['ms2_system_settings_desc'] = 'Системные настройки miniShop2';
 $_lang['ms2_payment'] = 'Оплата';
 $_lang['ms2_payments'] = 'Способи оплати';
 $_lang['ms2_payments_intro'] = 'Ви можете створювати будь-які способи оплати замовлень. Логіка оплати (відправка покупця на сторонній сервіс, приймання оплати та ін.) реалізується в класі, що ви зазначите.<br/>Для методів оплати параметр "клас" є обовʼязковим.';
@@ -124,6 +126,9 @@ $_lang['ms2_frontend_city'] = 'Місто';
 $_lang['ms2_frontend_street'] = 'Вулиця';
 $_lang['ms2_frontend_building'] = 'Дім';
 $_lang['ms2_frontend_room'] = 'Квартира';
+$_lang['ms2_frontend_entrance'] = 'Подъезд';
+$_lang['ms2_frontend_floor'] = 'Этаж';
+$_lang['ms2_frontend_text_address'] = 'Адрес одной строкой';
 
 $_lang['ms2_frontend_order_cost'] = 'Разом, з доставкою';
 $_lang['ms2_frontend_order_submit'] = 'Зробити замовлення!';
@@ -135,6 +140,7 @@ $_lang['ms2_err_unknown'] = 'Невідома помилка';
 $_lang['ms2_err_ns'] = 'Це поле обовʼязкове';
 $_lang['ms2_err_ae'] = 'Це поле повинно бути унікальним';
 $_lang['ms2_err_json'] = 'Це поле потребує JSON';
+
 $_lang['ms2_err_user_nf'] = 'Користувач не знайдений.';
 $_lang['ms2_err_order_nf'] = 'Замовлення з таким ідентифікатором не знайдено.';
 $_lang['ms2_err_status_nf'] = 'Статус з таким ідентифікатором не знайдено.';
@@ -151,8 +157,8 @@ $_lang['ms2_err_value_duplicate'] = 'Ви не ввели значення, аб
 $_lang['ms2_err_gallery_save'] = 'Не можу зберегти, файл не був збережений (див. системний журнал).';
 $_lang['ms2_err_gallery_ns'] = 'Передано пустий файл';
 $_lang['ms2_err_gallery_ext'] = 'Невірне розширення файлу';
-$_lang['ms2_err_gallery_thumb'] = 'Не вдалося згенерувати мініатюри. Див. системний лог.';
 $_lang['ms2_err_gallery_exists'] = 'Таке зображення вже є в галереї товару.';
+$_lang['ms2_err_gallery_thumb'] = 'Не вдалося згенерувати мініатюри. Див. системний лог.';
 $_lang['ms2_err_wrong_image'] = 'Файл не є коректним зображенням.';
 
 $_lang['ms2_email_subject_new_user'] = 'Ви зробили замовлення #[[+num]] на сайті [[++site_name]]';
