@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Permissions Belorussian Lexicon Entries to miniShop2
+ * Permissions Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
