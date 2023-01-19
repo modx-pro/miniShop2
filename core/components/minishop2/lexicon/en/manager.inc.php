@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Manager English Lexicon Entries for miniShop2
+ * Manager Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -79,9 +79,9 @@ $_lang['ms2_subject_manager'] = 'Manager email subject';
 $_lang['ms2_body_user'] = 'Customer email chunk';
 $_lang['ms2_body_manager'] = 'Manager email chunk';
 $_lang['ms2_status_final'] = 'Final';
-$_lang['ms2_status_final_help'] = '';
+$_lang['ms2_status_final_help'] = 'Если статус является итоговым - его нельзя переключить на другой.';
 $_lang['ms2_status_fixed'] = 'Fixed';
-$_lang['ms2_status_fixed_help'] = '';
+$_lang['ms2_status_fixed_help'] = 'Фиксирующий статус запрещает переключение на статусы, которые идут в таблице раньше него.';
 $_lang['ms2_options'] = 'Options';
 $_lang['ms2_add_cost'] = 'Add cost';
 $_lang['ms2_add_cost_help'] = 'The additional cost of shipping or payment. Can be negative, you can specify a percentage.';
