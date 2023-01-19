@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Manager Romanian Lexicon Entries for miniShop2
+ * Manager Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
