@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default English Lexicon Entries for miniShop2
+ * Default Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -140,6 +140,7 @@ $_lang['ms2_err_unknown'] = 'Unknown error';
 $_lang['ms2_err_ns'] = 'This field is required';
 $_lang['ms2_err_ae'] = 'This field must be unique';
 $_lang['ms2_err_json'] = 'This field requires JSON string';
+
 $_lang['ms2_err_user_nf'] = 'User not found.';
 $_lang['ms2_err_order_nf'] = 'The order with this id not found.';
 $_lang['ms2_err_status_nf'] = 'The status with this id not found.';
@@ -156,8 +157,8 @@ $_lang['ms2_err_value_duplicate'] = 'You have not entered a value or entered a d
 $_lang['ms2_err_gallery_save'] = 'Could not save file';
 $_lang['ms2_err_gallery_ns'] = 'Could not read file';
 $_lang['ms2_err_gallery_ext'] = 'Wrong file extension';
-$_lang['ms2_err_gallery_thumb'] = 'Could not generate thumbnails. See system log for details.';
 $_lang['ms2_err_gallery_exists'] = 'Such an image is already in the product gallery.';
+$_lang['ms2_err_gallery_thumb'] = 'Could not generate thumbnails. See system log for details.';
 $_lang['ms2_err_wrong_image'] = 'File is not a valid image.';
 
 $_lang['ms2_email_subject_new_user'] = 'You made the order #[[+num]] on the [[++site_name]]';
