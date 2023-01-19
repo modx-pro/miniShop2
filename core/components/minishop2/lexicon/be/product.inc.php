@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Products Belorussian Lexicon Entries for miniShop2
- *
- * @package minishop2
- * @subpackage lexicon
- */
+* Products Lexicon Entries
+*
+* @package minishop2
+* @subpackage lexicon
+*/
 
 $_lang['ms2_product_tab_main'] = 'Вэб старонка';
 $_lang['ms2_product_tab_extra'] = 'Уласцівасці тавару';
@@ -32,8 +32,8 @@ $_lang['ms2_product_link_attributes'] = 'Атрыбуты спасылкі';
 $_lang['ms2_product_menutitle'] = 'Назва ў меню';
 $_lang['ms2_product_menuindex'] = 'Парадак у меню';
 
-$_lang['ms2_product_published'] = 'Апублікаваны';
 $_lang['ms2_product_deleted'] = 'Выдаліць';
+$_lang['ms2_product_published'] = 'Апублікаваны';
 $_lang['ms2_product_pub_date'] = 'Дата публікацыі';
 $_lang['ms2_product_unpub_date'] = 'Дата зняцця з публікацыі';
 
@@ -91,8 +91,8 @@ $_lang['ms2_product_tags'] = 'Тэгі';
 $_lang['ms2_product_tags_help'] = 'Любыя тэгі прадукту.';
 $_lang['ms2_product_size'] = 'Памеры';
 $_lang['ms2_product_size_help'] = 'Памеры тавару, калі ёсць.';
-$_lang['ms2_product_color'] = 'Колер';
-$_lang['ms2_product_color_help'] = 'Колер тавару, калі ёсць.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
 $_lang['ms2_product_new'] = 'Новы';
 $_lang['ms2_product_new_help'] = '';
 $_lang['ms2_product_favorite'] = 'Асаблівы';
@@ -126,11 +126,11 @@ $_lang['ms2_product_selected_unpublish'] = 'Адключыць выбраныя 
 $_lang['ms2_product_selected_delete'] = 'Выдаліць выбраныя тавары';
 $_lang['ms2_product_selected_undelete'] = 'Аднавіць выбраныя тавары';
 
-//$_lang['ms2_disabled_while_creating'] = '<i>This function is disabled when creating a new product</i>';
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файлаў не знойдзена.<br/><br/>вы можаце загрузіць іх, перацягнуўшы прама на гэтую панэль або выбраўшы кнопкай уверсе.</p>';
-$_lang['ms2_gallery_file_name'] = 'Імя файла';
 $_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
+$_lang['ms2_gallery_file_name'] = 'Імя файла';
 $_lang['ms2_gallery_file_title'] = 'Назва';
 $_lang['ms2_gallery_file_description'] = 'Апісанне';
 $_lang['ms2_gallery_file_size'] = 'Памер файла';
@@ -153,16 +153,3 @@ $_lang['ms2_gallery_file_delete_multiple'] = 'Выдаліць файлы';
 $_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Вы сапраўды хочаце выдаліць гэтыя файлы з усімі іх паменшанымі копіямі?<br/>Гэтая аперацыя незваротная.';
 
 $_lang['ms2_gallery_errors'] = 'Памылкі пры загрузцы';
-
-$_lang['ms2_drag_self_one'] = 'Cancel';
-$_lang['ms2_drag_self_many'] = 'Cancel';
-$_lang['ms2_drag_move_one'] = 'Move product to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one_success'] = 'Product was successfully moved to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many'] = 'Move products to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many_success'] = 'Products was successfully moved to category <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_current_one'] = 'Move product to current category';
-$_lang['ms2_drag_move_current_once_success'] = 'Product was successfully moved to current category';
-$_lang['ms2_drag_move_current_many'] = 'Move products to current category';
-$_lang['ms2_drag_move_current_many_success'] = 'Products was successfully moved to current category';
-$_lang['ms2_drag_sort_one'] = 'Sort product';
-$_lang['ms2_drag_sort_many'] = 'Sorts product';
