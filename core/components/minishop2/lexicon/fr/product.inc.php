@@ -1,151 +1,155 @@
 <?php
 
 /**
- * Products French Lexicon Entries for miniShop2
- *
- * @package minishop2
- * @subpackage lexicon
- */
+* Products Russian Lexicon Entries for miniShop2
+*
+* @package minishop2
+* @subpackage lexicon
+*/
 
-$_lang['ms2_product_tab_main'] = 'page Web';
-$_lang['ms2_product_tab_extra'] = 'Propriétées des Articles';
-$_lang['ms2_product_tab_seo'] = 'Paramètres SEO';
-$_lang['ms2_product_tab_gallery'] = 'Gallerie';
-$_lang['ms2_product_tab_links'] = 'liens';
-$_lang['ms2_product_sections'] = 'Sections';
-$_lang['ms2_product_properties'] = 'Propriétées principales';
-$_lang['ms2_product_tv'] = 'Propriétées additionnelles';
+$_lang['ms2_product_tab_main'] = 'Веб страница';
+$_lang['ms2_product_tab_extra'] = 'Свойства товара';
+$_lang['ms2_product_tab_seo'] = 'Параметры SEO';
+$_lang['ms2_product_tab_gallery'] = 'Галерея';
+$_lang['ms2_product_tab_links'] = 'Связи';
+$_lang['ms2_product_sections'] = 'Разделы';
+$_lang['ms2_product_properties'] = 'Основные свойства';
+$_lang['ms2_product_tv'] = 'Дополнительные свойства';
 
 $_lang['ms2_product_id'] = 'ID';
-$_lang['ms2_product_pagetitle'] = 'Nom';
-$_lang['ms2_product_parent'] = 'Catégorie';
-$_lang['ms2_product_longtitle'] = 'Nom complet';
-$_lang['ms2_product_description'] = 'Description';
-$_lang['ms2_product_alias'] = 'Alias';
-$_lang['ms2_product_introtext'] = 'Texte d\'introduction';
-$_lang['ms2_product_content'] = 'Contenu';
-$_lang['ms2_product_template'] = 'Modèle';
-$_lang['ms2_product_richtext'] = 'Éditeur de texte';
-$_lang['ms2_product_searchable'] = 'Participe à la recherche';
-$_lang['ms2_product_cacheable'] = 'Peut être mis en cache';
-$_lang['ms2_product_link_attributes'] = 'Attributs de liaison';
-$_lang['ms2_product_menutitle'] = 'Titre du menu';
+$_lang['ms2_product_pagetitle'] = 'Название';
+$_lang['ms2_product_parent'] = 'Категория';
+$_lang['ms2_product_longtitle'] = 'Полное название';
+$_lang['ms2_product_description'] = 'Описание';
+$_lang['ms2_product_alias'] = 'Псевдоним';
+$_lang['ms2_product_introtext'] = 'Вводный текст';
+$_lang['ms2_product_content'] = 'Содержимое';
+$_lang['ms2_product_template'] = 'Шаблон';
+$_lang['ms2_product_richtext'] = 'Редактор';
+$_lang['ms2_product_searchable'] = 'Участвует в поиске';
+$_lang['ms2_product_cacheable'] = 'Кэшируется';
+$_lang['ms2_product_link_attributes'] = 'Атрибуты ссылки';
+$_lang['ms2_product_menutitle'] = 'Пункт меню';
+$_lang['ms2_product_menuindex'] = 'Позиция в меню';
 
-$_lang['ms2_product_published'] = 'Publié';
-$_lang['ms2_product_deleted'] = 'Supprimé';
-$_lang['ms2_product_pub_date'] = 'Date de publication';
-$_lang['ms2_product_unpub_date'] = 'Date de retrait de publication';
+$_lang['ms2_product_deleted'] = 'Удалён';
+$_lang['ms2_product_published'] = 'Опубликован';
+$_lang['ms2_product_pub_date'] = 'Дата публикации';
+$_lang['ms2_product_unpub_date'] = 'Дата отмены публикации';
 
-$_lang['ms2_product_createdby'] = 'Créé par';
-$_lang['ms2_product_createdby_help'] = 'Utilisateur qui a créé la ressource.';
-$_lang['ms2_product_createdon'] = 'Créé le';
-$_lang['ms2_product_createdon_help'] = 'Date de création de la ressource.';
-$_lang['ms2_product_editedby'] = 'Édité par';
-$_lang['ms2_product_editedby_help'] = 'Utilisateur qui a édité la ressource en dernier.';
-$_lang['ms2_product_editedon'] = 'Édité le';
-$_lang['ms2_product_editedon_help'] = 'Date de la dernière édition de la ressource.';
-$_lang['ms2_product_deletedon'] = 'Supprimé le';
-$_lang['ms2_product_deletedon_help'] = 'Date de suppression de la ressource.';
-$_lang['ms2_product_deletedby'] = 'Supprimé par';
-$_lang['ms2_product_deletedby_help'] = 'Utilisateur qui a supprimé la ressource.';
-$_lang['ms2_product_publishedon'] = 'Publié le';
-$_lang['ms2_product_publishedon_help'] = 'Date de publication de la ressource.';
-$_lang['ms2_product_publishedby'] = 'Publié par';
-$_lang['ms2_product_publishedby_help'] = 'Utilisateur qui publié la ressource.';
+$_lang['ms2_product_createdby'] = 'Автор';
+$_lang['ms2_product_createdby_help'] = 'Пользователь, который создал ресурс.';
+$_lang['ms2_product_createdon'] = 'Дата создания';
+$_lang['ms2_product_createdon_help'] = 'Дата создания ресурса.';
+$_lang['ms2_product_editedby'] = 'Кто изменил';
+$_lang['ms2_product_editedby_help'] = 'Пользователь, который последним изменял ресурс.';
+$_lang['ms2_product_editedon'] = 'Дата изменения';
+$_lang['ms2_product_editedon_help'] = 'Дата последнего изменения.';
+$_lang['ms2_product_deletedon'] = 'Дата удаления';
+$_lang['ms2_product_deletedon_help'] = 'Дата удаления ресурса.';
+$_lang['ms2_product_deletedby'] = 'Кто удалил';
+$_lang['ms2_product_deletedby_help'] = 'Пользователь, который удалил ресурс.';
+$_lang['ms2_product_publishedon'] = 'Был опубликован';
+$_lang['ms2_product_publishedon_help'] = 'Дата опубликования ресурса.';
+$_lang['ms2_product_publishedby'] = 'Кто опубликовал';
+$_lang['ms2_product_publishedby_help'] = 'Пользователь, который опубликовал ресурс.';
 
-$_lang['ms2_product_menutitle'] = 'Titre du menu';
-$_lang['ms2_product_hidemenu'] = 'Cacher le menu';
-$_lang['ms2_product_uri_override'] = 'Remplacer l\'URI';
-$_lang['ms2_product_uri'] = 'URI';
-$_lang['ms2_product_show_in_tree'] = 'Afficher dans l\'arbre';
-$_lang['ms2_product_show_in_tree_help'] = 'Par défaut, les biens ne sont pas affiché dans l\'arbre des ressources de MODX pour des raisons de performances, mais vous pouvez activer cet affichage pour certains emplacements.';
-$_lang['ms2_product_syncsite'] = 'Vider le cache';
+$_lang['ms2_product_menutitle'] = 'Пункт меню';
+$_lang['ms2_product_hidemenu'] = 'Не показывать в меню';
+$_lang['ms2_product_uri_override'] = 'Заморозить ссылку';
+$_lang['ms2_product_uri'] = 'Ссылка';
+$_lang['ms2_product_hide_children_in_tree'] = 'Скрыть потомков в дереве';
+$_lang['ms2_product_hide_children_in_tree_help'] = 'Эта настройка скроет все дочерние товары и категории в дереве ресурса, независимо от их свойства "show_in_tree".';
+$_lang['ms2_product_hide_in_tree'] = 'Скрыть в дереве';
+$_lang['ms2_product_show_in_tree'] = 'Показывать в дереве';
+$_lang['ms2_product_show_in_tree_help'] = 'По умолчанию, товары магазина не показываются в дереве ресурсов MODX, чтобы не нагружать его. Но вы можете включить вывод некоторых позиций.';
+$_lang['ms2_product_syncsite'] = 'Очистить кэш';
 
-$_lang['ms2_product_article'] = 'Article';
+$_lang['ms2_product_article'] = 'Артикул';
 $_lang['ms2_product_article_help'] = '';
-$_lang['ms2_product_price'] = 'Prix';
+$_lang['ms2_product_price'] = 'Цена';
 $_lang['ms2_product_price_help'] = '';
-$_lang['ms2_product_old_price'] = 'Ancien prix';
+$_lang['ms2_product_old_price'] = 'Старая цена';
 $_lang['ms2_product_old_price_help'] = '';
-$_lang['ms2_product_weight'] = 'Poids';
+$_lang['ms2_product_weight'] = 'Вес';
 $_lang['ms2_product_weight_help'] = '';
-$_lang['ms2_product_color'] = 'Couleur';
+$_lang['ms2_product_color'] = 'Цвет';
 $_lang['ms2_product_color_help'] = '';
-$_lang['ms2_product_remains'] = 'Se rappeler';
+$_lang['ms2_product_remains'] = 'Остаток';
 $_lang['ms2_product_remains_help'] = '';
-$_lang['ms2_product_reserved'] = 'Réservé';
+$_lang['ms2_product_reserved'] = 'Резерв';
 $_lang['ms2_product_reserved_help'] = '';
-$_lang['ms2_product_image'] = 'Image';
+$_lang['ms2_product_image'] = 'Изображение';
 $_lang['ms2_product_image_help'] = '';
-$_lang['ms2_product_thumb'] = 'Vignette';
+$_lang['ms2_product_thumb'] = 'Превью';
 $_lang['ms2_product_thumb_help'] = '';
-$_lang['ms2_product_vendor'] = 'Fabricant';
+$_lang['ms2_product_vendor'] = 'Производитель';
 $_lang['ms2_product_vendor_help'] = '';
-$_lang['ms2_product_made_in'] = 'Fabriqué en';
-$_lang['ms2_product_made_in__help'] = '';
-$_lang['ms2_product_tags'] = 'Balises';
-$_lang['ms2_product_tags_help'] = 'Toutes les balises de l\'article.';
-$_lang['ms2_product_size'] = 'Tailles';
-$_lang['ms2_product_size_help'] = 'Toutes les tailles de l\'article.';
-$_lang['ms2_product_color'] = 'Couleurs';
-$_lang['ms2_product_color_help'] = 'Toutes les couleurs de l\'article.';
-$_lang['ms2_product_new'] = 'Nouveau';
+$_lang['ms2_product_made_in'] = 'Страна';
+$_lang['ms2_product_made_in_help'] = '';
+$_lang['ms2_product_tags'] = 'Теги';
+$_lang['ms2_product_tags_help'] = 'Любые теги продукта.';
+$_lang['ms2_product_size'] = 'Размеры';
+$_lang['ms2_product_size_help'] = 'Размеры товара, если есть.';
+$_lang['ms2_product_color'] = 'Цвета';
+$_lang['ms2_product_color_help'] = 'Цвета товара, если есть.';
+$_lang['ms2_product_new'] = 'Новый';
 $_lang['ms2_product_new_help'] = '';
-$_lang['ms2_product_favorite'] = 'Favori';
+$_lang['ms2_product_favorite'] = 'Особый';
 $_lang['ms2_product_favorite_help'] = '';
-$_lang['ms2_product_popular'] = 'Populaire';
+$_lang['ms2_product_popular'] = 'Популярный';
 $_lang['ms2_product_popular_help'] = '';
-$_lang['ms2_product_source'] = 'Source des medias';
-$_lang['ms2_product_source_help'] = 'Fichiers sources des images des articles du magasin.';
-$_lang['ms2_product_change_source_confirm'] = 'Êtes-vous sûr de vouloir changer la source des médias du produit? ATTENTION: Ceci va enregistrer vos modifications antérieures, assurez-vous que vous êtes prêt à le faire avant de procéder.';
+$_lang['ms2_product_source'] = 'Источник файлов';
+$_lang['ms2_product_source_help'] = 'Источник файлов, который хранит изображения товара.';
+$_lang['ms2_product_change_source_confirm'] = 'Вы уверены, что хотите изменить источник файлов? ВНИМАНИЕ: При этом будут сохранены все изменения, убедитесь, что вы готовы сделать это перед продолжением.';
+$_lang['ms2_product_count'] = 'Количество';
+$_lang['ms2_product_options'] = 'Опции товаров';
 
-$_lang['ms2_product_save'] = 'Sauvegarder';
-$_lang['ms2_product_edit'] = 'Éditer';
-$_lang['ms2_product_view'] = 'Vue';
-$_lang['ms2_product_delete'] = 'Supprimer';
-$_lang['ms2_product_undelete'] = 'Restaurer';
-$_lang['ms2_product_publish'] = 'Publier';
-$_lang['ms2_product_unpublish'] = 'Dépublier';
-$_lang['ms2_product_cancel'] = 'Annuler';
-$_lang['ms2_product_back'] = 'Retour';
-$_lang['ms2_product_prev'] = 'Article précédent';
-$_lang['ms2_product_next'] = 'Article suivant';
-$_lang['ms2_product_help'] = 'Aide';
+$_lang['ms2_product_save'] = 'Сохранить';
+$_lang['ms2_product_edit'] = 'Изменить';
+$_lang['ms2_product_view'] = 'Просмотр';
+$_lang['ms2_product_delete'] = 'Удалить';
+$_lang['ms2_product_undelete'] = 'Восстановить';
+$_lang['ms2_product_publish'] = 'Включить';
+$_lang['ms2_product_unpublish'] = 'Отключить';
+$_lang['ms2_product_duplicate'] = 'Копировать';
+$_lang['ms2_product_cancel'] = 'Отмена';
+$_lang['ms2_product_back'] = 'Назад';
+$_lang['ms2_product_prev'] = 'Предыдущий товар';
+$_lang['ms2_product_next'] = 'Следующий товар';
+$_lang['ms2_product_help'] = 'Помощь';
 
-$_lang['ms2_product_duplicate_confirm'] = 'Ếtes vous sûr de vouloir faire une copie de cet article ?';
-$_lang['ms2_product_delete_desc'] = 'Voulez vous vraiement supprimer cet article ?';
-$_lang['ms2_product_selected_publish'] = 'Publier l\'article sélectionné';
-$_lang['ms2_product_selected_unpublish'] = 'Désactiver l\'articles sélectionné';
-$_lang['ms2_product_selected_delete'] = 'Supprimer l\'article sélectionné';
-$_lang['ms2_product_selected_undelete'] = 'Restaurer l\'article sélectionné';
+$_lang['ms2_product_duplicate_confirm'] = 'Вы уверены, что хотите сделать копию этого товара?';
+$_lang['ms2_product_delete_desc'] = 'Вы действительно хотите удалить этот товар?';
+$_lang['ms2_product_selected_publish'] = 'Включить выбранные товары';
+$_lang['ms2_product_selected_unpublish'] = 'Отключить выбранные товары';
+$_lang['ms2_product_selected_delete'] = 'Удалить выбранные товары';
+$_lang['ms2_product_selected_undelete'] = 'Восстановить выбранные товары';
 
+//$_lang['ms2_disabled_while_creating'] = '<i>Эта функция отключена при создании нового товара.</i>';
 
-$_lang['ms2_disabled_while_creating'] = '<i>Cette fonction est désactivée lors de la création d\'un nouveau produit</i>';
+$_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файлов не найдено.<br/><br/>Вы можете загрузить их, перетащив прямо на эту панель или выбрав кнопкой вверху.</p>';
+$_lang['ms2_gallery_unavailablemsg'] = 'Для загрузки файлов в Галерею необходимо сначала создать (сохранить) товар.';
+$_lang['ms2_gallery_file_name'] = 'Имя файла';
+$_lang['ms2_gallery_file_title'] = 'Название';
+$_lang['ms2_gallery_file_description'] = 'Описание';
+$_lang['ms2_gallery_file_size'] = 'Размер';
+$_lang['ms2_gallery_file_createdon'] = 'Дата создания';
+$_lang['ms2_gallery_file_createdby'] = 'Автор';
+$_lang['ms2_gallery_file_url'] = 'Ссылка';
+$_lang['ms2_gallery_file_source'] = 'Источник файла';
 
-$_lang['ms2_gallery_emptymsg'] = 'Glisser/déplacer les fichiers dans ce tableau pour le télécharger, ou sélectionnez les en cliquant sur le bouton du haut.';
-$_lang['ms2_gallery_introtext'] = 'Ici vous pouvez gérer la gallerie des articles. Télécharger de nouvelle images simplement en les déplaçant dans le tableau. La prelière image du tableau sera l\'image principale de l\'article.';
-$_lang['ms2_gallery_filename'] = 'Nom du fichier';
-$_lang['ms2_gallery_size'] = 'Taille';
-$_lang['ms2_gallery_status'] = 'État';
-$_lang['ms2_gallery_progress'] = 'En cours';
-$_lang['ms2_gallery_inactive'] = 'Inactif';
-$_lang['ms2_gallery_createdon'] = 'Créé le';
-$_lang['ms2_gallery_unavailablemsg'] = 'To upload files to the Gallery, you must first create (save) the product';
-$_lang['ms2_gallery_createdby'] = 'Créé par';
-$_lang['ms2_gallery_url'] = 'Url';
-$_lang['ms2_gallery_name'] = 'Nom';
-$_lang['ms2_gallery_status'] = 'État';
-$_lang['ms2_gallery_button_upload'] = 'Célectionnez votre fichier';
-$_lang['ms2_gallery_status_aborted'] = '<i class="bicon-remove"></i> Annulé';
-$_lang['ms2_gallery_status_error'] = '<i class="bicon-remove"></i> Error';
-$_lang['ms2_gallery_status_sending'] = '<i class="bicon-repeat"></i> Envoi';
-$_lang['ms2_gallery_status_done'] = '<i class="bicon-remove"></i> Terminé';
-$_lang['ms2_gallery_uploads_clear'] = 'Effacer';
-$_lang['ms2_gallery_generate_thumbs'] = 'Re-créer toutes les vignettes';
+$_lang['ms2_gallery_button_upload'] = 'Выбрать файлы';
 
-$_lang['ms2_gallery_image_generate_thumbs'] = 'Re-créer les vignettes';
-$_lang['ms2_gallery_file_update'] = 'Mise a jour des propriétés';
-$_lang['ms2_gallery_file_delete'] = 'Supprimer l\'fichier';
-$_lang['ms2_gallery_file_delete_confirm'] = 'Êtes vous sûr de vouloir supprimer cette fichier et toutes ses vignettes ? <br/> Cette opération est irréversible.';
-$_lang['ms2_gallery_file_delete_multiple'] = 'Supprimer les fichiers';
-$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Êtes vous de vouloir supprimer ces fichier et toutes leurs vignettes ? <br/> Cette opération est irréversible.';
+$_lang['ms2_gallery_file_show'] = 'Открыть в новом окне';
+$_lang['ms2_gallery_file_update'] = 'Изменить свойства';
+$_lang['ms2_gallery_file_generate_all'] = 'Обновить все';
+$_lang['ms2_gallery_file_generate_thumbs'] = 'Обновить превьюшки';
+$_lang['ms2_gallery_file_generate_thumbs_confirm'] = 'Вы действительно хотите обновить превью всех файлов?';
+$_lang['ms2_gallery_file_delete'] = 'Удалить файл';
+$_lang['ms2_gallery_file_delete_all'] = 'Удалить все';
+$_lang['ms2_gallery_file_delete_confirm'] = 'Вы действительно хотите удалить этот файл вместе со всеми его уменьшенными копиями?<br/>Эта операция необратима.';
+$_lang['ms2_gallery_file_delete_multiple'] = 'Удалить файлы';
+$_lang['ms2_gallery_file_delete_multiple_confirm'] = 'Вы действительно хотите удалить эти файлы со всеми их уменьшенными копиями?<br/>Эта операция необратима.';
+
+$_lang['ms2_gallery_errors'] = 'Ошибки при загрузке';
