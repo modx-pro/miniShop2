@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default English Lexicon Entries for miniShop2
+ * Default Lexicon Entries
  *
  * @package minishop2
  * @subpackage lexicon
@@ -24,6 +24,8 @@ $_lang['ms2_orders_desc'] = 'Tvarkyti užsakymus';
 $_lang['ms2_settings'] = 'Nuostatos';
 $_lang['ms2_settings_intro'] = 'Pagrindinės parduotuvės nuostatos. Čia aprašomi apmokėjimo ir pristatymo būdai bei galimos užsakymų būsenos';
 $_lang['ms2_settings_desc'] = 'Užsakymų būsenos, apmokėjimo ir pristatymo būdai';
+$_lang['ms2_system_settings'] = 'Системные настройки';
+$_lang['ms2_system_settings_desc'] = 'Системные настройки miniShop2';
 $_lang['ms2_payment'] = 'Apmokėjimas';
 $_lang['ms2_payments'] = 'Apmokėjimo būdai';
 $_lang['ms2_payments_intro'] = 'Galite kurti bet kokius apmokėjimo būdus. Apmokėjimo logiką (pirkėjo nukreipimą į reikiamą tarnybą, mokesčio priėmimą ir pan.) turi įgyvendinti nurodyta klasė.<br/>Apmokėjimo būdams parametras „klasė“ privalomas.';
@@ -37,11 +39,17 @@ $_lang['ms2_vendors_intro'] = 'Galimi prekių gamintojai arba tiekėjai. Kuriant
 $_lang['ms2_link'] = 'Prekių sąryšis';
 $_lang['ms2_links'] = 'Prekių sąryšiai';
 $_lang['ms2_links_intro'] = 'Galimų prekių tarpusavio susiejimo būdų sąrašas. Sąryšio tipas nurodo, kaip būtent sąryšis veiks. Naujų sąryšio tipų kurti negalima, privaloma rinktis vieną iš esamų.';
+$_lang['ms2_option'] = 'Свойство товаров';
+$_lang['ms2_options'] = 'Свойства товаров';
+$_lang['ms2_options_intro'] = 'Список возможных свойств товаров. Дерево категорий используется для фильтрации свойств выбранных категорий.<br/>Чтобы назначить категориям сразу несколько опций, выберите их через Ctrl(Cmd) или Shift.';
+$_lang['ms2_options_category_intro'] = 'Список возможных свойств товаров в данной категории.';
+$_lang['ms2_default_value'] = 'Значение по умолчанию';
 $_lang['ms2_customer'] = 'Pirkėjas';
 $_lang['ms2_all'] = 'Visi';
 $_lang['ms2_type'] = 'Tipas';
 
 $_lang['ms2_btn_create'] = 'Kurti';
+$_lang['ms2_btn_copy'] = 'Скопировать';
 $_lang['ms2_btn_save'] = 'Įrašyti';
 $_lang['ms2_btn_edit'] = 'Taisyti';
 $_lang['ms2_btn_view'] = 'Žiūrėti';
@@ -55,6 +63,8 @@ $_lang['ms2_btn_prev'] = 'Ankstesnis (alt + &larr;)';
 $_lang['ms2_btn_next'] = 'Kitas (alt + &rarr;)';
 $_lang['ms2_btn_help'] = 'Pagalba';
 $_lang['ms2_btn_duplicate'] = 'Kurti dublikatą';
+$_lang['ms2_btn_addoption'] = 'Добавить';
+$_lang['ms2_btn_assign'] = 'Назначить';
 
 $_lang['ms2_actions'] = 'Veiksmai';
 $_lang['ms2_search'] = 'Ieškoti';
@@ -73,11 +83,16 @@ $_lang['ms2_category_delete'] = 'Šalinti kategoriją';
 $_lang['ms2_category_undelete'] = 'Atstatyti pašalintą kategoriją';
 $_lang['ms2_category_view'] = 'Rodyti svetainėje';
 $_lang['ms2_category_new'] = 'Nauja kategorija';
+$_lang['ms2_category_option_add'] = 'Добавить характеристику';
+$_lang['ms2_category_option_rank'] = 'Порядок сортировки';
+$_lang['ms2_category_show_nested'] = 'Показывать вложенные товары';
 
 $_lang['ms2_product'] = 'Parduotuvės prekė';
 $_lang['ms2_product_type'] = 'Parduotuvės prekė';
 $_lang['ms2_product_create_here'] = 'Šios kategorijos prekė';
 $_lang['ms2_product_create'] = 'Pridėti prekę';
+
+$_lang['ms2_option_type'] = 'Тип свойства';
 
 $_lang['ms2_frontend_currency'] = 'Lt';
 $_lang['ms2_frontend_weight_unit'] = 'kg';
@@ -92,7 +107,9 @@ $_lang['ms2_frontend_popular'] = 'Populiari';
 $_lang['ms2_frontend_favorite'] = 'Rekomenduojama';
 $_lang['ms2_frontend_new'] = 'Naujiena';
 $_lang['ms2_frontend_deliveries'] = 'Pristatymo būdai';
+$_lang['ms2_frontend_delivery'] = 'Доставка';
 $_lang['ms2_frontend_payments'] = 'Apmokėjimo būdai';
+$_lang['ms2_frontend_payment'] = 'Оплата';
 $_lang['ms2_frontend_delivery_select'] = 'Pasirinkite pristatymo būdą';
 $_lang['ms2_frontend_payment_select'] = 'Pasirinkite apmokėjimo būdą';
 $_lang['ms2_frontend_credentials'] = 'Pristatymo informacija';
@@ -109,6 +126,9 @@ $_lang['ms2_frontend_city'] = 'Miestas';
 $_lang['ms2_frontend_street'] = 'Gatvė';
 $_lang['ms2_frontend_building'] = 'Namas';
 $_lang['ms2_frontend_room'] = 'Butas';
+$_lang['ms2_frontend_entrance'] = 'Подъезд';
+$_lang['ms2_frontend_floor'] = 'Этаж';
+$_lang['ms2_frontend_text_address'] = 'Адрес одной строкой';
 
 $_lang['ms2_frontend_order_cost'] = 'Galutinė kaina';
 $_lang['ms2_frontend_order_submit'] = 'Užsakyti!';
@@ -120,6 +140,7 @@ $_lang['ms2_err_unknown'] = 'Nežinoma klaida';
 $_lang['ms2_err_ns'] = 'Šis laukas privalomas';
 $_lang['ms2_err_ae'] = 'Šio lauko reikšmė turi būti unikali';
 $_lang['ms2_err_json'] = 'Šio lauko reikšmė turi būti JSON eilutė';
+
 $_lang['ms2_err_user_nf'] = 'Utente non trovato.';
 $_lang['ms2_err_order_nf'] = 'Nurodytas užsakymas nerastas.';
 $_lang['ms2_err_status_nf'] = 'Nurodyta būsena nerasta.';
@@ -131,12 +152,14 @@ $_lang['ms2_err_status_wrong'] = 'Netinkama užsakymo būsena.';
 $_lang['ms2_err_status_same'] = 'Ši būsena jau nustatyta.';
 $_lang['ms2_err_register_globals'] = 'Klaida: php parametras <b>register_globals</b> turi būti išjungtas.';
 $_lang['ms2_err_link_equal'] = 'Klaida: bandoma produktą susieti su juo pačiu';
+$_lang['ms2_err_value_duplicate'] = 'Вы не ввели значение или ввели повтор.';
 
 $_lang['ms2_err_gallery_save'] = 'Failo įrašyti nepavyko';
 $_lang['ms2_err_gallery_ns'] = 'Failo perskaityti nepavyko';
 $_lang['ms2_err_gallery_ext'] = 'Netinkamas failo prievardis';
-$_lang['ms2_err_gallery_thumb'] = 'Nepavyko sugeneruoti miniatiūrų. Žr. sistemos žurnalą.';
 $_lang['ms2_err_gallery_exists'] = 'Toks paveikslas jau yra prekių galerijoje.';
+$_lang['ms2_err_gallery_thumb'] = 'Nepavyko sugeneruoti miniatiūrų. Žr. sistemos žurnalą.';
+$_lang['ms2_err_wrong_image'] = 'Файл не является корректным изображением.';
 
 $_lang['ms2_email_subject_new_user'] = 'Jūs atlikote užsakymą Nr. [[+num]] svetainėje [[++site_name]]';
 $_lang['ms2_email_subject_new_manager'] = 'Atliktas naujas užsakymas Nr. [[+num]]';
@@ -146,3 +169,11 @@ $_lang['ms2_email_subject_sent_user'] = 'Jūsų užsakymas Nr. [[+num]] išsiųs
 $_lang['ms2_email_subject_cancelled_user'] = 'Jūsų užsakymas Nr. [[+num]] atšauktas';
 
 $_lang['ms2_payment_link'] = 'Jeigu apmokėjimą atšaukėte netyčia, visuomet galite <a href="[[+link]]">pratęsti, spustelėdami šį saitą</a>.';
+
+$_lang['ms2_category_err_ns'] = 'Категория не выбрана';
+$_lang['ms2_option_err_ns'] = 'Свойство не выбрано';
+$_lang['ms2_option_err_nf'] = 'Свойство не найдено';
+$_lang['ms2_option_err_ae'] = 'Свойство уже существует';
+$_lang['ms2_option_err_save'] = 'Ошибка сохранения свойства';
+$_lang['ms2_option_err_reserved_key'] = 'Такой ключ опции использовать нельзя';
+$_lang['ms2_option_err_invalid_key'] = 'Неправильный ключ для свойства';
