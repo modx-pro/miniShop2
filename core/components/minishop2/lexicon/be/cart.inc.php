@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Default Belorussian Lexicon Entries for miniShop2 cart
+ * Default Russian Lexicon Entries for miniShop2 cart
  *
  * @package minishop2
  * @subpackage lexicon
@@ -38,5 +38,6 @@ $_lang['ms2_cart_clean_success'] = 'Кошык паспяхова ачышчан
 $_lang['ms2_cart_is_empty'] = 'Ваш кошык пусты';
 $_lang['ms2_cart_clean'] = 'Ачысціць кошык';
 
+$_lang['ms2_order_err_empty'] = 'Невозможно оформить пустой заказ';
 $_lang['ms2_order_err_delivery'] = 'Вы павінны выбраць спосаб дастаўкі';
 $_lang['ms2_order_err_requires'] = 'Вы павінны запоўніць неабходныя палі';
