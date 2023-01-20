@@ -31,7 +31,8 @@
 
 Если вы заинтересованы в улучшении этого проекта, вы можете помочь следующими способами:
 
--   отчеты об ошибках и запросами новых функций путем создания issue на [GitHub page](https://github.com/bezumkin/miniShop2/issues);
+-   отправляйте отчеты об ошибках и запросы новых функций через issue на [GitHub page](https://github.com/modx-pro/miniShop2/issues);
+-   отправляйте и улучшайте перевод на [crowdin](https://crowdin.com/project/minishop2-ecommerce);
 
 ## Лицензия
 
