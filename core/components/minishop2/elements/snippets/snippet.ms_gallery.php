@@ -55,7 +55,6 @@ foreach (['where'] as $v) {
     unset($scriptProperties[$v]);
 }
 $pdoFetch->addTime('Conditions prepared');
-
 $default = [
     'class' => 'msProductFile',
     'where' => $where,
@@ -67,10 +66,15 @@ $default = [
     'return' => 'data',
     'nestedChunkPrefix' => 'minishop2_',
 ];
+if ($scriptProperties['return'] === 'tpl') {
+    unset($scriptProperties['return']);
+}
 // Merge all properties and run!
 $pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
 $rows = $pdoFetch->run();
-
+if ($scriptProperties['return'] === 'sql' || $scriptProperties['return'] === 'json') {
+    return $rows;
+}
 $pdoFetch->addTime('Fetching thumbnails');
 
 $resolution = [];
@@ -121,7 +125,7 @@ foreach ($rows as $row) {
     $files[] = $row;
 }
 
-if (!empty($return) && strtolower($return) === 'data') {
+if ($scriptProperties['return'] === 'data') {
     return $files;
 }
 
