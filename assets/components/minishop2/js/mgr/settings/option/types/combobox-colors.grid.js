@@ -73,25 +73,33 @@ Ext.extend(miniShop2.grid.ComboboxColors, MODx.grid.LocalGrid, {
                 if (value === undefined) {
                     return value;
                 }
-                var color, text = '#ffffff';
-                var r = g = b = 0;
-                if (value.indexOf('#') == -1 && (value.length < 4 || value.length > 7) || (value.length > 4 && value.length < 7)) {
+                if (value.indexOf('#') >= 0) {
+                    var color, text = '#ffffff';
+                    var r = g = b = 0;
+                    if (value.length < 4 || value.length > 7 || (value.length > 4 && value.length < 7)) {
+                        return value;
+                    }
+                    if (value.length == 7) {
+                        r = '0x' + value[1] + value[2];
+                        g = '0x' + value[3] + value[4];
+                        b = '0x' + value[5] + value[6];
+                    } else {
+                        r = '0x' + value[1] + value[1];
+                        g = '0x' + value[2] + value[2];
+                        b = '0x' + value[3] + value[3];
+                    }
+                    if (r >= 0x00 && g >= 0x00 && b >= 0x00) {
+                    } else {
+                        return String.format('<span class="minishop2-row-badge" style="border-bottom:2px dashed #f00;background-color:#fff;color:#f00;">{0}</span>', value);
+                    }
+                    if ((r > 0xbb && g > 0xbb && b > 0xbb) || r > 0xbb && g > 0xbb || g > 0xdd) {
+                        text = '#000000';
+                    }
+                    color = value;
+                    return String.format('<span class="minishop2-row-badge" style="background-color:{0};color:{1};">{0}</span>', color, text);
+                } else {
                     return value;
                 }
-                if (value.length == 7) {
-                    r = '0x' + value[1] + value[2];
-                    g = '0x' + value[3] + value[4];
-                    b = '0x' + value[5] + value[6];
-                } else {
-                    r = '0x' + value[1] + value[1];
-                    g = '0x' + value[2] + value[2];
-                    b = '0x' + value[3] + value[3];
-                }
-                if ((r > 0xbb && g > 0xbb && b > 0xbb) || r > 0xbb && g > 0xbb || g > 0xdd) {
-                    text = '#000000';
-                }
-                color = value;
-                return String.format('<span class="minishop2-row-badge" style="background-color:{0};color:{1}">{0}</span>', color, text);
             }
         }, {
             header: _('remove'),
