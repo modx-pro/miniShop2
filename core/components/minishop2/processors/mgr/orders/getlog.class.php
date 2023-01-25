@@ -3,15 +3,14 @@
 class msOrderLogGetListProcessor extends modObjectGetListProcessor
 {
     public $classKey = 'msOrderLog';
-    public $languageTopics = array('default', 'minishop2:manager');
+    public $languageTopics = ['default', 'minishop2:manager'];
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'DESC';
     public $permission = 'msorder_view';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -21,26 +20,25 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $type = $this->getProperty('type');
         if (!empty($type)) {
-            $c->where(array('action' => $type));
+            $c->where(['action' => $type]);
         }
         $order_id = $this->getProperty('order_id');
         if (!empty($order_id)) {
-            $c->where(array('order_id' => $order_id));
+            $c->where(['order_id' => $order_id]);
         }
 
         $c->leftJoin('modUser', 'modUser', '`msOrderLog`.`user_id` = `modUser`.`id`');
         $c->leftJoin('modUserProfile', 'modUserProfile', '`msOrderLog`.`user_id` = `modUserProfile`.`internalKey`');
-        $exclude = array();
+        $exclude = [];
         $add_select = ' , `modUser`.`username`, `modUserProfile`.`fullname`';
         if ($type == 'status') {
             $c->leftJoin('msOrderStatus', 'msOrderStatus', '`msOrderLog`.`entry` = `msOrderStatus`.`id`');
@@ -56,11 +54,10 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
         return $c;
     }
 
-
     /** {@inheritDoc} */
     public function getData()
     {
-        $data = array();
+        $data = [];
         $limit = intval($this->getProperty('limit'));
         $start = intval($this->getProperty('start'));
 
@@ -75,7 +72,7 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
             $sortClassKey,
             $this->getProperty('sortAlias', $sortClassKey),
             '',
-            array($this->getProperty('sort'))
+            [$this->getProperty('sort')]
         );
         if (empty($sortKey)) {
             $sortKey = $this->getProperty('sort');
@@ -92,15 +89,14 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
         return $data;
     }
 
-
     /**
-    * @param array $data
-    *
-    * @return array
-    */
+     * @param array $data
+     *
+     * @return array
+     */
     public function iterate(array $data)
     {
-        $list = array();
+        $list = [];
         $list = $this->beforeIteration($list);
         $this->currentIndex = 0;
         /** @var xPDOObject|modAccessibleObject $object */
@@ -108,17 +104,14 @@ class msOrderLogGetListProcessor extends modObjectGetListProcessor
             $list[] = $this->prepareArray($array);
             $this->currentIndex++;
         }
-        $list = $this->afterIteration($list);
-
-        return $list;
+        return $this->afterIteration($list);
     }
 
-
     /**
-    * @param array $data
-    *
-    * @return array
-    */
+     * @param array $data
+     *
+     * @return array
+     */
     public function prepareArray(array $data)
     {
         if (!empty($data['color'])) {

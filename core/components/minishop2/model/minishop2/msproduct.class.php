@@ -12,18 +12,17 @@ class msProduct extends modResource
     public $allowChildrenResources = false;
     /** @var msProductData $data */
     protected $Data;
-    protected $dataRelated = array();
+    protected $dataRelated = [];
     /** @var msVendor $Vendor */
     protected $Vendor;
     protected $options = null;
     protected $_originalFieldMeta;
 
-
     /**
-    * msProduct constructor.
-    *
-    * @param xPDO $xpdo
-    */
+     * msProduct constructor.
+     *
+     * @param xPDO $xpdo
+     */
     public function __construct(xPDO &$xpdo)
     {
         parent::__construct($xpdo);
@@ -35,15 +34,14 @@ class msProduct extends modResource
         $this->dataRelated = array_merge(array_keys($aggregates), array_keys($composites));
     }
 
-
     /**
-    * @param xPDO $xpdo
-    * @param string $className
-    * @param null $criteria
-    * @param bool $cacheFlag
-    *
-    * @return msProduct
-    */
+     * @param xPDO $xpdo
+     * @param string $className
+     * @param null $criteria
+     * @param bool $cacheFlag
+     *
+     * @return msProduct
+     */
     public static function load(xPDO &$xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
@@ -55,15 +53,14 @@ class msProduct extends modResource
         return parent::load($xpdo, $className, $criteria, $cacheFlag);
     }
 
-
     /**
-    * @param xPDO $xpdo
-    * @param string $className
-    * @param null $criteria
-    * @param bool $cacheFlag
-    *
-    * @return array
-    */
+     * @param xPDO $xpdo
+     * @param string $className
+     * @param null $criteria
+     * @param bool $cacheFlag
+     *
+     * @return array
+     */
     public static function loadCollection(xPDO &$xpdo, $className, $criteria = null, $cacheFlag = true)
     {
         if (!is_object($criteria)) {
@@ -75,39 +72,36 @@ class msProduct extends modResource
         return parent::loadCollection($xpdo, $className, $criteria, $cacheFlag);
     }
 
-
     /**
-    * @param xPDO $modx
-    *
-    * @return string
-    */
+     * @param xPDO $modx
+     *
+     * @return string
+     */
     public static function getControllerPath(xPDO &$modx)
     {
         return $modx->getOption(
-            'minishop2.core_path',
-            null,
-            $modx->getOption('core_path') . 'components/minishop2/'
-        ) . 'controllers/product/';
+                'minishop2.core_path',
+                null,
+                $modx->getOption('core_path') . 'components/minishop2/'
+            ) . 'controllers/product/';
     }
 
-
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function getContextMenuText()
     {
         $this->xpdo->lexicon->load('minishop2:default');
 
-        return array(
+        return [
             'text_create' => $this->xpdo->lexicon('ms2_product'),
             'text_create_here' => $this->xpdo->lexicon('ms2_product_create_here'),
-        );
+        ];
     }
 
-
     /**
-    * @return null|string
-    */
+     * @return null|string
+     */
     public function getResourceTypeName()
     {
         $this->xpdo->lexicon->load('minishop2:default');
@@ -115,14 +109,13 @@ class msProduct extends modResource
         return $this->xpdo->lexicon('ms2_product_type');
     }
 
-
     /**
-    * @param string $k
-    * @param null $v
-    * @param string $vType
-    *
-    * @return bool
-    */
+     * @param string $k
+     * @param null $v
+     * @param string $vType
+     *
+     * @return bool
+     */
     public function set($k, $v = null, $vType = '')
     {
         return isset($this->_originalFieldMeta[$k])
@@ -130,13 +123,12 @@ class msProduct extends modResource
             : $this->loadData()->set($k, $v, $vType);
     }
 
-
     /**
-    * @param string $key
-    * @param mixed $val
-    *
-    * @return bool
-    */
+     * @param string $key
+     * @param mixed $val
+     *
+     * @return bool
+     */
     protected function _setRaw($key, $val)
     {
         return isset($this->_originalFieldMeta[$key])
@@ -144,12 +136,11 @@ class msProduct extends modResource
             : $this->loadData()->_setRaw($key, $val);
     }
 
-
     /**
-    * @param null $cacheFlag
-    *
-    * @return bool
-    */
+     * @param null $cacheFlag
+     *
+     * @return bool
+     */
     public function save($cacheFlag = null)
     {
         if (!$this->isNew() && parent::get('class_key') != 'msProduct') {
@@ -162,19 +153,17 @@ class msProduct extends modResource
         return parent::save($cacheFlag);
     }
 
-
     /**
-    * @param array|string $k
-    * @param null $format
-    * @param null $formatTemplate
-    *
-    * @return array|mixed|null|xPDOObject
-    */
+     * @param array|string $k
+     * @param null $format
+     * @param null $formatTemplate
+     *
+     * @return array|mixed|null|xPDOObject
+     */
     public function get($k, $format = null, $formatTemplate = null)
     {
-
         if (is_array($k)) {
-            $array = array();
+            $array = [];
             foreach ($k as $v) {
                 $array[$v] = isset($this->_originalFieldMeta[$v])
                     ? parent::get($v, $format, $formatTemplate)
@@ -196,25 +185,20 @@ class msProduct extends modResource
                 return $this->$k;
             }
             $this->loadOptions();
-            $value = isset($this->options[$k])
-                ? $this->options[$k]
-                : null;
-
-            return $value;
+            return $this->options[$k] ?? null;
         } else {
             return parent::get($k, $format, $formatTemplate);
         }
     }
 
-
     /**
-    * @param string $keyPrefix
-    * @param bool $rawValues
-    * @param bool $excludeLazy
-    * @param bool $includeRelated
-    *
-    * @return array
-    */
+     * @param string $keyPrefix
+     * @param bool $rawValues
+     * @param bool $excludeLazy
+     * @param bool $includeRelated
+     *
+     * @return array
+     */
     public function toArray($keyPrefix = '', $rawValues = false, $excludeLazy = false, $includeRelated = false)
     {
         $original = parent::toArray($keyPrefix, $rawValues, $excludeLazy, $includeRelated);
@@ -231,10 +215,9 @@ class msProduct extends modResource
         return array_merge($original, $additional);
     }
 
-
     /**
-    * @return msProductData|null|object|xPDOObject
-    */
+     * @return msProductData|null|object|xPDOObject
+     */
     public function loadData()
     {
         if (!is_object($this->Data) || !($this->Data instanceof msProductData)) {
@@ -247,10 +230,9 @@ class msProduct extends modResource
         return $this->Data;
     }
 
-
     /**
-    * Loads product vendor
-    */
+     * Loads product vendor
+     */
     public function loadVendor()
     {
         if (!is_object($this->Vendor) || !($this->Vendor instanceof msVendor)) {
@@ -262,46 +244,41 @@ class msProduct extends modResource
         return $this->Vendor;
     }
 
-
     /**
-    * Loads product options
-    */
+     * Loads product options
+     */
     public function loadOptions()
     {
         if ($this->options === null) {
-            $this->options = $this->xpdo->call('msProductData', 'loadOptions', array(
+            $this->options = $this->xpdo->call('msProductData', 'loadOptions', [
                 $this->xpdo,
                 $this->loadData()->get('id'),
-            ));
+            ]);
         }
 
         return $this->options;
     }
 
-
     /**
-    * @param string $alias
-    * @param null $criteria
-    * @param bool $cacheFlag
-    *
-    * @return null|xPDOObject
-    */
+     * @param string $alias
+     * @param null $criteria
+     * @param bool $cacheFlag
+     *
+     * @return null|xPDOObject
+     */
     public function & getOne($alias, $criteria = null, $cacheFlag = true)
     {
-        $object = in_array($alias, $this->dataRelated)
+        return in_array($alias, $this->dataRelated)
             ? $this->loadData()->getOne($alias, $criteria, $cacheFlag)
             : parent::getOne($alias, $criteria, $cacheFlag);
-
-        return $object;
     }
 
-
     /**
-    * @param xPDOObject $obj
-    * @param string $alias
-    *
-    * @return bool
-    */
+     * @param xPDOObject $obj
+     * @param string $alias
+     *
+     * @return bool
+     */
     public function addOne(&$obj, $alias = '')
     {
         if (empty($alias)) {
@@ -319,30 +296,26 @@ class msProduct extends modResource
             : parent::addOne($obj, $alias);
     }
 
-
     /**
-    * @param string $alias
-    * @param null $criteria
-    * @param bool $cacheFlag
-    *
-    * @return array
-    */
+     * @param string $alias
+     * @param null $criteria
+     * @param bool $cacheFlag
+     *
+     * @return array
+     */
     public function & getMany($alias, $criteria = null, $cacheFlag = false)
     {
-        $objects = in_array($alias, $this->dataRelated)
+        return in_array($alias, $this->dataRelated)
             ? $this->loadData()->getMany($alias, $criteria, $cacheFlag)
             : parent::getMany($alias, $criteria, $cacheFlag);
-
-        return $objects;
     }
 
-
     /**
-    * @param mixed $obj
-    * @param string $alias
-    *
-    * @return bool
-    */
+     * @param mixed $obj
+     * @param string $alias
+     *
+     * @return bool
+     */
     public function addMany(&$obj, $alias = '')
     {
         /* TODO корректно не работает
@@ -361,42 +334,38 @@ class msProduct extends modResource
             : parent::addMany($obj, $alias);
     }
 
-
     /**
-    * Returns names of fields for msProduct and msProductData
-    *
-    * @return array
-    */
+     * Returns names of fields for msProduct and msProductData
+     *
+     * @return array
+     */
     public function getDataFieldsNames()
     {
         return array_keys($this->loadData()->_fieldMeta);
     }
 
-
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function getResourceFieldsNames()
     {
         return array_keys($this->_originalFieldMeta);
     }
 
-
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function getAllFieldsNames()
     {
         return array_merge($this->getResourceFieldsNames(), $this->getDataFieldsNames());
     }
 
-
     /**
-    * @param array $options
-    *
-    * @return msProduct
-    */
-    public function duplicate(array $options = array())
+     * @param array $options
+     *
+     * @return msProduct
+     */
+    public function duplicate(array $options = [])
     {
         parent::set('categories', $this->loadData()->get('categories'));
         parent::set('options', $this->loadData()->get('options'));
@@ -409,24 +378,23 @@ class msProduct extends modResource
         return parent::duplicate($options);
     }
 
-
     /**
-    * Returns array with all neighborhood products
-    *
-    * @return array $arr Array with neighborhood from left and right
-    */
+     * Returns array with all neighborhood products
+     *
+     * @return array $arr Array with neighborhood from left and right
+     */
     public function getNeighborhood()
     {
-        $arr = array();
+        $arr = [];
 
-        $q = $this->xpdo->newQuery('msProduct', array('parent' => $this->parent, 'class_key' => 'msProduct'));
+        $q = $this->xpdo->newQuery('msProduct', ['parent' => $this->parent, 'class_key' => 'msProduct']);
         $q->sortby('menuindex', 'ASC');
         $q->select('id');
         if ($q->prepare() && $q->stmt->execute()) {
             $ids = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
             $current = array_search($this->id, $ids);
 
-            $right = $left = array();
+            $right = $left = [];
             foreach ($ids as $k => $v) {
                 if ($k > $current) {
                     $right[] = $v;
@@ -435,19 +403,18 @@ class msProduct extends modResource
                 }
             }
 
-            $arr = array(
+            $arr = [
                 'left' => array_reverse($left),
                 'right' => $right,
-            );
+            ];
         }
 
         return $arr;
     }
 
-
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function process()
     {
         /** @var msProductData $data */
@@ -483,62 +450,56 @@ class msProduct extends modResource
         return parent::process();
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function generateAllThumbnails()
     {
         $this->loadData()->generateAllThumbnails();
     }
 
-
     /**
-    * @return bool|modMediaSource|null|object
-    */
+     * @return bool|modMediaSource|null|object
+     */
     public function initializeMediaSource()
     {
         return $this->loadData()->initializeMediaSource(parent::get('context_key'));
     }
 
-
     /**
-    * @return bool|mixed
-    */
+     * @return bool|mixed
+     */
     public function updateProductImage()
     {
         return $this->loadData()->updateProductImage();
     }
 
-
     /**
-    * @param array $data
-    *
-    * @return mixed|string
-    */
-    public function getPrice($data = array())
+     * @param array $data
+     *
+     * @return mixed|string
+     */
+    public function getPrice($data = [])
     {
         return $this->loadData()->getPrice($data);
     }
 
-
     /**
-    * @param array $data
-    *
-    * @return mixed|string
-    */
-    public function getWeight($data = array())
+     * @param array $data
+     *
+     * @return mixed|string
+     */
+    public function getWeight($data = [])
     {
         return $this->loadData()->getWeight($data);
     }
 
-
     /**
-    * @param array $data
-    *
-    * @return array
-    */
-    public function modifyFields($data = array())
+     * @param array $data
+     *
+     * @return array
+     */
+    public function modifyFields($data = [])
     {
         return $this->loadData()->modifyFields($data);
     }

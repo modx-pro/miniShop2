@@ -4,8 +4,8 @@ class msOrderMultipleProcessor extends modProcessor
 {
 
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         if (!$method = $this->getProperty('method', false)) {
@@ -21,8 +21,8 @@ class msOrderMultipleProcessor extends modProcessor
             /** @var modProcessorResponse $response */
             $response = $this->modx->runProcessor(
                 'mgr/orders/' . $method,
-                array('id' => $id),
-                array('processors_path' => MODX_CORE_PATH . 'components/minishop2/processors/')
+                ['id' => $id],
+                ['processors_path' => MODX_CORE_PATH . 'components/minishop2/processors/']
             );
             if ($response->isError()) {
                 return $response->getResponse();

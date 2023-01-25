@@ -360,14 +360,19 @@ $tmp = [
 foreach ($tmp as $k => $v) {
     /** @var modSystemSetting $setting */
     $setting = $modx->newObject('modSystemSetting');
-    $setting->fromArray(array_merge(
-        [
-            'key' => $k,
-            'namespace' => 'minishop2',
-            'editedon' => date('Y-m-d H:i:s'),
-        ],
-        $v
-    ), '', true, true);
+    $setting->fromArray(
+        array_merge(
+            [
+                'key' => $k,
+                'namespace' => 'minishop2',
+                'editedon' => date('Y-m-d H:i:s'),
+            ],
+            $v
+        ),
+        '',
+        true,
+        true
+    );
     $settings[] = $setting;
 }
 

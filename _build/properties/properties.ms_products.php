@@ -1,136 +1,136 @@
 <?php
 
-$properties = array();
+$properties = [];
 
-$tmp = array(
-    'tpl' => array(
+$tmp = [
+    'tpl' => [
         'type' => 'textfield',
         'value' => 'tpl.msProducts.row',
-    ),
-    'limit' => array(
+    ],
+    'limit' => [
         'type' => 'numberfield',
         'value' => 10,
-    ),
-    'offset' => array(
+    ],
+    'offset' => [
         'type' => 'numberfield',
         'value' => 0,
-    ),
-    'depth' => array(
+    ],
+    'depth' => [
         'type' => 'numberfield',
         'value' => 10,
-    ),
-    'sortby' => array(
+    ],
+    'sortby' => [
         'type' => 'textfield',
         'value' => 'id',
-    ),
-    'sortbyOptions' => array(
+    ],
+    'sortbyOptions' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'sortdir' => array(
+    ],
+    'sortdir' => [
         'type' => 'list',
-        'options' => array(
-            array('text' => 'ASC', 'value' => 'ASC'),
-            array('text' => 'DESC', 'value' => 'DESC'),
-        ),
+        'options' => [
+            ['text' => 'ASC', 'value' => 'ASC'],
+            ['text' => 'DESC', 'value' => 'DESC'],
+        ],
         'value' => 'ASC',
-    ),
-    'toPlaceholder' => array(
+    ],
+    'toPlaceholder' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'toSeparatePlaceholders' => array(
+    ],
+    'toSeparatePlaceholders' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'showLog' => array(
+    ],
+    'showLog' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-    'parents' => array(
+    ],
+    'parents' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'resources' => array(
+    ],
+    'resources' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'includeContent' => array(
+    ],
+    'includeContent' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-    'includeTVs' => array(
+    ],
+    'includeTVs' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'includeThumbs' => array(
+    ],
+    'includeThumbs' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'optionFilters' => array(
+    ],
+    'optionFilters' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'where' => array(
+    ],
+    'where' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'link' => array(
+    ],
+    'link' => [
         'type' => 'numberfield',
         'value' => '',
-    ),
-    'master' => array(
+    ],
+    'master' => [
         'type' => 'numberfield',
         'value' => '',
-    ),
-    'slave' => array(
+    ],
+    'slave' => [
         'type' => 'numberfield',
         'value' => '',
-    ),
-    'tvPrefix' => array(
+    ],
+    'tvPrefix' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'outputSeparator' => array(
+    ],
+    'outputSeparator' => [
         'type' => 'textfield',
         'value' => "\n",
-    ),
-    'returnIds' => array(
+    ],
+    'returnIds' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-    'return' => array(
+    ],
+    'return' => [
         'type' => 'textfield',
         'value' => 'data',
-    ),
-    'showUnpublished' => array(
+    ],
+    'showUnpublished' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-    'showDeleted' => array(
+    ],
+    'showDeleted' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-    'showHidden' => array(
+    ],
+    'showHidden' => [
         'type' => 'combo-boolean',
         'value' => true,
-    ),
-    'showZeroPrice' => array(
+    ],
+    'showZeroPrice' => [
         'type' => 'combo-boolean',
         'value' => true,
-    ),
-    'wrapIfEmpty' => array(
+    ],
+    'wrapIfEmpty' => [
         'type' => 'combo-boolean',
         'value' => true,
-    ),
-);
+    ],
+];
 
 foreach ($tmp as $k => $v) {
-    $properties[] = array_merge(array(
+    $properties[] = array_merge([
         'name' => $k,
         'desc' => 'ms2_prop_' . $k,
         'lexicon' => 'minishop2:properties',
-    ), $v);
+    ], $v);
 }
 
 return $properties;

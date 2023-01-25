@@ -11,24 +11,22 @@ class msPayment extends xPDOSimpleObject
     /** @var miniShop2 $ms2 */
     public $ms2;
 
-
     /**
-    * msPayment constructor.
-    *
-    * @param xPDO $xpdo
-    */
+     * msPayment constructor.
+     *
+     * @param xPDO $xpdo
+     */
     public function __construct(xPDO $xpdo)
     {
         parent::__construct($xpdo);
         $this->ms2 = $this->xpdo->getService('miniShop2');
     }
 
-
     /**
-    * Loads payment handler class
-    *
-    * @return bool
-    */
+     * Loads payment handler class
+     *
+     * @return bool
+     */
     public function loadHandler()
     {
         require_once dirname(__FILE__, 3) . '/handlers/mspaymenthandler.class.php';
@@ -46,7 +44,7 @@ class msPayment extends xPDOSimpleObject
             $class = 'msPaymentHandler';
         }
 
-        $this->handler = new $class($this, array());
+        $this->handler = new $class($this, []);
         if (!($this->handler instanceof msPaymentInterface)) {
             $this->xpdo->log(modX::LOG_LEVEL_ERROR, 'Could not initialize payment handler class: "' . $class . '"');
 
@@ -56,14 +54,13 @@ class msPayment extends xPDOSimpleObject
         return true;
     }
 
-
     /**
-    * Send user to payment service
-    *
-    * @param msOrder $order Object with an order
-    *
-    * @return array|boolean $response
-    */
+     * Send user to payment service
+     *
+     * @param msOrder $order Object with an order
+     *
+     * @return array|boolean $response
+     */
     public function send(msOrder $order)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
@@ -75,14 +72,13 @@ class msPayment extends xPDOSimpleObject
         return $this->handler->send($order);
     }
 
-
     /**
-    * Receives payment
-    *
-    * @param msOrder $order Object with an order
-    *
-    * @return array|boolean $response
-    */
+     * Receives payment
+     *
+     * @param msOrder $order Object with an order
+     *
+     * @return array|boolean $response
+     */
     public function receive(msOrder $order)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msPaymentInterface)) {
@@ -94,15 +90,14 @@ class msPayment extends xPDOSimpleObject
         return $this->handler->receive($order);
     }
 
-
     /**
-    * Returns an additional cost depending on the method of payment
-    *
-    * @param msOrderInterface|msOrderHandler $order
-    * @param float $cost Current cost of order
-    *
-    * @return float|integer
-    */
+     * Returns an additional cost depending on the method of payment
+     *
+     * @param msOrderInterface|msOrderHandler $order
+     * @param float $cost Current cost of order
+     *
+     * @return float|integer
+     */
     public function getCost(msOrderInterface $order, $cost = 0.0)
     {
         if (!is_object($this->handler) || !($this->handler instanceof msDeliveryInterface)) {
@@ -114,15 +109,14 @@ class msPayment extends xPDOSimpleObject
         return $this->handler->getCost($order, $this, $cost);
     }
 
-
     /**
-    * @param array $ancestors
-    *
-    * @return bool
-    */
-    public function remove(array $ancestors = array())
+     * @param array $ancestors
+     *
+     * @return bool
+     */
+    public function remove(array $ancestors = [])
     {
-        $this->xpdo->removeCollection('msDeliveryMember', array('payment_id' => $this->id));
+        $this->xpdo->removeCollection('msDeliveryMember', ['payment_id' => $this->id]);
 
         return parent::remove($ancestors);
     }

@@ -3,15 +3,14 @@
 class msOrderGetProcessor extends modObjectGetProcessor
 {
     public $classKey = 'msOrder';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'msorder_view';
     /** @var  miniShop2 $ms2 */
     protected $ms2;
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         $this->ms2 = $this->modx->getService('miniShop2');
@@ -23,10 +22,9 @@ class msOrderGetProcessor extends modObjectGetProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function cleanup()
     {
         $array = $this->object->toArray();

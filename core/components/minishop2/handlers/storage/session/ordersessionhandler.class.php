@@ -59,28 +59,32 @@ class OrderSessionHandler
         // Adding address
         /** @var msOrderAddress $address */
         $address = $this->modx->newObject('msOrderAddress');
-        $address->fromArray(array_merge($order, array(
-            'user_id' => $data['user_id'],
-            'createdon' => $createdon,
-        )));
+        $address->fromArray(
+            array_merge($order, [
+                'user_id' => $data['user_id'],
+                'createdon' => $createdon,
+            ])
+        );
         $msOrder->addOne($address);
 
         // Adding products
         $cart = $this->ms2->cart->get();
-        $products = array();
+        $products = [];
         foreach ($cart as $v) {
-            if ($tmp = $this->modx->getObject('msProduct', array('id' => $v['id']))) {
+            if ($tmp = $this->modx->getObject('msProduct', ['id' => $v['id']])) {
                 $name = $tmp->get('pagetitle');
             } else {
                 $name = '';
             }
             /** @var msOrderProduct $product */
             $product = $this->modx->newObject('msOrderProduct');
-            $product->fromArray(array_merge($v, array(
-                'product_id' => $v['id'],
-                'name' => $name,
-                'cost' => $v['price'] * $v['count'],
-            )));
+            $product->fromArray(
+                array_merge($v, [
+                    'product_id' => $v['id'],
+                    'name' => $name,
+                    'cost' => $v['price'] * $v['count'],
+                ])
+            );
             $products[] = $product;
         }
         $msOrder->addMany($products);

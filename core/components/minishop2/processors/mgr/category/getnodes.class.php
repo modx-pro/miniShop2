@@ -7,10 +7,9 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
     protected $resource_id = 0;
     protected $parent_id = 0;
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function initialize()
     {
         $initialize = parent::initialize();
@@ -21,13 +20,12 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         return $initialize;
     }
 
-
     /**
-    * @return xPDOQuery
-    */
+     * @return xPDOQuery
+     */
     public function getResourceQuery()
     {
-        $resourceColumns = array(
+        $resourceColumns = [
             'id',
             'pagetitle',
             'longtitle',
@@ -42,36 +40,36 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
             'hidemenu',
             'class_key',
             'context_key',
-        );
+        ];
         $this->itemClass = 'modResource';
         $c = $this->modx->newQuery($this->itemClass);
-        $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
+        $c->leftJoin('modResource', 'Child', ['modResource.id = Child.parent']);
         $c->leftJoin(
             'msCategoryMember',
             'Member',
             'modResource.id = Member.category_id AND Member.product_id = ' . $this->resource_id
         );
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
-        $c->select(array(
+        $c->select([
             'childrenCount' => 'COUNT(Child.id)',
             'member' => 'category_id',
-        ));
-        $c->where(array(
+        ]);
+        $c->where([
             'context_key' => $this->contextKey,
             'show_in_tree' => true,
             'isfolder' => true,
             'OR:class_key:=' => 'msCategory',
             'AND:context_key:=' => $this->contextKey,
-        ));
+        ]);
         if (empty($this->startNode) && !empty($this->defaultRootId)) {
-            $c->where(array(
+            $c->where([
                 'id:IN' => explode(',', $this->defaultRootId),
                 'parent:NOT IN' => explode(',', $this->defaultRootId),
-            ));
+            ]);
         } else {
-            $c->where(array(
+            $c->where([
                 'parent' => $this->startNode,
-            ));
+            ]);
         }
         $c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
         $c->sortby('modResource.' . $this->getProperty('sortBy'), $this->getProperty('sortDir'));
@@ -79,17 +77,16 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         return $c;
     }
 
-
     /**
-    * @param modContext $context
-    *
-    * @return array
-    */
+     * @param modContext $context
+     *
+     * @return array
+     */
     public function prepareContextNode(modContext $context)
     {
         $context->prepare();
 
-        return array(
+        return [
             'text' => $context->get('name') != '' ? strip_tags($context->get('name')) : $context->get('key'),
             'id' => $context->get('key') . '_0',
             'pk' => $context->get('key'),
@@ -99,15 +96,14 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
             'iconCls' => $this->modx->getOption('mgr_tree_icon_context', null, 'tree-context'),
             'qtip' => $context->get('description') != '' ? strip_tags($context->get('description')) : '',
             'type' => 'modContext',
-        );
+        ];
     }
 
-
     /**
-    * @param modResource $resource
-    *
-    * @return array
-    */
+     * @param modResource $resource
+     *
+     * @return array
+     */
     public function prepareResourceNode(modResource $resource)
     {
         $qtipField = $this->getProperty('qtipField');
@@ -117,7 +113,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         $hasChildren = (int)$resource->get('childrenCount') > 0 && $resource->get('hide_children_in_tree') == 0;
 
         // Assign an icon class based on the class_key
-        $class = $iconCls = array();
+        $class = $iconCls = [];
         $classKey = strtolower($resource->get('class_key'));
         if (substr($classKey, 0, 3) == 'mod') {
             $classKey = substr($classKey, 3);
@@ -165,7 +161,7 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
         if (!$text = strip_tags($resource->$nodeField)) {
             $text = strip_tags($resource->$nodeFieldFallback);
         }
-        $itemArray = array(
+        $itemArray = [
             'text' => $text . $idNote,
             'id' => $resource->context_key . '_' . $resource->id,
             'pk' => $resource->id,
@@ -178,10 +174,10 @@ class msCategoryGetNodesProcessor extends modResourceGetNodesProcessor
             'qtip' => $qtip,
             'checked' => !empty($resource->member) || $resource->id == $this->parent_id,
             'disabled' => $resource->id == $this->parent_id,
-        );
+        ];
         if (!$hasChildren) {
             $itemArray['hasChildren'] = false;
-            $itemArray['children'] = array();
+            $itemArray['children'] = [];
             $itemArray['expanded'] = true;
         } else {
             $itemArray['hasChildren'] = true;

@@ -3,15 +3,14 @@
 class msCategoryOptionDuplicateProcessor extends modObjectProcessor
 {
     public $classKey = 'msCategory';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'mscategory_save';
     /** @var msCategory $to_object */
     public $to_object;
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         $from = (int)$this->getProperty('category_from');
@@ -23,27 +22,26 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
         $this->to_object = $this->modx->getObject($this->classKey, $to);
 
         if (!$this->object || !$this->to_object) {
-            return $this->modx->lexicon('ms2_category_err_nfs', array(
-                $this->primaryKeyField => array($from, $to),
-            ));
+            return $this->modx->lexicon('ms2_category_err_nfs', [
+                $this->primaryKeyField => [$from, $to],
+            ]);
         }
 
         return true;
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         $options = $this->object->getMany('CategoryOptions');
         /** @var msCategoryOption $option */
         foreach ($options as $option) {
-            $new = $this->modx->getObject('msCategoryOption', array(
+            $new = $this->modx->getObject('msCategoryOption', [
                 'option_id' => $option->get('option_id'),
                 'category_id' => $this->to_object->get('id'),
-            ));
+            ]);
             if (!$new) {
                 /** @var msCategoryOption $new */
                 $new = $this->modx->newObject('msCategoryOption');
@@ -59,13 +57,12 @@ class msCategoryOptionDuplicateProcessor extends modObjectProcessor
         return $this->cleanup();
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function cleanup()
     {
-        $fields = array();
+        $fields = [];
         if ($options = $this->to_object->getMany('CategoryOptions')) {
             /** @var msCategoryOption $option */
             foreach ($options as $option) {

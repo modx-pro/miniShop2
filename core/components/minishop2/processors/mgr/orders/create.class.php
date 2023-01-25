@@ -4,16 +4,17 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
 {
     public $classKey = 'msOrder';
     public $objectType = 'msOrder';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     // events with Mgr suffix for differentiation from frontend orders
     public $beforeSaveEvent = 'msOnBeforeMgrCreateOrder';
     public $afterSaveEvent = 'msOnMgrCreateOrder';
     public $permission = 'msorder_save';
     /** @var  miniShop2 $ms2 */
     protected $ms2;
+
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         $this->ms2 = $this->modx->getService('miniShop2');
@@ -27,8 +28,8 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     }
 
     /**
-    * @return bool|string
-    */
+     * @return bool|string
+     */
     public function beforeSave()
     {
         /** @var msOrderAddress $address */
@@ -47,9 +48,9 @@ class msOrderCreateProcessor extends modObjectCreateProcessor
     }
 
     /**
-    * {@inheritDoc}
-    * @return mixed
-    */
+     * {@inheritDoc}
+     * @return mixed
+     */
     public function process()
     {
         /* Run the beforeSet method before setting the fields, and allow stoppage */
