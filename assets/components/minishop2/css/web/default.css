@@ -49,3 +49,31 @@ div.jGrowl > .ui-state-highlight {
     word-wrap: normal;
     white-space: pre;
 }
+
+/* Input Number */
+.ms-hidden{
+    position: absolute !important;
+    opacity: 0;
+    visibility: hidden;
+    z-index: -10000 !important;
+}
+.ms-input-number-wrap{
+    display: flex;
+    font-size: 16px;
+}
+.ms-input-number-emulator{
+    width: 3em;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+}
+.ms-input-number-emulator:focus, .ms-input-number-emulator:active{
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+.ms-input-number-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
