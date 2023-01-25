@@ -9,25 +9,23 @@ class msDeliveryHandler implements msDeliveryInterface
     /** @var miniShop2 $ms2 */
     public $ms2;
 
-
     /**
-    * @param xPDOObject $object
-    * @param array $config
-    */
-    public function __construct(xPDOObject $object, $config = array())
+     * @param xPDOObject $object
+     * @param array $config
+     */
+    public function __construct(xPDOObject $object, $config = [])
     {
         $this->modx = $object->xpdo;
         $this->ms2 = $object->xpdo->getService('miniShop2');
     }
 
-
     /**
-    * @param msOrderInterface $order
-    * @param msDelivery $delivery
-    * @param float $cost
-    *
-    * @return float|int
-    */
+     * @param msOrderInterface $order
+     * @param msDelivery $delivery
+     * @param float $cost
+     *
+     * @return float|int
+     */
     public function getCost(msOrderInterface $order, msDelivery $delivery, $cost = 0.0)
     {
         if (empty($this->ms2)) {
@@ -58,15 +56,14 @@ class msDeliveryHandler implements msDeliveryInterface
         return $cost;
     }
 
-
     /**
-    * @param string $message
-    * @param array $data
-    * @param array $placeholders
-    *
-    * @return array|string
-    */
-    public function error($message = '', $data = array(), $placeholders = array())
+     * @param string $message
+     * @param array $data
+     * @param array $placeholders
+     *
+     * @return array|string
+     */
+    public function error($message = '', $data = [], $placeholders = [])
     {
         if (empty($this->ms2)) {
             $this->ms2 = $this->modx->getService('miniShop2');
@@ -75,15 +72,14 @@ class msDeliveryHandler implements msDeliveryInterface
         return $this->ms2->error($message, $data, $placeholders);
     }
 
-
     /**
-    * @param string $message
-    * @param array $data
-    * @param array $placeholders
-    *
-    * @return array|string
-    */
-    public function success($message = '', $data = array(), $placeholders = array())
+     * @param string $message
+     * @param array $data
+     * @param array $placeholders
+     *
+     * @return array|string
+     */
+    public function success($message = '', $data = [], $placeholders = [])
     {
         if (empty($this->ms2)) {
             $this->ms2 = $this->modx->getService('miniShop2');

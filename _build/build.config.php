@@ -1,18 +1,19 @@
 <?php
 
-// Define package
+// Define package php7.4 -d display_errors -d error_reporting=E_ALL public_html/_build/build.transport.php
 const PKG_NAME = 'miniShop2';
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
 const PKG_VERSION = '4.0.0';
-const PKG_RELEASE = 'beta';
+const PKG_RELEASE = 'dc';
 const PKG_AUTO_INSTALL = true;
 
 // Define paths
+
 if (isset($_SERVER['MODX_BASE_PATH'])) {
     define('MODX_BASE_PATH', $_SERVER['MODX_BASE_PATH']);
-} elseif (file_exists(dirname(__FILE__, 3) . '/core')) {
-    define('MODX_BASE_PATH', dirname(__FILE__, 3) . '/');
+} elseif (file_exists(dirname(__FILE__, 2) . '/core')) {
+    define('MODX_BASE_PATH', dirname(__FILE__, 2) . '/');
 } else {
     define('MODX_BASE_PATH', dirname(__FILE__, 4) . '/');
 }
@@ -46,7 +47,7 @@ const BUILD_CHUNK_STATIC = false;
 const BUILD_SNIPPET_STATIC = false;
 const BUILD_PLUGIN_STATIC = false;
 
-$BUILD_RESOLVERS = array(
+$BUILD_RESOLVERS = [
     'extension',
     'tables',
     'policy',
@@ -55,4 +56,4 @@ $BUILD_RESOLVERS = array(
     'chunks',
     'statuses',
     'setup',
-);
+];

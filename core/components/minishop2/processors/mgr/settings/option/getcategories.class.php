@@ -3,36 +3,33 @@
 class msOptionGetCategoriesProcessor extends modObjectGetListProcessor
 {
     public $classKey = 'modCategory';
-    public $languageTopics = array('category');
+    public $languageTopics = ['category'];
     public $defaultSortField = 'category';
     public $permission = 'view_category';
 
-
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
-
         $c->innerJoin('msOption', 'msOption', 'msOption.category=modCategory.id');
 
         return $c;
     }
 
-
     /**
-    * @param array $list
-    *
-    * @return array
-    */
+     * @param array $list
+     *
+     * @return array
+     */
     public function afterIteration(array $list)
     {
-        array_unshift($list, array(
+        array_unshift($list, [
             'id' => 0,
             'category' => $this->modx->lexicon('no_category'),
-        ));
+        ]);
 
         return $list;
     }

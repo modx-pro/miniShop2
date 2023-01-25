@@ -4,13 +4,12 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
 {
     public $checkRemovePermission = true;
     public $classKey = 'msLink';
-    public $languageTopics = array('minishop2');
+    public $languageTopics = ['minishop2'];
     public $permission = 'msproduct_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -20,10 +19,9 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
         return true;
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         $canRemove = $this->beforeRemove();
@@ -40,29 +38,29 @@ class msProductLinkRemoveProcessor extends modObjectRemoveProcessor
         }
 
         /** @var msLink $msLink */
-        if (!$msLink = $this->modx->getObject('msLink', array('id' => $link))) {
+        if (!$msLink = $this->modx->getObject('msLink', ['id' => $link])) {
             return $this->failure($this->modx->lexicon('ms2_err_no_link'));
         }
         $type = $msLink->get('type');
 
         $q = $this->modx->newQuery('msProductLink');
         $q->command('DELETE');
-        $q->where(array('link' => $link));
+        $q->where(['link' => $link]);
         switch ($type) {
             case 'many_to_many':
-                $q->where(array('master' => $slave, 'OR:slave:=' => $slave));
+                $q->where(['master' => $slave, 'OR:slave:=' => $slave]);
                 break;
 
             case 'one_to_one':
-                $q->where(array(
-                    array('master' => $master, 'AND:slave:=' => $slave),
-                    array('master' => $slave, 'AND:slave:=' => $master)
-                ), xPDOQuery::SQL_OR);
+                $q->where([
+                    ['master' => $master, 'AND:slave:=' => $slave],
+                    ['master' => $slave, 'AND:slave:=' => $master]
+                ], xPDOQuery::SQL_OR);
                 break;
 
             case 'many_to_one':
             case 'one_to_many':
-                $q->where(array('master' => $master, 'slave' => $slave));
+                $q->where(['master' => $master, 'slave' => $slave]);
                 break;
         }
         $q->prepare();

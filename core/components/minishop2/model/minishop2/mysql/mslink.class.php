@@ -1,6 +1,7 @@
 <?php
 
-require_once(dirname(dirname(__FILE__)) . '/mslink.class.php');
+require_once(dirname(__FILE__, 2) . '/mslink.class.php');
+
 class msLink_mysql extends msLink
 {
 }

@@ -6,3 +6,15 @@ sftp-config.json
 .DS_Store
 tests/properties.inc.php
 package-lock.json
+/.github/
+/_build/
+/temp/
+/tests/
+/.ecrc
+/.editorconfig
+/.gitignore
+/.htaccess
+/LICENSE
+/package.json
+/phpcs.xml
+/README.md

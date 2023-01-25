@@ -6,12 +6,12 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
     public $object;
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'mssetting_save';
 
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSet()
     {
         $key = $this->getProperty('key');
@@ -20,22 +20,21 @@ class msOptionCreateProcessor extends modObjectCreateProcessor
         }
         $key = str_replace('.', '_', $key);
 
-        if ($this->doesAlreadyExist(array('key' => $key))) {
-            $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', array('key' => $key)));
+        if ($this->doesAlreadyExist(['key' => $key])) {
+            $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', ['key' => $key]));
         }
         $this->setProperty('key', $key);
 
         return parent::beforeSet();
     }
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function afterSave()
     {
         if ($categories = json_decode($this->getProperty('categories', false), true)) {
-            $enabled = array();
+            $enabled = [];
             foreach ($categories as $id => $checked) {
                 if ($checked) {
                     $enabled[] = $id;

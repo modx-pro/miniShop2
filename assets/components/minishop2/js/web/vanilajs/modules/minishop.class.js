@@ -72,23 +72,19 @@ export default class MiniShop {
             this.setHandler(property);
         });
 
-        const forms = document.querySelectorAll(this.form);
-        if(forms.length){
-            forms.forEach(form => {
-                form.addEventListener('submit', e => {
-                    e.preventDefault();
-                    const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
+        document.addEventListener('submit', e => {
+            e.preventDefault();
+            const form = e.target;
+            const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
 
-                    if (action) {
-                        const formData = new FormData(form),
-                            components = this.getObjectMethod(action);
-                        formData.append(this.actionName, action);
-                        this.formData = formData;
-                        this[components.object][components.method](this.formData);
-                    }
-                });
-            });
-        }
+            if (action) {
+                const formData = new FormData(form),
+                    components = this.getObjectMethod(action);
+                formData.append(this.actionName, action);
+                this.formData = formData;
+                this[components.object][components.method](this.formData);
+            }
+        });
     }
 
     getObjectMethod(action) {
@@ -204,15 +200,13 @@ export default class MiniShop {
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
-                if (result.message) {
-                    this.Message.success(result.message);
-                }
                 this.runCallback(callbacks.response.success, this, result);
                 this.runCallback(userCallbacks.response.success, this, result);
+                result.message ? this.Message.success(result.message) : '';
             } else {
-                this.Message.error(result.message);
                 this.runCallback(callbacks.response.error, this, result);
                 this.runCallback(userCallbacks.response.error, this, result);
+                result.message ? this.Message.error(result.message) : '';
             }
             this.runCallback(callbacks.ajax.done, this, response);
             this.runCallback(userCallbacks.ajax.done, this, response);

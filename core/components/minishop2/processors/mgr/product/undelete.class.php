@@ -6,10 +6,9 @@ class msProductUnDeleteProcessor extends modResourceUnDeleteProcessor
 {
     public $permission = 'msproduct_delete';
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function checkPermissions()
     {
         return empty($this->permission) || $this->modx->hasPermission($this->permission);

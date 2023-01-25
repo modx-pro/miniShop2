@@ -28,30 +28,30 @@ if ($scriptProperties['return'] === 'ids') {
 }
 
 // Start build "where" expression
-$where = array(
+$where = [
     'class_key' => 'msProduct',
-);
+];
 if (empty($showZeroPrice)) {
     $where['Data.price:>'] = 0;
 }
 // Add grouping
-$groupby = array(
+$groupby = [
     'msProduct.id',
-);
+];
 
 // Join tables
-$leftJoin = array(
-    'Data' => array('class' => 'msProductData'),
-    'Vendor' => array('class' => 'msVendor', 'on' => 'Data.vendor=Vendor.id'),
-);
+$leftJoin = [
+    'Data' => ['class' => 'msProductData'],
+    'Vendor' => ['class' => 'msVendor', 'on' => 'Data.vendor=Vendor.id'],
+];
 
-$select = array(
+$select = [
     'msProduct' => !empty($includeContent)
         ? $modx->getSelectColumns('msProduct', 'msProduct')
-        : $modx->getSelectColumns('msProduct', 'msProduct', '', array('content'), true),
-    'Data' => $modx->getSelectColumns('msProductData', 'Data', '', array('id'), true),
-    'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', array('id'), true),
-);
+        : $modx->getSelectColumns('msProduct', 'msProduct', '', ['content'], true),
+    'Data' => $modx->getSelectColumns('msProductData', 'Data', '', ['id'], true),
+    'Vendor' => $modx->getSelectColumns('msVendor', 'Vendor', 'vendor.', ['id'], true),
+];
 
 // Include thumbnails
 if (!empty($includeThumbs)) {
@@ -60,33 +60,33 @@ if (!empty($includeThumbs)) {
         if (empty($thumb)) {
             continue;
         }
-        $leftJoin[$thumb] = array(
+        $leftJoin[$thumb] = [
             'class' => 'msProductFile',
             'on' => "`{$thumb}`.product_id = msProduct.id AND `{$thumb}`.`rank` = 0 AND `{$thumb}`.path LIKE '%/{$thumb}/%'",
-        );
+        ];
         $select[$thumb] = "`{$thumb}`.url as `{$thumb}`";
         $groupby[] = "`{$thumb}`.url";
     }
 }
 
 // Include linked products
-$innerJoin = array();
+$innerJoin = [];
 if (!empty($link) && !empty($master)) {
-    $innerJoin['Link'] = array(
+    $innerJoin['Link'] = [
         'class' => 'msProductLink',
         'on' => 'msProduct.id = Link.slave AND Link.link = ' . $link,
-    );
+    ];
     $where['Link.master'] = $master;
 } elseif (!empty($link) && !empty($slave)) {
-    $innerJoin['Link'] = array(
+    $innerJoin['Link'] = [
         'class' => 'msProductLink',
         'on' => 'msProduct.id = Link.master AND Link.link = ' . $link,
-    );
+    ];
     $where['Link.slave'] = $slave;
 }
 
 // Add user parameters
-foreach (array('where', 'leftJoin', 'innerJoin', 'select', 'groupby') as $v) {
+foreach (['where', 'leftJoin', 'innerJoin', 'select', 'groupby'] as $v) {
     if (!empty($scriptProperties[$v])) {
         $tmp = $scriptProperties[$v];
         if (!is_array($tmp)) {
@@ -101,7 +101,7 @@ foreach (array('where', 'leftJoin', 'innerJoin', 'select', 'groupby') as $v) {
 $pdoFetch->addTime('Conditions prepared');
 
 // Add filters by options
-$joinedOptions = array();
+$joinedOptions = [];
 if (!empty($scriptProperties['optionFilters'])) {
     $filters = json_decode($scriptProperties['optionFilters'], true);
     foreach ($filters as $key => $value) {
@@ -109,7 +109,7 @@ if (!empty($scriptProperties['optionFilters'])) {
 
         if (count($components) === 2) {
             if (in_array(strtolower($components[0]), ['or', 'and'])) {
-                list($operator, $key) = $components;
+                [$operator, $key] = $components;
             }
         }
 
@@ -117,10 +117,10 @@ if (!empty($scriptProperties['optionFilters'])) {
         $key = str_replace($option, $option . '.value', $key);
 
         if (!in_array($option, $joinedOptions)) {
-            $leftJoin[$option] = array(
+            $leftJoin[$option] = [
                 'class' => 'msProductOption',
                 'on' => "`{$option}`.product_id = Data.id AND `{$option}`.key = '{$option}'",
-            );
+            ];
             $joinedOptions[] = $option;
         }
 
@@ -164,16 +164,16 @@ if (!empty($scriptProperties['sortbyOptions'])) {
         }
 
         if (!in_array($option, $joinedOptions)) {
-            $leftJoin[$option] = array(
+            $leftJoin[$option] = [
                 'class' => 'msProductOption',
                 'on' => "`{$option}`.product_id = Data.id AND `{$option}`.key = '{$option}'",
-            );
+            ];
             $joinedOptions[] = $option;
         }
     }
 }
 
-$default = array(
+$default = [
     'class' => 'msProduct',
     'where' => $where,
     'leftJoin' => $leftJoin,
@@ -184,15 +184,18 @@ $default = array(
     'groupby' => implode(', ', $groupby),
     'return' => 'data',
     'nestedChunkPrefix' => 'minishop2_',
-);
+];
 // Merge all properties and run!
 $pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
 $rows = $pdoFetch->run();
 
 // Process rows
-$output = array();
+$output = $additionalPlaceholders = [];
 if (!empty($rows) && is_array($rows)) {
-    $c = $modx->newQuery('modPluginEvent', array('event:IN' => array('msOnGetProductPrice', 'msOnGetProductWeight', 'msOnGetProductFields')));
+    $c = $modx->newQuery(
+        'modPluginEvent',
+        ['event:IN' => ['msOnGetProductPrice', 'msOnGetProductWeight', 'msOnGetProductFields']]
+    );
     $c->innerJoin('modPlugin', 'modPlugin', 'modPlugin.id = modPluginEvent.pluginid');
     $c->where('modPlugin.disabled = 0');
 
@@ -204,6 +207,21 @@ if (!empty($rows) && is_array($rows)) {
     }
     $pdoFetch->addTime('Checked the active modifiers');
 
+    // Adding extra parameters into special place so we can put them in a results
+    /** @var modSnippet $snippet */
+    $properties = [];
+    if (isset($this) && $this instanceof modSnippet && $this->get('properties')) {
+        $properties = $this->get('properties');
+    } elseif ($snippet = $modx->getObject('modSnippet', ['name' => 'msProduct'])) {
+        $properties = $snippet->get('properties');
+    }
+    if (!empty($properties)) {
+        foreach ($scriptProperties as $k => $v) {
+            if (!isset($properties[$k])) {
+                $additionalPlaceholders[$k] = $v;
+            }
+        }
+    }
     $opt_time = 0;
     foreach ($rows as $k => $row) {
         if ($modifications) {
@@ -223,8 +241,8 @@ if (!empty($rows) && is_array($rows)) {
         $row['idx'] = $pdoFetch->idx++;
 
         $opt_time_start = microtime(true);
-        $options = $modx->call('msProductData', 'loadOptions', array($modx, $row['id']));
-        $row = array_merge($row, $options);
+        $options = $modx->call('msProductData', 'loadOptions', [$modx, $row['id']]);
+        $row = array_merge($additionalPlaceholders, $row, $options);
         $opt_time += microtime(true) - $opt_time_start;
 
         $tpl = $pdoFetch->defineChunk($row);
@@ -257,10 +275,10 @@ if (is_string($rows)) {
     $output = implode($outputSeparator, $output);
 
     if (!empty($tplWrapper) && (!empty($wrapIfEmpty) || !empty($output))) {
-        $output = $pdoFetch->getChunk($tplWrapper, array(
-            'output' => $output,
-            'scriptProperties' => $scriptProperties
-        ));
+        $output = $pdoFetch->getChunk(
+            $tplWrapper,
+            array_merge($additionalPlaceholders, ['output' => $output, 'scriptProperties' => $scriptProperties])
+        );
     }
 
     if (!empty($toPlaceholder)) {

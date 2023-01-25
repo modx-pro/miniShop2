@@ -5,13 +5,12 @@ require_once 'removecatalogs.class.php';
 class msProductFileRemoveAllProcessor extends modObjectProcessor
 {
     public $classKey = 'msProductFile';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'msproductfile_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -21,10 +20,9 @@ class msProductFileRemoveAllProcessor extends modObjectProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         $product_id = (int)$this->getProperty('product_id');
@@ -38,13 +36,13 @@ class msProductFileRemoveAllProcessor extends modObjectProcessor
         }
 
         /** @var msProductData $product */
-        if ($product = $this->modx->getObject('msProductData', array('id' => $product_id))) {
+        if ($product = $this->modx->getObject('msProductData', ['id' => $product_id])) {
             $thumb = $product->updateProductImage();
             /** @var miniShop2 $miniShop2 */
             if (empty($thumb) && $miniShop2 = $this->modx->getService('miniShop2')) {
                 $thumb = $miniShop2->config['defaultThumb'];
             }
-            return $this->success('', array('thumb' => $thumb));
+            return $this->success('', ['thumb' => $thumb]);
         }
 
         if (empty($product->getMany('Files'))) {

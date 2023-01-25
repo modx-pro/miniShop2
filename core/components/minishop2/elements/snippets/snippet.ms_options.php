@@ -14,18 +14,18 @@ if (!empty($name) && empty($options)) {
 }
 
 $product = !empty($product) && $product != $modx->resource->id
-    ? $modx->getObject('msProduct', array('id' => $product))
+    ? $modx->getObject('msProduct', ['id' => $product])
     : $modx->resource;
 if (!($product instanceof msProduct)) {
     return "[msOptions] The resource with id = {$product->id} is not instance of msProduct.";
 }
 
 $names = array_map('trim', explode(',', $options));
-$options = array();
+$options = [];
 foreach ($names as $name) {
     if (!empty($name) && $option = $product->get($name)) {
         if (!is_array($option)) {
-            $option = array($option);
+            $option = [$option];
         }
         if (isset($option[0]) and (trim($option[0]) != '')) {
             $options[$name] = $option;
@@ -38,8 +38,8 @@ $options = $miniShop2->sortOptionValues($options, $scriptProperties['sortOptionV
 /** @var pdoTools $pdoTools */
 $pdoTools = $modx->getService('pdoTools');
 
-return $pdoTools->getChunk($tpl, array(
+return $pdoTools->getChunk($tpl, [
     'id' => $product->id,
     'options' => $options,
     'scriptProperties' => $scriptProperties
-));
+]);

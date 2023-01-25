@@ -9,36 +9,33 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
     /** @var msCategory $resource */
     public $resource;
 
-
     /**
-    * Returns language topics
-    * @return array
-    */
+     * Returns language topics
+     * @return array
+     */
     public function getLanguageTopics()
     {
-        return array('resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager', 'tickets:default');
+        return ['resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager', 'tickets:default'];
     }
 
-
     /**
-    * Check for any permissions or requirements to load page
-    * @return bool
-    */
+     * Check for any permissions or requirements to load page
+     * @return bool
+     */
     public function checkPermissions()
     {
         return $this->modx->hasPermission('edit_document');
     }
 
-
     /**
-    * Register custom CSS/JS for the page
-    */
+     * Register custom CSS/JS for the page
+     */
     public function loadCustomCssJs()
     {
         $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
 
-        $category_option_keys = array();
+        $category_option_keys = [];
         $showOptions = (bool)$this->getOption('ms2_category_show_options', null, true);
         if ($showOptions) {
             $category_option_keys = $this->resource->getOptionKeys();
@@ -49,7 +46,7 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         $product_fields = array_merge(
             $product->getAllFieldsNames(),
             $category_option_keys,
-            array('actions', 'preview_url', 'cls', 'vendor_name', 'category_name')
+            ['actions', 'preview_url', 'cls', 'vendor_name', 'category_name']
         );
 
         if (!$category_grid_fields = $this->getOption('ms2_category_grid_fields')) {
@@ -88,12 +85,12 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
 
         $showComments = (int)(class_exists('TicketsSection') && $this->getOption('ms2_category_show_comments'));
 
-        $category_option_fields = array();
+        $category_option_fields = [];
         if ($showOptions) {
             $category_option_fields = $this->resource->getOptionFields($grid_fields);
         }
 
-        $config = array(
+        $config = [
             'assets_url' => $this->miniShop2->config['assetsUrl'],
             'connector_url' => $this->miniShop2->config['connectorUrl'],
             'show_comments' => $showComments,
@@ -104,8 +101,8 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             'option_fields' => $category_option_fields,
             'default_thumb' => $this->miniShop2->config['defaultThumb'],
             'isHideContent' => $this->isHideContent(),
-        );
-        $ready = array(
+        ];
+        $ready = [
             'xtype' => 'minishop2-page-category-update',
             'resource' => $this->resource->get('id'),
             'record' => $this->resourceArray,
@@ -124,9 +121,10 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             'prev_page' => !empty($neighborhood['left'][0]) ? $neighborhood['left'][0] : 0,
             'up_page' => $this->resource->parent,
             'mode' => 'update',
-        );
+        ];
 
-        $this->addHtml('
+        $this->addHtml(
+            '
         <script>
         // <![CDATA[
             MODx.config.publish_document = "' . $this->canPublish . '";
@@ -138,11 +136,12 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             });
             MODx.perm.tree_show_resource_ids = ' . ($this->modx->hasPermission('tree_show_resource_ids') ? 1 : 0) . ';
         // ]]>
-        </script>');
+        </script>'
+        );
 
         // load RTE
         $this->loadRichTextEditor();
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => $this, 'page' => 'category_update'));
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', ['controller' => $this, 'page' => 'category_update']);
         $this->loadPlugins();
 
         // Load Tickets
@@ -151,12 +150,11 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         }
     }
 
-
     /**
-    * Used to set values on the resource record sent to the template for derivative classes
-    *
-    * @return void
-    */
+     * Used to set values on the resource record sent to the template for derivative classes
+     *
+     * @return void
+     */
     public function prepareResource()
     {
         $settings = $this->resource->getProperties('ms2');
@@ -167,10 +165,9 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
         }
     }
 
-
     /**
-    * Loads component Tickets for displaying comments
-    */
+     * Loads component Tickets for displaying comments
+     */
     public function loadTickets()
     {
         /** @var Tickets $Tickets */
@@ -178,12 +175,12 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             return;
         }
         if (method_exists($Tickets, 'loadManagerFiles')) {
-            $Tickets->loadManagerFiles($this, array(
+            $Tickets->loadManagerFiles($this, [
                 'config' => true,
                 'utils' => true,
                 'css' => true,
                 'comments' => true,
-            ));
+            ]);
         } else {
             $ticketsAssetsUrl = $Tickets->config['assetsUrl'];
             $connectorUrl = $ticketsAssetsUrl . 'connector.php';
@@ -193,7 +190,8 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
             $this->addLastJavascript($ticketsJsUrl . 'misc/utils.js');
             $this->addLastJavascript($ticketsJsUrl . 'comment/comments.common.js');
             $this->addLastJavascript($ticketsJsUrl . 'comment/comments.grid.js');
-            $this->addHtml('
+            $this->addHtml(
+                '
             <script>
             // <![CDATA[
             Tickets.config = {
@@ -201,14 +199,14 @@ class msCategoryUpdateManagerController extends msResourceUpdateController
                 connector_url: "' . $connectorUrl . '",
             };
             // ]]>
-            </script>');
+            </script>'
+            );
         }
     }
 
-
     /**
-    * Loads additional scripts for product form from miniShop2 plugins
-    */
+     * Loads additional scripts for product form from miniShop2 plugins
+     */
     public function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();
