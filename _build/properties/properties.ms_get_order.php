@@ -1,36 +1,36 @@
 <?php
 
-$properties = array();
+$properties = [];
 
-$tmp = array(
-    'tpl' => array(
+$tmp = [
+    'tpl' => [
         'type' => 'textfield',
         'value' => 'tpl.msGetOrder',
-    ),
-    'includeTVs' => array(
+    ],
+    'includeTVs' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'includeThumbs' => array(
+    ],
+    'includeThumbs' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'toPlaceholder' => array(
+    ],
+    'toPlaceholder' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'showLog' => array(
+    ],
+    'showLog' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-);
+    ],
+];
 
 foreach ($tmp as $k => $v) {
-    $properties[] = array_merge(array(
+    $properties[] = array_merge([
         'name' => $k,
         'desc' => 'ms2_prop_' . $k,
         'lexicon' => 'minishop2:properties',
-    ), $v);
+    ], $v);
 }
 
 return $properties;

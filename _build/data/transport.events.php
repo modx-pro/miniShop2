@@ -1,9 +1,9 @@
 <?php
 
 /** @var modX $modx */
-$events = array();
+$events = [];
 
-$tmp = array(
+$tmp = [
     'msOnBeforeAddToCart',
     'msOnAddToCart',
     'msOnBeforeChangeInCart',
@@ -54,16 +54,16 @@ $tmp = array(
 
     'msOnManagerCustomCssJs',
 
-);
+];
 
 foreach ($tmp as $k => $v) {
     /** @var modEvent $event */
     $event = $modx->newObject('modEvent');
-    $event->fromArray(array(
+    $event->fromArray([
         'name' => $v,
         'service' => 6,
         'groupname' => PKG_NAME,
-    ), '', true, true);
+    ], '', true, true);
     $events[] = $event;
 }
 

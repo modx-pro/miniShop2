@@ -9,20 +9,18 @@ class msProductCreateManagerController extends msResourceCreateController
     /** @var msProduct $resource */
     public $resource;
 
-
     /**
-    * Returns language topics
-    * @return array
-    */
+     * Returns language topics
+     * @return array
+     */
     public function getLanguageTopics()
     {
-        return array('resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager');
+        return ['resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager'];
     }
 
-
     /**
-    * @return int|mixed
-    */
+     * @return int|mixed
+     */
     public function getDefaultTemplate()
     {
         if (!$template = $this->getOption('ms2_template_product_default')) {
@@ -32,23 +30,21 @@ class msProductCreateManagerController extends msResourceCreateController
         return $template;
     }
 
-
     /**
-    * Check for any permissions or requirements to load page
-    * @return bool
-    */
+     * Check for any permissions or requirements to load page
+     * @return bool
+     */
     public function checkPermissions()
     {
         return $this->modx->hasPermission('new_document');
     }
 
-
     /**
-    * @param array $scriptProperties
-    *
-    * @return mixed
-    */
-    public function process(array $scriptProperties = array())
+     * @param array $scriptProperties
+     *
+     * @return mixed
+     */
+    public function process(array $scriptProperties = [])
     {
         $placeholders = parent::process($scriptProperties);
 
@@ -58,11 +54,10 @@ class msProductCreateManagerController extends msResourceCreateController
         return $placeholders;
     }
 
-
     /**
-    * Register custom CSS/JS for the page
-    * @return void
-    */
+     * Register custom CSS/JS for the page
+     * @return void
+     */
     public function loadCustomCssJs()
     {
         $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
@@ -84,7 +79,7 @@ class msProductCreateManagerController extends msResourceCreateController
         $this->addLastJavascript($assetsUrl . 'js/mgr/product/create.js');
 
         // Customizable product fields feature
-        $product_fields = array_merge($this->resource->getAllFieldsNames(), array('syncsite'));
+        $product_fields = array_merge($this->resource->getAllFieldsNames(), ['syncsite']);
         $product_data_fields = $this->resource->getDataFieldsNames();
 
         if (!$product_main_fields = $this->getOption('ms2_product_main_fields')) {
@@ -102,7 +97,7 @@ class msProductCreateManagerController extends msResourceCreateController
         $product_option_fields = $this->resource->loadData()->getOptionFields();
         //---
 
-        $config = array(
+        $config = [
             'assets_url' => $this->miniShop2->config['assetsUrl'],
             'connector_url' => $this->miniShop2->config['connectorUrl'],
             'show_comments' => false,
@@ -119,11 +114,11 @@ class msProductCreateManagerController extends msResourceCreateController
             'product_tab_gallery' => (bool)$this->getOption('ms2_product_tab_gallery', null, true),
             'product_tab_links' => (bool)$this->getOption('ms2_product_tab_links', null, true),
             'data_fields' => $product_data_fields,
-            'additional_fields' => array(),
+            'additional_fields' => [],
             'isHideContent' => $this->isHideContent(),
-        );
+        ];
 
-        $ready = array(
+        $ready = [
             'xtype' => 'minishop2-page-product-create',
             'resource' => $this->resource->get('id'),
             'record' => $this->resourceArray,
@@ -136,9 +131,10 @@ class msProductCreateManagerController extends msResourceCreateController
             'canPublish' => $this->canPublish,
             'show_tvs' => !empty($this->tvCounts),
             'mode' => 'create',
-        );
+        ];
 
-        $this->addHtml('
+        $this->addHtml(
+            '
         <script>
         // <![CDATA[
         MODx.config.publish_document = "' . $this->canPublish . '";
@@ -149,19 +145,18 @@ class msProductCreateManagerController extends msResourceCreateController
             MODx.load(' . json_encode($ready) . ');
         });
         // ]]>
-        </script>');
-
+        </script>'
+        );
 
         // load RTE
         $this->loadRichTextEditor();
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => &$this, 'page' => 'product_create'));
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', ['controller' => &$this, 'page' => 'product_create']);
         $this->loadPlugins();
     }
 
-
     /**
-    * Loads additional scripts for product form from miniShop2 plugins
-    */
+     * Loads additional scripts for product form from miniShop2 plugins
+     */
     public function loadPlugins()
     {
         $plugins = $this->miniShop2->loadPlugins();

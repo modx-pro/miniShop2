@@ -95,14 +95,12 @@ if ($transport->xpdo) {
                             if ($manager->addIndex($class, $key)) {
                                 $modx->log(modX::LOG_LEVEL_INFO, "Added index \"{$key}\" in the table \"{$class}\"");
                             }
-                        } else {
-                            if ($index != $indexes[$key]) {
-                                if ($manager->removeIndex($class, $key) && $manager->addIndex($class, $key)) {
-                                    $modx->log(
-                                        modX::LOG_LEVEL_INFO,
-                                        "Updated index \"{$key}\" of the table \"{$class}\""
-                                    );
-                                }
+                        } elseif ($index != $indexes[$key]) {
+                            if ($manager->removeIndex($class, $key) && $manager->addIndex($class, $key)) {
+                                $modx->log(
+                                    modX::LOG_LEVEL_INFO,
+                                    "Updated index \"{$key}\" of the table \"{$class}\""
+                                );
                             }
                         }
                     }

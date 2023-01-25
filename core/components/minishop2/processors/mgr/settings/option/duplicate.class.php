@@ -4,23 +4,21 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor
 {
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
-    public $languageTopics = array('default', 'minishop2:default');
+    public $languageTopics = ['default', 'minishop2:default'];
     public $nameField = 'key';
 
-
     /**
-    *
-    */
+     *
+     */
     public function afterSave()
     {
         $this->duplicateCategories();
         $this->duplicateProducts();
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function duplicateCategories()
     {
         if ($this->getProperty('copy_categories', false)) {
@@ -39,10 +37,9 @@ class msOptionDuplicateProcessor extends modObjectDuplicateProcessor
         }
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function duplicateProducts()
     {
         if ($this->getProperty('copy_values', false)) {

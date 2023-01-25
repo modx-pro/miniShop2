@@ -1,6 +1,7 @@
 <?php
 
-require_once(dirname(dirname(__FILE__)) . '/msorderproduct.class.php');
+require_once(dirname(__FILE__, 2) . '/msorderproduct.class.php');
+
 class msOrderProduct_mysql extends msOrderProduct
 {
 }

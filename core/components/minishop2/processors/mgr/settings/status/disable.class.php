@@ -5,13 +5,13 @@ require_once(dirname(__FILE__) . '/update.class.php');
 class msOrderStatusDisableProcessor extends msOrderStatusUpdateProcessor
 {
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSet()
     {
-        $this->properties = array(
+        $this->properties = [
             'active' => false,
-        );
+        ];
 
         return true;
     }

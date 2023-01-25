@@ -6,13 +6,12 @@ class msOptionRemoveProcessor extends modObjectRemoveProcessor
     public $object;
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'mssetting_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {

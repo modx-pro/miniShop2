@@ -46,7 +46,7 @@ const BUILD_CHUNK_STATIC = false;
 const BUILD_SNIPPET_STATIC = false;
 const BUILD_PLUGIN_STATIC = false;
 
-$BUILD_RESOLVERS = array(
+$BUILD_RESOLVERS = [
     'extension',
     'tables',
     'policy',
@@ -55,4 +55,4 @@ $BUILD_RESOLVERS = array(
     'chunks',
     'statuses',
     'setup',
-);
+];

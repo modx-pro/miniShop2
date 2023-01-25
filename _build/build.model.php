@@ -6,14 +6,14 @@ if (!defined('MODX_BASE_PATH')) {
 
 // Define sources
 $root = dirname(__FILE__, 2) . '/';
-$sources = array(
+$sources = [
     'root' => $root,
     'build' => $root . '_build/',
     'source_core' => $root . 'core/components/' . PKG_NAME_LOWER,
     'model' => $root . 'core/components/' . PKG_NAME_LOWER . '/model/',
     'schema' => $root . 'core/components/' . PKG_NAME_LOWER . '/model/schema/',
     'xml' => $root . 'core/components/' . PKG_NAME_LOWER . '/model/schema/' . PKG_NAME_LOWER . '.mysql.schema.xml',
-);
+];
 unset($root);
 
 require MODX_CORE_PATH . 'model/modx/modx.class.php';

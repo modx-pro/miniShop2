@@ -6,13 +6,13 @@ class msCategoryOptionRequireProcessor extends msCategoryOptionUpdateProcessor
 {
 
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSet()
     {
-        $this->properties = array(
+        $this->properties = [
             'required' => true,
-        );
+        ];
 
         return true;
     }

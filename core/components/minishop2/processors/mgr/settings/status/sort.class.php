@@ -5,10 +5,9 @@ class msOrderStatusSortProcessor extends modObjectProcessor
     public $classKey = 'msOrderStatus';
     public $permission = 'mssetting_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -18,10 +17,9 @@ class msOrderStatusSortProcessor extends modObjectProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         if (!$this->modx->getCount($this->classKey, $this->getProperty('target'))) {
@@ -36,7 +34,7 @@ class msOrderStatusSortProcessor extends modObjectProcessor
             /** @var msOrderStatus $source */
             $source = $this->modx->getObject($this->classKey, compact('id'));
             /** @var msOrderStatus $target */
-            $target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')));
+            $target = $this->modx->getObject($this->classKey, ['id' => $this->getProperty('target')]);
             $this->sort($source, $target);
         }
         $this->updateIndex();
@@ -44,38 +42,37 @@ class msOrderStatusSortProcessor extends modObjectProcessor
         return $this->modx->error->success();
     }
 
-
     /**
-    * @param msOrderStatus $source
-    * @param msOrderStatus $target
-    *
-    * @return array|string
-    */
+     * @param msOrderStatus $source
+     * @param msOrderStatus $target
+     *
+     * @return array|string
+     */
     public function sort(msOrderStatus $source, msOrderStatus $target)
     {
         $c = $this->modx->newQuery($this->classKey);
         $c->command('UPDATE');
         if ($source->get('rank') < $target->get('rank')) {
-            $c->query['set']['menuindex'] = array(
+            $c->query['set']['menuindex'] = [
                 'value' => '`menuindex` - 1',
                 'type' => false,
-            );
-            $c->andCondition(array(
+            ];
+            $c->andCondition([
                 'rank:<=' => $target->rank,
                 'rank:>' => $source->rank,
-            ));
-            $c->andCondition(array(
+            ]);
+            $c->andCondition([
                 'rank:>' => 0,
-            ));
+            ]);
         } else {
-            $c->query['set']['rank'] = array(
+            $c->query['set']['rank'] = [
                 'value' => '`rank` + 1',
                 'type' => false,
-            );
-            $c->andCondition(array(
+            ];
+            $c->andCondition([
                 'rank:>=' => $target->rank,
                 'rank:<' => $source->rank,
-            ));
+            ]);
         }
         $c->prepare();
         $c->stmt->execute();
@@ -84,10 +81,9 @@ class msOrderStatusSortProcessor extends modObjectProcessor
         $source->save();
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function updateIndex()
     {
         // Check if need to update indexes
@@ -111,7 +107,7 @@ class msOrderStatusSortProcessor extends modObjectProcessor
             $update = $this->modx->prepare("UPDATE {$table} SET rank = ? WHERE id = ?");
             $i = 0;
             while ($id = $c->stmt->fetch(PDO::FETCH_COLUMN)) {
-                $update->execute(array($i, $id));
+                $update->execute([$i, $id]);
                 $i++;
             }
         }

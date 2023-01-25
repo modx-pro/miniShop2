@@ -9,50 +9,46 @@ class msPaymentHandler implements msPaymentInterface
     /** @var miniShop2 $ms2 */
     public $ms2;
     /** @var array $config */
-    public $config = array();
-
+    public $config = [];
 
     /**
-    * @param xPDOObject $object
-    * @param array $config
-    */
-    public function __construct(xPDOObject $object, $config = array())
+     * @param xPDOObject $object
+     * @param array $config
+     */
+    public function __construct(xPDOObject $object, $config = [])
     {
         $this->modx = $object->xpdo;
         $this->ms2 = $object->xpdo->getService('miniShop2');
         $this->config = $config;
     }
 
-
     /**
-    * @param msOrder $order
-    *
-    * @return array|string
-    */
+     * @param msOrder $order
+     *
+     * @return array|string
+     */
     public function send(msOrder $order)
     {
-        return $this->success('', array('msorder' => $order->get('id')));
+        return $this->success('', ['msorder' => $order->get('id')]);
     }
 
-
     /**
-    * @param msOrder $order
-    *
-    * @return array|string
-    */
+     * @param msOrder $order
+     *
+     * @return array|string
+     */
     public function receive(msOrder $order)
     {
         return $this->success('');
     }
 
-
     /**
-    * @param msOrderInterface $order
-    * @param msPayment $payment
-    * @param float $cost
-    *
-    * @return float|int
-    */
+     * @param msOrderInterface $order
+     * @param msPayment $payment
+     * @param float $cost
+     *
+     * @return float|int
+     */
     public function getCost(msOrderInterface $order, msPayment $payment, $cost = 0.0)
     {
         $add_price = $payment->get('price');
@@ -65,15 +61,14 @@ class msPaymentHandler implements msPaymentInterface
         return $cost;
     }
 
-
     /**
-    * @param string $message
-    * @param array $data
-    * @param array $placeholders
-    *
-    * @return array|string
-    */
-    public function error($message = '', $data = array(), $placeholders = array())
+     * @param string $message
+     * @param array $data
+     * @param array $placeholders
+     *
+     * @return array|string
+     */
+    public function error($message = '', $data = [], $placeholders = [])
     {
         if (empty($this->ms2)) {
             $this->ms2 = $this->modx->getService('miniShop2');
@@ -82,15 +77,14 @@ class msPaymentHandler implements msPaymentInterface
         return $this->ms2->error($message, $data, $placeholders);
     }
 
-
     /**
-    * @param string $message
-    * @param array $data
-    * @param array $placeholders
-    *
-    * @return array|string
-    */
-    public function success($message = '', $data = array(), $placeholders = array())
+     * @param string $message
+     * @param array $data
+     * @param array $placeholders
+     *
+     * @return array|string
+     */
+    public function success($message = '', $data = [], $placeholders = [])
     {
         if (empty($this->ms2)) {
             $this->ms2 = $this->modx->getService('miniShop2');
@@ -99,14 +93,13 @@ class msPaymentHandler implements msPaymentInterface
         return $this->ms2->success($message, $data, $placeholders);
     }
 
-
     /**
-    * Returns hash of order for various checks
-    *
-    * @param msOrder $order
-    *
-    * @return string
-    */
+     * Returns hash of order for various checks
+     *
+     * @param msOrder $order
+     *
+     * @return string
+     */
     public function getOrderHash(msOrder $order)
     {
         return md5(

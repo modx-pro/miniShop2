@@ -81,11 +81,11 @@ class CartDBHandler extends BaseDBController
         $products = [];
         $msProduct = $this->modx->getObject(
             'msProduct',
-            array(
+            [
                 'id' => $cartItem['id'],
                 'class_key' => 'msProduct',
                 'deleted' => 0,
-            )
+            ]
         );
         if ($msProduct) {
             $name = $msProduct->get('pagetitle');
