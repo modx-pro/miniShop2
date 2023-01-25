@@ -160,7 +160,11 @@ class msCartHandler implements msCartInterface
 
         return $this->success(
             'ms2_cart_add_success',
-            $this->status(['key' => $key]),
+            $this->status([
+                'key' => $key,
+                'cart' => $this->cart,
+                'row' => $this->cart[$key]
+            ]),
             ['count' => $count]
         );
     }
@@ -180,6 +184,7 @@ class msCartHandler implements msCartInterface
         if (!$response['success']) {
             return $this->error($response['message']);
         }
+        $row = $this->cart[$key];
         $this->cart = $this->storageHandler->remove($key);
 
         $response = $this->ms2->invokeEvent('msOnRemoveFromCart', ['key' => $key, 'cart' => $this]);
@@ -187,7 +192,13 @@ class msCartHandler implements msCartInterface
             return $this->error($response['message']);
         }
 
-        return $this->success('ms2_cart_remove_success', $this->status());
+        return $this->success(
+            'ms2_cart_remove_success',
+            $this->status([
+                'cart' => $this->cart,
+                'row' => $row
+            ])
+        );
     }
 
     /**
@@ -230,6 +241,8 @@ class msCartHandler implements msCartInterface
         }
         $status['key'] = $key;
         $status['cost'] = $count * $this->cart[$key]['price'];
+        $status['cart'] = $this->cart;
+        $status['row'] = $this->cart[$key];
 
         return $this->success(
             'ms2_cart_change_success',
