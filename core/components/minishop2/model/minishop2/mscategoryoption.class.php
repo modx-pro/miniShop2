@@ -3,30 +3,29 @@
 class msCategoryOption extends xPDOObject
 {
 
-
     /**
-    * Create option values for product in category
-    *
-    * @param null $cacheFlag
-    *
-    * @return bool
-    */
+     * Create option values for product in category
+     *
+     * @param null $cacheFlag
+     *
+     * @return bool
+     */
     public function save($cacheFlag = null)
     {
         $save = parent::save();
 
         /** @var xPDOQuery $q */
-        $q = $this->xpdo->newQuery('msProduct', array('parent' => $this->get('category_id')));
+        $q = $this->xpdo->newQuery('msProduct', ['parent' => $this->get('category_id')]);
         $q->select('id');
         if ($q->prepare() && $q->stmt->execute()) {
             $products = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
             $value = $this->get('value');
             $key = $this->getOne('Option')->get('key');
             foreach ($products as $id) {
-                $po = $this->xpdo->getObject('msProductOption', array('key' => $key, 'product_id' => $id));
+                $po = $this->xpdo->getObject('msProductOption', ['key' => $key, 'product_id' => $id]);
                 // дефолтные значения применяются только к тем товарам, у которых их еще нет
                 if (!$po) {
-                    /* @TODO вызывать метод msOption для поддержки множественных типов  */
+                    /* @TODO вызывать метод msOption для поддержки множественных типов */
                     $po = $this->xpdo->newObject('msProductOption');
                     $po->set('product_id', $id);
                     $po->set('key', $key);
@@ -38,17 +37,16 @@ class msCategoryOption extends xPDOObject
         return $save;
     }
 
-
     /**
-    * Delete option values for product in category while remove option from category
-    *
-    * @param array $ancestors
-    *
-    * @return bool
-    */
-    public function remove(array $ancestors = array ())
+     * Delete option values for product in category while remove option from category
+     *
+     * @param array $ancestors
+     *
+     * @return bool
+     */
+    public function remove(array $ancestors = [])
     {
-        $q = $this->xpdo->newQuery('msProduct', array('parent' => $this->get('category_id')));
+        $q = $this->xpdo->newQuery('msProduct', ['parent' => $this->get('category_id')]);
         $q->select('id');
         if ($q->prepare() && $q->stmt->execute()) {
             $products = $q->stmt->fetchAll(PDO::FETCH_COLUMN);

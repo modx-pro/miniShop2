@@ -5,12 +5,11 @@ class msComboboxType extends msOptionType
     public static $script = 'combobox.grid.js';
     public static $xtype = 'minishop2-grid-combobox-options';
 
-
     /**
-    * @param $field
-    *
-    * @return string
-    */
+     * @param $field
+     *
+     * @return string
+     */
     public function getField($field)
     {
         if (isset($field['properties']['values'])) {

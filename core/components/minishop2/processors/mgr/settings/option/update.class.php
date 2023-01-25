@@ -6,14 +6,13 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
     public $object;
     public $classKey = 'msOption';
     public $objectType = 'ms2_option';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     protected $oldKey = null;
     public $permission = 'mssetting_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,10 +22,9 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSet()
     {
         $key = $this->getProperty('key');
@@ -37,8 +35,8 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
 
         $oldKey = $this->object->get('key');
         if (($oldKey != $key)) {
-            if ($this->doesAlreadyExist(array('key' => $key))) {
-                $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', array('key' => $key)));
+            if ($this->doesAlreadyExist(['key' => $key])) {
+                $this->addFieldError('key', $this->modx->lexicon($this->objectType . '_err_ae', ['key' => $key]));
             }
 
             $this->oldKey = $oldKey;
@@ -48,50 +46,47 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
         return parent::beforeSet();
     }
 
-
     /**
-    * @param array $categories
-    */
+     * @param array $categories
+     */
     public function removeNotAssignedCategories($categories)
     {
         $q = $this->modx->newQuery('msCategoryOption');
         $q->command('DELETE');
-        $q->where(array('option_id' => $this->object->get('id')));
-        $q->where(array('category_id:IN' => $categories));
+        $q->where(['option_id' => $this->object->get('id')]);
+        $q->where(['category_id:IN' => $categories]);
         $q->prepare();
         $q->stmt->execute();
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function updateOldKeys()
     {
         if ($this->oldKey) {
             $q = $this->modx->newQuery('msProductOption');
             $q->command('UPDATE');
-            $q->where(array('key' => $this->oldKey));
-            $q->set(array('key' => $this->object->get('key')));
+            $q->where(['key' => $this->oldKey]);
+            $q->set(['key' => $this->object->get('key')]);
             $q->prepare();
             $q->stmt->execute();
         }
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function updateAssignedCategory()
     {
         $categoryId = $this->getProperty('category_id');
         if ($categoryId) {
             /** @var msCategoryOption $ftCat */
-            $ftCat = $this->modx->getObject('msCategoryOption', array(
+            $ftCat = $this->modx->getObject('msCategoryOption', [
                 'option_id' => $this->object->get('id'),
                 'category_id' => $categoryId,
                 'active' => true,
-            ));
+            ]);
 
             if ($ftCat) {
                 $ftCat->fromArray($this->getProperties());
@@ -100,14 +95,13 @@ class msOptionUpdateProcessor extends modObjectUpdateProcessor
         }
     }
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function afterSave()
     {
         if ($categories = json_decode($this->getProperty('categories', false), true)) {
-            $enabled = $disabled = array();
+            $enabled = $disabled = [];
             foreach ($categories as $id => $checked) {
                 if ($checked) {
                     $enabled[] = $id;

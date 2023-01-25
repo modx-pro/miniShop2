@@ -7,26 +7,24 @@ if (!class_exists('msManagerController')) {
 class Minishop2MgrOrdersManagerController extends msManagerController
 {
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getPageTitle()
     {
         return $this->modx->lexicon('ms2_orders') . ' | miniShop2';
     }
 
-
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function getLanguageTopics()
     {
-        return array('minishop2:default', 'minishop2:product', 'minishop2:manager');
+        return ['minishop2:default', 'minishop2:product', 'minishop2:manager'];
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function loadCustomCssJs()
     {
         $this->addCss($this->miniShop2->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
@@ -49,21 +47,43 @@ class Minishop2MgrOrdersManagerController extends msManagerController
 
         $this->addJavascript(MODX_MANAGER_URL . 'assets/modext/util/datetime.js');
 
-        $grid_fields = array_map('trim', explode(',', $this->getOption(
-            'ms2_order_grid_fields',
-            null,
-            'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment',
-            true
-        )));
-        $grid_fields = array_values(array_unique(array_merge($grid_fields, array(
-            'id', 'user_id', 'num', 'type', 'actions', 'color'
-        ))));
+        $grid_fields = array_map(
+            'trim',
+            explode(
+                ',',
+                $this->getOption(
+                    'ms2_order_grid_fields',
+                    null,
+                    'id,customer,num,status,cost,weight,delivery,payment,createdon,updatedon,comment',
+                    true
+                )
+            )
+        );
+        $grid_fields = array_values(
+            array_unique(
+                array_merge($grid_fields, [
+                    'id',
+                    'user_id',
+                    'num',
+                    'type',
+                    'actions',
+                    'color'
+                ])
+            )
+        );
 
         $address_fields = array_map('trim', explode(',', $this->getOption('ms2_order_address_fields')));
         $product_fields = array_map('trim', explode(',', $this->getOption('ms2_order_product_fields', null, '')));
-        $product_fields = array_values(array_unique(array_merge($product_fields, array(
-            'id', 'product_id', 'name', 'actions'
-        ))));
+        $product_fields = array_values(
+            array_unique(
+                array_merge($product_fields, [
+                    'id',
+                    'product_id',
+                    'name',
+                    'actions'
+                ])
+            )
+        );
         $product_options = array_map('trim', explode(',', $this->getOption('ms2_order_product_options')));
 
         $config = $this->miniShop2->config;
@@ -71,7 +91,8 @@ class Minishop2MgrOrdersManagerController extends msManagerController
         $config['order_address_fields'] = $address_fields;
         $config['order_product_fields'] = $product_fields;
         $config['order_product_options_fields'] = $product_options;
-        $this->addHtml('
+        $this->addHtml(
+            '
             <script>
                 miniShop2.config = ' . json_encode($config) . ';
 
@@ -80,11 +101,12 @@ class Minishop2MgrOrdersManagerController extends msManagerController
                 Ext.onReady(function() {
                     MODx.add({xtype: "minishop2-page-orders"});
                 });
-            </script>');
+            </script>'
+        );
 
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array(
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', [
             'controller' => $this,
             'page' => 'orders',
-        ));
+        ]);
     }
 }

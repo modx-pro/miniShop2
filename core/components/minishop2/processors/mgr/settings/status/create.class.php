@@ -5,13 +5,12 @@ class msOrderStatusCreateProcessor extends modObjectCreateProcessor
     /** @var msOrderStatus $object */
     public $object;
     public $classKey = 'msOrderStatus';
-    public $languageTopics = array('minishop2');
+    public $languageTopics = ['minishop2'];
     public $permission = 'mssetting_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -21,13 +20,12 @@ class msOrderStatusCreateProcessor extends modObjectCreateProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSet()
     {
-        $required = array('name');
+        $required = ['name'];
         if ($this->getProperty('email_user')) {
             $required[] = 'subject_user';
             $required[] = 'body_user';
@@ -43,23 +41,22 @@ class msOrderStatusCreateProcessor extends modObjectCreateProcessor
                 $this->setProperty($field, $tmp);
             }
         }
-        if ($this->modx->getCount($this->classKey, array('name' => $this->getProperty('name')))) {
+        if ($this->modx->getCount($this->classKey, ['name' => $this->getProperty('name')])) {
             $this->modx->error->addField('name', $this->modx->lexicon('ms2_err_ae'));
         }
 
         return !$this->hasErrors();
     }
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->object->fromArray(array(
+        $this->object->fromArray([
             'rank' => $this->modx->getCount($this->classKey),
             'editable' => true,
-        ));
+        ]);
 
         return parent::beforeSave();
     }

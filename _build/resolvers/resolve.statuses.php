@@ -98,10 +98,13 @@ if ($transport->xpdo) {
                     'OR:name:=' => $properties['name']
                 ]);
                 if (!$status) {
-                    $status = $modx->newObject('msOrderStatus', array_merge([
-                        'editable' => 0,
-                        'active' => 1,
-                    ], $properties));
+                    $status = $modx->newObject(
+                        'msOrderStatus',
+                        array_merge([
+                            'editable' => 0,
+                            'active' => 1,
+                        ], $properties)
+                    );
                     /*@var modChunk $chunk */
                     if (!empty($properties['body_user'])) {
                         $chunk = $modx->getObject('modChunk', ['name' => $properties['body_user']]);
@@ -115,10 +118,8 @@ if ($transport->xpdo) {
                             $status->set('body_manager', $chunk->get('id'));
                         }
                     }
-                } else {
-                    if ($id === 999) {
-                        $status->set('name', $properties['name']);
-                    }
+                } elseif ($id === 999) {
+                    $status->set('name', $properties['name']);
                 }
                 $status->save();
 

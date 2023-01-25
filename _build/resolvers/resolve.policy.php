@@ -9,13 +9,13 @@ if ($transport->xpdo) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
             /** @var modAccessPolicy $policy */
-            if ($policy = $modx->getObject('modAccessPolicy', array('name' => 'miniShopManagerPolicy'))) {
-                if (
-                    $template = $modx->getObject(
-                        'modAccessPolicyTemplate',
-                        array('name' => 'miniShopManagerPolicyTemplate')
-                    )
-                ) {
+            $policy = $modx->getObject('modAccessPolicy', ['name' => 'miniShopManagerPolicy']);
+            if ($policy) {
+                $template = $modx->getObject(
+                    'modAccessPolicyTemplate',
+                    ['name' => 'miniShopManagerPolicyTemplate']
+                );
+                if ($template) {
                     $policy->set('template', $template->get('id'));
                     $policy->save();
                 } else {
@@ -26,14 +26,15 @@ if ($transport->xpdo) {
                 }
 
                 /** @var modUserGroup $adminGroup */
-                if ($adminGroup = $modx->getObject('modUserGroup', array('name' => 'Administrator'))) {
-                    $properties = array(
+                $adminGroup = $modx->getObject('modUserGroup', ['name' => 'Administrator']);
+                if ($adminGroup) {
+                    $properties = [
                         'target' => 'mgr',
                         'principal_class' => 'modUserGroup',
                         'principal' => $adminGroup->get('id'),
                         'authority' => 9999,
                         'policy' => $policy->get('id'),
-                    );
+                    ];
                     if (!$modx->getObject('modAccessContext', $properties)) {
                         $access = $modx->newObject('modAccessContext');
                         $access->fromArray($properties);

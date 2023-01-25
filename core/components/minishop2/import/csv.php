@@ -7,16 +7,16 @@ require_once MODX_BASE_PATH . 'index.php';
 if (XPDO_CLI_MODE) {
     $file = @$argv[1];
     $fields = @$argv[2];
-    $update = (bool) !empty($argv[3]);
+    $update = (bool)!empty($argv[3]);
     $key = @$argv[4];
-    $is_debug = (bool) !empty($argv[5]);
+    $is_debug = (bool)!empty($argv[5]);
     $delimeter = @$argv[6];
 } else {
     $file = @$_REQUEST['file'];
     $fields = @$_REQUEST['fields'];
-    $update = (bool) !empty($_REQUEST['update']);
+    $update = (bool)!empty($_REQUEST['update']);
     $key = @$_REQUEST['key'];
-    $is_debug = (bool) !empty($_REQUEST['debug']);
+    $is_debug = (bool)!empty($_REQUEST['debug']);
     $delimeter = @$_REQUEST['delimeter'];
 }
 
@@ -78,7 +78,7 @@ $handle = fopen($file, "r");
 $rows = $created = $updated = 0;
 while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
     $rows++;
-    $data = $gallery = array();
+    $data = $gallery = [];
     $modx->error->reset();
     $modx->log(modX::LOG_LEVEL_INFO, "Raw data for import: \n" . print_r($csv, 1));
     foreach ($keys as $k => $v) {
@@ -88,7 +88,7 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
         if ($v == 'gallery') {
             $gallery[] = $csv[$k];
         } elseif (isset($data[$v]) && !is_array($data[$v])) {
-            $data[$v] = array($data[$v], $csv[$k]);
+            $data[$v] = [$data[$v], $csv[$k]];
         } elseif (isset($data[$v]) && is_array($data[$v])) {
             $data[$v][] = $csv[$k];
         } else {
@@ -102,7 +102,7 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
         $data['class_key'] = 'msProduct';
     }
     if (empty($data['context_key'])) {
-        if (isset($data['parent']) && $parent = $modx->getObject('modResource', array('id' => $data['parent']))) {
+        if (isset($data['parent']) && $parent = $modx->getObject('modResource', ['id' => $data['parent']])) {
             $data['context_key'] = $parent->get('context_key');
         } elseif (isset($modx->resource) && isset($modx->context)) {
             $data['context_key'] = $modx->context->key;
@@ -122,9 +122,9 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
     }
     $tmp = $modx->getFields($data['class_key']);
     if (isset($tmp[$key])) {
-        $q->where(array($key => $data[$key]));
+        $q->where([$key => $data[$key]]);
     } elseif ($is_product) {
-        $q->where(array('Data.' . $key => $data[$key]));
+        $q->where(['Data.' . $key => $data[$key]]);
     }
     $q->prepare();
     $modx->log(modX::LOG_LEVEL_INFO, "SQL query for check for duplicate: \n" . $q->toSql());
@@ -135,7 +135,13 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
         if (!$update) {
             $modx->log(modX::LOG_LEVEL_ERROR, "Skipping line with $key = \"$data[$key]\" because update is disabled.");
             if ($is_debug) {
-                $modx->log(modX::LOG_LEVEL_INFO, 'You in debug mode, so we process only 1 row. Time: ' . number_format(microtime(true) - $modx->startTime, 7) . " s");
+                $modx->log(
+                    modX::LOG_LEVEL_INFO,
+                    'You in debug mode, so we process only 1 row. Time: ' . number_format(
+                        microtime(true) - $modx->startTime,
+                        7
+                    ) . " s"
+                );
                 exit;
             } else {
                 continue;
@@ -172,17 +178,26 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
                 }
                 $image = str_replace('//', '/', MODX_BASE_PATH . $v);
                 if (!file_exists($image)) {
-                    $modx->log(modX::LOG_LEVEL_ERROR, "Could not import image \"$v\" to gallery. File \"$image\" not found on server.");
+                    $modx->log(
+                        modX::LOG_LEVEL_ERROR,
+                        "Could not import image \"$v\" to gallery. File \"$image\" not found on server."
+                    );
                 } else {
                     $response = $modx->runProcessor(
                         'gallery/upload',
-                        array('id' => $resource['id'], 'name' => $v, 'file' => $image),
-                        array('processors_path' => MODX_CORE_PATH . 'components/minishop2/processors/mgr/')
+                        ['id' => $resource['id'], 'name' => $v, 'file' => $image],
+                        ['processors_path' => MODX_CORE_PATH . 'components/minishop2/processors/mgr/']
                     );
                     if ($response->isError()) {
-                        $modx->log(modX::LOG_LEVEL_ERROR, "Error on upload \"$v\": \n" . print_r($response->getAllErrors(), 1));
+                        $modx->log(
+                            modX::LOG_LEVEL_ERROR,
+                            "Error on upload \"$v\": \n" . print_r($response->getAllErrors(), 1)
+                        );
                     } else {
-                        $modx->log(modX::LOG_LEVEL_INFO, "Successful upload  \"$v\": \n" . print_r($response->getObject(), 1));
+                        $modx->log(
+                            modX::LOG_LEVEL_INFO,
+                            "Successful upload  \"$v\": \n" . print_r($response->getObject(), 1)
+                        );
                     }
                 }
             }
@@ -190,7 +205,13 @@ while (($csv = fgetcsv($handle, 0, $delimeter)) !== false) {
     }
 
     if ($is_debug) {
-        $modx->log(modX::LOG_LEVEL_INFO, 'You in debug mode, so we process only 1 row. Time: ' . number_format(microtime(true) - $modx->startTime, 7) . " s");
+        $modx->log(
+            modX::LOG_LEVEL_INFO,
+            'You in debug mode, so we process only 1 row. Time: ' . number_format(
+                microtime(true) - $modx->startTime,
+                7
+            ) . " s"
+        );
         exit;
     }
 }

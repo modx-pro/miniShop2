@@ -3,42 +3,40 @@
 class msChunkGetListProcessor extends modObjectGetListProcessor
 {
     public $classKey = 'modChunk';
-    public $languageTopics = array('chunk');
+    public $languageTopics = ['chunk'];
     public $defaultSortField = 'name';
 
-
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         $categories = $this->modx->getOption('ms2_chunks_categories');
         if (!empty($categories)) {
-            $c->where(array(
+            $c->where([
                 'category:IN' => explode(',', $categories)
-            ));
+            ]);
         }
         if ($id = (int)$this->getProperty('id')) {
-            $c->where(array('id' => $id));
+            $c->where(['id' => $id]);
         }
         if ($query = trim($this->getProperty('query'))) {
-            $c->where(array(
+            $c->where([
                 'name:LIKE' => "%{$query}%",
                 'OR:description:LIKE' => "%{$query}%",
-            ));
+            ]);
         }
 
         return $c;
     }
 
-
     /**
-    * @param xPDOObject $object
-    *
-    * @return array
-    */
+     * @param xPDOObject $object
+     *
+     * @return array
+     */
     public function prepareRow(xPDOObject $object)
     {
         $array = $object->toArray();

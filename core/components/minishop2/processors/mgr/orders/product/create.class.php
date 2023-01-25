@@ -4,17 +4,16 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
 {
     public $classKey = 'msOrderProduct';
     public $objectType = 'msOrderProduct';
-    public $languageTopics = array('minishop2');
+    public $languageTopics = ['minishop2'];
     public $beforeSaveEvent = 'msOnBeforeCreateOrderProduct';
     public $afterSaveEvent = 'msOnCreateOrderProduct';
     public $permission = 'msorder_save';
     /** @var msOrder $order */
     protected $order;
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -24,10 +23,9 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function beforeSet()
     {
         $count = $this->getProperty('count');
@@ -44,7 +42,8 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
             }
         }
 
-        if (!$this->order = $this->modx->getObject('msOrder', array('id' => $this->getProperty('order_id')))) {
+        $this->order = $this->modx->getObject('msOrder', ['id' => $this->getProperty('order_id')]);
+        if (!$this->order) {
             return $this->modx->lexicon('ms2_err_order_nf');
         }
 
@@ -61,23 +60,21 @@ class msOrderProductCreateProcessor extends modObjectCreateProcessor
         return !$this->hasErrors();
     }
 
-
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function beforeSave()
     {
-        $this->object->fromArray(array(
+        $this->object->fromArray([
             'rank' => $this->modx->getCount('msOrderProduct'),
-        ));
+        ]);
 
         return parent::beforeSave();
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function afterSave()
     {
         // Fix "cache"

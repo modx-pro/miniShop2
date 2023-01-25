@@ -13,23 +13,22 @@ class miniShop2
     /** @var msOrderHandler $order */
     public $order;
     /** @var array $initialized */
-    public $initialized = array();
+    public $initialized = [];
 
     /** @var array $optionTypes */
-    public $optionTypes = array();
+    public $optionTypes = [];
     /** @var array $plugins */
-    public $plugins = array();
+    public $plugins = [];
     /**
      * @var array
      */
-    public $config = array();
-
+    public $config = [];
 
     /**
      * @param modX $modx
      * @param array $config
      */
-    public function __construct(modX $modx, array $config = array())
+    public function __construct(modX $modx, array $config = [])
     {
         $this->modx = $modx;
 
@@ -43,7 +42,7 @@ class miniShop2
         $actionUrl = $this->modx->getOption('minishop2.action_url', $config, $assetsUrl . 'action.php');
         $connectorUrl = $assetsUrl . 'connector.php';
 
-        $this->config = array_merge(array(
+        $this->config = array_merge([
             'corePath' => $corePath,
             'assetsPath' => $assetsPath,
             'modelPath' => $corePath . 'model/',
@@ -60,7 +59,7 @@ class miniShop2
             'defaultThumb' => trim($this->modx->getOption('ms2_product_thumbnail_default', null, true)),
             'ctx' => 'web',
             'json_response' => false,
-        ), $config);
+        ], $config);
 
         $this->modx->addPackage('minishop2', $this->config['modelPath']);
 
@@ -68,7 +67,6 @@ class miniShop2
             $this->pdoTools->setConfig($this->config);
         }
     }
-
 
     /**
      * Initializes component into different contexts.
@@ -78,7 +76,7 @@ class miniShop2
      *
      * @return bool
      */
-    public function initialize($ctx = 'web', $scriptProperties = array())
+    public function initialize($ctx = 'web', $scriptProperties = [])
     {
         if (isset($this->initialized[$ctx])) {
             return $this->initialized[$ctx];
@@ -109,7 +107,7 @@ class miniShop2
                 $this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
             }
 
-            if((bool)$this->modx->getOption('ms2_toggle_js_type')){
+            if ((bool)$this->modx->getOption('ms2_toggle_js_type')) {
                 // Register Vanila JS
                 $js = trim($this->modx->getOption('ms2_vanila_js'));
                 if (!empty($js) && preg_match('/\.js/i', $js)) {
@@ -117,18 +115,33 @@ class miniShop2
                         $js .= '?v=' . substr(md5($this->version), 0, 10);
                     }
                     $js = str_replace($config['pl'], $config['vl'], $js);
-                    $this->modx->regClientStartupScript('<script type="module" src="'.$js.'"></script>',1);
+                    $this->modx->regClientStartupScript('<script type="module" src="' . $js . '"></script>', 1);
                 }
 
-                $js_setting = array(
-                    'cartClassPath' => str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_cart_js_class_path', null, '')),
+                $js_setting = [
+                    'cartClassPath' => str_replace(
+                        '[[+jsUrl]]',
+                        $this->config['jsUrl'],
+                        $this->modx->getOption('ms2_cart_js_class_path', null, '')
+                    ),
                     'cartClassName' => $this->modx->getOption('ms2_cart_js_class_name', null, ''),
-                    'orderClassPath' => str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_order_js_class_path', null, '')),
+                    'orderClassPath' => str_replace(
+                        '[[+jsUrl]]',
+                        $this->config['jsUrl'],
+                        $this->modx->getOption('ms2_order_js_class_path', null, '')
+                    ),
                     'orderClassName' => $this->modx->getOption('ms2_order_js_class_name', null, ''),
-                    'notifyClassPath' => str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_notify_js_class_path', null, '')),
+                    'notifyClassPath' => str_replace(
+                        '[[+jsUrl]]',
+                        $this->config['jsUrl'],
+                        $this->modx->getOption('ms2_notify_js_class_path', null, '')
+                    ),
                     'notifyClassName' => $this->modx->getOption('ms2_notify_js_class_name', null, ''),
-                    'notifySettingsPath' => str_replace('[[+jsUrl]]', $this->config['jsUrl'],$this->modx->getOption('ms2_frontend_notify_js_settings', null, '')),
-
+                    'notifySettingsPath' => str_replace(
+                        '[[+jsUrl]]',
+                        $this->config['jsUrl'],
+                        $this->modx->getOption('ms2_frontend_notify_js_settings', null, '')
+                    ),
 
                     'cssUrl' => $this->config['cssUrl'] . 'web/',
                     'jsUrl' => $this->config['jsUrl'] . 'web/',
@@ -144,14 +157,14 @@ class miniShop2
                         true
                     ),
                     'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
-                );
+                ];
 
                 $data = json_encode($js_setting, true);
                 $this->modx->regClientStartupScript(
                     '<script>miniShop2Config = ' . $data . ';</script>',
                     true
                 );
-            }else{
+            } else {
                 // Register notify plugin CSS
                 $message_css = trim($this->modx->getOption('ms2_frontend_message_css'));
                 if (!empty($message_css) && preg_match('/\.css/i', $message_css)) {
@@ -167,11 +180,11 @@ class miniShop2
                     $this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
                 }
 
-                $message_setting = array(
+                $message_setting = [
                     'close_all_message' => $this->modx->lexicon('ms2_message_close_all'),
-                );
+                ];
 
-                $js_setting = array(
+                $js_setting = [
                     'cssUrl' => $this->config['cssUrl'] . 'web/',
                     'jsUrl' => $this->config['jsUrl'] . 'web/',
                     'actionUrl' => $this->config['actionUrl'],
@@ -186,7 +199,7 @@ class miniShop2
                         true
                     ),
                     'weight_format_no_zeros' => (bool)$this->modx->getOption('ms2_weight_format_no_zeros', null, true),
-                );
+                ];
 
                 $data = json_encode(array_merge($message_setting, $js_setting), true);
                 $this->modx->regClientStartupScript(
@@ -208,7 +221,6 @@ class miniShop2
         }
     }
 
-
     /**
      * Handle frontend requests with actions
      *
@@ -217,7 +229,7 @@ class miniShop2
      *
      * @return array|bool|string
      */
-    public function handleRequest($action, $data = array())
+    public function handleRequest($action, $data = [])
     {
         $ctx = !empty($data['ctx'])
             ? (string)$data['ctx']
@@ -226,7 +238,7 @@ class miniShop2
             $this->modx->switchContext($ctx);
         }
         $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
-        $this->initialize($ctx, array('json_response' => $isAjax));
+        $this->initialize($ctx, ['json_response' => $isAjax]);
 
         switch ($action) {
             case 'cart/add':
@@ -271,7 +283,6 @@ class miniShop2
 
         return $response;
     }
-
 
     /**
      * @param string $ctx
@@ -329,7 +340,6 @@ class miniShop2
         return true;
     }
 
-
     /**
      * Register service into miniShop2
      *
@@ -339,18 +349,17 @@ class miniShop2
      */
     public function addService($type, $name, $controller)
     {
-        $services = $this->_getSetting('ms2_services');
+        $services = $this->getSetting('ms2_services');
         $type = strtolower($type);
         $name = strtolower($name);
         if (!isset($services[$type])) {
-            $services[$type] = array($name => $controller);
+            $services[$type] = [$name => $controller];
         } else {
             $services[$type][$name] = $controller;
         }
 
-        $this->_updateSetting('ms2_services', $services);
+        $this->updateSetting('ms2_services', $services);
     }
-
 
     /**
      * Remove service from miniShop2
@@ -360,13 +369,12 @@ class miniShop2
      */
     public function removeService($type, $name)
     {
-        $services = $this->_getSetting('ms2_services');
+        $services = $this->getSetting('ms2_services');
         $type = strtolower($type);
         $name = strtolower($name);
         unset($services[$type][$name]);
-        $this->_updateSetting('ms2_services', $services);
+        $this->updateSetting('ms2_services', $services);
     }
-
 
     /**
      * Get all registered services
@@ -377,7 +385,7 @@ class miniShop2
      */
     public function getServices($type = '')
     {
-        $services = $this->_getSetting('ms2_services');
+        $services = $this->getSetting('ms2_services');
 
         if (is_array($services)) {
             return !empty($type) && isset($services[$type])
@@ -385,9 +393,8 @@ class miniShop2
                 : $services;
         }
 
-        return array();
+        return [];
     }
-
 
     /**
      * Register plugin into miniShop2
@@ -397,12 +404,11 @@ class miniShop2
      */
     public function addPlugin($name, $controller)
     {
-        $plugins = $this->_getSetting('ms2_plugins');
+        $plugins = $this->getSetting('ms2_plugins');
         $plugins[strtolower($name)] = $controller;
 
-        $this->_updateSetting('ms2_plugins', $plugins);
+        $this->updateSetting('ms2_plugins', $plugins);
     }
-
 
     /**
      * Remove plugin from miniShop2
@@ -411,11 +417,10 @@ class miniShop2
      */
     public function removePlugin($name)
     {
-        $plugins = $this->_getSetting('ms2_plugins');
+        $plugins = $this->getSetting('ms2_plugins');
         unset($plugins[strtolower($name)]);
-        $this->_updateSetting('ms2_plugins', $plugins);
+        $this->updateSetting('ms2_plugins', $plugins);
     }
-
 
     /**
      * Get all registered plugins
@@ -424,9 +429,8 @@ class miniShop2
      */
     public function getPlugins()
     {
-        return $this->_getSetting('ms2_plugins');
+        return $this->getSetting('ms2_plugins');
     }
-
 
     /**
      * Load custom classes from specified directory
@@ -448,11 +452,11 @@ class miniShop2
 
         // 3rd party classes
         $type = strtolower($type);
-        $placeholders = array(
+        $placeholders = [
             'base_path' => MODX_BASE_PATH,
             'core_path' => MODX_CORE_PATH,
             'assets_path' => MODX_ASSETS_PATH,
-        );
+        ];
         $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[+', ']]', false);
         $pl2 = $this->pdoTools->makePlaceholders($placeholders, '', '[[++', ']]', false);
         $pl3 = $this->pdoTools->makePlaceholders($placeholders, '', '{', '}', false);
@@ -483,7 +487,6 @@ class miniShop2
         }
     }
 
-
     /**
      * Loads available plugins with parameters
      *
@@ -509,11 +512,11 @@ class miniShop2
         }
 
         // 3rd party plugins
-        $placeholders = array(
+        $placeholders = [
             'base_path' => MODX_BASE_PATH,
             'core_path' => MODX_CORE_PATH,
             'assets_path' => MODX_ASSETS_PATH,
-        );
+        ];
         $pl1 = $this->pdoTools->makePlaceholders($placeholders, '', '[[++', ']]', false);
         $pl2 = $this->pdoTools->makePlaceholders($placeholders, '', '{', '}', false);
         $plugins = $this->getPlugins();
@@ -549,7 +552,6 @@ class miniShop2
         return $this->plugins;
     }
 
-
     /**
      * @return array
      */
@@ -557,7 +559,7 @@ class miniShop2
     {
         $typeDir = $this->config['corePath'] . 'processors/mgr/settings/option/types';
         $files = scandir($typeDir);
-        $list = array();
+        $list = [];
 
         foreach ($files as $file) {
             if (preg_match('/.*?\.class\.php$/i', $file)) {
@@ -567,7 +569,6 @@ class miniShop2
 
         return $list;
     }
-
 
     /**
      * @param string $type
@@ -586,8 +587,8 @@ class miniShop2
             $className = include_once $typePath;
             // handle already included classes
             if ($className == 1) {
-                $o = array();
-                $s = explode(' ', str_replace(array('_', '-'), ' ', $type));
+                $o = [];
+                $s = explode(' ', str_replace(['_', '-'], ' ', $type));
                 foreach ($s as $k) {
                     $o[] = ucfirst($k);
                 }
@@ -598,7 +599,6 @@ class miniShop2
 
         return $className;
     }
-
 
     /**
      * @param msOption $option
@@ -620,7 +620,6 @@ class miniShop2
             return null;
         }
     }
-
 
     /**
      * @param array $options
@@ -656,7 +655,6 @@ class miniShop2
         return $options;
     }
 
-
     /**
      * Loads additional metadata for miniShop2 objects
      */
@@ -683,10 +681,12 @@ class miniShop2
                 }
             }
         } else {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'pdoTools not installed, metadata for miniShop2 objects not loaded');
+            $this->modx->log(
+                modX::LOG_LEVEL_ERROR,
+                'pdoTools not installed, metadata for miniShop2 objects not loaded'
+            );
         }
     }
-
 
     /**
      * Returns id for current customer. If customer is not exists, registers him and returns id.
@@ -697,19 +697,19 @@ class miniShop2
     {
         $customer = null;
 
-        $response = $this->invokeEvent('msOnBeforeGetOrderCustomer', array(
+        $response = $this->invokeEvent('msOnBeforeGetOrderCustomer', [
             'order' => $this->order,
             'customer' => $customer,
-        ));
+        ]);
         if (!$response['success']) {
             return $response['message'];
         }
 
         if (!$customer) {
             $data = $this->order->get();
-            $email = isset($data['email']) ? $data['email'] : '';
-            $receiver = isset($data['receiver']) ? $data['receiver'] : '';
-            $phone = isset($data['phone']) ? $data['phone'] : '';
+            $email = $data['email'] ?? '';
+            $receiver = $data['receiver'] ?? '';
+            $phone = $data['phone'] ?? '';
             if (empty($receiver)) {
                 $receiver = $email
                     ? substr($email, 0, strpos($email, '@'))
@@ -731,27 +731,27 @@ class miniShop2
             } else {
                 $c = $this->modx->newQuery('modUser');
                 $c->leftJoin('modUserProfile', 'Profile');
-                $filter = array('username' => $email, 'OR:Profile.email:=' => $email);
+                $filter = ['username' => $email, 'OR:Profile.email:=' => $email];
                 if (!empty($phone)) {
                     $filter['OR:Profile.mobilephone:='] = $phone;
                 }
                 $c->where($filter);
                 $c->select('modUser.id');
                 if (!$customer = $this->modx->getObject('modUser', $c)) {
-                    $customer = $this->modx->newObject('modUser', array('username' => $email, 'password' => md5(rand())));
-                    $profile = $this->modx->newObject('modUserProfile', array(
+                    $customer = $this->modx->newObject('modUser', ['username' => $email, 'password' => md5(rand())]);
+                    $profile = $this->modx->newObject('modUserProfile', [
                         'email' => $email,
                         'fullname' => $receiver,
                         'mobilephone' => $phone
-                    ));
+                    ]);
                     $customer->addOne($profile);
                     /** @var modUserSetting $setting */
                     $setting = $this->modx->newObject('modUserSetting');
-                    $setting->fromArray(array(
+                    $setting->fromArray([
                         'key' => 'cultureKey',
                         'area' => 'language',
                         'value' => $this->modx->getOption('cultureKey', null, 'en', true),
-                    ), '', true);
+                    ], '', true);
                     $customer->addMany($setting);
                     if (!$customer->save()) {
                         $customer = null;
@@ -775,10 +775,10 @@ class miniShop2
             }
         }
 
-        $response = $this->invokeEvent('msOnGetOrderCustomer', array(
+        $response = $this->invokeEvent('msOnGetOrderCustomer', [
             'order' => $this->order,
             'customer' => $customer,
-        ));
+        ]);
         if (!$response['success']) {
             return $response['message'];
         }
@@ -787,7 +787,6 @@ class miniShop2
             ? $customer->get('id')
             : 0;
     }
-
 
     /**
      * Switch order status
@@ -800,7 +799,7 @@ class miniShop2
     public function changeOrderStatus($order_id, $status_id)
     {
         /** @var msOrder $order */
-        if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id), false)) {
+        if (!$order = $this->modx->getObject('msOrder', ['id' => $order_id], false)) {
             return $this->modx->lexicon('ms2_err_order_nf');
         }
 
@@ -814,40 +813,38 @@ class miniShop2
 
         $error = '';
         /** @var msOrderStatus $status */
-        if (!$status = $this->modx->getObject('msOrderStatus', array('id' => $status_id, 'active' => 1))) {
+        $status = $this->modx->getObject('msOrderStatus', ['id' => $status_id, 'active' => 1]);
+        if (!$status) {
             $error = 'ms2_err_status_nf';
+            return $this->modx->lexicon($error);
         }
+
         /** @var msOrderStatus $old_status */
-        else {
-            if (
-                $old_status = $this->modx->getObject(
-                    'msOrderStatus',
-                    array('id' => $order->get('status'), 'active' => 1)
-                )
-            ) {
-                if ($old_status->get('final')) {
-                    $error = 'ms2_err_status_final';
-                } else {
-                    if ($old_status->get('fixed')) {
-                        if ($status->get('rank') <= $old_status->get('rank')) {
-                            $error = 'ms2_err_status_fixed';
-                        }
-                    }
+        $old_status = $this->modx->getObject(
+            'msOrderStatus',
+            ['id' => $order->get('status'), 'active' => 1]
+        );
+        if ($old_status) {
+            if ($old_status->get('final')) {
+                $error = 'ms2_err_status_final';
+                return $this->modx->lexicon($error);
+            }
+            if ($old_status->get('fixed')) {
+                if ($status->get('rank') <= $old_status->get('rank')) {
+                    $error = 'ms2_err_status_fixed';
+                    return $this->modx->lexicon($error);
                 }
             }
         }
         if ($order->get('status') == $status_id) {
             $error = 'ms2_err_status_same';
-        }
-
-        if (!empty($error)) {
             return $this->modx->lexicon($error);
         }
 
-        $response = $this->invokeEvent('msOnBeforeChangeOrderStatus', array(
+        $response = $this->invokeEvent('msOnBeforeChangeOrderStatus', [
             'order' => $order,
             'status' => $order->get('status'),
-        ));
+        ]);
         if (!$response['success']) {
             return $response['message'];
         }
@@ -856,19 +853,27 @@ class miniShop2
 
         if ($order->save()) {
             $this->orderLog($order->get('id'), 'status', $status_id);
-            $response = $this->invokeEvent('msOnChangeOrderStatus', array(
+            $response = $this->invokeEvent('msOnChangeOrderStatus', [
                 'order' => $order,
                 'status' => $status_id,
-            ));
+            ]);
             if (!$response['success']) {
                 return $response['message'];
             }
 
             $lang = $this->modx->getOption('cultureKey', null, 'en', true);
-            if ($tmp = $this->modx->getObject('modUserSetting', array('key' => 'cultureKey', 'user' => $order->get('user_id')))) {
-                $lang = $tmp->get('value');
-            } elseif ($tmp = $this->modx->getObject('modContextSetting', array('key' => 'cultureKey', 'context_key' => $order->get('context')))) {
-                $lang = $tmp->get('value');
+            $userLang = $this->modx->getObject(
+                'modUserSetting',
+                ['key' => 'cultureKey', 'user' => $order->get('user_id')]
+            );
+            $contextLang = $this->modx->getObject(
+                'modContextSetting',
+                ['key' => 'cultureKey', 'context_key' => $order->get('context')]
+            );
+            if ($userLang) {
+                $lang = $userLang->get('value');
+            } elseif ($contextLang) {
+                $lang = $contextLang->get('value');
             }
             $this->modx->setOption('cultureKey', $lang);
             $this->modx->lexicon->load($lang . ':minishop2:default', $lang . ':minishop2:cart');
@@ -879,11 +884,13 @@ class miniShop2
             $pls['delivery_cost'] = $this->formatPrice($pls['delivery_cost']);
             $pls['weight'] = $this->formatWeight($pls['weight']);
             $pls['payment_link'] = '';
-            if ($payment = $order->getOne('Payment')) {
-                if ($class = $payment->get('class')) {
+            $payment = $order->getOne('Payment');
+            if ($payment) {
+                $class = $payment->get('class');
+                if ($class) {
                     $this->loadCustomClasses('payment');
                     if (class_exists($class)) {
-                        /** @var msPaymentHandler|PayPal $handler */
+                        /** @var msPaymentHandler $handler */
                         $handler = new $class($order);
                         if (method_exists($handler, 'getPaymentLink')) {
                             $link = $handler->getPaymentLink($order);
@@ -897,7 +904,11 @@ class miniShop2
             $task = null;
             if ($useScheduler) {
                 /** @var Scheduler $scheduler */
-                $path = $this->modx->getOption('scheduler.core_path', null, $this->modx->getOption('core_path') . 'components/scheduler/');
+                $path = $this->modx->getOption(
+                    'scheduler.core_path',
+                    null,
+                    $this->modx->getOption('core_path') . 'components/scheduler/'
+                );
                 $scheduler = $this->modx->getService('scheduler', 'Scheduler', $path . 'model/scheduler/');
                 if ($scheduler) {
                     $task = $scheduler->getTask('minishop2', 'ms2_send_email');
@@ -913,14 +924,17 @@ class miniShop2
             if ($status->get('email_manager')) {
                 $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
                 $tpl = '';
-                if ($chunk = $this->modx->getObject('modChunk', array('id' => $status->get('body_manager')))) {
+                if ($chunk = $this->modx->getObject('modChunk', ['id' => $status->get('body_manager')])) {
                     $tpl = $chunk->get('name');
                 }
-                $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
-                $emails = array_map('trim', explode(
-                    ',',
-                    $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))
-                ));
+                $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, ['tpl' => $tpl]));
+                $emails = array_map(
+                    'trim',
+                    explode(
+                        ',',
+                        $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))
+                    )
+                );
                 if (!empty($subject)) {
                     foreach ($emails as $email) {
                         if (preg_match('#.*?@#', $email)) {
@@ -939,13 +953,13 @@ class miniShop2
             }
 
             if ($status->get('email_user')) {
-                if ($profile = $this->modx->getObject('modUserProfile', array('internalKey' => $pls['user_id']))) {
+                if ($profile = $this->modx->getObject('modUserProfile', ['internalKey' => $pls['user_id']])) {
                     $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_user'), $pls);
                     $tpl = '';
-                    if ($chunk = $this->modx->getObject('modChunk', array('id' => $status->get('body_user')))) {
+                    if ($chunk = $this->modx->getObject('modChunk', ['id' => $status->get('body_user')])) {
                         $tpl = $chunk->get('name');
                     }
-                    $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, array('tpl' => $tpl)));
+                    $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, ['tpl' => $tpl]));
                     $email = $profile->get('email');
                     if (!empty($subject) && preg_match('#.*?@#', $email)) {
                         if ($useScheduler && $task instanceof sTask) {
@@ -965,7 +979,6 @@ class miniShop2
         return true;
     }
 
-
     /**
      * Function for sending email
      *
@@ -978,8 +991,8 @@ class miniShop2
     public function sendEmail($email, $subject, $body = '')
     {
         $result = true;
-        $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', array(), 10);
-        $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', array(), 10);
+        $this->modx->getParser()->processElementTags('', $body, true, false, '[[', ']]', [], 10);
+        $this->modx->getParser()->processElementTags('', $body, true, true, '[[', ']]', [], 10);
 
         /** @var modPHPMailer $mail */
         $mail = $this->modx->getService('mail', 'mail.modPHPMailer');
@@ -1001,7 +1014,6 @@ class miniShop2
         return $result;
     }
 
-
     /**
      * Function for logging changes of the order
      *
@@ -1014,7 +1026,7 @@ class miniShop2
     public function orderLog($order_id, $action = 'status', $entry)
     {
         /** @var msOrder $order */
-        if (!$order = $this->modx->getObject('msOrder', array('id' => $order_id))) {
+        if (!$order = $this->modx->getObject('msOrder', ['id' => $order_id])) {
             return false;
         }
 
@@ -1025,18 +1037,17 @@ class miniShop2
         $user_id = ($action == 'status' && $entry == 1) || !$this->modx->user->id
             ? $order->get('user_id')
             : $this->modx->user->id;
-        $log = $this->modx->newObject('msOrderLog', array(
+        $log = $this->modx->newObject('msOrderLog', [
             'order_id' => $order_id,
             'user_id' => $user_id,
             'timestamp' => time(),
             'action' => $action,
             'entry' => $entry,
             'ip' => $this->modx->request->getClientIp(),
-        ));
+        ]);
 
         return $log->save();
     }
-
 
     /**
      * Function for formatting dates
@@ -1054,7 +1065,6 @@ class miniShop2
             : '&nbsp;';
     }
 
-
     /**
      * Function for price format
      *
@@ -1065,7 +1075,7 @@ class miniShop2
     public function formatPrice($price = 0)
     {
         if (!$pf = json_decode($this->modx->getOption('ms2_price_format', null, '[2, ".", " "]'), true)) {
-            $pf = array(2, '.', ' ');
+            $pf = [2, '.', ' '];
         }
         $price = number_format($price, $pf[0], $pf[1], $pf[2]);
 
@@ -1080,7 +1090,6 @@ class miniShop2
         return $price;
     }
 
-
     /**
      * Function for weight format
      *
@@ -1091,7 +1100,7 @@ class miniShop2
     public function formatWeight($weight = 0)
     {
         if (!$wf = json_decode($this->modx->getOption('ms2_weight_format', null, '[3, ".", " "]'), true)) {
-            $wf = array(3, '.', ' ');
+            $wf = [3, '.', ' '];
         }
         $weight = number_format($weight, $wf[0], $wf[1], $wf[2]);
 
@@ -1106,7 +1115,6 @@ class miniShop2
         return $weight;
     }
 
-
     /**
      * Shorthand for original modX::invokeEvent() method with some useful additions.
      *
@@ -1116,7 +1124,7 @@ class miniShop2
      *
      * @return array
      */
-    public function invokeEvent($eventName, array $params = array(), $glue = '<br/>')
+    public function invokeEvent($eventName, array $params = [], $glue = '<br/>')
     {
         if (isset($this->modx->event->returnedValues)) {
             $this->modx->event->returnedValues = null;
@@ -1136,13 +1144,12 @@ class miniShop2
             $params = array_merge($params, $this->modx->event->returnedValues);
         }
 
-        return array(
+        return [
             'success' => empty($message),
             'message' => $message,
             'data' => $params,
-        );
+        ];
     }
-
 
     /**
      * This method returns an error of the order
@@ -1153,19 +1160,18 @@ class miniShop2
      *
      * @return array|string $response
      */
-    public function error($message = '', $data = array(), $placeholders = array())
+    public function error($message = '', $data = [], $placeholders = [])
     {
-        $response = array(
+        $response = [
             'success' => false,
             'message' => $this->modx->lexicon($message, $placeholders),
             'data' => $data,
-        );
+        ];
 
         return $this->config['json_response']
             ? json_encode($response)
             : $response;
     }
-
 
     /**
      * This method returns an success of the order
@@ -1176,19 +1182,18 @@ class miniShop2
      *
      * @return array|string $response
      */
-    public function success($message = '', $data = array(), $placeholders = array())
+    public function success($message = '', $data = [], $placeholders = [])
     {
-        $response = array(
+        $response = [
             'success' => true,
             'message' => $this->modx->lexicon($message, $placeholders),
             'data' => $data,
-        );
+        ];
 
         return $this->config['json_response']
             ? json_encode($response)
             : $response;
     }
-
 
     /**
      * Shorthand for the call of processor
@@ -1200,7 +1205,7 @@ class miniShop2
      *
      * @return mixed The result of the processor
      */
-    public function runProcessor($action = '', $data = array())
+    public function runProcessor($action = '', $data = [])
     {
         if (empty($action)) {
             return false;
@@ -1210,11 +1215,10 @@ class miniShop2
             ? $this->config['processorsPath']
             : MODX_CORE_PATH . 'components/minishop2/processors/';
 
-        return $this->modx->runProcessor($action, $data, array(
+        return $this->modx->runProcessor($action, $data, [
             'processors_path' => $processorsPath,
-        ));
+        ]);
     }
-
 
     /**
      * Pathinfo function for cyrillic files
@@ -1228,13 +1232,13 @@ class miniShop2
     {
         // Russian files
         if (preg_match('#[а-яё]#im', $path)) {
-            $path = strtr($path, array('\\' => '/'));
+            $path = strtr($path, ['\\' => '/']);
 
-            preg_match("#[^/]+$#", $path, $file);
-            preg_match("#([^/]+)[.$]+(.*)#", $path, $file_ext);
-            preg_match("#(.*)[/$]+#", $path, $dirname);
+            preg_match('#[^/]+$#', $path, $file);
+            preg_match('#([^/]+)[.$]+(.*)#', $path, $file_ext);
+            preg_match('#(.*)[/$]+#', $path, $dirname);
 
-            $info = array(
+            $info = [
                 'dirname' => (isset($dirname[1]))
                     ? $dirname[1]
                     : '.',
@@ -1245,7 +1249,7 @@ class miniShop2
                 'filename' => (isset($file_ext[1]))
                     ? $file_ext[1]
                     : $file[0],
-            );
+            ];
         } else {
             $info = pathinfo($path);
         }
@@ -1255,7 +1259,6 @@ class miniShop2
             : $info;
     }
 
-
     /**
      * General method to get JSON settings
      *
@@ -1263,9 +1266,10 @@ class miniShop2
      *
      * @return array|mixed
      */
-    protected function _getSetting($key)
+    protected function getSetting($key)
     {
-        if (!$setting = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
+        $setting = $this->modx->getObject('modSystemSetting', ['key' => $key]);
+        if (!$setting) {
             $setting = $this->modx->newObject('modSystemSetting');
             $setting->set('key', $key);
             $setting->set('value', '[]');
@@ -1274,7 +1278,7 @@ class miniShop2
 
         $value = json_decode($setting->get('value'), true);
         if (!is_array($value)) {
-            $value = array();
+            $value = [];
             $setting->set('value', $value);
             $setting->save();
         }
@@ -1282,16 +1286,16 @@ class miniShop2
         return $value;
     }
 
-
     /**
      * General method to update JSON settings
      *
      * @param $key
      * @param $value
      */
-    protected function _updateSetting($key, $value)
+    protected function updateSetting($key, $value)
     {
-        if (!$setting = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
+        $setting = $this->modx->getObject('modSystemSetting', ['key' => $key]);
+        if (!$setting) {
             $setting = $this->modx->newObject('modSystemSetting');
             $setting->set('key', $key);
         }

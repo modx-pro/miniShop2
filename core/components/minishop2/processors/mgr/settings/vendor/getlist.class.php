@@ -8,10 +8,9 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
     public $permission = 'mssetting_list';
     protected $item_id = 0;
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if ($this->getProperty('combo') && !$this->getProperty('limit') && $id = (int)$this->getProperty('id')) {
@@ -24,12 +23,11 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         if ($this->getProperty('combo')) {
@@ -40,62 +38,60 @@ class msVendorGetListProcessor extends modObjectGetListProcessor
             $c->select('Resource.pagetitle');
         }
         if ($this->item_id) {
-            $c->where(array('id' => $this->item_id));
+            $c->where(['id' => $this->item_id]);
         } elseif ($query = trim($this->getProperty('query'))) {
-            $c->where(array(
+            $c->where([
                 'name:LIKE' => "%{$query}%",
                 'OR:description:LIKE' => "%{$query}%",
                 'OR:country:LIKE' => "%{$query}%",
                 'OR:email:LIKE' => "%{$query}%",
                 'OR:address:LIKE' => "%{$query}%",
-            ));
+            ]);
         }
 
         return $c;
     }
 
-
     /**
-    * @param xPDOObject $object
-    *
-    * @return array
-    */
+     * @param xPDOObject $object
+     *
+     * @return array
+     */
     public function prepareRow(xPDOObject $object)
     {
         if ($this->getProperty('combo')) {
-            $data = array(
+            $data = [
                 'id' => $object->get('id'),
                 'name' => $object->get('name'),
-            );
+            ];
         } else {
             $data = $object->toArray();
             if (!$data['resource']) {
                 $data['resource'] = null;
             }
-            $data['actions'] = array();
+            $data['actions'] = [];
 
-            $data['actions'][] = array(
+            $data['actions'][] = [
                 'cls' => '',
                 'icon' => 'icon icon-edit',
                 'title' => $this->modx->lexicon('ms2_menu_update'),
                 'action' => 'updateVendor',
                 'button' => true,
                 'menu' => true,
-            );
+            ];
 
-            $data['actions'][] = array(
-                'cls' => array(
+            $data['actions'][] = [
+                'cls' => [
                     'menu' => 'red',
                     'button' => 'red',
-                ),
+                ],
                 'icon' => 'icon icon-trash-o',
                 'title' => $this->modx->lexicon('ms2_menu_remove'),
                 'multiple' => $this->modx->lexicon('ms2_menu_remove_multiple'),
                 'action' => 'removeVendor',
                 'button' => true,
                 'menu' => true,
-            );
-
+            ];
         }
 
         return $data;

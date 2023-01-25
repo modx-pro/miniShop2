@@ -3,10 +3,9 @@
 class msProductMultipleProcessor extends modProcessor
 {
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         if (!$method = $this->getProperty('method', false)) {
@@ -22,7 +21,7 @@ class msProductMultipleProcessor extends modProcessor
 
         foreach ($ids as $id) {
             /** @var modProcessorResponse $response */
-            $response = $miniShop2->runProcessor('mgr/product/' . $method, array('id' => $id));
+            $response = $miniShop2->runProcessor('mgr/product/' . $method, ['id' => $id]);
             if ($response->isError()) {
                 return $response->getResponse();
             }

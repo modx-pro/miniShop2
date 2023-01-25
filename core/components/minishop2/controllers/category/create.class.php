@@ -7,29 +7,27 @@ if (!class_exists('msResourceCreateController')) {
 class msCategoryCreateManagerController extends msResourceCreateController
 {
     /**
-    * Returns language topics
-    * @return array
-    */
+     * Returns language topics
+     * @return array
+     */
     public function getLanguageTopics()
     {
-        return array('resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager');
+        return ['resource', 'minishop2:default', 'minishop2:product', 'minishop2:manager'];
     }
 
-
     /**
-    * Check for any permissions or requirements to load page
-    * @return bool
-    */
+     * Check for any permissions or requirements to load page
+     * @return bool
+     */
     public function checkPermissions()
     {
         return $this->modx->hasPermission('new_document');
     }
 
-
     /**
-    * Return the default template for this resource
-    * @return int|mixed
-    */
+     * Return the default template for this resource
+     * @return int|mixed
+     */
     public function getDefaultTemplate()
     {
         if (!$template = $this->getOption('ms2_template_category_default')) {
@@ -39,11 +37,10 @@ class msCategoryCreateManagerController extends msResourceCreateController
         return $template;
     }
 
-
     /**
-    * Register custom CSS/JS for the page
-    * @return void
-    */
+     * Register custom CSS/JS for the page
+     * @return void
+     */
     public function loadCustomCssJs()
     {
         $miniShop2 = $this->modx->getService('miniShop2');
@@ -63,23 +60,24 @@ class msCategoryCreateManagerController extends msResourceCreateController
         $this->addJavascript($assetsUrl . 'js/mgr/category/category.common.js');
         $this->addLastJavascript($assetsUrl . 'js/mgr/category/create.js');
 
-        $config = array(
+        $config = [
             'assets_url' => $miniShop2->config['assetsUrl'],
             'connector_url' => $miniShop2->config['connectorUrl'],
             'isHideContent' => $this->isHideContent(),
-        );
-        $ready = array(
+        ];
+        $ready = [
             'xtype' => 'minishop2-page-category-create',
-            'record' => array_merge($this->resourceArray, array(
+            'record' => array_merge($this->resourceArray, [
                 'isfolder' => true,
-            )),
+            ]),
             'publish_document' => $this->canPublish,
             'canSave' => $this->modx->hasPermission('mscategory_save'),
             'show_tvs' => !empty($this->tvCounts),
             'mode' => 'create',
-        );
+        ];
 
-        $this->addHtml('
+        $this->addHtml(
+            '
         <script>
         // <![CDATA[
             MODx.config.publish_document = "' . $this->canPublish . '";
@@ -90,10 +88,11 @@ class msCategoryCreateManagerController extends msResourceCreateController
                 MODx.load(' . json_encode($ready) . ');
             });
         // ]]>
-        </script>');
+        </script>'
+        );
 
         // load RTE
         $this->loadRichTextEditor();
-        $this->modx->invokeEvent('msOnManagerCustomCssJs', array('controller' => $this, 'page' => 'category_create'));
+        $this->modx->invokeEvent('msOnManagerCustomCssJs', ['controller' => $this, 'page' => 'category_create']);
     }
 }
