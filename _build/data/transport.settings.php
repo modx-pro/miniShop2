@@ -15,18 +15,6 @@ $tmp = [
         'area' => 'ms2_product',
         'key' => 'mgr_tree_icon_msproduct',
     ],
-
-    'ms2_add_icon_category' => [
-        'value' => 'icon icon-folder-open',
-        'xtype' => 'textfield',
-        'area' => 'ms2_category',
-    ],
-    'ms2_add_icon_product' => [
-        'value' => 'icon icon-tag',
-        'xtype' => 'textfield',
-        'area' => 'ms2_category',
-    ],
-
     'ms2_services' => [
         'value' => '{"cart":[],"order":[],"payment":[],"delivery":[]}',
         'xtype' => 'textarea',
