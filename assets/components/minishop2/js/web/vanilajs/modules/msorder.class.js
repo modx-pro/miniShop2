@@ -169,17 +169,14 @@ export default class MsOrder {
         };
 
         this.callbacks.submit.response.success = response => {
-            switch (true) {
-                case response.data.redirect:
-                    document.location.href = response.data.redirect;
-                    break;
-                case response.data.msorder:
-                    document.location.href = document.location.origin + document.location.pathname
+            if(response.data.redirect){
+                document.location.href = response.data.redirect;
+            }else if(response.data.msorder){
+                document.location.href = document.location.origin + document.location.pathname
                     + (document.location.search ? document.location.search + '&' : '?')
                     + 'msorder=' + response.data.msorder;
-                    break;
-                default:
-                    location.reload();
+            }else{
+                location.reload();
             }
         };
 
