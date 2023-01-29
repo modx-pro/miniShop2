@@ -38,10 +38,11 @@ interface msCartInterface
      *
      * @param string $key The unique key of cart item
      * @param integer $count .A number of product exemplars
+     * @param array $options List options
      *
      * @return array|string $response
      */
-    public function change($key, $count);
+    public function change($key, $count, $options);
 
     /**
      * Cleans the cart

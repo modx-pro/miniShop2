@@ -38,21 +38,24 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
+        this.loadedEvent = new CustomEvent('minishop_loaded');
 
         this.initialize();
     }
 
-    async setHandler(property){
+    async setHandler(property) {
         let prefix = property.toLowerCase(),
             response = false,
             messageSettings = false;
-        if(prefix === 'message'){
+        if (prefix === 'message') {
             prefix = 'notify';
             response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
             if (response.ok) {
                 messageSettings = await response.json();
             }
         }
+
+        const lastProperty = this.miniShop2Config.properties[this.miniShop2Config.properties.length - 1];
         const classPath = this.miniShop2Config[prefix + 'ClassPath'];
         const className = this.miniShop2Config[prefix + 'ClassName'];
         const config = messageSettings ? messageSettings[className] : this;
@@ -60,15 +63,20 @@ export default class MiniShop {
         try {
             const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
+            if(lastProperty === property && typeof this[property] !== 'undefined'){
+                document.dispatchEvent(this.loadedEvent);
+            }
         } catch (e) {
             throw new Error(this.miniShop2Config.moduleImportErrorMsg);
         }
     }
 
     async initialize() {
-        if(!this.miniShop2Config.properties.length) { throw new Error('Не передан массив имён обработчиков'); }
+        if (!this.miniShop2Config.properties.length) {
+            throw new Error('Не передан массив имён обработчиков');
+        }
 
-        await this.miniShop2Config.properties.forEach(property => {
+        this.miniShop2Config.properties.forEach(property => {
             this.setHandler(property);
         });
 
@@ -167,13 +175,13 @@ export default class MiniShop {
 
     sendResponse(params) {
         const body = params.body || new FormData(),
-            headers = params.headers || { 'X-Requested-With': 'XMLHttpRequest' },
+            headers = params.headers || {'X-Requested-With': 'XMLHttpRequest'},
             url = params.url || this.miniShop2Config.actionUrl,
             method = params.method || this.miniShop2Config.formMethod;
 
-        let options = { method, headers, body };
+        let options = {method, headers, body};
         if (method === 'GET') {
-            options = { method, headers };
+            options = {method, headers};
         }
 
         return fetch(url, options);
@@ -196,7 +204,7 @@ export default class MiniShop {
             data += '&ctx=' + this.miniShop2Config.ctx;
         }
 
-        const response = await this.sendResponse({ body: data, headers });
+        const response = await this.sendResponse({body: data, headers});
         if (response.ok) {
             const result = await response.json();
             if (result.success) {

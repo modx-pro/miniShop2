@@ -1,4 +1,5 @@
 <div data-ms-cart="">
+    <p> Это другой чанк корзины </p>
     <div data-ms-cart-empty="" class="container alert alert-warning {($products | length == 0) ? '' : 'ms-hidden'}">
         {'ms2_cart_is_empty' | lexicon}
     </div>
@@ -11,9 +12,8 @@
             <div class="col-lg-2">{'ms2_cart_cost' | lexicon}</div>
             <div class="col-lg-1"></div>
         </div>
-
         <div data-ms-cart-products="{$scriptProperties.tplKey}">
-           {$products}
+            {$products}
         </div>
         <div class="row py-3 cart-header align-items-center">
             <div class="col-lg-4">{'ms2_cart_total' | lexicon}:</div>

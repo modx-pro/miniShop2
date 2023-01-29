@@ -140,7 +140,7 @@ class msCartHandler implements msCartInterface
             $ctx_key = $this->ctx;
         }
 
-        $cartItem = [
+        $cartItem = array_merge($product->toArray(), array(
             'id' => $id,
             'price' => $price,
             'old_price' => $oldPrice,
@@ -150,8 +150,10 @@ class msCartHandler implements msCartInterface
             'count' => $count,
             'options' => $options,
             'ctx' => $ctx_key,
-            'key' => $key
-        ];
+            'key' => $key,
+            'cost' => $price * $count
+        ));
+
         $this->cart = $this->storageHandler->add($cartItem);
         $response = $this->ms2->invokeEvent('msOnAddToCart', ['key' => $key, 'cart' => $this]);
         if (!$response['success']) {
@@ -163,10 +165,21 @@ class msCartHandler implements msCartInterface
             $this->status([
                 'key' => $key,
                 'cart' => $this->cart,
-                'row' => $this->cart[$key]
+                'row' => $this->cart[$key],
+                'html' => $this->getProductRow($key)
             ]),
             ['count' => $count]
         );
+    }
+
+    public function getProductRow($key){
+        $html = array();
+        if (isset($_SESSION['minishop2']['msCart']) && is_array($_SESSION['minishop2']['msCart'])) {
+            foreach ($_SESSION['minishop2']['msCart'] as $tplKey => $props) {
+                $html[$tplKey] = $this->ms2->pdoTools->getChunk($props['tplRow'], array_merge($props, $this->cart[$key]));
+            }
+        }
+        return $html;
     }
 
     /**
@@ -204,18 +217,25 @@ class msCartHandler implements msCartInterface
     /**
      * @param string $key
      * @param int $count
+     * @param array $options
      *
      * @return array|string
      */
-    public function change($key, $count)
+    public function change($key, $count, $options = array())
     {
         $status = [];
+        $keyOld = false;
+        $originKey = false;
         if (!array_key_exists($key, $this->cart)) {
             return $this->error('ms2_cart_change_error', $this->status($status));
         }
 
-        if ($count <= 0) {
+        if ($count <= 0 && empty($options)) {
             return $this->remove($key);
+        }
+
+        if ($count <= 0 && !empty($options)) {
+            $count = $this->cart[$key]['count'];
         }
 
         if ($count > $this->config['max_count']) {
@@ -224,14 +244,33 @@ class msCartHandler implements msCartInterface
 
         $response = $this->ms2->invokeEvent(
             'msOnBeforeChangeInCart',
-            ['key' => $key, 'count' => $count, 'cart' => $this]
+            ['key' => $key, 'count' => $count, 'cart' => $this, 'options' => $options]
         );
         if (!$response['success']) {
             return $this->error($response['message']);
         }
 
         $count = $response['data']['count'];
-        $this->cart = $this->storageHandler->change($key, $count);
+        $options = $response['data']['options'];
+
+        if (!empty($options)) {
+            $keyNew = md5($this->cart[$key]['id'] . $this->cart[$key]['price'] . $this->cart[$key]['weight'] . (json_encode($options)));
+            if (array_key_exists($keyNew, $this->cart) && $keyNew !== $key) {
+                $count = $this->cart[$keyNew]['count'] + $count;
+                $this->cart = $this->storageHandler->change($keyNew, $count);
+                $this->cart[$keyNew]['options'] = $options;
+                $this->remove($key);
+                $keyOld = $key;
+            } else {
+                $this->add($this->cart[$key]['id'], $this->cart[$key]['count'], $options);
+                $this->remove($key);
+                $originKey = $key;
+            }
+            $key = $keyNew;
+        } else {
+            $this->cart = $this->storageHandler->change($key, $count);
+        }
+
         $response = $this->ms2->invokeEvent(
             'msOnChangeInCart',
             ['key' => $key, 'count' => $count, 'cart' => $this]
@@ -239,10 +278,12 @@ class msCartHandler implements msCartInterface
         if (!$response['success']) {
             return $this->error($response['message']);
         }
-        $status['key'] = $key;
+        $status['key'] = $originKey?:$key;
         $status['cost'] = $count * $this->cart[$key]['price'];
         $status['cart'] = $this->cart;
         $status['row'] = $this->cart[$key];
+        $status['key_old'] = $keyOld;
+        $status['key_new'] = $keyNew;
 
         return $this->success(
             'ms2_cart_change_success',
