@@ -186,11 +186,11 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
 
     getTopBar: function () {
         return [{
-            text: (MODx.config.ms2_add_icon_product ? String.format('<i class="{0}"></i> ', Ext.util.Format.htmlEncode(MODx.config.ms2_add_icon_product)) : '') + _('ms2_product_create'),
+            text: (MODx.config.mgr_tree_icon_msproduct ? String.format('<i class="{0}"></i> ', Ext.util.Format.htmlEncode(MODx.config.mgr_tree_icon_msproduct)) : '') + _('ms2_product_create'),
             handler: this.createProduct,
             scope: this
         }, '-', {
-            text: (MODx.config.ms2_add_icon_category ? String.format('<i class="{0}"></i> ', Ext.util.Format.htmlEncode(MODx.config.ms2_add_icon_category)) : '') + _('ms2_category_create'),
+            text: (MODx.config.mgr_tree_icon_mscategory ? String.format('<i class="{0}"></i> ', Ext.util.Format.htmlEncode(MODx.config.mgr_tree_icon_mscategory)) : '') + _('ms2_category_create'),
             handler: this.createCategory,
             scope: this
         }, '-', {
