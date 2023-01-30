@@ -22,8 +22,8 @@ export default class MsOrder {
         this.cartCost = document.querySelector('#ms2_order_cart_cost');
         this.deliveryCost = document.querySelector('#ms2_order_delivery_cost');
 
-        this.changeEvent = new Event('change', { bubbles: true, cancelable: true });
-        this.clickEvent = new Event('click', { bubbles: true, cancelable: true });
+        this.changeEvent = new Event('change', {bubbles: true, cancelable: true});
+        this.clickEvent = new Event('click', {bubbles: true, cancelable: true});
 
         this.initialize();
     }
@@ -166,28 +166,29 @@ export default class MsOrder {
 
         this.callbacks.submit.before = () => {
             const elements = this.order.querySelectorAll('button, a');
-            elements.forEach(el => { el.disabled = false });
+            elements.forEach(el => {
+                el.disabled = false
+            });
         };
 
         this.callbacks.submit.response.success = response => {
-            switch (true) {
-                case response.data.redirect:
-                    document.location.href = response.data.redirect;
-                    break;
-                case response.data.msorder:
-                    document.location.href = document.location.origin + document.location.pathname
+            if (response.data.redirect) {
+                document.location.href = response.data.redirect;
+            }
+            if (response.data.msorder) {
+                document.location.href = document.location.origin + document.location.pathname
                     + (document.location.search ? document.location.search + '&' : '?')
                     + 'msorder=' + response.data.msorder;
-                    break;
-                default:
-                    location.reload();
             }
+            location.reload();
         };
 
         this.callbacks.submit.response.error = response => {
             setTimeout(() => {
                 const elements = this.order.querySelectorAll('button, a');
-                elements.forEach(el => { el.disabled = false });
+                elements.forEach(el => {
+                    el.disabled = false
+                });
             }, 3 * this.minishop.timeout);
 
             if (this.order.elements) {
@@ -216,7 +217,7 @@ export default class MsOrder {
 
     getrequired(value) {
         this.callbacks.getrequired.response.success = response => {
-            const { requires } = response.data;
+            const {requires} = response.data;
 
             if (this.order.elements.length) {
                 Array.from(this.order.elements).forEach(el => {
