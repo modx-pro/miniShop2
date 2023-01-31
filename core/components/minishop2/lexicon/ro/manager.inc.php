@@ -46,6 +46,7 @@ $_lang['ms2_ft_active'] = 'Activată';
 $_lang['ms2_ft_caption'] = 'Denumire';
 $_lang['ms2_ft_checkbox'] = 'Checkbox';
 $_lang['ms2_ft_combo-boolean'] = 'Da/Nu';
+$_lang['ms2_ft_combo-colors'] = 'Множественный список цветов';
 $_lang['ms2_ft_combo-multiple'] = 'Listă multiplă';
 $_lang['ms2_ft_combo-options'] = ' Listă de sugestii de auto-completare';
 $_lang['ms2_ft_combobox'] = 'Listă derulantă';
