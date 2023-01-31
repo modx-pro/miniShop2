@@ -46,6 +46,7 @@ $_lang['ms2_ft_active'] = 'Уключаны';
 $_lang['ms2_ft_caption'] = 'Подпіс';
 $_lang['ms2_ft_checkbox'] = 'Сцяжок';
 $_lang['ms2_ft_combo-boolean'] = 'Так/Не';
+$_lang['ms2_ft_combo-colors'] = 'Множественный список цветов';
 $_lang['ms2_ft_combo-multiple'] = 'Множны спіс';
 $_lang['ms2_ft_combo-options'] = 'Супервыбар';
 $_lang['ms2_ft_combobox'] = 'Выпадальны спіс';
