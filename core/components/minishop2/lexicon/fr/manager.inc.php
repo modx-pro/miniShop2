@@ -46,6 +46,7 @@ $_lang['ms2_ft_active'] = 'Activée';
 $_lang['ms2_ft_caption'] = 'Nom';
 $_lang['ms2_ft_checkbox'] = 'Флажок';
 $_lang['ms2_ft_combo-boolean'] = 'Да/Нет';
+$_lang['ms2_ft_combo-colors'] = 'Множественный список цветов';
 $_lang['ms2_ft_combo-multiple'] = 'Множественный список';
 $_lang['ms2_ft_combo-options'] = 'Список с автодополнением';
 $_lang['ms2_ft_combobox'] = 'Выпадающий список';
