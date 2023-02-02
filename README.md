@@ -1,7 +1,6 @@
 # miniShop 2
 
 ![Code Quality](https://github.com/Ibochkarev/miniShop2/actions/workflows/phpcs.yml/badge.svg)
-![EditorConfig](https://github.com/Ibochkarev/miniShop2/actions/workflows/test.yml/badge.svg)
 [![Contributors](https://img.shields.io/github/contributors/bezumkin/miniShop2.svg?style=flat-square)](https://github.com/bezumkin/miniShop2/graphs/contributors)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-2.0)
 
