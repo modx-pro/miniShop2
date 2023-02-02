@@ -264,7 +264,7 @@ class msProductGetListProcessor extends modObjectGetListProcessor
             //Regenerate image
             $array['actions'][] = [
                 'cls' => '',
-                'icon' => 'icon icon-refresh',
+                'icon' => 'icon icon-file-image-o',
                 'title' => $this->modx->lexicon('ms2_gallery_file_generate_thumbs'),
                 'action' => 'generatePreview',
                 'button' => false,
