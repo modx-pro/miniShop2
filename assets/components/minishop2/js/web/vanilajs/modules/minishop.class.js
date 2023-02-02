@@ -48,7 +48,7 @@ export default class MiniShop {
             messageSettings = false;
         if(prefix === 'message'){
             prefix = 'notify';
-            response = await this.sendResponse({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            response = await this.sendRequest({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
             if (response.ok) {
                 messageSettings = await response.json();
             }
@@ -165,7 +165,7 @@ export default class MiniShop {
         return true;
     }
 
-    sendResponse(params) {
+    sendRequest(params) {
         const body = params.body || new FormData(),
             headers = params.headers || { 'X-Requested-With': 'XMLHttpRequest' },
             url = params.url || this.miniShop2Config.actionUrl,
@@ -196,7 +196,7 @@ export default class MiniShop {
             data += '&ctx=' + this.miniShop2Config.ctx;
         }
 
-        const response = await this.sendResponse({ body: data, headers });
+        const response = await this.sendRequest({ body: data, headers });
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
