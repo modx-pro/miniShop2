@@ -19,8 +19,10 @@ export default class MsCart {
         this.totalWeight = document.querySelectorAll('.ms2_total_weight');
         this.totalCount = document.querySelectorAll('.ms2_total_count');
         this.totalCost = document.querySelectorAll('.ms2_total_cost');
+        this.totalOldCost = document.querySelectorAll('.ms2_total_old_cost');
         this.totalDiscount = document.querySelectorAll('.ms2_total_discount');
         this.cost = '.ms2_cost';
+        this.oldCost = '.ms2_old_cost';
 
         this.eventSubmit = new Event('submit', { bubbles: true, cancelable: true });
 
@@ -77,12 +79,20 @@ export default class MsCart {
         this.totalWeight.forEach(el => { el.innerText = this.minishop.formatWeight(status.total_weight); });
         this.totalCount.forEach(el => { el.innerText = status.total_count; });
         this.totalCost.forEach(el => { el.innerText = this.minishop.formatPrice(status.total_cost); });
+        this.totalOldCost.forEach(el => { el.innerText = this.minishop.formatPrice(status.total_old_cost); });
         this.totalDiscount.forEach(el => { el.innerText = this.minishop.formatPrice(status.total_discount); });
 
         if (typeof status.cost === 'number') {
             const productCost = document.querySelector(`[id="${status.key}"] ${this.cost}`);
             if (productCost) {
                 productCost.innerText = this.minishop.formatPrice(status.cost);
+            }
+        }
+
+        if (typeof status.old_cost === 'number') {
+            const productOldCost = document.querySelector(`[id="${status.key}"] ${this.oldCost}`);
+            if (productOldCost) {
+                productOldCost.innerText = this.minishop.formatPrice(status.old_cost);
             }
         }
 
