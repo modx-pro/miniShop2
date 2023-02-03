@@ -84,7 +84,7 @@ export default class MsCart {
             this.empty_carts.forEach(empty => empty.classList.add(this.hiddenClass));
         }
         console.log(status);
-        const changedProduct = document.querySelectorAll(`[data-ms-product-id="${status.key}"]`);
+
         if (status.html) {
             for (let k in status.html) {
                 const cartWraps = document.querySelectorAll(`[data-ms-cart-products="${k}"]`);
@@ -100,9 +100,9 @@ export default class MsCart {
         if(status.key_old){
             this.removePosition(status.key_old);
         }
-
         this.setTotals(status);
-
+        
+        const changedProduct = document.querySelectorAll(`[data-ms-product-id="${status.key}"]`);
         if (changedProduct.length) {
             changedProduct.forEach(product => {
                 if (typeof status.cost === 'number') {

@@ -78,9 +78,9 @@ export default class MsOrder {
                 }
             }
 
-            const checked = paymentInputs.filter(el => el.checked && (el.offsetWidth > 0 || el.offsetHeight > 0));
-            const visible = paymentInputs.filter(el => (el.offsetWidth > 0 || el.offsetHeight > 0));
-            if (!checked.length) {
+            const checked = paymentInputs.filter(el => el.checked && !(el.closest(this.inputParent).classList.contains('ms-hidden')));
+            const visible = paymentInputs.filter(el => !(el.closest(this.inputParent).classList.contains('ms-hidden')));
+            if (!checked.length && visible[0]) {
                 visible[0].checked = true;
             }
         }
@@ -170,15 +170,15 @@ export default class MsOrder {
         };
 
         this.callbacks.submit.response.success = response => {
-            if(response.data.redirect){
+            if (response.data.redirect) {
                 document.location.href = response.data.redirect;
-            }else if(response.data.msorder){
+            }
+            if (response.data.msorder) {
                 document.location.href = document.location.origin + document.location.pathname
                     + (document.location.search ? document.location.search + '&' : '?')
                     + 'msorder=' + response.data.msorder;
-            }else{
-                location.reload();
             }
+            location.reload();
         };
 
         this.callbacks.submit.response.error = response => {
