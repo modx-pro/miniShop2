@@ -241,6 +241,7 @@ class msCartHandler implements msCartInterface
         }
         $status['key'] = $key;
         $status['cost'] = $count * $this->cart[$key]['price'];
+        $status['old_cost'] = $count * $this->cart[$key]['old_price'];
         $status['cart'] = $this->cart;
         $status['row'] = $this->cart[$key];
 
@@ -281,6 +282,7 @@ class msCartHandler implements msCartInterface
         $status = [
             'total_count' => 0,
             'total_cost' => 0,
+            'total_old_cost' => 0,
             'total_weight' => 0,
             'total_discount' => 0,
             'total_positions' => count($this->cart),
@@ -291,6 +293,7 @@ class msCartHandler implements msCartInterface
                 $status['total_cost'] += $item['price'] * $item['count'];
                 $status['total_weight'] += $item['weight'] * $item['count'];
                 $status['total_discount'] += $item['discount_price'] * $item['count'];
+                $status['total_old_cost'] = $status['total_cost'] + $status['total_discount'];
             }
         }
 
