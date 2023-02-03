@@ -118,7 +118,7 @@ foreach ($cart as $key => $entry) {
     $product['key'] = $key;
     $product['count'] = $entry['count'];
     $old_price = $product['old_price'];
-    if ($product['price'] > $entry['price'] && empty($product['old_price'])) {
+    if ($product['price'] > $entry['price'] && empty((int)$product['old_price'])) {
         $old_price = $product['price'];
     }
     $discount_price = $old_price > 0 ? $old_price - $entry['price'] : 0;
