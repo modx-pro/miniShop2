@@ -73,11 +73,10 @@ export default class MiniShop {
         });
 
         document.addEventListener('submit', e => {
-            e.preventDefault();
             const form = e.target;
             const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
-
             if (action) {
+                e.preventDefault();
                 const formData = new FormData(form),
                     components = this.getObjectMethod(action);
                 formData.append(this.actionName, action);
