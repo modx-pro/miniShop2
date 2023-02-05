@@ -15,6 +15,18 @@ $tmp = [
         'area' => 'ms2_product',
         'key' => 'mgr_tree_icon_msproduct',
     ],
+
+    'ms2_add_icon_category' => [
+        'value' => 'icon icon-folder-open',
+        'xtype' => 'textfield',
+        'area' => 'ms2_category',
+    ],
+    'ms2_add_icon_product' => [
+        'value' => 'icon icon-tag',
+        'xtype' => 'textfield',
+        'area' => 'ms2_category',
+    ],
+
     'ms2_services' => [
         'value' => '{"cart":[],"order":[],"payment":[],"delivery":[]}',
         'xtype' => 'textarea',
@@ -33,11 +45,6 @@ $tmp = [
     'ms2_tmp_storage' => [
         'value' => 'session',
         'xtype' => 'textfield',
-        'area' => 'ms2_main',
-    ],
-    'ms2_use_scheduler' => [
-        'value' => false,
-        'xtype' => 'combo-boolean',
         'area' => 'ms2_main',
     ],
 
@@ -292,7 +299,7 @@ $tmp = [
         'area' => 'ms2_frontend',
     ],
     'ms2_cart_js_class_name' => [
-        'value' => 'MsCart',
+        'value' => 'msCart',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ],
@@ -302,7 +309,7 @@ $tmp = [
         'area' => 'ms2_frontend',
     ],
     'ms2_order_js_class_name' => [
-        'value' => 'MsOrder',
+        'value' => 'msOrder',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ],
@@ -312,7 +319,7 @@ $tmp = [
         'area' => 'ms2_frontend',
     ],
     'ms2_notify_js_class_name' => [
-        'value' => 'MsIziToast',
+        'value' => 'msIziToast',
         'xtype' => 'textfield',
         'area' => 'ms2_frontend',
     ],
@@ -332,15 +339,20 @@ $tmp = [
         'xtype' => 'numberfield',
         'area' => 'ms2_statuses',
     ],
-    'ms2_status_canceled' => [
-        'value' => 0,
-        'xtype' => 'numberfield',
-        'area' => 'ms2_statuses',
-    ],
     'ms2_status_for_stat' => [
         'value' => '2,3',
         'xtype' => 'textfield',
         'area' => 'ms2_statuses',
+    ],
+    'ms2_cart_percent_precision' => [
+        'value' => '2',
+        'xtype' => 'textfield',
+        'area' => 'ms2_cart',
+    ],
+    'ms2_product_key_parts' => [
+        'value' => 'id,options',
+        'xtype' => 'textfield',
+        'area' => 'ms2_cart',
     ]
 ];
 
@@ -348,19 +360,14 @@ $tmp = [
 foreach ($tmp as $k => $v) {
     /** @var modSystemSetting $setting */
     $setting = $modx->newObject('modSystemSetting');
-    $setting->fromArray(
-        array_merge(
-            [
-                'key' => $k,
-                'namespace' => 'minishop2',
-                'editedon' => date('Y-m-d H:i:s'),
-            ],
-            $v
-        ),
-        '',
-        true,
-        true
-    );
+    $setting->fromArray(array_merge(
+        [
+            'key' => $k,
+            'namespace' => 'minishop2',
+            'editedon' => date('Y-m-d H:i:s'),
+        ],
+        $v
+    ), '', true, true);
     $settings[] = $setting;
 }
 
