@@ -489,6 +489,7 @@ class msOrderHandler implements msOrderInterface
                 'cost' => $cost,
                 'cart_cost' => $cart['total_cost'],
                 'discount_cost' => $cart['total_discount'],
+                'discount_percent' => $cart['total_discount_percent'],
                 'delivery_cost' => $delivery_cost
             ]);
     }

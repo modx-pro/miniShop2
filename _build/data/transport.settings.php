@@ -343,6 +343,16 @@ $tmp = [
         'value' => '2,3',
         'xtype' => 'textfield',
         'area' => 'ms2_statuses',
+    ],
+    'ms2_cart_percent_precision' => [
+        'value' => '2',
+        'xtype' => 'textfield',
+        'area' => 'ms2_cart',
+    ],
+    'ms2_product_key_parts' => [
+        'value' => 'id,options',
+        'xtype' => 'textfield',
+        'area' => 'ms2_cart',
     ]
 ];
 

@@ -118,49 +118,33 @@ foreach ($tmp as $row) {
 $products = '';
 $total = ['count' => 0, 'weight' => 0, 'cost' => 0, 'discount' => 0];
 $c = 0;
+//$modx->log(1, print_r($cart,1));
+//$modx->log(1, print_r($status,1));
 foreach ($cart as $key => $entry) {
     if (!isset($rows[$entry['id']])) {
         continue;
     }
-    $product = $rows[$entry['id']];
+    $product = array_merge($rows[$entry['id']], $entry);
 
     $product['idx'] = ++$c;
-    $product['key'] = $key;
-    $product['count'] = $entry['count'];
-    $old_price = $product['old_price'];
-    if ($product['price'] > $entry['price']) {
-        $old_price = $product['price'];
-    }
-    $discount_price = $old_price > 0 ? $old_price - $entry['price'] : 0;
 
-    $product['old_price'] = $miniShop2->formatPrice($old_price);
+    $product['old_price'] = $miniShop2->formatPrice($entry['old_price']);
+    $product['old_cost'] = $miniShop2->formatPrice($entry['old_cost']);
     $product['price'] = $miniShop2->formatPrice($entry['price']);
     $product['weight'] = $miniShop2->formatWeight($entry['weight']);
-    $product['cost'] = $miniShop2->formatPrice($entry['count'] * $entry['price']);
-    $product['discount_price'] = $miniShop2->formatPrice($discount_price);
-    $product['discount_cost'] = $miniShop2->formatPrice($entry['count'] * $discount_price);
+    $product['cost'] = $miniShop2->formatPrice($entry['cost']);
+    $product['discount_price'] = $miniShop2->formatPrice($entry['discount_price']);
+    $product['discount_cost'] = $miniShop2->formatPrice($entry['discount_cost']);
 
-    // Additional properties of product in cart
-    if (!empty($entry['options']) && is_array($entry['options'])) {
-        $product['options'] = $entry['options'];
-        foreach ($entry['options'] as $option => $value) {
-            $product['option.' . $option] = $value;
-        }
-    }
-
-    // Add option values
-    $options = $modx->call('msProductData', 'loadOptions', [$modx, $product['id']]);
-    $products .= $pdoFetch->getChunk($tplRow, array_merge($product, $options));
-
-    // Count total
-    $total['count'] += $entry['count'];
-    $total['cost'] += $entry['count'] * $entry['price'];
-    $total['weight'] += $entry['count'] * $entry['weight'];
-    $total['discount'] += $entry['count'] * $discount_price;
+    $products .= $pdoFetch->getChunk($tplRow, $product);
 }
-$total['cost'] = $miniShop2->formatPrice($total['cost']);
-$total['discount'] = $miniShop2->formatPrice($total['discount']);
-$total['weight'] = $miniShop2->formatWeight($total['weight']);
+$total['count'] = $status['total_count'];
+$total['cost'] = $miniShop2->formatPrice($status['total_cost']);
+$total['old_cost'] = $miniShop2->formatPrice($status['total_old_cost']);
+$total['weight'] = $miniShop2->formatWeight($status['total_weight']);
+$total['discount'] = $miniShop2->formatPrice($status['total_discount']);
+$total['discount_percent'] = $status['total_discount_percent'];
+$total['positions'] = $status['total_positions'];
 
 $output = $pdoFetch->getChunk($tpl, [
     'total' => $total,
