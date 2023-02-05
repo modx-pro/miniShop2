@@ -18,12 +18,8 @@ export default class MsOrder {
         this.paymentInputUniquePrefix = '#payment_';
         this.deliveryInputUniquePrefix = '#delivery_';
 
-        this.orderCost = document.querySelector('#ms2_order_cost');
-        this.cartCost = document.querySelector('#ms2_order_cart_cost');
-        this.deliveryCost = document.querySelector('#ms2_order_delivery_cost');
-
-        this.changeEvent = new Event('change', { bubbles: true, cancelable: true });
-        this.clickEvent = new Event('click', { bubbles: true, cancelable: true });
+        this.changeEvent = new Event('change', {bubbles: true, cancelable: true});
+        this.clickEvent = new Event('click', {bubbles: true, cancelable: true});
 
         this.initialize();
     }
@@ -63,7 +59,7 @@ export default class MsOrder {
             paymentInputs = Array.from(paymentInputs);
             paymentInputs.forEach(el => {
                 el.disabled = true;
-                MsOrder.hide(el.closest(this.inputParent));
+                this.minishop.hide(el.closest(this.inputParent));
             });
 
             if (payments.length) {
@@ -73,14 +69,14 @@ export default class MsOrder {
 
                     if (input) {
                         input.disabled = false;
-                        MsOrder.show(input.closest(this.inputParent));
+                        this.minishop.show(input.closest(this.inputParent));
                     }
                 }
             }
 
-            const checked = paymentInputs.filter(el => el.checked && (el.offsetWidth > 0 || el.offsetHeight > 0));
-            const visible = paymentInputs.filter(el => (el.offsetWidth > 0 || el.offsetHeight > 0));
-            if (!checked.length) {
+            const checked = paymentInputs.filter(el => el.checked && !(el.closest(this.inputParent).classList.contains(this.minishop.hiddenClass)));
+            const visible = paymentInputs.filter(el => !(el.closest(this.inputParent).classList.contains(this.minishop.hiddenClass)));
+            if (!checked.length && visible[0]) {
                 visible[0].checked = true;
             }
         }
@@ -112,7 +108,7 @@ export default class MsOrder {
                 }
             }
 
-            field.value = response.data[key];
+            field.value = response.data[key] || '';
             field.classList.remove('error');
             field.closest(this.inputParent).classList.remove('error');
         }
@@ -135,17 +131,7 @@ export default class MsOrder {
 
     getcost() {
         this.callbacks.getcost.response.success = response => {
-            if (this.orderCost) {
-                this.orderCost.innerText = this.minishop.formatPrice(response.data.cost);
-            }
-
-            if (this.cartCost) {
-                this.cartCost.innerText = this.minishop.formatPrice(response.data.cart_cost);
-            }
-
-            if (this.deliveryCost) {
-                this.deliveryCost.innerText = this.minishop.formatPrice(response.data.delivery_cost);
-            }
+            this.minishop.setValues(response.data, '[data-ms-order-', []);
         };
 
         const formData = new FormData();
@@ -166,18 +152,20 @@ export default class MsOrder {
 
         this.callbacks.submit.before = () => {
             const elements = this.order.querySelectorAll('button, a');
-            elements.forEach(el => { el.disabled = false });
+            elements.forEach(el => {
+                el.disabled = false
+            });
         };
 
         this.callbacks.submit.response.success = response => {
             switch (true) {
-                case response.data.redirect:
+                case Boolean(response.data.redirect) :
                     document.location.href = response.data.redirect;
                     break;
-                case response.data.msorder:
+                case Boolean(response.data.msorder):
                     document.location.href = document.location.origin + document.location.pathname
-                    + (document.location.search ? document.location.search + '&' : '?')
-                    + 'msorder=' + response.data.msorder;
+                        + (document.location.search ? document.location.search + '&' : '?')
+                        + 'msorder=' + response.data.msorder;
                     break;
                 default:
                     location.reload();
@@ -187,7 +175,9 @@ export default class MsOrder {
         this.callbacks.submit.response.error = response => {
             setTimeout(() => {
                 const elements = this.order.querySelectorAll('button, a');
-                elements.forEach(el => { el.disabled = false });
+                elements.forEach(el => {
+                    el.disabled = false
+                });
             }, 3 * this.minishop.timeout);
 
             if (this.order.elements) {
@@ -216,7 +206,7 @@ export default class MsOrder {
 
     getrequired(value) {
         this.callbacks.getrequired.response.success = response => {
-            const { requires } = response.data;
+            const {requires} = response.data;
 
             if (this.order.elements.length) {
                 Array.from(this.order.elements).forEach(el => {
@@ -244,14 +234,5 @@ export default class MsOrder {
         formData.append('id', value);
         formData.append(this.minishop.actionName, 'order/getrequired');
         this.minishop.send(formData, this.callbacks.getrequired, this.minishop.Callbacks.Order.getrequired);
-    }
-
-    static hide(node) {
-        node.classList.add('ms-hidden');
-        node.checked = false;
-    }
-
-    static show(node) {
-        node.classList.remove('ms-hidden');
     }
 }

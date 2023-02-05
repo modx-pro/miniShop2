@@ -1,9 +1,19 @@
 export default class MiniShop {
     constructor(miniShop2Config) {
-        this.miniShop2Config = Object.assign(miniShop2Config, {
+        const defaults = {
+            notifyClassPath: './msnotify.class.js',
+            notifyClassName: 'MsNotify',
+            cartClassPath: './mscart.class.js',
+            cartClassName: 'MsCart',
+            orderClassPath: './msorder.class.js',
+            orderClassName: 'MsOrder',
+            moduleImportErrorMsg: 'Произошла ошибка при загрузке модуля',
+            properties: ['Message', 'Cart', 'Order'],
             actionUrl: document.location.href,
             formMethod: 'POST',
-        });
+        };
+        this.miniShop2Config = Object.assign(defaults, miniShop2Config);
+        this.hiddenClass = this.miniShop2Config.hiddenClass || 'ms-hidden';
         this.miniShop2Config.callbacksObjectTemplate = this.callbacksObjectTemplate;
         this.Callbacks = this.miniShop2Config.Callbacks = {
             Cart: {
@@ -28,57 +38,47 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
+        this.loadedEvent = new CustomEvent('minishop_loaded');
+
         this.initialize();
     }
 
-    async setHandler(property, pathPropertyName, classnamePropertyName, defaultPath, defaultClassName, errorMsg, response) {
-        const classPath = (this.miniShop2Config.hasOwnProperty(pathPropertyName) && this.miniShop2Config[pathPropertyName]) ?
-                this.miniShop2Config[pathPropertyName] : defaultPath,
-            className = (this.miniShop2Config.hasOwnProperty(classnamePropertyName) && this.miniShop2Config[classnamePropertyName]) ?
-                this.miniShop2Config[classnamePropertyName] : defaultClassName,
-            config = response ? response[className] : this;
+    async setHandler(property) {
+        let prefix = property.toLowerCase(),
+            response = false,
+            messageSettings = false;
+        if (prefix === 'message') {
+            prefix = 'notify';
+            response = await this.sendRequest({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            if (response.ok) {
+                messageSettings = await response.json();
+            }
+        }
+
+        const lastProperty = this.miniShop2Config.properties[this.miniShop2Config.properties.length - 1];
+        const classPath = this.miniShop2Config[prefix + 'ClassPath'];
+        const className = this.miniShop2Config[prefix + 'ClassName'];
+        const config = messageSettings ? messageSettings[className] : this;
 
         try {
-            const { default: ModuleName } = await import(classPath);
+            const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
+            if (lastProperty === property && typeof this[property] !== 'undefined') {
+                document.dispatchEvent(this.loadedEvent);
+            }
         } catch (e) {
-            console.error(e, errorMsg);
+            throw new Error(this.miniShop2Config.moduleImportErrorMsg);
         }
     }
 
     async initialize() {
-        this.setHandler(
-            'Cart',
-            'cartClassPath',
-            'cartClassName',
-            './mscart.class.js',
-            'msCart',
-            'Произошла ошибка при загрузке модуля корзины');
-
-        this.setHandler(
-            'Order',
-            'orderClassPath',
-            'orderClassName',
-            './msorder.class.js',
-            'msOrder',
-            'Произошла ошибка при загрузке модуля отправки заказа');
-
-        if (this.miniShop2Config.notifySettingsPath) {
-            const response = await this.sendResponse({ url: this.miniShop2Config.notifySettingsPath, method: 'GET' });
-            if (response.ok) {
-                const messageSettings = await response.json();
-                if (messageSettings) {
-                    this.setHandler(
-                        'Message',
-                        'notifyClassPath',
-                        'notifyClassName',
-                        './msnotify.class.js',
-                        'msNotify',
-                        'Произошла ошибка при загрузке модуля уведомлений',
-                        messageSettings);
-                }
-            }
+        if (!this.miniShop2Config.properties.length) {
+            throw new Error('Не передан массив имён обработчиков');
         }
+
+        this.miniShop2Config.properties.forEach(property => {
+            this.setHandler(property);
+        });
 
         document.addEventListener('submit', e => {
             e.preventDefault();
@@ -86,38 +86,20 @@ export default class MiniShop {
             const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
 
             if (action) {
-                const formData = new FormData(form);
+                const formData = new FormData(form),
+                    components = this.getObjectMethod(action);
                 formData.append(this.actionName, action);
                 this.formData = formData;
-
-                this.controller(action);
+                this[components.object][components.method](this.formData);
             }
         });
     }
 
-    controller(action) {
-        switch (action) {
-            case 'cart/add':
-                this.Cart.add(this.formData);
-                break;
-            case 'cart/remove':
-                this.Cart.remove(this.formData);
-                break;
-            case 'cart/change':
-                this.Cart.change(this.formData);
-                break;
-            case 'cart/clean':
-                this.Cart.clean(this.formData);
-                break;
-            case 'order/submit':
-                this.Order.submit(this.formData);
-                break;
-            case 'order/clean':
-                this.Order.clean(this.formData);
-                break;
-            default:
-                return;
-        }
+    getObjectMethod(action) {
+        const actionComponents = action.split('/'),
+            object = actionComponents[0].replace(actionComponents[0].substring(0, 1), actionComponents[0].substring(0, 1).toUpperCase()),
+            method = actionComponents[1];
+        return {object, method};
     }
 
     callbacksObjectTemplate() {
@@ -191,15 +173,15 @@ export default class MiniShop {
         return true;
     }
 
-    sendResponse(params) {
+    sendRequest(params) {
         const body = params.body || new FormData(),
-            headers = params.headers || { 'X-Requested-With': 'XMLHttpRequest' },
+            headers = params.headers || {'X-Requested-With': 'XMLHttpRequest'},
             url = params.url || this.miniShop2Config.actionUrl,
             method = params.method || this.miniShop2Config.formMethod;
 
-        let options = { method, headers, body };
+        let options = {method, headers, body};
         if (method === 'GET') {
-            options = { method, headers };
+            options = {method, headers};
         }
 
         return fetch(url, options);
@@ -222,19 +204,18 @@ export default class MiniShop {
             data += '&ctx=' + this.miniShop2Config.ctx;
         }
 
-        const response = await this.sendResponse({ body: data, headers });
+        const response = await this.sendRequest({body: data, headers});
+
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
-                if (result.message) {
-                    this.Message.success(result.message);
-                }
                 this.runCallback(callbacks.response.success, this, result);
                 this.runCallback(userCallbacks.response.success, this, result);
+                result.message ? this.Message.success(result.message) : '';
             } else {
-                this.Message.error(result.message);
                 this.runCallback(callbacks.response.error, this, result);
                 this.runCallback(userCallbacks.response.error, this, result);
+                result.message ? this.Message.error(result.message) : '';
             }
             this.runCallback(callbacks.ajax.done, this, response);
             this.runCallback(userCallbacks.ajax.done, this, response);
@@ -304,5 +285,56 @@ export default class MiniShop {
             : '');
 
         return km + kw + kd;
+    }
+
+    setValues(data, prefix, exclude) {
+        for (let i in data) {
+            let j = i.replaceAll('_', '-');
+            j = j.replace('total-', '');
+            if (exclude.length > 0 && exclude.indexOf(j) !== -1) {
+                continue;
+            }
+
+            const elements = document.querySelectorAll(prefix + j + ']');
+            let value = ['name', 'thumb'].indexOf(i) !== -1 ? data[i] : Number(data[i]);
+
+            if (typeof value === 'number') {
+                value = i.indexOf('weight') !== -1 ? this.formatWeight(value) : this.formatPrice(value)
+            }
+            if (elements.length) {
+                elements.forEach(el => {
+                    switch (el.tagName) {
+                        case 'IMG':
+                            el.src = value;
+                            break;
+                        case 'INPUT':
+                            el.value = value;
+                            el.checked = true;
+                            break;
+                        default:
+                            //console.log(el, prefix + j + ']', value);
+                            el.innerText = value;
+                            break;
+                    }
+
+                    if (data[i] && data[i] > 0) {
+                        this.show(el.closest('[data-ms-fields-wrap]'));
+                    } else {
+                        this.hide(el.closest('[data-ms-fields-wrap]'));
+                    }
+                });
+            }
+        }
+    }
+
+    hide(node) {
+        if (node) {
+            node.classList.add(this.hiddenClass);
+            node.checked = false;
+        }
+    }
+
+    show(node) {
+        node?.classList.remove(this.hiddenClass);
     }
 }

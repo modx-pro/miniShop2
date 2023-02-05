@@ -7,10 +7,12 @@ $snippets = array();
 $tmp = array(
     'msProducts' => 'ms_products',
     'msCart' => 'ms_cart',
+    'msCartNew' => 'ms_cart_new',
     'msMiniCart' => 'ms_minicart',
     'msGallery' => 'ms_gallery',
     'msOptions' => 'ms_options',
     'msOrder' => 'ms_order',
+    'msOrderNew' => 'ms_order_new',
     'msGetOrder' => 'ms_get_order',
     'msProductOptions' => 'ms_product_options',
 );

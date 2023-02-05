@@ -10,10 +10,13 @@ $tmp = array(
 
     'tpl.msCart' => 'ms_cart',
     'tpl.msCartNew' => 'ms_cart_new',
+    'tpl.msCartProductRow' => 'ms_cart_product_row',
     'tpl.msMiniCart' => 'ms_minicart',
     'tpl.msOrder' => 'ms_order',
+    'tpl.msOrderNew' => 'ms_order_new',
     'tpl.msGetOrder' => 'ms_get_order',
     'tpl.msOptions' => 'ms_options',
+    'tpl.msOptionsCart' => 'ms_options_cart',
     'tpl.msProductOptions' => 'ms_product_options',
     'tpl.msGallery' => 'ms_gallery',
     'tpl.msGalleryNew' => 'ms_gallery_new',

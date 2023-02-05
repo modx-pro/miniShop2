@@ -12,28 +12,36 @@ export default class MsCart {
             clean: this.config.callbacksObjectTemplate(),
         }
 
-        this.cart = document.querySelector('#msCart');
-        this.miniCarts = document.querySelectorAll('#msMiniCart, .msMiniCart');
-        this.miniCartNotEmptyClass = 'full';
+        this.total_weight = document.querySelectorAll('[data-ms-cart] [data-ms-cart-weight]');
+        this.total_count = document.querySelectorAll('[data-ms-cart] [data-ms-cart-count]');
+        this.total_cost = document.querySelectorAll('[data-ms-cart] [data-ms-cart-cost]');
+        this.total_discount = document.querySelectorAll('[data-ms-cart] [data-ms-cart-discount]');
+        this.full_carts = document.querySelectorAll('[data-ms-cart] [data-ms-cart-full]');
+        this.empty_carts = document.querySelectorAll('[data-ms-cart] [data-ms-cart-empty]');
+        this.options = document.querySelectorAll('[data-ms-cart] [data-ms-product-options]');
+        this.orderForms = document.querySelectorAll('[data-ms-order]');
+        this.cost = '[data-ms-product-cost]';
 
-        this.totalWeight = document.querySelectorAll('.ms2_total_weight');
-        this.totalCount = document.querySelectorAll('.ms2_total_count');
-        this.totalCost = document.querySelectorAll('.ms2_total_cost');
-        this.totalDiscount = document.querySelectorAll('.ms2_total_discount');
-        this.cost = '.ms2_cost';
-
-        this.eventSubmit = new Event('submit', { bubbles: true, cancelable: true });
+        this.eventSubmit = new Event('submit', {bubbles: true, cancelable: true});
 
         this.initialize();
     }
 
     initialize() {
-        if (!this.cart) {
+        if (!this.full_carts.length) {
             return;
         }
 
-        this.cart.querySelectorAll('input[name=count]')?.forEach(el => {
-            new CustomInputNumber(el, this.config.inputNumber);
+        this.full_carts.forEach(cart => {
+            this.setFieldsHandlers(cart);
+        });
+    }
+
+    setFieldsHandlers(parent) {
+        parent.querySelectorAll('input[name=count], [data-ms-product-options]')?.forEach(el => {
+            if (el.name === 'count') {
+                new CustomInputNumber(el, this.config.inputNumber);
+            }
             el.addEventListener('change', () => el.value && el.closest(this.minishop.form).dispatchEvent(this.eventSubmit));
         });
     }
@@ -68,30 +76,104 @@ export default class MsCart {
     }
 
     status(status) {
-        if (status.total_count < 1) {
-            location.reload();
+        //console.log(status);
+
+        this.toggleCarts(status.total_count);
+
+        this.orderBlockHandler(status.total_count);
+
+        if (status.html) {
+            this.addProductRow(status.html);
         }
 
-        this.miniCarts.forEach(cart => cart.classList.add(this.miniCartNotEmptyClass));
+        if (status.key_old) {
+            this.removePosition(status.key_old);
+        }
 
-        this.totalWeight.forEach(el => { el.innerText = this.minishop.formatWeight(status.total_weight); });
-        this.totalCount.forEach(el => { el.innerText = status.total_count; });
-        this.totalCost.forEach(el => { el.innerText = this.minishop.formatPrice(status.total_cost); });
-        this.totalDiscount.forEach(el => { el.innerText = this.minishop.formatPrice(status.total_discount); });
+        if (status.key_new) {
+            this.updateProductKey(status.key, status.key_new, status.cart);
+        }
 
-        if (typeof status.cost === 'number') {
-            const productCost = document.querySelector(`[id="${status.key}"] ${this.cost}`);
-            if (productCost) {
-                productCost.innerText = this.minishop.formatPrice(status.cost);
+        if (status.cart) {
+            for (let k in status.cart) {
+                this.minishop.setValues(status.cart[k], '[data-ms-product-id="' + status.cart[k]['key'] + '"] [data-ms-product-', ['id', 'key', 'ctx', 'options']);
             }
         }
 
-        if (this.minishop.Order.orderCost) {
+        this.minishop.setValues(status, '[data-ms-cart-', ['cart', 'key', 'key_new', 'key_old', 'row']);
+
+        if (document.querySelector('[data-ms-order]')) {
             this.minishop.Order.getcost();
         }
     }
 
+    toggleCarts(total_count) {
+        if (total_count > 0) {
+            this.full_carts.forEach(full => this.minishop.show(full));
+            this.empty_carts.forEach(empty => this.minishop.hide(empty));
+        } else {
+            this.full_carts.forEach(full => {
+                this.minishop.hide(full);
+                full.querySelectorAll('[data-ms-cart-products]')?.forEach(el => el.innerHTML = '');
+            });
+            this.empty_carts.forEach(empty => this.minishop.show(empty));
+        }
+    }
+
+    addProductRow(html) {
+        for (let k in html) {
+            const cartWraps = document.querySelectorAll(`[data-ms-cart-products="${k}"]`);
+            if (cartWraps.length) {
+                cartWraps.forEach(cart => {
+                    const row = new DOMParser().parseFromString(html[k], "text/html").querySelector('[data-ms-product-id]');
+                    this.setFieldsHandlers(row);
+                    cart.appendChild(row);
+                });
+            }
+        }
+    }
+
+    updateProductKey(key, key_new, cart) {
+        const changedProduct = document.querySelectorAll(`[data-ms-product-id="${key}"]`);
+        if (changedProduct.length) {
+            changedProduct.forEach(product => {
+                const keyInputs = product.querySelectorAll('[name="key"]');
+                keyInputs?.forEach(el => el.value = key_new);
+                product.setAttribute('data-ms-product-id', key_new);
+
+                product.querySelectorAll('[data-ms-product-options]')?.forEach(option => {
+                    const optionName = option.name.match(/options\[(.*)\]/)[1];
+                    const value = cart[key_new]['options'][optionName];
+                    if (option.type === 'checkbox' || option.type === 'radio') {
+                        option.checked = cart[key_new]['options'].hasOwnProperty(optionName);
+                    }else{
+                        option.value = value;
+                    }
+                });
+            });
+        }
+    }
+
     removePosition(key) {
-        document.getElementById(key)?.remove();
+        const changedProduct = document.querySelectorAll(`[data-ms-product-id="${key}"]`);
+        if (changedProduct.length) {
+            changedProduct.forEach(product => product.remove())
+        }
+    }
+
+    orderBlockHandler(count) {
+        if (this.orderForms.length) {
+            if (count > 0) {
+                this.orderForms.forEach(order => {
+                    this.minishop.show(order);
+                    order.querySelectorAll('input, select, button, textarea')?.forEach(el => el.disabled = false);
+                });
+            } else {
+                this.orderForms.forEach(order => {
+                    this.minishop.hide(order);
+                    order.querySelectorAll('input, select, button, textarea')?.forEach(el => el.disabled = true);
+                });
+            }
+        }
     }
 }
