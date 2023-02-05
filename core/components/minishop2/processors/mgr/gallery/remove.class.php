@@ -5,15 +5,14 @@ require_once 'removecatalogs.class.php';
 class msProductFileRemoveProcessor extends modObjectRemoveProcessor
 {
     public $classKey = 'msProductFile';
-    public $languageTopics = array('minishop2:product');
+    public $languageTopics = ['minishop2:product'];
     public $permission = 'msproductfile_save';
     /** @var msProduct $product */
     public $product;
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -23,10 +22,9 @@ class msProductFileRemoveProcessor extends modObjectRemoveProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         parent::process();
@@ -45,7 +43,7 @@ class msProductFileRemoveProcessor extends modObjectRemoveProcessor
             RemoveCatalogs::process($this->modx, $product->get('id'));
         }
 
-        return $this->success('', array('thumb' => $thumb));
+        return $this->success('', ['thumb' => $thumb]);
     }
 }
 

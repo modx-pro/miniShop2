@@ -1,52 +1,52 @@
 <?php
 
-$properties = array();
+$properties = [];
 
-$tmp = array(
-    'product' => array(
+$tmp = [
+    'product' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'tpl' => array(
+    ],
+    'tpl' => [
         'type' => 'textfield',
         'value' => 'tpl.msProductOptions',
-    ),
-    'ignoreGroups' => array(
+    ],
+    'ignoreGroups' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'ignoreOptions' => array(
+    ],
+    'ignoreOptions' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'onlyOptions' => array(
+    ],
+    'onlyOptions' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'sortGroups' => array(
+    ],
+    'sortGroups' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'sortOptions' => array(
+    ],
+    'sortOptions' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'sortOptionValues' => array(
+    ],
+    'sortOptionValues' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'groups' => array(
+    ],
+    'groups' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-);
+    ],
+];
 
 foreach ($tmp as $k => $v) {
-    $properties[] = array_merge(array(
+    $properties[] = array_merge([
         'name' => $k,
         'desc' => 'ms2_prop_' . $k,
         'lexicon' => 'minishop2:properties',
-    ), $v);
+    ], $v);
 }
 
 return $properties;

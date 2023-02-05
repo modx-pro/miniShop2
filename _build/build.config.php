@@ -4,8 +4,8 @@
 const PKG_NAME = 'miniShop2';
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
 
-const PKG_VERSION = '4.0.0';
-const PKG_RELEASE = 'beta';
+const PKG_VERSION = '4.1.1';
+const PKG_RELEASE = 'pl';
 const PKG_AUTO_INSTALL = true;
 
 // Define paths
@@ -46,7 +46,7 @@ const BUILD_CHUNK_STATIC = false;
 const BUILD_SNIPPET_STATIC = false;
 const BUILD_PLUGIN_STATIC = false;
 
-$BUILD_RESOLVERS = array(
+$BUILD_RESOLVERS = [
     'extension',
     'tables',
     'policy',
@@ -55,4 +55,4 @@ $BUILD_RESOLVERS = array(
     'chunks',
     'statuses',
     'setup',
-);
+];

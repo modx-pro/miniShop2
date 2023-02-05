@@ -3,8 +3,8 @@
 class msClassGetListProcessor extends modProcessor
 {
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function process()
     {
         $type = $this->getProperty('type');
@@ -17,21 +17,21 @@ class msClassGetListProcessor extends modProcessor
         $miniShop2->loadCustomClasses($type);
 
         $declared = array_diff(get_declared_classes(), $declared);
-        $available = array();
+        $available = [];
         foreach ($declared as $class) {
             if ($class == $handler || strpos($class, 'Exception') !== false) {
                 continue;
             }
             try {
-                $object = in_array($type, array('payment', 'delivery'))
+                $object = in_array($type, ['payment', 'delivery'])
                     ? new $class($this->modx->newObject('msProduct'))
                     : new $class($miniShop2);
 
                 if (!empty($object) && is_a($object, $interface)) {
-                    $available[] = array(
+                    $available[] = [
                         'type' => $type,
                         'class' => $class,
-                    );
+                    ];
                 }
             } catch (Error $e) {
                 // nothing

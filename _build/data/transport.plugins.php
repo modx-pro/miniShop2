@@ -1,13 +1,13 @@
 <?php
 
 /** @var modX $modx */
-$plugins = array();
+$plugins = [];
 
-$tmp = array(
-    'miniShop2' => array(
+$tmp = [
+    'miniShop2' => [
         'file' => 'minishop2',
         'description' => '',
-        'events' => array(
+        'events' => [
             'OnMODXInit',
             'OnHandleRequest',
             'OnLoadWebDocument',
@@ -15,15 +15,15 @@ $tmp = array(
             'OnUserSave',
             'msOnChangeOrderStatus',
             'OnManagerPageBeforeRender',
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 foreach ($tmp as $k => $v) {
     /** @var modPlugin $plugin */
     $plugin = $modx->newObject('modPlugin');
     /** @var array $sources */
-    $plugin->fromArray(array(
+    $plugin->fromArray([
         'id' => 0,
         'name' => $k,
         'category' => 0,
@@ -32,18 +32,18 @@ foreach ($tmp as $k => $v) {
         'static' => BUILD_PLUGIN_STATIC,
         'source' => 1,
         'static_file' => 'core/components/' . PKG_NAME_LOWER . '/elements/plugins/plugin.' . $v['file'] . '.php',
-    ), '', true, true);
+    ], '', true, true);
 
-    $events = array();
+    $events = [];
     if (!empty($v['events'])) {
         foreach ($v['events'] as $k2 => $v2) {
             /** @var modPluginEvent $event */
             $event = $modx->newObject('modPluginEvent');
-            $event->fromArray(array(
+            $event->fromArray([
                 'event' => $v2,
                 'priority' => 0,
                 'propertyset' => 0,
-            ), '', true, true);
+            ], '', true, true);
             $events[] = $event;
         }
         unset($v['events']);

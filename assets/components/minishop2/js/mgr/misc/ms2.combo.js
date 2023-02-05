@@ -244,6 +244,7 @@ miniShop2.combo.Vendor = function (config) {
         allowBlank: true,
         emptyText: _('no'),
         minChars: 1,
+        forceSelection: false,
         baseParams: {
             action: 'mgr/settings/vendor/getlist',
             combo: true,

@@ -5,10 +5,9 @@ class msResourceCreateController extends ResourceCreateManagerController
     /** @var miniShop2 $minishop2 */
     public $miniShop2;
 
-
     /**
-    *
-    */
+     *
+     */
     public function initialize()
     {
         $this->miniShop2 = $this->modx->getService('miniShop2');
@@ -18,50 +17,50 @@ class msResourceCreateController extends ResourceCreateManagerController
         parent::initialize();
     }
 
-
     /**
-    * @param string $script
-    */
+     * @param string $script
+     */
     public function addCss($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
         parent::addCss($script);
     }
 
-
     /**
-    * @param string $script
-    */
+     * @param string $script
+     */
     public function addJavascript($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
         parent::addJavascript($script);
     }
 
-
     /**
-    * @param string $script
-    */
+     * @param string $script
+     */
     public function addLastJavascript($script)
     {
         $script = $script . '?v=' . $this->miniShop2->version;
         parent::addLastJavascript($script);
     }
 
-
     /**
-    * Check if content field is hidden
-    * @return bool
-    */
+     * Check if content field is hidden
+     * @return bool
+     */
     public function isHideContent()
     {
         $userGroups = $this->modx->user->getUserGroups();
         $c = $this->modx->newQuery('modActionDom');
         $c->innerJoin('modFormCustomizationSet', 'FCSet');
         $c->innerJoin('modFormCustomizationProfile', 'Profile', 'FCSet.profile = Profile.id');
-        $c->leftJoin('modFormCustomizationProfileUserGroup', 'ProfileUserGroup', 'Profile.id = ProfileUserGroup.profile');
+        $c->leftJoin(
+            'modFormCustomizationProfileUserGroup',
+            'ProfileUserGroup',
+            'Profile.id = ProfileUserGroup.profile'
+        );
         $c->leftJoin('modFormCustomizationProfile', 'UGProfile', 'UGProfile.id = ProfileUserGroup.profile');
-        $c->where(array(
+        $c->where([
             'modActionDom.action:IN' => ['resource/*', 'resource/create'],
             'modActionDom.name' => 'modx-resource-content',
             'modActionDom.container' => 'modx-panel-resource',
@@ -70,28 +69,27 @@ class msResourceCreateController extends ResourceCreateManagerController
             'FCSet.template:IN' => [0, $this->resource->template],
             'FCSet.active' => true,
             'Profile.active' => true,
-        ));
-        $c->where(array(
-            array(
+        ]);
+        $c->where([
+            [
                 'ProfileUserGroup.usergroup:IN' => $userGroups,
-                array(
+                [
                     'OR:ProfileUserGroup.usergroup:IS' => null,
                     'AND:UGProfile.active:=' => true,
-                ),
-            ),
+                ],
+            ],
             'OR:ProfileUserGroup.usergroup:=' => null,
-        ), xPDOQuery::SQL_AND, null, 2);
+        ], xPDOQuery::SQL_AND, null, 2);
 
-        return (bool) $this->modx->getCount('modActionDom', $c);
+        return (bool)$this->modx->getCount('modActionDom', $c);
     }
 
-
     /**
-    * @param string $key
-    * @param array $options
-    * @param mixed $default
-    * @return mixed
-    */
+     * @param string $key
+     * @param array $options
+     * @param mixed $default
+     * @return mixed
+     */
     public function getOption($key, $options = null, $default = null, $skipEmpty = false)
     {
         $option = $default;

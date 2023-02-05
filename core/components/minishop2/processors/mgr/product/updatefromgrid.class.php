@@ -6,25 +6,23 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
 {
 
     /**
-    * @param modX $modx
-    * @param string $className
-    * @param array $properties
-    *
-    * @return modProcessor
-    */
-    public static function getInstance(modX &$modx, $className, $properties = array())
+     * @param modX $modx
+     * @param string $className
+     * @param array $properties
+     *
+     * @return modProcessor
+     */
+    public static function getInstance(modX &$modx, $className, $properties = [])
     {
-
         /** @var modProcessor $processor */
         $processor = new msProductUpdateFromGridProcessor($modx, $properties);
 
         return $processor;
     }
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         $data = $this->getProperty('data');
@@ -44,12 +42,11 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @param array $data
-    *
-    * @return array
-    */
+     * @param array $data
+     *
+     * @return array
+     */
     public function prepareValues(array $data)
     {
         $fields = $this->modx->getFieldMeta('modResource');
@@ -64,10 +61,9 @@ class msProductUpdateFromGridProcessor extends msProductUpdateProcessor
         return $data;
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function beforeSet()
     {
         $properties = $this->getProperties();

@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.1-pl] - 2022-02-02
+
+### Changed
+- Update JS classes names in system settings
+- Rename new JS method sendResponse to sendRequest
+
+## [4.1.0-pl] - 2022-31-01
+
+### Added
+- New type of options - color selection
+- Queue manager support
+- Working with lexicons through the crowdln service, similar to MODX
+- Additional data returned by the cart when it is changed
+- New modes for returning data from msGallery
+- System setting ms2_status_canceled
+
+
+### Changed
+- Fixed a bug with simultaneous operation of the basket with different contexts
+- Added saving the description field to the gallery/upload processor
+- Improved sorting and selection of uploaded files to save the first image to the msProductData table
+- Updated the text and values of the setting_ms2_order_product_options system setting
+- Fixed a bug with redirection after placing an order in new js
+- Many minor syntax and code readability improvements
+
+### Removed
+- Setting for button icons in mgr category
+- Phone length limitation during validation in the order
+
+## [4.0.0-pl] - 2022-12-18
+
+### Added
+- Displaying custom parameters in msProducts.tpl #742
+- Patch for error when installing and creating the ms2_options table  #747
+- Patch for error with non-existent fields in the tables #749
+- Creating a vendor when creating a product #748
+
 ## [4.0.0-beta] - 2022-09-16
 
 ### Added

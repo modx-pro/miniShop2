@@ -8,14 +8,6 @@ if ($transport->xpdo) {
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
-            if ($options[xPDOTransport::PACKAGE_ACTION] === xPDOTransport::ACTION_UPGRADE) {
-                /** @var miniShop2 $miniShop2 */
-                $miniShop2 = $modx->getService('minishop2', 'miniShop2', MODX_CORE_PATH . 'components/minishop2/');
-                if ($miniShop2->version < '3.0.5') {
-                    $sql = "ALTER TABLE {$modx->getTableName('msOrder')} CHANGE COLUMN `comment` `order_comment` TEXT NULL";
-                    $modx->exec($sql);
-                }
-            }
             if ($options[xPDOTransport::PACKAGE_ACTION] === xPDOTransport::ACTION_INSTALL) {
                 $modx->addPackage('minishop2', MODX_CORE_PATH . 'components/minishop2/model/');
             }
@@ -103,19 +95,36 @@ if ($transport->xpdo) {
                             if ($manager->addIndex($class, $key)) {
                                 $modx->log(modX::LOG_LEVEL_INFO, "Added index \"{$key}\" in the table \"{$class}\"");
                             }
-                        } else {
-                            if ($index != $indexes[$key]) {
-                                if ($manager->removeIndex($class, $key) && $manager->addIndex($class, $key)) {
-                                    $modx->log(
-                                        modX::LOG_LEVEL_INFO,
-                                        "Updated index \"{$key}\" of the table \"{$class}\""
-                                    );
-                                }
+                        } elseif ($index != $indexes[$key]) {
+                            if ($manager->removeIndex($class, $key) && $manager->addIndex($class, $key)) {
+                                $modx->log(
+                                    modX::LOG_LEVEL_INFO,
+                                    "Updated index \"{$key}\" of the table \"{$class}\""
+                                );
                             }
                         }
                     }
                 }
             }
+
+            if ($options[xPDOTransport::PACKAGE_ACTION] === xPDOTransport::ACTION_UPGRADE) {
+                /** @var miniShop2 $miniShop2 */
+                $miniShop2 = $modx->getService('minishop2', 'miniShop2', MODX_CORE_PATH . 'components/minishop2/');
+                if ($miniShop2->version < '3.0.5') {
+                    $sql = "ALTER TABLE {$modx->getTableName('msOrder')} CHANGE COLUMN `comment` `order_comment` TEXT NULL";
+                    $modx->exec($sql);
+                }
+
+                if ($miniShop2->version < '4.0.0') {
+                    $sql = "ALTER TABLE {$modx->getTableName('msOrder')} DROP COLUMN `address`";
+                    $modx->exec($sql);
+                    $sql = "ALTER TABLE {$modx->getTableName('msOrderAddress')} ADD `order_id`  INTEGER UNSIGNED NOT NULL  FIRST";
+                    $modx->exec($sql);
+                    $sql = "CREATE INDEX `order_id` ON {$modx->getTableName('msOrderAddress')} (`order_id`)";
+                    $modx->exec($sql);
+                }
+            }
+
             break;
 
         case xPDOTransport::ACTION_UNINSTALL:

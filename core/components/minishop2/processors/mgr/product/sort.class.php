@@ -5,14 +5,13 @@ class msProductSortProcessor extends modObjectProcessor
     public $classKey = 'msProduct';
     private $_parent;
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         /** @var msProduct $target */
-        if (!$target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')))) {
+        if (!$target = $this->modx->getObject($this->classKey, ['id' => $this->getProperty('target')])) {
             return $this->failure();
         }
         $this->_parent = $target->get('parent');
@@ -25,7 +24,7 @@ class msProductSortProcessor extends modObjectProcessor
             /** @var msProduct $source */
             $source = $this->modx->getObject($this->classKey, compact('id'));
             if ($source->get('parent') == $this->_parent) {
-                $target = $this->modx->getObject($this->classKey, array('id' => $this->getProperty('target')));
+                $target = $this->modx->getObject($this->classKey, ['id' => $this->getProperty('target')]);
                 $this->sort($source, $target);
             } else {
                 $this->move($source);
@@ -36,39 +35,38 @@ class msProductSortProcessor extends modObjectProcessor
         return $this->modx->error->success();
     }
 
-
     /**
-    * @param msProduct $source
-    * @param msProduct $target
-    */
+     * @param msProduct $source
+     * @param msProduct $target
+     */
     public function sort(msProduct $source, msProduct $target)
     {
         $c = $this->modx->newQuery($this->classKey);
         $c->command('UPDATE');
-        $c->where(array(
+        $c->where([
             'parent' => $this->_parent,
-        ));
+        ]);
         if ($source->get('menuindex') < $target->get('menuindex')) {
-            $c->query['set']['menuindex'] = array(
+            $c->query['set']['menuindex'] = [
                 'value' => '`menuindex` - 1',
                 'type' => false,
-            );
-            $c->andCondition(array(
+            ];
+            $c->andCondition([
                 'menuindex:<=' => $target->menuindex,
                 'menuindex:>' => $source->menuindex,
-            ));
-            $c->andCondition(array(
+            ]);
+            $c->andCondition([
                 'menuindex:>' => 0,
-            ));
+            ]);
         } else {
-            $c->query['set']['menuindex'] = array(
+            $c->query['set']['menuindex'] = [
                 'value' => '`menuindex` + 1',
                 'type' => false,
-            );
-            $c->andCondition(array(
+            ];
+            $c->andCondition([
                 'menuindex:>=' => $target->menuindex,
                 'menuindex:<' => $source->menuindex,
-            ));
+            ]);
         }
         $c->prepare();
         $c->stmt->execute();
@@ -77,25 +75,23 @@ class msProductSortProcessor extends modObjectProcessor
         $source->save();
     }
 
-
     /**
-    * @param msProduct $source
-    */
+     * @param msProduct $source
+     */
     public function move(msProduct $source)
     {
         $source->set('parent', $this->_parent);
-        $source->set('menuindex', $this->modx->getCount($this->classKey, array('parent' => $this->_parent)));
+        $source->set('menuindex', $this->modx->getCount($this->classKey, ['parent' => $this->_parent]));
         $source->save();
     }
 
-
     /**
-    *
-    */
+     *
+     */
     public function updateIndex()
     {
         // Check if need to update children indexes
-        $c = $this->modx->newQuery($this->classKey, array('parent' => $this->_parent));
+        $c = $this->modx->newQuery($this->classKey, ['parent' => $this->_parent]);
         $c->groupby('menuindex');
         $c->select('COUNT(menuindex) as idx');
         $c->sortby('idx', 'DESC');
@@ -107,7 +103,7 @@ class msProductSortProcessor extends modObjectProcessor
         }
 
         // Update indexes
-        $c = $this->modx->newQuery($this->classKey, array('parent' => $this->_parent));
+        $c = $this->modx->newQuery($this->classKey, ['parent' => $this->_parent]);
         $c->select('id');
         $c->sortby('menuindex ASC, id', 'ASC');
         if ($c->prepare() && $c->stmt->execute()) {
@@ -115,7 +111,7 @@ class msProductSortProcessor extends modObjectProcessor
             $update = $this->modx->prepare("UPDATE {$table} SET menuindex = ? WHERE id = ?");
             $i = 0;
             while ($id = $c->stmt->fetch(PDO::FETCH_COLUMN)) {
-                $update->execute(array($i, $id));
+                $update->execute([$i, $id]);
                 $i++;
             }
         }

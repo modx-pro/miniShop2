@@ -13,7 +13,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
     case xPDOTransport::ACTION_UPGRADE:
         if (!empty($options['update_chunks'])) {
             foreach ($options['update_chunks'] as $v) {
-                if ($chunk = $modx->getObject('modChunk', array('name' => $v))) {
+                if ($chunk = $modx->getObject('modChunk', ['name' => $v])) {
                     foreach ($transport->vehicles as $item) {
                         /** @var xPDOTransportVehicle $vehicle */
                         if ($item['class'] == 'modCategory' && $vehicle = $transport->get($item['filename'])) {

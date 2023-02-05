@@ -7,10 +7,9 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
     public $defaultSortDirection = 'asc';
     public $permission = 'mssetting_list';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -20,32 +19,32 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @param xPDOQuery $c
-    *
-    * @return xPDOQuery
-    */
+     * @param xPDOQuery $c
+     *
+     * @return xPDOQuery
+     */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
         if ($query = trim($this->getProperty('query'))) {
-            $c->where(array(
+            $c->where([
                 'name:LIKE' => "%{$query}%",
                 'OR:description:LIKE' => "%{$query}%",
-            ));
+            ]);
         }
         if ($this->getProperty('combo')) {
             $c->select('id,name');
-            $c->where(array('active' => 1));
+            $c->where(['active' => 1]);
 
             if ($order_id = $this->getProperty('order_id')) {
                 /** @var msOrder $order */
+                $order = $this->modx->getObject('msOrder', ['id' => $order_id]);
                 /** @var msOrderStatus $status */
-                if ($order = $this->modx->getObject('msOrder', array('id' => $order_id)) and $status = $order->getOne('Status')) {
+                if ($order &&  $status = $order->getOne('Status')) {
                     if ($status->get('final')) {
-                        $c->where(array('id' => $status->get('id')));
+                        $c->where(['id' => $status->get('id')]);
                     } elseif ($status->get('fixed')) {
-                        $c->where(array('rank:>=' => $status->get('rank')));
+                        $c->where(['rank:>=' => $status->get('rank')]);
                     }
                 }
             }
@@ -54,19 +53,18 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
         return $c;
     }
 
-
     /**
-    * @param xPDOObject $object
-    *
-    * @return array
-    */
+     * @param xPDOObject $object
+     *
+     * @return array
+     */
     public function prepareRow(xPDOObject $object)
     {
         if ($this->getProperty('combo')) {
-            $data = array(
+            $data = [
                 'id' => $object->get('id'),
                 'name' => $object->get('name'),
-            );
+            ];
         } else {
             $data = $object->toArray();
             if (!$data['body_user']) {
@@ -75,19 +73,19 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
             if (!$data['body_manager']) {
                 $data['body_manager'] = null;
             }
-            $data['actions'] = array();
+            $data['actions'] = [];
 
-            $data['actions'][] = array(
+            $data['actions'][] = [
                 'cls' => '',
                 'icon' => 'icon icon-edit',
                 'title' => $this->modx->lexicon('ms2_menu_update'),
                 'action' => 'updateStatus',
                 'button' => true,
                 'menu' => true,
-            );
+            ];
 
             if (empty($data['active'])) {
-                $data['actions'][] = array(
+                $data['actions'][] = [
                     'cls' => '',
                     'icon' => 'icon icon-power-off action-green',
                     'title' => $this->modx->lexicon('ms2_menu_enable'),
@@ -95,9 +93,9 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
                     'action' => 'enableStatus',
                     'button' => true,
                     'menu' => true,
-                );
+                ];
             } else {
-                $data['actions'][] = array(
+                $data['actions'][] = [
                     'cls' => '',
                     'icon' => 'icon icon-power-off action-gray',
                     'title' => $this->modx->lexicon('ms2_menu_disable'),
@@ -105,43 +103,42 @@ class msOrderStatusGetListProcessor extends modObjectGetListProcessor
                     'action' => 'disableStatus',
                     'button' => true,
                     'menu' => true,
-                );
+                ];
             }
             if ($data['editable']) {
-                $data['actions'][] = array(
-                    'cls' => array(
+                $data['actions'][] = [
+                    'cls' => [
                         'menu' => 'red',
                         'button' => 'red',
-                    ),
+                    ],
                     'icon' => 'icon icon-trash-o',
                     'title' => $this->modx->lexicon('ms2_menu_remove'),
                     'multiple' => $this->modx->lexicon('ms2_menu_remove_multiple'),
                     'action' => 'removeStatus',
                     'button' => true,
                     'menu' => true,
-                );
+                ];
             }
         }
 
         return $data;
     }
 
-
     /**
-    * @param array $array
-    * @param bool $count
-    *
-    * @return string
-    */
+     * @param array $array
+     * @param bool $count
+     *
+     * @return string
+     */
     public function outputArray(array $array, $count = false)
     {
         if ($this->getProperty('addall')) {
-            $array = array_merge_recursive(array(
-                array(
+            $array = array_merge_recursive([
+                [
                     'id' => 0,
                     'name' => $this->modx->lexicon('ms2_all'),
-                ),
-            ), $array);
+                ],
+            ], $array);
         }
 
         return parent::outputArray($array, $count);

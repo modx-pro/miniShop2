@@ -1,61 +1,65 @@
 <?php
 
-$properties = array();
+$properties = [];
 
-$tmp = array(
-    'product' => array(
+$tmp = [
+    'product' => [
         'type' => 'numberfield',
         'value' => '',
-    ),
-    'tpl' => array(
+    ],
+    'tpl' => [
         'type' => 'textfield',
         'value' => 'tpl.msGallery',
-    ),
-    'limit' => array(
+    ],
+    'limit' => [
         'type' => 'numberfield',
         'value' => 0,
-    ),
-    'offset' => array(
+    ],
+    'offset' => [
         'type' => 'numberfield',
         'value' => 0,
-    ),
-    'sortby' => array(
+    ],
+    'sortby' => [
         'type' => 'textfield',
         'value' => 'rank',
-    ),
-    'sortdir' => array(
+    ],
+    'sortdir' => [
         'type' => 'list',
-        'options' => array(
-            array('text' => 'ASC', 'value' => 'ASC'),
-            array('text' => 'DESC', 'value' => 'DESC'),
-        ),
+        'options' => [
+            ['text' => 'ASC', 'value' => 'ASC'],
+            ['text' => 'DESC', 'value' => 'DESC'],
+        ],
         'value' => 'ASC',
-    ),
-    'toPlaceholder' => array(
+    ],
+    'toPlaceholder' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'showLog' => array(
+    ],
+    'showLog' => [
         'type' => 'combo-boolean',
         'value' => false,
-    ),
-    'where' => array(
+    ],
+    'where' => [
         'type' => 'textfield',
         'value' => '',
-    ),
-    'filetype' => array(
+    ],
+    'filetype' => [
         'type' => 'textfield',
         'value' => '',
         'desc' => 'ms2_prop_filetype',
-    ),
-);
+    ],
+    'return' => [
+        'type' => 'textfield',
+        'value' => 'tpl',
+    ],
+];
 
 foreach ($tmp as $k => $v) {
-    $properties[] = array_merge(array(
+    $properties[] = array_merge([
         'name' => $k,
         'desc' => 'ms2_prop_' . $k,
         'lexicon' => 'minishop2:properties',
-    ), $v);
+    ], $v);
 }
 
 return $properties;

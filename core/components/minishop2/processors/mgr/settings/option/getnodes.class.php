@@ -4,12 +4,11 @@ require_once MODX_CORE_PATH . 'components/minishop2/processors/mgr/category/getn
 
 class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
 {
-    protected $categories = array();
-
+    protected $categories = [];
 
     /**
-    * @return bool
-    */
+     * @return bool
+     */
     public function initialize()
     {
         if ($categories = $this->getProperty('categories')) {
@@ -18,9 +17,9 @@ class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
             $options = json_decode($options, true);
             if (is_array($options) && count($options) === 1) {
                 /** @var msOption $option */
-                if ($option = $this->modx->getObject('msOption', array('id' => $options[0]))) {
+                if ($option = $this->modx->getObject('msOption', ['id' => $options[0]])) {
                     $categories = $option->getMany('OptionCategories');
-                    $tmp = array();
+                    $tmp = [];
                     /** @var msCategoryOption $cat */
                     foreach ($categories as $cat) {
                         $category = $cat->getOne('Category');
@@ -36,12 +35,11 @@ class msOptionCategoryGetNodesProcessor extends msCategoryGetNodesProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @param modResource $resource
-    *
-    * @return array
-    */
+     * @param modResource $resource
+     *
+     * @return array
+     */
     public function prepareResourceNode(modResource $resource)
     {
         $node = parent::prepareResourceNode($resource);

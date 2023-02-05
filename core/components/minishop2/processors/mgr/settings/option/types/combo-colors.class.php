@@ -1,9 +1,10 @@
 <?php
 
-include_once dirname(__FILE__) . '/combobox.class.php';
-
-class msComboMultipleType extends msComboboxType
+class msComboColorsType extends msOptionType
 {
+
+    public static $script = 'combobox-colors.grid.js';
+    public static $xtype = 'minishop2-grid-combobox-colors';
 
     /**
      * @param $field
@@ -12,19 +13,24 @@ class msComboMultipleType extends msComboboxType
      */
     public function getField($field)
     {
-        if (isset($field['properties']['values'])) {
-            $values = json_encode(array_chunk($field['properties']['values'], 1));
-        } else {
-            $values = '[]';
+        $kout = [];
+        foreach ($field['properties']['values'] as $line) {
+            $kout[] = [$line['value'], $line['name']];
         }
+        $values = json_encode($kout, 1);
+        $tplka = '<tpl for="." ><div class="x-combo-list-item"><span><b>{value}</b> <span style="margin-left:5px;padding:1px 8px;background-color:{name}"></span></span></div></tpl>';
 
         return "{
             xtype: 'minishop2-combo-options',
             allowAddNewData: false,
+            displayField : 'name',
+            valueField : 'value',
+            displayFieldTpl: '<span style=\"padding:1px 8px;background-color:{name}\" title=\"{value}\"><\/span>',
             pinList: true,
+            tpl: new Ext.XTemplate('" . $tplka . "'),
             mode: 'local',
             store: new Ext.data.SimpleStore({
-                fields: ['value'],
+                fields: ['name','value'],
                 data: {$values}
             })
         }";
@@ -37,14 +43,14 @@ class msComboMultipleType extends msComboboxType
      */
     public function getValue($criteria)
     {
-        $result = [];
+        $result = array();
 
         $c = $this->xpdo->newQuery('msProductOption', $criteria);
         $c->select('value');
-        $c->where(['value:!=' => '']);
+        $c->where(array('value:!=' => ''));
         if ($c->prepare() && $c->stmt->execute()) {
             if (!$result = $c->stmt->fetchAll(PDO::FETCH_ASSOC)) {
-                $result = [];
+                $result = array();
             }
         }
 
@@ -58,7 +64,7 @@ class msComboMultipleType extends msComboboxType
      */
     public function getRowValue($criteria)
     {
-        $result = [];
+        $result = array();
 
         $rows = $this->getValue($criteria);
         foreach ($rows as $row) {
@@ -69,4 +75,4 @@ class msComboMultipleType extends msComboboxType
     }
 }
 
-return 'msComboMultipleType';
+return 'msComboColorsType';

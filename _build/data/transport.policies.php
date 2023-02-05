@@ -1,17 +1,17 @@
 <?php
 
 /** @var modX $modx */
-$policies = array();
+$policies = [];
 
 /** @var modAccessPolicy $policy */
 $policy = $modx->newObject('modAccessPolicy');
-$policy->fromArray(array(
+$policy->fromArray([
     'name' => 'miniShopManagerPolicy',
     'description' => 'A policy for create and update miniShop categories and products.',
     'parent' => 0,
     'class' => '',
     'lexicon' => 'minishop2:permissions',
-    'data' => json_encode(array(
+    'data' => json_encode([
         'mscategory_save' => true,
         'msproduct_save' => true,
         'msproduct_publish' => true,
@@ -26,8 +26,8 @@ $policy->fromArray(array(
         'msproductfile_save' => true,
         'msproductfile_generate' => true,
         'msproductfile_list' => true,
-    )),
-), '', true, true);
+    ]),
+], '', true, true);
 
 $policies[] = $policy;
 

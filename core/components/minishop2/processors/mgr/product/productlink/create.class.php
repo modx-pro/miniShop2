@@ -3,13 +3,12 @@
 class msProductLinkCreateProcessor extends modObjectCreateProcessor
 {
     public $classKey = 'msProductLink';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'msproduct_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -19,10 +18,9 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return array|string
-    */
+     * @return array|string
+     */
     public function process()
     {
         if (!$master = $this->getProperty('master')) {
@@ -37,14 +35,13 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
 
         if ($this->hasErrors()) {
             return $this->failure();
-        } else {
-            if ($master == $slave) {
-                return $this->failure($this->modx->lexicon('ms2_err_link_equal'));
-            }
+        } elseif ($master == $slave) {
+            return $this->failure($this->modx->lexicon('ms2_err_link_equal'));
         }
 
         /** @var msLink $msLink */
-        if (!$msLink = $this->modx->getObject('msLink', array('id' => $link))) {
+        $msLink = $this->modx->getObject('msLink', ['id' => $link]);
+        if (!$msLink) {
             return $this->failure($this->modx->lexicon('ms2_err_no_link'));
         }
         $type = $msLink->get('type');
@@ -54,14 +51,14 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
                 $this->addLink($link, $master, $slave);
                 $this->addLink($link, $slave, $master);
 
-                $q = $this->modx->newQuery('msProductLink', array('link' => $link));
-                $q->andCondition(array('master:IN' => array($master, $slave)));
+                $q = $this->modx->newQuery('msProductLink', ['link' => $link]);
+                $q->andCondition(['master:IN' => [$master, $slave]]);
                 $q->select('slave');
 
                 if ($q->prepare() && $q->stmt->execute()) {
                     $slaves = $row = $q->stmt->fetchAll(PDO::FETCH_COLUMN);
                     $slaves = array_unique($slaves);
-                    $rows = array();
+                    $rows = [];
                     foreach ($slaves as $v) {
                         foreach ($slaves as $v2) {
                             if ($v != $v2) {
@@ -94,14 +91,13 @@ class msProductLinkCreateProcessor extends modObjectCreateProcessor
         return $this->success('');
     }
 
-
     /**
-    * @param int $link
-    * @param int $master
-    * @param int $slave
-    *
-    * @return bool
-    */
+     * @param int $link
+     * @param int $master
+     * @param int $slave
+     *
+     * @return bool
+     */
     public function addLink($link = 0, $master = 0, $slave = 0)
     {
         if ($link && $master && $slave) {

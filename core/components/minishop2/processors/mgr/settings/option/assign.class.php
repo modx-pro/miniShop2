@@ -6,13 +6,12 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
     public $object;
     public $classKey = 'msCategoryOption';
     public $objectType = 'ms2_option';
-    public $languageTopics = array('minishop2:default');
+    public $languageTopics = ['minishop2:default'];
     public $permission = 'mssetting_save';
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function initialize()
     {
         if (!$this->modx->hasPermission($this->permission)) {
@@ -22,10 +21,9 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
         return parent::initialize();
     }
 
-
     /**
-    * @return bool|null|string
-    */
+     * @return bool|null|string
+     */
     public function beforeSet()
     {
         $option_id = $this->getProperty('option_id');
@@ -37,13 +35,13 @@ class msOptionAssignProcessor extends modObjectCreateProcessor
             return $this->modx->lexicon('msCategoryOption_err_ns');
         }
 
-        $key = array(
+        $key = [
             'option_id' => $option_id,
             'category_id' => $category_id,
             'active' => true,
-        );
+        ];
         if (!$this->modx->getCount($this->classKey, $key)) {
-            $key['rank'] = $this->modx->getCount($this->classKey, array('category_id' => $category_id));
+            $key['rank'] = $this->modx->getCount($this->classKey, ['category_id' => $category_id]);
             $this->object->fromArray($key, '', true, true);
         } else {
             return $this->modx->lexicon($this->objectType . '_err_ae', $key);
