@@ -78,46 +78,20 @@ export default class MsCart {
     status(status) {
         //console.log(status);
 
-
-        if (status.total_count > 0) {
-            this.full_carts.forEach(full => this.minishop.show(full));
-            this.empty_carts.forEach(empty => this.minishop.hide(empty));
-        } else {
-            this.full_carts.forEach(full => {
-                this.minishop.hide(full);
-                full.querySelectorAll('[data-ms-cart-products]')?.forEach(el => el.innerHTML = '');
-            });
-            this.empty_carts.forEach(empty => this.minishop.show(empty));
-        }
+        this.toggleCarts(status.total_count);
 
         this.orderBlockHandler(status.total_count);
 
         if (status.html) {
-            for (let k in status.html) {
-                const cartWraps = document.querySelectorAll(`[data-ms-cart-products="${k}"]`);
-                if (cartWraps.length) {
-                    cartWraps.forEach(cart => {
-                        const row = new DOMParser().parseFromString(status.html[k], "text/html").querySelector('[data-ms-product-id]');
-                        this.setFieldsHandlers(row);
-                        cart.appendChild(row);
-                    });
-                }
-            }
+            this.addProductRow(status.html);
         }
 
         if (status.key_old) {
             this.removePosition(status.key_old);
         }
 
-        const changedProduct = document.querySelectorAll(`[data-ms-product-id="${status.key}"]`);
-        if (changedProduct.length) {
-            changedProduct.forEach(product => {
-                if (status.key_new) {
-                    const keyInputs = product.querySelectorAll('[name="key"]');
-                    keyInputs?.forEach(el => el.value = status.key_new);
-                    product.setAttribute('data-ms-product-id', status.key_new);
-                }
-            });
+        if (status.key_new) {
+            this.updateProductKey(status.key, status.key_new);
         }
 
         if (status.cart) {
@@ -132,6 +106,43 @@ export default class MsCart {
 
         if (document.querySelector('[data-ms-order]')) {
             this.minishop.Order.getcost();
+        }
+    }
+
+    toggleCarts(total_count){
+        if (total_count > 0) {
+            this.full_carts.forEach(full => this.minishop.show(full));
+            this.empty_carts.forEach(empty => this.minishop.hide(empty));
+        } else {
+            this.full_carts.forEach(full => {
+                this.minishop.hide(full);
+                full.querySelectorAll('[data-ms-cart-products]')?.forEach(el => el.innerHTML = '');
+            });
+            this.empty_carts.forEach(empty => this.minishop.show(empty));
+        }
+    }
+
+    addProductRow(html){
+        for (let k in html) {
+            const cartWraps = document.querySelectorAll(`[data-ms-cart-products="${k}"]`);
+            if (cartWraps.length) {
+                cartWraps.forEach(cart => {
+                    const row = new DOMParser().parseFromString(html[k], "text/html").querySelector('[data-ms-product-id]');
+                    this.setFieldsHandlers(row);
+                    cart.appendChild(row);
+                });
+            }
+        }
+    }
+
+    updateProductKey(key, key_new) {
+        const changedProduct = document.querySelectorAll(`[data-ms-product-id="${key}"]`);
+        if (changedProduct.length) {
+            changedProduct.forEach(product => {
+                const keyInputs = product.querySelectorAll('[name="key"]');
+                keyInputs?.forEach(el => el.value = key_new);
+                product.setAttribute('data-ms-product-id', key_new);
+            });
         }
     }
 

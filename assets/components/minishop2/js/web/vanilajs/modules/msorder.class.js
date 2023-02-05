@@ -158,15 +158,18 @@ export default class MsOrder {
         };
 
         this.callbacks.submit.response.success = response => {
-            if (response.data.redirect) {
-                document.location.href = response.data.redirect;
+            switch (true) {
+                case Boolean(response.data.redirect) :
+                    document.location.href = response.data.redirect;
+                    break;
+                case Boolean(response.data.msorder):
+                    document.location.href = document.location.origin + document.location.pathname
+                        + (document.location.search ? document.location.search + '&' : '?')
+                        + 'msorder=' + response.data.msorder;
+                    break;
+                default:
+                    location.reload();
             }
-            if (response.data.msorder) {
-                document.location.href = document.location.origin + document.location.pathname
-                    + (document.location.search ? document.location.search + '&' : '?')
-                    + 'msorder=' + response.data.msorder;
-            }
-            location.reload();
         };
 
         this.callbacks.submit.response.error = response => {
