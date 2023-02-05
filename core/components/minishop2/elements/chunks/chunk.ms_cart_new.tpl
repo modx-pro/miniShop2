@@ -1,108 +1,66 @@
-<div id="msCart">
-    {if $products | length == 0}
-        <div class="alert alert-warning">
+{if !$.get['msorder']}
+    <div data-ms-cart="">
+        <div data-ms-cart-empty="" class="container alert alert-warning {($products | length == 0) ? '' : 'ms-hidden'}">
             {'ms2_cart_is_empty' | lexicon}
         </div>
-    {else}
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <tr class="ms-header">
-                    <th class="ms-title">{'ms2_cart_title' | lexicon}</th>
-                    <th class="ms-count">{'ms2_cart_count' | lexicon}</th>
-                    <th class="ms-weight">{'ms2_cart_weight' | lexicon}</th>
-                    <th class="ms-price">{'ms2_cart_price' | lexicon}</th>
-                    <th class="ms-cost">{'ms2_cart_cost' | lexicon}</th>
-                    <th class="ms-remove"></th>
-                </tr>
+        <div data-ms-cart-full="" class="container {($products | length == 0) ? 'ms-hidden' : ''}">
+            <div class="row py-3 cart-header align-items-center d-lg-flex d-none">
+                <div class="col-lg-4">{'ms2_cart_title' | lexicon}</div>
+                <div class="col-lg-2">{'ms2_cart_count' | lexicon}</div>
+                <div class="col-lg-1">{'ms2_cart_weight' | lexicon}</div>
+                <div class="col-lg-2">{'ms2_cart_price' | lexicon}</div>
+                <div class="col-lg-2">{'ms2_cart_cost' | lexicon}</div>
+                <div class="col-lg-1"></div>
+            </div>
 
-                {foreach $products as $product}
-                    {var $image}
-                    {if $product.thumb?}
-                        <img src="{$product.thumb}" alt="{$product.pagetitle}" title="{$product.pagetitle}"/>
-                    {else}
-                        <img src="{'assets_url' | option}components/minishop2/img/web/ms2_small.png"
-                             srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
-                             alt="{$product.pagetitle}" title="{$product.pagetitle}"/>
-                    {/if}
-                    {/var}
-                    <tr id="{$product.key}">
-                        <td class="ms-title">
-                            <div class="d-flex">
-                                <div class="ms-image mw-100 pr-3">
-                                    {if $product.id?}
-                                        <a href="{$product.id | url}">{$image}</a>
-                                    {else}
-                                        {$image}
-                                    {/if}
-                                </div>
-                                <div class="title">
-                                    {if $product.id?}
-                                        <a href="{$product.id | url}">{$product.pagetitle}</a>
-                                    {else}
-                                        {$product.name}
-                                    {/if}
-                                    {if $product.options?}
-                                        <div class="small">
-                                            {$product.options | join : '; '}
-                                        </div>
-                                    {/if}
-                                </div>
-                            </div>
-                        </td>
-                        <td class="ms-count">
-                            <form method="post" class="ms2_form" role="form">
-                                <input type="hidden" name="key" value="{$product.key}"/>
-                                <button type="submit" class="ms-hidden" name="ms2_action" value="cart/change"/>
-                                </button>
-                                <div class="ms-input-number-wrap">
-                                    <button class="ms-input-number-btn ms-input-number-minus btn btn-sm btn-secondary" type="button">&#8722;</button>
-                                    <input class="ms-input-number-emulator" value="{$product.count}" name="count" type="text">
-                                    <button class="ms-input-number-btn ms-input-number-plus btn btn-sm btn-secondary" type="button">&#43;</button>
-                                </div>
-                            </form>
-                        </td>
-                        <td class="ms-weight">
-                            <span class="text-nowrap">{$product.weight} {'ms2_frontend_weight_unit' | lexicon}</span>
-                        </td>
-                        <td class="ms-price">
-                            <span class="mr-2 text-nowrap">{$product.price} {'ms2_frontend_currency' | lexicon}</span>
-                            {if $product.old_price?}
-                                <span class="old_price text-nowrap">{$product.old_price} {'ms2_frontend_currency' | lexicon}</span>
-                            {/if}
-                        </td>
-                        <td class="ms-cost">
-                            <span class="mr-2 text-nowrap"><span class="ms2_cost">{$product.cost}</span> {'ms2_frontend_currency' | lexicon}</span>
-                        </td>
-                        <td class="ms-remove">
-                            <form method="post" class="ms2_form text-md-right">
-                                <input type="hidden" name="key" value="{$product.key}">
-                                <button class="btn btn-sm btn-danger" type="submit" name="ms2_action" value="cart/remove">&times;</button>
-                            </form>
-                        </td>
-                    </tr>
-                {/foreach}
+            <div data-ms-cart-products="{$scriptProperties.tplKey}">
+                {$products}
+            </div>
 
-                <tr class="ms-footer">
-                    <th class="total">{'ms2_cart_total' | lexicon}:</th>
-                    <th class="total_count">
-                        <span class="ms2_total_count">{$total.count}</span>
+            <div class="row py-3 cart-header align-items-center">
+                <div class="col-lg-4">{'ms2_cart_total' | lexicon}:</div>
+                <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                    <div>
+                        <span class="ms2_total_count" data-ms-cart-count="">{$total.count}</span>
                         {'ms2_frontend_count_unit' | lexicon}
-                    </th>
-                    <th class="total_weight text-nowrap" colspan="2">
-                        <span class="ms2_total_weight">{$total.weight}</span>
+                    </div>
+                    <br>
+                    <div>
+                        Позиций:
+                        <span class="" data-ms-cart-positions="">{$total.positions}</span>
+                        {'ms2_frontend_count_unit' | lexicon}
+                    </div>
+                </div>
+                <div class="col-lg-1 d-flex align-items-center justify-content-center">
+                    <div>
+                        <span class="ms2_total_weight" data-ms-cart-weight>{$total.weight}</span>
                         {'ms2_frontend_weight_unit' | lexicon}
-                    </th>
-                    <th class="total_cost text-nowrap" colspan="2">
-                        <span class="ms2_total_cost">{$total.cost}</span>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2 d-flex align-items-center justify-content-center flex-column">
+                    <div>
+                        <span class="ms2_total_cost" data-ms-cart-cost>{$total.cost}</span>
                         {'ms2_frontend_currency' | lexicon}
-                    </th>
-                </tr>
-            </table>
+                        <span class="text-decoration-line-through {!$total.old_cost ? 'ms-hidden' : ''}" data-ms-fields-wrap>
+                        <span data-ms-cart-old-cost>{$total.old_cost}</span>
+                        {'ms2_frontend_currency' | lexicon}
+                    </span>
+                    </div>
+
+                    <div class="old-price {!$total.discount ? 'ms-hidden' : ''}" data-ms-fields-wrap>
+                        <span data-ms-cart-discount>{$total.discount}</span>{'ms2_frontend_currency' | lexicon}<br>
+                        (<span data-ms-cart-discount-percent>{$total.discount_percent}</span>%)
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+
+            <form method="post" class="row ms2_form my-3">
+                <button type="submit" name="ms2_action" value="cart/clean" class="col-auto btn btn-danger">
+                    {'ms2_cart_clean' | lexicon}
+                </button>
+            </form>
         </div>
-        <form method="post" class="ms2_form">
-            <button type="submit" name="ms2_action" value="cart/clean" class="btn btn-danger">
-                {'ms2_cart_clean' | lexicon}
-            </button>
-        </form>
-    {/if}
-</div>
+    </div>
+{/if}

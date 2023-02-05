@@ -13,7 +13,7 @@ export default class MiniShop {
             formMethod: 'POST',
         };
         this.miniShop2Config = Object.assign(defaults, miniShop2Config);
-
+        this.hiddenClass = this.miniShop2Config.hiddenClass || 'ms-hidden';
         this.miniShop2Config.callbacksObjectTemplate = this.callbacksObjectTemplate;
         this.Callbacks = this.miniShop2Config.Callbacks = {
             Cart: {
@@ -38,21 +38,24 @@ export default class MiniShop {
         this.formData = null;
         this.Message = null;
         this.timeout = 300;
+        this.loadedEvent = new CustomEvent('minishop_loaded');
 
         this.initialize();
     }
 
-    async setHandler(property){
+    async setHandler(property) {
         let prefix = property.toLowerCase(),
             response = false,
             messageSettings = false;
-        if(prefix === 'message'){
+        if (prefix === 'message') {
             prefix = 'notify';
             response = await this.sendRequest({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
             if (response.ok) {
                 messageSettings = await response.json();
             }
         }
+
+        const lastProperty = this.miniShop2Config.properties[this.miniShop2Config.properties.length - 1];
         const classPath = this.miniShop2Config[prefix + 'ClassPath'];
         const className = this.miniShop2Config[prefix + 'ClassName'];
         const config = messageSettings ? messageSettings[className] : this;
@@ -60,15 +63,20 @@ export default class MiniShop {
         try {
             const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
+            if (lastProperty === property && typeof this[property] !== 'undefined') {
+                document.dispatchEvent(this.loadedEvent);
+            }
         } catch (e) {
             throw new Error(this.miniShop2Config.moduleImportErrorMsg);
         }
     }
 
     async initialize() {
-        if(!this.miniShop2Config.properties.length) { throw new Error('Не передан массив имён обработчиков'); }
+        if (!this.miniShop2Config.properties.length) {
+            throw new Error('Не передан массив имён обработчиков');
+        }
 
-        await this.miniShop2Config.properties.forEach(property => {
+        this.miniShop2Config.properties.forEach(property => {
             this.setHandler(property);
         });
 
@@ -167,13 +175,13 @@ export default class MiniShop {
 
     sendRequest(params) {
         const body = params.body || new FormData(),
-            headers = params.headers || { 'X-Requested-With': 'XMLHttpRequest' },
+            headers = params.headers || {'X-Requested-With': 'XMLHttpRequest'},
             url = params.url || this.miniShop2Config.actionUrl,
             method = params.method || this.miniShop2Config.formMethod;
 
-        let options = { method, headers, body };
+        let options = {method, headers, body};
         if (method === 'GET') {
-            options = { method, headers };
+            options = {method, headers};
         }
 
         return fetch(url, options);
@@ -196,7 +204,8 @@ export default class MiniShop {
             data += '&ctx=' + this.miniShop2Config.ctx;
         }
 
-        const response = await this.sendRequest({ body: data, headers });
+        const response = await this.sendRequest({body: data, headers});
+
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
@@ -276,5 +285,56 @@ export default class MiniShop {
             : '');
 
         return km + kw + kd;
+    }
+
+    setValues(data, prefix, exclude) {
+        for (let i in data) {
+            let j = i.replaceAll('_', '-');
+            j = j.replace('total-', '');
+            if (exclude.length > 0 && exclude.indexOf(j) !== -1) {
+                continue;
+            }
+
+            const elements = document.querySelectorAll(prefix + j + ']');
+            let value = ['name', 'thumb'].indexOf(i) !== -1 ? data[i] : Number(data[i]);
+
+            if (typeof value === 'number') {
+                value = i.indexOf('weight') !== -1 ? this.formatWeight(value) : this.formatPrice(value)
+            }
+            if (elements.length) {
+                elements.forEach(el => {
+                    switch (el.tagName) {
+                        case 'IMG':
+                            el.src = value;
+                            break;
+                        case 'INPUT':
+                            el.value = value;
+                            el.checked = true;
+                            break;
+                        default:
+                            //console.log(el, prefix + j + ']', value);
+                            el.innerText = value;
+                            break;
+                    }
+
+                    if (data[i] && data[i] > 0) {
+                        this.show(el.closest('[data-ms-fields-wrap]'));
+                    } else {
+                        this.hide(el.closest('[data-ms-fields-wrap]'));
+                    }
+                });
+            }
+        }
+    }
+
+    hide(node) {
+        if (node) {
+            node.classList.add(this.hiddenClass);
+            node.checked = false;
+        }
+    }
+
+    show(node) {
+        node?.classList.remove(this.hiddenClass);
     }
 }
