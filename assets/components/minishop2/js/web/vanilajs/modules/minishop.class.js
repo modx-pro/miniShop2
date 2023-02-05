@@ -311,7 +311,6 @@ export default class MiniShop {
                             el.value = value;
                             break;
                         default:
-                            //console.log(el, prefix + j + ']', value);
                             el.innerText = value;
                             break;
                     }

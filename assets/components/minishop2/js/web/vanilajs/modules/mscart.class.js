@@ -91,14 +91,12 @@ export default class MsCart {
         }
 
         if (status.key_new) {
-            this.updateProductKey(status.key, status.key_new);
+            this.updateProductKey(status.key, status.key_new, status.cart);
         }
 
         if (status.cart) {
             for (let k in status.cart) {
-                if (document.querySelector('[data-ms-product-id="' + status.cart[k]['key'] + '"]')) {
-                    this.minishop.setValues(status.cart[k], '[data-ms-product-id="' + status.cart[k]['key'] + '"] [data-ms-product-', ['id', 'key', 'ctx', 'options']);
-                }
+                this.minishop.setValues(status.cart[k], '[data-ms-product-id="' + status.cart[k]['key'] + '"] [data-ms-product-', ['id', 'key', 'ctx', 'options']);
             }
         }
 
@@ -109,7 +107,7 @@ export default class MsCart {
         }
     }
 
-    toggleCarts(total_count){
+    toggleCarts(total_count) {
         if (total_count > 0) {
             this.full_carts.forEach(full => this.minishop.show(full));
             this.empty_carts.forEach(empty => this.minishop.hide(empty));
@@ -122,7 +120,7 @@ export default class MsCart {
         }
     }
 
-    addProductRow(html){
+    addProductRow(html) {
         for (let k in html) {
             const cartWraps = document.querySelectorAll(`[data-ms-cart-products="${k}"]`);
             if (cartWraps.length) {
@@ -135,13 +133,23 @@ export default class MsCart {
         }
     }
 
-    updateProductKey(key, key_new) {
+    updateProductKey(key, key_new, cart) {
         const changedProduct = document.querySelectorAll(`[data-ms-product-id="${key}"]`);
         if (changedProduct.length) {
             changedProduct.forEach(product => {
                 const keyInputs = product.querySelectorAll('[name="key"]');
                 keyInputs?.forEach(el => el.value = key_new);
                 product.setAttribute('data-ms-product-id', key_new);
+
+                product.querySelectorAll('[data-ms-product-options]')?.forEach(option => {
+                    const optionName = option.name.match(/options\[(.*)\]/)[1];
+                    const value = cart[key_new]['options'][optionName];
+                    if (option.type === 'checkbox' || option.type === 'radio') {
+                        option.checked = cart[key_new]['options'].hasOwnProperty(optionName);
+                    }else{
+                        option.value = value;
+                    }
+                });
             });
         }
     }

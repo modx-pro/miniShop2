@@ -42,13 +42,13 @@
                     <div>
                         <span class="ms2_total_cost" data-ms-cart-cost>{$total.cost}</span>
                         {'ms2_frontend_currency' | lexicon}
-                        <span class="text-decoration-line-through" data-ms-fields-wrap>
+                        <span class="text-decoration-line-through {!$total.old_cost ? 'ms-hidden' : ''}" data-ms-fields-wrap>
                         <span data-ms-cart-old-cost>{$total.old_cost}</span>
                         {'ms2_frontend_currency' | lexicon}
                     </span>
                     </div>
 
-                    <div class="old-price" data-ms-fields-wrap>
+                    <div class="old-price {!$total.discount ? 'ms-hidden' : ''}" data-ms-fields-wrap>
                         <span data-ms-cart-discount>{$total.discount}</span>{'ms2_frontend_currency' | lexicon}<br>
                         (<span data-ms-cart-discount-percent>{$total.discount_percent}</span>%)
                     </div>
