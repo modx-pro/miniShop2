@@ -1,10 +1,11 @@
 <?php
 
 /** @var modX $modx */
-/** @var array $sources */
-$snippets = array();
 
-$tmp = array(
+/** @var array $sources */
+$snippets = [];
+
+$tmp = [
     'msProducts' => 'ms_products',
     'msCart' => 'ms_cart',
     'msCartNew' => 'ms_cart_new',
@@ -15,12 +16,12 @@ $tmp = array(
     'msOrderNew' => 'ms_order_new',
     'msGetOrder' => 'ms_get_order',
     'msProductOptions' => 'ms_product_options',
-);
+];
 
 foreach ($tmp as $k => $v) {
     /** @var modSnippet $snippet */
     $snippet = $modx->newObject('modSnippet');
-    $snippet->fromArray(array(
+    $snippet->fromArray([
         'id' => 0,
         'name' => $k,
         'description' => '',
@@ -28,7 +29,7 @@ foreach ($tmp as $k => $v) {
         'static' => BUILD_SNIPPET_STATIC,
         'source' => 1,
         'static_file' => 'core/components/' . PKG_NAME_LOWER . '/elements/snippets/snippet.' . $v . '.php',
-    ), '', true, true);
+    ], '', true, true);
 
     /** @noinspection PhpIncludeInspection */
     $properties = include $sources['build'] . 'properties/properties.' . $v . '.php';

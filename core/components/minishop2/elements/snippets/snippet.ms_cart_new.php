@@ -134,7 +134,7 @@ foreach ($cart as $key => $entry) {
     $product['cost'] = $miniShop2->formatPrice($entry['cost']);
     $product['discount_price'] = $miniShop2->formatPrice($entry['discount_price']);
     $product['discount_cost'] = $miniShop2->formatPrice($entry['discount_cost']);
-   
+
     $products .= $pdoFetch->getChunk($tplRow, $product);
 }
 $total['count'] = $status['total_count'];

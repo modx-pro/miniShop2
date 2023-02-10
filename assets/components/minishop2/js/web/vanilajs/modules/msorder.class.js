@@ -59,6 +59,7 @@ export default class MsOrder {
             paymentInputs = Array.from(paymentInputs);
             paymentInputs.forEach(el => {
                 el.disabled = true;
+                el.checked = false;
                 this.minishop.hide(el.closest(this.inputParent));
             });
 
@@ -108,7 +109,7 @@ export default class MsOrder {
                 }
             }
 
-            field.value = response.data[key] || '';
+            field.value = response.data.hasOwnProperty(key) ? response.data[key] : '';
             field.classList.remove('error');
             field.closest(this.inputParent).classList.remove('error');
         }

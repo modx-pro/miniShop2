@@ -1,9 +1,9 @@
 <?php
 
 /** @var modX $modx */
-$chunks = array();
+$chunks = [];
 
-$tmp = array(
+$tmp = [
     'msProduct.content' => 'ms_product_content',
     'msProduct.content.fenom' => 'ms_product_content_fenom',
     'tpl.msProducts.row' => 'ms_products_row',
@@ -28,13 +28,13 @@ $tmp = array(
     'tpl.msEmail.paid.manager' => 'ms_email_paid_manager',
     'tpl.msEmail.sent.user' => 'ms_email_sent_user',
     'tpl.msEmail.cancelled.user' => 'ms_email_cancelled_user',
-);
+];
 
 foreach ($tmp as $k => $v) {
     /** @var modChunk $chunk */
     $chunk = $modx->newObject('modChunk');
     /** @var array $sources */
-    $chunk->fromArray(array(
+    $chunk->fromArray([
         'id' => 0,
         'name' => $k,
         'description' => '',
@@ -42,7 +42,7 @@ foreach ($tmp as $k => $v) {
         'static' => BUILD_CHUNK_STATIC,
         'source' => 1,
         'static_file' => 'core/components/' . PKG_NAME_LOWER . '/elements/chunks/chunk.' . $v . '.tpl',
-    ), '', true, true);
+    ], '', true, true);
     $chunks[] = $chunk;
 }
 

@@ -81,11 +81,11 @@ export default class MiniShop {
         });
 
         document.addEventListener('submit', e => {
-            e.preventDefault();
             const form = e.target;
             const action = form.querySelector(this.action) ? form.querySelector(this.action).value : '';
 
             if (action) {
+                e.preventDefault();
                 const formData = new FormData(form),
                     components = this.getObjectMethod(action);
                 formData.append(this.actionName, action);
@@ -279,7 +279,7 @@ export default class MiniShop {
         km = j
             ? i.substring(0, j) + thousandsSep
             : '';
-        kw = i.substring(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandsSep);
+        kw = i.substring(j).replace(/(\d{ 3 })(?=\d)/g, "$1" + thousandsSep);
         kd = (decimals
             ? decPoint + Math.abs(number - i).toFixed(decimals).replace(/-/, '0').slice(2)
             : '');
@@ -291,15 +291,15 @@ export default class MiniShop {
         for (let i in data) {
             let j = i.replaceAll('_', '-');
             j = j.replace('total-', '');
-            if (exclude.length > 0 && exclude.indexOf(j) !== -1) {
+            if (exclude.length > 0 && exclude.includes(j)) {
                 continue;
             }
 
             const elements = document.querySelectorAll(prefix + j + ']');
-            let value = ['name', 'thumb'].indexOf(i) !== -1 ? data[i] : Number(data[i]);
+            let value = ['name', 'thumb'].includes(i) ? data[i] : Number(data[i]);
 
             if (typeof value === 'number') {
-                value = i.indexOf('weight') !== -1 ? this.formatWeight(value) : this.formatPrice(value)
+                value = i.includes('weight') ? this.formatWeight(value) : this.formatPrice(value)
             }
             if (elements.length) {
                 elements.forEach(el => {
@@ -309,18 +309,14 @@ export default class MiniShop {
                             break;
                         case 'INPUT':
                             el.value = value;
-                            el.checked = true;
                             break;
                         default:
-                            //console.log(el, prefix + j + ']', value);
                             el.innerText = value;
                             break;
                     }
 
-                    if (data[i] && data[i] > 0) {
-                        this.show(el.closest('[data-ms-fields-wrap]'));
-                    } else {
-                        this.hide(el.closest('[data-ms-fields-wrap]'));
+                    if (el.closest('[data-ms-fields-wrap]')) {
+                        this[(data[i] && data[i] > 0) ? 'show' : 'hide'](el.closest('[data-ms-fields-wrap]'));
                     }
                 });
             }
@@ -328,13 +324,15 @@ export default class MiniShop {
     }
 
     hide(node) {
-        if (node) {
-            node.classList.add(this.hiddenClass);
-            node.checked = false;
-        }
+        this.toggle(node, 'add');
     }
 
     show(node) {
-        node?.classList.remove(this.hiddenClass);
+        this.toggle(node, 'remove');
+    }
+
+    toggle(node, method) {
+        if (!(node instanceof HTMLElement)) throw new Error(node + ' не является HTML-элементом.');
+        node.classList[method](this.hiddenClass);
     }
 }

@@ -1,4 +1,4 @@
-{var $image}
+{set $image}
 {if $thumb?}
     <img data-ms-product-thumb src="{$thumb}" alt="{$pagetitle}" title="{$pagetitle}"/>
 {else}
@@ -6,7 +6,7 @@
          srcset="{'assets_url' | option}components/minishop2/img/web/ms2_small@2x.png 2x"
          alt="{$pagetitle}" title="{$pagetitle}"/>
 {/if}
-{/var}
+{/set}
 <div data-ms-product-id="{$key}" class="row justify-content-between py-3 product-row">
     <div class="col-lg-4 col-8 mb-lg-0 mb-3 d-flex">
         <div class="mw-100">

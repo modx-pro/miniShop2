@@ -178,7 +178,7 @@ class msCartHandler implements msCartInterface
             $discount_percent = round($discount_price / $old_price * 100, $this->config['percent_precision']);
         }
 
-        $item = array(
+        $item = [
             'id' => $product->get('id'),
             'ctx' => $ctx_key,
             'key' => $key,
@@ -195,15 +195,15 @@ class msCartHandler implements msCartInterface
             'options' => $this->cart[$key]['options'] ?: $options,
             'cost' => $price * $count,
             'old_cost' => $old_price * $count,
-            'properties' => $this->cart[$key]['properties'] ?: array('original_price' => $product->getPrice(), 'original_old_price' => $product->get('old_price'))
-        );
+            'properties' => $this->cart[$key]['properties'] ?: ['original_price' => $product->getPrice(), 'original_old_price' => $product->get('old_price')]
+        ];
 
         return $item;
     }
 
     public function getProductRow($key, $product)
     {
-        $html = array();
+        $html = [];
         if (isset($_SESSION['minishop2']['msCart']) && is_array($_SESSION['minishop2']['msCart'])) {
             foreach ($_SESSION['minishop2']['msCart'] as $tplKey => $props) {
                 $data = array_merge($product, $this->cart[$key]);
@@ -269,7 +269,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function change($key, $count, $options = array())
+    public function change($key, $count, $options = [])
     {
         $status = [];
         $keyOld = false;
@@ -365,7 +365,6 @@ class msCartHandler implements msCartInterface
             return $this->error($response['message']);
         }
 
-
         return $this->success('ms2_cart_clean_success', $this->status());
     }
 
@@ -403,11 +402,9 @@ class msCartHandler implements msCartInterface
             'status' => $status,
             'cart' => $this,
         ]);
-
         if ($response['success']) {
             $status = $response['data']['status'];
         }
-
         if ($status['total_count'] > 0) {
             $this->storageHandler->set($this->cart);
         }

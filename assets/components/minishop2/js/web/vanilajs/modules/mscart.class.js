@@ -12,15 +12,10 @@ export default class MsCart {
             clean: this.config.callbacksObjectTemplate(),
         }
 
-        this.total_weight = document.querySelectorAll('[data-ms-cart] [data-ms-cart-weight]');
-        this.total_count = document.querySelectorAll('[data-ms-cart] [data-ms-cart-count]');
-        this.total_cost = document.querySelectorAll('[data-ms-cart] [data-ms-cart-cost]');
-        this.total_discount = document.querySelectorAll('[data-ms-cart] [data-ms-cart-discount]');
-        this.full_carts = document.querySelectorAll('[data-ms-cart] [data-ms-cart-full]');
-        this.empty_carts = document.querySelectorAll('[data-ms-cart] [data-ms-cart-empty]');
+        this.fullCarts = document.querySelectorAll('[data-ms-cart] [data-ms-cart-full]');
+        this.emptyCarts = document.querySelectorAll('[data-ms-cart] [data-ms-cart-empty]');
         this.options = document.querySelectorAll('[data-ms-cart] [data-ms-product-options]');
         this.orderForms = document.querySelectorAll('[data-ms-order]');
-        this.cost = '[data-ms-product-cost]';
 
         this.eventSubmit = new Event('submit', {bubbles: true, cancelable: true});
 
@@ -28,17 +23,17 @@ export default class MsCart {
     }
 
     initialize() {
-        if (!this.full_carts.length) {
+        if (!this.fullCarts.length) {
             return;
         }
 
-        this.full_carts.forEach(cart => {
+        this.fullCarts.forEach(cart => {
             this.setFieldsHandlers(cart);
         });
     }
 
     setFieldsHandlers(parent) {
-        parent.querySelectorAll('input[name=count], [data-ms-product-options]')?.forEach(el => {
+        parent.querySelectorAll('input[name=count], [data-ms-product-options]').forEach(el => {
             if (el.name === 'count') {
                 new CustomInputNumber(el, this.config.inputNumber);
             }
@@ -76,23 +71,16 @@ export default class MsCart {
     }
 
     status(status) {
-        //console.log(status);
 
         this.toggleCarts(status.total_count);
 
         this.orderBlockHandler(status.total_count);
 
-        if (status.html) {
-            this.addProductRow(status.html);
-        }
+        this.addProductRow(status.html);
 
-        if (status.key_old) {
-            this.removePosition(status.key_old);
-        }
+        this.removePosition(status.key_old);
 
-        if (status.key_new) {
-            this.updateProductKey(status.key, status.key_new, status.cart);
-        }
+        this.updateProductKey(status.key, status.key_new, status.cart);
 
         if (status.cart) {
             for (let k in status.cart) {
@@ -109,18 +97,20 @@ export default class MsCart {
 
     toggleCarts(total_count) {
         if (total_count > 0) {
-            this.full_carts.forEach(full => this.minishop.show(full));
-            this.empty_carts.forEach(empty => this.minishop.hide(empty));
+            this.fullCarts.forEach(full => this.minishop.show(full));
+            this.emptyCarts.forEach(empty => this.minishop.hide(empty));
         } else {
-            this.full_carts.forEach(full => {
+            this.fullCarts.forEach(full => {
                 this.minishop.hide(full);
-                full.querySelectorAll('[data-ms-cart-products]')?.forEach(el => el.innerHTML = '');
+                full.querySelectorAll('[data-ms-cart-products]').forEach(el => el.innerHTML = '');
             });
-            this.empty_carts.forEach(empty => this.minishop.show(empty));
+            this.emptyCarts.forEach(empty => this.minishop.show(empty));
         }
     }
 
     addProductRow(html) {
+        if (!html) return false;
+
         for (let k in html) {
             const cartWraps = document.querySelectorAll(`[data-ms-cart-products="${k}"]`);
             if (cartWraps.length) {
@@ -134,6 +124,8 @@ export default class MsCart {
     }
 
     updateProductKey(key, key_new, cart) {
+        if (!key_new) return false;
+
         const changedProduct = document.querySelectorAll(`[data-ms-product-id="${key}"]`);
         if (changedProduct.length) {
             changedProduct.forEach(product => {
@@ -141,12 +133,12 @@ export default class MsCart {
                 keyInputs?.forEach(el => el.value = key_new);
                 product.setAttribute('data-ms-product-id', key_new);
 
-                product.querySelectorAll('[data-ms-product-options]')?.forEach(option => {
+                product.querySelectorAll('[data-ms-product-options]').forEach(option => {
                     const optionName = option.name.match(/options\[(.*)\]/)[1];
                     const value = cart[key_new]['options'][optionName];
                     if (option.type === 'checkbox' || option.type === 'radio') {
                         option.checked = cart[key_new]['options'].hasOwnProperty(optionName);
-                    }else{
+                    } else {
                         option.value = value;
                     }
                 });
@@ -155,6 +147,8 @@ export default class MsCart {
     }
 
     removePosition(key) {
+        if (!key) return false;
+
         const changedProduct = document.querySelectorAll(`[data-ms-product-id="${key}"]`);
         if (changedProduct.length) {
             changedProduct.forEach(product => product.remove())
@@ -162,18 +156,11 @@ export default class MsCart {
     }
 
     orderBlockHandler(count) {
-        if (this.orderForms.length) {
-            if (count > 0) {
-                this.orderForms.forEach(order => {
-                    this.minishop.show(order);
-                    order.querySelectorAll('input, select, button, textarea')?.forEach(el => el.disabled = false);
-                });
-            } else {
-                this.orderForms.forEach(order => {
-                    this.minishop.hide(order);
-                    order.querySelectorAll('input, select, button, textarea')?.forEach(el => el.disabled = true);
-                });
-            }
-        }
+        if (!this.orderForms.length) return false;
+
+        this.orderForms.forEach(order => {
+            this.minishop[count ? 'show' : 'hide'](order);
+            order.querySelectorAll('input, select, button, textarea').forEach(el => el.disabled = !count);
+        });
     }
 }
