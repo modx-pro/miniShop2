@@ -56,6 +56,19 @@ export default class MsOrder {
         }
     }
 
+    triggerClick() {
+        if (this.order.querySelector(this.paymentInput + ':checked:disabled')) {
+            let issetElement = false;
+            let paymentInputs = this.order.querySelectorAll(this.paymentInput);
+            paymentInputs.forEach(element => {
+                if (!issetElement && !element.checked && !element.disabled) {
+                    element.click();
+                    issetElement = true;
+                }
+            });
+        }
+    }
+
     updatePayments(payments) {
         payments = payments.replace(/[\[\]]/g, '').split(',');
         let paymentInputs = this.order.querySelectorAll(this.paymentInput);
@@ -78,11 +91,7 @@ export default class MsOrder {
                 }
             }
 
-            const checked = paymentInputs.filter(el => el.checked && (el.offsetWidth > 0 || el.offsetHeight > 0));
-            const visible = paymentInputs.filter(el => (el.offsetWidth > 0 || el.offsetHeight > 0));
-            if (!checked.length) {
-                visible[0].checked = true;
-            }
+            this.triggerClick();
         }
     }
 
@@ -179,8 +188,9 @@ export default class MsOrder {
                 document.location.href = document.location.origin + document.location.pathname
                     + (document.location.search ? document.location.search + '&' : '?')
                     + 'msorder=' + response.data.msorder;
+            } else {
+                location.reload();
             }
-            location.reload();
         };
 
         this.callbacks.submit.response.error = response => {
