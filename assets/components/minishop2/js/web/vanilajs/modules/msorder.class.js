@@ -188,9 +188,8 @@ export default class MsOrder {
                 document.location.href = document.location.origin + document.location.pathname
                     + (document.location.search ? document.location.search + '&' : '?')
                     + 'msorder=' + response.data.msorder;
-            } else {
-                location.reload();
             }
+            location.reload();
         };
 
         this.callbacks.submit.response.error = response => {
