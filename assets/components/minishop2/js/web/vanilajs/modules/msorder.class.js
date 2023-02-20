@@ -75,10 +75,10 @@ export default class MsOrder {
                 }
             }
 
-            const checked = paymentInputs.filter(el => el.checked && !(el.closest(this.inputParent).classList.contains(this.minishop.hiddenClass)));
-            const visible = paymentInputs.filter(el => !(el.closest(this.inputParent).classList.contains(this.minishop.hiddenClass)));
-            if (!checked.length && visible[0]) {
-                visible[0].checked = true;
+            const checked = paymentInputs.filter(el => el.checked && !el.disabled);
+            const enabled = paymentInputs.filter(el => !el.disabled);
+            if (!checked.length && enabled[0]) {
+                enabled[0].checked = true;
             }
         }
     }
