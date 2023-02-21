@@ -395,11 +395,11 @@ class msCartHandler implements msCartInterface
         $key = '';
 
         foreach ($key_fields as $key_field) {
-            if (isset($data[$key_field])) {
-                if (is_array($data[$key_field])) {
-                    $key .= json_encode($data[$key_field], JSON_THROW_ON_ERROR);
+            if (isset($product[$key_field])) {
+                if (is_array($product[$key_field])) {
+                    $key .= json_encode($product[$key_field], JSON_THROW_ON_ERROR);
                 } else {
-                    $key .= $data[$key_field];
+                    $key .= $product[$key_field];
                 }
             }
         }
