@@ -452,8 +452,7 @@ class msOrderHandler implements msOrderInterface
                 ['id' => $this->order['delivery']]
             )
         ) {
-            
-            $cost += $delivery_cost = $cost - $delivery->getCost($this, $cost);
+            $cost += $delivery_cost =  $delivery->getCost($this, $cost) - $cost;
             if ($this->storage === 'db') {
                 $this->storageHandler->setDeliveryCost($delivery_cost);
             }
