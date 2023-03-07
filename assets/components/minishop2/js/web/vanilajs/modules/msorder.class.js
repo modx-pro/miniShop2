@@ -166,7 +166,7 @@ export default class MsOrder {
         this.callbacks.submit.before = () => {
             const elements = this.order.querySelectorAll('button, a');
             elements.forEach(el => {
-                el.disabled = false
+                el.disabled = true
             });
         };
 
