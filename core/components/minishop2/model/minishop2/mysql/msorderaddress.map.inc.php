@@ -36,7 +36,7 @@ $xpdo_meta_map['msOrderAddress'] = [
                     'precision' => '10',
                     'attributes' => 'unsigned',
                     'phptype' => 'integer',
-                    'null' => false,
+                    'null' => true,
                 ],
             'user_id' =>
                 [

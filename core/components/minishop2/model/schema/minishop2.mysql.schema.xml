@@ -338,7 +338,7 @@
 
 
     <object class="msOrderAddress" table="ms2_order_addresses" extends="xPDOSimpleObject">
-        <field key="order_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="order_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"/>
         <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
         <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
         <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
