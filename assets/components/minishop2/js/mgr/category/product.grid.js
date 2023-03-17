@@ -320,7 +320,7 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
             url: miniShop2.config['connector_url'],
             params: {
                 action: 'mgr/gallery/generateall',
-                product_id: ids,
+                ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
                 success: {

@@ -23,33 +23,33 @@ class msProductFileGenerateAllProcessor extends modObjectProcessor
      */
     public function process()
     {
-        $product_id = (int)$this->getProperty('product_id');
-        if (empty($product_id)) {
+        $ids = json_decode($this->getProperty('ids'), true);
+        if (empty($ids)) {
             return $this->failure($this->modx->lexicon('ms2_gallery_err_ns'));
         }
-
-        $files = $this->modx->getCollection('msProductFile', ['product_id' => $product_id, 'parent' => 0]);
-        /** @var msProductFile $file */
-        foreach ($files as $file) {
-            $children = $file->getMany('Children');
-            /** @var msProductFile $child */
-            foreach ($children as $child) {
-                $child->remove();
+        foreach ($ids as $id) {
+            $files = $this->modx->getCollection('msProductFile', ['product_id' => $id, 'parent' => 0]);
+            /** @var msProductFile $file */
+            foreach ($files as $file) {
+                $children = $file->getMany('Children');
+                /** @var msProductFile $child */
+                foreach ($children as $child) {
+                    $child->remove();
+                }
+                $file->generateThumbnails();
             }
-            $file->generateThumbnails();
-        }
 
-        /** @var msProductData $product */
-        $product = $this->modx->getObject('msProductData', ['id' => $product_id]);
-        if ($product) {
-            $thumb = $product->updateProductImage();
-            /** @var miniShop2 $miniShop2 */
-            if (empty($thumb) && $miniShop2 = $this->modx->getService('miniShop2')) {
-                $thumb = $miniShop2->config['defaultThumb'];
+            /** @var msProductData $product */
+            $product = $this->modx->getObject('msProductData', ['id' => $id]);
+            if ($product) {
+                $thumb = $product->updateProductImage();
+                /** @var miniShop2 $miniShop2 */
+                if (empty($thumb) && $miniShop2 = $this->modx->getService('miniShop2')) {
+                    $thumb = $miniShop2->config['defaultThumb'];
+                }
+                return $this->success('', ['thumb' => $thumb]);
             }
-            return $this->success('', ['thumb' => $thumb]);
         }
-
         return $this->success();
     }
 }
