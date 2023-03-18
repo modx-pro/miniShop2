@@ -3,13 +3,12 @@ import CustomInputNumber from './custominputnumber.class.js';
 export default class MsCart {
     constructor(minishop) {
         this.minishop = minishop;
-        this.config = minishop.miniShop2Config;
 
         this.callbacks = {
-            add: this.config.callbacksObjectTemplate(),
-            remove: this.config.callbacksObjectTemplate(),
-            change: this.config.callbacksObjectTemplate(),
-            clean: this.config.callbacksObjectTemplate(),
+            add: this.minishop.config.callbacksObjectTemplate(),
+            remove: this.minishop.config.callbacksObjectTemplate(),
+            change: this.minishop.config.callbacksObjectTemplate(),
+            clean: this.minishop.config.callbacksObjectTemplate(),
         }
 
         this.cart = document.querySelector('#msCart');
@@ -34,7 +33,7 @@ export default class MsCart {
         }
 
         this.cart.querySelectorAll('input[name=count]')?.forEach(el => {
-            new CustomInputNumber(el, this.config.inputNumber);
+            new CustomInputNumber(el, this.minishop.config.inputNumber);
             el.addEventListener('change', () => el.value && el.closest(this.minishop.form).dispatchEvent(this.eventSubmit));
         });
     }
