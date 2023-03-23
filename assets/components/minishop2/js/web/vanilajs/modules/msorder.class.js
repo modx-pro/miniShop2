@@ -11,12 +11,13 @@ export default class MsOrder {
             getrequired: this.config.callbacksObjectTemplate(),
         };
 
-        this.order = document.querySelector('#msOrder');
         this.deliveryInput = 'input[name="delivery"]';
         this.inputParent = '.input-parent';
         this.paymentInput = 'input[name="payment"]';
         this.paymentInputUniquePrefix = '#payment_';
         this.deliveryInputUniquePrefix = '#delivery_';
+        this.orderSelector = `#msOrder`;
+        this.order = document.querySelector(this.orderSelector);
 
         this.orderCost = document.querySelector('#ms2_order_cost');
         this.cartCost = document.querySelector('#ms2_order_cart_cost');
@@ -31,7 +32,6 @@ export default class MsOrder {
     initialize() {
         if (this.order) {
             const cleanBtn = this.order.querySelector(`[name="${this.minishop.actionName}"][value="order/clean"]`);
-            const inputs = this.order.querySelectorAll('input, textarea');
 
             if (cleanBtn) {
                 cleanBtn.addEventListener('click', e => {
@@ -40,14 +40,13 @@ export default class MsOrder {
                 });
             }
 
-            if (inputs) {
-                inputs.forEach(el => {
-                    el.addEventListener('change', e => {
-                        e.preventDefault();
-                        el.value && this.add(el.name, el.value);
-                    });
-                });
-            }
+            document.addEventListener("change",e=>{
+                if(!e.target.closest(this.orderSelector) || (!e.target.closest(`input`) && !e.target.closest(`textarea`)))
+                    return;
+                e.preventDefault();
+                let input = e.target.closest(`input`) || e.target.closest(`textarea`);
+                input.value && this.add(input.name, input.value);
+            })
 
             const deliveryInputChecked = this.order.querySelector(this.deliveryInput + ':checked');
             if (deliveryInputChecked) {
