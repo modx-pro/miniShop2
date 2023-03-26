@@ -7,8 +7,7 @@ extends:
   - plugin:import/recommended
   - plugin:promise/recommended
 globals:
-  miniShop2: true
-  miniShop2Config: true
+  miniShop2Config: readonly
 overrides: []
 parserOptions:
   ecmaVersion: latest
