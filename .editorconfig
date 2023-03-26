@@ -8,5 +8,8 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 charset = utf-8
 
+[*.js]
+indent_size = 2
+
 [{*.json,*.yml}]
 indent_size = 2
