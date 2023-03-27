@@ -34,7 +34,7 @@ export default class MsCart {
 
         this.cart.querySelectorAll('input[name=count]')?.forEach(el => {
             new CustomInputNumber(el, this.config.inputNumber);
-            el.addEventListener('change', () => el.value && el.closest(this.minishop.form).dispatchEvent(this.eventSubmit));
+            el.addEventListener('change', () => el.value && el.dispatchEvent(this.eventSubmit));
         });
     }
 
