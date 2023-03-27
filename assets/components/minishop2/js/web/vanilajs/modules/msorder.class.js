@@ -16,7 +16,7 @@ export default class MsOrder {
         this.paymentInput = 'input[name="payment"]';
         this.paymentInputUniquePrefix = '#payment_';
         this.deliveryInputUniquePrefix = '#delivery_';
-        this.orderSelector = `#msOrder`;
+        this.orderSelector = '#msOrder';
         this.order = document.querySelector(this.orderSelector);
 
         this.orderCost = document.querySelector('#ms2_order_cost');
@@ -40,11 +40,11 @@ export default class MsOrder {
                 });
             }
 
-            document.addEventListener("change",e=>{
-                if(!e.target.closest(this.orderSelector) || (!e.target.closest(`input`) && !e.target.closest(`textarea`)))
+            document.addEventListener('change',e=>{
+                if(!e.target.closest(this.orderSelector) || (!e.target.closest('input') && !e.target.closest('textarea')))
                     return;
                 e.preventDefault();
-                let input = e.target.closest(`input`) || e.target.closest(`textarea`);
+                let input = e.target.closest('input') || e.target.closest('textarea ');
                 input.value && this.add(input.name, input.value);
             })
 
