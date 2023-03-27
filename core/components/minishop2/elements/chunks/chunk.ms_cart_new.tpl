@@ -50,7 +50,7 @@
                             </div>
                         </td>
                         <td class="ms-count">
-                            <form method="post" class="ms2_form" role="form">
+                            <form method="post" class="ms2_form">
                                 <input type="hidden" name="key" value="{$product.key}"/>
                                 <button type="submit" class="ms-hidden" name="ms2_action" value="cart/change"/>
                                 </button>
