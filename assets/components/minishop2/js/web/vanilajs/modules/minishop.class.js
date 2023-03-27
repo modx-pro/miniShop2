@@ -1,5 +1,5 @@
 export default class MiniShop {
-    constructor(miniShop2Config) {
+    constructor(config) {
         const defaults = {
             notifyClassPath: './msnotify.class.js',
             notifyClassName: 'MsNotify',
@@ -12,22 +12,22 @@ export default class MiniShop {
             actionUrl: document.location.href,
             formMethod: 'POST',
         };
-        this.miniShop2Config = Object.assign(defaults, miniShop2Config);
+        this.config = Object.assign(defaults, config);
 
-        this.miniShop2Config.callbacksObjectTemplate = this.callbacksObjectTemplate;
-        this.Callbacks = this.miniShop2Config.Callbacks = {
+        this.config.callbacksObjectTemplate = this.callbacksObjectTemplate;
+        this.Callbacks = this.config.Callbacks = {
             Cart: {
-                add: this.miniShop2Config.callbacksObjectTemplate(),
-                remove: this.miniShop2Config.callbacksObjectTemplate(),
-                change: this.miniShop2Config.callbacksObjectTemplate(),
-                clean: this.miniShop2Config.callbacksObjectTemplate(),
+                add: this.config.callbacksObjectTemplate(),
+                remove: this.config.callbacksObjectTemplate(),
+                change: this.config.callbacksObjectTemplate(),
+                clean: this.config.callbacksObjectTemplate(),
             },
             Order: {
-                add: this.miniShop2Config.callbacksObjectTemplate(),
-                getcost: this.miniShop2Config.callbacksObjectTemplate(),
-                clean: this.miniShop2Config.callbacksObjectTemplate(),
-                submit: this.miniShop2Config.callbacksObjectTemplate(),
-                getrequired: this.miniShop2Config.callbacksObjectTemplate(),
+                add: this.config.callbacksObjectTemplate(),
+                getcost: this.config.callbacksObjectTemplate(),
+                clean: this.config.callbacksObjectTemplate(),
+                submit: this.config.callbacksObjectTemplate(),
+                getrequired: this.config.callbacksObjectTemplate(),
             },
         };
         this.Callbacks.add = this.addCallback.bind(this);
@@ -48,27 +48,27 @@ export default class MiniShop {
             messageSettings = false;
         if(prefix === 'message'){
             prefix = 'notify';
-            response = await this.sendRequest({url: this.miniShop2Config.notifySettingsPath, method: 'GET'});
+            response = await this.sendRequest({url: this.config.notifySettingsPath, method: 'GET'});
             if (response.ok) {
                 messageSettings = await response.json();
             }
         }
-        const classPath = this.miniShop2Config[prefix + 'ClassPath'];
-        const className = this.miniShop2Config[prefix + 'ClassName'];
+        const classPath = this.config[prefix + 'ClassPath'];
+        const className = this.config[prefix + 'ClassName'];
         const config = messageSettings ? messageSettings[className] : this;
 
         try {
             const {default: ModuleName} = await import(classPath);
             this[property] = new ModuleName(config);
         } catch (e) {
-            throw new Error(this.miniShop2Config.moduleImportErrorMsg);
+            throw new Error(this.config.moduleImportErrorMsg);
         }
     }
 
     async initialize() {
-        if(!this.miniShop2Config.properties.length) { throw new Error('Не передан массив имён обработчиков'); }
+        if(!this.config.properties.length) { throw new Error('Не передан массив имён обработчиков'); }
 
-        await this.miniShop2Config.properties.forEach(property => {
+        await this.config.properties.forEach(property => {
             this.setHandler(property);
         });
 
@@ -167,8 +167,8 @@ export default class MiniShop {
     sendRequest(params) {
         const body = params.body || new FormData(),
             headers = params.headers || { 'X-Requested-With': 'XMLHttpRequest' },
-            url = params.url || this.miniShop2Config.actionUrl,
-            method = params.method || this.miniShop2Config.formMethod;
+            url = params.url || this.config.actionUrl,
+            method = params.method || this.config.formMethod;
 
         let options = { method, headers, body };
         if (method === 'GET') {
@@ -187,12 +187,12 @@ export default class MiniShop {
         if (Array.isArray(data)) {
             data.push({
                 name: 'ctx',
-                value: this.miniShop2Config.ctx,
+                value: this.config.ctx,
             });
         } else if (data instanceof FormData) {
-            data.append('ctx', this.miniShop2Config.ctx);
+            data.append('ctx', this.config.ctx);
         } else if (typeof data === 'string') {
-            data += '&ctx=' + this.miniShop2Config.ctx;
+            data += '&ctx=' + this.config.ctx;
         }
 
         const response = await this.sendRequest({ body: data, headers });
@@ -218,10 +218,10 @@ export default class MiniShop {
     }
 
     formatPrice(price) {
-        const pf = this.miniShop2Config.price_format;
+        const pf = this.config.price_format;
         price = this.numberFormat(price, pf[0], pf[1], pf[2]);
 
-        if (this.miniShop2Config.price_format_no_zeros && pf[0] > 0) {
+        if (this.config.price_format_no_zeros && pf[0] > 0) {
             price = price.replace(/(0+)$/, '');
             price = price.replace(/[^0-9]$/, '');
         }
@@ -230,10 +230,10 @@ export default class MiniShop {
     }
 
     formatWeight(weight) {
-        const wf = this.miniShop2Config.weight_format;
+        const wf = this.config.weight_format;
         weight = this.numberFormat(weight, wf[0], wf[1], wf[2]);
 
-        if (this.miniShop2Config.weight_format_no_zeros && wf[0] > 0) {
+        if (this.config.weight_format_no_zeros && wf[0] > 0) {
             weight = weight.replace(/(0+)$/, '');
             weight = weight.replace(/[^0-9]$/, '');
         }
