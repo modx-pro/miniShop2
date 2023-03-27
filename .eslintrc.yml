@@ -1,0 +1,22 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - standard
+  - plugin:import/recommended
+  - plugin:promise/recommended
+globals:
+  miniShop2Config: readonly
+overrides: []
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+rules:
+  comma-dangle:
+    - 2
+    - always-multiline
+ignorePatterns: [
+  '**/mgr/**/*.js',
+  '**/lib/**/*.js',
+  '**/js/web/*.js',
+]

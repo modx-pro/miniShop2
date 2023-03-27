@@ -2,9 +2,15 @@
   "private": true,
   "scripts": {
     "editorconfig": "editorconfig-checker",
-    "test": "npm run editorconfig"
+    "test": "npm run editorconfig",
+    "lint": "npx eslint ."
   },
   "devDependencies": {
-    "editorconfig-checker": "^4.0.0"
+    "editorconfig-checker": "^4.0.0",
+    "eslint": "^8.36.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1"
   }
 }
