@@ -152,14 +152,14 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
         return {
             beforerender: function () {
                 this.grid = Ext.getCmp('minishop2-grid-orders');
-                var store = this.grid.getStore();
-                var form = this;
+                const store = this.grid.getStore();
+                const form = this;
                 store.on('load', function (res) {
                     form.updateInfo(res.reader['jsonData']);
                 });
             },
             afterrender: function () {
-                var form = this;
+                const form = this;
                 window.setTimeout(function () {
                     form.on('resize', function () {
                         form.updateInfo();
@@ -203,11 +203,11 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     submit: function () {
-        var store = this.grid.getStore();
-        var form = this.getForm();
+        const store = this.grid.getStore();
+      const form = this.getForm();
 
-        var values = form.getFieldValues();
-        for (var i in values) {
+      const values = form.getFieldValues();
+        for (const i in values) {
             if (i != undefined && values.hasOwnProperty(i)) {
                 store.baseParams[i] = values[i];
             }
@@ -242,8 +242,8 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     reset: function () {
-        var store = this.grid.getStore();
-        var form = this.getForm();
+      const store = this.grid.getStore();
+      const form = this.getForm();
 
         form.items.each(function (f) {
             if (f.name == 'status') {
@@ -253,8 +253,8 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             }
         });
 
-        var values = form.getValues();
-        for (var i in values) {
+      const values = form.getValues();
+        for (const i in values) {
             if (values.hasOwnProperty(i)) {
                 store.baseParams[i] = '';
             }
@@ -267,27 +267,27 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     updateInfo: function (data) {
-        var arr = {
+      const arr = {
             'num': 'num',
             'sum': 'sum',
             'month-num': 'month_total',
             'month-sum': 'month_sum',
         };
-        for (var i in arr) {
+        for (const i in arr) {
             if (!arr.hasOwnProperty(i)) {
                 continue;
             }
-            var text_size = 30;
-            var elem = Ext.get('minishop2-orders-info-' + i);
+          const text_size = 30;
+          const elem = Ext.get('minishop2-orders-info-' + i);
             if (elem) {
                 elem.setStyle('font-size', text_size + 'px');
-                var val = data != undefined
+              const val = data != undefined
                     ? data[arr[i]]
                     : elem.dom.innerText;
-                var elem_width = elem.parent().getWidth();
-                var text_width = val.length * text_size * .6;
+              const elem_width = elem.parent().getWidth();
+              const text_width = val.length * text_size * .6;
                 if (text_width > elem_width) {
-                    for (var m = text_size; m >= 10; m--) {
+                    for (let m = text_size; m >= 10; m--) {
                         if ((val.length * m * .6) < elem_width) {
                             break;
                         }
