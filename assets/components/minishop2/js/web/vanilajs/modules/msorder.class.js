@@ -1,14 +1,13 @@
 export default class MsOrder {
   constructor (minishop) {
     this.minishop = minishop
-    this.config = minishop.miniShop2Config
 
     this.callbacks = {
-      add: this.config.callbacksObjectTemplate(),
-      getcost: this.config.callbacksObjectTemplate(),
-      clean: this.config.callbacksObjectTemplate(),
-      submit: this.config.callbacksObjectTemplate(),
-      getrequired: this.config.callbacksObjectTemplate(),
+      add: this.minishop.config.callbacksObjectTemplate(),
+      getcost: this.minishop.config.callbacksObjectTemplate(),
+      clean: this.minishop.config.callbacksObjectTemplate(),
+      submit: this.minishop.config.callbacksObjectTemplate(),
+      getrequired: this.minishop.config.callbacksObjectTemplate(),
     }
 
     this.order = document.querySelector('#msOrder')
