@@ -386,10 +386,9 @@ class msCartHandler implements msCartInterface
      *
      * @param array $product
      * @return string
-     * @throws JsonException
      *
      */
-    public function getProductKey(array $product): string
+    public function getProductKey(array $product)
     {
         $key_fields = explode(',', $this->config['cart_product_key_fields']);
         $key = '';
@@ -397,7 +396,7 @@ class msCartHandler implements msCartInterface
         foreach ($key_fields as $key_field) {
             if (isset($product[$key_field])) {
                 if (is_array($product[$key_field])) {
-                    $key .= json_encode($product[$key_field], JSON_THROW_ON_ERROR);
+                    $key .= json_encode($product[$key_field]);
                 } else {
                     $key .= $product[$key_field];
                 }
