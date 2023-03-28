@@ -187,6 +187,11 @@ $tmp = [
         'xtype' => 'numberfield',
         'area' => 'ms2_cart',
     ],
+    'ms2_cart_product_key_fields' => [
+        'value' => 'id,options',
+        'xtype' => 'textfield',
+        'area' => 'ms2_cart',
+    ],
 
     'ms2_order_format_num' => [
         'value' => '%y%m',
