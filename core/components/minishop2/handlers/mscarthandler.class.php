@@ -33,6 +33,12 @@ class msCartHandler implements msCartInterface
         $this->config = array_merge([
             'cart' => $this->storageHandler->get(),
             'max_count' => $this->modx->getOption('ms2_cart_max_count', null, 1000, true),
+            'cart_product_key_fields' => $this->modx->getOption(
+                'ms2_cart_product_key_fields',
+                null,
+                'id,options',
+                true
+            ),
             'allow_deleted' => false,
             'allow_unpublished' => false,
         ], $config);
@@ -129,8 +135,8 @@ class msCartHandler implements msCartInterface
         $options = $response['data']['options'];
         $discount_price = $oldPrice > 0 ? $oldPrice - $price : 0;
         $discount_cost = $discount_price * $count;
+        $key = $this->getProductKey($product->toArray());
 
-        $key = md5($id . $price . $weight . (json_encode($options)));
         if (array_key_exists($key, $this->cart)) {
             return $this->change($key, $this->cart[$key]['count'] + $count);
         }
@@ -373,5 +379,30 @@ class msCartHandler implements msCartInterface
     public function success($message = '', $data = [], $placeholders = [])
     {
         return $this->ms2->success($message, $data, $placeholders);
+    }
+
+    /**
+     * Generate cart product key
+     *
+     * @param array $product
+     * @return string
+     *
+     */
+    private function getProductKey(array $product)
+    {
+        $key_fields = explode(',', $this->config['cart_product_key_fields']);
+        $key = '';
+
+        foreach ($key_fields as $key_field) {
+            if (isset($product[$key_field])) {
+                if (is_array($product[$key_field])) {
+                    $key .= json_encode($product[$key_field]);
+                } else {
+                    $key .= $product[$key_field];
+                }
+            }
+        }
+
+        return 'ms' . md5($key);
     }
 }
