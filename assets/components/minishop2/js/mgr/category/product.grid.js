@@ -319,8 +319,10 @@ Ext.extend(miniShop2.grid.Products, miniShop2.grid.Default, {
         MODx.Ajax.request({
             url: miniShop2.config['connector_url'],
             params: {
-                action: 'mgr/gallery/generateall',
-                product_id: ids,
+                action: 'mgr/gallery/multiple',
+                method: 'generateall',
+                type: 'multiple',
+                ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
                 success: {
