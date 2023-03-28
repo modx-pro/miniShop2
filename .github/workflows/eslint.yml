@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 14
           cache: yarn
-          cache-dependency-path: test-app/yarn.lock
+          cache-dependency-path: yarn.lock
 
       - name: Install dependencies
         run: yarn
@@ -102,7 +102,7 @@ jobs:
         with:
           node-version: 14
           cache: yarn
-          cache-dependency-path: test-app/yarn.lock
+          cache-dependency-path: yarn.lock
 
       - name: Install dependencies
         run: yarn
@@ -125,7 +125,7 @@ jobs:
           file_extensions: |
             **/*.js
           extra_args: "--max-warnings=0"
-          ignore_path: "test-app/.eslintignore"
+          ignore_path: ".eslintignore"
 
       - name: Run ESLint on all files with .eslintignore
         uses: ./
@@ -135,7 +135,7 @@ jobs:
             **/*.js
           extra_args: "--max-warnings=0"
           all_files: true
-          ignore_path: "test-app/.eslintignore"
+          ignore_path: ".eslintignore"
 
       - name: Run ESLint on changed files
         uses: ./
