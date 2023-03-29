@@ -193,6 +193,11 @@ $tmp = [
         'area' => 'ms2_cart',
     ],
 
+    'ms2_order_format_phone' => [
+        'value' => '/[^-+()0-9]/u',
+        'xtype' => 'textfield',
+        'area' => 'ms2_order',
+    ],
     'ms2_order_format_num' => [
         'value' => '%y%m',
         'xtype' => 'textfield',
