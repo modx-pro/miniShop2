@@ -229,6 +229,12 @@ $tmp = [
         'area' => 'ms2_order',
     ],
 
+    'ms2_order_tv_list' => [
+        'value' => '',
+        'xtype' => 'textfield',
+        'area' => 'ms2_order',
+    ],
+
     'ms2_order_handler_class' => [
         'value' => 'msOrderHandler',
         'xtype' => 'textfield',
