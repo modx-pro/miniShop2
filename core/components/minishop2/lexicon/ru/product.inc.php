@@ -10,8 +10,8 @@
 
 $_lang['ms2_drag_move_current_many'] = 'Перенести товары в данную категорию';
 $_lang['ms2_drag_move_current_many_success'] = 'Товары успешно перенесены в данную категорию';
-$_lang['ms2_drag_move_current_once_success'] = 'Товар успешно перенесён в данную категорию';
 $_lang['ms2_drag_move_current_one'] = 'Перенести товар в данную категорию';
+$_lang['ms2_drag_move_current_one_success'] = 'Товар успешно перенесён в данную категорию';
 $_lang['ms2_drag_move_many'] = 'Перенести товары в категорию <strong>«{0}»</strong>';
 $_lang['ms2_drag_move_many_success'] = 'Товары успешно перенесены в категорию <strong>«{0}»</strong>';
 $_lang['ms2_drag_move_one'] = 'Перенести товар в категорию <strong>«{0}»</strong>';
