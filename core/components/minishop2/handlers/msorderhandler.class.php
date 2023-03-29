@@ -142,7 +142,7 @@ class msOrderHandler implements msOrderInterface
                 }
                 break;
             case 'phone':
-                $value = preg_replace('/[^-+()0-9]/u', '', $value);
+                $value = $this->modx->getOption('ms2_order_format_phone', null, '/[^-+()0-9]/u');
                 break;
             case 'delivery':
                 /** @var msDelivery $delivery */
