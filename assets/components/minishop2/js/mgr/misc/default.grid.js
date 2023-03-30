@@ -184,7 +184,7 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                 var store = grid.getStore();
                 var target = store.getAt(dd.getDragData(e).rowIndex);
                 var sources = [];
-                if (data.selections.length < 1 || data.selections[0].id == target.id) {
+                if (data.selections.length < 1 || !target || data.selections[0].id == target.id) {
                     return false;
                 }
                 for (var i in data.selections) {
