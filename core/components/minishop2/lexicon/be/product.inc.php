@@ -8,6 +8,18 @@
  * @subpackage lexicon
  */
 
+$_lang['ms2_drag_move_current_many'] = 'Перенести товары в данную категорию';
+$_lang['ms2_drag_move_current_many_success'] = 'Товары успешно перенесены в данную категорию';
+$_lang['ms2_drag_move_current_one'] = 'Перенести товар в данную категорию';
+$_lang['ms2_drag_move_current_one_success'] = 'Товар успешно перенесён в данную категорию';
+$_lang['ms2_drag_move_many'] = 'Перенести товары в категорию <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many_success'] = 'Товары успешно перенесены в категорию <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one'] = 'Перенести товар в категорию <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one_success'] = 'Товар успешно перенесён в категорию <strong>«{0}»</strong>';
+$_lang['ms2_drag_self_many'] = 'Отмена';
+$_lang['ms2_drag_self_one'] = 'Отмена';
+$_lang['ms2_drag_sort_many'] = 'Переместить товары';
+$_lang['ms2_drag_sort_one'] = 'Переместить товар';
 $_lang['ms2_gallery_button_upload'] = 'Выбраць файлы';
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файлаў не знойдзена. <br><br>вы можаце загрузіць іх, перацягнуўшы прама на гэтую панэль або выбраўшы кнопкай уверсе.</p>';
 $_lang['ms2_gallery_errors'] = 'Памылкі пры загрузцы';
