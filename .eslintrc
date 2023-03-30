@@ -15,3 +15,8 @@ rules:
   comma-dangle:
     - 2
     - always-multiline
+ignorePatterns: [
+  '**/mgr/**/*.js',
+  '**/lib/**/*.js',
+  '**/js/web/*.js',
+]
