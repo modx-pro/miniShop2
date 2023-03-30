@@ -884,7 +884,7 @@ class miniShop2
             $pls['delivery_cost'] = $this->formatPrice($pls['delivery_cost']);
             $pls['weight'] = $this->formatWeight($pls['weight']);
             $pls['payment_link'] = '';
-            if( $tv_list = $this->modx->getOption('ms2_order_tv_list', null, '') ){
+            if ($tv_list = $this->modx->getOption('ms2_order_tv_list', null, '')) {
                 $pls['includeTVs'] = $tv_list;
             }
             $payment = $order->getOne('Payment');
