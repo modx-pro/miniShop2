@@ -12,6 +12,7 @@ class msProductFileMultipleProcessor extends modProcessor
             return $this->failure();
         }
         $ids = json_decode($this->getProperty('ids'), true);
+        $type = $this->getProperty('type', false);
         if (empty($ids)) {
             return $this->success();
         }
@@ -21,7 +22,10 @@ class msProductFileMultipleProcessor extends modProcessor
 
         foreach ($ids as $id) {
             /** @var modProcessorResponse $response */
-            $response = $miniShop2->runProcessor('mgr/gallery/' . $method, ['id' => $id]);
+            $arg = $type
+                ? ['product_id' => $id]
+                : ['id' => $id];
+            $response = $miniShop2->runProcessor('mgr/gallery/' . $method, $arg);
             if ($response->isError()) {
                 return $response->getResponse();
             }
