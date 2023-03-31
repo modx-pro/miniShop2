@@ -180,11 +180,13 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
 
         new Ext.dd.DropTarget(el, {
             ddGroup: grid.ddGroup,
+            dropMove: 'x-tree-drop-ok-append',
+            dropSort: 'x-tree-drop-ok-between',
             notifyDrop: function (dd, e, data) {
                 var store = grid.getStore();
                 var target = store.getAt(dd.getDragData(e).rowIndex);
                 var sources = [];
-                if (data.selections.length < 1 || data.selections[0].id == target.id) {
+                if (data.selections.length < 1 || !target || data.selections[0].id == target.id) {
                     return false;
                 }
                 for (var i in data.selections) {
@@ -208,40 +210,43 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                             fn: function () {
                                 el.unmask();
                                 grid.refresh();
+
                                 if (typeof(grid.reloadTree) == 'function') {
                                     sources.push(target.id);
                                     grid.reloadTree(sources);
                                 }
-                                if (grid.xtype == 'minishop2-grid-products' && !grid.defaultNotify) {
-                                    var sourceNodes = data.selections;
-                                    if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
-                                        var message = '';
-                                        var singleParent = sourceNodes.every(function (node) {
-                                            return node.data.parent == sourceNodes[0].data.parent;
-                                        });
 
-                                        if (singleParent) {
-                                            if (sourceNodes[0].data.parent != target.data.parent) {
-                                                if (target.data.category_name == '') {
-                                                    message = (sourceNodes.length > 1) ? _('ms2_drag_move_current_many_success') : _('ms2_drag_move_current_one_success');
-                                                } else {
-                                                    message = (sourceNodes.length > 1) ? String.format(_('ms2_drag_move_many_success'), target.data.category_name) : String.format(_('ms2_drag_move_one_success'), target.data.category_name);
-                                                }
-                                            }
-                                            // else {
-                                            //     message = (sourceNodes.length > 1) ? _('ms2_drag_sort_many_success') : _('ms2_drag_sort_once_success');
-                                            // }
+                                if (grid.xtype !== 'minishop2-grid-products' && grid.defaultNotify) {
+                                    return;
+                                }
+
+                                const sourceNodes = data.selections;
+                                if (!Ext.isArray(sourceNodes) && !sourceNodes.length) {
+                                    return;
+                                }
+
+                                let message = '';
+
+                                if (sourceNodes.every((node) => node.data.parent == sourceNodes[0].data.parent)) { // Each product has the same parent
+                                    if (sourceNodes[0].data.parent !== target.data.parent) {
+                                        if (!target.data.category_name) {
+                                            message = (sourceNodes.length > 1) ? _('ms2_drag_move_current_many_success') : _('ms2_drag_move_current_one_success');
                                         } else {
                                             message = (sourceNodes.length > 1) ? String.format(_('ms2_drag_move_many_success'), target.data.category_name) : String.format(_('ms2_drag_move_one_success'), target.data.category_name);
                                         }
-
-                                        if (message != '') {
-                                            MODx.msg.status({
-                                                title: _('success')
-                                                ,message: message
-                                            });
-                                        }
                                     }
+                                    // else {
+                                    //     message = (sourceNodes.length > 1) ? _('ms2_drag_sort_many_success') : _('ms2_drag_sort_once_success');
+                                    // }
+                                } else {
+                                    message = (sourceNodes.length > 1) ? String.format(_('ms2_drag_move_many_success'), target.data.category_name) : String.format(_('ms2_drag_move_one_success'), target.data.category_name);
+                                }
+
+                                if (message) {
+                                    MODx.msg.status({
+                                        title: _('success'),
+                                        message,
+                                    });
                                 }
                             }, scope: grid
                         },
@@ -254,38 +259,47 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                 });
             },
             notifyOver: function (dd, e, data) {
-                var returnCls = this.dropAllowed;
-                if (grid.xtype == 'minishop2-grid-products' && !grid.defaultNotify) {
-                    if (dd.getDragData(e)) {
-                        var sourceNodes = data.selections;
-                        var targetNode = dd.getDragData(e).selections[0];
+                let returnCls = this.dropAllowed;
 
-                        if (Ext.isArray(sourceNodes) && sourceNodes.length > 0) {
-                            var singleParent = sourceNodes.every(function (node) {
-                                return node.data.parent == sourceNodes[0].data.parent;
-                            });
-
-                            if (singleParent) {
-                                if ((sourceNodes[0].data['id'] == targetNode.data['id'])) {
-                                    this._notifySelf(sourceNodes.length, dd);
-                                    return this.dropNotAllowed;
-                                } else if (sourceNodes[0].data.parent != targetNode.data.parent) {
-                                    this._notifyMove(sourceNodes.length, targetNode, dd);
-                                } else {
-                                    this._notifySort(sourceNodes.length, dd);
-                                }
-                            } else {
-                                this._notifyMove(sourceNodes.length, targetNode, dd);
-                            }
-                        }
-
-                        dd.proxy.update(dd.ddel);
-                    }
+                if (grid.xtype !== 'minishop2-grid-products' && grid.defaultNotify) {
+                    return this.dropNotAllowed;
                 }
+
+                if (!dd.getDragData(e)) {
+                    return this.notifyOut(dd);
+                }
+
+                const sourceNodes = data.selections;
+                const targetNode = dd.getDragData(e).selections[0];
+
+                if (!Ext.isArray(sourceNodes) && !sourceNodes.length) {
+                    return this.notifyOut(dd);
+                }
+
+                if (sourceNodes.every((node) => node.data.parent == sourceNodes[0].data.parent)) { // Each product has the same parent
+                    if ((sourceNodes[0].data.id == targetNode.data.id)) {
+                        this._notifySelf(sourceNodes.length, dd);
+                        returnCls = this.dropNotAllowed;
+                    } else if (sourceNodes[0].data.parent != targetNode.data.parent) {
+                        this._notifyMove(sourceNodes.length, targetNode, dd);
+                        returnCls = this.dropMove;
+                    } else {
+                        this._notifySort(sourceNodes.length, dd);
+                        returnCls = this.dropSort;
+                    }
+                } else {
+                    this._notifyMove(sourceNodes.length, targetNode, dd);
+                    returnCls = this.dropMove;
+                }
+
+                dd.proxy.update(dd.ddel);
                 return returnCls;
             },
+            notifyOut: function (dd) {
+                dd.ddel.innerHTML = _('ms2_drag_self_one');
+                return this.dropNotAllowed;
+            },
             _notifyMove: function (count, targetNode, dd) {
-                returnCls = 'x-tree-drop-ok-append';
                 if (targetNode.data.category_name == '') {
                     dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_move_current_many') : _('ms2_drag_move_current_one');
                 } else {
@@ -293,7 +307,6 @@ Ext.extend(miniShop2.grid.Default, MODx.grid.Grid, {
                 }
             },
             _notifySort: function (count, dd) {
-                returnCls = 'x-tree-drop-ok-between';
                 dd.ddel.innerHTML = (count > 1) ? _('ms2_drag_sort_many') : _('ms2_drag_sort_one');
             },
             _notifySelf: function (count, dd) {
