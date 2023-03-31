@@ -8,18 +8,18 @@
  * @subpackage lexicon
  */
 
-$_lang['ms2_drag_move_current_many'] = 'Перенести товары в данную категорию';
-$_lang['ms2_drag_move_current_many_success'] = 'Товары успешно перенесены в данную категорию';
-$_lang['ms2_drag_move_current_one'] = 'Перенести товар в данную категорию';
-$_lang['ms2_drag_move_current_one_success'] = 'Товар успешно перенесён в данную категорию';
-$_lang['ms2_drag_move_many'] = 'Перенести товары в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many_success'] = 'Товары успешно перенесены в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one'] = 'Перенести товар в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one_success'] = 'Товар успешно перенесён в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_self_many'] = 'Отмена';
-$_lang['ms2_drag_self_one'] = 'Отмена';
-$_lang['ms2_drag_sort_many'] = 'Переместить товары';
-$_lang['ms2_drag_sort_one'] = 'Переместить товар';
+$_lang['ms2_drag_move_current_many'] = 'Mutați produsele în această categorie';
+$_lang['ms2_drag_move_current_many_success'] = 'Produsele au fost transferate cu succes în această categorie';
+$_lang['ms2_drag_move_current_one'] = 'Mutați produsul în această categorie';
+$_lang['ms2_drag_move_current_one_success'] = 'Produsul a fost transferat cu succes în această categorie';
+$_lang['ms2_drag_move_many'] = 'Mutați produsele în categoria <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many_success'] = 'Produsele au fost mutate cu succes în categoria <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one'] = 'Mutați produsul în categoria <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one_success'] = 'Produsul a fost mutat cu succes în categoria <strong>«{0}»</strong>';
+$_lang['ms2_drag_self_many'] = 'Anulare';
+$_lang['ms2_drag_self_one'] = 'Anulare';
+$_lang['ms2_drag_sort_many'] = 'Mutați produsele';
+$_lang['ms2_drag_sort_one'] = 'Mutați produsul';
 $_lang['ms2_gallery_button_upload'] = 'Selectați fișierele';
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Fișierile nu au fost găsite. <br><br>Puteți să le descărcați, tragând direct pe acest panou sau selectând butonul din partea de sus.</p>';
 $_lang['ms2_gallery_errors'] = 'Eroare la încărcare';
