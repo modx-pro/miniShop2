@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.4-pl] - 2022-03-31
+
+### Added
+ - New lexicons
+ - Ability to attach TV fields to products inside an order letter
+ - Ability to regenerate images from the product grid
+ - Eslint JS Code Validator
+
+ ### Changed
+ - The regular expression for validating a phone number in an order has been moved to the system setting
+ - All JS code in the new set of scripts is formatted according to eslint rules
+ - Minishop2 Config renamed to config in main class of new JS bundle
+
+ ### Fixed
+ -  A bug with missing default value for msOrderAddress.order_id
+ -  A bug with dragging goods in the grid
+
 ## [4.1.3-pl] - 2022-03-14
 
 ### Changed
