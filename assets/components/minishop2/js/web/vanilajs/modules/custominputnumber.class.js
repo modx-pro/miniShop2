@@ -2,7 +2,7 @@ export default class CustomInputNumber {
   constructor (element, config) {
     this.field = typeof element === 'string' ? document.querySelector(element) : element
 
-    if (!(this.el instanceof HTMLInputElement)) {
+    if (!(this.field instanceof HTMLInputElement)) {
       throw new Error('Element is undefined.')
     }
 
