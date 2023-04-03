@@ -1,0 +1,41 @@
+name: Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  stylelint:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: reviewdog/action-stylelint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          packages: 'stylelint-order stylelint-config-clean-order'
+          stylelint_config: .stylelintrc.json
+          stylelint_input: '**/*.css'
+          fail_on_error: true
+          filter_mode: nofilter
+
+  eslint:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          fail_on_error: true
+          filter_mode: nofilter
