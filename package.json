@@ -3,7 +3,9 @@
   "scripts": {
     "editorconfig": "editorconfig-checker",
     "test": "npm run editorconfig",
-    "lint": "npx eslint ."
+    "eslint": "npx eslint .",
+    "stylelint": "stylelint \"**/*.css\"",
+    "lint": "npm run eslint & npm run stylelint"
   },
   "devDependencies": {
     "editorconfig-checker": "^4.0.0",
@@ -11,6 +13,10 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "stylelint": "^15.4.0",
+    "stylelint-config-clean-order": "^5.0.0",
+    "stylelint-config-standard": "^32.0.0",
+    "stylelint-order": "^6.0.3"
   }
 }
