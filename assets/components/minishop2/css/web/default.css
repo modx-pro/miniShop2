@@ -1,13 +1,23 @@
 /* Messages */
 @import url("./lib/jquery.jgrowl.min.css");
+
 div.jGrowl > .ui-state-highlight {
     background: inherit;
-    color: inherit;
+    color: inherit
     border: inherit;
 }
-.ms2-message-success { background-color: green !important; }
-.ms2-message-error { background-color: brown !important; }
-.ms2-message-info { background-color: black !important; }
+
+.ms2-message-success {
+    background-color: green !important;
+}
+
+.ms2-message-error {
+    background-color: brown !important;
+}
+
+.ms2-message-info {
+    background-color: black !important;
+}
 
 /* Cart */
 #msCart th.count,
@@ -17,15 +27,37 @@ div.jGrowl > .ui-state-highlight {
 .ms-count,
 .ms-weight,
 .ms-price,
-.ms-remove { width: 15%; }
-.js #msCart [type="submit"][value="cart/change"] { display: none; }
+.ms-remove {
+    width: 15%;
+}
 
-#msMiniCart, .msMiniCart { font-size: .8em; }
-#msMiniCart h5, .msMiniCart h5 { margin: 0; }
-#msMiniCart .empty, .msMiniCart .empty { display: block; }
-#msMiniCart .not_empty, .msMiniCart .not_empty { display: none; }
-#msMiniCart.full .empty, .msMiniCart.full .empty { display: none; }
-#msMiniCart.full .not_empty, .msMiniCart.full .not_empty { display: block; }
+.js #msCart [type="submit"][value="cart/change"] {
+    display: none;
+}
+
+#msMiniCart, .msMiniCart {
+    font-size: .8em;
+}
+
+#msMiniCart h5, .msMiniCart h5 {
+    margin: 0;
+}
+
+#msMiniCart .empty, .msMiniCart .empty {
+    display: block;
+}
+
+#msMiniCart .not_empty, .msMiniCart .not_empty {
+    display: none;
+}
+
+#msMiniCart.full .empty, .msMiniCart.full .empty {
+    display: none;
+}
+
+#msMiniCart.full .not_empty, .msMiniCart.full .not_empty {
+    display: block;
+}
 
 /* Product */
 #msProduct .old_price, #msCart .old_price, .ms2_product .old_price {
@@ -35,12 +67,33 @@ div.jGrowl > .ui-state-highlight {
 }
 
 /* Order */
-#msOrder { margin-top: 50px; }
-#msOrder .radio { min-height: 30px; margin-bottom: 10px; }
-#msOrder .radio img { max-height: 30px; margin-top: -2px; padding: 0 10px; }
-#msOrder .required-star { display: none; color: brown; }
-#msOrder .required .required-star { display: inline; }
-#msOrder .error { border: 1px solid brown !important; }
+#msOrder {
+    margin-top: 50px;
+}
+
+#msOrder .radio {
+    min-height: 30px;
+    margin-bottom: 10px;
+}
+
+#msOrder .radio img {
+    max-height: 30px;
+    margin-top: -2px;
+    padding: 0 10px;
+}
+
+#msOrder .required-star {
+    display: none;
+    color: brown;
+}
+
+#msOrder .required .required-star {
+    display: inline;
+}
+
+#msOrder .error {
+    border: 1px solid brown !important;
+}
 
 /* Logs */
 .msProductsLog, .msGalleryLog, .msCartLog, .msOrderLog, .msGetOrderLog {
@@ -51,28 +104,32 @@ div.jGrowl > .ui-state-highlight {
 }
 
 /* Input Number */
-.ms-hidden{
+.ms-hidden {
     position: absolute !important;
     opacity: 0;
     visibility: hidden;
     z-index: -10000 !important;
 }
-.ms-input-number-wrap{
+
+.ms-input-number-wrap {
     display: flex;
     font-size: 16px;
 }
-.ms-input-number-emulator{
+
+.ms-input-number-emulator {
     width: 3em;
     text-align: center;
     border: none;
     background-color: transparent;
 }
-.ms-input-number-emulator:focus, .ms-input-number-emulator:active{
+
+.ms-input-number-emulator:focus, .ms-input-number-emulator:active {
     outline: none;
     box-shadow: none;
     border: none;
 }
-.ms-input-number-btn{
+
+.ms-input-number-btn {
     display: flex;
     align-items: center;
     justify-content: center;
