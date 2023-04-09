@@ -135,7 +135,7 @@ class msCartHandler implements msCartInterface
         $options = $response['data']['options'];
         $discount_price = $oldPrice > 0 ? $oldPrice - $price : 0;
         $discount_cost = $discount_price * $count;
-        $key = $this->getProductKey($product->toArray());
+        $key = $this->getProductKey($product->toArray(), $options);
 
         if (array_key_exists($key, $this->cart)) {
             return $this->change($key, $this->cart[$key]['count'] + $count);
@@ -385,12 +385,14 @@ class msCartHandler implements msCartInterface
      * Generate cart product key
      *
      * @param array $product
+     * @param array $options
      * @return string
      *
      */
-    private function getProductKey(array $product)
+    private function getProductKey(array $product, array $options = [])
     {
         $key_fields = explode(',', $this->config['cart_product_key_fields']);
+        $product['options'] = $options;
         $key = '';
 
         foreach ($key_fields as $key_field) {
