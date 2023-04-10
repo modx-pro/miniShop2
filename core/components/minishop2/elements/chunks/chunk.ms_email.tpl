@@ -122,6 +122,26 @@
             </td>
             <td></td>
         </tr>
+        <tr>
+            <td></td>
+            <td>{block 'address'}{/block}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{block 'payment'}{/block}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{block 'delivery'}{/block}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{block 'link'}{/block}</td>
+            <td></td>
+        </tr>
     </table>
     <!-- /body -->
     <!-- footer -->
