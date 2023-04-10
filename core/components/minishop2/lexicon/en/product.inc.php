@@ -8,18 +8,18 @@
  * @subpackage lexicon
  */
 
-$_lang['ms2_drag_move_current_many'] = 'Перенести товары в данную категорию';
-$_lang['ms2_drag_move_current_many_success'] = 'Товары успешно перенесены в данную категорию';
-$_lang['ms2_drag_move_current_one'] = 'Перенести товар в данную категорию';
-$_lang['ms2_drag_move_current_one_success'] = 'Товар успешно перенесён в данную категорию';
-$_lang['ms2_drag_move_many'] = 'Перенести товары в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_many_success'] = 'Товары успешно перенесены в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one'] = 'Перенести товар в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_move_one_success'] = 'Товар успешно перенесён в категорию <strong>«{0}»</strong>';
-$_lang['ms2_drag_self_many'] = 'Отмена';
-$_lang['ms2_drag_self_one'] = 'Отмена';
-$_lang['ms2_drag_sort_many'] = 'Переместить товары';
-$_lang['ms2_drag_sort_one'] = 'Переместить товар';
+$_lang['ms2_drag_move_current_many'] = 'Move products to current category';
+$_lang['ms2_drag_move_current_many_success'] = 'Products was successfully moved to current category';
+$_lang['ms2_drag_move_current_one'] = 'Move product to current category';
+$_lang['ms2_drag_move_current_one_success'] = 'Product was successfully moved to current category';
+$_lang['ms2_drag_move_many'] = 'Move products to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_many_success'] = 'Products was successfully moved to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one'] = 'Move product to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_move_one_success'] = 'Product was successfully moved to category <strong>«{0}»</strong>';
+$_lang['ms2_drag_self_many'] = 'Cancel';
+$_lang['ms2_drag_self_one'] = 'Cancel';
+$_lang['ms2_drag_sort_many'] = 'Sort products';
+$_lang['ms2_drag_sort_one'] = 'Sort product';
 $_lang['ms2_gallery_button_upload'] = 'Select files';
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Files not found. <br><br>You can load them by dragging directly into this pane, or by selecting the button at the top.</p>';
 $_lang['ms2_gallery_errors'] = 'Errors on upload';
