@@ -17,9 +17,19 @@ $xpdo_meta_map['msVendor'] = [
             'email' => null,
             'description' => null,
             'properties' => null,
+            'rank' => 0
         ],
     'fieldMeta' =>
         [
+            'rank' =>
+                [
+                    'dbtype' => 'tinyint',
+                    'precision' => '1',
+                    'attributes' => 'unsigned',
+                    'phptype' => 'integer',
+                    'null' => true,
+                    'default' => 0,
+                ],
             'name' =>
                 [
                     'dbtype' => 'varchar',

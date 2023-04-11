@@ -85,6 +85,7 @@
 
 
     <object class="msVendor" table="ms2_vendors" extends="xPDOSimpleObject">
+        <field key="rank" dbtype="int" precision="10" phptype="integer" null="false" default="0" index="index"/>
         <field key="name" dbtype="varchar" precision="100" phptype="string" null="false"/>
         <field key="resource" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
             default="0"/>
