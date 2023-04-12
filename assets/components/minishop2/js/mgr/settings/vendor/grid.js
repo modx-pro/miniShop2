@@ -43,7 +43,7 @@ Ext.extend(miniShop2.grid.Vendor, miniShop2.grid.Default, {
             {header: _('ms2_address'), dataIndex: 'address', width: 100, sortable: true, hidden: true},
             {header: _('ms2_phone'), dataIndex: 'phone', width: 75, sortable: true},
             {header: _('ms2_fax'), dataIndex: 'fax', width: 75, sortable: true, hidden: true},
-            {header: _('ms2_rank'), dataIndex: 'rank', width: 35, hidden: true},
+            {header: _('ms2_rank'), dataIndex: 'rank', width: 35, sortable: true, hidden: true},
             {
                 header: _('ms2_actions'),
                 dataIndex: 'actions',
