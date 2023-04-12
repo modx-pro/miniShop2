@@ -1,7 +1,7 @@
 # miniShop 2
 
 ![Code Quality](https://github.com/modx-pro/miniShop2/actions/workflows/phpcs.yml/badge.svg)
-![Test](https://github.com/modx-pro/miniShop2/actions/workflows/eslint.yml/badge.svg)
+![Linting](https://github.com/modx-pro/miniShop2/actions/workflows/lint.yml/badge.svg)
 [![Contributors](https://img.shields.io/github/contributors/modx-pro/miniShop2.svg?style=flat-square)](https://github.com/modx-pro/miniShop2/graphs/contributors)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-2.0)
 
