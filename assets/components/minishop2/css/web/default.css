@@ -1,8 +1,9 @@
 /* Messages */
 @import url("./lib/jquery.jgrowl.min.css");
+
 div.jGrowl > .ui-state-highlight {
-    background: inherit;
     color: inherit;
+    background: inherit;
     border: inherit;
 }
 .ms2-message-success { background-color: green !important; }
@@ -29,8 +30,8 @@ div.jGrowl > .ui-state-highlight {
 
 /* Product */
 #msProduct .old_price, #msCart .old_price, .ms2_product .old_price {
-    color: brown;
     font-style: italic;
+    color: brown;
     text-decoration: line-through;
 }
 
@@ -44,8 +45,8 @@ div.jGrowl > .ui-state-highlight {
 
 /* Logs */
 .msProductsLog, .msGalleryLog, .msCartLog, .msOrderLog, .msGetOrderLog {
-    width: 100%;
     overflow: auto;
+    width: 100%;
     word-wrap: normal;
     white-space: pre;
 }
@@ -53,25 +54,29 @@ div.jGrowl > .ui-state-highlight {
 /* Input Number */
 .ms-hidden{
     position: absolute !important;
-    opacity: 0;
-    visibility: hidden;
     z-index: -10000 !important;
+    visibility: hidden;
+    opacity: 0;
 }
+
 .ms-input-number-wrap{
     display: flex;
     font-size: 16px;
 }
+
 .ms-input-number-emulator{
     width: 3em;
     text-align: center;
-    border: none;
     background-color: transparent;
+    border: none;
 }
+
 .ms-input-number-emulator:focus, .ms-input-number-emulator:active{
+    border: none;
     outline: none;
     box-shadow: none;
-    border: none;
 }
+
 .ms-input-number-btn{
     display: flex;
     align-items: center;

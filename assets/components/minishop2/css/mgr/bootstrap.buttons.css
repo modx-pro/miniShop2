@@ -4,23 +4,27 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 .btn {
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: normal;
-    text-align: center;
-    vertical-align: middle;
     cursor: pointer;
-    background-image: none;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    border-radius: 4px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
+
+    display: inline-block;
+
+    margin-bottom: 0;
+    padding: 6px 12px;
+
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.4286;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
@@ -35,16 +39,18 @@
 }
 
 .btn:active, .btn.active {
-    outline: 0;
     background-image: none;
-    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgb(0 0 0 / 12.5%);
+    box-shadow: inset 0 3px 5px rgb(0 0 0 / 12.5%)
 }
 
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
-    cursor: not-allowed;
     pointer-events: none;
+    cursor: not-allowed;
+
     opacity: .65;
+    /* stylelint-disable-next-line function-no-unknown */
     filter: alpha(opacity=65);
     -webkit-box-shadow: none;
     box-shadow: none
@@ -207,9 +213,9 @@
 }
 
 .btn-link {
-    color: #428bca;
-    font-weight: normal;
     cursor: pointer;
+    font-weight: normal;
+    color: #428bca;
     border-radius: 0
 }
 
@@ -258,8 +264,8 @@
 .btn-block {
     display: block;
     width: 100%;
-    padding-left: 0;
-    padding-right: 0
+    padding-right: 0;
+    padding-left: 0
 }
 
 .btn-block + .btn-block {
