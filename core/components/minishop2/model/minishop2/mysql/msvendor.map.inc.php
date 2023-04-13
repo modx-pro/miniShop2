@@ -23,8 +23,8 @@ $xpdo_meta_map['msVendor'] = [
         [
             'rank' =>
                 [
-                    'dbtype' => 'tinyint',
-                    'precision' => '1',
+                    'dbtype' => 'int',
+                    'precision' => '10',
                     'attributes' => 'unsigned',
                     'phptype' => 'integer',
                     'null' => true,

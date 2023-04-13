@@ -23,6 +23,18 @@ class msVendorCreateProcessor extends modObjectCreateProcessor
     /**
      * @return bool
      */
+    public function beforeSave()
+    {
+        $this->object->fromArray([
+             'rank' => $this->modx->getCount($this->classKey),
+         ]);
+
+        return parent::beforeSave();
+    }
+
+    /**
+     * @return bool
+     */
     public function beforeSet()
     {
         $required = ['name'];
