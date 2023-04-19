@@ -1,0 +1,101 @@
+#minishop2-help-text {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 0 #e4e4e4;
+    margin: 1.5em 0;
+    padding: 18px;
+}
+
+#minishop2-help-text .icon {
+    margin-right: 5px;
+}
+
+#minishop2-help-text img {
+    float: right;
+    max-height: 100px;
+    padding-left: 30px;
+}
+
+#minishop2-help-text p {
+    margin-bottom: 1.2em;
+}
+
+#minishop2-help-text p:last-child {
+    margin-bottom: 0;
+}
+
+#minishop2-help-text textarea {
+    width: calc(100% - 10px);
+    height: 250px;
+}
+
+#minishop2-help-links {
+    width: 100%;
+    margin-bottom: 1em;
+    overflow: hidden;
+}
+
+#minishop2-help-links ul {
+    margin: 0;
+    width: 100%;
+}
+
+#minishop2-help-links ul li {
+    float: left;
+    display: table;
+    min-height: 130px;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 1%;
+    width: 16.5%;
+}
+
+@media (max-width: 1023px) {
+    #minishop2-help-links ul li {
+        padding: 5px;
+        width: 33%;
+    }
+}
+
+#minishop2-help-links ul li a {
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #e4e4e4;
+    color: #53595f;
+    display: table-cell;
+    font-weight: bold;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+#minishop2-help-links ul li a span {
+    display: block;
+    line-height: 1.2;
+}
+
+#minishop2-help-links ul li a .title {
+    font-size: 12px;
+}
+
+#minishop2-help-links ul li a .text {
+    font-weight: normal;
+}
+
+#minishop2-help-links ul li a .icon {
+    display: block;
+    margin: 0 auto;
+    padding: 0 0 10px;
+    width: auto;
+}
+
+#minishop2-help-links ul li a:hover .icon {
+    color: #3697cd;
+}
