@@ -30,6 +30,12 @@ $tmp = [
         'action' => 'system/settings',
         'params' => '&ns=minishop2',
     ],
+    'ms2_help' => [
+        'description' => 'ms2_help_desc',
+        'parent' => 'minishop2',
+        'menuindex' => 3,
+        'action' => 'mgr/help',
+    ],
 ];
 
 foreach ($tmp as $k => $v) {
