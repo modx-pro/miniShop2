@@ -58,6 +58,7 @@ $_lang['ms2_default_value'] = 'Standaard waarde';
 $_lang['ms2_deliveries'] = 'Verzendmethoden';
 $_lang['ms2_deliveries_intro'] = 'Mogelijke verzendmethoden. De berekening van de verzendkosten afhankelijk van de afstand en gewicht zijn geimplementeerd in een class, welke je specificeerd in de instellingen. <br>Als je geen class specificeerd, dan zullen de berekeningen worden gemaakt op basis van een standaard algoritme.';
 $_lang['ms2_delivery'] = 'Verzendmethode';
+$_lang['ms2_email_link_to_order'] = 'Заказ в панели управления →';
 $_lang['ms2_email_subject_cancelled_user'] = 'Je bestelling met bestelnummer #[[+num]] is geannuleerd.';
 $_lang['ms2_email_subject_new_manager'] = 'Je hebt een nieuwe bestelling #[[+num]]';
 $_lang['ms2_email_subject_new_user'] = 'Je hebt de bestelling #[[+num]] gedaan op de website [[++site_name]]';
