@@ -53,8 +53,8 @@ class msPaymentSortProcessor extends modObjectProcessor
         $c = $this->modx->newQuery($this->classKey);
         $c->command('UPDATE');
         if ($source->get('rank') < $target->get('rank')) {
-            $c->query['set']['menuindex'] = [
-                'value' => '`menuindex` - 1',
+            $c->query['set']['rank'] = [
+                'value' => '`rank` - 1',
                 'type' => false,
             ];
             $c->andCondition([

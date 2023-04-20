@@ -204,7 +204,7 @@
         <field key="description" dbtype="text" phptype="string" null="true"/>
         <field key="price" dbtype="varchar" precision="11" phptype="string" null="true" default="0"/>
         <field key="logo" dbtype="varchar" precision="255" phptype="string" null="true"/>
-        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
+        <field key="rank" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
             default="0"/>
         <field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
             default="1"/>
