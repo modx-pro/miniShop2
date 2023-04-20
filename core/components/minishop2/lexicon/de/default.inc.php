@@ -58,6 +58,7 @@ $_lang['ms2_default_value'] = 'Значение по умолчанию';
 $_lang['ms2_deliveries'] = 'Lieferungen';
 $_lang['ms2_deliveries_intro'] = 'Verschiedene Varianten der Lieferung. Die Logik der Preiskalkulation der Lieferung (abhängig von der Distanz und dem Gewicht der Ware) ist in Form einer Klasse implementiert, die in den Einstellungen festgelegt werden kann. <br>Wenn Sie keine Klasse angeben, wird der Standard-Algorythmus die Berechnung vornehmen.';
 $_lang['ms2_delivery'] = 'Lieferung';
+$_lang['ms2_email_link_to_order'] = 'Заказ в панели управления →';
 $_lang['ms2_email_subject_cancelled_user'] = 'Ihre Bestellung #[[+num]] wurde gestrichen';
 $_lang['ms2_email_subject_new_manager'] = 'Neue Bestellung #[[+num]]';
 $_lang['ms2_email_subject_new_user'] = 'Ihre Bestellung #[[+num]] auf [[++site_name]]';
