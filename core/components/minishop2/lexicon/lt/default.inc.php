@@ -58,6 +58,7 @@ $_lang['ms2_default_value'] = 'Значение по умолчанию';
 $_lang['ms2_deliveries'] = 'Pristatymo būdai';
 $_lang['ms2_deliveries_intro'] = 'Galimi pristatymo būdai. Kainos paskaičiavimo priklausomai nuo svorio ir atstumo logiką turi įgyvendinti nurodyta klasė. <br>Nenuordžius klasės, bus naudojamas numatytasis kainos skaičiavimo algoritmas.';
 $_lang['ms2_delivery'] = 'Pristatymas';
+$_lang['ms2_email_link_to_order'] = 'Заказ в панели управления →';
 $_lang['ms2_email_subject_cancelled_user'] = 'Jūsų užsakymas Nr. [[+num]] atšauktas';
 $_lang['ms2_email_subject_new_manager'] = 'Atliktas naujas užsakymas Nr. [[+num]]';
 $_lang['ms2_email_subject_new_user'] = 'Jūs atlikote užsakymą Nr. [[+num]] svetainėje [[++site_name]]';
