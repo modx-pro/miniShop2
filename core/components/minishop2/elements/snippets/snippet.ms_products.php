@@ -189,6 +189,10 @@ $default = [
 $pdoFetch->setConfig(array_merge($default, $scriptProperties), false);
 $rows = $pdoFetch->run();
 
+if ($scriptProperties['return'] == 'json') {
+    $rows = json_decode($rows, true);
+}
+
 // Process rows
 $output = $additionalPlaceholders = [];
 if (!empty($rows) && is_array($rows)) {
@@ -242,7 +246,7 @@ if (!empty($rows) && is_array($rows)) {
 
         $opt_time_start = microtime(true);
         $options = $modx->call('msProductData', 'loadOptions', [$modx, $row['id']]);
-        $row = array_merge($additionalPlaceholders, $row, $options);
+        $rows[$k] = $row = array_merge($additionalPlaceholders, $row, $options);
         $opt_time += microtime(true) - $opt_time_start;
 
         $tpl = $pdoFetch->defineChunk($row);
@@ -254,6 +258,10 @@ if (!empty($rows) && is_array($rows)) {
 $log = '';
 if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {
     $log .= '<pre class="msProductsLog">' . print_r($pdoFetch->getTime(), 1) . '</pre>';
+}
+
+if ($scriptProperties['return'] == 'json') {
+    $rows = json_encode($rows);
 }
 
 // Return output
