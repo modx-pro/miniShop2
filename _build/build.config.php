@@ -55,4 +55,5 @@ $BUILD_RESOLVERS = [
     'chunks',
     'statuses',
     'setup',
+    'modappstat',
 ];
