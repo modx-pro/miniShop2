@@ -58,6 +58,7 @@ $_lang['ms2_default_value'] = 'Default value';
 $_lang['ms2_deliveries'] = 'Deliveries';
 $_lang['ms2_deliveries_intro'] = 'Possible variants of delivery. The logic of the calculation of the cost of delivery depending on the distance and weight is implemented by a class, which you specify in the settings. <br>If you do not specify a class, the calculations will be made to the algorithm by default.';
 $_lang['ms2_delivery'] = 'Delivery';
+$_lang['ms2_email_link_to_order'] = 'Заказ в панели управления →';
 $_lang['ms2_email_subject_cancelled_user'] = 'Your order #[[+num]] was cancelled';
 $_lang['ms2_email_subject_new_manager'] = 'You have a new order #[[+num]]';
 $_lang['ms2_email_subject_new_user'] = 'You made the order #[[+num]] on the [[++site_name]]';
