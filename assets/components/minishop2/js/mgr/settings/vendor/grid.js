@@ -10,6 +10,9 @@ miniShop2.grid.Vendor = function (config) {
         },
         stateful: true,
         stateId: config.id,
+        ddGroup: 'ms2-settings-vendor',
+        ddAction: 'mgr/settings/vendor/sort',
+        enableDragDrop: true,
         multi_select: true,
     });
     miniShop2.grid.Vendor.superclass.constructor.call(this, config);
@@ -18,7 +21,7 @@ Ext.extend(miniShop2.grid.Vendor, miniShop2.grid.Default, {
     getFields: function () {
         return [
             'id', 'name', 'resource', 'country', 'email', 'logo', 'pagetitle',
-            'address', 'phone', 'fax', 'description', 'actions'
+            'address', 'phone', 'fax', 'description', 'actions', 'rank'
         ];
     },
 
@@ -40,6 +43,7 @@ Ext.extend(miniShop2.grid.Vendor, miniShop2.grid.Default, {
             {header: _('ms2_address'), dataIndex: 'address', width: 100, sortable: true, hidden: true},
             {header: _('ms2_phone'), dataIndex: 'phone', width: 75, sortable: true},
             {header: _('ms2_fax'), dataIndex: 'fax', width: 75, sortable: true, hidden: true},
+            {header: _('ms2_rank'), dataIndex: 'rank', width: 35, sortable: true, hidden: true},
             {
                 header: _('ms2_actions'),
                 dataIndex: 'actions',
