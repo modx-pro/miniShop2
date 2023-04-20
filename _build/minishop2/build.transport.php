@@ -15,12 +15,13 @@ if (file_exists('build.model.php')) {
 }
 
 // Define sources
-$root = dirname(__FILE__, 2) . '/';
+$root = dirname(__FILE__, 3) . '/';
+
 $sources = [
     'root' => $root,
-    'build' => $root . '_build/',
-    'data' => $root . '_build/data/',
-    'resolvers' => $root . '_build/resolvers/',
+    'build' => $root . '_build/' . PKG_NAME_LOWER . '/',
+    'data' => $root . '_build/' . PKG_NAME_LOWER . '/data/',
+    'resolvers' => $root . '_build/' . PKG_NAME_LOWER . '/resolvers/',
     'chunks' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/chunks/',
     'snippets' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/snippets/',
     'plugins' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/plugins/',
@@ -308,3 +309,4 @@ echo '</pre>';
 if (!empty($_GET['download'])) {
     echo '<script>document.location.href = "/core/packages/' . $signature . '.transport.zip' . '";</script>';
 }
+
