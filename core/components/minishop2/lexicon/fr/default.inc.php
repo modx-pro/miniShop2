@@ -58,6 +58,7 @@ $_lang['ms2_default_value'] = 'Значение по умолчанию';
 $_lang['ms2_deliveries'] = 'Options de livraisons';
 $_lang['ms2_deliveries_intro'] = 'Options possibles pour la livraison. Définit la logique du calcul des coûts d\'expédition en fonction de la distance et de la catégorie de poids. <br>Si vous ne spécifiez pas de classe, les calculs seront effectués par l\'algorithme par défaut.';
 $_lang['ms2_delivery'] = 'Livraison';
+$_lang['ms2_email_link_to_order'] = 'Заказ в панели управления →';
 $_lang['ms2_email_subject_cancelled_user'] = 'Votre commande n°[[+num]] a été annulée';
 $_lang['ms2_email_subject_new_manager'] = 'Vous avez une nouvelle commande n°[[+num]]';
 $_lang['ms2_email_subject_new_user'] = 'Vous avez passé la commande n°[[+num]] sur le site [[++site_name]]';
