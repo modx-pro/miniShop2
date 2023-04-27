@@ -7,6 +7,8 @@ class msVendorRemoveProcessor extends modObjectRemoveProcessor
     public $classKey = 'msVendor';
     public $languageTopics = ['minishop2'];
     public $permission = 'mssetting_save';
+    public $beforeRemoveEvent = 'msOnBeforeVendorDelete';
+    public $afterRemoveEvent = 'msOnAfterVendorDelete';
 
     /**
      * @return bool|null|string
