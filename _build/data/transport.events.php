@@ -54,6 +54,12 @@ $tmp = [
 
     'msOnManagerCustomCssJs',
 
+    'msOnBeforeVendorCreate',
+    'msOnAfterVendorCreate',
+    'msOnBeforeVendorUpdate',
+    'msOnAfterVendorUpdate',
+    'msOnBeforeVendorDelete',
+    'msOnAfterVendorDelete',
 ];
 
 foreach ($tmp as $k => $v) {

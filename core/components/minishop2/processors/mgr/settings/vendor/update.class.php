@@ -7,6 +7,8 @@ class msVendorUpdateProcessor extends modObjectUpdateProcessor
     public $classKey = 'msVendor';
     public $languageTopics = ['minishop2'];
     public $permission = 'mssetting_save';
+    public $beforeSaveEvent = 'msOnBeforeVendorUpdate';
+    public $afterSaveEvent = 'msOnAfterVendorUpdate';
 
     /**
      * @return bool|null|string

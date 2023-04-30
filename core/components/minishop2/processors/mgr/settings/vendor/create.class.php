@@ -7,6 +7,8 @@ class msVendorCreateProcessor extends modObjectCreateProcessor
     public $classKey = 'msVendor';
     public $languageTopics = ['minishop2'];
     public $permission = 'mssetting_save';
+    public $beforeSaveEvent = 'msOnBeforeVendorCreate';
+    public $afterSaveEvent = 'msOnAfterVendorCreate';
 
     /**
      * @return bool|null|string

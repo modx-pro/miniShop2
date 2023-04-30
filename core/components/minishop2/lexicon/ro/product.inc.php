@@ -18,8 +18,8 @@ $_lang['ms2_drag_move_one'] = 'Mutați produsul în categoria <strong>«{0}»</s
 $_lang['ms2_drag_move_one_success'] = 'Produsul a fost mutat cu succes în categoria <strong>«{0}»</strong>';
 $_lang['ms2_drag_self_many'] = 'Anulare';
 $_lang['ms2_drag_self_one'] = 'Anulare';
-$_lang['ms2_drag_sort_many'] = 'Mutați produsele';
-$_lang['ms2_drag_sort_one'] = 'Mutați produsul';
+$_lang['ms2_drag_sort_many'] = 'Mutați cele selectate';
+$_lang['ms2_drag_sort_one'] = 'Mutare';
 $_lang['ms2_gallery_button_upload'] = 'Selectați fișierele';
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Fișierile nu au fost găsite. <br><br>Puteți să le descărcați, tragând direct pe acest panou sau selectând butonul din partea de sus.</p>';
 $_lang['ms2_gallery_errors'] = 'Eroare la încărcare';

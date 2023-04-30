@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0-pl] - 2022-05-01
+
+### Added
+- Additional Events for Vendors
+- New section with information and useful links
+- New field rank for msVendor
+- Information about the customer in emails to the manager
+
+### Fixed
+- The problem of additional shipping costs if it is indicated as a percentage
+- Sorting in payment options
+- Improved use of return = json mode in msProducts
+
 ## [4.1.5-pl] - 2022-04-09
 
 ### Fixed

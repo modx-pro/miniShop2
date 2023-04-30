@@ -18,8 +18,8 @@ $_lang['ms2_drag_move_one'] = 'Перенести товар в категори
 $_lang['ms2_drag_move_one_success'] = 'Товар успешно перенесён в категорию <strong>«{0}»</strong>';
 $_lang['ms2_drag_self_many'] = 'Отмена';
 $_lang['ms2_drag_self_one'] = 'Отмена';
-$_lang['ms2_drag_sort_many'] = 'Переместить товары';
-$_lang['ms2_drag_sort_one'] = 'Переместить товар';
+$_lang['ms2_drag_sort_many'] = 'Переместить выбранные';
+$_lang['ms2_drag_sort_one'] = 'Переместить';
 $_lang['ms2_gallery_button_upload'] = 'Вибрати файли';
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Файли не знайдено. <br><br>Ви можете завантажити їх, перетягнувши прямо на цю панель, чи вибрати кнопкою зверху.</p>';
 $_lang['ms2_gallery_errors'] = 'Помилка при завантаженні';
