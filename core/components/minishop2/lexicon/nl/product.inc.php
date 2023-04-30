@@ -18,8 +18,8 @@ $_lang['ms2_drag_move_one'] = 'Перенести товар в категори
 $_lang['ms2_drag_move_one_success'] = 'Товар успешно перенесён в категорию <strong>«{0}»</strong>';
 $_lang['ms2_drag_self_many'] = 'Отмена';
 $_lang['ms2_drag_self_one'] = 'Отмена';
-$_lang['ms2_drag_sort_many'] = 'Переместить товары';
-$_lang['ms2_drag_sort_one'] = 'Переместить товар';
+$_lang['ms2_drag_sort_many'] = 'Переместить выбранные';
+$_lang['ms2_drag_sort_one'] = 'Переместить';
 $_lang['ms2_gallery_button_upload'] = 'Selecteer bestanden';
 $_lang['ms2_gallery_emptymsg'] = '<p style="padding: 20px 0 0 5px;color:#555;">Bestanden niet gevonden. <br><br>Je kunt deze uploaden door ze hier naartoe te slepen of via de knop bovenin.</p>';
 $_lang['ms2_gallery_errors'] = 'Fouten tijdens het uploaden';
