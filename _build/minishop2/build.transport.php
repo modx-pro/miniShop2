@@ -15,12 +15,13 @@ if (file_exists('build.model.php')) {
 }
 
 // Define sources
-$root = dirname(__FILE__, 2) . '/';
+$root = dirname(__FILE__, 3) . '/';
+
 $sources = [
     'root' => $root,
-    'build' => $root . '_build/',
-    'data' => $root . '_build/data/',
-    'resolvers' => $root . '_build/resolvers/',
+    'build' => $root . '_build/' . PKG_NAME_LOWER . '/',
+    'data' => $root . '_build/' . PKG_NAME_LOWER . '/data/',
+    'resolvers' => $root . '_build/' . PKG_NAME_LOWER . '/resolvers/',
     'chunks' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/chunks/',
     'snippets' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/snippets/',
     'plugins' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/plugins/',
@@ -303,8 +304,13 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
     }
 }
 $modx->log(modX::LOG_LEVEL_INFO, "\n<br />Execution time: {$totalTime}\n");
+
+$download_url = '/_build/env/index.php?getpackage='.PKG_NAME_LOWER.'-'.PKG_VERSION.'-'.PKG_RELEASE;
+$modx->log(modX::LOG_LEVEL_INFO,"\n<br /><a target='_blank' href='{$download_url}'>[DOWNLOAD PACKAGE]</a><br />\n");
+
 echo '</pre>';
 
 if (!empty($_GET['download'])) {
     echo '<script>document.location.href = "/core/packages/' . $signature . '.transport.zip' . '";</script>';
 }
+
