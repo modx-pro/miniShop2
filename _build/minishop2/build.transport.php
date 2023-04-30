@@ -304,6 +304,10 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
     }
 }
 $modx->log(modX::LOG_LEVEL_INFO, "\n<br />Execution time: {$totalTime}\n");
+
+$download_url = '/_build/env/index.php?getpackage='.PKG_NAME_LOWER.'-'.PKG_VERSION.'-'.PKG_RELEASE;
+$modx->log(modX::LOG_LEVEL_INFO,"\n<br /><a target='_blank' href='{$download_url}'>[DOWNLOAD PACKAGE]</a><br />\n");
+
 echo '</pre>';
 
 if (!empty($_GET['download'])) {
