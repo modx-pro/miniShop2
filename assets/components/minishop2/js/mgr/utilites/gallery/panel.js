@@ -64,6 +64,10 @@ miniShop2.panel.UtilitesGallery = function (config) {
                     style: 'margin: 15px 0 0 2px',
 					text: '<i class="icon icon-refresh"></i> &nbsp;' + _('ms2_utilites_gallery_refresh'),
 					handler: function() {
+					    var form = this.getForm();  
+    					form.setValues({
+    						offset: 0
+    					}); 
 						this.submit(this);
 					}, scope: this
                 }, 
