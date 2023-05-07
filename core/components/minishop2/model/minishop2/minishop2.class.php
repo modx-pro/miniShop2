@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '4.2.0-pl';
+    public $version = '4.2.1-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
