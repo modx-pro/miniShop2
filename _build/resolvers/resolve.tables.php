@@ -123,6 +123,13 @@ if ($transport->xpdo) {
                     $sql = "CREATE INDEX `order_id` ON {$modx->getTableName('msOrderAddress')} (`order_id`)";
                     $modx->exec($sql);
                 }
+
+                if ($miniShop2->version < '4.2.0') {
+                    $sql = "ALTER TABLE {$modx->getTableName('msVendor')} ADD  `rank`  INT (10) UNSIGNED NOT NULL DEFAULT 0";
+                    $modx->exec($sql);
+                    $sql = "ALTER TABLE {$modx->getTableName('msVendor')} ADD INDEX(`rank`)";
+                    $modx->exec($sql);
+                }
             }
 
             break;
