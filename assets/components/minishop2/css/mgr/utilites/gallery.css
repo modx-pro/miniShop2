@@ -1,0 +1,36 @@
+#ms-utility-gallery-range_outer{ 
+    position: relative;
+    padding: 20px 0 0;
+    visibility: hidden; 
+}
+
+.ms-utility-gallery-labels{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    font-weight: bold;
+}
+
+#ms-utility-gallery-iteration{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#ms-utility-gallery-progress{
+    position: relative;
+    height: 5px;
+    background-color: #ddd;
+}
+
+#ms-utility-gallery-progress-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+
+    background-color: #32AB9A;
+}

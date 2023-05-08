@@ -36,6 +36,12 @@ $tmp = [
         'menuindex' => 3,
         'action' => 'mgr/help',
     ],
+    'ms2_utilites' => [
+        'description' => 'ms2_utilites_desc',
+        'parent' => 'minishop2',
+        'menuindex' => 4,
+        'action' => 'mgr/utilites',
+    ],
 ];
 
 foreach ($tmp as $k => $v) {
