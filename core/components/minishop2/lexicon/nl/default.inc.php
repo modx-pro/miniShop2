@@ -165,5 +165,7 @@ $_lang['ms2_statuses_intro'] = 'Sommige order statussen zijn verplicht: "nieuw",
 $_lang['ms2_system_settings'] = 'Systeem instellingen';
 $_lang['ms2_system_settings_desc'] = 'Systeem instellingen miniShop2';
 $_lang['ms2_type'] = 'Type';
+$_lang['ms2_utilites'] = 'Утилиты';
+$_lang['ms2_utilites_desc'] = 'Инструменты разработчика';
 $_lang['ms2_vendors'] = 'Product fabrikanten';
 $_lang['ms2_vendors_intro'] = 'Een lijst van mogelijke product fabrikanten. Toegevoegde fabrikanten worden selecteerbaar in het veld "Fabrikant" van producten.';
