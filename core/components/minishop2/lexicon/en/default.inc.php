@@ -165,5 +165,7 @@ $_lang['ms2_statuses_intro'] = 'There are several mandatory status of the order:
 $_lang['ms2_system_settings'] = 'System settings';
 $_lang['ms2_system_settings_desc'] = 'miniShop2 system settings';
 $_lang['ms2_type'] = 'Type';
+$_lang['ms2_utilites'] = 'Утилиты';
+$_lang['ms2_utilites_desc'] = 'Инструменты разработчика';
 $_lang['ms2_vendors'] = 'Product vendors';
 $_lang['ms2_vendors_intro'] = 'The list of possible manufacturers of goods. What you add here, you can choose in the field "vendor" of the goods.';
