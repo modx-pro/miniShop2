@@ -10,9 +10,16 @@ export default class MsOrder {
       getrequired: this.minishop.config.callbacksObjectTemplate(),
     }
 
+    this.defaults = {
+      inputErrorClassName: 'error'
+    }
+
+    this.config = Object.assign({}, this.defaults, this.minishop.config.Order)
+
     this.order = document.querySelector('#msOrder')
     this.deliveryInput = 'input[name="delivery"]'
     this.inputParent = '.input-parent'
+    this.inputErrorClassName = this.config.inputErrorClassName
     this.paymentInput = 'input[name="payment"]'
     this.paymentInputUniquePrefix = '#payment_'
     this.deliveryInputUniquePrefix = '#delivery_'
@@ -112,16 +119,16 @@ export default class MsOrder {
       }
 
       field.value = response.data[key] || ''
-      field.classList.remove('error')
-      field.closest(this.inputParent).classList.remove('error')
+      field.classList.remove(this.inputErrorClassName)
+      field.closest(this.inputParent).classList.remove(this.inputErrorClassName)
     }
 
     this.callbacks.add.response.error = () => {
       const field = this.order.querySelector(`[name="${key}"]`)
       if (['checkbox', 'radio'].includes(field.type)) {
-        field.closest(this.inputParent).classList.add('error')
+        field.closest(this.inputParent).classList.add(this.inputErrorClassName)
       } else {
-        field.classList.add('error')
+        field.classList.add(this.inputErrorClassName)
       }
     }
 
@@ -195,8 +202,8 @@ export default class MsOrder {
 
       if (this.order.elements) {
         Array.from(this.order.elements).forEach(el => {
-          el.classList.remove('error')
-          el.closest(this.inputParent)?.classList.remove('error')
+          el.classList.remove(this.inputErrorClassName)
+          el.closest(this.inputParent)?.classList.remove(this.inputErrorClassName)
         })
       }
 
@@ -206,9 +213,9 @@ export default class MsOrder {
           const field = this.order.querySelector(`[name="${key}"]`)
 
           if (['checkbox', 'radio'].includes(field.type)) {
-            field.closest(this.inputParent).classList.add('error')
+            field.closest(this.inputParent).classList.add(this.inputErrorClassName)
           } else {
-            field.classList.add('error')
+            field.classList.add(this.inputErrorClassName)
           }
         }
       }
