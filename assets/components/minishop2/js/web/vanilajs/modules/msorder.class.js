@@ -11,7 +11,7 @@ export default class MsOrder {
     }
 
     this.defaults = {
-      inputErrorClassName: 'error'
+      inputErrorClassName: 'error',
     }
 
     this.config = Object.assign({}, this.defaults, this.minishop.config.Order)
