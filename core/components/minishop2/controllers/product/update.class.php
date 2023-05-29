@@ -35,6 +35,7 @@ class msProductUpdateManagerController extends msResourceUpdateController
     {
         $mgrUrl = $this->getOption('manager_url', null, MODX_MANAGER_URL);
         $assetsUrl = $this->miniShop2->config['assetsUrl'];
+        $assetsPath = $this->miniShop2->config['assetsPath'];
 
         $this->addCss($assetsUrl . 'css/mgr/bootstrap.buttons.css');
         $this->addCss($assetsUrl . 'css/mgr/main.css');
@@ -61,6 +62,10 @@ class msProductUpdateManagerController extends msResourceUpdateController
             !($this->getOption('ms2gallery_sync_ms2', null, false, true));
         if ($show_gallery) {
             $this->addLastJavascript($assetsUrl . 'js/mgr/misc/plupload/plupload.full.min.js');
+            $lang = $this->modx->getOption('manager_language', null, 'en');
+            if (file_exists($assetsPath . 'js/mgr/misc/plupload/i18n/' . $lang . '.js')) {
+                $this->addLastJavascript($assetsUrl . 'js/mgr/misc/plupload/i18n/' . $lang . '.js');
+            }
             $this->addLastJavascript($assetsUrl . 'js/mgr/misc/ext.ddview.js');
             $this->addLastJavascript($assetsUrl . 'js/mgr/product/gallery/gallery.panel.js');
             $this->addLastJavascript($assetsUrl . 'js/mgr/product/gallery/gallery.toolbar.js');

@@ -28,7 +28,7 @@ miniShop2.panel.Gallery = function (config) {
     miniShop2.panel.Gallery.superclass.constructor.call(this, config);
 
     this.on('afterrender', function () {
-        var gallery = this;
+        const gallery = this;
         window.setTimeout(function () {
             gallery.initialize();
         }, 100);
@@ -44,7 +44,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
         }
         this._initUploader();
 
-        var el = document.getElementById(this.id);
+        const el = document.getElementById(this.id);
         el.addEventListener('dragenter', function () {
             if (!this.className.match(/drag-over/)) {
                 this.className += ' drag-over';
@@ -61,7 +61,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     _initUploader: function () {
-        var params = {
+        const params = {
             action: 'mgr/gallery/upload',
             id: this.record.id,
             source: this.record.source,
@@ -86,9 +86,9 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
             }
         });
 
-        var uploaderEvents = ['FilesAdded', 'FileUploaded', 'QueueChanged', /*'UploadFile',*/ 'UploadProgress', 'UploadComplete'];
+        const uploaderEvents = ['FilesAdded', 'FileUploaded', 'QueueChanged', /*'UploadFile',*/ 'UploadProgress', 'UploadComplete', 'Error'];
         Ext.each(uploaderEvents, function (v) {
-            var fn = 'on' + v;
+            const fn = 'on' + v;
             this.uploader.bind(v, this[fn], this);
         }, this);
         this.uploader.init();
@@ -100,7 +100,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
 
     removeFile: function (id) {
         this.updateList = true;
-        var f = this.uploader.getFile(id);
+        const f = this.uploader.getFile(id);
         this.uploader.removeFile(f);
     },
 
@@ -138,7 +138,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
         }
         this.resetUploader();
 
-        var panel = Ext.getCmp('minishop2-gallery-images-panel');
+        const panel = Ext.getCmp('minishop2-gallery-images-panel');
         if (panel) {
             panel.view.getStore().reload();
             // Update thumbnail
@@ -160,10 +160,14 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     onFileUploaded: function (uploader, file, xhr) {
-        var r = Ext.util.JSON.decode(xhr.response);
+        const r = Ext.util.JSON.decode(xhr.response);
         if (!r.success) {
             this.addError(file.name, r.message);
         }
+    },
+
+    onError: function(uploader, error ) {
+        MODx.msg.alert(_('error'), error.message)
     },
 
     resetUploader: function () {
@@ -174,6 +178,7 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
     },
 
     addError: function (file, message) {
+      console.log(message)
         this.errors += file + ': ' + message + '<br/>';
     },
 
