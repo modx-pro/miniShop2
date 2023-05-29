@@ -165,5 +165,7 @@ $_lang['ms2_statuses_intro'] = 'Il y a plusieurs états obligatoires dans une co
 $_lang['ms2_system_settings'] = 'Системные настройки';
 $_lang['ms2_system_settings_desc'] = 'Системные настройки miniShop2';
 $_lang['ms2_type'] = 'Type';
+$_lang['ms2_utilites'] = 'Утилиты';
+$_lang['ms2_utilites_desc'] = 'Инструменты разработчика';
 $_lang['ms2_vendors'] = 'Fournisseurs des articles';
 $_lang['ms2_vendors_intro'] = 'Список возможных производителей товаров. То, что вы сюда добавите, можно выбрать в поле "vendor" товара.';

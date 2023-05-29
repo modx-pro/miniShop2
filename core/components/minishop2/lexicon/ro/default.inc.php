@@ -165,5 +165,7 @@ $_lang['ms2_statuses_intro'] = 'Există mai multe stări de comandă obligatorii
 $_lang['ms2_system_settings'] = 'Setări de sistem';
 $_lang['ms2_system_settings_desc'] = 'Setări de sistem miniShop2';
 $_lang['ms2_type'] = 'Tip';
+$_lang['ms2_utilites'] = 'Utilități';
+$_lang['ms2_utilites_desc'] = 'Instrumente pentru dezvoltatori';
 $_lang['ms2_vendors'] = 'Producătorii produselor';
 $_lang['ms2_vendors_intro'] = 'Lista posibililor producători de produse. Ceea ce adăugați aici, puteți alege în cîmpul "vendor" al produsului.';

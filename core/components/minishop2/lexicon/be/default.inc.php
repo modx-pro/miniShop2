@@ -165,5 +165,7 @@ $_lang['ms2_statuses_intro'] = 'Існуе некалькі абавязковы
 $_lang['ms2_system_settings'] = 'Сістэмныя налады';
 $_lang['ms2_system_settings_desc'] = 'Сістэмныя налады miniShop2';
 $_lang['ms2_type'] = 'Тып';
+$_lang['ms2_utilites'] = 'Утилиты';
+$_lang['ms2_utilites_desc'] = 'Инструменты разработчика';
 $_lang['ms2_vendors'] = 'Вытворцы тавараў';
 $_lang['ms2_vendors_intro'] = 'Спіс магчымых вытворцаў тавараў. Тое, што вы сюды дадасце, можна выбраць у поле "vendor" тавару.';

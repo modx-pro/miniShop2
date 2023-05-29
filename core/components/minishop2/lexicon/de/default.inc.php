@@ -165,5 +165,7 @@ $_lang['ms2_statuses_intro'] = 'Es existieren verschiedene Bestellstatus: "Neu",
 $_lang['ms2_system_settings'] = 'Системные настройки';
 $_lang['ms2_system_settings_desc'] = 'Системные настройки miniShop2';
 $_lang['ms2_type'] = 'Typ';
+$_lang['ms2_utilites'] = 'Утилиты';
+$_lang['ms2_utilites_desc'] = 'Инструменты разработчика';
 $_lang['ms2_vendors'] = 'Hersteller';
 $_lang['ms2_vendors_intro'] = 'Eine Liste möglicher Hersteller Ihrer Produkte. Was Sie hier hinzufügen, können Sie in der Produktbeschreibung im Feld "Hersteller" auswählen.';
