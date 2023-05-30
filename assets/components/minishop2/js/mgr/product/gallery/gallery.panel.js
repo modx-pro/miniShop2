@@ -75,10 +75,10 @@ Ext.extend(miniShop2.panel.Gallery, MODx.Panel, {
             container: this.id,
             drop_element: this.id,
             multipart: true,
-            max_file_size: miniShop2.config.media_source.maxUploadSize || 10485760,
+            max_file_size: miniShop2.config.media_source.maxUploadSize || MODx.config.upload_maxsize || 10485760,
             filters: [{
                 title: "Image files",
-                extensions: miniShop2.config.media_source.allowedFileTypes || 'jpg,jpeg,png,gif,webp'
+                extensions: miniShop2.config.media_source.allowedFileTypes || MODx.config.upload_images || 'jpg,jpeg,png,gif,webp'
             }],
             resize: {
                 width: miniShop2.config.media_source.maxUploadWidth || 1920,
