@@ -389,7 +389,7 @@ class msCartHandler implements msCartInterface
      * @return string
      *
      */
-    private function getProductKey(array $product, array $options = [])
+    protected function getProductKey(array $product, array $options = [])
     {
         $key_fields = explode(',', $this->config['cart_product_key_fields']);
         $product['options'] = $options;
