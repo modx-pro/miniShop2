@@ -5,10 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2-pl] - 2022-06-01
+
+### Added
+ - New Crowdin updates
+
+ ### Changed
+ - Update plupload plugin
+
+### Fixed
+-  change visibility of method msCartHandler::getProductKey
+
+
 ## [4.2.1-pl] - 2022-05-07
 
 ### Fixed
 -  A bug with lost field for msVendor.rank
+
+ ### Changed
+ - The regular expression for validating a phone number in an order has been moved to the system setting
+ - All JS code in the new set of scripts is formatted according to eslint rules
+ - Minishop2 Config renamed to config in main class of new JS bundle
 
 
 ## [4.2.0-pl] - 2022-05-01
