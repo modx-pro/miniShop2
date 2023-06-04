@@ -51,7 +51,7 @@ class msUtilityImportSaveConfigProcessor extends modProcessor
         }
 
         // save delimiter to system settings
-        if ($settingDelimiter = $this->modx->getObject('modSystemSetting', 'ms2_utility_import_field_delimiter')) {
+        if ($settingDelimiter = $this->modx->getObject('modSystemSetting', 'ms2_utility_import_fields_delimiter')) {
             $settingDelimiter->set('value', $this->delimiter);
             $settingDelimiter->save();
         }
