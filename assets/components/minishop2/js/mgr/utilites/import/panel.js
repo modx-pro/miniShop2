@@ -8,7 +8,7 @@ miniShop2.panel.UtilitesImport = function (config) {
 		progress:true,
 		id: 'ms2-panel-import',
 		baseParams: {
-			action: 'mgr/utility/import/import'
+			action: 'mgr/utilites/import/import'
 		}, 
         items: [{
             layout: 'column',
@@ -189,7 +189,7 @@ Ext.extend(miniShop2.panel.UtilitesImport, MODx.FormPanel,{
         MODx.Ajax.request({
             url: miniShop2.config['connector_url'],
             params: {
-                action: 'mgr/utility/import/saveconfig',
+                action: 'mgr/utilites/import/saveconfig',
                 fields: values.fields,
                 delimiter: values.delimiter
             },
