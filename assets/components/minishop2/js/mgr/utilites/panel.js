@@ -28,8 +28,6 @@ miniShop2.panel.Utilites = function (config) {
                     cls: 'main-wrapper',
                 }]
             },
-            /*
-            // todo
             {
                 title: _('ms2_utilites_import'),
                 layout: 'anchor',
@@ -40,7 +38,7 @@ miniShop2.panel.Utilites = function (config) {
                     xtype: 'minishop2-utilites-import',
                     cls: 'main-wrapper',
                 }]
-            }*/
+            }
         ]
         }]
 

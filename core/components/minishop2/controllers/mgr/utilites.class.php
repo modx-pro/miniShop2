@@ -33,6 +33,7 @@ class Minishop2MgrUtilitesManagerController extends msManagerController
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/minishop2.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilites/panel.js');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilites/gallery/panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilites/import/panel.js');
 
         $config = $this->miniShop2->config;
 
@@ -53,6 +54,10 @@ class Minishop2MgrUtilitesManagerController extends msManagerController
         // get information about products and files
         $config['utility_gallery_total_products'] = $this->modx->getCount('msProduct', ['class_key' => 'msProduct']);
         $config['utility_gallery_total_products_files'] = $this->modx->getCount('msProductFile', ['parent' => 0]);
+
+        // get params for import 
+        $config['utility_import_fields'] = $this->getOption('ms2_utility_import_fields', null, 'article,pagetitle,price', true);
+        $config['utility_import_fields_delimiter'] = $this->getOption('ms2_utility_import_fields_delimiter', null, ';', true);
 
         $this->addHtml(
             '<script>

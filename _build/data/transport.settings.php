@@ -357,6 +357,17 @@ $tmp = [
         'value' => '2,3',
         'xtype' => 'textfield',
         'area' => 'ms2_statuses',
+    ],
+
+    'ms2_utility_import_fields' => [
+        'value' => 'article,pagetitle,price',
+        'xtype' => 'textfield',
+        'area' => 'ms2_import',
+    ],
+    'ms2_utility_import_fields_delimiter' => [
+        'value' => ';',
+        'xtype' => 'textfield',
+        'area' => 'ms2_import',
     ]
 ];
 
