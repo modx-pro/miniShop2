@@ -360,7 +360,7 @@ $tmp = [
     ],
 
     'ms2_utility_import_fields' => [
-        'value' => 'article,pagetitle,price',
+        'value' => 'pagetitle,parent,price,article',
         'xtype' => 'textfield',
         'area' => 'ms2_import',
     ],

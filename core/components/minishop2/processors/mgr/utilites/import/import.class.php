@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__, 5) . '/import/importCSV.php';
+
 /**
  * Simple Import
  * import products
@@ -17,7 +19,6 @@ class msUtilityImportProcessor extends modProcessor
 
     /** @var miniShop $miniShop */
     public $miniShop;
-
 
 
     /**
@@ -49,7 +50,6 @@ class msUtilityImportProcessor extends modProcessor
      */
     public function process()
     {
-
         $required = ['importfile', 'fields', 'delimiter'];
 
         foreach ($required as $field) {
@@ -57,8 +57,6 @@ class msUtilityImportProcessor extends modProcessor
                 return $this->addFieldError($field, $this->modx->lexicon('field_required'));
             }
         }
-
-        $url = $this->modx->getOption('site_url') . 'core/components/minishop2/import/csv.php';
 
         $importParams = [
             'file' => $this->properties['importfile'],
@@ -69,17 +67,58 @@ class msUtilityImportProcessor extends modProcessor
             'delimiter' => $this->properties['delimiter']
         ];
 
-        $url .= '?' . http_build_query($importParams);
+        $scheduler = $this->getProperty('scheduler', 0);
+        if (empty($scheduler)) {
+            $importCSV = new ImportCSV($this->modx);
+            $result = $importCSV->process($importParams);
+            return $this->success($result, [
+                'message' => $result
+            ]);
+        }
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($curl);
-        curl_close($curl);
 
-        return $this->success($result, [
-            'message' => $result
+        /** @var Scheduler $scheduler */
+        $path = $this->modx->getOption(
+            'scheduler.core_path',
+            null,
+            $this->modx->getOption('core_path') . 'components/scheduler/'
+        );
+        $scheduler = $this->modx->getService('scheduler', 'Scheduler', $path . 'model/scheduler/');
+        if (!$scheduler) {
+            $this->modx->log(1, 'not found Scheduler extra');
+            return $this->failure('ms2_utilites_scheduler_nf', []);
+        }
+        $task = $scheduler->getTask('minishop2', 'ms2_csv_import');
+        if (!$task) {
+            $task = $this->createImportTask();
+        }
+        if (empty($task)) {
+            return $this->failure('ms2_utilites_scheduler_task_ce', []);
+        }
+
+        $task->schedule('+1 second', $importParams);
+
+        return $this->success('ms2_utilites_scheduler_success');
+    }
+
+    /**
+     * Creating Sheduler's task for start import
+     * @return false|object|null
+     */
+    private function createImportTask()
+    {
+        $task = $this->modx->newObject('sFileTask');
+        $task->fromArray([
+            'class_key' => 'sFileTask',
+            'content' => '/tasks/csvImport.php',
+            'namespace' => 'minishop2',
+            'reference' => 'ms2_csv_import',
+            'description' => 'MiniShop2 CSV import'
         ]);
+        if (!$task->save()) {
+            return false;
+        }
+        return $task;
     }
 }
 

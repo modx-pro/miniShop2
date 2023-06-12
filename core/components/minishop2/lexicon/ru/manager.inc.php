@@ -179,3 +179,6 @@ $_lang['ms2_utilites_params'] = 'Параметры ';
 $_lang['ms2_weight'] = 'Вес';
 $_lang['ms2_weight_price'] = 'Стоимость ед/вес';
 $_lang['ms2_weight_price_help'] = 'Добавочная стоимость доставки за единицу веса. <br>Может быть использовано в кастомных классах.';
+$_lang['ms2_utilites_scheduler_nf'] = 'У вас не установлен компонент Scheduler';
+$_lang['ms2_utilites_scheduler_task_ce'] = 'Не удалось создать задание Scheduler';
+$_lang['ms2_utilites_scheduler_success'] = 'Задание Scheduler создано';
