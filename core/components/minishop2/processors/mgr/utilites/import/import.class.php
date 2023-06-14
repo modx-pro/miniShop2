@@ -64,7 +64,8 @@ class msUtilityImportProcessor extends modProcessor
             'update' => $this->properties['update'],
             'key' => $this->properties['key'],
             'debug' => $this->properties['debug'],
-            'delimiter' => $this->properties['delimiter']
+            'delimiter' => $this->properties['delimiter'],
+            'has_header' => $this->properties['has_header'],
         ];
 
         $scheduler = $this->getProperty('scheduler', 0);

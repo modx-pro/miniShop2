@@ -1,22 +1,22 @@
 miniShop2.panel.UtilitesImport = function (config) {
     config = config || {};
 
-    Ext.apply(config, { 
+    Ext.apply(config, {
 		cls: 'container form-with-labels',
-		autoHeight: true,  
+		autoHeight: true,
 		url: miniShop2.config.connector_url,
 		progress:true,
 		id: 'ms2-panel-import',
 		baseParams: {
 			action: 'mgr/utilites/import/import'
-		}, 
+		},
         items: [{
             layout: 'column',
             border: false,
             anchor: '100%',
             cls: 'main-wrapper',
             labelAlign: 'top',
-            buttonAlign: 'left', 
+            buttonAlign: 'left',
             style: 'padding: 0 0 0 7px',
             items: [{
                 columnWidth: 0.5,
@@ -32,7 +32,7 @@ miniShop2.panel.UtilitesImport = function (config) {
                         anchor: '81%',
                         name: 'importfile',
                         allowBlank: false,
-                    }, 
+                    },
                     {
                         layout: 'column',
                         items:[{
@@ -48,7 +48,7 @@ miniShop2.panel.UtilitesImport = function (config) {
                                     width: '99%',
                                     fieldLabel: _('ms2_utilites_import_label_fields'),
                                     allowBlank: false,
-                                }, 
+                                },
                                 {
                                     xtype: 'textfield',
                                     name: 'delimiter',
@@ -73,9 +73,9 @@ miniShop2.panel.UtilitesImport = function (config) {
                                     handler: function() {
                                         this.saveConfig(this);
                                     }, scope: this
-                                } 
+                                }
                             ]
-                            
+
                         }]
                     },
                     {
@@ -83,43 +83,52 @@ miniShop2.panel.UtilitesImport = function (config) {
                         name: 'update',
                         value: 1,
                         id: 'ms-utilites-import-update',
-                        boxLabel: _('ms2_utilites_import_update_products'), 
+                        boxLabel: _('ms2_utilites_import_update_products'),
                         labelAlign: 'right',
-                        listeners: { 
+                        listeners: {
                             check: {
                                 fn : this.onUpdateNeed,
                                 scope : this
                             },
-                        }    
-                    }, 
+                        }
+                    },
                     {
                         xtype: 'textfield',
                         name: 'key',
-                        value: 'article', 
+                        value: 'article',
                         width: '99%',
                         hidden: true,
                         id: 'ms-utilites-import-key',
                         fieldLabel: _('ms2_utilites_import_update_key'),
-                    }, 
+                    },
                     {
                         xtype: 'xcheckbox',
                         name: 'debug',
                         value: 1,
                         hideLabel: true,
                         id: 'ms-utilites-import-debug',
-                        boxLabel: _('ms2_utilites_import_debug'), 
-                        labelAlign: 'right', 
-                    }, 
+                        boxLabel: _('ms2_utilites_import_debug'),
+                        labelAlign: 'right',
+                    },
                     {
                         xtype: 'xcheckbox',
                         name: 'scheduler',
                         value: 1,
                         hideLabel: true,
                         id: 'ms-utilites-import-scheduler',
-                        boxLabel: _('ms2_utilites_import_use_scheduler'), 
-                        labelAlign: 'right', 
-                    }, 
-                    { 
+                        boxLabel: _('ms2_utilites_import_use_scheduler'),
+                        labelAlign: 'right',
+                    },
+                    {
+                        xtype: 'xcheckbox',
+                        name: 'skip_header',
+                        value: 1,
+                        hideLabel: true,
+                        id: 'ms-utilites-import-header',
+                        boxLabel: _('ms2_utilites_import_skip_header'),
+                        labelAlign: 'right',
+                    },
+                    {
                         xtype: 'button',
                         style: 'margin: 25px 0 0 2px',
                         text: '<i class="icon icon-download"></i> &nbsp;'+_('ms2_utilites_import_submit'),
@@ -143,7 +152,7 @@ miniShop2.panel.UtilitesImport = function (config) {
                         style: 'margin: 5px 0 15px; padding: 20px; ',
                         collapsible: true,
                         collapsed: true,
-                        stateful: true, 
+                        stateful: true,
                         labelAlign: 'top',
                         stateEvents: ['collapse', 'expand'],
                         items: [
@@ -155,7 +164,7 @@ miniShop2.panel.UtilitesImport = function (config) {
                 ]
             }*/]
         }] ,
-        listeners: { 
+        listeners: {
             success: {fn: function(response) {
 				var data = response.result.object;
                 MODx.msg.alert(_('info'), data.message);
@@ -167,12 +176,12 @@ miniShop2.panel.UtilitesImport = function (config) {
 			}
         }
     });
-    
+
     miniShop2.panel.UtilitesImport.superclass.constructor.call(this, config);
 };
 
 Ext.extend(miniShop2.panel.UtilitesImport, MODx.FormPanel,{
-    
+
     onUpdateNeed: function (cb) {
        var updateKey = Ext.getCmp('ms-utilites-import-key');
         if (cb.getValue()) {
@@ -181,11 +190,11 @@ Ext.extend(miniShop2.panel.UtilitesImport, MODx.FormPanel,{
             updateKey.hide();
         }
     },
-    
+
     saveConfig: function () {
-        var form = this.getForm();   
-        var values = form.getValues(); 
-        
+        var form = this.getForm();
+        var values = form.getValues();
+
         MODx.Ajax.request({
             url: miniShop2.config['connector_url'],
             params: {
@@ -205,8 +214,8 @@ Ext.extend(miniShop2.panel.UtilitesImport, MODx.FormPanel,{
                 }
             }
         });
-        
+
     }
-	
+
 });
 Ext.reg('minishop2-utilites-import', miniShop2.panel.UtilitesImport);
