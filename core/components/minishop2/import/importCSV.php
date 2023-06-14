@@ -37,12 +37,14 @@ class ImportCSV
 
         // Check required options
         if (empty($this->params['fields'])) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'You must specify the parameter "fields". It needed for parse of your file.');
-            return false;
+            $error = $this->modx->lexicon('ms2_utilities_import_fields_ns');
+            $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
+            return $error;
         }
-        if (empty($key)) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'You must specify the parameter "key". It needed for check for duplicates.');
-            return false;
+        if (empty($this->params['key'])) {
+            $error = $this->modx->lexicon('ms2_utilities_import_key_ns');
+            $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
+            return $error;
         }
 
         $this->params['keys'] = array_map('trim', explode(',', strtolower($this->params['fields'])));
@@ -55,34 +57,34 @@ class ImportCSV
 
         // Check file
         if (empty($this->params['file'])) {
-            $error = 'You must specify an file in the ';
-            $error .= XPDO_CLI_MODE ? 'first parameter of console call' : '$_GET["file"] parameter';
-            $error .= '!';
+            $error = $this->modx->lexicon('ms2_utilities_import_file_ns');
             $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
-            return false;
+            return $error;
         } elseif (!preg_match('/\.csv$/i', $this->params['file'])) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'Wrong file extension. File must be an *.csv.');
-            return false;
+            $error = $this->modx->lexicon('ms2_utilities_import_file_ext_err');
+            $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
+            return $error;
         }
 
         $this->params['file'] = str_replace('//', '/', MODX_BASE_PATH . $this->params['file']);
         if (!file_exists($this->params['file'])) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, 'File not found at ' . $this->params['file'] . '.');
-            return false;
+            $error = $this->modx->lexicon('ms2_utilities_import_file_nf', ['path' => $this->params['file']]);
+            $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
+            return $error;
         }
 
         $this->import();
 
-        echo "\nImport complete in " . number_format(microtime(true) - $this->modx->startTime, 7) . " s\n";
-        echo "\nTotal rows:	$this->rows\n";
-        echo "Created:	$this->created\n";
-        echo "Updated:	$this->updated\n";
-        return true;
+        return $this->modx->lexicon('ms2_utilities_import_success', [
+            'total' => $this->rows,
+            'created' => $this->created,
+            'updated' => $this->updated
+        ]);
     }
 
     private function import()
     {
-        $handle = fopen($this->params['file'], "r");
+        $handle = fopen($this->params['file'], 'r');
 
         while (($csv = fgetcsv($handle, 0, $this->params['delimeter'])) !== false) {
             $this->rows++;
@@ -108,12 +110,13 @@ class ImportCSV
     private function processRow($csv)
     {
         $data = $gallery = [];
-        $this->modx->error->reset();
         $this->modx->log(modX::LOG_LEVEL_INFO, "Raw data for import: \n" . print_r($csv, 1));
 
         foreach ($this->params['keys'] as $k => $v) {
             if (!isset($csv[$k])) {
-                exit('Field "' . $v . '" not exists in file. Please fix import file or parameter "fields".');
+                $error = $this->modx->lexicon('ms2_utilities_file_field_nf', ['field' => $v, 'row' => $this->rows]);
+                $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
+                return false;
             }
             if ($v == 'gallery') {
                 $gallery[] = $csv[$k];
@@ -132,7 +135,8 @@ class ImportCSV
             $data['class_key'] = 'msProduct';
         }
         if (empty($data['context_key'])) {
-            if (isset($data['parent']) && $parent = $this->modx->getObject('modResource', ['id' => $data['parent']])) {
+            $parent = $this->modx->getObject('modResource', ['id' => $data['parent']]);
+            if (isset($data['parent']) && $parent) {
                 $data['context_key'] = $parent->get('context_key');
             } elseif (isset($this->modx->resource) && isset($this->modx->context)) {
                 $data['context_key'] = $this->modx->context->key;
@@ -145,6 +149,10 @@ class ImportCSV
 
         // Duplicate check
         $q = $this->modx->newQuery($data['class_key']);
+        $q->where([
+            'deleted' => 0,
+            'class_key' => $data['class_key']
+        ]);
         $q->select($data['class_key'] . '.id');
         if (strtolower($data['class_key']) === 'msproduct') {
             $q->innerJoin('msProductData', 'Data', $data['class_key'] . '.id = Data.id');
@@ -162,7 +170,8 @@ class ImportCSV
 
         $action = 'create';
         /** @var modResource $exists */
-        if ($exists = $this->modx->getObject($data['class_key'], $q)) {
+        $exists = $this->modx->getObject($data['class_key'], $q);
+        if ($exists) {
             $this->modx->log(modX::LOG_LEVEL_INFO, "Key $key = $data[$key] has duplicate.");
             if (!$this->params['update']) {
                 $this->modx->log(modX::LOG_LEVEL_ERROR, "Skipping line with $key = \"$data[$key]\" because update is disabled.");
@@ -182,11 +191,12 @@ class ImportCSV
             }
         }
 
-        $this->runAction($action, $data);
+        $this->runAction($action, $data, $gallery);
     }
 
-    private function runAction($action, $data)
+    private function runAction($action, $data, $gallery = [])
     {
+        $this->modx->error->reset();
         /** @var modProcessorResponse $response */
         $response = $this->modx->runProcessor('resource/' . $action, $data);
         if ($response->isError()) {
@@ -201,12 +211,14 @@ class ImportCSV
             $resource = $response->getObject();
             $this->modx->log(modX::LOG_LEVEL_INFO, "Successful $action: \n" . print_r($resource, 1));
 
-            // Process gallery images, if exists
-            $this->processGallery($resource);
+            if (!empty($gallery)) {
+                // Process gallery images, if exists
+                $this->processGallery($resource, $gallery);
+            }
         }
     }
 
-    private function processGallery($resource)
+    private function processGallery($resource, $gallery)
     {
         if (!empty($gallery)) {
             $this->modx->log(modX::LOG_LEVEL_INFO, "Importing images: \n" . print_r($gallery, 1));
