@@ -30,7 +30,6 @@ class ImportCSV
         $this->params['key'] = @$params['key'];
         $this->params['is_debug'] = !empty($params['debug']);
         $this->params['delimeter'] = $params['delimeter'] ?? ';';
-        $this->params['skip_header'] = @$params['skip_header'];
         $this->params['keys'] = [];
         $this->params['tv_enabled'] = false;
 
@@ -88,9 +87,6 @@ class ImportCSV
 
         while (($csv = fgetcsv($handle, 0, $this->params['delimeter'])) !== false) {
             $this->rows++;
-            if (!empty($has_header) && $this->rows === 1) {
-                continue;
-            }
             $this->processRow($csv);
 
             if ($this->params['is_debug'] && $this->rows === 1) {

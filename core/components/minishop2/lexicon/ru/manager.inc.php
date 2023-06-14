@@ -170,7 +170,6 @@ $_lang['ms2_utilities_import_fields_ns'] = 'Не заполнен парамет
 $_lang['ms2_utilites_import_intro'] = 'Простой импорт каталога товаров. <br>При импорте большого объема товаров ваш сайт может зависнуть.<br>Рекомендуем запускать выполнение в фоновом режиме, для этого необходимо отметить чекбокс "Использовать планировщик" (требуется установленный компонент <a href="https://modstore.pro/packages/utilities/scheduler" target="_blank">Scheduler</a>)';
 $_lang['ms2_utilities_import_key_ns'] = 'Не заполнен параметр <br><strong>Уникальное поле</strong>.';
 $_lang['ms2_utilities_import_success'] = 'Импорт выполнен.<br>Всего обработано строк: <strong>[[+total]]</strong><br>Создано: <strong>[[+created]]</strong><br>Обновлено: <strong>[[+updated]]</strong>';
-
 $_lang['ms2_utilites_import_label_delimiter'] = 'Разделитель колонок в файле';
 $_lang['ms2_utilites_import_label_fields'] = 'Поля импорта';
 $_lang['ms2_utilites_import_label_file'] = 'Файл для импорта';
@@ -178,7 +177,6 @@ $_lang['ms2_utilites_import_label_file_empty'] = 'Выберите файл';
 $_lang['ms2_utilites_import_save_fields'] = 'Сохранить настройки полей';
 $_lang['ms2_utilites_import_save_fields_title'] = 'Сохранено';
 $_lang['ms2_utilites_import_save_fields_message'] = 'Список полей для импорта сохранен';
-$_lang['ms2_utilites_import_skip_header'] = 'Пропускать первую строку-шапку';
 $_lang['ms2_utilites_import_submit'] = 'Импортировать';
 $_lang['ms2_utilites_import_update_key'] = 'Уникальное поле для обновления';
 $_lang['ms2_utilites_import_update_products'] = 'Обновить товары';

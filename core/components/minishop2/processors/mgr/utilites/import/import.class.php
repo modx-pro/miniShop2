@@ -65,7 +65,6 @@ class msUtilityImportProcessor extends modProcessor
             'key' => $this->properties['key'],
             'debug' => $this->properties['debug'],
             'delimiter' => $this->properties['delimiter'],
-            'has_header' => $this->properties['has_header'],
         ];
 
         $scheduler = $this->getProperty('scheduler', 0);
@@ -99,7 +98,7 @@ class msUtilityImportProcessor extends modProcessor
 
         $task->schedule('+1 second', $importParams);
 
-        return $this->success('ms2_utilites_scheduler_success');
+        return $this->success($this->modx->lexicon('ms2_utilites_scheduler_success'));
     }
 
     /**
