@@ -36,11 +36,11 @@ $tmp = [
         'menuindex' => 3,
         'action' => 'mgr/help',
     ],
-    'ms2_utilites' => [
-        'description' => 'ms2_utilites_desc',
+    'ms2_utilities' => [
+        'description' => 'ms2_utilities_desc',
         'parent' => 'minishop2',
         'menuindex' => 4,
-        'action' => 'mgr/utilites',
+        'action' => 'mgr/utilities',
     ],
 ];
 
