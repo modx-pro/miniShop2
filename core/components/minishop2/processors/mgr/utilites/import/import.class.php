@@ -71,10 +71,7 @@ class msUtilityImportProcessor extends modProcessor
         $scheduler = $this->getProperty('scheduler', 0);
         if (empty($scheduler)) {
             $importCSV = new ImportCSV($this->modx);
-            $result = $importCSV->process($importParams);
-            return $this->success($result, [
-                'message' => $result
-            ]);
+            return $importCSV->process($importParams);
         }
 
 

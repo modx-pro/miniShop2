@@ -6,6 +6,10 @@ class ImportCSV
      * @var modX
      */
     private $modx;
+    /**
+     * @var miniShop2
+     */
+    private $miniShop2;
     private $rows = 0;
     private $created = 0;
     private $updated = 0;
@@ -15,6 +19,7 @@ class ImportCSV
     public function __construct(modX $modx)
     {
         $this->modx = $modx;
+        $this->miniShop2 = $this->modx->getService('miniShop2');
         // Time limit
         set_time_limit(600);
         $tmp = 'Trying to set time limit = 600 sec: ';
@@ -39,12 +44,12 @@ class ImportCSV
         if (empty($this->params['fields'])) {
             $error = $this->modx->lexicon('ms2_utilities_import_fields_ns');
             $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
-            return $error;
+            return $this->miniShop2->error($error);
         }
         if (empty($this->params['key'])) {
             $error = $this->modx->lexicon('ms2_utilities_import_key_ns');
             $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
-            return $error;
+            return $this->miniShop2->error($error);
         }
 
         $this->params['keys'] = array_map('trim', explode(',', strtolower($this->params['fields'])));
@@ -59,27 +64,28 @@ class ImportCSV
         if (empty($this->params['file'])) {
             $error = $this->modx->lexicon('ms2_utilities_import_file_ns');
             $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
-            return $error;
+            return $this->miniShop2->error($error);
         } elseif (!preg_match('/\.csv$/i', $this->params['file'])) {
             $error = $this->modx->lexicon('ms2_utilities_import_file_ext_err');
             $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
-            return $error;
+            return $this->miniShop2->error($error);
         }
 
         $this->params['file'] = str_replace('//', '/', MODX_BASE_PATH . $this->params['file']);
         if (!file_exists($this->params['file'])) {
             $error = $this->modx->lexicon('ms2_utilities_import_file_nf', ['path' => $this->params['file']]);
             $this->modx->log(modX::LOG_LEVEL_ERROR, $error);
-            return $error;
+            return $this->miniShop2->error($error);
         }
 
         $this->import();
 
-        return $this->modx->lexicon('ms2_utilities_import_success', [
+        $message = $this->modx->lexicon('ms2_utilities_import_success', [
             'total' => $this->rows,
             'created' => $this->created,
             'updated' => $this->updated
         ]);
+        return $this->miniShop2->success($message);
     }
 
     private function import()
@@ -105,6 +111,7 @@ class ImportCSV
             }
         }
         fclose($handle);
+        return true;
     }
 
     private function processRow($csv)
