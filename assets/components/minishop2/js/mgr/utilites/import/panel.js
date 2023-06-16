@@ -120,6 +120,15 @@ miniShop2.panel.UtilitesImport = function (config) {
             labelAlign: 'right',
           },
           {
+            xtype: 'xcheckbox',
+            name: 'skip_header',
+            value: 0,
+            hideLabel: true,
+            id: 'ms-utilites-import-skip_header',
+            boxLabel: _('ms2_utilites_import_skip_header'),
+            labelAlign: 'right',
+          },
+          {
             xtype: 'button',
             style: 'margin: 25px 0 0 2px',
             text: '<i class="icon icon-download"></i> &nbsp;' + _('ms2_utilites_import_submit'),

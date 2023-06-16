@@ -28,6 +28,7 @@ class ImportCSV
         $this->params['fields'] = @$params['fields'];
         $this->params['update'] = !empty($params['update']);
         $this->params['key'] = @$params['key'];
+        $this->params['skip_header'] = @$params['skip_header'];
         $this->params['is_debug'] = !empty($params['debug']);
         $this->params['delimeter'] = $params['delimeter'] ?? ';';
         $this->params['keys'] = [];
@@ -87,6 +88,9 @@ class ImportCSV
 
         while (($csv = fgetcsv($handle, 0, $this->params['delimeter'])) !== false) {
             $this->rows++;
+            if (!empty($this->params['skip_header']) && $this->rows === 1) {
+                continue;
+            }
             $this->processRow($csv);
 
             if ($this->params['is_debug'] && $this->rows === 1) {

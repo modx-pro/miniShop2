@@ -177,6 +177,7 @@ $_lang['ms2_utilites_import_label_file_empty'] = 'Выберите файл';
 $_lang['ms2_utilites_import_save_fields'] = 'Сохранить настройки полей';
 $_lang['ms2_utilites_import_save_fields_title'] = 'Сохранено';
 $_lang['ms2_utilites_import_save_fields_message'] = 'Список полей для импорта сохранен';
+$_lang['ms2_utilites_import_skip_header'] = 'Пропускать первую строку-шапку';
 $_lang['ms2_utilites_import_submit'] = 'Импортировать';
 $_lang['ms2_utilites_import_update_key'] = 'Уникальное поле для обновления';
 $_lang['ms2_utilites_import_update_products'] = 'Обновить товары';
