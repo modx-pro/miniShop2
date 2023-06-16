@@ -174,6 +174,7 @@ $_lang['ms2_utilites_import_label_delimiter'] = 'Разделитель коло
 $_lang['ms2_utilites_import_label_fields'] = 'Поля импорта';
 $_lang['ms2_utilites_import_label_file'] = 'Файл для импорта';
 $_lang['ms2_utilites_import_label_file_empty'] = 'Выберите файл';
+$_lang['ms2_utilities_import_required_field'] = 'Пропущено обязательное поле <strong>[[+field]]</strong>';
 $_lang['ms2_utilites_import_save_fields'] = 'Сохранить настройки полей';
 $_lang['ms2_utilites_import_save_fields_title'] = 'Сохранено';
 $_lang['ms2_utilites_import_save_fields_message'] = 'Список полей для импорта сохранен';

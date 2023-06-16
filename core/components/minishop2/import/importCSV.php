@@ -78,6 +78,19 @@ class ImportCSV
             return $this->miniShop2->error($error);
         }
 
+        $requiredFields = [
+            'parent',
+            'pagetitle',
+        ];
+
+        foreach ($requiredFields as $rf) {
+            if (!in_array($rf, $this->params['keys'])) {
+                $error = $this->modx->lexicon('ms2_utilities_import_required_field', ['field' => $rf]);
+                return $this->miniShop2->error($error);
+            }
+        }
+
+
         $this->import();
 
         $message = $this->modx->lexicon('ms2_utilities_import_success', [

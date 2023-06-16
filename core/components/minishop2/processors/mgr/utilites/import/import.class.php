@@ -84,14 +84,14 @@ class msUtilityImportProcessor extends modProcessor
         $scheduler = $this->modx->getService('scheduler', 'Scheduler', $path . 'model/scheduler/');
         if (!$scheduler) {
             $this->modx->log(1, 'not found Scheduler extra');
-            return $this->failure('ms2_utilites_scheduler_nf', []);
+            return $this->failure($this->modx->lexicon('ms2_utilites_scheduler_nf'));
         }
         $task = $scheduler->getTask('minishop2', 'ms2_csv_import');
         if (!$task) {
             $task = $this->createImportTask();
         }
         if (empty($task)) {
-            return $this->failure('ms2_utilites_scheduler_task_ce', []);
+            return $this->failure($this->modx->lexicon('ms2_utilites_scheduler_task_ce'));
         }
 
         $task->schedule('+1 second', $importParams);
