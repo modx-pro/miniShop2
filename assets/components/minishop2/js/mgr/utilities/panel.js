@@ -1,15 +1,15 @@
-miniShop2.panel.Utilites = function (config) {
+miniShop2.panel.Utilities = function (config) {
     config = config || {};
-    Ext.apply(config, { 
-		cls: 'container', 
+    Ext.apply(config, {
+        cls: 'container',
         items: [{
-            html: '<h2>' + _('minishop2') + ' :: ' + _('ms2_utilites') + '</h2>',
+            html: '<h2>' + _('minishop2') + ' :: ' + _('ms2_utilities') + '</h2>',
             cls: 'modx-page-header',
         }, {
             xtype: 'modx-tabs',
-            id: 'minishop2-utilites-tabs',
+            id: 'minishop2-utilities-tabs',
             stateful: true,
-            stateId: 'minishop2-utilites-tabs',
+            stateId: 'minishop2-utilities-tabs',
             stateEvents: ['tabchange'],
             cls: 'minishop2-panel',
             getState: function () {
@@ -18,32 +18,32 @@ miniShop2.panel.Utilites = function (config) {
                 };
             },
             items: [{
-                title: _('ms2_utilites_gallery'),
+                title: _('ms2_utilities_gallery'),
                 layout: 'anchor',
                 items: [{
-                    html: _('ms2_utilites_gallery_intro'),
+                    html: _('ms2_utilities_gallery_intro'),
                     bodyCssClass: 'panel-desc',
                 }, {
-                    xtype: 'minishop2-utilites-gallery',
+                    xtype: 'minishop2-utilities-gallery',
                     cls: 'main-wrapper',
                 }]
             },
             {
-                title: _('ms2_utilites_import'),
+                title: _('ms2_utilities_import'),
                 layout: 'anchor',
                 items: [{
-                    html: _('ms2_utilites_import_intro'),
+                    html: _('ms2_utilities_import_intro'),
                     bodyCssClass: 'panel-desc',
                 }, {
-                    xtype: 'minishop2-utilites-import',
+                    xtype: 'minishop2-utilities-import',
                     cls: 'main-wrapper',
                 }]
             }
-        ]
+            ]
         }]
 
     });
-    miniShop2.panel.Utilites.superclass.constructor.call(this, config);
+    miniShop2.panel.Utilities.superclass.constructor.call(this, config);
 };
-Ext.extend(miniShop2.panel.Utilites, MODx.Panel);
-Ext.reg('minishop2-utilites', miniShop2.panel.Utilites);
+Ext.extend(miniShop2.panel.Utilities, MODx.Panel);
+Ext.reg('minishop2-utilities', miniShop2.panel.Utilities);

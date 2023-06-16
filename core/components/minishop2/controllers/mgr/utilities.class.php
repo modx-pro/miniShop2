@@ -4,14 +4,14 @@ if (!class_exists('msManagerController')) {
     require_once dirname(__FILE__, 2) . '/manager.class.php';
 }
 
-class Minishop2MgrUtilitesManagerController extends msManagerController
+class Minishop2MgrutilitiesManagerController extends msManagerController
 {
     /**
      * @return string
      */
     public function getPageTitle()
     {
-        return $this->modx->lexicon('ms2_utilites') . ' | miniShop2';
+        return $this->modx->lexicon('ms2_utilities') . ' | miniShop2';
     }
 
     /**
@@ -27,11 +27,11 @@ class Minishop2MgrUtilitesManagerController extends msManagerController
      */
     public function loadCustomCssJs()
     {
-        $this->addCss($this->miniShop2->config['cssUrl'] . 'mgr/utilites/gallery.css');
+        $this->addCss($this->miniShop2->config['cssUrl'] . 'mgr/utilities/gallery.css');
         $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/minishop2.js');
-        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilites/panel.js');
-        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilites/gallery/panel.js');
-        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilites/import/panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilities/panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilities/gallery/panel.js');
+        $this->addJavascript($this->miniShop2->config['jsUrl'] . 'mgr/utilities/import/panel.js');
 
         $config = $this->miniShop2->config;
 
@@ -61,7 +61,7 @@ class Minishop2MgrUtilitesManagerController extends msManagerController
             '<script>
             miniShop2.config = ' . json_encode($config) . ';
             Ext.onReady(function() {
-                MODx.add({xtype: "minishop2-utilites"});
+                MODx.add({xtype: "minishop2-utilities"});
             });
         </script>'
         );
