@@ -65,7 +65,7 @@ class msUtilityGalleryUpdateProcessor extends modProcessor
         }
 
         if (!is_array($products) || empty($products)) {
-            return $this->failure($this->modx->lexicon('ms2_utilites_gallery_err_noproducts'));
+            return $this->failure($this->modx->lexicon('ms2_utilities_gallery_err_noproducts'));
         }
 
         $i = 0;

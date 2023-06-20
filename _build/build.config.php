@@ -54,5 +54,6 @@ $BUILD_RESOLVERS = [
     'settings',
     'chunks',
     'statuses',
+    'utilites',
     'setup',
 ];
