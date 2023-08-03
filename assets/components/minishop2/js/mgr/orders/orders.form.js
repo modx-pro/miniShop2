@@ -208,9 +208,9 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
 
     submit: function () {
         const store = this.grid.getStore();
-      const form = this.getForm();
+        const form = this.getForm();
 
-      const values = form.getFieldValues();
+        const values = form.getFieldValues();
         for (const i in values) {
             if (i != undefined && values.hasOwnProperty(i)) {
                 store.baseParams[i] = values[i];
@@ -246,8 +246,8 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     reset: function () {
-      const store = this.grid.getStore();
-      const form = this.getForm();
+        const store = this.grid.getStore();
+        const form = this.getForm();
 
         form.items.each(function (f) {
             if (f.name == 'status') {
@@ -257,7 +257,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             }
         });
 
-      const values = form.getValues();
+        const values = form.getValues();
         for (const i in values) {
             if (values.hasOwnProperty(i)) {
                 store.baseParams[i] = '';
@@ -271,7 +271,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     updateInfo: function (data) {
-      const arr = {
+        const arr = {
             'num': 'num',
             'sum': 'sum',
             'month-num': 'month_total',
@@ -281,15 +281,15 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             if (!arr.hasOwnProperty(i)) {
                 continue;
             }
-          const text_size = 30;
-          const elem = Ext.get('minishop2-orders-info-' + i);
+            const text_size = 30;
+            const elem = Ext.get('minishop2-orders-info-' + i);
             if (elem) {
                 elem.setStyle('font-size', text_size + 'px');
-              const val = data != undefined
+                const val = data != undefined
                     ? data[arr[i]]
                     : elem.dom.innerText;
-              const elem_width = elem.parent().getWidth();
-              const text_width = val.length * text_size * .6;
+                const elem_width = elem.parent().getWidth();
+                const text_width = val.length * text_size * .6;
                 if (text_width > elem_width) {
                     for (let m = text_size; m >= 10; m--) {
                         if ((val.length * m * .6) < elem_width) {
