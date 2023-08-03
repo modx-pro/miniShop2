@@ -90,6 +90,9 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     getCenterFields: function () {
+        let emailManager = MODx.config.ms2_email_manager;
+        let emailManagerInfo = '<small>' + _('ms2_orders_form_email_manager') + ' ' + (emailManager ? emailManager : _('ms2_orders_form_email_manager_empty')) + '</small>';
+
         return [{
             xtype: 'displayfield',
             id: 'minishop2-orders-info',
@@ -104,11 +107,12 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
                         <td><span id="minishop2-orders-info-month-num">0</span><br>{2}</td>\
                         <td><span id="minishop2-orders-info-month-sum">0</span><br>{3}</td>\
                     </tr>\
-                </table>',
+                </table>{4}',
                 _('ms2_orders_form_selected_num'),
                 _('ms2_orders_form_selected_sum'),
                 _('ms2_orders_form_month_num'),
-                _('ms2_orders_form_month_sum')
+                _('ms2_orders_form_month_sum'),
+                emailManagerInfo
             ),
         }];
     },

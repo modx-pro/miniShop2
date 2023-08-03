@@ -295,6 +295,7 @@ a.x-menu-item .x-menu-item-text .icon {
 
 #minishop2-orders-info table {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 #minishop2-orders-info td {
