@@ -90,8 +90,7 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
     },
 
     getCenterFields: function () {
-        let emailManager = MODx.config.ms2_email_manager;
-        let emailManagerInfo = '<small>' + _('ms2_orders_form_email_manager') + ' ' + (emailManager ? emailManager : _('ms2_orders_form_email_manager_empty')) + '</small>';
+        const emailManagerInfo = '<small>' + _('ms2_orders_form_email_manager') + ' ' + MODx.config.ms2_email_manager || _('ms2_orders_form_email_manager_empty')) + '</small>';
 
         return [{
             xtype: 'displayfield',
