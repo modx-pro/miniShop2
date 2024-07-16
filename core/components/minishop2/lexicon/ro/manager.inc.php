@@ -160,6 +160,7 @@ $_lang['ms2_utilities_gallery_for_step'] = 'Procesați mărfurile în 1 pas';
 $_lang['ms2_utilities_gallery_information'] = 'Sursa fișierului selectată: <strong>{0}</strong> <a href="?a=source/update&id={1}" target="_blank"><i class="icon icon-cog"></i ></a><br>Numărul total de articole: <strong>{2} buc.</strong> <br> Imagini: <strong>{3} buc.</strong>';
 $_lang['ms2_utilities_gallery_intro'] = 'Actualizează toate imaginile produselor conform parametrilor specificați. <br>Această operație necesită forță de muncă, așa că nu specificați un număr mare pentru o iterație.';
 $_lang['ms2_utilities_gallery_refresh'] = 'Actualizează';
+$_lang['ms2_utilities_gallery_step_offset'] = 'Sari de la început';
 $_lang['ms2_utilities_gallery_updating'] = 'Actualizare de previzualizare';
 $_lang['ms2_utilities_import'] = 'Import';
 $_lang['ms2_utilities_import_debug'] = 'Modul de depanare';

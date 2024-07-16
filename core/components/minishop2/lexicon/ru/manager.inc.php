@@ -160,6 +160,7 @@ $_lang['ms2_utilities_gallery_for_step'] = 'Обработать товаров 
 $_lang['ms2_utilities_gallery_information'] = 'Выбранный источник файлов: <strong>{0}</strong> <a href="?a=source/update&id={1}" target="_blank"><i class="icon icon-cog"></i></a><br>Всего товаров: <strong>{2} шт.</strong> <br> Изображений: <strong>{3} шт.</strong> ';
 $_lang['ms2_utilities_gallery_intro'] = 'Обновление всех изображений товаров согласно указанным параметрам. <br>Данная операция является трудозатратной, поэтому не указывайте большое число для одной итерации.';
 $_lang['ms2_utilities_gallery_refresh'] = 'Обновить';
+$_lang['ms2_utilities_gallery_step_offset'] = 'Пропустить от начала';
 $_lang['ms2_utilities_gallery_updating'] = 'Обновлению превью';
 $_lang['ms2_utilities_import'] = 'Импорт';
 $_lang['ms2_utilities_import_debug'] = 'Режим отладки';
