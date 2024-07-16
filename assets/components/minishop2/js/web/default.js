@@ -117,7 +117,6 @@
         miniShop2.Cart.initialize();
         miniShop2.Message.initialize();
         miniShop2.Order.initialize();
-        miniShop2.Gallery.initialize();
     };
     miniShop2.controller = function () {
         var self = this;
@@ -312,42 +311,6 @@
         },
         remove_position: function (key) {
             $('#' + key).remove();
-        }
-    };
-
-    miniShop2.Gallery = {
-        setup: function () {
-            miniShop2.Gallery.gallery = $('#msGallery');
-            miniShop2.Gallery.files = miniShop2.Gallery.gallery.find('.fotorama');
-        },
-        initialize: function () {
-            miniShop2.Gallery.setup();
-            if (miniShop2.Gallery.files.length) {
-                $('<link/>', {
-                    rel: 'stylesheet',
-                    type: 'text/css',
-                    href: miniShop2Config.cssUrl + 'lib/fotorama.min.css',
-                }).appendTo('head');
-                $('<script/>', {
-                    type: 'text/javascript',
-                    src: miniShop2Config.jsUrl + 'lib/fotorama.min.js',
-                }).appendTo('head');
-            }
-
-            // fix size gallery
-            miniShop2.$doc.on('fotorama:ready', miniShop2.Gallery.files, function (e, Fotorama, extra) {
-                if ((src = Fotorama.activeFrame.src)) {
-                    measure = $.Fotorama.measures[src];
-                    if (measure === undefined) {
-                        for (i in $.Fotorama.measures) {
-                            measure = $.Fotorama.measures[i];
-                            break;
-                        }
-                        Fotorama.resize(measure);
-                    }
-                }
-            });
-
         }
     };
 
