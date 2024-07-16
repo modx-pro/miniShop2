@@ -53,7 +53,7 @@ class msCategoryOption extends xPDOObject
             $products = implode(',', $products);
             $key = $this->getOne('Option')->get('key');
             $key = $this->xpdo->quote($key);
-            if (count($products) > 0) {
+            if ($products !== '') {
                 $sql = "DELETE FROM {$this->xpdo->getTableName('msProductOption')} WHERE `product_id` IN ({$products}) AND `key`={$key};";
                 $stmt = $this->xpdo->prepare($sql);
                 $stmt->execute();
