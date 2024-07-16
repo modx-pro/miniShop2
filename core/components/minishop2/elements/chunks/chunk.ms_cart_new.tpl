@@ -52,8 +52,7 @@
                         <td class="ms-count">
                             <form method="post" class="ms2_form">
                                 <input type="hidden" name="key" value="{$product.key}"/>
-                                <button type="submit" class="ms-hidden" name="ms2_action" value="cart/change"/>
-                                </button>
+                                <button type="submit" class="ms-hidden" name="ms2_action" value="cart/change"></button>
                                 <div class="ms-input-number-wrap">
                                     <button class="ms-input-number-btn ms-input-number-minus btn btn-sm btn-secondary" type="button">&#8722;</button>
                                     <input class="ms-input-number-emulator" value="{$product.count}" name="count" type="text">
