@@ -106,7 +106,6 @@ $_lang['ms2_frontend_entrance'] = 'Entrance';
 $_lang['ms2_frontend_favorite'] = 'Favorite';
 $_lang['ms2_frontend_floor'] = 'Floor';
 $_lang['ms2_frontend_index'] = 'Zip/Postal code';
-$_lang['ms2_frontend_metro'] = 'Subway';
 $_lang['ms2_frontend_new'] = 'New';
 $_lang['ms2_frontend_order_cancel'] = 'Reset form';
 $_lang['ms2_frontend_order_cost'] = 'Total cost';
