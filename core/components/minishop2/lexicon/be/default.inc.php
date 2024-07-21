@@ -106,6 +106,7 @@ $_lang['ms2_frontend_entrance'] = 'Падезд';
 $_lang['ms2_frontend_favorite'] = 'Рэкамендаваць';
 $_lang['ms2_frontend_floor'] = 'Паверх';
 $_lang['ms2_frontend_index'] = 'Паштовы індекс';
+$_lang['ms2_frontend_metro'] = 'Метро';
 $_lang['ms2_frontend_new'] = 'Новы';
 $_lang['ms2_frontend_order_cancel'] = 'Ачысціць форму';
 $_lang['ms2_frontend_order_cost'] = 'Разам, з дастаўкай';
