@@ -106,6 +106,7 @@ $_lang['ms2_frontend_entrance'] = 'Ingang';
 $_lang['ms2_frontend_favorite'] = 'Favoriet';
 $_lang['ms2_frontend_floor'] = 'Этаж';
 $_lang['ms2_frontend_index'] = 'Postcode';
+$_lang['ms2_frontend_metro'] = 'Метро';
 $_lang['ms2_frontend_new'] = 'Nieuw';
 $_lang['ms2_frontend_order_cancel'] = 'Reset formulier';
 $_lang['ms2_frontend_order_cost'] = 'Totale kosten';
