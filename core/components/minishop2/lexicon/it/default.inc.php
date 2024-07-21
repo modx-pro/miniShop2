@@ -106,6 +106,7 @@ $_lang['ms2_frontend_entrance'] = 'Подъезд';
 $_lang['ms2_frontend_favorite'] = 'Rekomenduojama';
 $_lang['ms2_frontend_floor'] = 'Этаж';
 $_lang['ms2_frontend_index'] = 'Pašto kodas';
+$_lang['ms2_frontend_metro'] = 'Метро';
 $_lang['ms2_frontend_new'] = 'Naujiena';
 $_lang['ms2_frontend_order_cancel'] = 'Valyti formą';
 $_lang['ms2_frontend_order_cost'] = 'Galutinė kaina';
