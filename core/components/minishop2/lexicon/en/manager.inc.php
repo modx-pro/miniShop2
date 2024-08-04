@@ -160,6 +160,7 @@ $_lang['ms2_utilities_gallery_for_step'] = 'Process products in 1 step';
 $_lang['ms2_utilities_gallery_information'] = 'Media source selected: <strong>{0}</strong> <a href="?a=source/update&id={1}" target="_blank"><i class="icon icon-cog"></i ></a><br>Total products: <strong>{2}</strong> <br> Images: <strong>{3}</strong>';
 $_lang['ms2_utilities_gallery_intro'] = 'Updates all product images according to the specified parameters. <br>This operation is complex, so do not specify a large number for one iteration.';
 $_lang['ms2_utilities_gallery_refresh'] = 'Update';
+$_lang['ms2_utilities_gallery_step_offset'] = 'Пропустить от начала';
 $_lang['ms2_utilities_gallery_updating'] = 'Preview update';
 $_lang['ms2_utilities_import'] = 'Import';
 $_lang['ms2_utilities_import_debug'] = 'Debug mode';
