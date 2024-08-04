@@ -106,6 +106,7 @@ $_lang['ms2_frontend_entrance'] = 'Είσοδος';
 $_lang['ms2_frontend_favorite'] = 'Αγαπημένα';
 $_lang['ms2_frontend_floor'] = 'Этаж';
 $_lang['ms2_frontend_index'] = 'Ταχυδρομικός Κώδικας';
+$_lang['ms2_frontend_metro'] = 'Метро';
 $_lang['ms2_frontend_new'] = 'Νέα';
 $_lang['ms2_frontend_order_cancel'] = 'Μορφή ανάπαυσης';
 $_lang['ms2_frontend_order_cost'] = 'Συνολικό ποσό';

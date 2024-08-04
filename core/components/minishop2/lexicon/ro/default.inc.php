@@ -106,6 +106,7 @@ $_lang['ms2_frontend_entrance'] = 'Intrare';
 $_lang['ms2_frontend_favorite'] = 'Recomandăm';
 $_lang['ms2_frontend_floor'] = 'Etaj';
 $_lang['ms2_frontend_index'] = 'Codul poștal';
+$_lang['ms2_frontend_metro'] = 'Metrou';
 $_lang['ms2_frontend_new'] = 'Nou';
 $_lang['ms2_frontend_order_cancel'] = 'Curățați forma';
 $_lang['ms2_frontend_order_cost'] = 'Total, cu livrare';
