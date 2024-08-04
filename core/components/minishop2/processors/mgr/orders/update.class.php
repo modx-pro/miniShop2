@@ -66,6 +66,12 @@ class msOrderUpdateProcessor extends modObjectUpdateProcessor
             $this->object->addOne($address, 'Address');
         }
 
+        if ($this->object->get('delivery_cost') !== $this->delivery_cost) {
+            $delivery_cost = $this->object->get('delivery_cost');
+            $cart_cost = $this->object->get('cart_cost');
+            $this->object->set('cost', $delivery_cost + $cart_cost);
+        }
+
         return parent::beforeSave();
     }
 

@@ -108,7 +108,7 @@ Ext.extend(miniShop2.window.UpdateOrder, miniShop2.window.Default, {
                 layout: 'form',
                 items: [
                     {xtype: 'displayfield', name: 'createdon', fieldLabel: _('ms2_createdon'), anchor: '100%'},
-                    {xtype: 'displayfield', name: 'delivery_cost', fieldLabel: _('ms2_delivery_cost'), anchor: '100%'}
+                    {xtype: 'numberfield', name: 'delivery_cost', fieldLabel: _('ms2_delivery_cost'), anchor: '50%'}
                 ]
             }, {
                 columnWidth: .33,
