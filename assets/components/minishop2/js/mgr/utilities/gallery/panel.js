@@ -57,17 +57,13 @@ miniShop2.panel.UtilitiesGallery = function (config) {
 					name: 'offset',
 					xtype: 'numberfield',
 					value: 0,
-					hidden: true,
+					fieldLabel: _('ms2_utilities_gallery_step_offset')
 				},
 				{
 					xtype: 'button',
 					style: 'margin: 15px 0 0 2px',
 					text: '<i class="icon icon-refresh"></i> &nbsp;' + _('ms2_utilities_gallery_refresh'),
 					handler: function () {
-						var form = this.getForm();
-						form.setValues({
-							offset: 0
-						});
 						this.submit(this);
 					}, scope: this
 				},
