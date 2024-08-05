@@ -39,6 +39,7 @@ class msDeliveryCreateProcessor extends modObjectCreateProcessor
 
         $prices = ['price', 'distance_price', 'weight_price', 'free_delivery_amount'];
         foreach ($prices as $field) {
+            $tmp = trim($this->getProperty($field));
             $tmp = $this->preparePrice($tmp);
             $this->setProperty($field, $tmp);
         }
