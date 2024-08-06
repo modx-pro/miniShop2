@@ -32,7 +32,8 @@ miniShop2.panel.Settings = function (config) {
                     }
                 }
             },
-            items: [{
+            items: [
+              {
                 title: _('ms2_deliveries'),
                 layout: 'anchor',
                 id: 'deliveries',

@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.0-pl] - 2024-08-06
+
+ ### Removed
+ - fotorama's config #893
+
+### Added
+- Managing the cost of delivery of a completed order #895
+- Ability to skip products when regenerating images  #918
+- Missing rank equal to zero in msGetOrder snippet #904
+- new lexicons
+
+ ### Fixed
+- Fix for deleting options #912
+- change delimeter on delimiter in keys of parameters  #902
+- Fix for options disappearing for products with multiple categories #913
+- Syntax error in chunk.ms_cart_new.tpl
+- Fix for correction price processing when creating a shipping method #919
+
+
+ ### Changed
+ - ReadMe  (added link in post about testing PR) #888
+
 ## [4.3.0-pl] - 2022-07-01
 
 ### Added
