@@ -56,4 +56,5 @@ $BUILD_RESOLVERS = [
     'statuses',
     'utilites',
     'setup',
+    'modappstat',
 ];
