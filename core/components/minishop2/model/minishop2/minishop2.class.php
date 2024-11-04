@@ -843,7 +843,8 @@ class miniShop2
 
         $response = $this->invokeEvent('msOnBeforeChangeOrderStatus', [
             'order' => $order,
-            'status' => $order->get('status'),
+            'old_status' => $old_status->get('id'),
+            'status' => $status_id,
         ]);
         if (!$response['success']) {
             return $response['message'];
@@ -855,6 +856,7 @@ class miniShop2
             $this->orderLog($order->get('id'), 'status', $status_id);
             $response = $this->invokeEvent('msOnChangeOrderStatus', [
                 'order' => $order,
+                'old_status' => $old_status->get('id'),
                 'status' => $status_id,
             ]);
             if (!$response['success']) {
