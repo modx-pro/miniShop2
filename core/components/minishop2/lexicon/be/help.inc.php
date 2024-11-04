@@ -9,35 +9,35 @@
  */
 
 $_lang['ms2_components_href'] = 'https://modstore.pro/search?query=minishop';
-$_lang['ms2_components_text'] = 'Платные и бесплатные дополнения';
-$_lang['ms2_components_title'] = 'Дополнения';
+$_lang['ms2_components_text'] = 'Платныя і бясплатныя дапаўненні';
+$_lang['ms2_components_title'] = 'Дапаўненні';
 $_lang['ms2_demo_href'] = 'https://minishop2.com/';
-$_lang['ms2_demo_text'] = 'Перейти на демо-сайт';
-$_lang['ms2_demo_title'] = 'Демо';
+$_lang['ms2_demo_text'] = 'Перайсці на дэма-сайт';
+$_lang['ms2_demo_title'] = 'Дэма';
 $_lang['ms2_docs_href'] = 'https://docs.modx.pro/komponentyi/minishop2';
-$_lang['ms2_docs_text'] = 'Официальная документация';
-$_lang['ms2_docs_title'] = 'Документация';
+$_lang['ms2_docs_text'] = 'Афіцыйная дакументацыя';
+$_lang['ms2_docs_title'] = 'Дакументацыя';
 $_lang['ms2_forum_href'] = 'https://modx.pro/';
-$_lang['ms2_forum_text'] = 'Помощь от сообщества';
+$_lang['ms2_forum_text'] = 'Дапамога ад супольнасці';
 $_lang['ms2_forum_title'] = 'Форум';
 $_lang['ms2_github_href'] = 'https://github.com/modx-pro/miniShop2';
-$_lang['ms2_github_text'] = 'Нашли проблему? Сообщите об этом!';
+$_lang['ms2_github_text'] = 'Знайшлі праблему? Паведаміце нам пра гэта!';
 $_lang['ms2_github_title'] = 'github.com';
-$_lang['ms2_help'] = 'Помощь и поддержка';
-$_lang['ms2_help_text'] = 'miniShop2 - самый гибкий и быстрый компонент интернет-магазина для MODX Revolution.';
-$_lang['ms2_help_text_support'] = '<strong>Вы можете поддержать miniShop2:</strong>
-<br>- Переводом на карту Тинькофф <a href="https://www.tinkoff.ru/sl/2V9U9RrcJZP" target="_blank">https://www.tinkoff.ru/sl/2V9U9RrcJZP</a>;
-<br>- Переводом на Qiwi-кошелек <a href="http://qiwi.com/p/77012827737" target="_blank">http://qiwi.com/p/77012827737</a>;
-<br>- Переводом на YooMoney <a href="https://yoomoney.ru/fundraise/RPkkYwNcL7A.230131" target="_blank">https://yoomoney.ru/fundraise/RPkkYwNcL7A.230131</a>;
-<br>- Переводом на Казахстан Каспи, по номеру +7 701 282 77 37;';
+$_lang['ms2_help'] = 'Дапамога і падтрымка';
+$_lang['ms2_help_text'] = 'miniShop2 - самы гібкі і хуткі кампанент інтэрнэт-крамы для MODX Revolution.';
+$_lang['ms2_help_text_support'] = '<strong>Вы можаце падтрымаць miniShop2:</strong>
+<br>- Перакладам на карту Тiнькофф <a href="https://www.tinkoff.ru/sl/2V9U9RrcJZP" target="_blank">https://www.tinkoff.ru/sl/2V9U9RrcJZP</a> ;
+<br>- Перакладам на Qiwi-кашалёк <a href="http://qiwi.com/p/77012827737" target="_blank">http://qiwi.com/p/77012827737</a>;
+<br>- Перакладам на YooMoney <a href="https://yoomoney.ru/fundraise/RPkkYwNcL7A.230131" target="_blank">https://yoomoney.ru/fundraise/RPkkYwNcL7A.230131</a>;
+<br>- Перакладам на Казахстан Каспі, па нумары +7 701 282 77 37;';
 $_lang['ms2_lexicons_href'] = '?a=workspaces/lexicon&ns=minishop2';
-$_lang['ms2_lexicons_text'] = 'Управление словарями';
+$_lang['ms2_lexicons_text'] = 'Кіраванне слоўнікамі';
 $_lang['ms2_localization_href'] = 'https://crowdin.com/project/minishop2-ecommerce';
-$_lang['ms2_localization_text'] = 'Помогите с переводом';
-$_lang['ms2_localization_title'] = 'Локализация';
+$_lang['ms2_localization_text'] = 'Дапамажыце з перакладам';
+$_lang['ms2_localization_title'] = 'Лакалізацыя';
 $_lang['ms2_orders_href'] = '?a=mgr/orders&namespace=minishop2';
-$_lang['ms2_orders_text'] = 'Заказы';
+$_lang['ms2_orders_text'] = 'Замовы';
 $_lang['ms2_settings_href'] = '?a=mgr/settings&namespace=minishop2';
-$_lang['ms2_settings_text'] = 'Настройки';
+$_lang['ms2_settings_text'] = 'Настройкі';
 $_lang['ms2_sys_settings_href'] = '?a=system/settings&ns=minishop2';
-$_lang['ms2_sys_settings_text'] = 'Системные настройки & События';
+$_lang['ms2_sys_settings_text'] = 'Сістэмныя настройкі & Падзеі';
