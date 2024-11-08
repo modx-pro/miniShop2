@@ -226,6 +226,7 @@ $vehicle->resolve('file', [
     'target' => "return MODX_CORE_PATH . 'components/';",
 ]);
 /** @var array $BUILD_RESOLVERS */
+$BUILD_RESOLVERS[] = 'uninstall';
 foreach ($BUILD_RESOLVERS as $resolver) {
     if ($vehicle->resolve('php', ['source' => $sources['resolvers'] . 'resolve.' . $resolver . '.php'])) {
         $modx->log(modX::LOG_LEVEL_INFO, 'Added resolver "' . $resolver . '" to category.');
