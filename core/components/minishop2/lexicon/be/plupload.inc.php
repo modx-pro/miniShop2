@@ -9,12 +9,12 @@
  */
 
 $_lang['ms2_plupload_b'] = 'б';
-$_lang['ms2_plupload_close'] = 'Закрыть';
-$_lang['ms2_plupload_drag'] = 'Перетащите файлы сюда.';
-$_lang['ms2_plupload_elements_error'] = 'Вы должны указать browse_button или drop_element.';
+$_lang['ms2_plupload_close'] = 'Закрыць';
+$_lang['ms2_plupload_drag'] = 'Перацягнеце файлы сюды.';
+$_lang['ms2_plupload_elements_error'] = 'Вы павінны ўказаць browse_button або drop_element.';
 $_lang['ms2_plupload_file'] = 'Файл: %s';
-$_lang['ms2_plupload_file_exist_error'] = '%s уже присутствует в очереди.';
-$_lang['ms2_plupload_file_exist_queue_error'] = 'Такой файл уже присутствует в очереди.';
+$_lang['ms2_plupload_file_exist_error'] = '%s ужо прысутнічае ў чарзе.';
+$_lang['ms2_plupload_file_exist_queue_error'] = 'Такі файл ужо прысутнічае ў чарзе.';
 $_lang['ms2_plupload_file_extension_error'] = 'Неправильное расширение файла.';
 $_lang['ms2_plupload_file_extension_invalid_error'] = 'Ошибка: У файла неправильное расширение:';
 $_lang['ms2_plupload_file_large_error'] = 'Ошибка: Файл слишком большой:';
