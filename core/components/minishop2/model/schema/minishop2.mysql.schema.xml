@@ -31,6 +31,8 @@
         <field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="old_price" dbtype="decimal" precision="12,2" phptype="float" null="true" default="0"/>
         <field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" default="0"/>
+        <field key="remains" dbtype="int" precision="10" phptype="integer" null="false" default="0"/>
+        <field key="reserved" dbtype="int" precision="10" phptype="integer" null="false" default="0"/>
         <field key="image" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="thumb" dbtype="varchar" precision="255" phptype="string" null="true"/>
         <field key="vendor" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
