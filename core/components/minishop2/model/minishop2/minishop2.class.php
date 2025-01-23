@@ -905,27 +905,6 @@ class miniShop2
                 }
             }
 
-            $useScheduler = $this->modx->getOption('ms2_use_scheduler', null, false);
-            $task = null;
-            if ($useScheduler) {
-                /** @var Scheduler $scheduler */
-                $path = $this->modx->getOption(
-                    'scheduler.core_path',
-                    null,
-                    $this->modx->getOption('core_path') . 'components/scheduler/'
-                );
-                $scheduler = $this->modx->getService('scheduler', 'Scheduler', $path . 'model/scheduler/');
-                if ($scheduler) {
-                    $task = $scheduler->getTask('minishop2', 'ms2_send_email');
-                    if (!$task) {
-                        $task = $this->createEmailTask();
-                    }
-                } else {
-                    $useScheduler = false;
-                    $this->modx->log(1, 'not found Scheduler extra');
-                }
-            }
-
             if ($status->get('email_manager')) {
                 $subject = $this->pdoTools->getChunk('@INLINE ' . $status->get('subject_manager'), $pls);
                 $tpl = '';
@@ -940,21 +919,7 @@ class miniShop2
                         $this->modx->getOption('ms2_email_manager', null, $this->modx->getOption('emailsender'))
                     )
                 );
-                if (!empty($subject)) {
-                    foreach ($emails as $email) {
-                        if (preg_match('#.*?@#', $email)) {
-                            if ($useScheduler && $task instanceof sTask) {
-                                $task->schedule('+1 second', [
-                                    'email' => $email,
-                                    'subject' => $subject,
-                                    'body' => $body
-                                ]);
-                            } else {
-                                $this->sendEmail($email, $subject, $body);
-                            }
-                        }
-                    }
-                }
+                $this->shootEmail($emails, $subject, $body);
             }
 
             if ($status->get('email_user')) {
@@ -966,22 +931,76 @@ class miniShop2
                     }
                     $body = $this->modx->runSnippet('msGetOrder', array_merge($pls, ['tpl' => $tpl]));
                     $email = $profile->get('email');
-                    if (!empty($subject) && preg_match('#.*?@#', $email)) {
-                        if ($useScheduler && $task instanceof sTask) {
-                            $task->schedule('+1 second', [
-                                'email' => $email,
-                                'subject' => $subject,
-                                'body' => $body
-                            ]);
-                        } else {
-                            $this->sendEmail($email, $subject, $body);
-                        }
-                    }
+                    $this->shootEmail($email, $subject, $body);
                 }
             }
         }
 
         return true;
+    }
+
+    /**
+     * Method of sending email depends on the settings
+     * 
+     * @param array|string $emails
+     * @param string $subject
+     * @param string $body
+     * @param bool $force
+     *
+     * @return bool
+     */
+    public function shootEmail($emails, $subject, $body = '', $force = false)
+    {
+        if (empty($subject) || empty($emails)) {
+            return false;
+        }
+        if (is_string($emails)) {
+            $emails = [$emails];
+        }
+
+        $sTask = null;
+        if ($force === false && $this->modx->getOption('ms2_use_scheduler', null, false)) {
+            /** @var Scheduler $scheduler */
+            $scheduler = $this->modx->getService('scheduler', 'Scheduler',
+                $this->modx->getOption('scheduler.core_path', null, MODX_CORE_PATH . 'components/scheduler/') . 'model/scheduler/'
+            );
+            if ($scheduler) {
+                $sTask = $scheduler->getTask('minishop2', 'ms2_send_email');
+                if (empty($sTask)) {
+                    $sTask = $this->modx->newObject('sFileTask');
+                    $sTask->fromArray([
+                        'class_key' => 'sFileTask',
+                        'content' => '/tasks/sendEmail.php',
+                        'namespace' => 'minishop2',
+                        'reference' => 'ms2_send_email',
+                        'description' => 'MiniShop2 Email'
+                    ]);
+                    if (!$sTask->save()) {
+                        $sTask = null;
+                    }
+                }
+            } else {
+                $this->modx->log(1, 'Not found Scheduler extra');
+            }
+        }
+
+        $result = false;
+        foreach ($emails as $email) {
+            if (preg_match('#.*?@#', $email)) {
+                if ($sTask instanceof sTask) {
+                    $sTask->schedule('+1 second', [
+                        'email' => $email,
+                        'subject' => $subject,
+                        'body' => $body
+                    ]);
+                    $result = true;
+                } else {
+                    $result = $this->sendEmail($email, $subject, $body);
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -1306,25 +1325,5 @@ class miniShop2
         }
         $setting->set('value', json_encode($value));
         $setting->save();
-    }
-
-    /**
-     * Creating Sheduler's task for sending email
-     * @return false|object|null
-     */
-    private function createEmailTask()
-    {
-        $task = $this->modx->newObject('sFileTask');
-        $task->fromArray([
-            'class_key' => 'sFileTask',
-            'content' => '/tasks/sendEmail.php',
-            'namespace' => 'minishop2',
-            'reference' => 'ms2_send_email',
-            'description' => 'MiniShop2 Email'
-        ]);
-        if (!$task->save()) {
-            return false;
-        }
-        return $task;
     }
 }
