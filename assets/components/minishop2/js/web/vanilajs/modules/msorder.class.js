@@ -1,4 +1,6 @@
 export default class MsOrder {
+  static hiddenClassName = 'ms-hidden'
+
   constructor (minishop) {
     this.minishop = minishop
 
@@ -16,6 +18,8 @@ export default class MsOrder {
     this.paymentInput = 'input[name="payment"]'
     this.paymentInputUniquePrefix = '#payment_'
     this.deliveryInputUniquePrefix = '#delivery_'
+    this.errorClassName = 'error'
+    this.requiredClassName = 'required'
 
     this.orderCost = document.querySelector('#ms2_order_cost')
     this.cartCost = document.querySelector('#ms2_order_cart_cost')
@@ -79,7 +83,7 @@ export default class MsOrder {
 
       const checked = paymentInputs.filter(el => el.checked && (el.offsetWidth > 0 || el.offsetHeight > 0))
       const visible = paymentInputs.filter(el => (el.offsetWidth > 0 || el.offsetHeight > 0))
-      if (!checked.length) {
+      if (!checked.length && visible[0]) {
         visible[0].checked = true
       }
     }
@@ -112,16 +116,16 @@ export default class MsOrder {
       }
 
       field.value = response.data[key] || ''
-      field.classList.remove('error')
-      field.closest(this.inputParent).classList.remove('error')
+      field.classList.remove(this.errorClassName)
+      field.closest(this.inputParent).classList.remove(this.errorClassName)
     }
 
     this.callbacks.add.response.error = () => {
       const field = this.order.querySelector(`[name="${key}"]`)
       if (['checkbox', 'radio'].includes(field.type)) {
-        field.closest(this.inputParent).classList.add('error')
+        field.closest(this.inputParent).classList.add(this.errorClassName)
       } else {
-        field.classList.add('error')
+        field.classList.add(this.errorClassName)
       }
     }
 
@@ -195,8 +199,8 @@ export default class MsOrder {
 
       if (this.order.elements) {
         Array.from(this.order.elements).forEach(el => {
-          el.classList.remove('error')
-          el.closest(this.inputParent)?.classList.remove('error')
+          el.classList.remove(this.errorClassName)
+          el.closest(this.inputParent)?.classList.remove(this.errorClassName)
         })
       }
 
@@ -206,9 +210,9 @@ export default class MsOrder {
           const field = this.order.querySelector(`[name="${key}"]`)
 
           if (['checkbox', 'radio'].includes(field.type)) {
-            field.closest(this.inputParent).classList.add('error')
+            field.closest(this.inputParent).classList.add(this.errorClassName)
           } else {
-            field.classList.add('error')
+            field.classList.add(this.errorClassName)
           }
         }
       }
@@ -223,22 +227,22 @@ export default class MsOrder {
 
       if (this.order.elements.length) {
         Array.from(this.order.elements).forEach(el => {
-          el.classList.remove('required')
-          el.closest(this.inputParent)?.classList.remove('required')
+          el.classList.remove(this.requiredClassName)
+          el.closest(this.inputParent)?.classList.remove(this.requiredClassName)
         })
       }
 
       for (const name of requires) {
-        this.order.elements[name]?.classList.add('required')
-        this.order.elements[name]?.closest(this.inputParent)?.classList.add('required')
+        this.order.elements[name]?.classList.add(this.requiredClassName)
+        this.order.elements[name]?.closest(this.inputParent)?.classList.add(this.requiredClassName)
       }
     }
 
     this.callbacks.getrequired.response.error = () => {
       if (this.order.elements.length) {
         Array.from(this.order.elements).forEach(el => {
-          el.classList.remove('required')
-          el.closest(this.inputParent)?.classList.remove('required')
+          el.classList.remove(this.requiredClassName)
+          el.closest(this.inputParent)?.classList.remove(this.requiredClassName)
         })
       }
     }
@@ -250,11 +254,13 @@ export default class MsOrder {
   }
 
   static hide (node) {
-    node.classList.add('ms-hidden')
+    if (!node) return
+    node.classList.add(MsOrder.hiddenClassName)
     node.checked = false
   }
 
   static show (node) {
-    node.classList.remove('ms-hidden')
+    if (!node) return
+    node.classList.remove(MsOrder.hiddenClassName)
   }
 }
