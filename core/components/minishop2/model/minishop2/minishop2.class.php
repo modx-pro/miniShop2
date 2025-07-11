@@ -703,6 +703,8 @@ class miniShop2
         ]);
         if (!$response['success']) {
             return $response['message'];
+        } else {
+            $customer = $response['data']['customer'] ?? null;
         }
 
         if (!$customer) {
