@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.1-pl] - 2025-09-22
+
+### Fixed
+- Fixed Vanilla JS #939
+- Fixed lexicon #940
+- Fixed discount display when old_price is non-zero #941
+
+### Added
+- Added ability to change customer in plugin #926
+- Added ability to upload images to gallery without file extension #943
+- Added 'remains' and 'reserved' fields to schema #927
+
+
 ## [4.4.0-pl] - 2024-08-06
 
  ### Removed
