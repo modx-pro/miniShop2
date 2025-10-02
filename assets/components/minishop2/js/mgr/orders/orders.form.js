@@ -19,61 +19,117 @@ miniShop2.panel.OrdersForm = function (config) {
     miniShop2.panel.OrdersForm.superclass.constructor.call(this, config);
 };
 Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
-
     grid: null,
-
     getFields: function (config) {
         return [{
             layout: 'column',
             items: [{
-                columnWidth: .308,
+                columnWidth: .320,
                 layout: 'form',
                 defaults: {anchor: '100%', hideLabel: true},
-                items: this.getLeftFields(config),
-            }, {
-                columnWidth: .37,
+                items: this.getStatisticFields(),
+            },{
+                columnWidth: .680,
                 layout: 'form',
                 defaults: {anchor: '100%', hideLabel: true},
-                items: this.getCenterFields(config),
-            }, {
-                columnWidth: .322,
-                layout: 'form',
-                defaults: {anchor: '100%', hideLabel: true},
-                items: this.getRightFields(config),
+                items: this.getFilterFields(config),
             }],
         }];
     },
-
-    getLeftFields: function (config) {
+    getFilterFields: function (config) {
         return [{
-            xtype: 'datefield',
-            id: config.id + '-begin',
-            emptyText: _('ms2_orders_form_begin'),
-            name: 'date_start',
-            format: MODx.config['manager_date_format'] || 'Y-m-d',
-            startDay: +MODx.config['manager_week_start'] || 0,
+            layout: 'column',
+            items: [{
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {anchor: '100%', hideLabel: true},
+                items: this.getFilterLeftFields(config),
+            },{
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {anchor: '100%', hideLabel: true},
+                items: this.getFilterRightFields(config),
+            }]
+        }, {
+            xtype: 'textfield',
+            id: config.id + '-search',
+            emptyText: _('ms2_orders_form_search'),
+            name: 'query',
+        }]
+    },
+    getFilterLeftFields: function (config) {
+        return [{
+            layout: 'column',
+            items: [{
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {anchor: '100%', hideLabel: true},
+                items: [{
+                    xtype: 'datefield',
+                    id: config.id + '-begin',
+                    emptyText: _('ms2_orders_form_begin'),
+                    name: 'date_start',
+                    format: MODx.config['manager_date_format'] || 'Y-m-d',
+                    startDay: +MODx.config['manager_week_start'] || 0,
+                    listeners: {
+                        select: {
+                            fn: function () {
+                                this.fireEvent('change');
+                            }, scope: this
+                        },
+                    },
+                }],
+            },{
+                columnWidth: .5,
+                layout: 'form',
+                defaults: {anchor: '100%', hideLabel: true},
+                items: [{
+                    xtype: 'datefield',
+                    id: config.id + '-end',
+                    emptyText: _('ms2_orders_form_end'),
+                    name: 'date_end',
+                    format: MODx.config['manager_date_format'] || 'Y-m-d',
+                    startDay: +MODx.config['manager_week_start'] || 0,
+                    listeners: {
+                        select: {
+                            fn: function () {
+                                this.fireEvent('change');
+                            }, scope: this
+                        },
+                    },
+                }],
+            }]
+        }, {
+            xtype: 'minishop2-combo-user',
+            id: config.id + '-user',
+            emptyText: _('ms2_orders_form_customer'),
+            name: 'customer',
+            allowBlank: true,
             listeners: {
                 select: {
                     fn: function () {
-                        this.fireEvent('change');
+                        this.fireEvent('change')
                     }, scope: this
-                },
-            },
+                }
+            }
         }, {
-            xtype: 'datefield',
-            id: config.id + '-end',
-            emptyText: _('ms2_orders_form_end'),
-            name: 'date_end',
-            format: MODx.config['manager_date_format'] || 'Y-m-d',
-            startDay: +MODx.config['manager_week_start'] || 0,
+            xtype: 'minishop2-combo-context',
+            id: config.id + '-context',
+            emptyText: _('ms2_orders_form_context'),
+            name: 'context',
+            addall: true,
             listeners: {
                 select: {
                     fn: function () {
-                        this.fireEvent('change');
+                        this.fireEvent('change')
                     }, scope: this
-                },
-            },
-        }, {
+                }
+            }
+        }];
+    },
+
+    getFilterRightFields: function (config) {
+        return [{
             xtype: 'minishop2-combo-status',
             id: config.id + '-status',
             emptyText: _('ms2_orders_form_status'),
@@ -86,10 +142,36 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
                     }, scope: this
                 }
             }
+        }, {
+            xtype: 'minishop2-combo-delivery',
+            id: config.id + '-delivery',
+            emptyText: _('ms2_orders_form_delivery'),
+            name: 'delivery',
+            addall: true,
+            listeners: {
+                select: {
+                    fn: function () {
+                        this.fireEvent('change')
+                    }, scope: this
+                }
+            }
+        }, {
+            xtype: 'minishop2-combo-payment',
+            id: config.id + '-payment',
+            emptyText: _('ms2_orders_form_payment'),
+            name: 'payment',
+            addall: true,
+            listeners: {
+                select: {
+                    fn: function () {
+                        this.fireEvent('change')
+                    }, scope: this
+                }
+            }
         }];
     },
 
-    getCenterFields: function () {
+    getStatisticFields: function () {
         return [{
             xtype: 'displayfield',
             id: 'minishop2-orders-info',
@@ -110,41 +192,6 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
                 _('ms2_orders_form_month_num'),
                 _('ms2_orders_form_month_sum')
             ),
-        }];
-    },
-
-    getRightFields: function (config) {
-        return [{
-            xtype: 'textfield',
-            id: config.id + '-search',
-            emptyText: _('ms2_orders_form_search'),
-            name: 'query',
-        }, {
-            xtype: 'minishop2-combo-user',
-            id: config.id + '-user',
-            emptyText: _('ms2_orders_form_customer'),
-            name: 'customer',
-            allowBlank: true,
-            listeners: {
-                select: {
-                    fn: function () {
-                        this.fireEvent('change')
-                    }, scope: this
-                }
-            }
-        }, {
-            xtype: 'minishop2-combo-context',
-            id: config.id + '-context',
-            emptyText: _('ms2_orders_form_context'),
-            name: 'context',
-            allowBlank: true,
-            listeners: {
-                select: {
-                    fn: function () {
-                        this.fireEvent('change')
-                    }, scope: this
-                }
-            }
         }];
     },
 
@@ -298,7 +345,6 @@ Ext.extend(miniShop2.panel.OrdersForm, MODx.FormPanel, {
             }
         }
     },
-
     focusFirstField: function () {
     },
 

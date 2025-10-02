@@ -65,6 +65,16 @@ class msOrderGetListProcessor extends modObjectGetListProcessor
                 'status' => $status,
             ]);
         }
+        if ($delivery = $this->getProperty('delivery')) {
+            $c->where([
+                'delivery' => $delivery,
+            ]);
+        }
+        if ($payment = $this->getProperty('payment')) {
+            $c->where([
+                'payment' => $payment,
+            ]);
+        }
         if ($customer = $this->getProperty('customer')) {
             $c->where([
                 'user_id' => (int)$customer,
