@@ -132,28 +132,13 @@ if ($transport->xpdo) {
                 }
 
                 if ($miniShop2->version < '4.4.1') {
-                    $tableName = $modx->getTableName('msProductData');
+                    $tablePrefix = $modx->getOption('table_prefix');
+                    $tableNameProductData = $tablePrefix . 'ms2_products';
 
-                    $sql = "SHOW COLUMNS FROM {$tableName} LIKE 'remains'";
-                    $result = $modx->query($sql);
-                    if ($result->rowCount() == 0) {
-                        $sql = "ALTER TABLE {$tableName} ADD `remains` INT(10) UNSIGNED NOT NULL DEFAULT 0, ADD INDEX idx_remains (`remains`)";
-                        $modx->exec($sql);
-                    } else {
-                        $sql = "SHOW INDEX FROM {$tableName} WHERE Key_name = 'idx_remains'";
-                        $result = $modx->query($sql);
-                        if ($result->rowCount() == 0) {
-                            $sql = "CREATE INDEX idx_remains ON {$tableName} (`remains`)";
-                            $modx->exec($sql);
-                        }
-                    }
-
-                    $sql = "SHOW COLUMNS FROM {$tableName} LIKE 'reserved'";
-                    $result = $modx->query($sql);
-                    if ($result->rowCount() == 0) {
-                        $sql = "ALTER TABLE {$tableName} ADD `reserved` INT(10) UNSIGNED NOT NULL DEFAULT 0";
-                        $modx->exec($sql);
-                    }
+                    $sql = "ALTER TABLE {$tableNameProductData} ADD `remains` INT (10) UNSIGNED NOT NULL DEFAULT 0";
+                    $modx->exec($sql);
+                    $sql = "ALTER TABLE {$tableNameProductData} ADD `reserved` INT (10) UNSIGNED NOT NULL DEFAULT 0";
+                    $modx->exec($sql);
                 }
             }
 
