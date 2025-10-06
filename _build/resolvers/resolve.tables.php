@@ -130,6 +130,16 @@ if ($transport->xpdo) {
                     $sql = "ALTER TABLE {$modx->getTableName('msVendor')} ADD INDEX(`rank`)";
                     $modx->exec($sql);
                 }
+
+                if ($miniShop2->version < '4.4.1') {
+                    $tablePrefix = $modx->getOption('table_prefix');
+                    $tableNameProductData = $tablePrefix . 'ms2_products';
+
+                    $sql = "ALTER TABLE {$tableNameProductData} ADD `remains` INT (10) UNSIGNED NOT NULL DEFAULT 0";
+                    $modx->exec($sql);
+                    $sql = "ALTER TABLE {$tableNameProductData} ADD `reserved` INT (10) UNSIGNED NOT NULL DEFAULT 0";
+                    $modx->exec($sql);
+                }
             }
 
             break;

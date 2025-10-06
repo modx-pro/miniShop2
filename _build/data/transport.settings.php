@@ -82,7 +82,7 @@ $tmp = [
         'area' => 'ms2_category',
     ],
     'ms2_product_extra_fields' => [
-        'value' => 'price,old_price,article,weight,color,size,vendor,made_in,tags,new,popular,favorite',
+        'value' => 'price,old_price,article,weight,color,size,vendor,made_in,tags,remains,reserved,new,popular,favorite',
         'xtype' => 'textarea',
         'area' => 'ms2_product',
     ],
