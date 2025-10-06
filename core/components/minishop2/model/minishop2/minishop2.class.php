@@ -2,7 +2,7 @@
 
 class miniShop2
 {
-    public $version = '4.4.0-pl';
+    public $version = '4.4.2-pl';
     /** @var modX $modx */
     public $modx;
     /** @var pdoFetch $pdoTools */
@@ -821,6 +821,7 @@ class miniShop2
             return $this->modx->lexicon($error);
         }
 
+        $old_status_id = null;
         /** @var msOrderStatus $old_status */
         $old_status = $this->modx->getObject(
             'msOrderStatus',
@@ -837,7 +838,9 @@ class miniShop2
                     return $this->modx->lexicon($error);
                 }
             }
+            $old_status_id = $old_status->get('id');
         }
+
         if ($order->get('status') == $status_id) {
             $error = 'ms2_err_status_same';
             return $this->modx->lexicon($error);
@@ -845,7 +848,7 @@ class miniShop2
 
         $response = $this->invokeEvent('msOnBeforeChangeOrderStatus', [
             'order' => $order,
-            'old_status' => $old_status->get('id'),
+            'old_status' => $old_status_id,
             'status' => $status_id,
         ]);
         if (!$response['success']) {
@@ -858,7 +861,7 @@ class miniShop2
             $this->orderLog($order->get('id'), 'status', $status_id);
             $response = $this->invokeEvent('msOnChangeOrderStatus', [
                 'order' => $order,
-                'old_status' => $old_status->get('id'),
+                'old_status' => $old_status_id,
                 'status' => $status_id,
             ]);
             if (!$response['success']) {
