@@ -56,7 +56,7 @@ class msCartHandler implements msCartInterface
      *
      * @return bool
      */
-    public function initialize($ctx = 'web')
+    public function initialize(string $ctx = 'web') : bool
     {
         $ms2_cart_context = (bool)$this->modx->getOption('ms2_cart_context', null, '0', true);
         if ($ms2_cart_context) {
@@ -74,7 +74,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function add($id, $count = 1, $options = [])
+    public function add(int $id, int $count = 1, array $options = [])
     {
         if (empty($id) || !is_numeric($id)) {
             return $this->error('ms2_cart_add_err_id');
@@ -164,12 +164,15 @@ class msCartHandler implements msCartInterface
             return $this->error($response['message']);
         }
 
+        $changes = $this->getChanges('add', $count, 0);
+
         return $this->success(
             'ms2_cart_add_success',
             $this->status([
                 'key' => $key,
                 'cart' => $this->cart,
-                'row' => $this->cart[$key]
+                'row' => $this->cart[$key],
+                'changes' => $changes
             ]),
             ['count' => $count]
         );
@@ -180,11 +183,13 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function remove($key)
+    public function remove(string $key)
     {
         if (!array_key_exists($key, $this->cart)) {
             return $this->error('ms2_cart_remove_error');
         }
+
+        $product = $this->cart[$key];
 
         $response = $this->ms2->invokeEvent('msOnBeforeRemoveFromCart', ['key' => $key, 'cart' => $this]);
         if (!$response['success']) {
@@ -198,11 +203,14 @@ class msCartHandler implements msCartInterface
             return $this->error($response['message']);
         }
 
+        $changes = $this->getChanges('remove',0, $product['count']);
+
         return $this->success(
             'ms2_cart_remove_success',
             $this->status([
                 'cart' => $this->cart,
-                'row' => $row
+                'row' => $row,
+                'changes' => $changes
             ])
         );
     }
@@ -213,11 +221,10 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function change($key, $count)
+    public function change(string $key, int $count)
     {
-        $status = [];
         if (!array_key_exists($key, $this->cart)) {
-            return $this->error('ms2_cart_change_error', $this->status($status));
+            return $this->error('ms2_cart_change_error', $this->status());
         }
 
         if ($count <= 0) {
@@ -237,6 +244,9 @@ class msCartHandler implements msCartInterface
         }
 
         $count = $response['data']['count'];
+
+        $changes = $this->getChanges('change', $count, $this->cart[$key]['count']);
+
         $this->cart = $this->storageHandler->change($key, $count);
         $response = $this->ms2->invokeEvent(
             'msOnChangeInCart',
@@ -245,10 +255,14 @@ class msCartHandler implements msCartInterface
         if (!$response['success']) {
             return $this->error($response['message']);
         }
-        $status['key'] = $key;
-        $status['cost'] = $count * $this->cart[$key]['price'];
-        $status['cart'] = $this->cart;
-        $status['row'] = $this->cart[$key];
+
+        $status = [
+            'key' => $key,
+            'cost' => $count * $this->cart[$key]['price'],
+            'cart' => $this->cart,
+            'row' => $this->cart[$key],
+            'changes' => $changes
+        ];
 
         return $this->success(
             'ms2_cart_change_success',
@@ -282,7 +296,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array
      */
-    public function status($data = [])
+    public function status(array $data = []): array
     {
         $status = [
             'total_count' => 0,
@@ -316,7 +330,7 @@ class msCartHandler implements msCartInterface
     /**
      * @return array
      */
-    public function get()
+    public function get() : array
     {
         $cart = [];
         foreach ($this->cart as $key => $item) {
@@ -331,7 +345,7 @@ class msCartHandler implements msCartInterface
     /**
      * @param array $cart
      */
-    public function set($cart = [])
+    public function set(array $cart = []) : void
     {
         $this->cart = $this->storageHandler->set($cart);
     }
@@ -339,7 +353,7 @@ class msCartHandler implements msCartInterface
     /**
      * Set controller for Cart
      */
-    protected function storageInit()
+    protected function storageInit(): void
     {
         switch ($this->storage) {
             case 'session':
@@ -362,7 +376,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function error($message = '', $data = [], $placeholders = [])
+    public function error(string $message = '', array $data = [], array $placeholders = [])
     {
         return $this->ms2->error($message, $data, $placeholders);
     }
@@ -376,7 +390,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function success($message = '', $data = [], $placeholders = [])
+    public function success(string $message = '', array $data = [], array $placeholders = [])
     {
         return $this->ms2->success($message, $data, $placeholders);
     }
@@ -389,7 +403,7 @@ class msCartHandler implements msCartInterface
      * @return string
      *
      */
-    protected function getProductKey(array $product, array $options = [])
+    protected function getProductKey(array $product, array $options = []): string
     {
         $key_fields = explode(',', $this->config['cart_product_key_fields']);
         $product['options'] = $options;
@@ -406,5 +420,15 @@ class msCartHandler implements msCartInterface
         }
 
         return 'ms' . md5($key);
+    }
+
+    protected function getChanges(string $method, int $count, int $oldCount): array
+    {
+        return [
+            'method' => $method,
+            'count' => $count,
+            'old_count' => $oldCount,
+            'delta' => $count - $oldCount
+        ];
     }
 }
