@@ -11,7 +11,7 @@ interface msCartInterface
      *
      * @return boolean
      */
-    public function initialize($ctx = 'web');
+    public function initialize(string $ctx = 'web'): bool;
 
     /**
      * Adds product to cart
@@ -22,7 +22,7 @@ interface msCartInterface
      *
      * @return array|string $response
      */
-    public function add($id, $count = 1, $options = []);
+    public function add(int $id, int $count = 1, array $options = []);
 
     /**
      * Removes product from cart
@@ -31,7 +31,7 @@ interface msCartInterface
      *
      * @return array|string $response
      */
-    public function remove($key);
+    public function remove(string $key);
 
     /**
      * Changes products count in cart
@@ -41,7 +41,7 @@ interface msCartInterface
      *
      * @return array|string $response
      */
-    public function change($key, $count);
+    public function change(string $key, int $count);
 
     /**
      * Cleans the cart
@@ -57,14 +57,14 @@ interface msCartInterface
      *
      * @return array $status
      */
-    public function status($data = []);
+    public function status(array $data = []): array;
 
     /**
      * Returns the cart items
      *
      * @return array $cart
      */
-    public function get();
+    public function get(): array;
 
     /**
      * Set all the cart items by one array
@@ -73,5 +73,5 @@ interface msCartInterface
      *
      * @return void
      */
-    public function set($cart = []);
+    public function set(array $cart = []): void;
 }

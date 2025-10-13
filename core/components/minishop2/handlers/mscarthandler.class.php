@@ -56,7 +56,7 @@ class msCartHandler implements msCartInterface
      *
      * @return bool
      */
-    public function initialize($ctx = 'web') : bool
+    public function initialize(string $ctx = 'web') : bool
     {
         $ms2_cart_context = (bool)$this->modx->getOption('ms2_cart_context', null, '0', true);
         if ($ms2_cart_context) {
@@ -74,7 +74,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function add($id, $count = 1, $options = [])
+    public function add(int $id, int $count = 1, array $options = [])
     {
         if (empty($id) || !is_numeric($id)) {
             return $this->error('ms2_cart_add_err_id');
@@ -183,7 +183,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function remove($key)
+    public function remove(string $key)
     {
         if (!array_key_exists($key, $this->cart)) {
             return $this->error('ms2_cart_remove_error');
@@ -221,7 +221,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array|string
      */
-    public function change($key, $count)
+    public function change(string $key, int $count)
     {
         if (!array_key_exists($key, $this->cart)) {
             return $this->error('ms2_cart_change_error', $this->status());
@@ -296,7 +296,7 @@ class msCartHandler implements msCartInterface
      *
      * @return array
      */
-    public function status($data = []): array
+    public function status(array $data = []): array
     {
         $status = [
             'total_count' => 0,
@@ -345,7 +345,7 @@ class msCartHandler implements msCartInterface
     /**
      * @param array $cart
      */
-    public function set($cart = []) : void
+    public function set(array $cart = []) : void
     {
         $this->cart = $this->storageHandler->set($cart);
     }
@@ -353,7 +353,7 @@ class msCartHandler implements msCartInterface
     /**
      * Set controller for Cart
      */
-    protected function storageInit()
+    protected function storageInit(): void
     {
         switch ($this->storage) {
             case 'session':
