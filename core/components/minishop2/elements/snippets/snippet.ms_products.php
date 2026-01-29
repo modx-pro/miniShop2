@@ -100,6 +100,112 @@ foreach (['where', 'leftJoin', 'innerJoin', 'select', 'groupby'] as $v) {
 }
 $pdoFetch->addTime('Conditions prepared');
 
+// Workaround: оптимизация обработки parents
+// pdoTools использует getChildIds() который возвращает ВСЕ дочерние ресурсы
+// Мы фильтруем только msCategory для повышения производительности
+$_ms2Parents = isset($scriptProperties['parents']) ? (string)$scriptProperties['parents'] : '';
+if ($_ms2Parents !== '' && $_ms2Parents !== '0') {
+    $_ms2Depth = isset($scriptProperties['depth']) ? (int)$scriptProperties['depth'] : 10;
+    $_ms2ParentsIn = [];
+    $_ms2ParentsOut = [];
+
+    // Разбираем parents: положительные - включить, отрицательные - исключить
+    foreach (array_map('trim', explode(',', $_ms2Parents)) as $_ms2Parent) {
+        $_ms2Parent = (int)$_ms2Parent;
+        if ($_ms2Parent > 0) {
+            $_ms2ParentsIn[] = $_ms2Parent;
+        } elseif ($_ms2Parent < 0) {
+            $_ms2ParentsOut[] = abs($_ms2Parent);
+        }
+    }
+
+    // Получаем дочерние категории для включения (только msCategory, не все ресурсы)
+    if (!empty($_ms2ParentsIn) && $_ms2Depth > 0) {
+        $_ms2CatIds = $_ms2ParentsIn;
+        for ($_ms2i = 0; $_ms2i < $_ms2Depth; $_ms2i++) {
+            $_ms2CatQuery = $modx->newQuery('msCategory');
+            $_ms2CatQuery->where([
+                'class_key' => 'msCategory',
+                'parent:IN' => $_ms2CatIds,
+                'published' => 1,
+                'deleted' => 0,
+            ]);
+            $_ms2CatQuery->select('id');
+
+            if ($_ms2CatQuery->prepare() && $_ms2CatQuery->stmt->execute()) {
+                $_ms2ChildIds = $_ms2CatQuery->stmt->fetchAll(PDO::FETCH_COLUMN);
+                if (empty($_ms2ChildIds)) {
+                    break;
+                }
+                $_ms2ParentsIn = array_merge($_ms2ParentsIn, $_ms2ChildIds);
+                $_ms2CatIds = $_ms2ChildIds;
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Получаем дочерние категории для исключения
+    if (!empty($_ms2ParentsOut) && $_ms2Depth > 0) {
+        $_ms2CatIds = $_ms2ParentsOut;
+        for ($_ms2i = 0; $_ms2i < $_ms2Depth; $_ms2i++) {
+            $_ms2CatQuery = $modx->newQuery('msCategory');
+            $_ms2CatQuery->where([
+                'class_key' => 'msCategory',
+                'parent:IN' => $_ms2CatIds,
+                'published' => 1,
+                'deleted' => 0,
+            ]);
+            $_ms2CatQuery->select('id');
+
+            if ($_ms2CatQuery->prepare() && $_ms2CatQuery->stmt->execute()) {
+                $_ms2ChildIds = $_ms2CatQuery->stmt->fetchAll(PDO::FETCH_COLUMN);
+                if (empty($_ms2ChildIds)) {
+                    break;
+                }
+                $_ms2ParentsOut = array_merge($_ms2ParentsOut, $_ms2ChildIds);
+                $_ms2CatIds = $_ms2ChildIds;
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Вычитаем исключённые категории из включённых
+    $_ms2ParentsIn = array_unique($_ms2ParentsIn);
+    $_ms2ParentsOut = array_unique($_ms2ParentsOut);
+    if (!empty($_ms2ParentsOut)) {
+        $_ms2ParentsIn = array_diff($_ms2ParentsIn, $_ms2ParentsOut);
+    }
+
+    // ВСЕГДА отключаем pdoTools parent processing - мы обрабатываем сами
+    if (!empty($_ms2ParentsIn)) {
+        $_ms2ParentsList = implode(',', array_map('intval', $_ms2ParentsIn));
+
+        // Получаем товары из дополнительных категорий
+        $_ms2MemberQuery = $modx->newQuery('msCategoryMember');
+        $_ms2MemberQuery->where(['category_id:IN' => $_ms2ParentsIn]);
+        $_ms2MemberQuery->select('product_id');
+
+        $_ms2MemberIds = [];
+        if ($_ms2MemberQuery->prepare() && $_ms2MemberQuery->stmt->execute()) {
+            $_ms2MemberIds = $_ms2MemberQuery->stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+
+        // Строим WHERE: parent IN категориях, опционально OR id IN доп. категориях
+        if (!empty($_ms2MemberIds)) {
+            $_ms2MembersList = implode(',', array_map('intval', $_ms2MemberIds));
+            $where[] = "(`msProduct`.`parent` IN ({$_ms2ParentsList}) OR `msProduct`.`id` IN ({$_ms2MembersList}))";
+        } else {
+            // Нет товаров в доп. категориях - просто фильтруем по parent
+            $where[] = "`msProduct`.`parent` IN ({$_ms2ParentsList})";
+        }
+
+        // ВСЕГДА отключаем стандартную фильтрацию pdoTools по parents
+        $scriptProperties['parents'] = 0;
+    }
+}
+
 // Add filters by options
 $joinedOptions = [];
 if (!empty($scriptProperties['optionFilters'])) {
