@@ -12,39 +12,56 @@ class CartSessionHandler
 
     public function get()
     {
-        return $_SESSION['minishop2']['cart'];
+        return isset($_SESSION['minishop2']['cart']) && is_array($_SESSION['minishop2']['cart'])
+            ? $_SESSION['minishop2']['cart']
+            : [];
     }
 
     public function set($cart)
     {
-        $_SESSION['minishop2']['cart'] = $cart;
+        if (!isset($_SESSION['minishop2']) || !is_array($_SESSION['minishop2'])) {
+            $_SESSION['minishop2'] = [];
+        }
+        $_SESSION['minishop2']['cart'] = is_array($cart) ? $cart : [];
         return $this->get();
     }
 
     public function add($cartItem)
     {
         $key = $cartItem['key'];
+        if (!isset($_SESSION['minishop2']) || !is_array($_SESSION['minishop2'])) {
+            $_SESSION['minishop2'] = [];
+        }
+        if (!isset($_SESSION['minishop2']['cart']) || !is_array($_SESSION['minishop2']['cart'])) {
+            $_SESSION['minishop2']['cart'] = [];
+        }
         $_SESSION['minishop2']['cart'][$key] = $cartItem;
         return $this->get();
     }
 
     public function change($key, $count)
     {
-        $_SESSION['minishop2']['cart'][$key]['count'] = $count;
+        if (isset($_SESSION['minishop2']['cart'][$key]) && is_array($_SESSION['minishop2']['cart'][$key])) {
+            $_SESSION['minishop2']['cart'][$key]['count'] = $count;
+        }
         return $this->get();
     }
 
     public function remove($key)
     {
-        unset($_SESSION['minishop2']['cart'][$key]);
+        if (isset($_SESSION['minishop2']['cart'][$key])) {
+            unset($_SESSION['minishop2']['cart'][$key]);
+        }
         return $this->get();
     }
 
     public function clean($ctx)
     {
-        foreach ($_SESSION['minishop2']['cart'] as $key => $item) {
-            if (empty($item['ctx']) || $item['ctx'] == $ctx) {
-                unset($_SESSION['minishop2']['cart'][$key]);
+        if (!empty($_SESSION['minishop2']['cart']) && is_array($_SESSION['minishop2']['cart'])) {
+            foreach ($_SESSION['minishop2']['cart'] as $key => $item) {
+                if (empty($item['ctx']) || $item['ctx'] == $ctx) {
+                    unset($_SESSION['minishop2']['cart'][$key]);
+                }
             }
         }
         return $this->get();

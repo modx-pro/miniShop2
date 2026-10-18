@@ -173,6 +173,81 @@ if (!empty($scriptProperties['sortbyOptions'])) {
     }
 }
 
+// Safe category & parents resolution via SQL EXISTS (#955)
+$rawParents = isset($scriptProperties['parents']) ? (string)$scriptProperties['parents'] : '';
+if ($rawParents === '' && isset($parents) && $parents === '') {
+    $rawParents = (string)$modx->resource->id;
+}
+
+if ($rawParents !== '' && $rawParents !== '0') {
+    $depth = (isset($scriptProperties['depth']) && $scriptProperties['depth'] !== '')
+        ? (int)$scriptProperties['depth']
+        : 10;
+
+    $pIn = [];
+    $pOut = [];
+    foreach (array_map('trim', explode(',', $rawParents)) as $p) {
+        if (!is_numeric($p)) {
+            continue;
+        }
+        $val = (int)$p;
+        if ($val > 0) {
+            $pIn[] = $val;
+        } elseif ($val < 0) {
+            $pOut[] = abs($val);
+        }
+    }
+
+    if (!empty($pIn) && $depth > 0) {
+        $currentLevel = $pIn;
+        $allCategories = $pIn;
+        for ($i = 0; $i < $depth; $i++) {
+            if (empty($currentLevel)) {
+                break;
+            }
+            $q = $modx->newQuery('msCategory');
+            $q->where([
+                'parent:IN' => $currentLevel,
+                'deleted' => 0,
+            ]);
+            if (empty($scriptProperties['showUnpublished'])) {
+                $q->where(['published' => 1]);
+            }
+            $q->select('id');
+            if ($q->prepare() && $q->stmt->execute()) {
+                $childCatIds = array_map('intval', $q->stmt->fetchAll(PDO::FETCH_COLUMN) ?: []);
+                $currentLevel = array_diff($childCatIds, $allCategories);
+                $allCategories = array_merge($allCategories, $currentLevel);
+            } else {
+                break;
+            }
+        }
+        $pIn = array_values(array_unique($allCategories));
+    }
+
+    if (!empty($pOut)) {
+        $pIn = array_values(array_diff($pIn, $pOut));
+    }
+
+    $memberTable = $modx->getTableName('msCategoryMember');
+    if (!empty($pIn)) {
+        $inList = implode(',', $pIn);
+        $parentCond = "`msProduct`.`parent` IN ({$inList})";
+        if (!empty($scriptProperties['includeParents'])) {
+            $parentCond .= " OR `msProduct`.`id` IN ({$inList})";
+        }
+        $where[] = "({$parentCond} OR EXISTS (SELECT 1 FROM {$memberTable} `cm` WHERE `cm`.`product_id` = `msProduct`.`id` AND `cm`.`category_id` IN ({$inList})))";
+    }
+    if (!empty($pOut)) {
+        $outList = implode(',', $pOut);
+        $where[] = "`msProduct`.`parent` NOT IN ({$outList})";
+        $where[] = "NOT EXISTS (SELECT 1 FROM {$memberTable} `cmo` WHERE `cmo`.`product_id` = `msProduct`.`id` AND `cmo`.`category_id` IN ({$outList}))";
+        if (!empty($scriptProperties['includeParents'])) {
+            $where[] = "`msProduct`.`id` NOT IN ({$outList})";
+        }
+    }
+}
+
 $default = [
     'class' => 'msProduct',
     'where' => $where,

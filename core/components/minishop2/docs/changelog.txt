@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- Fixed PHP 8+ warnings in `CartSessionHandler` and `OrderSessionHandler` when session key is not set [#953]
+- Fixed saving product options with value `0` (zero) in `msProductData` [#867]
+- Safe category and parents resolution via SQL EXISTS in `msProducts` snippet [#955, #956]
+
+### Added
+- Added 'rank' field to payment and delivery create/update windows [#934]
+
+
 ## [4.4.2-pl] - 2025-09-29
 
 ### Fixed

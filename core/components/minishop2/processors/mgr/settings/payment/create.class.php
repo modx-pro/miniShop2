@@ -53,9 +53,11 @@ class msPaymentCreateProcessor extends modObjectCreateProcessor
      */
     public function beforeSave()
     {
-        $this->object->fromArray([
-            'rank' => $this->modx->getCount($this->classKey),
-        ]);
+        $rank = $this->getProperty('rank');
+        if ($rank === null || $rank === '') {
+            $rank = $this->modx->getCount($this->classKey);
+        }
+        $this->object->set('rank', (int)$rank);
 
         return parent::beforeSave();
     }

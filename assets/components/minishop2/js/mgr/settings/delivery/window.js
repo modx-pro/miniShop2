@@ -109,11 +109,31 @@ Ext.extend(miniShop2.window.CreateDelivery, miniShop2.window.Default, {
             anchor: '99%',
             id: config.id + '-description'
         }, {
-            xtype: 'xcheckbox',
-            boxLabel: _('ms2_active'),
-            hideLabel: true,
-            name: 'active',
-            id: config.id + '-active'
+            layout: 'column',
+            items: [{
+                columnWidth: .7,
+                layout: 'form',
+                items: [{
+                    xtype: 'xcheckbox',
+                    boxLabel: _('ms2_active'),
+                    hideLabel: true,
+                    name: 'active',
+                    id: config.id + '-active'
+                }]
+            }, {
+                columnWidth: .3,
+                layout: 'form',
+                defaults: {msgTarget: 'under'},
+                items: [{
+                    xtype: 'numberfield',
+                    fieldLabel: _('ms2_rank'),
+                    name: 'rank',
+                    anchor: '99%',
+                    allowDecimals: false,
+                    allowNegative: false,
+                    id: config.id + '-rank'
+                }]
+            }]
         }];
     },
 });

@@ -19,30 +19,42 @@ class OrderSessionHandler
 
     public function get()
     {
-        return $_SESSION['minishop2']['order'];
+        return isset($_SESSION['minishop2']['order']) && is_array($_SESSION['minishop2']['order'])
+            ? $_SESSION['minishop2']['order']
+            : [];
     }
 
     public function add($key, $value = '')
     {
+        if (!isset($_SESSION['minishop2']) || !is_array($_SESSION['minishop2'])) {
+            $_SESSION['minishop2'] = [];
+        }
+        if (!isset($_SESSION['minishop2']['order']) || !is_array($_SESSION['minishop2']['order'])) {
+            $_SESSION['minishop2']['order'] = [];
+        }
         $_SESSION['minishop2']['order'][$key] = $value;
         return $this->get();
     }
 
     public function remove($key)
     {
-        unset($_SESSION['minishop2']['order'][$key]);
+        if (isset($_SESSION['minishop2']['order'][$key])) {
+            unset($_SESSION['minishop2']['order'][$key]);
+        }
         return $this->get();
     }
 
     public function clean()
     {
-        unset($_SESSION['minishop2']['order']);
+        if (isset($_SESSION['minishop2']['order'])) {
+            unset($_SESSION['minishop2']['order']);
+        }
         return $this->get();
     }
 
     public function getForSubmit($data)
     {
-        $order = $this->get();
+        $order = (array)$this->get();
         $createdon = date('Y-m-d H:i:s');
         /** @var msOrder $msOrder */
         $msOrder = $this->modx->newObject('msOrder');

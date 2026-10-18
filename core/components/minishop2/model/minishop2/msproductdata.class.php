@@ -261,19 +261,24 @@ class msProductData extends xPDOSimpleObject
      */
     public function prepareOptionValues($values = null)
     {
-        if ($values) {
+        if ($values !== null && $values !== '' && $values !== []) {
             if (!is_array($values)) {
                 $values = [$values];
             }
             // fix duplicate, empty option values
-            $values = array_map('trim', $values);
-            $values = array_keys(array_flip($values));
-            $values = array_diff($values, ['']);
-            //sort($values);
+            $values = array_map(function ($v) {
+                return is_string($v) ? trim($v) : $v;
+            }, $values);
+            $values = array_values(array_unique($values));
+            $values = array_filter($values, function ($v) {
+                return $v !== '' && $v !== null;
+            });
 
             if (empty($values)) {
                 $values = null;
             }
+        } else {
+            $values = null;
         }
 
         return $values;
