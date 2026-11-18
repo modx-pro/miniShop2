@@ -93,6 +93,7 @@ class msOrderProductGetListProcessor extends modObjectGetListProcessor
         if (!empty($options) && is_array($options)) {
             $tmp = [];
             foreach ($options as $k => $v) {
+                $v = is_scalar($v) ? htmlspecialchars((string)$v, ENT_QUOTES, "UTF-8") : "";
                 $tmp[] = $this->modx->lexicon('ms2_' . $k) . ': ' . $v;
                 $data['option_' . $k] = $v;
             }
